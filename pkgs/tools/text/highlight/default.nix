@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitLab, getopt, lua, boost, pkgconfig, swig, perl, gcc }:
+{ stdenv, fetchFromGitLab, getopt, lua, boost, pkgconfig, swig, perl }:
 
 with stdenv.lib;
 
@@ -16,14 +16,9 @@ let
 
     enableParallelBuilding = true;
 
-    nativeBuildInputs = [ pkgconfig swig perl ] ++ optional stdenv.isDarwin gcc;
+    nativeBuildInputs = [ pkgconfig swig perl ];
 
     buildInputs = [ getopt lua boost ];
-
-    prePatch = stdenv.lib.optionalString stdenv.cc.isClang ''
-      substituteInPlace src/makefile \
-          --replace 'CXX=g++' 'CXX=clang++'
-    '';
 
     preConfigure = ''
       makeFlags="PREFIX=$out conf_dir=$out/etc/highlight/ CXX=$CXX AR=$AR"
