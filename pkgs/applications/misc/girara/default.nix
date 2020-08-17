@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ libintl libiconv json_c ];
   propagatedBuildInputs = [ glib gtk ];
 
-  doCheck = !stdenv.isDarwin;
+  doCheck = true;
 
   mesonFlags = [
     "-Ddocs=disabled" # docs do not seem to be installed
