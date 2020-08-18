@@ -3211,6 +3211,8 @@ in
   magic-vlsi = callPackage ../applications/science/electronics/magic-vlsi { };
 
   mcrcon = callPackage ../tools/networking/mcrcon {};
+  
+  mozwire = callPackage ../tools/networking/mozwire {};
 
   rage = callPackage ../tools/security/rage {
     inherit (darwin.apple_sdk.frameworks) Security;
