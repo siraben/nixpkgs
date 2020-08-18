@@ -18,7 +18,7 @@ pkgs.rustPlatform.buildRustPackage rec {
 (among others), access to MozillaVPN.";
     homepage = https://github.com/NilsIrl/MozWire;
     license = licenses.gpl3;
-    maintainers = [ maintainers.siraben ];
+    maintainers = with maintainers; [ siraben nilsirl ];
     platforms = platforms.all;
   };
 }
