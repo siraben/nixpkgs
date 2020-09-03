@@ -1,17 +1,27 @@
-{ stdenvNoCC, lib, fetchurl }:
+{ stdenvNoCC, lib, fetchurl, unzip }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "fasm-bin";
 
   version = "1.73.25";
 
+  nativeBuildInputs = [ unzip ];
+
   src = fetchurl {
-    url = "https://flatassembler.net/fasm-${version}.tgz";
-    sha256 = "0k3h61mfwslyb34kf4dnapfwl8jxlmrp4dv666wc057hkj047knn";
+    url = "https://flatassembler.net/fasmg.j1gh.zip";
+    sha256 = "0x1zzr8w97k0m8sz8wlyb5m5dmc8wdpp1f4azm5i26pcspsc2v8m";
   };
+  unpackPhase = ''
+    mkdir tmp
+    unzip -d tmp $src
+  '';
 
   installPhase = ''
-    install -D fasm${lib.optionalString stdenvNoCC.isx86_64 ".x64"} $out/bin/fasm
+    ls tmp/source/macos
+    install -D tmp/${if stdenvNoCC.isDarwin
+                     then "source/macos/x64/fasmg"
+                     else "fasmg${lib.optionalString stdenvNoCC.isx86_64 ".x64"}"}\
+               $out/bin/fasmg
   '';
 
   meta = with lib; {
@@ -19,6 +29,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://flatassembler.net/download.php";
     license = licenses.bsd2;
     maintainers = with maintainers; [ orivej ];
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    # platforms = [ "i686-linux" "x86_64-linux" ];
   };
 }
