@@ -9336,6 +9336,8 @@ in
     asciidoc = asciidoc-full;
   };
 
+  knightos-mktiupgrade = callPackage ../development/tools/knightos/mktiupgrade { };
+
   knightos-scas = callPackage ../development/tools/knightos/scas { };
 
   kotlin = callPackage ../development/compilers/kotlin { };
