@@ -146,6 +146,8 @@ in {
 
   aafigure = callPackage ../development/python-modules/aafigure { };
 
+  abodepy = callPackage ../development/python-modules/abodepy { };
+
   absl-py = callPackage ../development/python-modules/absl-py { };
 
   accupy = callPackage ../development/python-modules/accupy { };
@@ -164,7 +166,11 @@ in {
 
   adb-homeassistant = callPackage ../development/python-modules/adb-homeassistant { };
 
+  adb-shell = callPackage ../development/python-modules/adb-shell { };
+
   addic7ed-cli = callPackage ../development/python-modules/addic7ed-cli { };
+
+  adguardhome= callPackage ../development/python-modules/adguardhome { };
 
   aenum = callPackage ../development/python-modules/aenum { };
 
@@ -277,6 +283,8 @@ in {
   amqp = callPackage ../development/python-modules/amqp { };
 
   amqplib = callPackage ../development/python-modules/amqplib { };
+
+  androidtv = callPackage ../development/python-modules/androidtv { };
 
   androguard = callPackage ../development/python-modules/androguard { };
 
@@ -3492,6 +3500,8 @@ in {
 
   logzero = callPackage ../development/python-modules/logzero { };
 
+  lomond = callPackage ../development/python-modules/lomond { };
+
   loo-py = callPackage ../development/python-modules/loo-py { };
 
   lpod = callPackage ../development/python-modules/lpod { };
@@ -4690,6 +4700,8 @@ in {
 
   purepng = callPackage ../development/python-modules/purepng { };
 
+  pure-python-adb = callPackage ../development/python-modules/pure-python-adb { };
+
   pure-python-adb-homeassistant = callPackage ../development/python-modules/pure-python-adb-homeassistant { };
 
   purl = callPackage ../development/python-modules/purl { };
@@ -4719,6 +4731,8 @@ in {
   py4j = callPackage ../development/python-modules/py4j { };
 
   pyacoustid = callPackage ../development/python-modules/pyacoustid { };
+
+  pyads = callPackage ../development/python-modules/pyads { };
 
   pyaes = callPackage ../development/python-modules/pyaes { };
 
@@ -5410,6 +5424,8 @@ in {
 
   pysolr = callPackage ../development/python-modules/pysolr { };
 
+  py-sonic = callPackage ../development/python-modules/py-sonic { };
+
   pysonos = callPackage ../development/python-modules/pysonos { };
 
   pysoundfile = self.soundfile; # Alias added 23-06-2019
@@ -5751,6 +5767,8 @@ in {
   python-mpv-jsonipc = callPackage ../development/python-modules/python-mpv-jsonipc { };
 
   python-multipart = callPackage ../development/python-modules/python-multipart { };
+
+  python-nest = callPackage ../development/python-modules/python-nest { };
 
   pythonnet = callPackage
     ../development/python-modules/pythonnet { # `mono >= 4.6` required to prevent crashes encountered with earlier versions.
@@ -6758,6 +6776,8 @@ in {
 
   sseclient = callPackage ../development/python-modules/sseclient { };
 
+  sseclient-py = callPackage ../development/python-modules/sseclient-py { };
+
   sshpubkeys = callPackage ../development/python-modules/sshpubkeys { };
 
   sshtunnel = callPackage ../development/python-modules/sshtunnel { };
@@ -6765,8 +6785,6 @@ in {
   sslib = callPackage ../development/python-modules/sslib { };
 
   sslyze = callPackage ../development/python-modules/sslyze { };
-
-  starfish = callPackage ../development/python-modules/starfish { };
 
   starlette = callPackage ../development/python-modules/starlette { };
 

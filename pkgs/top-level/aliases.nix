@@ -67,6 +67,7 @@ mapAliases ({
   buildGo112Package = throw "buildGo112Package has been removed"; # added 2020-04-26
   buildGo112Module = throw "buildGo112Module has been removed"; # added 2020-04-26
   bundler_HEAD = bundler; # added 2015-11-15
+  caddy1 = throw "caddy 1.x has been removed from nixpkgs, as it's unmaintained: https://github.com/caddyserver/caddy/blob/master/.github/SECURITY.md#supported-versions"; # added 2020-10-02
   cantarell_fonts = cantarell-fonts; # added 2018-03-03
   cargo-tree = throw "cargo-tree has been removed, use the builtin `cargo tree` command instead."; # added 2020-08-20
   casperjs = throw "casperjs has been removed, it was abandoned by upstream and broken.";
@@ -97,6 +98,7 @@ mapAliases ({
   d1x_rebirth = dxx-rebirth; # added 2018-04-25
   d2x_rebirth = dxx-rebirth; # added 2018-04-25
   dat = nodePackages.dat;
+  dbvisualizer = throw "dbvisualizer has been remove from nixpkgs, as it's unmaintained"; # added 2020-09-20
   dbus_daemon = dbus.daemon; # added 2018-04-25
   dbus_glib = dbus-glib; # added 2018-02-25
   dbus_libs = dbus; # added 2018-04-25

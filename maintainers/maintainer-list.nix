@@ -8257,6 +8257,12 @@
     githubId = 203195;
     name = "Szczyp";
   };
+  szlend = {
+    email = "pub+nix@zlender.si";
+    github = "szlend";
+    githubId = 7301807;
+    name = "Simon Žlender";
+  };
   sztupi = {
     email = "attila.sztupak@gmail.com";
     github = "sztupi";
@@ -9715,5 +9721,17 @@
       longkeyid = "rsa4096/0xB461292445C6E696";
       fingerprint = "D446 E58D 87A0 31C7 EC15  88D7 B461 2924 45C6 E696";
     }];
+  };
+  wenngle = {
+    name = "Zeke Stephens";
+    email = "zekestephens@gmail.com";
+    github = "wenngle";
+    githubId = 63376671;
+  };
+  yanganto = {
+    name = "Antonio Yang";
+    email = "yanganto@gmail.com";
+    github = "yanganto";
+    githubId = 10803111;
   };
 }

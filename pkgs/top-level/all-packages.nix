@@ -1531,10 +1531,6 @@ in
   });
 
   caddy = callPackage ../servers/caddy { };
-  caddy1 = callPackage ../servers/caddy/v1.nix {
-    # https://github.com/lucas-clemente/quic-go/issues/2614
-    buildGoModule = buildGo114Module;
-  };
 
   traefik = callPackage ../servers/traefik { };
 
@@ -5600,6 +5596,13 @@ in
 
   nabi = callPackage ../tools/inputmethods/nabi { };
 
+  hime = callPackage ../tools/inputmethods/hime {};
+
+  hime-all = callPackage ../tools/inputmethods/hime {
+    enableChewing = true;
+    enableAnthy = true;
+  };
+
   nahid-fonts = callPackage ../data/fonts/nahid-fonts { };
 
   namazu = callPackage ../tools/text/namazu { };
@@ -6469,7 +6472,9 @@ in
 
   pywal = with python3Packages; toPythonApplication pywal;
 
-  rbw = callPackage ../tools/security/rbw { };
+  rbw = callPackage ../tools/security/rbw {
+    inherit (darwin.apple_sdk.frameworks) Security;
+  };
 
   remarshal = callPackage ../development/tools/remarshal { };
 
@@ -6812,6 +6817,8 @@ in
   saml2aws = callPackage ../tools/security/saml2aws {};
 
   samplicator = callPackage ../tools/networking/samplicator { };
+
+  sandboxfs = callPackage ../tools/filesystems/sandboxfs { };
 
   sasquatch = callPackage ../tools/filesystems/sasquatch { };
 
@@ -9338,6 +9345,8 @@ in
 
   knightos-mktiupgrade = callPackage ../development/tools/knightos/mktiupgrade { };
 
+  knightos-patchrom = callPackage ../development/tools/knightos/patchrom { };
+
   knightos-scas = callPackage ../development/tools/knightos/scas { };
 
   kotlin = callPackage ../development/compilers/kotlin { };
@@ -9367,7 +9376,7 @@ in
   lld_10 = llvmPackages_10.lld;
   lld_11 = llvmPackages_11.lld;
 
-  lldb = llvmPackages.lldb;
+  lldb = llvmPackages_latest.lldb;
   lldb_5 = llvmPackages_5.lldb;
   lldb_6 = llvmPackages_6.lldb;
   lldb_7 = llvmPackages_7.lldb;
@@ -11191,6 +11200,8 @@ in
 
   jenkins-job-builder = with python3Packages; toPythonApplication jenkins-job-builder;
 
+  jpexs = callPackage ../development/tools/jpexs { };
+
   julius = callPackage ../games/julius { };
 
   augustus = callPackage ../games/augustus { };
@@ -11523,6 +11534,8 @@ in
 
   scaff = callPackage ../development/tools/scaff { };
 
+  sd-local = callPackage ../development/tools/sd-local { };
+
   selenium-server-standalone = callPackage ../development/tools/selenium/server { };
 
   selendroid = callPackage ../development/tools/selenium/selendroid { };
@@ -11828,6 +11841,8 @@ in
 
   adns = callPackage ../development/libraries/adns { };
 
+  adslib = callPackage ../development/libraries/adslib { };
+
   afflib = callPackage ../development/libraries/afflib { };
 
   aften = callPackage ../development/libraries/aften { };
@@ -11871,6 +11886,10 @@ in
   arb = callPackage ../development/libraries/arb {};
 
   argp-standalone = callPackage ../development/libraries/argp-standalone {};
+
+  aribb25 = callPackage ../development/libraries/aribb25 {
+    inherit (darwin.apple_sdk.frameworks) PCSC;
+  };
 
   armadillo = callPackage ../development/libraries/armadillo {};
 
@@ -16546,7 +16565,7 @@ in
 
   jitsi-videobridge = callPackage ../servers/jitsi-videobridge { };
 
-  kapow = callPackage ../servers/kapow { };
+  kapowbang = callPackage ../servers/kapowbang { };
 
   keycloak = callPackage ../servers/keycloak { };
 
@@ -17515,6 +17534,8 @@ in
   gmailctl = callPackage ../applications/networking/gmailctl {};
 
   gomp = callPackage ../applications/version-management/gomp { };
+
+  gomplate = callPackage ../development/tools/gomplate {};
 
   gpm = callPackage ../servers/gpm {
     ncurses = null;  # Keep curses disabled for lack of value
@@ -19836,6 +19857,8 @@ in
     inherit (darwin.apple_sdk.frameworks) Cocoa CoreGraphics ForceFeedback OpenAL OpenGL;
   };
 
+  blogc = callPackage ../applications/misc/blogc { };
+
   bluefish = callPackage ../applications/editors/bluefish {
     gtk = gtk3;
   };
@@ -20113,8 +20136,6 @@ in
   };
 
   das_watchdog = callPackage ../tools/system/das_watchdog { };
-
-  dbvisualizer = callPackage ../applications/misc/dbvisualizer {};
 
   dd-agent = callPackage ../tools/networking/dd-agent/5.nix { };
   datadog-agent = callPackage ../tools/networking/dd-agent/datadog-agent.nix {
@@ -21213,9 +21234,7 @@ in
 
   swaylock-effects = callPackage ../applications/window-managers/sway/lock-effects.nix { };
 
-  waybar = callPackage ../applications/misc/waybar {
-    pulseSupport = config.pulseaudio or false;
-  };
+  waybar = callPackage ../applications/misc/waybar { };
 
   hikari = callPackage ../applications/window-managers/hikari { };
 
@@ -22967,11 +22986,11 @@ in
     pkgs_ = pkgs.extend(_: prev: {
       pythonInterpreters = prev.pythonInterpreters.override(oldAttrs: {
         pkgs = oldAttrs.pkgs.extend(_: _: {
-          inherit (pkgs) qt5 libsForQt5;
+          inherit (pkgs) qt5 libsForQt514;
         });
       });
     });
-  in pkgs_.libsForQt5.callPackage ../applications/networking/browsers/qutebrowser { };
+  in pkgs_.libsForQt514.callPackage ../applications/networking/browsers/qutebrowser { };
 
   qxw = callPackage ../applications/editors/qxw {};
 
@@ -23820,7 +23839,7 @@ in
 
   neovim = wrapNeovim neovim-unwrapped { };
 
-  neovim-qt = libsForQt514.callPackage ../applications/editors/neovim/qt.nix { };
+  neovim-qt = libsForQt5.callPackage ../applications/editors/neovim/qt.nix { };
 
   olifant = callPackage ../applications/misc/olifant { };
 
@@ -27615,6 +27634,8 @@ in
   terraform-landscape = callPackage ../applications/networking/cluster/terraform-landscape {};
 
   terragrunt = callPackage ../applications/networking/cluster/terragrunt {};
+
+  terranix = callPackage ../applications/networking/cluster/terranix {};
 
   tilt = callPackage ../applications/networking/cluster/tilt {};
 
