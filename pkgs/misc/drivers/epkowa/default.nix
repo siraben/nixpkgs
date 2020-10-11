@@ -57,7 +57,7 @@ let plugins = {
         '';
       hw = "Perfection V330 Photo";
       };
-    meta = common_meta // { description = "Plugin to support "+passthru.hw+" scanner in sane."; };
+    meta = common_meta // { description = "Plugin to support "+passthru.hw+" scanner in sane"; };
   };
   x770 =   stdenv.mkDerivation rec {
     pname = "iscan-gt-x770-bundle";
@@ -305,7 +305,7 @@ stdenv.mkDerivation rec {
     ${value.passthru.registrationCommand}
     '') plugins);
   meta = common_meta // {
-    description = "sane-epkowa backend for some epson scanners.";
+    description = "sane-epkowa backend for some epson scanners";
     longDescription = ''
       Includes gui-less iscan (aka. Image Scan! for Linux).
       Supported hardware: at least :

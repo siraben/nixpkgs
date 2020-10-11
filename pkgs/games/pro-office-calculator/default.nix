@@ -15,7 +15,7 @@ mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
   meta = with stdenv.lib; {
-    description = "Just an ordinary calculator. Nothing to see here...";
+    description = "Just an ordinary calculator. Nothing to see here..";
     homepage = "https://proofficecalculator.com/";
     maintainers = [ maintainers.pmiddend ];
     platforms = platforms.linux;
