@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     SDL2_image
     SDL2_ttf
     alsaLib
-    libjack2 
+    libjack2
   ];
 
   sourceRoot = "source/picoloop";
