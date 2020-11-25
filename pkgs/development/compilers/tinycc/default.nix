@@ -1,4 +1,4 @@
-{ stdenv, lib, fetchFromRepoOrCz, perl, texinfo }:
+{ stdenv, lib, fetchFromRepoOrCz, perl, texinfo, buildPackages, tinycc }:
 with lib;
 
 stdenv.mkDerivation rec {
@@ -12,26 +12,30 @@ stdenv.mkDerivation rec {
     sha256 = "12mm1lqywz0akr2yb2axjfbw8lwv57nh395vzsk534riz03ml977";
   };
 
-  nativeBuildInputs = [ perl texinfo ];
+  nativeBuildInputs = [ perl texinfo ] ++ (lib.optionals (stdenv.targetPlatform != stdenv.buildPlatform) [ tinycc ]);
 
   hardeningDisable = [ "fortify" ];
 
   enableParallelBuilding = true;
 
   postPatch = ''
-    substituteInPlace "texi2pod.pl" \
-      --replace "/usr/bin/perl" "${perl}/bin/perl"
+    patchShebangs texi2pod.pl
   '';
 
   preConfigure = ''
     echo ${version} > VERSION
-
-    configureFlagsArray+=("--cc=cc")
     configureFlagsArray+=("--elfinterp=$(< $NIX_CC/nix-support/dynamic-linker)")
-    configureFlagsArray+=("--crtprefix=${getLib stdenv.cc.libc}/lib")
-    configureFlagsArray+=("--sysincludepaths=${getDev stdenv.cc.libc}/include:{B}/include")
-    configureFlagsArray+=("--libpaths=${getLib stdenv.cc.libc}/lib")
   '';
+
+  configureFlags = [
+    "--cc=${if stdenv.targetPlatform != stdenv.buildPlatform then "${stdenv.cc.targetPrefix}tcc" else "cc"}"
+    "--crtprefix=${getLib buildPackages.stdenv.cc.libc}/lib"
+    "--sysincludepaths=${getDev buildPackages.stdenv.cc.libc}/include:{B}/include"
+    "--libpaths=${getLib buildPackages.stdenv.cc.libc}/lib"
+  ] ++ (optional (stdenv.hostPlatform != stdenv.buildPlatform) [
+    "--cross-prefix=${stdenv.cc.targetPrefix}"
+    "--enable-cross"
+  ]);
 
   postFixup = ''
     cat >libtcc.pc <<EOF
