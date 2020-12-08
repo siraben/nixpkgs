@@ -5,11 +5,11 @@ watchdog, wtforms }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "archivy";
-  version = "0.9.2";
+  version = "0.9.3";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "5cb760da57dc9dcdd62c0af824993d1715ec7035915629b4046d8bf50442756c";
+    sha256 = "01m5411lvijhlhwydak9gs2drd2wmi23iirn7ik2kafhxjlhizxn";
   };
 
   # Relax some dependencies
