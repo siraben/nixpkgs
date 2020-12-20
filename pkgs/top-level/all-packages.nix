@@ -6586,6 +6586,8 @@ in
 
   pixiewps = callPackage ../tools/networking/pixiewps {};
 
+  pixieditor = callPackage ../tools/misc/pixieditor { };
+
   pk2cmd = callPackage ../tools/misc/pk2cmd { };
 
   plantuml = callPackage ../tools/misc/plantuml {
