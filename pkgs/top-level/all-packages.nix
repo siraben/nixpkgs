@@ -1118,6 +1118,8 @@ in
 
   ctrtool = callPackage ../tools/archivers/ctrtool { };
 
+  crackmapexec = python3Packages.callPackage ../tools/security/crackmapexec { };
+
   crowbar = callPackage ../tools/security/crowbar { };
 
   crumbs = callPackage ../applications/misc/crumbs { };
