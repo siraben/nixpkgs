@@ -12,7 +12,7 @@ let
   };
 
   optionToArgs = opt: v  : optional (v != null)  ''--${opt}="${toString v}"'';
-  flagToArgs   = opt: v  : optional v            ''--${opt}'';
+  flagToArgs   = opt: v  : optional v            "--${opt}";
   listToArgs   = opt: vs : map               (v: ''--${opt}="${v}"'') vs;
   attrsToArgs  = opt: kvs: mapAttrsToList (k: v: ''--${opt}=${k}=\"${v}\"'') kvs;
 

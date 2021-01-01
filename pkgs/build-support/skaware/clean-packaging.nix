@@ -8,7 +8,7 @@
 let
   globWith = stdenv.lib.concatMapStringsSep "\n";
   rmNoise = noiseGlobs: globWith (f:
-    ''rm -rf ${f}'') noiseGlobs;
+    "rm -rf ${f}") noiseGlobs;
   mvDoc = docGlobs: globWith
     (f: ''mv ${f} "$DOCDIR" 2>/dev/null || true'')
     docGlobs;

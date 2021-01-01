@@ -45,7 +45,7 @@ in mkDerivation {
     let
       binPath = stdenv.lib.makeBinPath [ jre_headless ];
     in stdenv.lib.optionals withJava [
-      ''--prefix PATH : ${binPath}''
+      "--prefix PATH : ${binPath}"
     ];
 
   installPhase = ''

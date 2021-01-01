@@ -83,9 +83,9 @@ stdenv.mkDerivation {
     openldap  # optional
     pam  # optional
   ];
-  postPatch = ''. ${postPatch}'';
+  postPatch = ". ${postPatch}";
   dontAddPrefix = true;
-  postInstall = ''. ${postInstall}'';
+  postInstall = ". ${postInstall}";
   postInstallCheck = ''. ${./post-install-check.sh}'';
   meta = {
     description = "enterprise-class system for sending and receiving facsimiles";

@@ -107,7 +107,7 @@ stdenv.mkDerivation rec {
                  "-DUSE_FFMPEG=OFF"
                ]
                ++ lib.optional useCuda [
-                 ''-DCUDA_TOOLKIT_ROOT_DIR=${cudatoolkit}''
+                 "-DCUDA_TOOLKIT_ROOT_DIR=${cudatoolkit}"
                  "-DCUDA_FAST_MATH=ON"
                  ''-DCUDA_HOST_COMPILER=${cudatoolkit.cc}/bin/gcc''
                ];

@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
       "s#Noto Color Emoji#Twitter Color Emoji#"
       "s#NotoColorEmoji#TwitterColorEmoji#"
       ''s#Copyright .* Google Inc\.#Twitter, Inc and other contributors.#''
-      ''s# Version .*# ${version}#''
+      "s# Version .*# ${version}#"
       "s#.*is a trademark.*##"
       ''s#Google, Inc\.#Twitter, Inc and other contributors#''
       "s#http://www.google.com/get/noto/#https://twemoji.twitter.com/#"

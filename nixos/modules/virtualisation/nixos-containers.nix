@@ -170,7 +170,7 @@ let
 
       ${concatStringsSep "\n" (
         mapAttrsToList (name: cfg:
-          ''ip link del dev ${name} 2> /dev/null || true ''
+          "ip link del dev ${name} 2> /dev/null || true "
         ) cfg.extraVeths
       )}
    '';

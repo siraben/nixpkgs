@@ -33,7 +33,7 @@ let
   '';
   #copy mutable extension out of the nix store
   cpExtensions = ''
-    ${lib.concatMapStringsSep "\n" (e : ''ln -sfn ${e}/share/vscode/extensions/* ${vscodeExtsFolderName}/'') nixExtsDrvs}
+    ${lib.concatMapStringsSep "\n" (e : "ln -sfn ${e}/share/vscode/extensions/* ${vscodeExtsFolderName}/") nixExtsDrvs}
     ${lib.concatMapStringsSep "\n" (ePath : ''
       if [ ! -d ${ePath.target} ]; then
         cp -a ${ePath.origin} ${ePath.target}
@@ -49,6 +49,6 @@ in
       ${cpExtensions}
     fi
     ${vscode}/bin/code --extensions-dir "${vscodeExtsFolderName}" ${
-      lib.optionalString (user-data-dir != "") ''--user-data-dir ${user-data-dir }''
+      lib.optionalString (user-data-dir != "") "--user-data-dir ${user-data-dir}"
       } "$@"
   ''

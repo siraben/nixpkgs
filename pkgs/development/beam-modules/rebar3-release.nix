@@ -46,7 +46,7 @@ let
     configurePhase = ''
       runHook preConfigure
       ${if checkouts != null then
-          ''cp --no-preserve=all -R ${checkouts}/_checkouts .''
+          "cp --no-preserve=all -R ${checkouts}/_checkouts ."
         else
           ""}
       runHook postConfigure

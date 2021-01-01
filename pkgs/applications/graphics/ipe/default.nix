@@ -22,7 +22,7 @@ mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig ];
 
-  qtWrapperArgs = [ ''--prefix PATH : ${texlive}/bin''  ];
+  qtWrapperArgs = [ "--prefix PATH : ${texlive}/bin"  ];
 
   enableParallelBuilding = true;
 

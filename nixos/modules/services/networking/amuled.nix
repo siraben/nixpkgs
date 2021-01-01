@@ -24,7 +24,7 @@ in
       };
 
       dataDir = mkOption {
-        default = ''/home/${user}/'';
+        default = "/home/${user}/";
         description = ''
           The directory holding configuration, incoming and temporary files.
         '';
