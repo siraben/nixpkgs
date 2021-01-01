@@ -30,7 +30,7 @@ stdenv.mkDerivation {
   '';
   meta = {
     inherit (s) version;
-    description = ''SPARQL server'';
+    description = "SPARQL server";
     license = stdenv.lib.licenses.asl20;
     maintainers = [stdenv.lib.maintainers.raskin];
     platforms = stdenv.lib.platforms.linux;

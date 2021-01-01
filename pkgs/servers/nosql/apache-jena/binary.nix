@@ -26,7 +26,7 @@ stdenv.mkDerivation {
   '';
   meta = {
     inherit (s) version;
-    description = ''RDF database'';
+    description = "RDF database";
     license = stdenv.lib.licenses.asl20;
     maintainers = [stdenv.lib.maintainers.raskin];
     platforms = stdenv.lib.platforms.linux;

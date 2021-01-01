@@ -62,7 +62,7 @@ in
       socks5-addr = mkOption {
         type = types.str;
         default = "localhost:1666";
-        description = ''the listen address for the SOCKS5 proxy server'';
+        description = "the listen address for the SOCKS5 proxy server";
       };
 
       bindInterface = mkOption {

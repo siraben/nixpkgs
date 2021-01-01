@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
   '';
   meta = {
     inherit version;
-    description = ''Expose-style compositing-based standalone window switcher'';
+    description = "Expose-style compositing-based standalone window switcher";
     license = stdenv.lib.licenses.gpl2Plus ;
     maintainers = [stdenv.lib.maintainers.raskin];
     platforms = stdenv.lib.platforms.linux;

@@ -73,7 +73,7 @@ in
       systab = mkOption {
         type = types.lines;
         default = "";
-        description = ''The "system" crontab contents.'';
+        description = "The \"system\" crontab contents.";
       };
     };
 

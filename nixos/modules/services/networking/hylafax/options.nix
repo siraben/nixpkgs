@@ -139,28 +139,28 @@ in
       type = nullOr str1;
       default = null;
       example = "49";
-      description = ''Country code for server and all modems.'';
+      description = "Country code for server and all modems.";
     };
 
     areaCode = mkOption {
       type = nullOr str1;
       default = null;
       example = "30";
-      description = ''Area code for server and all modems.'';
+      description = "Area code for server and all modems.";
     };
 
     longDistancePrefix = mkOption {
       type = nullOr str;
       default = null;
       example = "0";
-      description = ''Long distance prefix for server and all modems.'';
+      description = "Long distance prefix for server and all modems.";
     };
 
     internationalPrefix = mkOption {
       type = nullOr str;
       default = null;
       example = "00";
-      description = ''International prefix for server and all modems.'';
+      description = "International prefix for server and all modems.";
     };
 
     spoolAreaPath = mkOption {

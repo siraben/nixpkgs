@@ -24,7 +24,7 @@ stdenv.mkDerivation {
   ];
   meta = {
     inherit (s) version;
-    description = ''A minimalistic X11 menu creator'';
+    description = "A minimalistic X11 menu creator";
     license = stdenv.lib.licenses.free ; # 9menu derivative with 9menu license
     maintainers = [stdenv.lib.maintainers.raskin];
     platforms = stdenv.lib.platforms.linux;

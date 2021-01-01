@@ -35,7 +35,7 @@ stdenv.mkDerivation {
   outputHash = "1kwj31cjgdirqvh6bxs4fnvvr1ppaz6z8w40kvhkivgs69jglmzw";
 
   meta = {
-    description = ''Tempora font'';
+    description = "Tempora font";
     license = stdenv.lib.licenses.gpl2 ;
     maintainers = [stdenv.lib.maintainers.raskin];
   };
