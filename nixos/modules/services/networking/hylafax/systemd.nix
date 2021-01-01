@@ -81,7 +81,7 @@ let
     description = "HylaFAX queue manager sendq watch";
     documentation = [ "man:faxq(8)" "man:sendq(5)" ];
     wantedBy = [ "multi-user.target" ];
-    pathConfig.PathExistsGlob = [ ''${cfg.spoolAreaPath}/sendq/q*'' ];
+    pathConfig.PathExistsGlob = [ "${cfg.spoolAreaPath}/sendq/q*" ];
   };
 
   timers = mkMerge [
@@ -186,7 +186,7 @@ let
     wantedBy = mkIf cfg.faxcron.enable.spoolInit requires;
     startAt = mkIf (cfg.faxcron.enable.frequency!=null) cfg.faxcron.enable.frequency;
     serviceConfig.ExecStart = concatStringsSep " " [
-      ''${pkgs.hylafaxplus}/spool/bin/faxcron''
+      "${pkgs.hylafaxplus}/spool/bin/faxcron"
       ''-q "${cfg.spoolAreaPath}"''
       ''-info ${toString cfg.faxcron.infoDays}''
       ''-log  ${toString cfg.faxcron.logDays}''
@@ -202,7 +202,7 @@ let
     wantedBy = mkIf cfg.faxqclean.enable.spoolInit requires;
     startAt = mkIf (cfg.faxqclean.enable.frequency!=null) cfg.faxqclean.enable.frequency;
     serviceConfig.ExecStart = concatStringsSep " " [
-      ''${pkgs.hylafaxplus}/spool/bin/faxqclean''
+      "${pkgs.hylafaxplus}/spool/bin/faxqclean"
       ''-q "${cfg.spoolAreaPath}"''
       "-v"
       (optionalString (cfg.faxqclean.archiving!="never") "-a")
@@ -221,7 +221,7 @@ let
       after = bindsTo ++ requires;
       before = [ "hylafax-faxq.service" "getty.target" ];
       unitConfig.StopWhenUnneeded = true;
-      unitConfig.AssertFileNotEmpty = ''${cfg.spoolAreaPath}/etc/config.%I'';
+      unitConfig.AssertFileNotEmpty = "${cfg.spoolAreaPath}/etc/config.%I";
       serviceConfig.UtmpIdentifier = "%I";
       serviceConfig.TTYPath = "/dev/%I";
       serviceConfig.Restart = "always";

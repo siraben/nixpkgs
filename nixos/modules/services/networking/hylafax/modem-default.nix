@@ -16,7 +16,7 @@
   SessionTracing = "0x78701";
   UUCPLockDir = "/var/lock";
 
-  SendPageCmd = ''${pkgs.coreutils}/bin/false'';  # prevent pager transmit
-  SendUUCPCmd = ''${pkgs.coreutils}/bin/false'';  # prevent UUCP transmit
+  SendPageCmd = "${pkgs.coreutils}/bin/false";  # prevent pager transmit
+  SendUUCPCmd = "${pkgs.coreutils}/bin/false";  # prevent UUCP transmit
 
 }

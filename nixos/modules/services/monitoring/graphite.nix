@@ -25,7 +25,7 @@ let
 
   graphiteApiConfig = pkgs.writeText "graphite-api.yaml" ''
     search_index: ${dataDir}/index
-    ${optionalString (config.time.timeZone != null) ''time_zone: ${config.time.timeZone}''}
+    ${optionalString (config.time.timeZone != null) "time_zone: ${config.time.timeZone}"}
     ${optionalString (cfg.api.finders != []) "finders:"}
     ${concatMapStringsSep "\n" (f: "  - " + f.moduleName) cfg.api.finders}
     ${optionalString (cfg.api.functions != []) "functions:"}

@@ -250,7 +250,7 @@ stdenv.mkDerivation (rec {
                                  " (${args.meta.description})";
     longDescription = (args.meta.longDescription or "")
                     + "\nIncludes:\n"
-                    + withXenfiles (name: x: ''* ${name}: ${x.meta.description or "(No description)"}.'');
+                    + withXenfiles (name: x: "* ${name}: ${x.meta.description or "(No description)"}.");
     platforms = [ "x86_64-linux" ];
     maintainers = with stdenv.lib.maintainers; [ eelco tstrobel oxij ];
     license = stdenv.lib.licenses.gpl2;

@@ -85,7 +85,7 @@ let
       # Otherwise, we use `false` to provoke
       # an error if hylafax tries to use it.
       c.sendmailPath = mkMerge [
-        (mkIfDefault noWrapper ''${pkgs.coreutils}/bin/false'')
+        (mkIfDefault noWrapper "${pkgs.coreutils}/bin/false")
         (mkIfDefault (!noWrapper) "${wrapperDir}/${program}")
       ];
       importDefaultConfig = file:

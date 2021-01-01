@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = [ coq-elpi ];
   buildInputs = [ coq coq.ocaml coq.ocamlPackages.elpi ];
 
-  installPhase = ''make -f Makefile.coq VFILES=structures.v COQLIB=$out/lib/coq/${coq.coq-version}/ install'';
+  installPhase = "make -f Makefile.coq VFILES=structures.v COQLIB=$out/lib/coq/${coq.coq-version}/ install";
 
   meta = {
     description = "Coq plugin embedding ELPI.";

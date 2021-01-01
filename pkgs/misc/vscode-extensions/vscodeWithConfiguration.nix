@@ -18,17 +18,17 @@ let
   mutExtsDrvs = extensionsFromVscodeMarketplace mutableExtensions;
   mutableExtsPaths = lib.forEach mutExtsDrvs ( e:
   {
-    origin = ''${e}/share/vscode/extensions/${e.vscodeExtUniqueId}'';
-    target = ''${vscodeExtsFolderName}/${e.vscodeExtUniqueId}-${(lib.findSingle (ext: ''${ext.publisher}.${ext.name}'' == e.vscodeExtUniqueId) "" "m" mutableExtensions ).version}'';
+    origin = "${e}/share/vscode/extensions/${e.vscodeExtUniqueId}";
+    target = ''${vscodeExtsFolderName}/${e.vscodeExtUniqueId}-${(lib.findSingle (ext: "${ext.publisher}.${ext.name}" == e.vscodeExtUniqueId) "" "m" mutableExtensions ).version}'';
   }
   );
 
   #removed not defined extensions
   rmExtensions =  lib.optionalString (nixExtensions++mutableExtensions != []) ''
     find ${vscodeExtsFolderName} -mindepth 1 -maxdepth 1 ${
-        lib.concatMapStringsSep " " (e : ''! -iname ${e.publisher}.${e.name} '') nixExtensions
+        lib.concatMapStringsSep " " (e : "! -iname ${e.publisher}.${e.name} ") nixExtensions
         +
-        lib.concatMapStringsSep " " (e : ''! -iname ${e.publisher}.${e.name}-${e.version} '') mutableExtensions
+        lib.concatMapStringsSep " " (e : "! -iname ${e.publisher}.${e.name}-${e.version} ") mutableExtensions
       } -exec rm -rf {} \;
   '';
   #copy mutable extension out of the nix store

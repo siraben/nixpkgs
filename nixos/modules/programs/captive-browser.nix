@@ -27,7 +27,7 @@ in
       # the options below are the same as in "captive-browser.toml"
       browser = mkOption {
         type = types.str;
-        default = concatStringsSep " " [ ''${pkgs.chromium}/bin/chromium''
+        default = concatStringsSep " " [ "${pkgs.chromium}/bin/chromium"
                                          "--user-data-dir=\${XDG_DATA_HOME:-$HOME/.local/share}/chromium-captive"
                                          ''--proxy-server="socks5://$PROXY"''
                                          ''--host-resolver-rules="MAP * ~NOTFOUND , EXCLUDE localhost"''
