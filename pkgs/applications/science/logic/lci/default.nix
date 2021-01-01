@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
   };
   buildInputs = [readline];
   meta = {
-    description = ''Lambda calculus interpreter'';
+    description = "Lambda calculus interpreter";
     maintainers = with stdenv.lib.maintainers; [raskin];
     platforms = with stdenv.lib.platforms; linux;
     license = stdenv.lib.licenses.gpl3;

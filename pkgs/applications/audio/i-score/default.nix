@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
     export CMAKE_PREFIX_PATH="''${CMAKE_PREFIX_PATH-}:$(echo "${jamomacore}/jamoma/share/cmake/Jamoma")"
   '';
 
-  postInstall = ''rm $out/bin/i-score.sh'';
+  postInstall = "rm $out/bin/i-score.sh";
 
   meta = {
     description = "An interactive sequencer for the intermedia arts";

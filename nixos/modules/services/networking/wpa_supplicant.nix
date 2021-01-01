@@ -15,7 +15,7 @@ let
         else pskRaw;
       baseAuth = if key != null
         then ''psk=${key}''
-        else ''key_mgmt=NONE'';
+        else "key_mgmt=NONE";
     in ''
       network={
         ssid="${ssid}"

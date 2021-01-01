@@ -17,12 +17,12 @@ stdenv.mkDerivation rec {
   '';
 
   buildFlags = [ "CC=cc" "CXX=c++" ];
-  installFlags = [ ''PREFIX=$(out)'' ];
+  installFlags = [ "PREFIX=$(out)" ];
   buildInputs = [ gmp mpir cddlib ];
 
   meta = {
     inherit version;
-    description = ''A software package for computing Gröbner fans and tropical varieties'';
+    description = "A software package for computing Gröbner fans and tropical varieties";
     license = stdenv.lib.licenses.gpl2 ;
     maintainers = [stdenv.lib.maintainers.raskin];
     platforms = stdenv.lib.platforms.unix;

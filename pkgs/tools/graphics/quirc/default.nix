@@ -31,7 +31,7 @@ stdenv.mkDerivation {
   makeFlags = [ "PREFIX=$(out)" ];
   meta = {
     inherit (s) version;
-    description = ''A small QR code decoding library'';
+    description = "A small QR code decoding library";
     license = stdenv.lib.licenses.isc;
     maintainers = [stdenv.lib.maintainers.raskin];
     platforms = stdenv.lib.platforms.linux;

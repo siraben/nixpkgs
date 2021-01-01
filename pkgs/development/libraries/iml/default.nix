@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
   ];
   meta = {
     inherit version;
-    description = ''Algorithms for computing exact solutions to dense systems of linear equations over the integers'';
+    description = "Algorithms for computing exact solutions to dense systems of linear equations over the integers";
     license = stdenv.lib.licenses.gpl2Plus;
     maintainers = [stdenv.lib.maintainers.raskin];
     platforms = stdenv.lib.platforms.unix;

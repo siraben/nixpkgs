@@ -90,8 +90,8 @@ stdenv.mkDerivation (rec {
 
   installPhase = ''
     make config=release prefix=$out ''
-    + stdenv.lib.optionalString stdenv.isDarwin '' bits=64 ''
-    + stdenv.lib.optionalString (stdenv.isDarwin && (!lto)) '' lto=no ''
+    + stdenv.lib.optionalString stdenv.isDarwin " bits=64 "
+    + stdenv.lib.optionalString (stdenv.isDarwin && (!lto)) " lto=no "
     + '' install
 
     wrapProgram $out/bin/ponyc \

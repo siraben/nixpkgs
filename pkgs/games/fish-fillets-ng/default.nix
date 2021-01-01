@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
   '';
   meta = {
     inherit version;
-    description = ''A puzzle game'';
+    description = "A puzzle game";
     license = stdenv.lib.licenses.gpl2Plus;
     maintainers = [stdenv.lib.maintainers.raskin];
     platforms = stdenv.lib.platforms.linux;

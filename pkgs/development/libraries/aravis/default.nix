@@ -58,7 +58,7 @@ in
       ++ stdenv.lib.optionals (enableViewer || enableGstPlugin) [ gstreamer gst-plugins-base gst-plugins-good gst-plugins-bad ]
       ++ stdenv.lib.optionals (enableViewer) [ libnotify gtk3 gnome3.adwaita-icon-theme ];
 
-    preAutoreconf = ''./autogen.sh'';
+    preAutoreconf = "./autogen.sh";
 
     configureFlags =
       stdenv.lib.optional enableUsb "--enable-usb"

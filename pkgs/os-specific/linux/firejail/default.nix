@@ -80,7 +80,7 @@ stdenv.mkDerivation {
 
   meta = {
     inherit (s) version;
-    description = ''Namespace-based sandboxing tool for Linux'';
+    description = "Namespace-based sandboxing tool for Linux";
     license = stdenv.lib.licenses.gpl2Plus ;
     maintainers = [stdenv.lib.maintainers.raskin];
     platforms = stdenv.lib.platforms.linux;

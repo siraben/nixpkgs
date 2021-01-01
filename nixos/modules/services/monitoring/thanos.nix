@@ -67,7 +67,7 @@ let
     preferLocalBuild = true;
     json = builtins.toFile "${name}.json" (builtins.toJSON attrs);
     nativeBuildInputs = [ pkgs.remarshal ];
-  } ''json2yaml -i $json -o $out'';
+  } "json2yaml -i $json -o $out";
 
   thanos = cmd: "${cfg.package}/bin/thanos ${cmd}" +
     (let args = cfg.${cmd}.arguments;

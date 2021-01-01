@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
   cmakeFlags = [ "-DMYSQL_INCLUDE_DIR=${getDev libmysqlclient}/include/mysql" ];
 
   meta = with stdenv.lib; {
-    description = ''High-perfomance MySQL backup tool'';
+    description = "High-perfomance MySQL backup tool";
     homepage = "https://github.com/maxbube/mydumper";
     license = licenses.gpl3;
     platforms = platforms.linux;

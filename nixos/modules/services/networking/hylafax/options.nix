@@ -121,7 +121,7 @@ in
 
   options.services.hylafax = {
 
-    enable = mkEnableOption ''HylaFAX server'';
+    enable = mkEnableOption "HylaFAX server";
 
     autostart = mkOption {
       type = bool;
@@ -267,7 +267,7 @@ in
     spoolExtraInit = mkOption {
       type = lines;
       default = "";
-      example = ''chmod 0755 .  # everyone may read my faxes'';
+      example = "chmod 0755 .  # everyone may read my faxes";
       description = ''
         Additional shell code that is executed within the
         spooling area directory right after its setup.
@@ -345,7 +345,7 @@ in
     faxqclean.doneqMinutes = mkOption {
       type = int1;
       default = 15;
-      example = literalExample ''24*60'';
+      example = literalExample "24*60";
       description = ''
         Set the job
         age threshold (in minutes) that controls how long
@@ -355,7 +355,7 @@ in
     faxqclean.docqMinutes = mkOption {
       type = int1;
       default = 60;
-      example = literalExample ''24*60'';
+      example = literalExample "24*60";
       description = ''
         Set the document
         age threshold (in minutes) that controls how long

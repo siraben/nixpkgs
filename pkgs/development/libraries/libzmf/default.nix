@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     inherit version;
-    description = ''A library that parses the file format of Zoner Callisto/Draw documents'';
+    description = "A library that parses the file format of Zoner Callisto/Draw documents";
     license = stdenv.lib.licenses.mpl20;
     maintainers = [stdenv.lib.maintainers.raskin];
     platforms = stdenv.lib.platforms.unix;

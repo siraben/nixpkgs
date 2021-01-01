@@ -204,9 +204,9 @@ let
     serviceConfig.ExecStart = concatStringsSep " " [
       ''${pkgs.hylafaxplus}/spool/bin/faxqclean''
       ''-q "${cfg.spoolAreaPath}"''
-      ''-v''
-      (optionalString (cfg.faxqclean.archiving!="never") ''-a'')
-      (optionalString (cfg.faxqclean.archiving=="always")  ''-A'')
+      "-v"
+      (optionalString (cfg.faxqclean.archiving!="never") "-a")
+      (optionalString (cfg.faxqclean.archiving=="always")  "-A")
       ''-j ${toString (cfg.faxqclean.doneqMinutes*60)}''
       ''-d ${toString (cfg.faxqclean.docqMinutes*60)}''
     ];

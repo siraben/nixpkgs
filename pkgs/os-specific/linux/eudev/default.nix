@@ -49,12 +49,12 @@ stdenv.mkDerivation {
   enableParallelBuilding = true;
   meta = {
     inherit (s) version;
-    description = ''An udev fork by Gentoo'';
+    description = "An udev fork by Gentoo";
     license = stdenv.lib.licenses.gpl2Plus ;
     maintainers = [stdenv.lib.maintainers.raskin];
     platforms = stdenv.lib.platforms.linux;
-    homepage = ''https://www.gentoo.org/proj/en/eudev/'';
-    downloadPage = ''http://dev.gentoo.org/~blueness/eudev/'';
+    homepage = "https://www.gentoo.org/proj/en/eudev/";
+    downloadPage = "http://dev.gentoo.org/~blueness/eudev/";
     updateWalker = true;
   };
 }

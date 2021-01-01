@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     inherit version;
-    description = ''A program to find rational points on hyperelliptic curves'';
+    description = "A program to find rational points on hyperelliptic curves";
     license = stdenv.lib.licenses.gpl2Plus;
     maintainers = [stdenv.lib.maintainers.raskin];
     platforms = stdenv.lib.platforms.unix;

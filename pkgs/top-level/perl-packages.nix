@@ -17917,7 +17917,7 @@ let
       sha256 = "0wfdixpm3p94mnng474l0nh9mjiy8q8hbrbh2af4vwn2hmazr91f";
     };
     buildInputs = [ TestDeep TestDifferences TestLongString TestWarn ];
-    preBuild = ''ls'';
+    preBuild = "ls";
     meta = {
       homepage = "https://github.com/Sereal/Sereal";
       description = "Fast, compact, powerful binary deserialization";

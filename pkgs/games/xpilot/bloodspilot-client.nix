@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
   NIX_LDFLAGS = "-lX11";
 
   meta = {
-    description = ''A multiplayer space combat game (client part)'';
+    description = "A multiplayer space combat game (client part)";
     homepage = "http://bloodspilot.sf.net/";
     license = stdenv.lib.licenses.gpl2Plus ;
     maintainers = [stdenv.lib.maintainers.raskin];

@@ -30,7 +30,7 @@ stdenv.mkDerivation {
 
   meta = {
     inherit (s) version;
-    description = ''Common Lisp launcher script'';
+    description = "Common Lisp launcher script";
     license = stdenv.lib.licenses.llgpl21 ;
     maintainers = [stdenv.lib.maintainers.raskin];
     platforms = stdenv.lib.platforms.unix;

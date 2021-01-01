@@ -18,7 +18,7 @@ stdenv.mkDerivation {
     })
   ];
 
-  buildPhase = ''make -f protoMakefile'';
+  buildPhase = "make -f protoMakefile";
 
   installPhase = ''
     mkdir -p $out/bin

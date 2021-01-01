@@ -23,7 +23,7 @@ mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A database modeling tool for PostgreSQL";
-    longDescription = ''pgModeler (PostgreSQL Database Modeler) is an open source database modeling tool designed for PostgreSQL.'';
+    longDescription = "pgModeler (PostgreSQL Database Modeler) is an open source database modeling tool designed for PostgreSQL.";
     homepage = "https://pgmodeler.io/";
     license = licenses.gpl3;
     maintainers = [ maintainers.esclear ];

@@ -5,7 +5,7 @@
 {
 
   TagLineFont = "etc/LiberationSans-25.pcf";
-  TagLineLocale = ''en_US.UTF-8'';
+  TagLineLocale = "en_US.UTF-8";
 
   AdminGroup = "root";  # groups that can change server config
   AnswerRotary = "fax";  # don't accept anything else but faxes

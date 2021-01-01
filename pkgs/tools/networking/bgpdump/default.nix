@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "https://bitbucket.org/ripencc/bgpdump/";
-    description = ''Analyze dump files produced by Zebra/Quagga or MRT'';
+    description = "Analyze dump files produced by Zebra/Quagga or MRT";
     license = stdenv.lib.licenses.hpnd;
     maintainers = with stdenv.lib.maintainers; [ lewo ];
     platforms = with stdenv.lib.platforms; linux;

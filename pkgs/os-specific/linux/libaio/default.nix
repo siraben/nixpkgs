@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
   '';
 
   makeFlags = [
-    "prefix=${placeholder ''out''}"
+    "prefix=${placeholder "out"}"
   ];
 
   hardeningDisable = stdenv.lib.optional (stdenv.isi686) "stackprotector";

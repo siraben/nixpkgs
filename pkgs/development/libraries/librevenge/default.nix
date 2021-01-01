@@ -34,7 +34,7 @@ stdenv.mkDerivation {
 
   meta = {
     inherit (s) version;
-    description = ''A base library for writing document import filters'';
+    description = "A base library for writing document import filters";
     license = stdenv.lib.licenses.mpl20 ;
     maintainers = [stdenv.lib.maintainers.raskin];
     platforms = stdenv.lib.platforms.unix;

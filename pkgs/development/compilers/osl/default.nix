@@ -20,7 +20,7 @@ in clangStdenv.mkDerivation rec {
   cmakeFlags = [ "-DUSE_BOOST_WAVE=ON" "-DENABLERTTI=ON" ];
   enableParallelBuilding = true;
 
-  preConfigure = '' patchShebangs src/liboslexec/serialize-bc.bash '';
+  preConfigure = " patchShebangs src/liboslexec/serialize-bc.bash ";
   
   buildInputs = [
      cmake zlib openexr openimageio llvm

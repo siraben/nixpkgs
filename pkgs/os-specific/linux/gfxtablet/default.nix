@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "1i2m98yypfa9phshlmvjlgw7axfisxmldzrvnbzm5spvv5s4kvvb";
   };
 
-  preBuild = ''cd driver-uinput'';
+  preBuild = "cd driver-uinput";
 
   installPhase = ''
     mkdir -p "$out/bin"
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = ''Uinput driver for Android GfxTablet tablet-as-input-device app'';
+    description = "Uinput driver for Android GfxTablet tablet-as-input-device app";
     license = stdenv.lib.licenses.mit ;
     maintainers = [stdenv.lib.maintainers.raskin];
     platforms = stdenv.lib.platforms.linux;

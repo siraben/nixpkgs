@@ -31,7 +31,7 @@ stdenv.mkDerivation {
   ];
   meta = {
     inherit (s) version;
-    description = ''CLI email sending tool'';
+    description = "CLI email sending tool";
     license = stdenv.lib.licenses.bsd3 ;
     maintainers = [stdenv.lib.maintainers.raskin];
     platforms = stdenv.lib.platforms.linux;
