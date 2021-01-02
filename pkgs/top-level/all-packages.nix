@@ -10466,6 +10466,8 @@ in
 
   angelscript_2_22 = callPackage ../development/interpreters/angelscript/2.22.nix {};
 
+  artichoke = callPackage ../development/interpreters/artichoke { };
+
   babashka = callPackage ../development/interpreters/clojure/babashka.nix { };
 
   chibi = callPackage ../development/interpreters/chibi { };
