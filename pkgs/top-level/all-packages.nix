@@ -22027,6 +22027,8 @@ in
 
   filezilla = callPackage ../applications/networking/ftp/filezilla { };
 
+  filmulator = libsForQt515.callPackage ../applications/graphics/filmulator { };
+
   firefoxPackages = recurseIntoAttrs (callPackage ../applications/networking/browsers/firefox/packages.nix {
     callPackage = pkgs.newScope {
       inherit (rustPackages) cargo rustc;
