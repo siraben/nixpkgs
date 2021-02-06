@@ -62,7 +62,7 @@ pkgs.stdenv.mkDerivation {
     unset shellHook # do not contaminate nested shells
     echo "Please stand by"
     echo nix-shell -p hydra-check --run "hydra-check ${builtins.concatStringsSep " " packages}"
-    nix-shell -p hydra-check --run "hydra-check ${builtins.concatStringsSep " " packages}"
+    echo "${builtins.concatStringsSep " " packages}"
     exit $?
   '';
 }
