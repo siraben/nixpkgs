@@ -11,6 +11,12 @@ stdenv.mkDerivation rec {
     sha256 = "0lny550qfanysc4pqs0mxxx8zyz6plv9ll8y05gz0xmq9vx5384r";
   };
 
+  postPatch = ''
+    patchShebangs configure
+  '';
+
+  configureFlags = lib.optional (stdenv.buildPlatform != stdenv.hostPlatform) "--no-thanks";
+
   meta = with lib; {
     description = "Portable OpenBSD ksh, based on the Public Domain Korn Shell (pdksh)";
     homepage = "https://github.com/ibara/oksh";
