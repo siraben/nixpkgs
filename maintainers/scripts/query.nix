@@ -3,6 +3,7 @@ let
 in
 
 rec {
+  inherit (pkgs) lib;
   safeEval = e: let result = builtins.tryEval e;
                 in
                   if result.success
@@ -30,7 +31,8 @@ rec {
 }
 
 # Example: getting packages with no build dependencies
-# x = packagesWith (name: pkg: let n = safeEval (pkg.buildInputs == []); in if builtins.hasAttr "buildInputs" pkg then if [] == n then false else n else false)
+# n = 1
+# x = packagesWith (name: pkg: let b = safeEval (builtins.length pkg.buildInputs == n); in if builtins.hasAttr "buildInputs" pkg then if [] == b then false else b else false)
 
 # Print out the path of ones that don't have darwin in the platforms
 # report (builtins.map pkgPos (builtins.filter (p: !(builtins.hasAttr "platforms" p.meta) || !(lib.elem "x86_64-darwin" p.meta.platforms)) (builtins.map safeEval x)))
