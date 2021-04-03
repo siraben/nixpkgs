@@ -18,6 +18,7 @@ stdenv.mkDerivation rec {
   '';
 
   enableParallelBuilding = true;
+  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
 
   # Tests are currently broken on i686 see
   # https://hydra.nixos.org/build/24003763/nixlog/1
@@ -46,6 +47,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/zsaleeba/picoc";
     downloadPage = "https://code.google.com/p/picoc/downloads/list";
     license = licenses.bsd3;
-    platforms = platforms.linux;
+    platforms = platforms.all;
   };
 }
