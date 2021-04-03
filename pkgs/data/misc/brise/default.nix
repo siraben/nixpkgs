@@ -35,7 +35,7 @@ stdenv.mkDerivation {
     # Note that individual packages in this collection
     # may be released under different licenses
     license = licenses.gpl3;
-    platforms = platforms.linux;
+    platforms = platforms.unix;
     maintainers = [ maintainers.sifmelcara ];
   };
 }
