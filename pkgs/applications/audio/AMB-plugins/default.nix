@@ -11,13 +11,17 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ ladspaH ];
 
-  patchPhase = ''
-    sed -i 's@/usr/bin/install@install@g' Makefile
-    sed -i 's@/bin/rm@rm@g' Makefile
-    sed -i 's@/usr/lib/ladspa@$(out)/lib/ladspa@g' Makefile
+  postPatch = ''
+    substituteInPlace Makefile \
+      --replace "/usr/bin/install" "install" \
+      --replace "/bin/rm" "rm" \
+      --replace "/usr/lib/ladspa" "$out/lib/ladspa" \
+      --replace "g++" "c++"
   '';
 
-  preInstall="mkdir -p $out/lib/ladspa";
+  preInstall = ''
+    mkdir -p $out/lib/ladspa
+  '';
 
   meta = {
     description = "A set of ambisonics ladspa plugins";
@@ -28,6 +32,6 @@ stdenv.mkDerivation rec {
     homepage = "http://kokkinizita.linuxaudio.org/linuxaudio/ladspa/index.html";
     license = lib.licenses.gpl2Plus;
     maintainers = [ lib.maintainers.magnetophon ];
-    platforms = lib.platforms.linux;
+    platforms = lib.platforms.unix;
   };
 }
