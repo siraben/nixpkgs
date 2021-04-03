@@ -20,6 +20,6 @@ stdenv.mkDerivation rec {
     description = "Curses development kit";
     license = licenses.bsdOriginal ;
     maintainers = [ maintainers.raskin ];
-    platforms = platforms.linux;
+    platforms = platforms.all;
   };
 }
