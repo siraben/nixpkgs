@@ -1,6 +1,6 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, ncurses }:
+{ gccStdenv, lib, fetchFromGitHub, fetchpatch, ncurses }:
 
-stdenv.mkDerivation rec {
+gccStdenv.mkDerivation rec {
   pname = "hexcurse";
   version = "1.60.0";
 
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     description = "ncurses-based console hexeditor written in C";
     homepage = "https://github.com/LonnyGomes/hexcurse";
     license = licenses.gpl2;
-    platforms = platforms.linux;
+    platforms = platforms.all;
     maintainers = with maintainers; [ cstrahan ];
   };
 }
