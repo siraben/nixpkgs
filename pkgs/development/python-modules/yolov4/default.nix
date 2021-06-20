@@ -5,7 +5,7 @@ buildPythonPackage rec {
   version = "3.2.0";
 
   src = fetchPypi {
-    inherit pname;
+    pname = "tensorflow-yolov4";
     version = "v${version}";
     sha256 = "818aa57667603810415dc203ba3f75f1541e931a8dc30b6e8b21563541a70388";
   };
