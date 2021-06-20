@@ -8,7 +8,7 @@ buildPythonPackage rec {
     owner = "hhk7734";
     repo = "tensorflow-yolov4";
     rev = "v${version}";
-    sha256 = "818aa57667603810415dc203ba3f75f1541e931a8dc30b6e8b21560541a70388";
+    sha256 = "sha256-2pR0wIGaMOEz5YDGQGMc0zkcqH1HSm3kZJUliv9SXRQ=";
   };
 
   buildInputs = [ pytest ];
