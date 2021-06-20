@@ -1,4 +1,4 @@
-{ lib, fetchPypi, buildPythonPackage, pytest, opencv3, tensorflow }:
+{ lib, fetchFromGitHub, buildPythonPackage, pytest, opencv3, tensorflow }:
 
 buildPythonPackage rec {
   pname = "yolov4";
