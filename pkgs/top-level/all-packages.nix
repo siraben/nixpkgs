@@ -10650,6 +10650,8 @@ in
 
   cakelisp = callPackage ../development/compilers/cakelisp { };
 
+  cakeml = callPackage ../development/compilers/cakeml { };
+
   ciao = callPackage ../development/compilers/ciao { };
 
   colm = callPackage ../development/compilers/colm { };
