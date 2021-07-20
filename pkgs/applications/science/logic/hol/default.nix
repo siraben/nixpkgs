@@ -45,8 +45,10 @@ stdenv.mkDerivation {
   '';
 
   installPhase = ''
-    mkdir -p "$out/bin"
-    ln -st $out/bin bin/*
+    find ./bin -type f -exec install -D -m 0755 {} -t $out/bin \;
+    find ./doc -type f -exec install -D -m 0644 {} -t $out/doc \;
+    find ./help -type f -exec install -D -m 0644 {} -t $out/doc \;
+    find ./examples -type f -exec install -D {} -t $out/examples \;
   '';
 
   meta = with lib; {
