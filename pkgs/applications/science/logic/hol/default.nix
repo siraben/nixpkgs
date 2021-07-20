@@ -32,29 +32,21 @@ stdenv.mkDerivation {
     echo "<dir>${liberation_ttf}</dir>" >> chroot-fontconfig/fonts.conf
     echo "</fontconfig>" >> chroot-fontconfig/fonts.conf
     export FONTCONFIG_FILE=$(pwd)/chroot-fontconfig/fonts.conf
-    mkdir -p "$out/src"
+    substituteInPlace tools/Holmake/Holmake_types.sml \
+      --replace "\"/bin/" "\"" \
+  '';
+
+  configurePhase = ''
+    poly < tools/smart-configure.sml
   '';
 
   buildPhase = ''
-    cd "$out/src"
-    cp -r "$src/." .
-
-    substituteInPlace tools/Holmake/Holmake_types.sml \
-      --replace "\"/bin/" "\"" \
-
-    for f in tools/buildutils.sml help/src-sml/DOT;
-    do
-      substituteInPlace $f --replace "\"/usr/bin/dot\"" "\"${graphviz}/bin/dot\""
-    done
-
-    poly < tools/smart-configure.sml
-
     bin/build ${kernelFlag}
   '';
 
   installPhase = ''
     mkdir -p "$out/bin"
-    ln -st $out/bin  $out/src/bin/*
+    ln -st $out/bin bin/*
   '';
 
   meta = with lib; {
