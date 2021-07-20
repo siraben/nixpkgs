@@ -2,7 +2,6 @@
 , experimentalKernel ? true }:
 
 let
-  pname = "hol4";
   vnum = "14";
   version = "k.${vnum}";
   longVersion = "kananaskis-${vnum}";
@@ -14,6 +13,7 @@ let
 in
 
 stdenv.mkDerivation {
+  pname = "hol4";
   inherit pname version;
 
   src = fetchurl {
@@ -23,40 +23,37 @@ stdenv.mkDerivation {
 
   buildInputs = [ polymlEnableShared graphviz fontconfig liberation_ttf ];
 
-  buildCommand = ''
-
+  patchPhase = ''
     mkdir chroot-fontconfig
     cat ${fontconfig.out}/etc/fonts/fonts.conf > chroot-fontconfig/fonts.conf
     sed -e 's@</fontconfig>@@' -i chroot-fontconfig/fonts.conf
     echo "<dir>${liberation_ttf}</dir>" >> chroot-fontconfig/fonts.conf
     echo "</fontconfig>" >> chroot-fontconfig/fonts.conf
-
     export FONTCONFIG_FILE=$(pwd)/chroot-fontconfig/fonts.conf
-
     mkdir -p "$out/src"
-    cd  "$out/src"
+  '';
 
+  buildPhase = ''
+    cd "$out/src"
     tar -xzf "$src"
     cd ${holsubdir}
 
     substituteInPlace tools/Holmake/Holmake_types.sml \
       --replace "\"/bin/" "\"" \
 
-
     for f in tools/buildutils.sml help/src-sml/DOT;
     do
       substituteInPlace $f --replace "\"/usr/bin/dot\"" "\"${graphviz}/bin/dot\""
     done
 
-    #sed -ie "/compute/,999 d" tools/build-sequence # for testing
-
     poly < tools/smart-configure.sml
 
     bin/build ${kernelFlag}
+  '';
 
+  installPhase = ''
     mkdir -p "$out/bin"
     ln -st $out/bin  $out/src/${holsubdir}/bin/*
-    # ln -s $out/src/hol4.${version}/bin $out/bin
   '';
 
   meta = with lib; {
@@ -76,6 +73,6 @@ stdenv.mkDerivation {
     homepage = "http://hol.sourceforge.net/";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ mudri ];
+    maintainers = with maintainers; [ mudri siraben ];
   };
 }
