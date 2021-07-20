@@ -1,4 +1,4 @@
-{ lib, stdenv, polyml, fetchurl, graphviz, fontconfig, liberation_ttf
+{ lib, stdenv, polyml, fetchFromGitHub, graphviz, fontconfig, liberation_ttf
 , experimentalKernel ? true }:
 
 let
@@ -14,11 +14,13 @@ in
 
 stdenv.mkDerivation {
   pname = "hol4";
-  inherit pname version;
+  inherit version;
 
-  src = fetchurl {
-    url = "mirror://sourceforge/hol/hol/${longVersion}/${holsubdir}.tar.gz";
-    sha256 = "6Mc/qsEjzxGqzt6yP6x/1Tmqpwc1UDGlwV1Gl+4pMsY=";
+  src = fetchFromGitHub {
+    owner = "HOL-Theorem-Prover";
+    repo = "HOL";
+    rev = longVersion;
+    sha256 = "sha256-us9fVjpDcs9As6tQgzw8X84+bLSRy2BgYpyEoKdDkDw=";
   };
 
   buildInputs = [ polymlEnableShared graphviz fontconfig liberation_ttf ];
@@ -35,8 +37,7 @@ stdenv.mkDerivation {
 
   buildPhase = ''
     cd "$out/src"
-    tar -xzf "$src"
-    cd ${holsubdir}
+    cp -r "$src/." .
 
     substituteInPlace tools/Holmake/Holmake_types.sml \
       --replace "\"/bin/" "\"" \
@@ -53,7 +54,7 @@ stdenv.mkDerivation {
 
   installPhase = ''
     mkdir -p "$out/bin"
-    ln -st $out/bin  $out/src/${holsubdir}/bin/*
+    ln -st $out/bin  $out/src/bin/*
   '';
 
   meta = with lib; {
