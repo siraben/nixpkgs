@@ -1,39 +1,45 @@
-{ lib, stdenv, polyml, fetchFromGitHub, graphviz, fontconfig, liberation_ttf
-, experimentalKernel ? true }:
-
-let
-  vnum = "14";
-  version = "k.${vnum}";
-  longVersion = "kananaskis-${vnum}";
-  holsubdir = "hol-${longVersion}";
-  kernelFlag = if experimentalKernel then "--expk" else "--stdknl";
-  polymlEnableShared = lib.overrideDerivation polyml (attrs: {
-    configureFlags = [ "--enable-shared" ];
-  });
-in
+{ lib
+, stdenv
+, fetchFromGitHub
+, polyml
+, graphviz
+, makeFontsConf
+, liberation_ttf
+, experimentalKernel ? true
+}:
 
 stdenv.mkDerivation {
   pname = "hol4";
-  inherit version;
+  version = "k.14";
 
   src = fetchFromGitHub {
     owner = "HOL-Theorem-Prover";
     repo = "HOL";
-    rev = longVersion;
-    sha256 = "sha256-us9fVjpDcs9As6tQgzw8X84+bLSRy2BgYpyEoKdDkDw=";
+    rev = "kananaskis-14";
+    sha256 = "sha256:0g4h8fks114wc9h61jwinin3xkjz7hy86l5bnd0cywj379b5zkxs";
   };
 
-  buildInputs = [ polymlEnableShared graphviz fontconfig liberation_ttf ];
+  nativeBuildInputs = [ polyml graphviz ];
+
+  buildInputs = [ polyml ];
+
+  FONTCONFIG_FILE = makeFontsConf {
+    fontDirectories = [ liberation_ttf ];
+  };
 
   patchPhase = ''
-    mkdir chroot-fontconfig
-    cat ${fontconfig.out}/etc/fonts/fonts.conf > chroot-fontconfig/fonts.conf
-    sed -e 's@</fontconfig>@@' -i chroot-fontconfig/fonts.conf
-    echo "<dir>${liberation_ttf}</dir>" >> chroot-fontconfig/fonts.conf
-    echo "</fontconfig>" >> chroot-fontconfig/fonts.conf
-    export FONTCONFIG_FILE=$(pwd)/chroot-fontconfig/fonts.conf
+    echo $sourceRoot
     substituteInPlace tools/Holmake/Holmake_types.sml \
       --replace "\"/bin/" "\"" \
+  '';
+
+  # build happens in $out
+  unpackPhase = ''
+    runHook preUnpack
+    cp -r $src $out
+    sourceRoot=$out
+    chmod -R u+w -- "$sourceRoot"
+    runHook postUnpack
   '';
 
   configurePhase = ''
@@ -41,14 +47,12 @@ stdenv.mkDerivation {
   '';
 
   buildPhase = ''
-    bin/build ${kernelFlag}
+    bin/build ${if experimentalKernel then "--expk" else "--stdknl"}
   '';
 
+  # TODO delete everything except bin/hol bin/hol.*
+  # maybe move examples to share/hol/examples?
   installPhase = ''
-    find ./bin -type f -exec install -D -m 0755 {} -t $out/bin \;
-    find ./doc -type f -exec install -D -m 0644 {} -t $out/doc \;
-    find ./help -type f -exec install -D -m 0644 {} -t $out/doc \;
-    find ./examples -type f -exec install -D {} -t $out/examples \;
   '';
 
   meta = with lib; {
@@ -65,9 +69,9 @@ stdenv.mkDerivation {
       implementing combinations of deduction, execution and property
       checking.
     '';
-    homepage = "http://hol.sourceforge.net/";
+    homepage = "https://hol-theorem-prover.org/";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ mudri siraben ];
+    maintainers = with maintainers; [ mudri ];
   };
 }
