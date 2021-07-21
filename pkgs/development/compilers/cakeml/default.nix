@@ -7,6 +7,7 @@ let
     rev = "f55fd784a053e1236fc0d9efd5bcd7a113448971";
     sha256 = "sha256-AZoiYrnBkicw2Ut2EExTLlB+iQV0WIg1nVaHL3KLRYw=";
   };
+  hol' = hol.overrideDerivation (self: { src = holSrc; });
 in
 
 stdenv.mkDerivation rec {
@@ -20,11 +21,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-E2E8fwIYD53H1MFzrHSH8gpAP8NCzTOM/d9HlPJdGAU=";
   };
 
-  nativeBuildInputs = [ polyml hol ];
+  nativeBuildInputs = [ polyml hol' ];
 
   buildPhase = ''
-    cp -a ${holSrc} .
-    HOLDIR=$(pwd)
     Holmake
   '';
 
