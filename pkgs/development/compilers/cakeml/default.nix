@@ -4,8 +4,8 @@ let
   holSrc = fetchFromGitHub {
     owner = "HOL-Theorem-Prover";
     repo = "HOL";
-    rev = "f55fd784a053e1236fc0d9efd5bcd7a113448971";
-    sha256 = "sha256-AZoiYrnBkicw2Ut2EExTLlB+iQV0WIg1nVaHL3KLRYw=";
+    rev = "fe4634b86ea93f927bb796c73b7f77e15362962e";
+    sha256 = "sha256-YEhSEHzNh376YdiJDhIbiMH51fGSiG6RwhtFiu+sIQ0=";
   };
   hol' = hol.overrideDerivation (self: { src = holSrc; });
 in
