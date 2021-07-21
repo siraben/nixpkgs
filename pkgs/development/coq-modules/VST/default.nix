@@ -1,16 +1,22 @@
 { lib, mkCoqDerivation, coq, compcert, version ? null }:
 
-with lib; mkCoqDerivation {
+with lib; mkCoqDerivation rec {
   pname = "coq${coq.coq-version}-VST";
   namePrefix = [];
   displayVersion = { coq = false; };
   owner = "PrincetonUniversity";
   repo = "VST";
+  fetcher = fetchFromGitHub {
+    inherit owner repo;
+    rev = releaseRev;
+    sha256 = release."${version}".sha256;
+    fetchSubmodules = true;
+  };
   inherit version;
   defaultVersion = with versions; switch coq.coq-version [
     { case = range "8.12" "8.13"; out = "2.8"; }
   ] null;
-  release."2.8".sha256 = "sha256-cyK88uzorRfjapNQ6XgQEmlbWnDsiyLve5po1VG52q0=";
+  release."2.8".sha256 = "sha256-cyK88uzorRfjapNQ6XgQE0lbWnDsiyLve5po1VG52q0=";
   releaseRev = v: "v${v}";
   propagatedBuildInputs = [ compcert ];
 
