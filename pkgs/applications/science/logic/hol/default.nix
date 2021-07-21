@@ -52,8 +52,7 @@ stdenv.mkDerivation {
 
   # TODO delete everything except bin/hol bin/hol.*
   # maybe move examples to share/hol/examples?
-  installPhase = ''
-  '';
+  dontInstall = true;
 
   meta = with lib; {
     description = "Interactive theorem prover based on Higher-Order Logic";
