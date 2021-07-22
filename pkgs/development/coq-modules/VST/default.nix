@@ -1,4 +1,4 @@
-{ lib, mkCoqDerivation, fetchFromGitHub, coq, compcert, version ? null }:
+{ lib, mkCoqDerivation, fetchFromGitHub, coq, compcert, ITree, version ? null }:
 
 with lib; mkCoqDerivation rec {
   pname = "coq${coq.coq-version}-VST";
@@ -18,7 +18,7 @@ with lib; mkCoqDerivation rec {
   ] null;
   release."2.8".sha256 = "sha256-6feVwb+/eLPr+ZmkRrw7OrBgV6lO3ZQBCXCnW0gUJrI=";
   releaseRev = v: "v${v}";
-  propagatedBuildInputs = [ compcert ];
+  propagatedBuildInputs = [ compcert ITree ];
 
   preConfigure = "patchShebangs util";
 
