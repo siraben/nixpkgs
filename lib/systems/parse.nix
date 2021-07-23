@@ -118,6 +118,8 @@ rec {
 
     or1k     = { bits = 32; significantByte = bigEndian; family = "or1k"; };
 
+    vax     = { bits = 32; significantByte = littleEndian; family = "vax"; };
+
     js       = { bits = 32; significantByte = littleEndian; family = "js"; };
   };
 
