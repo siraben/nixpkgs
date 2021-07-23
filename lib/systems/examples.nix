@@ -179,6 +179,11 @@ rec {
     libc = "newlib";
   };
 
+  rs6000-embedded = {
+    config = "rs6000-none-eabi";
+    libc = "newlib";
+  };
+
   i686-embedded = {
     config = "i686-elf";
     libc = "newlib";
