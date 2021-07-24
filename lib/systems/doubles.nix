@@ -28,6 +28,7 @@ let
     "aarch64-linux" "armv5tel-linux" "armv6l-linux" "armv7a-linux"
     "armv7l-linux" "i686-linux" "mipsel-linux" "powerpc64-linux"
     "powerpc64le-linux" "riscv32-linux" "riscv64-linux" "x86_64-linux"
+    "xtensa-linux"
 
     # MMIXware
     "mmix-mmixware"
@@ -40,7 +41,7 @@ let
     # none
     "aarch64-none" "arm-none" "armv6l-none" "avr-none" "i686-none" "msp430-none"
     "or1k-none" "powerpc-none" "riscv32-none" "riscv64-none" "vc4-none"
-    "x86_64-none"
+    "x86_64-none" "xtensa-none"
 
     # OpenBSD
     "i686-openbsd" "x86_64-openbsd"
@@ -74,6 +75,7 @@ in {
   riscv         = filterDoubles predicates.isRiscV;
   vc4           = filterDoubles predicates.isVc4;
   or1k          = filterDoubles predicates.isOr1k;
+  xtensa        = filterDoubles predicates.isXtensa;
   js            = filterDoubles predicates.isJavaScript;
 
   bigEndian     = filterDoubles predicates.isBigEndian;
