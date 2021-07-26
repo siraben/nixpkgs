@@ -18,6 +18,10 @@ let lib = import ../../../../build-support/coq/extra-lib.nix {lib = lib';}; in
 with builtins; with lib;
 let
   release = {
+   "8.1".sha256        = "19dsxqd6n4prfclj0awxpc2dy6yym2px3c8pzpaasga12y5idhzr";
+   "8.2".sha256        = "13cxh5ifvj7lrw7xjw8g51xv9wn6hzsi5rkqhqy8c407h47ch99y";
+   "8.3".sha256        = "077n6yjwyjbnkpn1wjskm3y9gzplplsac9p20kvg9aj4zn3zz2wb";
+   "8.4".sha256        = "19qa4bzjdcgcz3zbv7fjprqrcrj1y2y3bk3ljv44vjdxh6z1gahf";
    "8.5pl1".sha256     = "1976ki5xjg2r907xj9p7gs0kpdinywbwcqlgxqw75dgp0hkgi00n";
    "8.5pl2".sha256     = "109rrcrx7mz0fj7725kjjghfg5ydwb24hjsa5hspa27b4caah7rh";
    "8.5pl3".sha256     = "15c3rdk59nifzihsp97z4vjxis5xmsnrvpb86qiazj143z2fmdgw";
@@ -63,7 +67,7 @@ let
     else with versions; switch coq-version [
       { case = range "8.11" "8.13"; out = ocamlPackages_4_10; }
       { case = range "8.7" "8.10";  out = ocamlPackages_4_09; }
-      { case = range "8.5" "8.6";   out = ocamlPackages_4_05; }
+      { case = range "8.3" "8.6";   out = ocamlPackages_4_05; }
     ] ocamlPackages_4_10;
   ocamlBuildInputs = [ ocamlPackages.ocaml ocamlPackages.findlib ]
     ++ optional (!versionAtLeast "8.10") ocamlPackages.camlp5

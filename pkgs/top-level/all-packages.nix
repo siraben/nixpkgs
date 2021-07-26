@@ -30334,6 +30334,10 @@ in
   inherit (callPackage ./coq-packages.nix {
     inherit (ocaml-ng) ocamlPackages_4_05 ocamlPackages_4_09 ocamlPackages_4_10;
   }) mkCoqPackages
+    coqPackages_8_1  coq_8_1
+    coqPackages_8_2  coq_8_2
+    coqPackages_8_3  coq_8_3
+    coqPackages_8_4  coq_8_4
     coqPackages_8_5  coq_8_5
     coqPackages_8_6  coq_8_6
     coqPackages_8_7  coq_8_7

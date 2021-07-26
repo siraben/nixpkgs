@@ -116,6 +116,10 @@ in rec {
     let self = lib.makeScope newScope (lib.flip mkCoqPackages' coq); in
     self.filterPackages (! coq.dontFilter or false);
 
+  coq_8_1  = mkCoq "8.1";
+  coq_8_2  = mkCoq "8.2";
+  coq_8_3  = mkCoq "8.3";
+  coq_8_4  = mkCoq "8.4";
   coq_8_5  = mkCoq "8.5";
   coq_8_6  = mkCoq "8.6";
   coq_8_7  = mkCoq "8.7";
@@ -126,6 +130,10 @@ in rec {
   coq_8_12 = mkCoq "8.12";
   coq_8_13 = mkCoq "8.13";
 
+  coqPackages_8_1 = mkCoqPackages coq_8_1;
+  coqPackages_8_2 = mkCoqPackages coq_8_2;
+  coqPackages_8_3 = mkCoqPackages coq_8_3;
+  coqPackages_8_4 = mkCoqPackages coq_8_4;
   coqPackages_8_5 = mkCoqPackages coq_8_5;
   coqPackages_8_6 = mkCoqPackages coq_8_6;
   coqPackages_8_7 = mkCoqPackages coq_8_7;
