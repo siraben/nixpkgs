@@ -94,6 +94,7 @@ let
       smtcoq = callPackage ../development/coq-modules/smtcoq { };
       stdpp = callPackage ../development/coq-modules/stdpp { };
       StructTact = callPackage ../development/coq-modules/StructTact {};
+      SQIR = callPackage ../development/coq-modules/SQIR { };
       tlc = callPackage ../development/coq-modules/tlc {};
       topology = callPackage ../development/coq-modules/topology {};
       trakt = callPackage ../development/coq-modules/trakt {};
