@@ -19309,6 +19309,8 @@ with pkgs;
 
   popt = callPackage ../development/libraries/popt { };
 
+  PortableGL = callPackage ../development/libraries/PortableGL { };
+
   portaudio = callPackage ../development/libraries/portaudio {
     inherit (darwin.apple_sdk.frameworks) AudioToolbox AudioUnit CoreAudio CoreServices Carbon;
   };
