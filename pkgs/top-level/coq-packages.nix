@@ -85,6 +85,7 @@ let
       parsec = callPackage ../development/coq-modules/parsec {};
       pocklington = callPackage ../development/coq-modules/pocklington {};
       QuickChick = callPackage ../development/coq-modules/QuickChick {};
+      QWIRE = callPackage ../development/coq-modules/QWIRE {};
       reglang = callPackage ../development/coq-modules/reglang {};
       relation-algebra = callPackage ../development/coq-modules/relation-algebra {};
       semantics = callPackage ../development/coq-modules/semantics {};
