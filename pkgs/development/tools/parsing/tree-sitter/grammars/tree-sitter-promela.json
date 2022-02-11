@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/siraben/tree-sitter-promela",
+  "rev": "1c8ca7227e21eb51110a303ac6946ff49e3b5e81",
+  "date": "2021-11-19T19:52:32+01:00",
+  "path": "/nix/store/rbr2p57ic1kn0121ca6k0bh2r8svw066-tree-sitter-promela",
+  "sha256": "sha256-4iwOTS7qafi4dzs6y3O1F6dVYfkuKOpCvGsG5Y6ZWgs=",
+  "fetchLFS": false,
+  "fetchSubmodules": false,
+  "deepClone": false,
+  "leaveDotGit": false
+}
