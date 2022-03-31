@@ -48,7 +48,8 @@ rec {
   }).overrideDerivation
     (old: {
       propagatedBuildInputs = [ zlib ];
-      buildInputs = old.buildInputs ++ [ pkg-config ];
+      nativeBuildInputs = old.nativeBuildInputs ++ [ pkg-config ];
+      buildInputs = old.buildInputs;
 
       # just override it with nothing so it does not fail
       autoreconfPhase = "echo autoreconfPhase not used...";
@@ -83,7 +84,7 @@ rec {
     pname = "xmlmirror";
     version = "unstable-2016-06-05";
 
-    buildInputs = [ pkg-config libtool gnumake libxml2 nodejs openjdk json_c ];
+    buildInputs = [ libtool gnumake libxml2 nodejs openjdk json_c ];
     nativeBuildInputs = [ pkg-config zlib autoconf automake ];
 
     src = pkgs.fetchgit {
@@ -134,7 +135,7 @@ rec {
     stdenv = pkgs.emscriptenStdenv;
   }).overrideDerivation
     (old: {
-      buildInputs = old.buildInputs ++ [ pkg-config ];
+      nativeBuildInputs = old.nativeBuildInputs ++ [ pkg-config ];
       # we need to reset this setting!
       NIX_CFLAGS_COMPILE="";
       configurePhase = ''

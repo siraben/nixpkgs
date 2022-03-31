@@ -404,7 +404,7 @@ in (mkDrv rec {
       libXaw libXext libXi libXinerama libxml2 libxslt libXtst
       libXdmcp libpthreadstubs libGLU libGL mythes
       glib libmysqlclient
-      neon nspr nss openldap openssl pam perl pkg-config poppler
+      neon nspr nss openldap openssl pam perl poppler
       python3 sane-backends unzip which zip zlib
       mdds bluez5 libwps libabw libzmf
       libxshmfence libatomic_ops graphite2 harfbuzz gpgme util-linux

@@ -21,8 +21,9 @@ stdenv.mkDerivation rec {
     sha256 = "1765bvc65fpzn9ycnnj5hais9xkx9v0sm6a878d35x54bpanr859";
   };
 
+  nativeBuildInputs = [ pkg-config ];
   buildInputs = with lib;
-  [ pkg-config intltool libX11 libXv libSM gtk libglade wxGTK perlPackages.XMLParser xvidcore mjpegtools alsa-lib libv4l cimg ];
+  [ intltool libX11 libXv libSM gtk libglade wxGTK perlPackages.XMLParser xvidcore mjpegtools alsa-lib libv4l cimg ];
 
   NIX_CFLAGS_COMPILE="-I ${cimg}/include/cimg";
 

@@ -303,7 +303,8 @@ with prev;
 
   luv = prev.lib.overrideLuarocks prev.luv (drv: {
 
-    buildInputs = [ pkgs.pkg-config pkgs.libuv ];
+    nativeBuildInputs = [ pkgs.pkg-config ];
+    buildInputs = [ pkgs.libuv ];
 
     doInstallCheck = true;
 

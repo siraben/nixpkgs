@@ -146,7 +146,6 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     meson
-
     cmake
     docutils
     makeWrapper
@@ -171,7 +170,6 @@ stdenv.mkDerivation rec {
     libxslt
     perl
     perlPackages.XMLXPath
-    pkg-config
     python3
     readline
     xhtml1
