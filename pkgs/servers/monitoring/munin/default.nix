@@ -13,8 +13,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-p273O5JLFX1dA2caV3lVVL9YNTcGMSrC7DWieUfUmqI=";
   };
 
+  nativeBuildInputs = [ makeWrapper ];
   buildInputs = [
-    makeWrapper
     which
     coreutils
     rrdtool

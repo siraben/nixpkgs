@@ -44,8 +44,9 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "-ocamlfind ${ocamlPackages.findlib}/bin/ocamlfind" ];
 
+  nativeBuildInputs = [ makeWrapper ];
   buildInputs = [ which perl jdk openssl coreutils zlib ncurses
-    makeWrapper gcc binutils gnumake nodejs
+    gcc binutils gnumake nodejs
   ] ++ (with ocamlPackages; [
     ocaml findlib ssl cryptokit camlzip ulex ocamlgraph camlp4
   ]);
