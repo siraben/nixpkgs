@@ -1,6 +1,14 @@
-{ lib, stdenv, mkCoqDerivation, coq, trakt, cvc4, veriT, version ? null }:
+{ lib, stdenv, fetchurl, mkCoqDerivation, coq, trakt, cvc4, zchaff, veriT, version ? null }:
 with lib;
 
+let
+  veriT' = veriT.overrideAttrs (oA: {
+    src = fetchurl {
+      url = "https://www.lri.fr/~keller/Documents-recherche/Smtcoq/veriT9f48a98.tar.gz";
+      sha256 = "05lyv29vkmv9cya9npd2s2i3947pcn08ni0yqcb6q78m2hzkmvix";
+    };
+  });
+in
 mkCoqDerivation {
   pname = "smtcoq";
   owner = "smtcoq";
@@ -13,7 +21,7 @@ mkCoqDerivation {
     { case = isEq "8.13"; out = "itp22"; }
   ] null;
 
-  propagatedBuildInputs = [ trakt cvc4 ] ++ lib.optionals (!stdenv.isDarwin) [ veriT ];
+  propagatedBuildInputs = [ trakt cvc4 zchaff ] ++ lib.optionals (!stdenv.isDarwin) [ veriT' ];
   extraNativeBuildInputs = with coq.ocamlPackages; [ ocaml ocamlbuild ];
   extraBuildInputs = with coq.ocamlPackages; [ findlib num zarith ];
 
