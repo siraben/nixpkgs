@@ -22,14 +22,14 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [ autoreconfHook pkg-config ];
-  buildInputs = [ gettext libev pcre udns ];
+  buildInputs = [ gettext libev pcre ] ++ lib.optionals (!stdenv.isDarwin) [ udns ];
 
   meta = with lib; {
     inherit (src.meta) homepage;
     description = "Transparent TLS and HTTP layer 4 proxy with SNI support";
     license = licenses.bsd2;
     maintainers = [ maintainers.womfoo ];
-    platforms = platforms.linux;
+    platforms = platforms.unix;
   };
 
 }
