@@ -28,6 +28,12 @@ let
     rev = "v${version}";
     sha256 = "sha256-BXTsBMlsymQHABWQCiv22Ia5jm2xv1jNy7Unwymtyp0=";
   };
+  # TODO: craftos2-lua supports bsd, freebsd, mingw, posix as well
+  platformString =
+    if stdenv.isLinux then "linux" else
+    if stdenv.isDarwin && stdenv.isAarch64 then "macosx-arm" else
+    if stdenv.isDarwin then "macosx"
+    else throw "Unsupported platform";
 in
 
 stdenv.mkDerivation rec {
@@ -43,10 +49,12 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ patchelf poco openssl SDL2 SDL2_mixer ncurses libpng pngpp libwebp ];
 
+  makeFlags = [ "PLATS=${platformString}" ];
+
   preBuild = ''
     cp -R ${craftos2-lua}/* ./craftos2-lua/
     chmod -R u+w ./craftos2-lua
-    make -C craftos2-lua linux
+    make -C craftos2-lua ${platformString}
   '';
 
   dontStrip = true;
@@ -69,7 +77,7 @@ stdenv.mkDerivation rec {
     description = "An implementation of the CraftOS-PC API written in C++ using SDL";
     homepage = "https://www.craftos-pc.cc";
     license = with licenses; [ mit free ];
-    platforms = platforms.linux;
+    platforms = platforms.linux ++ platforms.darwin;
     maintainers = with maintainers; [ siraben tomodachi94 ];
     mainProgram = "craftos";
   };
