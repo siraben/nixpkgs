@@ -30,7 +30,8 @@ stdenv.mkDerivation rec {
   doCheck = stdenv.hostPlatform.system != "aarch64-linux";
 
   #_FORTIFY_SOURCE requires compiling with optimization (-O)
-  env.NIX_CFLAGS_COMPILE = "-O";
+  # added -std=c99 to fix compilation error on darwin
+  env.NIX_CFLAGS_COMPILE = "-O -std=c99";
 
   short_rev = builtins.substring 0 7 src.rev;
   makeFlags = [
