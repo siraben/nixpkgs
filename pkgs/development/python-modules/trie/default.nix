@@ -17,7 +17,7 @@
 
 buildPythonPackage rec {
   pname = "trie";
-  version = "3.0.1";
+  version = "3.1.0";
   pyproject = true;
 
   src = fetchFromGitHub {
@@ -48,6 +48,7 @@ buildPythonPackage rec {
     "test_fixtures_exist"
     "test_bin_trie_update_value"
     "test_branch_updates"
+    "test_install_local_wheel"
   ];
   disabledTestPaths = [ "tests/core/test_iter.py" ];
 
