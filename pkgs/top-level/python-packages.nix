@@ -18389,6 +18389,8 @@ self: super: with self; {
 
   tiny-proxy = callPackage ../development/python-modules/tiny-proxy { };
 
+  tinybird-cli = callPackage ../development/python-modules/tinybird-cli { };
+
   tinycss = callPackage ../development/python-modules/tinycss { };
 
   tinycss2 = callPackage ../development/python-modules/tinycss2 { };
