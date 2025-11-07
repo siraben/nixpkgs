@@ -35,6 +35,11 @@ stdenv.mkDerivation {
     find . -type f | grep -v -e '\.tgz''$' | xargs sed -i "s@/usr/bin/env bash@$(type -p bash)@"
     sed -i "s|/tmp|$TMPDIR|" bin/regression
 
+    ${lib.optionalString (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) ''
+      # Bootstrap mlton for aarch64-darwin was built on macOS 12, so we need to match
+      export MACOSX_DEPLOYMENT_TARGET=12.0
+    ''}
+
     makeFlagsArray=(
       MLTON_VERSION="${version} ${rev}"
       CC="$(type -p cc)"
