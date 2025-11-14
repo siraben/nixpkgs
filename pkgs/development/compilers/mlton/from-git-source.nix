@@ -49,7 +49,9 @@ stdenv.mkDerivation {
       )
   '';
 
-  doCheck = true;
+  #  Tests fail on aarch64-darwin due to PIE/ASLR issues
+  # See: https://github.com/MLton/mlton/issues/469
+  doCheck = !stdenv.hostPlatform.isDarwin || !stdenv.hostPlatform.isAarch64;
 
   meta = import ./meta.nix { inherit lib; };
 }
