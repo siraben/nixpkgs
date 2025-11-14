@@ -90,7 +90,7 @@ stdenv.mkDerivation rec {
   + lib.optionalString withGo ''
     # disable cross compilation for artifacts which are run as part of the build
     substituteInPlace go/Makefile \
-      --replace-fail '$(GO) run' 'GOOS= GOARCH= $(GO) run'
+      --replace-fail '$(GO) run' 'CC="$(BUILD_CC)" GOOS= GOARCH= $(GO) run'
   '';
 
   installFlags = [ "RAISE_SETFCAP=no" ];
