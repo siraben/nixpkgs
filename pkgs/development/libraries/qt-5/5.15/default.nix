@@ -344,16 +344,9 @@ let
       env = callPackage ../qt-env.nix { };
 
       qmake = callPackage (
-        { qtbase }:
+        { }:
         makeSetupHook {
           name = "qmake-hook";
-          ${
-            if stdenv.buildPlatform == stdenv.hostPlatform then
-              "propagatedBuildInputs"
-            else
-              "depsTargetTargetPropagated"
-          } =
-            [ qtbase.dev ];
           substitutions = {
             inherit debug;
             fix_qmake_libtool = ../hooks/fix-qmake-libtool.sh;
