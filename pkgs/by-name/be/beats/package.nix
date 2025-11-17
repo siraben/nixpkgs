@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   makeFlags = [
     "PREFIX=$(out)"
-    "CC=cc"
+    "CC=${stdenv.cc.targetPrefix}cc"
   ];
 
   meta = with lib; {
