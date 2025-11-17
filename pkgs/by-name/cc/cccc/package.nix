@@ -2,6 +2,7 @@
   lib,
   stdenv,
   fetchurl,
+  buildPackages,
 }:
 
 stdenv.mkDerivation rec {
@@ -17,14 +18,38 @@ stdenv.mkDerivation rec {
 
   patches = [ ./cccc.patch ];
 
+  depsBuildBuild = [ buildPackages.stdenv.cc ];
+
   preConfigure = ''
     substituteInPlace install/install.mak --replace /usr/local/bin $out/bin
     substituteInPlace install/install.mak --replace MKDIR=mkdir "MKDIR=mkdir -p"
+
+    # Remove test and install from default target to avoid running cross-compiled binary
+    substituteInPlace makefile --replace-fail 'all : pccts cccc test install' 'all : pccts cccc'
   '';
+
+  # Build pccts (antlr/dlg) with native compiler since they run during build
+  # Build cccc itself with cross compiler
+  preBuild = ''
+    # Build pccts with native compiler
+    make -C pccts CC=${buildPackages.stdenv.cc}/bin/cc
+  '';
+
   buildFlags = [
-    "CCC=c++"
-    "LD=c++"
+    "CCC=${stdenv.cc.targetPrefix}c++"
+    "LD=${stdenv.cc.targetPrefix}c++"
   ];
+
+  buildTargets = [ "cccc" ];
+
+  # Tests try to run the compiled binary, which fails during cross-compilation
+  doCheck = false;
+
+  installPhase = ''
+    runHook preInstall
+    install -Dm755 cccc/cccc -t $out/bin
+    runHook postInstall
+  '';
 
   meta = {
     description = "C and C++ Code Counter";
