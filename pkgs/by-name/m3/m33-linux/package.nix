@@ -31,6 +31,12 @@ stdenv.mkDerivation {
     udevCheckHook
   ];
 
+  postPatch = ''
+    substituteInPlace Makefile --replace-fail "g++" "\$(CXX)"
+  '';
+
+  makeFlags = [ "CXX=${stdenv.cc.targetPrefix}c++" ];
+
   doInstallCheck = true;
 
   installPhase = ''
