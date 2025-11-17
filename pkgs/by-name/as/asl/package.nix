@@ -3,6 +3,7 @@
   stdenv,
   fetchzip,
   texliveMedium,
+  buildPackages,
   buildDocs ? false,
 }:
 
@@ -26,6 +27,8 @@ stdenv.mkDerivation (finalAttrs: {
     "man"
   ];
 
+  depsBuildBuild = [ buildPackages.stdenv.cc ];
+
   nativeBuildInputs = lib.optionals buildDocs [ texliveMedium ];
 
   postPatch =
@@ -44,8 +47,10 @@ stdenv.mkDerivation (finalAttrs: {
     incdir="${placeholder "out"}/include/asl" \
     libdir="${placeholder "out"}/lib/asl" \
     mandir="${placeholder "man"}/share/man" \
+    hostCC="${buildPackages.stdenv.cc}/bin/cc" \
+    targetCC="${stdenv.cc.targetPrefix}cc" \
     substituteAll ${./Makefile-nixos.def} Makefile.def
-    mkdir -p .objdir
+    mkdir -p .objdir .targ_objdir
   '';
 
   meta = with lib; {
@@ -62,7 +67,6 @@ stdenv.mkDerivation (finalAttrs: {
     platforms = platforms.unix;
   };
 })
-# TODO: cross-compilation support
 # TODO: customize TeX input
 # TODO: report upstream about `mkdir -p .objdir/`
 # TODO: suggest upstream about building docs as an option

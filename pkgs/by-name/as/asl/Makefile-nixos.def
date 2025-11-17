@@ -3,20 +3,20 @@
 # any additionally needed flags
 
 OBJDIR = .objdir/
-CC = cc
+CC = @hostCC@
 CFLAGS = -g -fomit-frame-pointer -Wall
 HOST_OBJEXTENSION = .o
 LD = $(CC)
 LDFLAGS =
 HOST_EXEXTENSION =
 
-# no cross build
+# cross build support
 
-TARG_OBJDIR = $(OBJDIR)
-TARG_CC = $(CC)
+TARG_OBJDIR = .targ_objdir/
+TARG_CC = @targetCC@
 TARG_CFLAGS = $(CFLAGS)
 TARG_OBJEXTENSION = $(HOST_OBJEXTENSION)
-TARG_LD = $(LD)
+TARG_LD = $(TARG_CC)
 TARG_LDFLAGS = $(LDFLAGS)
 TARG_EXEXTENSION = $(HOST_EXEXTENSION)
 
