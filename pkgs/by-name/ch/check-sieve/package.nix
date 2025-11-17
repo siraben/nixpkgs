@@ -32,6 +32,12 @@ stdenv.mkDerivation rec {
   # Remove after the next (>0.10) release
   env.NIX_CFLAGS_COMPILE = "-Wno-error=unused-result";
 
+  postPatch = ''
+    substituteInPlace Makefile --replace-fail "ar rc" "\$(AR) rc"
+  '';
+
+  makeFlags = [ "AR=${stdenv.cc.targetPrefix}ar" ];
+
   installPhase = ''
     runHook preInstall
     install -Dm755 check-sieve -t $out/bin
