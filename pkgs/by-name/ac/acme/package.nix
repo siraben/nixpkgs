@@ -18,12 +18,16 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     substituteInPlace Makefile \
-      --replace "= gcc" "?= gcc"
+      --replace "= gcc" "?= gcc" \
+      --replace "strip " "\$(STRIP) "
   '';
 
   enableParallelBuilding = true;
 
-  makeFlags = [ "BINDIR=$(out)/bin" ];
+  makeFlags = [
+    "BINDIR=$(out)/bin"
+    "STRIP=${stdenv.cc.targetPrefix}strip"
+  ];
 
   meta = {
     description = "Multi-platform cross assembler for 6502/6510/65816 CPUs";
