@@ -2,6 +2,7 @@
   lib,
   gccStdenv,
   fetchFromGitHub,
+  buildPackages,
 }:
 
 gccStdenv.mkDerivation rec {
@@ -15,7 +16,22 @@ gccStdenv.mkDerivation rec {
     sha256 = "01a15yvs455qp20hri2pbg2wqvcip0d50kb7dibi9427hqk9cnj4";
   };
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  depsBuildBuild = [ buildPackages.stdenv.cc ];
+
+  # cc65 builds tools (cc65, ca65, ld65) that run on the host, then uses them to build
+  # 6502 libraries. For cross-compilation, we need to:
+  # 1. Build the tools with the cross compiler (so they run on target platform)
+  # 2. Skip libsrc build since we can't run cross-compiled tools during build
+  postPatch = lib.optionalString (gccStdenv.hostPlatform != gccStdenv.buildPlatform) ''
+    # Don't build libraries that require running the just-built tools
+    # Remove libsrc from all targets (all, clean, install, etc.)
+    sed -i '/@.*-C libsrc/d' Makefile
+  '';
+
+  makeFlags = [
+    "PREFIX=${placeholder "out"}"
+    "CROSS_COMPILE=${gccStdenv.cc.targetPrefix}"
+  ];
 
   enableParallelBuilding = true;
 
