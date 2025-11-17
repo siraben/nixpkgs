@@ -18,6 +18,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ texinfo ];
 
+  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+
   installPhase = ''
     runHook preInstall
 
