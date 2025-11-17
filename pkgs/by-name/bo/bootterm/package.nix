@@ -16,7 +16,10 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-AYpO2Xcd51B2qVUWoyI190BV0pIdA3HfuQJPzJ4yT/U=";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = [
+    "PREFIX=$(out)"
+    "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
+  ];
 
   passthru.tests = {
     version = testers.testVersion {
