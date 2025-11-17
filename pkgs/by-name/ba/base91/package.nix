@@ -16,7 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   makeFlags = [
-    "CC=cc"
+    "CC=${stdenv.cc.targetPrefix}cc"
     "-C"
     "src"
     "all"
