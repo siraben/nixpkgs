@@ -16,7 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-wFhBRLRwyC7FrGzadbssqLI9/UwfxBmFfOetaFJgsCo=";
   };
 
-  makeFlags = lib.optionals stdenv.cc.isClang [
+  makeFlags = [
     "CC=${stdenv.cc.targetPrefix}cc"
     "LD=${stdenv.cc.targetPrefix}cc"
   ];
