@@ -13,6 +13,8 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-KH6FFSaP+NFiRIeODi4tczwD2S3SsrhJFdde9N5sJh8=";
   };
 
+  configureFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+
   meta = with lib; {
     homepage = "https://www.nongnu.org/lzip/clzip.html";
     description = "C language version of lzip";
