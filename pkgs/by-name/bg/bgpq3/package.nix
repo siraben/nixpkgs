@@ -15,6 +15,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-rqZI7yqlVHfdRTOsA5V6kzJ2TGCy8mp6yP+rzsQX9Yc=";
   };
 
+  postPatch = ''
+    # Remove -s from install to avoid calling strip directly (breaks cross-compilation)
+    # Nix's fixup phase will handle stripping
+    substituteInPlace Makefile.in --replace-fail 'INSTALL} -c -s' 'INSTALL} -c'
+  '';
+
   meta = with lib; {
     description = "bgp filtering automation tool";
     homepage = "https://github.com/snar/bgpq3";
