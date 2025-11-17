@@ -16,11 +16,19 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  postPatch = lib.optionalString stdenv.hostPlatform.isDarwin ''
-    substituteInPlace Makefile --replace "-flto" ""
-  '';
+  postPatch =
+    lib.optionalString stdenv.hostPlatform.isDarwin ''
+      substituteInPlace Makefile --replace "-flto" ""
+    ''
+    + ''
+      # Fix hardcoded strip command for cross-compilation
+      substituteInPlace Makefile --replace-fail 'strip --strip-all' '$(STRIP_BIN) --strip-all'
+    '';
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = [
+    "CC=${stdenv.cc.targetPrefix}cc"
+    "STRIP_BIN=${stdenv.cc.targetPrefix}strip"
+  ];
 
   checkPhase = ''
     pushd test
