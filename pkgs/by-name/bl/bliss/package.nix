@@ -25,9 +25,21 @@ stdenv.mkDerivation rec {
     doxygen
   ];
 
+  postPatch = ''
+    substituteInPlace Makefile \
+      --replace-fail "g++" "\$(CXX)"
+    sed -i -e 's/\tar /\t$(AR) /' -e 's/\tranlib /\t$(RANLIB) /' Makefile
+  '';
+
   preBuild = ''
     doxygen Doxyfile
   '';
+
+  makeFlags = [
+    "CXX=${stdenv.cc.targetPrefix}c++"
+    "AR=${stdenv.cc.targetPrefix}ar"
+    "RANLIB=${stdenv.cc.targetPrefix}ranlib"
+  ];
 
   installPhase = ''
     mkdir -p $out/bin $out/share/doc/bliss $out/lib $out/include/bliss
