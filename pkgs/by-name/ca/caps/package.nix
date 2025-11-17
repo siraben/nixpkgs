@@ -11,6 +11,12 @@ stdenv.mkDerivation rec {
     sha256 = "1jcq9y51vdnk93q27r566y9qmddvadhr4ddnvkiypaq5rrdnqjg7";
   };
 
+  postPatch = ''
+    substituteInPlace Makefile \
+      --replace-fail "CC = g++" "CC ?= g++" \
+      --replace-fail "STRIP = strip" "STRIP ?= strip"
+  '';
+
   configurePhase = ''
     runHook preConfigure
 
@@ -18,6 +24,11 @@ stdenv.mkDerivation rec {
 
     runHook postConfigure
   '';
+
+  makeFlags = [
+    "CC=${stdenv.cc.targetPrefix}c++"
+    "STRIP=${stdenv.cc.targetPrefix}strip"
+  ];
 
   meta = {
     description = "Selection of LADSPA plugins implementing classic effects";
