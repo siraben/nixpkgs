@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     mkdir bmrsa
     cd bmrsa
     unzip ${src}
-    sed -e 's/gcc/g++/' -i Makefile
+    sed -e 's/gcc/${stdenv.cc.targetPrefix}c++/' -i Makefile
     mkdir -p $out/bin
     echo -e 'install:\n\tcp bmrsa '$out'/bin' >> Makefile
   '';
