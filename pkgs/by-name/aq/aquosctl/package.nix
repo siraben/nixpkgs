@@ -18,6 +18,8 @@ stdenv.mkDerivation {
     hash = "sha256-FA3LR58KMG5RzSxxnOkVw1+inM/gMGPtw5+JQwSHBYs=";
   };
 
+  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+
   installPhase = ''
     runHook preInstall
     install -Dm0755 aquosctl $out/bin/aquosctl
