@@ -15,7 +15,14 @@ stdenv.mkDerivation {
     sha256 = "10n8rbr2h6hz86hcx73f86pjbbfiaw2rvxsk0yfajnma7bpxgdxw";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  postPatch = ''
+    substituteInPlace Makefile --replace-fail "cc " "\$(CC) "
+  '';
+
+  makeFlags = [
+    "PREFIX=$(out)"
+    "CC=${stdenv.cc.targetPrefix}cc"
+  ];
 
   meta = with lib; {
     description = "Program for 'tinting' color values";
