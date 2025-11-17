@@ -16,12 +16,15 @@ stdenv.mkDerivation rec {
   };
 
   postPatch = ''
-    substituteInPlace core/makefile --replace 'gcc' '${stdenv.cc.targetPrefix}cc'
+    substituteInPlace core/makefile \
+      --replace-fail 'gcc' '${stdenv.cc.targetPrefix}cc' \
+      --replace-fail 'ar cq' '$(AR) cq'
   '';
 
   makeFlags = [
     "-C"
     "core"
+    "AR=${stdenv.cc.targetPrefix}ar"
   ];
 
   installPhase = ''
