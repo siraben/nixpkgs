@@ -15,6 +15,7 @@ stdenv.mkDerivation rec {
 
   makeFlags = [
     "INSTALL_PLUGINS_DIR=$(out)/lib/ladspa"
+    "CC=${stdenv.cc.targetPrefix}cc"
   ];
 
   # To avoid name clashes, plugins should be compiled with symbols hidden, except for `ladspa_descriptor`:
