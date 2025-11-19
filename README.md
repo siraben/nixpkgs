@@ -39,6 +39,22 @@ The following programs have been successfully built and tested:
 - **xchat** 2.8.4 - IRC client
 - **xterm** 231 - Terminal emulator
 - **fsg** - (with fontconfig fix)
+- **MPlayer** 1.0rc2 - Media player
+- **blender** 2.45 - 3D graphics software
+
+## Programs That Could Not Be Built
+
+### Blocked by Missing Dependencies
+- **sylpheed** 2.4.8 - Email client
+  - Blocked by unavailable libgcrypt-1.3.1.tar.bz2
+  - This very old library version is no longer available from gnupg.org, tarballs.nixos.org, or any known mirrors
+  - Would require finding the tarball from archive sources or using a newer version
+
+### Blocked by Build System Issues
+- **dia** 0.96.1 - Diagram editor
+  - Build attempts to download docbook XSL stylesheets from http://docbook.sourceforge.net during build
+  - Nix sandbox blocks network access during builds for reproducibility
+  - Would require patching the build system to use local docbook stylesheets
 
 ## Fixes Applied
 
@@ -170,12 +186,22 @@ nix-store --add-fixed sha256 /tmp/libtheora-1.0beta2.tar.gz
 curl -L -o /tmp/openexr-1.4.0.tar.gz "http://tarballs.nixos.org/sha256/1y3dxakpg9651dgbj2xp6r4044b5gi74g23w3sr5cs6xi7cywv7m"
 nix-store --add-fixed sha256 /tmp/openexr-1.4.0.tar.gz
 
-# gnupg (for sylpheed and other tools)
-curl -L -o /tmp/gnupg-1.4.8.tar.bz2 "https://gnupg.org/ftp/gcrypt/gnupg/gnupg-1.4.8.tar.bz2"
-nix-store --add-fixed sha256 /tmp/gnupg-1.4.8.tar.bz2
+# gnupg and related libraries (for sylpheed and other tools)
+curl -L -o /tmp/libgpg-error-1.4.tar.gz "http://tarballs.nixos.org/sha256/0sdkv3yq4sg75cqyk1ny3gp373rn1zihq0fvyzjbfpyl4xggfggj"
+nix-store --add-fixed sha256 /tmp/libgpg-error-1.4.tar.gz
 
-curl -L -o /tmp/gnupg-2.0.8.tar.bz2 "https://gnupg.org/ftp/gcrypt/gnupg/gnupg-2.0.8.tar.bz2"
-nix-store --add-fixed sha256 /tmp/gnupg-2.0.8.tar.bz2
+curl -L -o /tmp/libassuan-1.0.4.tar.bz2 "https://gnupg.org/ftp/gcrypt/libassuan/libassuan-1.0.4.tar.bz2"
+nix-store --add-fixed sha256 /tmp/libassuan-1.0.4.tar.bz2
+
+curl -L -o /tmp/gnupg-1.4.8.tar.bz2 "https://gnupg.org/ftp/gcrypt/gnupg/gnupg-1.4.8.tar.bz2"
+nix-store --add-fixed sha1 /tmp/gnupg-1.4.8.tar.bz2
+
+# sylpheed-2.4.8
+curl -L -o /tmp/sylpheed-2.4.8.tar.bz2 "http://sylpheed.sraoss.jp/sylpheed/v2.4/sylpheed-2.4.8.tar.bz2"
+nix-store --add-fixed sha256 /tmp/sylpheed-2.4.8.tar.bz2
+
+# Note: gnupg-2.0.8 and libgcrypt-1.3.1 could not be found on any available mirrors
+# sylpheed build will fail without libgcrypt-1.3.1
 
 # dia-0.96.1
 curl -L -o /tmp/dia-0.96.1.tar.bz2 "http://tarballs.nixos.org/md5/7b81b22baa2df55efe4845865dddc7b6"
