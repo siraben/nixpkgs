@@ -177,9 +177,18 @@ nix-store --add-fixed sha256 /tmp/gnupg-1.4.8.tar.bz2
 curl -L -o /tmp/gnupg-2.0.8.tar.bz2 "https://gnupg.org/ftp/gcrypt/gnupg/gnupg-2.0.8.tar.bz2"
 nix-store --add-fixed sha256 /tmp/gnupg-2.0.8.tar.bz2
 
-# fribidi-0.10.7 (for abiword) - already fixed in code
-curl -L -o /tmp/fribidi-0.10.7.tar.gz "http://fribidi.org/download/fribidi-0.10.7.tar.gz"
-nix-store --add-fixed md5 /tmp/fribidi-0.10.7.tar.gz
+# dia-0.96.1
+curl -L -o /tmp/dia-0.96.1.tar.bz2 "http://tarballs.nixos.org/md5/7b81b22baa2df55efe4845865dddc7b6"
+nix-store --add-fixed md5 /tmp/dia-0.96.1.tar.bz2
+
+# libcaca-0.99.beta13b (for MPlayer)
+curl -L -o /tmp/libcaca-0.99.beta13b.tar.gz "http://tarballs.nixos.org/sha256/0xy8pcnljnj5la97bzbwwyzyqa7dr3v9cyw8gdjzdfgqywvac1vg"
+nix-store --add-fixed sha256 /tmp/libcaca-0.99.beta13b.tar.gz
+
+# fribidi-0.10.7 (for abiword) - hash fixed in code
+# NOTE: fribidi.org appears to be down, need alternative source
+# curl -L -o /tmp/fribidi-0.10.7.tar.gz "http://fribidi.org/download/fribidi-0.10.7.tar.gz"
+# nix-store --add-fixed md5 /tmp/fribidi-0.10.7.tar.gz
 ```
 
 Check out the full documentation at https://blinry.org/nix-time-travel/.
