@@ -156,4 +156,30 @@ curl -L -o /tmp/gmp-4.2.2.tar.bz2 "ftp://ftp.nluug.nl/pub/gnu/gmp/gmp-4.2.2.tar.
 nix-store --add-fixed sha256 /tmp/gmp-4.2.2.tar.bz2
 ```
 
+### Additional Application Tarballs
+```bash
+# docbook-5.0CR1 (for dia and other tools)
+curl -L -o /tmp/docbook-5.0CR1.tar.gz "http://tarballs.nixos.org/sha256/15bbnydspiry7k7fwl2gdjb53nyw2vg6xwpn3d40f03mcf0bkw11"
+nix-store --add-fixed sha256 /tmp/docbook-5.0CR1.tar.gz
+
+# libtheora-1.0beta2 (for MPlayer)
+curl -L -o /tmp/libtheora-1.0beta2.tar.gz "http://downloads.xiph.org/releases/theora/libtheora-1.0beta2.tar.gz"
+nix-store --add-fixed sha256 /tmp/libtheora-1.0beta2.tar.gz
+
+# openexr-1.4.0 (for blender)
+curl -L -o /tmp/openexr-1.4.0.tar.gz "http://tarballs.nixos.org/sha256/1y3dxakpg9651dgbj2xp6r4044b5gi74g23w3sr5cs6xi7cywv7m"
+nix-store --add-fixed sha256 /tmp/openexr-1.4.0.tar.gz
+
+# gnupg (for sylpheed and other tools)
+curl -L -o /tmp/gnupg-1.4.8.tar.bz2 "https://gnupg.org/ftp/gcrypt/gnupg/gnupg-1.4.8.tar.bz2"
+nix-store --add-fixed sha256 /tmp/gnupg-1.4.8.tar.bz2
+
+curl -L -o /tmp/gnupg-2.0.8.tar.bz2 "https://gnupg.org/ftp/gcrypt/gnupg/gnupg-2.0.8.tar.bz2"
+nix-store --add-fixed sha256 /tmp/gnupg-2.0.8.tar.bz2
+
+# fribidi-0.10.7 (for abiword) - already fixed in code
+curl -L -o /tmp/fribidi-0.10.7.tar.gz "http://fribidi.org/download/fribidi-0.10.7.tar.gz"
+nix-store --add-fixed md5 /tmp/fribidi-0.10.7.tar.gz
+```
+
 Check out the full documentation at https://blinry.org/nix-time-travel/.
