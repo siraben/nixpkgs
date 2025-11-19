@@ -42,6 +42,11 @@ The following programs have been successfully built and tested:
 - **MPlayer** 1.0rc2 - Media player
 - **blender** 2.45 - 3D graphics software
 
+### GNOME Desktop Components (GNOME 2.16.3)
+- **GNOME Panel** 2.16.2 - Desktop panel with applets
+- **Metacity** 2.16.5 - Window manager
+- **GNOME Terminal** 2.16.1 - Terminal emulator
+
 ## Programs That Could Not Be Built
 
 ### Blocked by Missing Dependencies
@@ -215,6 +220,45 @@ nix-store --add-fixed sha256 /tmp/libcaca-0.99.beta13b.tar.gz
 # NOTE: fribidi.org appears to be down, need alternative source
 # curl -L -o /tmp/fribidi-0.10.7.tar.gz "http://fribidi.org/download/fribidi-0.10.7.tar.gz"
 # nix-store --add-fixed md5 /tmp/fribidi-0.10.7.tar.gz
+```
+
+### GNOME Desktop Tarballs
+```bash
+# GNOME Panel 2.16.2
+curl -L -o /tmp/gnome-panel-2.16.2.tar.bz2 "http://tarballs.nixos.org/md5/82b98a9b2685cca2d381e185cae47596"
+nix-store --add-fixed md5 /tmp/gnome-panel-2.16.2.tar.bz2
+
+# GNOME Desktop 2.16.3
+curl -L -o /tmp/gnome-desktop-2.16.3.tar.bz2 "http://tarballs.nixos.org/md5/42c21d18589f4955bb0d70c82236d999"
+nix-store --add-fixed md5 /tmp/gnome-desktop-2.16.3.tar.bz2
+
+# GNOME Doc Utils 0.8.0
+curl -L -o /tmp/gnome-doc-utils-0.8.0.tar.bz2 "http://tarballs.nixos.org/md5/50726331fef362dc94921f366fcc8ed2"
+nix-store --add-fixed md5 /tmp/gnome-doc-utils-0.8.0.tar.bz2
+
+# GNOME Menus 2.16.1
+curl -L -o /tmp/gnome-menus-2.16.1.tar.bz2 "http://tarballs.nixos.org/md5/a5c467abe68003d23ec09a795ebfd29f"
+nix-store --add-fixed md5 /tmp/gnome-menus-2.16.1.tar.bz2
+
+# libwnck 2.16.3
+curl -L -o /tmp/libwnck-2.16.3.tar.bz2 "http://tarballs.nixos.org/md5/0a36d269b19f78df7bd861033792f550"
+nix-store --add-fixed md5 /tmp/libwnck-2.16.3.tar.bz2
+
+# which 2.19 (GNOME dependency)
+curl -L -o /tmp/which-2.19.tar.gz "http://ftp.gnu.org/gnu/which/which-2.19.tar.gz"
+nix-store --add-fixed sha256 /tmp/which-2.19.tar.gz
+
+# Metacity 2.16.5
+curl -L -o /tmp/metacity-2.16.5.tar.bz2 "http://tarballs.nixos.org/md5/7ac14eb4caffbb15df91b70b0def2f5e"
+nix-store --add-fixed md5 /tmp/metacity-2.16.5.tar.bz2
+
+# VTE 0.14.2 (terminal widget for GNOME Terminal)
+curl -L -o /tmp/vte-0.14.2.tar.bz2 "http://tarballs.nixos.org/md5/eceafec1b564cc059fa3407f83631817"
+nix-store --add-fixed md5 /tmp/vte-0.14.2.tar.bz2
+
+# GNOME Terminal 2.16.1
+curl -L -o /tmp/gnome-terminal-2.16.1.tar.bz2 "http://tarballs.nixos.org/md5/861e1b780819214b4d5a398e7999c093"
+nix-store --add-fixed md5 /tmp/gnome-terminal-2.16.1.tar.bz2
 ```
 
 Check out the full documentation at https://blinry.org/nix-time-travel/.
