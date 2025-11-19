@@ -1918,7 +1918,7 @@ rec {
   };
 
   fontconfig = import ../development/libraries/fontconfig {
-    inherit fetchurl stdenv freetype expat;
+    inherit fetchurl stdenv freetype expat freefont_ttf;
   };
 
   freealut = import ../development/libraries/freealut {

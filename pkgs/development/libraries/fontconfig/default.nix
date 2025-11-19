@@ -1,4 +1,4 @@
-{stdenv, fetchurl, freetype, expat}:
+{stdenv, fetchurl, freetype, expat, freefont_ttf}:
 
 assert freetype != null && expat != null;
 
@@ -11,4 +11,5 @@ stdenv.mkDerivation {
   };
   buildInputs = [freetype];
   propagatedBuildInputs = [expat]; # !!! shouldn't be necessary, but otherwise pango breaks
+  inherit freefont_ttf;
 }
