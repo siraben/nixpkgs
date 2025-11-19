@@ -13,10 +13,28 @@ $ nix-shell -p 'with (import ./. {}); [blender inkscape gimp firefox]'
 
 This will take a long time to compile. If something goes wrong, feel free to open an issue (or try to fix it yourself, and submit a pull request)!
 
+## Successfully Built Programs
+
+The following programs have been successfully built and tested:
+- **vim** 7.1
+- **python** 2.4.4
+- **perl** 5.8.8
+- **wget** 1.10.2
+- **bash** 3.2-p17
+- **gcc** 4.1.2
+- **ghc** 6.8.2 (Glasgow Haskell Compiler)
+- **emacs** 22.1
+- **joe** 3.3 (text editor)
+- **inkscape** 0.45
+- **GIMP** and **fsg** (with fontconfig fix)
+
 ## Fixes Applied
 
 - **IPv4 forcing**: Added `-4` flag to curl in both `pkgs/stdenv/linux/scripts/download.sh` and `pkgs/build-support/fetchurl/builder.sh` to avoid IPv6 connection issues
 - **libxslt URL update**: Changed libxslt source URL from `ftp://xmlsoft.org/libxml2/libxslt-1.1.22.tar.gz` to `https://download.gnome.org/sources/libxslt/1.1/libxslt-1.1.22.tar.gz` in `pkgs/development/libraries/libxslt/default.nix`
+- **Fontconfig paths**: Fixed fontconfig to include Nix font paths instead of /usr/share/fonts
+- **Emacs CRT patch**: Updated emacs-22 CRT patch to work with x86_64 systems
+- **GHC source URLs**: Fixed GHC 6.8.2 source URLs and checksums
 
 ## Manual Downloads Required
 
@@ -103,6 +121,27 @@ nix-store --add-fixed md5 /tmp/libgnomeui-2.16.1.tar.bz2
 # gtkhtml-3.12.2
 curl -L -o /tmp/gtkhtml-3.12.2.tar.bz2 "http://tarballs.nixos.org/md5/8c943647fd26cf4594b2e97055e22584"
 nix-store --add-fixed md5 /tmp/gtkhtml-3.12.2.tar.bz2
+```
+
+### GHC (Glasgow Haskell Compiler) Tarballs
+```bash
+# GHC 6.8.2 source
+curl -L -o /tmp/ghc-6.8.2-src.tar.bz2 "https://downloads.haskell.org/~ghc/6.8.2/ghc-6.8.2-src.tar.bz2"
+cp /tmp/ghc-6.8.2-src.tar.bz2 /tmp/ghc-6.8.2-src.tar.bz2.tmp
+nix-store --add-fixed md5 /tmp/ghc-6.8.2-src.tar.bz2.tmp
+
+# GHC 6.8.2 extra libraries
+curl -L -o /tmp/ghc-6.8.2-src-extralibs.tar.bz2 "https://downloads.haskell.org/~ghc/6.8.2/ghc-6.8.2-src-extralibs.tar.bz2"
+cp /tmp/ghc-6.8.2-src-extralibs.tar.bz2 /tmp/ghc-6.8.2-src-extralibs.tar.bz2.tmp
+nix-store --add-fixed md5 /tmp/ghc-6.8.2-src-extralibs.tar.bz2.tmp
+
+# GHC 6.4.2 binary (bootstrap compiler)
+curl -L -o /tmp/ghc-6.4.2-x86_64-unknown-linux.tar.bz2 "http://tarballs.nixos.org/md5/8f5fe48798f715cd05214a10987bf6d5"
+nix-store --add-fixed md5 /tmp/ghc-6.4.2-x86_64-unknown-linux.tar.bz2
+
+# GMP 4.2.2 (GHC dependency)
+curl -L -o /tmp/gmp-4.2.2.tar.bz2 "ftp://ftp.nluug.nl/pub/gnu/gmp/gmp-4.2.2.tar.bz2"
+nix-store --add-fixed sha256 /tmp/gmp-4.2.2.tar.bz2
 ```
 
 Check out the full documentation at https://blinry.org/nix-time-travel/.
