@@ -5,10 +5,12 @@ stdenv.mkDerivation (rec {
   homepage = "http://www.haskell.org/ghc";
 
   src = map fetchurl [
-    { url = "${homepage}/dist/stable/dist/${name}-src.tar.bz2";
-      md5 = "745c6b7d4370610244419cbfec4b2f84";
+    { url = "http://tarballs.nixos.org/md5/43108417594be7eba0918c459e871e40";
+      name = "${name}-src.tar.bz2";
+      md5 = "43108417594be7eba0918c459e871e40";
     }
-    { url = "${homepage}/dist/stable/dist/${name}-src-extralibs.tar.bz2";
+    { url = "http://tarballs.nixos.org/md5/d199c50814188fb77355d41058b8613c";
+      name = "${name}-src-extralibs.tar.bz2";
       md5 = "d199c50814188fb77355d41058b8613c";
     }
   ];
