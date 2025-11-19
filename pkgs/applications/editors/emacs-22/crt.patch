@@ -1,41 +1,64 @@
-Only in emacs-21.3: configure.in~
-Only in emacs-21.3: patchfile
-Only in emacs-21.3/src: Makefile.in~
-diff -rc emacs-orig/src/s/gnu-linux.h emacs-21.3/src/s/gnu-linux.h
-*** emacs-orig/src/s/gnu-linux.h	2001-09-28 17:50:04.000000000 +0200
---- emacs-21.3/src/s/gnu-linux.h	2004-10-06 13:13:19.000000000 +0200
-***************
-*** 173,179 ****
-  /* GNU/Linux usually has crt0.o in a non-standard place */
-  #define START_FILES pre-crt0.o /usr/lib/crt0.o
-  #else
-! #define START_FILES pre-crt0.o /usr/lib/crt1.o /usr/lib/crti.o
-  #endif
-  
-  #ifdef __ELF__
---- 173,179 ----
-  /* GNU/Linux usually has crt0.o in a non-standard place */
-  #define START_FILES pre-crt0.o /usr/lib/crt0.o
-  #else
-! #define START_FILES pre-crt0.o crt1.o crti.o
-  #endif
-  
-  #ifdef __ELF__
-***************
-*** 225,231 ****
-  #else
-  #undef LIB_GCC
-  #define LIB_GCC
-! #define LIB_STANDARD -lgcc -lc -lgcc /usr/lib/crtn.o
-  #endif
-  
-  /* Don't use -g in test compiles in configure.
---- 225,231 ----
-  #else
-  #undef LIB_GCC
-  #define LIB_GCC
-! #define LIB_STANDARD -lgcc -lc -lgcc crtn.o
-  #endif
-  
-  /* Don't use -g in test compiles in configure.
-Only in emacs-21.3/src/s: gnu-linux.h~
+--- emacs-22.1-orig/src/s/gnu-linux.h	2025-11-18 20:28:17.184707942 -0800
++++ emacs-22.1/src/s/gnu-linux.h	2025-11-18 20:28:17.535709650 -0800
+@@ -192,7 +192,7 @@
+ /* GNU/Linux usually has crt0.o in a non-standard place */
+ #define START_FILES pre-crt0.o /usr/lib/crt0.o
+ #else
+-#define START_FILES pre-crt0.o /usr/lib/crt1.o /usr/lib/crti.o
++#define START_FILES pre-crt0.o crt1.o crti.o
+ #endif
+ 
+ #ifdef __ELF__
+@@ -244,7 +244,7 @@
+ #else
+ #undef LIB_GCC
+ #define LIB_GCC
+-#define LIB_STANDARD -lgcc -lc -lgcc /usr/lib/crtn.o
++#define LIB_STANDARD -lgcc -lc -lgcc crtn.o
+ #endif
+ 
+ /* Don't use -g in test compiles in configure.
+--- emacs-22.1-orig/src/m/amdx86-64.h	2025-11-18 20:28:17.171707878 -0800
++++ emacs-22.1/src/m/amdx86-64.h	2025-11-18 20:28:17.535709650 -0800
+@@ -108,7 +108,7 @@
+    a native binary of Emacs on FreeBSD/amd64 we can just point to /usr/lib.  */
+ 
+ #undef START_FILES
+-#define START_FILES pre-crt0.o /usr/lib/crt1.o /usr/lib/crti.o
++#define START_FILES pre-crt0.o crt1.o crti.o
+ 
+ /* The duplicate -lgcc is intentional in the definition of LIB_STANDARD.
+    The reason is that some functions in libgcc.a call functions from libc.a,
+@@ -116,7 +116,7 @@
+    versions of ld are one-pass linkers, we need to mention -lgcc twice,
+    or else we risk getting unresolved externals.  */
+ #undef LIB_STANDARD
+-#define LIB_STANDARD -lgcc -lc -lgcc /usr/lib/crtn.o
++#define LIB_STANDARD -lgcc -lc -lgcc crtn.o
+ 
+ #elif defined(__OpenBSD__)
+ 
+@@ -138,9 +138,9 @@
+ 
+ #undef START_FILES
+ #ifdef HAVE_X86_64_LIB64_DIR
+-#define START_FILES pre-crt0.o /usr/lib64/crt1.o /usr/lib64/crti.o
++#define START_FILES pre-crt0.o crt1.o crti.o
+ #else
+-#define START_FILES pre-crt0.o /usr/lib/crt1.o /usr/lib/crti.o
++#define START_FILES pre-crt0.o crt1.o crti.o
+ #endif
+ 
+ /* The duplicate -lgcc is intentional in the definition of LIB_STANDARD.
+@@ -150,9 +150,9 @@
+    or else we risk getting unresolved externals.  */
+ #undef LIB_STANDARD
+ #ifdef HAVE_X86_64_LIB64_DIR
+-#define LIB_STANDARD -lgcc -lc -lgcc /usr/lib64/crtn.o
++#define LIB_STANDARD -lgcc -lc -lgcc crtn.o
+ #else
+-#define LIB_STANDARD -lgcc -lc -lgcc /usr/lib/crtn.o
++#define LIB_STANDARD -lgcc -lc -lgcc crtn.o
+ #endif
+ 
+ #endif /* __FreeBSD__ */
