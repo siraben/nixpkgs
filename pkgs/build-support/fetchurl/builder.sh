@@ -5,8 +5,9 @@ header "downloading file $name with $outputHashAlgo hash $outputHash..."
 # Curl flags to handle redirects, not use EPSV, handle cookies for
 # servers to need them during redirects, and work on SSL without a
 # certificate (this isn't a security problem because we check the
-# cryptographic hash of the output anyway). 
+# cryptographic hash of the output anyway).
 curl="curl \
+ -4 \
  --location --max-redirs 20 \
  --disable-epsv \
  --cookie-jar cookies \
