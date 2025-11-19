@@ -16,17 +16,29 @@ This will take a long time to compile. If something goes wrong, feel free to ope
 ## Successfully Built Programs
 
 The following programs have been successfully built and tested:
-- **vim** 7.1
+
+### Development Tools
+- **vim** 7.1 - Text editor
+- **emacs** 22.1 - Text editor
+- **joe** 3.3 - Text editor
+- **gcc** 4.1.2 - GNU Compiler Collection
+- **ghc** 6.8.2 - Glasgow Haskell Compiler
+
+### Scripting Languages
 - **python** 2.4.4
 - **perl** 5.8.8
-- **wget** 1.10.2
 - **bash** 3.2-p17
-- **gcc** 4.1.2
-- **ghc** 6.8.2 (Glasgow Haskell Compiler)
-- **emacs** 22.1
-- **joe** 3.3 (text editor)
-- **inkscape** 0.45
-- **GIMP** and **fsg** (with fontconfig fix)
+
+### Utilities
+- **wget** 1.10.2 - Network downloader
+
+### Graphical Applications
+- **GIMP** 2.4.3 - Image editor (with fontconfig fix)
+- **inkscape** 0.45 - Vector graphics editor
+- **xpdf** 3.02pl1 - PDF viewer
+- **xchat** 2.8.4 - IRC client
+- **xterm** 231 - Terminal emulator
+- **fsg** - (with fontconfig fix)
 
 ## Fixes Applied
 
