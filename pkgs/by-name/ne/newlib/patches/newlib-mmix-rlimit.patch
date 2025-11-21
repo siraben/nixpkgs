@@ -1,0 +1,175 @@
+diff --git a/newlib/Makefile.in b/newlib/Makefile.in
+--- a/newlib/Makefile.in
++++ b/newlib/Makefile.in
+@@ -578,7 +578,7 @@ check_PROGRAMS =
+ @HAVE_LIBC_SYS_MMIXWARE_DIR_TRUE@	libc/sys/mmixware/execv.c libc/sys/mmixware/execve.c libc/sys/mmixware/fork.c libc/sys/mmixware/fstat.c libc/sys/mmixware/getpid.c libc/sys/mmixware/isatty.c \
+ @HAVE_LIBC_SYS_MMIXWARE_DIR_TRUE@	libc/sys/mmixware/kill.c libc/sys/mmixware/link.c libc/sys/mmixware/lseek.c libc/sys/mmixware/open.c libc/sys/mmixware/pipe.c libc/sys/mmixware/read.c \
+ @HAVE_LIBC_SYS_MMIXWARE_DIR_TRUE@	libc/sys/mmixware/sbrk.c libc/sys/mmixware/stat.c libc/sys/mmixware/time.c libc/sys/mmixware/unlink.c libc/sys/mmixware/utime.c libc/sys/mmixware/wait.c libc/sys/mmixware/write.c \
+-@HAVE_LIBC_SYS_MMIXWARE_DIR_TRUE@	libc/sys/mmixware/times.c libc/sys/mmixware/gettime.c libc/sys/mmixware/setjmp.S
++@HAVE_LIBC_SYS_MMIXWARE_DIR_TRUE@	libc/sys/mmixware/times.c libc/sys/mmixware/gettime.c libc/sys/mmixware/setjmp.S libc/sys/mmixware/getrlimit.c libc/sys/mmixware/getprogname.c
+ 
+ @HAVE_LIBC_SYS_NETWARE_DIR_TRUE@am__append_52 = \
+ @HAVE_LIBC_SYS_NETWARE_DIR_TRUE@	libc/sys/netware/getpid.c \
+diff --git a/newlib/libc/include/stdlib.h b/newlib/libc/include/stdlib.h
+--- a/newlib/libc/include/stdlib.h
++++ b/newlib/libc/include/stdlib.h
+@@ -338,6 +338,11 @@ _Noreturn void
+ 	quick_exit(int);
+ #endif /* __ISO_C_VISIBLE >= 2011 */
+ 
++/* Program name functions */
++const char *getprogname(void);
++void setprogname(const char *);
++const char *getexecname(void);
++
+ _END_STD_C
+ 
+ #if __SSP_FORTIFY_LEVEL > 0
+diff --git a/newlib/libc/include/sys/resource.h b/newlib/libc/include/sys/resource.h
+--- a/newlib/libc/include/sys/resource.h
++++ b/newlib/libc/include/sys/resource.h
+@@ -20,8 +20,31 @@ struct rusage {
+ 
+ int	getrusage (int, struct rusage*);
+ 
++/* Resource limit definitions */
++typedef unsigned long rlim_t;
++
++#define RLIM_INFINITY	(~((rlim_t)0))
++#define RLIM_SAVED_CUR	RLIM_INFINITY
++#define RLIM_SAVED_MAX	RLIM_INFINITY
++
++struct rlimit {
++	rlim_t	rlim_cur;	/* current (soft) limit */
++	rlim_t	rlim_max;	/* maximum value for rlim_cur */
++};
++
++/* Resource limit types */
++#define RLIMIT_CORE	0	/* max core file size */
++#define RLIMIT_CPU	1	/* max cpu time in seconds */
++#define RLIMIT_DATA	2	/* max data segment size */
++#define RLIMIT_FSIZE	3	/* max file size */
++#define RLIMIT_NOFILE	4	/* max number of open files */
++#define RLIMIT_STACK	5	/* max stack size */
++#define RLIMIT_AS	6	/* address space (virtual memory) limit */
++
++int	getrlimit (int, struct rlimit *);
++int	setrlimit (int, const struct rlimit *);
++
+ #ifdef __cplusplus
+ }
+ #endif
+ #endif /* !_SYS_RESOURCE_H_ */
+-
+diff --git a/newlib/libc/sys/mmixware/Makefile.inc b/newlib/libc/sys/mmixware/Makefile.inc
+--- a/newlib/libc/sys/mmixware/Makefile.inc
++++ b/newlib/libc/sys/mmixware/Makefile.inc
+@@ -3,4 +3,4 @@ libc_a_SOURCES += \
+ 	%D%/execv.c %D%/execve.c %D%/fork.c %D%/fstat.c %D%/getpid.c %D%/isatty.c \
+ 	%D%/kill.c %D%/link.c %D%/lseek.c %D%/open.c %D%/pipe.c %D%/read.c \
+ 	%D%/sbrk.c %D%/stat.c %D%/time.c %D%/unlink.c %D%/utime.c %D%/wait.c %D%/write.c \
+-	%D%/times.c %D%/gettime.c %D%/setjmp.S
++	%D%/times.c %D%/gettime.c %D%/setjmp.S %D%/getrlimit.c %D%/getprogname.c
+diff --git a/newlib/libc/sys/mmixware/getprogname.c b/newlib/libc/sys/mmixware/getprogname.c
+new file mode 100644
+--- /dev/null
++++ b/newlib/libc/sys/mmixware/getprogname.c
+@@ -0,0 +1,24 @@
++/* getprogname stub for MMIX */
++#include <stdlib.h>
++
++/* Global variable to store program name */
++static const char *__progname = "mmix-program";
++
++const char *
++getprogname (void)
++{
++  return __progname;
++}
++
++void
++setprogname (const char *name)
++{
++  __progname = name;
++}
++
++/* getexecname stub - some systems use this instead */
++const char *
++getexecname (void)
++{
++  return __progname;
++}
+diff --git a/newlib/libc/sys/mmixware/getrlimit.c b/newlib/libc/sys/mmixware/getrlimit.c
+new file mode 100644
+--- /dev/null
++++ b/newlib/libc/sys/mmixware/getrlimit.c
+@@ -0,0 +1,69 @@
++/* getrlimit stub for MMIX */
++#include <sys/resource.h>
++#include <errno.h>
++#include <limits.h>
++
++int
++getrlimit (int resource, struct rlimit *rlp)
++{
++  if (rlp == NULL)
++    {
++      errno = EFAULT;
++      return -1;
++    }
++
++  /* Provide reasonable defaults for embedded system */
++  switch (resource)
++    {
++    case RLIMIT_NOFILE:
++      /* Maximum number of open file descriptors */
++      rlp->rlim_cur = 256;
++      rlp->rlim_max = 256;
++      break;
++
++    case RLIMIT_STACK:
++      /* Stack size - provide a reasonable default */
++      rlp->rlim_cur = 1024 * 1024;  /* 1 MB */
++      rlp->rlim_max = 1024 * 1024;
++      break;
++
++    case RLIMIT_DATA:
++    case RLIMIT_AS:
++      /* Data segment and address space */
++      rlp->rlim_cur = RLIM_INFINITY;
++      rlp->rlim_max = RLIM_INFINITY;
++      break;
++
++    case RLIMIT_CORE:
++      /* Core file size - typically disabled on embedded systems */
++      rlp->rlim_cur = 0;
++      rlp->rlim_max = 0;
++      break;
++
++    case RLIMIT_CPU:
++      /* CPU time limit */
++      rlp->rlim_cur = RLIM_INFINITY;
++      rlp->rlim_max = RLIM_INFINITY;
++      break;
++
++    case RLIMIT_FSIZE:
++      /* File size limit */
++      rlp->rlim_cur = RLIM_INFINITY;
++      rlp->rlim_max = RLIM_INFINITY;
++      break;
++
++    default:
++      errno = EINVAL;
++      return -1;
++    }
++
++  return 0;
++}
++
++int
++setrlimit (int resource, const struct rlimit *rlp)
++{
++  /* On embedded systems, we typically don't allow changing limits */
++  errno = EPERM;
++  return -1;
++}

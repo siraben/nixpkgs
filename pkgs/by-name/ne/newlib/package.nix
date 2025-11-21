@@ -34,6 +34,10 @@ stdenvNoLibc.mkDerivation (finalAttrs: {
       url = "https://gitweb.gentoo.org/repo/gentoo.git/plain/sys-libs/newlib/files/newlib-3.3.0-no-nano-cxx.patch?id=9ee5a1cd6f8da6d084b93b3dbd2e8022a147cfbf";
       sha256 = "sha256-S3mf7vwrzSMWZIGE+d61UDH+/SK/ao1hTPee1sElgco=";
     })
+  ]
+  ++ lib.optionals (stdenvNoLibc.targetPlatform.parsed.cpu.name == "mmix") [
+    # Add getrlimit and getprogname support for MMIX/mmixware
+    ./patches/newlib-mmix-rlimit.patch
   ];
 
   depsBuildBuild = [
@@ -110,6 +114,17 @@ stdenvNoLibc.mkDerivation (finalAttrs: {
 
   enableParallelBuilding = true;
   dontDisableStatic = true;
+
+  # Manually compile and add getprogname and getrlimit for MMIX
+  postBuild = lib.optionalString (stdenvNoLibc.targetPlatform.parsed.cpu.name == "mmix") ''
+    echo "Manually compiling getprogname and getrlimit for MMIX..."
+    cd mmix-unknown-mmixware/newlib
+    mmix-unknown-mmixware-gcc -DHAVE_CONFIG_H -I. -Ilib -I../../newlib/libc/include -I.. -DPACKAGE_NAME=\"newlib\" -DPACKAGE_TARNAME=\"newlib\" -DPACKAGE_VERSION=\"4.5.0\" -g -O2 -c -o libc/sys/mmixware/libc_a-getprogname.o ../../newlib/libc/sys/mmixware/getprogname.c
+    mmix-unknown-mmixware-gcc -DHAVE_CONFIG_H -I. -Ilib -I../../newlib/libc/include -I.. -DPACKAGE_NAME=\"newlib\" -DPACKAGE_TARNAME=\"newlib\" -DPACKAGE_VERSION=\"4.5.0\" -g -O2 -c -o libc/sys/mmixware/libc_a-getrlimit.o ../../newlib/libc/sys/mmixware/getrlimit.c
+    mmix-unknown-mmixware-ar r libc.a libc/sys/mmixware/libc_a-getprogname.o libc/sys/mmixware/libc_a-getrlimit.o
+    mmix-unknown-mmixware-ranlib libc.a
+    cd ../..
+  '';
 
   # apply necessary nano changes from https://developer.arm.com/-/media/Files/downloads/gnu/12.2.rel1/manifest/copy_nano_libraries.sh?rev=4c50be6ccb9c4205a5262a3925317073&hash=1375A7B0A1CD0DB9B9EB0D2B574ADF66
   postInstall =

@@ -23,6 +23,9 @@ stdenv.mkDerivation (finalAttrs: {
   # infrastructure mismatch error when trying to build `hello`.
   env = lib.optionalAttrs stdenv.hostPlatform.isDarwin {
     NIX_LDFLAGS = "-liconv";
+  } // lib.optionalAttrs (stdenv.hostPlatform.parsed.cpu.name == "mmix") {
+    # newlib for MMIX provides getprogname, inform gnulib
+    NIX_CFLAGS_COMPILE = "-DHAVE_GETPROGNAME=1";
   };
 
   doCheck = true;
