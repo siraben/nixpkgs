@@ -10,6 +10,7 @@
 stdenv.mkDerivation rec {
   pname = "tinyscheme";
   version = "1.42";
+  isMmix = stdenv.hostPlatform.parsed.cpu.name == "mmix";
 
   src = fetchurl {
     url = "mirror://sourceforge/tinyscheme/${pname}-${version}.tar.gz";
@@ -37,6 +38,17 @@ stdenv.mkDerivation rec {
   ];
   postPatch = ''
     substituteInPlace scheme.c --replace "init.scm" "$out/lib/init.scm"
+  ''
+  + lib.optionalString isMmix ''
+    substituteInPlace scheme.c --replace "static const char *strlwr" "static const char *ts_strlwr"
+    substituteInPlace scheme.c --replace "mk_symbol(sc,strlwr" "mk_symbol(sc,ts_strlwr"
+    substituteInPlace scheme.c --replace "mk_symbol(sc, strlwr" "mk_symbol(sc, ts_strlwr"
+  '';
+
+  buildPhase = lib.optionalString isMmix ''
+    runHook preBuild
+    make PLATFORM_FEATURES= FEATURES="-DUSE_DL=0 -DUSE_MATH=1 -DUSE_ASCII_NAMES=0" OBJS="scheme.o" SYS_LIBS=-lm scheme libtinyscheme.a
+    runHook postBuild
   '';
 
   installPhase = ''
