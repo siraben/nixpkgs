@@ -27,11 +27,15 @@ stdenv.mkDerivation (
   finalAttrs:
   let
     luaPackages = self.pkgs;
+    isMmix = stdenv.hostPlatform.parsed.cpu.name == "mmix";
+    finalStaticOnly = staticOnly || isMmix;
 
     luaversion = lib.versions.majorMinor finalAttrs.version;
 
     plat =
-      if (stdenv.hostPlatform.isLinux && lib.versionOlder self.luaversion "5.4") then
+      if isMmix then
+        "generic"
+      else if (stdenv.hostPlatform.isLinux && lib.versionOlder self.luaversion "5.4") then
         "linux"
       else if (stdenv.hostPlatform.isLinux && lib.versionAtLeast self.luaversion "5.4") then
         "linux-readline"
@@ -57,6 +61,8 @@ stdenv.mkDerivation (
         " -DLUA_COMPAT_5_1 -DLUA_COMPAT_5_2"
       else
         " -DLUA_COMPAT_5_3";
+
+    patchesWithExtras = patches ++ lib.optionals isMmix [ ./mmix-no-signal.patch ];
   in
 
   {
@@ -80,9 +86,9 @@ stdenv.mkDerivation (
     '';
 
     nativeBuildInputs = [ makeWrapper ];
-    buildInputs = [ readline ];
+    buildInputs = lib.optional (!isMmix) readline;
 
-    inherit patches;
+    patches = patchesWithExtras;
 
     postPatch = ''
       sed -i "s@#define LUA_ROOT[[:space:]]*\"/usr/local/\"@#define LUA_ROOT  \"$out/\"@g" src/luaconf.h
@@ -90,7 +96,7 @@ stdenv.mkDerivation (
       # abort if patching didn't work
       grep $out src/luaconf.h
     ''
-    + lib.optionalString (!stdenv.hostPlatform.isDarwin && !staticOnly) ''
+    + lib.optionalString (!stdenv.hostPlatform.isDarwin && !finalStaticOnly) ''
       # Add a target for a shared library to the Makefile.
       sed -e '1s/^/LUA_SO = liblua.so/' \
           -e 's/ALL_T *= */&$(LUA_SO) /' \
@@ -98,10 +104,14 @@ stdenv.mkDerivation (
       cat ${./lua-dso.make} >> src/Makefile
     '';
 
-    env = {
-      inherit luaversion;
-      pkgversion = version;
-    };
+    env =
+      {
+        inherit luaversion;
+        pkgversion = version;
+      }
+      // lib.optionalAttrs isMmix {
+        NIX_CFLAGS_COMPILE = "-D_setjmp=setjmp -D_longjmp=longjmp";
+      };
 
     # see configurePhase for additional flags (with space)
     makeFlags = [
@@ -116,7 +126,7 @@ stdenv.mkDerivation (
       # Lua links with readline which depends on ncurses. For some reason when
       # building pkgsStatic.lua it fails because symbols from ncurses are not
       # found. Adding ncurses here fixes the problem.
-      "MYLIBS=-lncurses"
+      "MYLIBS=${if isMmix then "" else "-lncurses"}"
     ];
 
     configurePhase = ''
@@ -139,7 +149,7 @@ stdenv.mkDerivation (
             (
               "liblua.a"
               + lib.optionalString (
-                !staticOnly
+                !finalStaticOnly
               ) " liblua.so liblua.so.${luaversion} liblua.so.${finalAttrs.version}"
             )
         }" )

@@ -1,0 +1,21 @@
+diff --git a/src/lua.c b/src/lua.c
+index bc5d6c2..a2aac20 100644
+--- a/src/lua.c
++++ b/src/lua.c
+@@ -36,6 +36,16 @@ static void setsignal (int sig, void (*handler)(int)) {
+   sigemptyset(&sa.sa_mask);  /* do not mask any signal */
+   sigaction(sig, &sa, NULL);
+ }
++#elif defined(__mmix__)
++
++/*
++** MMIX/newlib lacks real signals; keep the API but do nothing so
++** the standalone interpreter still links.
++*/
++static void setsignal (int sig, void (*handler)(int)) {
++  (void)sig;
++  (void)handler;
++}
+ 
+ #else           /* }{ */
+ 
