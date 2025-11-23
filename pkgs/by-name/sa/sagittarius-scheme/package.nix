@@ -28,11 +28,30 @@ stdenv.mkDerivation rec {
     url = "https://bitbucket.org/ktakashi/${pname}/downloads/sagittarius-${version}.tar.gz";
     hash = "sha256-w6aQkC7/vKO8exvDpsSsLyLXrm4FSKh8XYGJgseEII0=";
   };
+
+  patches = [
+    # Fix non-deterministic UUID generation in documentation footnotes
+    # https://github.com/NixOS/nixpkgs/issues/449328
+    # https://github.com/ktakashi/sagittarius-scheme/issues/316
+    # Backported from upstream commit b1a2926
+    ./deterministic-footnotes.patch
+    # Make documentation timestamps optional for reproducibility
+    # Backported from upstream commit b1a2926
+    ./no-timestamp.patch
+  ];
+
+  # Disable parallel building to ensure deterministic gensym symbol generation
+  # https://github.com/NixOS/nixpkgs/issues/449328
+  # https://github.com/ktakashi/sagittarius-scheme/issues/316
+  enableParallelBuilding = false;
+
   preBuild = ''
     # since we lack rpath during build, need to explicitly add build path
     # to LD_LIBRARY_PATH so we can load libsagittarius.so as required to
     # build extensions
     export ${platformLdLibraryPath}="$(pwd)/build"
+    # Disable document generation timestamps for reproducible builds
+    export NO_DOCUMENT_GENERATION_DATE=1
   '';
   nativeBuildInputs = [
     pkg-config
