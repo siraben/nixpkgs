@@ -11,6 +11,10 @@
   nanoizeNewlib ? false,
 }:
 
+let
+  targetConfig = stdenvNoLibc.targetPlatform.config;
+  isMmix = stdenvNoLibc.targetPlatform.parsed.cpu.name == "mmix";
+in
 stdenvNoLibc.mkDerivation (finalAttrs: {
   pname = "newlib";
   version = "4.5.0.20241231";
@@ -35,9 +39,13 @@ stdenvNoLibc.mkDerivation (finalAttrs: {
       sha256 = "sha256-S3mf7vwrzSMWZIGE+d61UDH+/SK/ao1hTPee1sElgco=";
     })
   ]
-  ++ lib.optionals (stdenvNoLibc.targetPlatform.parsed.cpu.name == "mmix") [
+  ++ lib.optionals isMmix [
     # Add getrlimit and getprogname support for MMIX/mmixware
     ./patches/newlib-mmix-rlimit.patch
+    ./patches/newlib-mmix-dirent-header.patch
+    ./patches/newlib-mmix-glob-flags.patch
+    ./patches/newlib-mmix-termios.patch
+    ./patches/newlib-mmix-signal-handlers.patch
   ];
 
   depsBuildBuild = [
@@ -85,46 +93,39 @@ stdenvNoLibc.mkDerivation (finalAttrs: {
   ]
   ++ (
     if !nanoizeNewlib then
-      [
-        "--disable-newlib-supplied-syscalls"
-        "--disable-nls"
-        "--enable-newlib-io-c99-formats"
-        "--enable-newlib-io-long-long"
-        "--enable-newlib-reent-check-verify"
-        "--enable-newlib-register-fini"
-        "--enable-newlib-retargetable-locking"
-      ]
+      (
+        lib.optional (!isMmix) "--disable-newlib-supplied-syscalls"
+        ++ [
+          "--disable-nls"
+          "--enable-newlib-io-c99-formats"
+          "--enable-newlib-io-long-long"
+          "--enable-newlib-reent-check-verify"
+          "--enable-newlib-register-fini"
+          "--enable-newlib-retargetable-locking"
+        ]
+      )
     else
-      [
-        "--disable-newlib-fseek-optimization"
-        "--disable-newlib-fvwrite-in-streamio"
-        "--disable-newlib-supplied-syscalls"
-        "--disable-newlib-unbuf-stream-opt"
-        "--disable-newlib-wide-orient"
-        "--disable-nls"
-        "--enable-lite-exit"
-        "--enable-newlib-global-atexit"
-        "--enable-newlib-nano-formatted-io"
-        "--enable-newlib-nano-malloc"
-        "--enable-newlib-reent-check-verify"
-        "--enable-newlib-reent-small"
-        "--enable-newlib-retargetable-locking"
-      ]
+      (
+        lib.optional (!isMmix) "--disable-newlib-supplied-syscalls"
+        ++ [
+          "--disable-newlib-fseek-optimization"
+          "--disable-newlib-fvwrite-in-streamio"
+          "--disable-newlib-unbuf-stream-opt"
+          "--disable-newlib-wide-orient"
+          "--disable-nls"
+          "--enable-lite-exit"
+          "--enable-newlib-global-atexit"
+          "--enable-newlib-nano-formatted-io"
+          "--enable-newlib-nano-malloc"
+          "--enable-newlib-reent-check-verify"
+          "--enable-newlib-reent-small"
+          "--enable-newlib-retargetable-locking"
+        ]
+      )
   );
 
   enableParallelBuilding = true;
   dontDisableStatic = true;
-
-  # Manually compile and add getprogname and getrlimit for MMIX
-  postBuild = lib.optionalString (stdenvNoLibc.targetPlatform.parsed.cpu.name == "mmix") ''
-    echo "Manually compiling getprogname and getrlimit for MMIX..."
-    cd mmix-unknown-mmixware/newlib
-    mmix-unknown-mmixware-gcc -DHAVE_CONFIG_H -I. -Ilib -I../../newlib/libc/include -I.. -DPACKAGE_NAME=\"newlib\" -DPACKAGE_TARNAME=\"newlib\" -DPACKAGE_VERSION=\"4.5.0\" -g -O2 -c -o libc/sys/mmixware/libc_a-getprogname.o ../../newlib/libc/sys/mmixware/getprogname.c
-    mmix-unknown-mmixware-gcc -DHAVE_CONFIG_H -I. -Ilib -I../../newlib/libc/include -I.. -DPACKAGE_NAME=\"newlib\" -DPACKAGE_TARNAME=\"newlib\" -DPACKAGE_VERSION=\"4.5.0\" -g -O2 -c -o libc/sys/mmixware/libc_a-getrlimit.o ../../newlib/libc/sys/mmixware/getrlimit.c
-    mmix-unknown-mmixware-ar r libc.a libc/sys/mmixware/libc_a-getprogname.o libc/sys/mmixware/libc_a-getrlimit.o
-    mmix-unknown-mmixware-ranlib libc.a
-    cd ../..
-  '';
 
   # apply necessary nano changes from https://developer.arm.com/-/media/Files/downloads/gnu/12.2.rel1/manifest/copy_nano_libraries.sh?rev=4c50be6ccb9c4205a5262a3925317073&hash=1375A7B0A1CD0DB9B9EB0D2B574ADF66
   postInstall =
@@ -145,6 +146,23 @@ stdenvNoLibc.mkDerivation (finalAttrs: {
           fi
         done
       )
+    ''
+    + lib.optionalString isMmix ''
+      targetLib="$out${finalAttrs.passthru.libdir}"
+      target="${targetConfig}"
+      cc="$target-cc"
+      ar="$target-ar"
+      ranlib="$target-ranlib"
+      buildRoot=$PWD
+      sysDir="$buildRoot/newlib/libc/sys/mmixware"
+      targInc="$buildRoot/$target/newlib/targ-include"
+      sysInc="$buildRoot/newlib/libc/include"
+      mkdir -p mmix-extra-objs
+      for src in getprogname.c getrlimit.c dirent.c mknod.c signal.c termios.c; do
+        "$cc" -Os -ffreestanding -I"$sysInc" -I"$targInc" -I"$sysDir/sys" -c "$sysDir/$src" -o "mmix-extra-objs/''${src%.c}.o"
+        "$ar" rcs "$targetLib/libc.a" "mmix-extra-objs/''${src%.c}.o"
+      done
+      "$ranlib" "$targetLib/libc.a"
     ''
     + ''[ "$(find $out -type f | wc -l)" -gt 0 ] || (echo '$out is empty' 1>&2 && exit 1)'';
 

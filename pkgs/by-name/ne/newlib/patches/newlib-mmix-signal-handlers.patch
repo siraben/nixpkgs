@@ -1,0 +1,112 @@
+diff --git a/newlib/libc/sys/mmixware/signal.c b/newlib/libc/sys/mmixware/signal.c
+new file mode 100644
+--- /dev/null
++++ b/newlib/libc/sys/mmixware/signal.c
+@@ -0,0 +112 @@
++/* Signal function implementations for MMIX */
++#include <signal.h>
++#include <errno.h>
++
++/* These functions are implemented instead of using macros to avoid
++   conflicts with gnulib and other code that expects real functions.  */
++
++static _sig_func_ptr handler_table[NSIG];
++
++int
++sigaddset (sigset_t *set, const int signo)
++{
++  if (set == NULL)
++    {
++      errno = EINVAL;
++      return -1;
++    }
++  *set |= (1 << signo);
++  return 0;
++}
++
++int
++sigdelset (sigset_t *set, const int signo)
++{
++  if (set == NULL)
++    {
++      errno = EINVAL;
++      return -1;
++    }
++  *set &= ~(1 << signo);
++  return 0;
++}
++
++int
++sigemptyset (sigset_t *set)
++{
++  if (set == NULL)
++    {
++      errno = EINVAL;
++      return -1;
++    }
++  *set = 0;
++  return 0;
++}
++
++int
++sigfillset (sigset_t *set)
++{
++  if (set == NULL)
++    {
++      errno = EINVAL;
++      return -1;
++    }
++  *set = ~(0);
++  return 0;
++}
++
++int
++sigismember (const sigset_t *set, int signo)
++{
++  if (set == NULL)
++    {
++      errno = EINVAL;
++      return -1;
++    }
++  return ((*set) & (1 << signo)) != 0;
++}
++
++_sig_func_ptr
++signal (int sig, _sig_func_ptr func)
++{
++  _sig_func_ptr previous;
++
++  if (sig < 0 || sig >= NSIG || func == SIG_ERR)
++    {
++      errno = EINVAL;
++      return SIG_ERR;
++    }
++
++  previous = handler_table[sig];
++  handler_table[sig] = func;
++  if (previous == NULL)
++    previous = SIG_DFL;
++  return previous;
++}
++
++/* Stub implementation of raise() for MMIX.
++   Signals are not delivered asynchronously on this platform, but allow
++   calling a handler installed via signal().  */
++int
++raise (int sig)
++{
++  _sig_func_ptr handler;
++
++  if (sig < 0 || sig >= NSIG)
++    {
++      errno = EINVAL;
++      return -1;
++    }
++
++  handler = handler_table[sig];
++  if (handler == NULL || handler == SIG_DFL || handler == SIG_IGN)
++    return 0;
++
++  handler (sig);
++  return 0;
++}

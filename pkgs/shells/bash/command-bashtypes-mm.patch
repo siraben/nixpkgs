@@ -1,0 +1,12 @@
+--- ./command.h	2025-11-23 04:21:42.975463087 -0800
++++ ./command.h	2025-11-23 04:21:43.059463303 -0800
+@@ -23,6 +23,9 @@
+ #define _COMMAND_H_
+ 
+ #include "stdc.h"
++#if defined (__mmix__)
++#  include "bashtypes.h"
++#endif
+ 
+ /* Instructions describing what kind of thing to do for a redirection. */
+ enum r_instruction {

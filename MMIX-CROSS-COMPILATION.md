@@ -13,13 +13,15 @@ This document details the work done to enable cross-compilation for the MMIX arc
 - ✅ **gcc** - Cross-compiler
 - ✅ **pcre2** - With waitpid() stub
 - ✅ **gmp** - GNU Multiple Precision library
-- ✅ **Lua 5.4** (`pkgsCross.mmix.lua5_4`) - Statically linked interpreter with MMIX-specific signal shim
+- ✅ **Lua interpreters** (`pkgsCross.mmix.lua{5_1,5_2,5_3,5_4}`, the `compat` variants, and the default `lua`) - All four upstream releases build statically; Lua 5.4 uses the MMIX signal stub while older versions work unmodified once the newlib stubs are in place
 - ✅ **zlib** (`pkgsCross.mmix.zlib`) - Compression library builds without extra dependencies
+- ✅ **ncurses 6.5** (`pkgsCross.mmix.ncurses`) - Static-only build with wide-character/progs/tests disabled and configure cache overrides so termios can stand in for the missing `sgtty`
+- ✅ **readline 8.3** (`pkgsCross.mmix.readline`) - Links against the static ncurses build with MMIX-specific CFLAGS and a patch that falls back to termios when `sgtty.h` is unavailable
 
 ### In Progress
 - 🔄 **binutils** - Builds progressing, blocked by coreutils
 - 🔄 **coreutils** - Needs additional time-related types (sbintime_t) and SSP support
-- 🔄 **bash / readline / ncurses** - Blocked because ncurses’ configure insists on shared libraries, which MMIX/newlib cannot provide yet
+- 🔄 **bash** - Now reaches the main build but fails because newlib lacks `sys/ioctl.h`, `struct winsize`, and job-control helpers (`sigblock`, `sigsetmask`, `WIFCONTINUED`, etc.)
 
 ### Not Yet Attempted
 - ❌ **Full GNU toolchain** - May need additional work
@@ -125,25 +127,52 @@ postBuild = lib.optionalString (stdenvNoLibc.targetPlatform.parsed.cpu.name == "
 6. **`newlib/Makefile.in`**
    - Added new source files to mmixware file list
 
-### 2. Bash Patches (`pkgs/shells/bash/`)
+### 2. ncurses (`pkgs/development/libraries/ncurses/default.nix`)
+
+**Changes:**
+- Permanently disable shared objects, program utilities, and the test suite when the host CPU is MMIX, and force the build into static-only mode (`configureFlags`, `postInstall`)
+- Inject cache variables so `configure` never tries to use `sgtty` (`cf_cv_have_sgtty_h=no`, `ac_cv_header_sgtty_h=no`) and always pretends `termios.h` plus `tcgetattr` are present (`ac_cv_header_termios_h=yes`, `cf_cv_have_tcgetattr=yes`)
+- Fake out pkg-config wiring so `.pc` files are kept even though the `tic` utilities are stripped from the build (avoids broken symlinks caused by the wide-character conditional)
+- Add a small `postPatch` tweak that inserts `#include <stdbool.h>` in `curses.h` so the stripped-down MMIX libc headers do not cause compile failures
+
+**Verification:**
+- `NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 nix build .#pkgsCross.mmix.ncurses -L --impure`
+- Result lives at `/nix/store/zylmgg8jbzx96d8b4nqp6sz06h93ylvs-ncurses-mmix-unknown-mmixware-6.5`
+
+### 3. readline (`pkgs/development/libraries/readline/8.3.nix`)
+
+**Changes:**
+- Force static builds (`--enable-static --disable-shared`) and keep the `.a` outputs by setting `dontDisableStatic` when `hostPlatform.parsed.cpu.name == "mmix"`
+- Pass cache overrides so termios is picked and `sgtty` is never probed (`ac_cv_header_termios_h=yes`, `ac_cv_header_sgtty_h=no`)
+- Add `CFLAGS` shim `-DTERMIOS_TTY_DRIVER` which matches the patch below and gives readline a clean escape hatch when `sgtty.h` is missing
+- New patch `pkgs/development/libraries/readline/no-sgtty-mm.patch`:
+  - Guard `rltty.h` so it falls back to termios instead of including `<sgtty.h>`
+  - Provide a private `struct winsize` when the system headers do not define one
+- Ensured pkg-config metadata stays in the `-dev` output thanks to the extra copy step in `postInstall`
+
+**Verification:**
+- `NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 nix build .#pkgsCross.mmix.readline -L --impure`
+- Symlink `result -> /nix/store/qhw0mc1vj6gwah99j77339jjp76bgp4y-readline-mmix-unknown-mmixware-8.3p1`
+
+### 4. Bash Patches (`pkgs/shells/bash/`)
 
 #### File: `5.nix`
 **Changes:**
-- Added conditional patch for MMIX to fix gethostname type mismatch
+- Added a MMIX-specific patch stack:
+  - `gethostname-mmix.patch` – fixes the signature mismatch with newlib (`size_t` instead of `int`) in `externs.h`
+  - `no-sgtty-mm.patch` – drops all `sgtty` use, adds a private `struct winsize`, and will eventually guard the remaining `<sys/ioctl.h>` include once a stub header exists
+  - `no-network-stub.patch` – includes `<bashintl.h>`/`<shell.h>` even if networking is disabled so the stub `netopen()` can call `internal_error`
+  - `command-bashtypes-mm.patch` – makes sure `command.h` pulls in `bashtypes.h` so `pid_t` is defined under newlib
+- MMIX builds now pass `ac_cv_header_sys_ioctl_h=no` so configure stops enabling TTY ioctls that newlib does not provide
 
-```nix
-++ lib.optionals (stdenv.hostPlatform.parsed.cpu.name == "mmix") [
-  # Fix gethostname declaration to match POSIX standard (size_t instead of int)
-  ./gethostname-mmix.patch
-];
-```
+**Current Status:**
+- `ncurses`/`readline` prerequisites link fine, but `bash` still fails while compiling `lib/sh/winsize.c`, `execute_cmd.c`, and `jobs.h`. The remaining blockers are:
+  - No `<sys/ioctl.h>` – we need at least a stub header in newlib so `struct winsize`/`TIOCGWINSZ` references compile
+  - Missing job-control helpers (`sigblock`, `sigsetmask`, and the `wait.h` macros such as `WIFCONTINUED`)
+  - No implementations for the signals/wait APIs that the shell relies on
+- Once those pieces exist in `newlib`, the current patches should let bash build completely static for MMIX.
 
-#### File: `gethostname-mmix.patch`
-**Changes:**
-- Fixed `gethostname()` declaration in `externs.h`
-- Changed second parameter from `int` to `size_t` to match POSIX and newlib's declaration
-
-### 3. GNU Hello Patches (`pkgs/by-name/he/hello/`)
+### 5. GNU Hello Patches (`pkgs/by-name/he/hello/`)
 
 #### File: `package.nix`
 **Changes:**
@@ -169,6 +198,16 @@ env = lib.optionalAttrs stdenv.hostPlatform.isDarwin {
 - Provide minimal type definitions for configure scripts
 
 **Examples**:
+
+### 6. Lua Interpreters (`pkgs/development/interpreters/lua-5/`)
+
+- The MMIX-only signal shim (`mmix-no-signal.patch`) is now applied only when the interpreter version is ≥ 5.4. Older releases no longer see the patch (their sources differ around the signal handling block), so 5.1/5.2/5.3 can reuse the stock tree.
+- With the newlib stubs in place, every stock Lua derivation cross-builds and runs under the simulator:
+  - `pkgsCross.mmix.lua5_4` and `pkgsCross.mmix.lua5_4_compat`
+  - `pkgsCross.mmix.lua5_3`, `pkgsCross.mmix.lua5_3_compat`, and `pkgsCross.mmix.lua`
+  - `pkgsCross.mmix.lua5_2`, `pkgsCross.mmix.lua5_2_compat`
+  - `pkgsCross.mmix.lua5_1`
+- Verification: `nix shell nixpkgs#mmixware -c mmix $(nix build ... --print-out-paths)/bin/lua -v`
 - `getrlimit()`: Returns hard-coded limits suitable for embedded systems
 - `waitpid()`: Returns ENOSYS (no process management on MMIX)
 - `opendir()`: Returns NULL with ENOSYS (no filesystem support)

@@ -1,0 +1,45 @@
+Common subdirectories: doc and readline-8.3-patched/doc
+Common subdirectories: examples and readline-8.3-patched/examples
+Common subdirectories: m4 and readline-8.3-patched/m4
+diff -u rltty.h readline-8.3-patched/rltty.h
+--- rltty.h	2009-01-04 11:32:33.000000000 -0800
++++ readline-8.3-patched/rltty.h	2025-11-23 04:07:00.118946579 -0800
+@@ -37,7 +37,12 @@
+ 
+ /* Other (BSD) machines use sgtty. */
+ #if defined (NEW_TTY_DRIVER)
+-#  include <sgtty.h>
++#  if defined (HAVE_SGTTY_H)
++#    include <sgtty.h>
++#  else
++#    undef NEW_TTY_DRIVER
++#    define TERMIOS_TTY_DRIVER
++#  endif
+ #endif
+ 
+ #include "rlwinsize.h"
+diff -u rlwinsize.h readline-8.3-patched/rlwinsize.h
+--- rlwinsize.h	2025-06-05 06:22:28.000000000 -0700
++++ readline-8.3-patched/rlwinsize.h	2025-11-23 04:07:00.121946580 -0800
+@@ -51,6 +51,19 @@
+ #  endif /* HAVE_SYS_PTE_H */
+ #endif /* !STRUCT_WINSIZE_IN_TERMIOS && !STRUCT_WINSIZE_IN_SYS_IOCTL */
+ 
++#if !defined (STRUCT_WINSIZE_IN_TERMIOS) && !defined (STRUCT_WINSIZE_IN_SYS_IOCTL)
++#  if !defined (_RL_DEFINED_WINSIZE)
++struct winsize
++{
++  int ws_row;
++  int ws_col;
++  int ws_xpixel;
++  int ws_ypixel;
++};
++#    define _RL_DEFINED_WINSIZE 1
++#  endif
++#endif
++
+ #if defined (M_UNIX) && !defined (_SCO_DS) && !defined (tcflow)
+ #  define tcflow(fd, action)	ioctl(fd, TCXONC, action)
+ #endif
+Common subdirectories: shlib and readline-8.3-patched/shlib
+Common subdirectories: support and readline-8.3-patched/support

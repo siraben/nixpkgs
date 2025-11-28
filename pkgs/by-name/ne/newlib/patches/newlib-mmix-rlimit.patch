@@ -1,12 +1,37 @@
+diff --git a/newlib/configure.host b/newlib/configure.host
+--- a/newlib/configure.host
++++ b/newlib/configure.host
+@@
+-  mmix-knuth-mmixware)
+-	sys_dir=mmixware
+-	;;
++  mmix-*-mmixware)
++	sys_dir=mmixware
++	;;
+@@
+-  mmix-*)
+-	syscall_dir=syscalls
+-	# We need every symbol 32-bit aligned, so the invalid
+-	# construct with attribute ((alias ("_ctype_b+127"))) breaks.
+-	newlib_cflags="${newlib_cflags} -DCOMPACT_CTYPE"
+-	;;
++  mmix-*)
++	syscall_dir=syscalls
++	# We need every symbol 32-bit aligned, so the invalid
++	# construct with attribute ((alias ("_ctype_b+127"))) breaks.
++	newlib_cflags="${newlib_cflags} -DCOMPACT_CTYPE"
++	sys_dir=mmixware
++	;;
 diff --git a/newlib/Makefile.in b/newlib/Makefile.in
 --- a/newlib/Makefile.in
 +++ b/newlib/Makefile.in
-@@ -578,7 +578,7 @@ check_PROGRAMS =
+@@ -578,7 +578,8 @@ check_PROGRAMS =
  @HAVE_LIBC_SYS_MMIXWARE_DIR_TRUE@	libc/sys/mmixware/execv.c libc/sys/mmixware/execve.c libc/sys/mmixware/fork.c libc/sys/mmixware/fstat.c libc/sys/mmixware/getpid.c libc/sys/mmixware/isatty.c \
  @HAVE_LIBC_SYS_MMIXWARE_DIR_TRUE@	libc/sys/mmixware/kill.c libc/sys/mmixware/link.c libc/sys/mmixware/lseek.c libc/sys/mmixware/open.c libc/sys/mmixware/pipe.c libc/sys/mmixware/read.c \
  @HAVE_LIBC_SYS_MMIXWARE_DIR_TRUE@	libc/sys/mmixware/sbrk.c libc/sys/mmixware/stat.c libc/sys/mmixware/time.c libc/sys/mmixware/unlink.c libc/sys/mmixware/utime.c libc/sys/mmixware/wait.c libc/sys/mmixware/write.c \
 -@HAVE_LIBC_SYS_MMIXWARE_DIR_TRUE@	libc/sys/mmixware/times.c libc/sys/mmixware/gettime.c libc/sys/mmixware/setjmp.S
-+@HAVE_LIBC_SYS_MMIXWARE_DIR_TRUE@	libc/sys/mmixware/times.c libc/sys/mmixware/gettime.c libc/sys/mmixware/setjmp.S libc/sys/mmixware/getrlimit.c libc/sys/mmixware/getprogname.c
++@HAVE_LIBC_SYS_MMIXWARE_DIR_TRUE@	libc/sys/mmixware/times.c libc/sys/mmixware/gettime.c libc/sys/mmixware/setjmp.S libc/sys/mmixware/getrlimit.c libc/sys/mmixware/getprogname.c libc/sys/mmixware/signal.c \
++@HAVE_LIBC_SYS_MMIXWARE_DIR_TRUE@	libc/sys/mmixware/dirent.c libc/sys/mmixware/mknod.c libc/sys/mmixware/termios.c
  
  @HAVE_LIBC_SYS_NETWARE_DIR_TRUE@am__append_52 = \
  @HAVE_LIBC_SYS_NETWARE_DIR_TRUE@	libc/sys/netware/getpid.c \
@@ -65,11 +90,11 @@ diff --git a/newlib/libc/sys/mmixware/Makefile.inc b/newlib/libc/sys/mmixware/Ma
 --- a/newlib/libc/sys/mmixware/Makefile.inc
 +++ b/newlib/libc/sys/mmixware/Makefile.inc
 @@ -3,4 +3,4 @@ libc_a_SOURCES += \
- 	%D%/execv.c %D%/execve.c %D%/fork.c %D%/fstat.c %D%/getpid.c %D%/isatty.c \
- 	%D%/kill.c %D%/link.c %D%/lseek.c %D%/open.c %D%/pipe.c %D%/read.c \
- 	%D%/sbrk.c %D%/stat.c %D%/time.c %D%/unlink.c %D%/utime.c %D%/wait.c %D%/write.c \
+	%D%/execv.c %D%/execve.c %D%/fork.c %D%/fstat.c %D%/getpid.c %D%/isatty.c \
+	%D%/kill.c %D%/link.c %D%/lseek.c %D%/open.c %D%/pipe.c %D%/read.c \
+	%D%/sbrk.c %D%/stat.c %D%/time.c %D%/unlink.c %D%/utime.c %D%/wait.c %D%/write.c \
 -	%D%/times.c %D%/gettime.c %D%/setjmp.S
-+	%D%/times.c %D%/gettime.c %D%/setjmp.S %D%/getrlimit.c %D%/getprogname.c
++	%D%/times.c %D%/gettime.c %D%/setjmp.S %D%/getrlimit.c %D%/getprogname.c %D%/signal.c %D%/dirent.c %D%/mknod.c
 diff --git a/newlib/libc/sys/mmixware/getprogname.c b/newlib/libc/sys/mmixware/getprogname.c
 new file mode 100644
 --- /dev/null
@@ -172,4 +197,91 @@ new file mode 100644
 +  /* On embedded systems, we typically don't allow changing limits */
 +  errno = EPERM;
 +  return -1;
++}
+diff -ruN a/newlib/libc/sys/mmixware/dirent.c b/newlib/libc/sys/mmixware/dirent.c
+--- a/newlib/libc/sys/mmixware/dirent.c	1969-12-31 16:00:00.000000000 -0800
++++ b/newlib/libc/sys/mmixware/dirent.c	2025-11-23 03:32:01.206972762 -0800
+@@ -0,0 +86 @@
++/* Minimal dirent implementation for MMIX; all operations return ENOSYS. */
++
++#include <dirent.h>
++#include <errno.h>
++
++DIR *
++opendir (const char *name)
++{
++  (void) name;
++  errno = ENOSYS;
++  return NULL;
++}
++
++int
++closedir (DIR *dirp)
++{
++  (void) dirp;
++  errno = ENOSYS;
++  return -1;
++}
++
++void
++rewinddir (DIR *dirp)
++{
++  (void) dirp;
++}
++
++void
++seekdir (DIR *dirp, long loc)
++{
++  (void) dirp;
++  (void) loc;
++}
++
++long
++telldir (DIR *dirp)
++{
++  (void) dirp;
++  return 0;
++}
++
++struct dirent *
++readdir (DIR *dirp)
++{
++  (void) dirp;
++  errno = ENOSYS;
++  return NULL;
++}
++
++int
++readdir_r (DIR *dirp, struct dirent *entry, struct dirent **result)
++{
++  (void) dirp;
++  if (result)
++    *result = NULL;
++  errno = ENOSYS;
++  return ENOSYS;
++}
++
+diff -ruN a/newlib/libc/sys/mmixware/mknod.c b/newlib/libc/sys/mmixware/mknod.c
+--- a/newlib/libc/sys/mmixware/mknod.c	1969-12-31 16:00:00.000000000 -0800
++++ b/newlib/libc/sys/mmixware/mknod.c	2025-11-23 03:32:01.206972762 -0800
+@@ -0,0 +21 @@
++/* Minimal mknod/mkfifo stubs for MMIX */
++
++#include <sys/stat.h>
++#include <errno.h>
++
++int
++mknod (const char *path, mode_t mode, dev_t dev)
++{
++  (void) path;
++  (void) mode;
++  (void) dev;
++  errno = ENOSYS;
++  return -1;
++}
++
++int
++mkfifo (const char *path, mode_t mode)
++{
++  return mknod (path, mode, 0);
 +}

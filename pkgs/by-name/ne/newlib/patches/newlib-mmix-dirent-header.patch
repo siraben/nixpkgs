@@ -1,0 +1,21 @@
+diff -ruN a/newlib/libc/sys/mmixware/sys/dirent.h b/newlib/libc/sys/mmixware/sys/dirent.h
+--- /dev/null  1969-12-31 16:00:00.000000000 -0800
++++ b/newlib/libc/sys/mmixware/sys/dirent.h  2025-11-23 03:32:01.206972762 -0800
+@@ -0,0 +1,17 @@
++#ifndef _SYS_DIRENT_H_
++#define _SYS_DIRENT_H_
++
++#include <sys/types.h>
++
++struct dirent {
++  long d_ino;
++  off_t d_off;
++  unsigned short d_reclen;
++  char d_name[256];
++};
++
++typedef struct {
++  int placeholder;
++} DIR;
++
++#endif

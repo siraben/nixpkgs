@@ -28,7 +28,17 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
   propagatedBuildInputs = [ curses-library ];
+  configureFlags =
+    (if stdenv.hostPlatform.parsed.cpu.name == "mmix" then
+      [ "--enable-static" "--disable-shared" ]
+     else
+      [ "--disable-static" ])
+    ++ lib.optionals (stdenv.hostPlatform.parsed.cpu.name == "mmix") [
+      "ac_cv_header_termios_h=yes"
+      "ac_cv_header_sgtty_h=no"
+    ];
   nativeBuildInputs = [ updateAutotoolsGnuConfigScriptsHook ];
+  dontDisableStatic = stdenv.hostPlatform.parsed.cpu.name == "mmix";
 
   patchFlags = [ "-p0" ];
 
@@ -52,6 +62,9 @@ stdenv.mkDerivation (finalAttrs: {
       ./no-arch_only-8.2.patch
     ]
     ++ finalAttrs.upstreamPatches
+    ++ lib.optionals (stdenv.hostPlatform.parsed.cpu.name == "mmix") [
+      ./no-sgtty-mm.patch
+    ]
     ++ lib.optionals stdenv.hostPlatform.isWindows [
       (fetchpatch {
         name = "0001-sigwinch.patch";
@@ -83,7 +96,9 @@ stdenv.mkDerivation (finalAttrs: {
   #
   # Method borrowed from
   # https://github.com/msys2/MINGW-packages/commit/35830ab27e5ed35c2a8d486961ab607109f5af50
-  CFLAGS = lib.optionalString stdenv.hostPlatform.isMinGW "-D__USE_MINGW_ALARM -D_POSIX";
+  CFLAGS =
+    lib.optionalString stdenv.hostPlatform.isMinGW "-D__USE_MINGW_ALARM -D_POSIX"
+    + lib.optionalString (stdenv.hostPlatform.parsed.cpu.name == "mmix") " -DTERMIOS_TTY_DRIVER";
 
   # This install error is caused by a very old libtool. We can't autoreconfHook this package,
   # so this is the best we've got!

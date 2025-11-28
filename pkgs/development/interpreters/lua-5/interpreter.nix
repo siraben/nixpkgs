@@ -62,7 +62,11 @@ stdenv.mkDerivation (
       else
         " -DLUA_COMPAT_5_3";
 
-    patchesWithExtras = patches ++ lib.optionals isMmix [ ./mmix-no-signal.patch ];
+    patchesWithExtras =
+      patches
+      ++ lib.optionals (isMmix && lib.versionAtLeast self.luaversion "5.4") [
+        ./mmix-no-signal.patch
+      ];
   in
 
   {

@@ -17,9 +17,12 @@
   binlore,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation (finalAttrs: let
+  enableWidec = unicodeSupport && stdenv.hostPlatform.parsed.cpu.name != "mmix";
+in {
   version = "6.5";
   pname = "ncurses" + lib.optionalString (abiVersion == "5") "-abi5-compat";
+  isMmix = stdenv.hostPlatform.parsed.cpu.name == "mmix";
 
   src = fetchurl {
     url = "https://invisible-island.net/archives/ncurses/ncurses-${finalAttrs.version}.tar.gz";
@@ -57,7 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
       ];
 
   configureFlags = [
-    (lib.withFeature (!enableStatic) "shared")
+    (if finalAttrs.isMmix then "--disable-shared" else lib.withFeature (!enableStatic) "shared")
     "--enable-pc-files"
     "--enable-symlinks"
     "--with-manpage-format=normal"
@@ -65,7 +68,8 @@ stdenv.mkDerivation (finalAttrs: {
     "--with-versioned-syms"
   ]
   ++ lib.optional (!finalAttrs.separateDebugInfo) "--without-debug"
-  ++ lib.optional unicodeSupport "--enable-widec"
+  ++ lib.optional enableWidec "--enable-widec"
+  ++ lib.optional finalAttrs.isMmix "--disable-widec"
   ++ lib.optional (!withCxx) "--without-cxx"
   ++ lib.optional (abiVersion == "5") "--with-abi-version=5"
   ++ lib.optional stdenv.hostPlatform.isNetBSD "--enable-rpath"
@@ -74,7 +78,7 @@ stdenv.mkDerivation (finalAttrs: {
     "--enable-sp-funcs"
     "--enable-term-driver"
   ]
-  ++ lib.optionals (stdenv.hostPlatform.isUnix && enableStatic) [
+  ++ lib.optionals (stdenv.hostPlatform.isUnix && (enableStatic || finalAttrs.isMmix)) [
     # For static binaries, the point is to have a standalone binary with
     # minimum dependencies. So here we make sure that binaries using this
     # package won't depend on a terminfo database located in the Nix store.
@@ -123,6 +127,16 @@ stdenv.mkDerivation (finalAttrs: {
   #
   ++ [
     "cf_cv_type_of_bool=bool"
+  ]
+  ++ lib.optionals finalAttrs.isMmix [
+    "cf_cv_have_sgtty_h=no"
+    "ac_cv_prog_gcc_traditional=no"
+    "ac_cv_header_termios_h=yes"
+    "ac_cv_header_sgtty_h=no"
+    "ac_cv_header_wchar_h=yes"
+    "cf_cv_have_tcgetattr=yes"
+    "--without-progs"
+    "--without-tests"
   ];
 
   # Only the C compiler, and explicitly not C++ compiler needs this flag on solaris:
@@ -152,6 +166,49 @@ stdenv.mkDerivation (finalAttrs: {
       "--with-pkg-config-libdir=$PKG_CONFIG_LIBDIR"
     )
   ''
+  + lib.optionalString finalAttrs.isMmix ''
+    cat > mmix-termios-stubs.c <<'EOF'
+#include <errno.h>
+#include <termios.h>
+
+static struct termios mmix_termios_state;
+
+int tcgetattr (int fd, struct termios *t)
+{
+  (void) fd;
+  if (!t)
+    {
+      errno = EINVAL;
+      return -1;
+    }
+  *t = mmix_termios_state;
+  return 0;
+}
+
+int tcsetattr (int fd, int actions, const struct termios *t)
+{
+  (void) fd;
+  (void) actions;
+  if (!t)
+    {
+      errno = EINVAL;
+      return -1;
+    }
+  mmix_termios_state = *t;
+  return 0;
+}
+
+int tcflush (int fd, int queue)
+{
+  (void) fd;
+  (void) queue;
+  return 0;
+}
+EOF
+    $CC -c mmix-termios-stubs.c
+    ${stdenv.cc.bintools.targetPrefix}ar rcs libmmix-termios-stubs.a mmix-termios-stubs.o
+    export LDFLAGS="$LDFLAGS $PWD/libmmix-termios-stubs.a"
+  ''
   + lib.optionalString stdenv.hostPlatform.isSunOS ''
     sed -i -e '/-D__EXTENSIONS__/ s/-D_XOPEN_SOURCE=\$cf_XOPEN_SOURCE//' \
            -e '/CPPFLAGS="$CPPFLAGS/s/ -D_XOPEN_SOURCE_EXTENDED//' \
@@ -168,17 +225,17 @@ stdenv.mkDerivation (finalAttrs: {
       abiVersion-extension =
         if stdenv.hostPlatform.isDarwin then "${abiVersion}.$dylibtype" else "$dylibtype.${abiVersion}";
     in
-    lib.optionalString (!stdenv.hostPlatform.isCygwin && !enableStatic) ''
+    lib.optionalString (!stdenv.hostPlatform.isCygwin && !enableStatic && !finalAttrs.isMmix) ''
       rm "$out"/lib/*.a
     ''
-    + ''
+  + lib.optionalString enableWidec ''
       # Determine what suffixes our libraries have
       suffix="$(awk -F': ' 'f{print $3; f=0} /default library suffix/{f=1}' config.log)"
     ''
     # When building a wide-character (Unicode) build, create backward
     # compatibility links from the the "normal" libraries to the
     # wide-character libraries (e.g. libncurses.so to libncursesw.so).
-    + lib.optionalString unicodeSupport ''
+    + lib.optionalString enableWidec ''
       libs="$(ls $dev/lib/pkgconfig | tr ' ' '\n' | sed "s,\(.*\)$suffix\.pc,\1,g")"
       suffixes="$(echo "$suffix" | awk '{for (i=1; i < length($0); i++) {x=substr($0, i+1, length($0)-i); print x}}')"
 
@@ -220,6 +277,13 @@ stdenv.mkDerivation (finalAttrs: {
           done
           ln -svf ''${library}$suffix.pc $dev/lib/pkgconfig/$library$newsuffix.pc
         done
+      done
+    ''
+  + lib.optionalString finalAttrs.isMmix ''
+      for pc in ncurses tic tinfo; do
+        if [ -f "$dev/lib/pkgconfig/$pc.pc" ]; then
+          ln -svf "$pc.pc" "$dev/lib/pkgconfig/''${pc}w.pc"
+        fi
       done
     ''
     # Unconditional patches. Leading newline is to avoid mass rebuilds.

@@ -1,0 +1,263 @@
+diff -ruN a/newlib/libc/sys/mmixware/Makefile.inc b/newlib/libc/sys/mmixware/Makefile.inc
+--- a/newlib/libc/sys/mmixware/Makefile.inc	2025-11-23 03:32:00.998972284 -0800
++++ b/newlib/libc/sys/mmixware/Makefile.inc	2025-11-23 03:32:01.206972762 -0800
+@@ -3,4 +3,4 @@ libc_a_SOURCES += \
+	%D%/execv.c %D%/execve.c %D%/fork.c %D%/fstat.c %D%/getpid.c %D%/isatty.c \
+	%D%/kill.c %D%/link.c %D%/lseek.c %D%/open.c %D%/pipe.c %D%/read.c \
+	%D%/sbrk.c %D%/stat.c %D%/time.c %D%/unlink.c %D%/utime.c %D%/wait.c %D%/write.c \
+-	%D%/times.c %D%/gettime.c %D%/setjmp.S %D%/getrlimit.c %D%/getprogname.c %D%/signal.c %D%/dirent.c %D%/mknod.c
++	%D%/times.c %D%/gettime.c %D%/setjmp.S %D%/getrlimit.c %D%/getprogname.c %D%/signal.c %D%/dirent.c %D%/mknod.c %D%/termios.c
+diff -ruN a/newlib/libc/sys/mmixware/sys/termios.h b/newlib/libc/sys/mmixware/sys/termios.h
+--- a/newlib/libc/sys/mmixware/sys/termios.h	1969-12-31 16:00:00.000000000 -0800
++++ b/newlib/libc/sys/mmixware/sys/termios.h	2025-11-23 03:32:01.208972767 -0800
+@@ -0,0 +1,130 @@
++#ifndef _SYS_TERMIOS_H
++#define _SYS_TERMIOS_H
++
++#include <sys/types.h>
++
++#define _XCGETA (('x'<<8)|1)
++#define _XCSETA (('x'<<8)|2)
++#define _XCSETAW (('x'<<8)|3)
++#define _XCSETAF (('x'<<8)|4)
++#define _TCSBRK (('T'<<8)|5)
++#define _TCFLSH (('T'<<8)|7)
++#define _TCXONC (('T'<<8)|6)
++
++#define TCOOFF 0
++#define TCOON  1
++#define TCIOFF 2
++#define TCION  3
++
++#define TCIFLUSH 0
++#define TCOFLUSH 1
++#define TCIOFLUSH 2
++
++#define NCCS 13
++
++#define TCSAFLUSH _XCSETAF
++#define TCSANOW   _XCSETA
++#define TCSADRAIN _XCSETAW
++#define TCSADFLUSH _XCSETAF
++
++#define IGNBRK  000001
++#define BRKINT  000002
++#define IGNPAR  000004
++#define INPCK   000020
++#define ISTRIP  000040
++#define PARMRK  000010
++#define INLCR   000100
++#define IGNCR   000200
++#define ICRNL   000400
++#define IXON    002000
++#define IXOFF   010000
++
++#define OPOST   000001
++#define OCRNL   000004
++#define ONLCR   000010
++#define ONOCR   000020
++#define TAB3    014000
++
++#define CLOCAL  004000
++#define CREAD   000200
++#define CSIZE   000060
++#define CS5     0
++#define CS6     020
++#define CS7     040
++#define CS8     060
++#define CSTOPB  000100
++#define HUPCL   002000
++#define PARENB  000400
++#define PARODD  001000
++
++#define ECHO    0000010
++#define ECHOE   0000020
++#define ECHOK   0000040
++#define ECHONL  0000100
++#define ICANON  0000002
++#define IEXTEN  0000400
++#define ISIG    0000001
++#define NOFLSH  0000200
++#define TOSTOP  0001000
++
++#define VEOF    4
++#define VEOL    5
++#define VERASE  2
++#define VINTR   0
++#define VKILL   3
++#define VMIN    4
++#define VQUIT   1
++#define VSUSP   10
++#define VTIME   5
++#define VSTART  11
++#define VSTOP   12
++
++#define B0      000000
++#define B50     000001
++#define B75     000002
++#define B110    000003
++#define B134    000004
++#define B150    000005
++#define B200    000006
++#define B300    000007
++#define B600    000010
++#define B1200   000011
++#define B1800   000012
++#define B2400   000013
++#define B4800   000014
++#define B9600   000015
++#define B19200  000016
++#define B38400  000017
++
++typedef unsigned char cc_t;
++typedef unsigned short tcflag_t;
++typedef unsigned short speed_t;
++
++struct termios {
++  tcflag_t c_iflag;
++  tcflag_t c_oflag;
++  tcflag_t c_cflag;
++  tcflag_t c_lflag;
++  char     c_line;
++  cc_t     c_cc[NCCS];
++  speed_t  c_ispeed;
++  speed_t  c_ospeed;
++};
++
++#ifndef _NO_MACROS
++#define cfgetospeed(tp)    ((tp)->c_ospeed)
++#define cfgetispeed(tp)    ((tp)->c_ispeed)
++#define cfsetospeed(tp, s) (((tp)->c_ospeed = (s)), 0)
++#define cfsetispeed(tp, s) (((tp)->c_ispeed = (s)), 0)
++#endif
++
++int tcgetattr (int fd, struct termios *termios_p);
++int tcsetattr (int fd, int optional_actions, const struct termios *termios_p);
++int tcsendbreak (int fd, int duration);
++int tcdrain (int fd);
++int tcflush (int fd, int queue_selector);
++int tcflow (int fd, int action);
++int cfsetspeed (struct termios *termios_p, speed_t speed);
++void cfmakeraw (struct termios *termios_p);
++
++#endif /* _SYS_TERMIOS_H */
+diff -ruN a/newlib/libc/sys/mmixware/termios.c b/newlib/libc/sys/mmixware/termios.c
+--- a/newlib/libc/sys/mmixware/termios.c	1969-12-31 16:00:00.000000000 -0800
++++ b/newlib/libc/sys/mmixware/termios.c	2025-11-23 03:32:01.210972771 -0800
+@@ -0,0 +1,116 @@
++/* Minimal termios implementation for MMIX/mmixware.
++   The simulator does not expose host terminal controls, so these
++   routines keep in-memory state and report success to callers.  */
++
++#include <errno.h>
++#include <string.h>
++#include <sys/termios.h>
++
++static struct termios mmix_termios_state = {
++  .c_iflag = ICRNL | IXON,
++  .c_oflag = OPOST | ONLCR,
++  .c_cflag = CREAD | CS8 | CLOCAL,
++  .c_lflag = ECHO | ICANON | ISIG,
++  .c_line = 0,
++  .c_cc = {
++    [VINTR] = 0x03,
++    [VQUIT] = 0x1c,
++    [VERASE] = 0x7f,
++    [VKILL] = 0x15,
++    [VEOF] = 0x04,
++    [VEOL] = 0,
++    [VMIN] = 1,
++    [VTIME] = 0,
++    [VSTART] = 0x11,
++    [VSTOP] = 0x13,
++    [VSUSP] = 0x1a,
++  },
++  .c_ispeed = B9600,
++  .c_ospeed = B9600,
++};
++
++int
++tcgetattr (int fd, struct termios *termios_p)
++{
++  (void) fd;
++  if (termios_p == NULL)
++    {
++      errno = EINVAL;
++      return -1;
++    }
++  *termios_p = mmix_termios_state;
++  return 0;
++}
++
++int
++tcsetattr (int fd, int optional_actions, const struct termios *termios_p)
++{
++  (void) fd;
++  (void) optional_actions;
++  if (termios_p == NULL)
++    {
++      errno = EINVAL;
++      return -1;
++    }
++  mmix_termios_state = *termios_p;
++  return 0;
++}
++
++int
++tcdrain (int fd)
++{
++  (void) fd;
++  return 0;
++}
++
++int
++tcflush (int fd, int queue_selector)
++{
++  (void) fd;
++  (void) queue_selector;
++  return 0;
++}
++
++int
++tcflow (int fd, int action)
++{
++  (void) fd;
++  (void) action;
++  return 0;
++}
++
++int
++tcsendbreak (int fd, int duration)
++{
++  (void) fd;
++  (void) duration;
++  return 0;
++}
++
++int
++cfsetspeed (struct termios *termios_p, speed_t speed)
++{
++  if (termios_p == NULL)
++    {
++      errno = EINVAL;
++      return -1;
++    }
++  termios_p->c_ispeed = speed;
++  termios_p->c_ospeed = speed;
++  return 0;
++}
++
++void
++cfmakeraw (struct termios *termios_p)
++{
++  if (termios_p == NULL)
++    return;
++  termios_p->c_iflag &= ~(IGNBRK | BRKINT | PARMRK | ISTRIP | INLCR
++                           | IGNCR | ICRNL | IXON);
++  termios_p->c_oflag &= ~OPOST;
++  termios_p->c_cflag &= ~(CSIZE | PARENB);
++  termios_p->c_cflag |= CS8;
++  termios_p->c_lflag &= ~(ECHO | ECHONL | ICANON | ISIG | IEXTEN);
++  termios_p->c_cc[VMIN] = 1;
++  termios_p->c_cc[VTIME] = 0;
++}

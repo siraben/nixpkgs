@@ -1,0 +1,11 @@
+--- ./externs.h	2024-05-30 17:16:42.000000000 +0000
++++ ./externs.h	2025-11-22 00:40:28.000000000 +0000
+@@ -308,7 +308,7 @@
+ #endif /* !HAVE_GETDTABLESIZE */
+
+ #if !defined (HAVE_GETHOSTNAME)
+-extern int gethostname (char *, int);
++extern int gethostname (char *, size_t);
+ #endif /* !HAVE_GETHOSTNAME */
+
+ extern int getmaxgroups (void);

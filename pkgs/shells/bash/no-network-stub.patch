@@ -1,0 +1,12 @@
+--- ./lib/sh/netopen.c	2024-05-30 17:16:42.000000000 +0000
++++ ./lib/sh/netopen.c	2025-11-23 05:19:00.000000000 +0000
+@@ -22,6 +22,9 @@
+ 
+ #include <config.h>
+ 
++#include <bashintl.h>
++#include <shell.h>
++
+ #if defined (HAVE_NETWORK)
+ 
+ #if defined (HAVE_UNISTD_H)

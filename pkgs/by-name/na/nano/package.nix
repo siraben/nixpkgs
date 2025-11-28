@@ -32,14 +32,25 @@ in
 stdenv.mkDerivation rec {
   pname = "nano";
   version = "8.6";
+  isMmix = stdenv.hostPlatform.parsed.cpu.name == "mmix";
+  tinyBuild = enableTiny || isMmix;
+  nlsEnabled = enableNls && !isMmix;
 
   src = fetchurl {
     url = "mirror://gnu/nano/${pname}-${version}.tar.xz";
     hash = "sha256-96v78O7V9XOrUb13pFjzLYL5hZxV6WifgZ2W/hQ3phk=";
   };
 
-  nativeBuildInputs = [ texinfo ] ++ lib.optional enableNls gettext;
-  buildInputs = [ ncurses ] ++ lib.optional (!enableTiny) file;
+  nativeBuildInputs = [ texinfo ] ++ lib.optional nlsEnabled gettext;
+  buildInputs = [ ncurses ] ++ lib.optional (!tinyBuild) file;
+  NIX_CFLAGS_COMPILE = lib.optionalString isMmix ''
+    -DGLOB_NOESCAPE=0x4000
+    -DGLOB_ONLYDIR=0x8000
+    -DGLOB_TILDE_CHECK=0x10000
+    -DGLOB_PERIOD=0x2000
+    -DGLOB_ABORTED=GLOB_ABEND
+    -D__GLOB_FLAGS=(GLOB_PERIOD|GLOB_NOESCAPE|GLOB_ONLYDIR|GLOB_TILDE_CHECK)
+  '';
 
   outputs = [
     "out"
@@ -48,15 +59,15 @@ stdenv.mkDerivation rec {
 
   configureFlags = [
     "--sysconfdir=/etc"
-    (lib.enableFeature enableNls "nls")
-    (lib.enableFeature enableTiny "tiny")
+    (lib.enableFeature nlsEnabled "nls")
+    (lib.enableFeature tinyBuild "tiny")
   ]
   ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
     "gl_cv_func_strcasecmp_works=yes"
   ];
 
   postInstall =
-    if enableTiny then
+    if tinyBuild then
       null
     else
       ''

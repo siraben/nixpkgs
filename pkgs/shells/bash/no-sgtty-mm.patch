@@ -1,0 +1,81 @@
+--- ./include/shtty.h	2024-05-30 17:16:42.000000000 +0000
++++ ./include/shtty.h	2025-11-23 05:05:00.000000000 +0000
+@@ -24,10 +24,16 @@
+ #if defined (_POSIX_VERSION) && defined (HAVE_TERMIOS_H) && defined (HAVE_TCGETATTR) && !defined (TERMIOS_MISSING)
+ #  define TERMIOS_TTY_DRIVER
+ #else
+-#  if defined (HAVE_TERMIO_H)
+-#    define TERMIO_TTY_DRIVER
+-#  else
+-#    define NEW_TTY_DRIVER
++#  if defined (HAVE_TERMIO_H)
++#    define TERMIO_TTY_DRIVER
++#  else
++#    if defined (HAVE_SGTTY_H)
++#      define NEW_TTY_DRIVER
++#    else
++       /* Fall back to termios when sgtty.h is unavailable.  */
++#      define TERMIOS_TTY_DRIVER
++#      undef NEW_TTY_DRIVER
++#    endif
+ #  endif
+ #endif
+ 
+@@ -51,8 +57,13 @@
+ #  ifdef TERMIO_TTY_DRIVER
+ #    include <termio.h>
+ #    define TTYSTRUCT struct termio
+ #  else	/* NEW_TTY_DRIVER */
+-#    include <sgtty.h>
+-#    define TTYSTRUCT struct sgttyb
++#    if defined (HAVE_SGTTY_H)
++#      include <sgtty.h>
++#      define TTYSTRUCT struct sgttyb
++#    else
++#      include <termios.h>
++#      define TTYSTRUCT struct termios
++#    endif
+ #  endif
+ #endif
+--- ./lib/sh/winsize.c	2024-05-30 17:16:42.000000000 +0000
++++ ./lib/sh/winsize.c	2025-11-23 05:05:00.000000000 +0000
+@@
+-#if defined (HAVE_UNISTD_H)
+-#  include <unistd.h>
+-#endif
+-
+-#include <sys/ioctl.h>
++#if defined (HAVE_UNISTD_H)
++#  include <unistd.h>
++#endif
++
++#if defined (HAVE_SYS_IOCTL_H) && !defined (__mmix__)
++#  include <sys/ioctl.h>
++#endif
+@@
+-#if !defined (STRUCT_WINSIZE_IN_TERMIOS) && !defined (STRUCT_WINSIZE_IN_SYS_IOCTL) && !defined (HAVE_TCGETWINSIZE)
++#if !defined (STRUCT_WINSIZE_IN_TERMIOS) && !defined (STRUCT_WINSIZE_IN_SYS_IOCTL) && !defined (HAVE_TCGETWINSIZE)
+ #  if defined (HAVE_SYS_STREAM_H)
+ #    include <sys/stream.h>
+ #  endif /* HAVE_SYS_STREAM_H */
+ #  if defined (HAVE_SYS_PTEM_H) /* SVR4.2, at least, has it here */
+ #    include <sys/ptem.h>
+ #    define _IO_PTEM_H          /* work around SVR4.2 1.1.4 bug */
+ #  endif /* HAVE_SYS_PTEM_H */
+ #  if defined (HAVE_SYS_PTE_H)  /* ??? */
+ #    include <sys/pte.h>
+ #  endif /* HAVE_SYS_PTE_H */
+ #endif /* !STRUCT_WINSIZE_IN_TERMIOS && !STRUCT_WINSIZE_IN_SYS_IOCTL */
++
++#if !defined (STRUCT_WINSIZE_IN_TERMIOS) && !defined (STRUCT_WINSIZE_IN_SYS_IOCTL)
++#  if !defined (_BASH_DEFINED_WINSIZE)
++struct winsize
++{
++  int ws_row;
++  int ws_col;
++  int ws_xpixel;
++  int ws_ypixel;
++};
++#    define _BASH_DEFINED_WINSIZE 1
++#  endif
++#endif

@@ -84,6 +84,16 @@ lib.warnIf (withDocs != null)
       # Some related discussion can be found in
       # https://lists.gnu.org/archive/html/bug-bash/2015-05/msg00071.html
       ./pgrp-pipe-5.patch
+    ]
+    ++ lib.optionals (stdenv.hostPlatform.parsed.cpu.name == "mmix") [
+      # Fix gethostname declaration to match POSIX standard (size_t instead of int)
+      ./gethostname-mmix.patch
+      # mmix/newlib lacks sgtty, use termios-based tty handling instead.
+      ./no-sgtty-mm.patch
+      # Ensure the no-network stub still sees internal_error/_ definitions.
+      ./no-network-stub.patch
+      # Pull in bashtypes for pid_t and friends when building command.h.
+      ./command-bashtypes-mm.patch
     ];
 
     configureFlags = [
@@ -121,6 +131,9 @@ lib.warnIf (withDocs != null)
       # /dev/fd is optional on FreeBSD. we need it to work when built on a system
       # with it and transferred to a system without it! This includes linux cross.
       "bash_cv_dev_fd=absent"
+    ]
+    ++ lib.optionals (stdenv.hostPlatform.parsed.cpu.name == "mmix") [
+      "ac_cv_header_sys_ioctl_h=no"
     ];
 
     strictDeps = true;
