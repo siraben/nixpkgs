@@ -4,6 +4,7 @@
   fetchFromGitHub,
   pkg-config,
   wrapGAppsHook3,
+  makeBinaryWrapper,
   atk,
   bzip2,
   cairo,
@@ -52,6 +53,45 @@ rustPlatform.buildRustPackage (finalAttrs: {
     ./make-build-reproducible.patch
   ];
 
+  postPatch = lib.optionalString stdenv.hostPlatform.isDarwin ''
+    # Patch magnum-opus vendored dependency to use pkg-config on Darwin
+    # The upstream magnum-opus only uses pkg-config on Linux with linux-pkg-config feature
+    # We need to patch both build.rs and Cargo.toml to enable pkg-config on macOS
+
+    # Patch magnum-opus build.rs to use pkg-config on macOS
+    substituteInPlace ../rustdesk-1.4.3-vendor/magnum-opus*/build.rs \
+      --replace-fail '#[cfg(all(target_os = "linux", feature = "linux-pkg-config"))]' \
+                     '#[cfg(any(all(target_os = "linux", feature = "linux-pkg-config"), target_os = "macos"))]' \
+      --replace-fail '#[cfg(not(all(target_os = "linux", feature = "linux-pkg-config")))]' \
+                     '#[cfg(not(any(all(target_os = "linux", feature = "linux-pkg-config"), target_os = "macos")))]'
+
+    # Patch magnum-opus Cargo.toml to make pkg-config non-optional (always available)
+    # and update the feature definition to not use dep: prefix for non-optional deps
+    substituteInPlace ../rustdesk-1.4.3-vendor/magnum-opus*/Cargo.toml \
+      --replace-fail 'pkg-config = { version = "0.3.27", optional = true }' \
+                     'pkg-config = "0.3.27"' \
+      --replace-fail 'linux-pkg-config = ["dep:pkg-config"]' \
+                     'linux-pkg-config = []'
+
+    # Patch scrap build.rs to use pkg-config on macOS
+    # The scrap library is a local crate in rustdesk that also hardcodes Homebrew paths
+    substituteInPlace libs/scrap/build.rs \
+      --replace-fail '#[cfg(all(target_os = "linux", feature = "linux-pkg-config"))]' \
+                     '#[cfg(any(all(target_os = "linux", feature = "linux-pkg-config"), target_os = "macos"))]' \
+      --replace-fail '#[cfg(not(all(target_os = "linux", feature = "linux-pkg-config")))]' \
+                     '#[cfg(not(any(all(target_os = "linux", feature = "linux-pkg-config"), target_os = "macos")))]' \
+      --replace-fail 'if cfg!(all(target_os = "linux", feature = "linux-pkg-config"))' \
+                     'if cfg!(any(all(target_os = "linux", feature = "linux-pkg-config"), target_os = "macos"))'
+
+    # Patch scrap Cargo.toml to make pkg-config non-optional (always available)
+    # and update the feature definition to not use dep: prefix for non-optional deps
+    substituteInPlace libs/scrap/Cargo.toml \
+      --replace-fail 'pkg-config = { version = "0.3.27", optional = true }' \
+                     'pkg-config = "0.3.27"' \
+      --replace-fail 'linux-pkg-config = ["dep:pkg-config"]' \
+                     'linux-pkg-config = []'
+  '';
+
   desktopItems = [
     (makeDesktopItem {
       name = "rustdesk";
@@ -66,9 +106,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   nativeBuildInputs = [
-    copyDesktopItems
     pkg-config
     rustPlatform.bindgenHook
+    makeBinaryWrapper
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
+    copyDesktopItems
     wrapGAppsHook3
   ];
 
@@ -78,8 +121,18 @@ rustPlatform.buildRustPackage (finalAttrs: {
   doCheck = false;
 
   buildInputs = [
-    atk
     bzip2
+    libgit2
+    libsodium
+    libvpx
+    libyuv
+    libopus
+    libaom
+    zlib
+    zstd
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
+    atk
     cairo
     dbus
     gdk-pixbuf
@@ -87,22 +140,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
     gst_all_1.gst-plugins-base
     gst_all_1.gstreamer
     gtk3
-    libgit2
     libpulseaudio
-    libsodium
     libXtst
-    libvpx
-    libyuv
-    libopus
-    libaom
     libxkbcommon
     pam
     pango
-    zlib
-    zstd
-  ]
-
-  ++ lib.optionals stdenv.hostPlatform.isLinux [
     alsa-lib
     xdotool
   ];
@@ -112,16 +154,19 @@ rustPlatform.buildRustPackage (finalAttrs: {
   postInstall = ''
     mkdir -p $out/{share/src,lib/rustdesk}
 
-    # .so needs to be next to the executable
+    # .so/.dylib needs to be next to the executable
     mv $out/bin/rustdesk $out/lib/rustdesk
     ${lib.optionalString stdenv.hostPlatform.isLinux "ln -s ${libsciter}/lib/libsciter-gtk.so $out/lib/rustdesk"}
+    ${lib.optionalString stdenv.hostPlatform.isDarwin "ln -s ${libsciter}/lib/libsciter.dylib $out/lib/rustdesk"}
 
     makeWrapper $out/lib/rustdesk/rustdesk $out/bin/rustdesk \
       --chdir "$out/share"
 
     cp -a $src/src/ui $out/share/src
 
-    install -Dm0644 $src/res/logo.svg $out/share/icons/hicolor/scalable/apps/rustdesk.svg
+    ${lib.optionalString stdenv.hostPlatform.isLinux ''
+      install -Dm0644 $src/res/logo.svg $out/share/icons/hicolor/scalable/apps/rustdesk.svg
+    ''}
   '';
 
   postFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
@@ -143,6 +188,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
       leixb
     ];
     mainProgram = "rustdesk";
-    badPlatforms = lib.platforms.darwin;
+    platforms = lib.platforms.unix;
   };
 })
