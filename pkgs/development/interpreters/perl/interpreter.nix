@@ -157,6 +157,12 @@ stdenv.mkDerivation (
             # https://github.com/arsv/perl-cross/issues/158
             "-Dd_gnulibc=define"
           ]
+          ++ lib.optionals stdenv.buildPlatform.isDarwin [
+            # perl-cross uses the build machine to configure miniperl.
+            # Provide build-host-specific values to avoid non-ELF tool usage.
+            "--host-set-d_nanosleep=define"
+            "--host-set-byteorder=1234"
+          ]
         else
           (
             [
@@ -201,7 +207,8 @@ stdenv.mkDerivation (
         "-Dd_crypt"
       ];
 
-    configureScript = lib.optionalString (!crossCompiling) "${stdenv.shell} ./Configure";
+    configureScript =
+      if crossCompiling then "${stdenv.shell} ./configure-cross" else "${stdenv.shell} ./Configure";
 
     # !canExecute cross uses miniperl which doesn't have this
     postConfigure =
@@ -255,6 +262,54 @@ stdenv.mkDerivation (
     + ''
       EOF
     ''
+    + lib.optionalString (crossCompiling && stdenv.buildPlatform.isDarwin) ''
+      build_cc=${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}cc
+      cat > buildmini-sizes.c <<'EOF'
+      #include <stdio.h>
+      #include <sys/types.h>
+      #include <time.h>
+      #include <unistd.h>
+
+      int main(void) {
+        printf("charsize=%zu\n", sizeof(char));
+        printf("shortsize=%zu\n", sizeof(short));
+        printf("intsize=%zu\n", sizeof(int));
+        printf("longsize=%zu\n", sizeof(long));
+        printf("doublesize=%zu\n", sizeof(double));
+        printf("ptrsize=%zu\n", sizeof(void *));
+        printf("longdblsize=%zu\n", sizeof(long double));
+        printf("longlongsize=%zu\n", sizeof(long long));
+        printf("sizesize=%zu\n", sizeof(size_t));
+        printf("fpossize=%zu\n", sizeof(fpos_t));
+        printf("lseeksize=%zu\n", sizeof(off_t));
+        printf("uidsize=%zu\n", sizeof(uid_t));
+        printf("gidsize=%zu\n", sizeof(gid_t));
+        printf("timesize=%zu\n", sizeof(time_t));
+        return 0;
+      }
+      EOF
+
+      "$build_cc" buildmini-sizes.c -o buildmini-sizes
+      ./buildmini-sizes > buildmini-sizes.out
+      . ./buildmini-sizes.out
+
+      configureFlagsArray+=(
+        "--host-set-charsize=$charsize"
+        "--host-set-shortsize=$shortsize"
+        "--host-set-intsize=$intsize"
+        "--host-set-longsize=$longsize"
+        "--host-set-doublesize=$doublesize"
+        "--host-set-ptrsize=$ptrsize"
+        "--host-set-longdblsize=$longdblsize"
+        "--host-set-longlongsize=$longlongsize"
+        "--host-set-sizesize=$sizesize"
+        "--host-set-fpossize=$fpossize"
+        "--host-set-lseeksize=$lseeksize"
+        "--host-set-uidsize=$uidsize"
+        "--host-set-gidsize=$gidsize"
+        "--host-set-timesize=$timesize"
+      )
+    ''
     + lib.optionalString stdenv.hostPlatform.isDarwin ''
       substituteInPlace hints/darwin.sh --replace "env MACOSX_DEPLOYMENT_TARGET=10.3" ""
     ''
@@ -273,6 +328,11 @@ stdenv.mkDerivation (
       NIX_CFLAGS_COMPILE = lib.optionalString (
         stdenv.hasCC && stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.version "21"
       ) "-fno-strict-aliasing";
+    }
+    // lib.optionalAttrs crossCompiling {
+      # perl-cross's configure looks for HOST* tools during buildmini.
+      HOSTREADELF = "${pkgsBuildBuild.llvmPackages.bintools}/bin/readelf";
+      HOSTOBJDUMP = "${pkgsBuildBuild.llvmPackages.bintools}/bin/objdump";
     };
 
     # copied from python
@@ -375,13 +435,29 @@ stdenv.mkDerivation (
 
     depsBuildBuild = [
       buildPackages.stdenv.cc
+      pkgsBuildBuild.llvmPackages.bintools
       makeWrapper
     ];
 
     postUnpack = ''
       unpackFile ${perl-cross-src}
       chmod -R u+w ${perl-cross-src.name}
+
+      # Avoid clobbering perl's Configure with perl-cross's configure on
+      # case-insensitive filesystems (common on Darwin).
+      if [ -f perl-${version}/Configure ]; then
+        mv perl-${version}/Configure perl-${version}/Configure.perl
+      fi
+
       cp -R ${perl-cross-src.name}/* perl-${version}/
+
+      if [ -f perl-${version}/configure ]; then
+        mv perl-${version}/configure perl-${version}/configure-cross
+      fi
+
+      if [ -f perl-${version}/Configure.perl ]; then
+        mv perl-${version}/Configure.perl perl-${version}/Configure
+      fi
     '';
 
     configurePlatforms = [
