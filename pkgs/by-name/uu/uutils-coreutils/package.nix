@@ -10,6 +10,7 @@
 
   prefix ? "uutils-",
   buildMulticallBinary ? true,
+  withDocs ? true,
 
   selinuxSupport ? false,
   libselinux,
@@ -51,6 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     rustPlatform.bindgenHook
     rustPlatform.cargoSetupHook
+  ] ++ lib.optionals withDocs [
     python3Packages.sphinx
   ];
 
@@ -59,7 +61,9 @@ stdenv.mkDerivation (finalAttrs: {
     "PREFIX=${placeholder "out"}"
     "PROFILE=release"
     "SELINUX_ENABLED=${if selinuxSupport then "1" else "0"}"
+  ] ++ lib.optionals withDocs [
     "INSTALLDIR_MAN=${placeholder "out"}/share/man/man1"
+  ] ++ [
     # Explicitly enable acl, and if requested selinux.
     # We cannot rely on SELINUX_ENABLED here since our explicit assignment
     # overrides its effect in the makefile.
@@ -77,7 +81,8 @@ stdenv.mkDerivation (finalAttrs: {
     }"
   ]
   ++ lib.optionals (prefix != null) [ "PROG_PREFIX=${prefix}" ]
-  ++ lib.optionals buildMulticallBinary [ "MULTICALL=y" ];
+  ++ lib.optionals buildMulticallBinary [ "MULTICALL=y" ]
+  ++ lib.optionals (!withDocs) [ "SPHINXBUILD=true" ];
 
   env = lib.optionalAttrs selinuxSupport {
     SELINUX_INCLUDE_DIR = "${libselinux.dev}/include";
