@@ -152,6 +152,59 @@ self: super: {
     }) (lib.attrNames self._cuda.db.cudaCapabilityToInfo)
   );
 
+  # All packages built with uutils-coreutils instead of GNU coreutils.
+  # Non-Linux systems and 32-bit are not supported.
+  pkgsUutils =
+    if stdenv.hostPlatform.isLinux && stdenv.buildPlatform.is64bit then
+      nixpkgsFun {
+        overlays = [
+          (
+            self': super':
+            let
+              # Bootstrap stages use fetchurlBoot which cannot build Rust
+              # packages, so we must not override coreutils there.
+              isBootstrapStage = lib.hasPrefix "bootstrap-" (super'.stdenv.name or "");
+              uu-coreutils = super'.uutils-coreutils-minimal;
+              gnuCoreutils = super'.stdenv.__bootPackages.stdenv.__bootPackages.coreutils;
+            in
+            {
+              pkgsUutils = super';
+            }
+            // lib.optionalAttrs (!isBootstrapStage) {
+              coreutils = uu-coreutils;
+              coreutils-full = super'.uutils-coreutils.override { prefix = null; };
+              _bootstrapCoreutils = gnuCoreutils;
+              # Break dependency cycles: uutils-coreutils (Rust) has deep deps
+              # through python3/cargo. Packages in that chain which reference
+              # the `coreutils` parameter must use GNU coreutils to avoid:
+              # uutils → vendor → python3 → {openssl,meson,perl,git,...} → coreutils → uutils
+              openssl = super'.openssl.override { coreutils = gnuCoreutils; };
+              meson = super'.meson.override { coreutils = gnuCoreutils; };
+              perl = super'.perl.override { coreutils = gnuCoreutils; };
+              deterministic-uname = super'.deterministic-uname.override { coreutils = gnuCoreutils; };
+              git = super'.git.override { coreutils = gnuCoreutils; };
+              nix-prefetch-git = super'.nix-prefetch-git.override { coreutils = gnuCoreutils; };
+              versionCheckHook = super'.versionCheckHook.override { coreutils = gnuCoreutils; };
+              wrapBintoolsWith = args: super'.wrapBintoolsWith (args // { coreutils = gnuCoreutils; });
+              wrapCCWith = args: super'.wrapCCWith (args // { coreutils = gnuCoreutils; });
+              # Override stdenv.overrides to prevent stdenvOverrides (applied last
+              # in the overlay chain) from pinning coreutils back to prevStage's
+              # GNU coreutils.
+              stdenv = super'.stdenv // {
+                overrides =
+                  self: super:
+                  let
+                    orig = (super'.stdenv.overrides or (_: _: { })) self super;
+                  in
+                  removeAttrs orig [ "coreutils" ] // { coreutils = uu-coreutils; };
+              };
+            }
+          )
+        ] ++ overlays;
+      }
+    else
+      throw "uutils coreutils variant only supports 64-bit Linux systems.";
+
   pkgsExtraHardening = nixpkgsFun {
     overlays = [
       (
