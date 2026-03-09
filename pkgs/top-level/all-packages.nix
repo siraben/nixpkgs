@@ -603,14 +603,21 @@ with pkgs;
           openssl = buildPackages.openssl.override {
             fetchurl = stdenv.fetchurlBoot;
             buildPackages = {
-              coreutils = buildPackages.coreutils.override {
-                fetchurl = stdenv.fetchurlBoot;
-                inherit perl;
-                xz = buildPackages.xz.override { fetchurl = stdenv.fetchurlBoot; };
-                gmpSupport = false;
-                aclSupport = false;
-                attrSupport = false;
-              };
+              coreutils =
+                let
+                  # Use _bootstrapCoreutils if available (e.g. in pkgsUutils overlay),
+                  # since non-GNU coreutils (uutils) can't be overridden with
+                  # fetchurlBoot and would create a circular fetchurl dependency.
+                  bc = buildPackages._bootstrapCoreutils or buildPackages.coreutils;
+                in
+                bc.override {
+                  fetchurl = stdenv.fetchurlBoot;
+                  inherit perl;
+                  xz = buildPackages.xz.override { fetchurl = stdenv.fetchurlBoot; };
+                  gmpSupport = false;
+                  aclSupport = false;
+                  attrSupport = false;
+                };
               inherit perl;
             };
             inherit perl;
@@ -2248,6 +2255,11 @@ with pkgs;
   uusi = haskell.lib.compose.justStaticExecutables haskellPackages.uusi;
 
   uutils-coreutils-noprefix = uutils-coreutils.override { prefix = null; };
+
+  uutils-coreutils-minimal = uutils-coreutils.override {
+    prefix = null;
+    withDocs = false;
+  };
 
   xkcdpass = with python3Packages; toPythonApplication xkcdpass;
 
