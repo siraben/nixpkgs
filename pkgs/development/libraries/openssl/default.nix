@@ -79,7 +79,7 @@ let
       ''
       # config is a configure script which is not installed.
       + lib.optionalString (lib.versionAtLeast version "1.1.1") ''
-        substituteInPlace config --replace '/usr/bin/env' '${buildPackages.coreutils}/bin/env'
+        substituteInPlace config --replace '/usr/bin/env' '${coreutils}/bin/env'
       ''
       + lib.optionalString (lib.versionAtLeast version "1.1.1" && stdenv.hostPlatform.isMusl) ''
         substituteInPlace crypto/async/arch/async_posix.h \
