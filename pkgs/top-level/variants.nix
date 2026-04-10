@@ -255,6 +255,43 @@ let
         '';
       });
 
+      python3Minimal = let
+        cosmoCC = "${super'.stdenv.cc}/bin/${super'.stdenv.cc.targetPrefix}gcc";
+        cosmoAR = "${super'.stdenv.cc.bintools}/bin/${super'.stdenv.cc.targetPrefix}ar";
+      in (super'.python3Minimal.override {
+        allowedReferenceNames = [ ];
+      }).overrideAttrs (old: {
+        buildInputs = lib.filter (d:
+          (d.pname or d.name or "") != "bash"
+        ) (old.buildInputs or [ ]);
+        postPatch = "";
+        separateDebugInfo = false;
+        preConfigure = (old.preConfigure or "") + ''
+          export CC="${cosmoCC}"
+          export AR="${cosmoAR}"
+        '';
+        configureFlags = lib.filter (f:
+          f != "--enable-shared"
+        ) (old.configureFlags or [ ]) ++ [
+          "--disable-shared"
+          "--disable-test-modules"
+          "LDFLAGS=-static"
+          "MODULE_BUILDTYPE=static"
+        ];
+        postInstall = builtins.replaceStrings
+          [ "touch $out/lib/"
+            "rm -R $out/lib/python*/test"
+            "rm -R $out/bin/idle"
+            "rm -R $out/lib/python*/tkinter"
+          ]
+          [ "[ -d $out/lib/python3.13/test ] && touch $out/lib/"
+            "rm -rf $out/lib/python*/test"
+            "rm -rf $out/bin/idle"
+            "rm -rf $out/lib/python*/tkinter"
+          ]
+          (old.postInstall or "");
+      });
+
       gnugrep = (super'.gnugrep.override { runtimeShellPackage = null; }).overrideAttrs (old: {
         postInstall = "";
         buildInputs = lib.filter (d: !(lib.hasInfix "glibc-iconv" (d.name or ""))) (old.buildInputs or [ ]);
