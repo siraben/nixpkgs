@@ -93,7 +93,7 @@ lib.init bootStages
           inherit (stdenvNoCC) hostPlatform targetPlatform;
           baseStdenv = stdenvNoCC.override {
             # Old ones run on wrong platform
-            extraBuildInputs = lib.optionals hostPlatform.isDarwin [
+            extraBuildInputs = lib.optionals (hostPlatform.isDarwin && !(crossSystem.useCosmopolitan or false)) [
               buildPackages.targetPackages.apple-sdk
             ];
 
@@ -112,6 +112,13 @@ lib.init bootStages
               # when there is a C compiler and everything should be fine.
               then
                 throw "no C compiler provided for this platform"
+              else if crossSystem.useCosmopolitan or false then
+                if crossSystem.cosmoArch or "x86_64" == "fat" then
+                  buildPackages.cosmocc.fat.cc
+                else if crossSystem.cosmoArch or "x86_64" == "aarch64" then
+                  buildPackages.cosmocc.aarch64.cc
+                else
+                  buildPackages.cosmocc.cc
               else if crossSystem.isDarwin then
                 buildPackages.llvmPackages.systemLibcxxClang
               else if crossSystem.useLLVM or false then
@@ -120,15 +127,6 @@ lib.init bootStages
                 buildPackages.zig.cc
               else if crossSystem.useArocc or false then
                 buildPackages.arocc
-              else if crossSystem.useGccNG or false then
-                buildPackages.gccNGPackages.gcc
-              else if crossSystem.useCosmopolitan or false then
-                if crossSystem.cosmoArch or "x86_64" == "fat" then
-                  buildPackages.cosmocc.fat.cc
-                else if crossSystem.cosmoArch or "x86_64" == "aarch64" then
-                  buildPackages.cosmocc.aarch64.cc
-                else
-                  buildPackages.cosmocc.cc
               else
                 buildPackages.gcc;
 

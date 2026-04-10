@@ -67,10 +67,29 @@ rec {
               dontPatchELF = true;
               doCheck = false;
               doInstallCheck = false;
+              # Global gnulib compatibility fixes for cosmopolitan libc.
+              # Applied conditionally — only when the relevant files exist.
+              postPatch = (prevAttrs.postPatch or "") + ''
+                # gnulib tests don't build under cosmopolitan.
+                if [ -f Makefile.in ]; then
+                  sed -i 's:gnulib-tests::g' Makefile.in
+                fi
+                # Cosmopolitan libc declares timespec_cmp as a non-static
+                # symbol; gnulib's inline definition conflicts at link time.
+                if [ -f lib/timespec.h ]; then
+                  sed -i 's/timespec_cmp/gl_timespec_cmp/g; s/gl_gl_timespec_cmp/gl_timespec_cmp/g' lib/timespec.h
+                  find . \( -name '*.c' -o -name '*.h' \) -print0 2>/dev/null | xargs -0 -r sed -i 's/timespec_cmp/gl_timespec_cmp/g; s/gl_gl_timespec_cmp/gl_timespec_cmp/g' 2>/dev/null || true
+                fi
+                # gnulib's getlocalename_l-unsafe.c has a platform guard
+                # that doesn't recognise cosmopolitan.
+                if [ -f lib/getlocalename_l-unsafe.c ]; then
+                  sed -i 's/#error "Please port gnulib getlocalename_l-unsafe.c to your platform.*/return (struct string_with_storage) { "C", STORAGE_INDEFINITE };/' lib/getlocalename_l-unsafe.c
+                fi
+              '';
               # cosmoar creates .aarch64/ companion archives next to each .a
               # for fat builds. Most `make install` only copies the main .a.
               # Append to postInstall to copy companions into the output.
-              postInstall = (prevAttrs.postInstall or "") + ''
+              postInstall = (prevAttrs.postInstall or "") + "\n" + ''
                 for dir in "''${!outputLib}/lib" "$out/lib"; do
                   [ -d "$dir" ] || continue
                   for a in "$dir"/*.a; do

@@ -167,6 +167,7 @@ let
         # platforms (e.g. NetBSD) use it soon, so we can dogfood GCC NG
         # and thereby iron out its bugs.
         useGccNG = final.isCygwin;
+        useCosmopolitan = false;
 
         libc =
           if final.isDarwin then

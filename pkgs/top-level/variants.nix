@@ -14,9 +14,17 @@
 let
   cosmoCrossOverlays = [
     # Package-specific fixes for cosmopolitan compatibility.
-    # Note: --disable-shared/--enable-static is handled globally by the
-    # makeCosmopolitan stdenv adapter (via makeStaticLibraries), and
-    # .aarch64/ companion archive copying is also handled globally.
+    #
+    # Unlike pkgsLLVM/pkgsZig/pkgsMusl which rely on packages handling
+    # toolchain differences natively, cosmopolitan libc has unique
+    # incompatibilities (non-constexpr errno values, missing POSIX
+    # timers, symbol conflicts with gnulib, etc.) that require explicit
+    # per-package overrides.  crossOverlays apply these fixes to the
+    # cross package set without touching the native packages.
+    #
+    # Global fixes (gnulib-tests, timespec_cmp, getlocalename_l) and
+    # build settings (static-only, no strip/patchelf, .aarch64/ archive
+    # copying) are in makeCosmopolitan (adapters.nix).
     (self': super': {
       hello = super'.hello.overrideAttrs (old: {
         patches = (old.patches or [ ]) ++ [
@@ -31,7 +39,12 @@ let
         };
         configureFlags = (old.configureFlags or [ ]) ++ [
           "--without-dlsym"
+          "--with-fallbacks=xterm-256color,tmux-256color,screen-256color,vt100,linux,dumb,xterm,xterm-color"
         ];
+        # build-cc lacks cosmo's wint_t prelude.
+        preConfigure = (old.preConfigure or "") + ''
+          export BUILD_CFLAGS="''${BUILD_CFLAGS:+$BUILD_CFLAGS }-include wchar.h"
+        '';
         postInstall = (old.postInstall or "") + ''
           # Replicate the non-wide and tinfo symlinks in .aarch64/
           if [ -d "$out/lib/.aarch64" ]; then
@@ -167,9 +180,9 @@ let
       });
 
       gnum4 = super'.gnum4.overrideAttrs (old: {
-        # Fix gnulib getlocalename_l-unsafe.c for cosmopolitan.
+        # tests/ builds gnulib code as part of `make all`.
         postPatch = (old.postPatch or "") + ''
-          sed -i 's/#error "Please port gnulib getlocalename_l-unsafe.c to your platform.*/return (struct string_with_storage) { "C", STORAGE_INDEFINITE };/' lib/getlocalename_l-unsafe.c
+          sed -i '/^SUBDIRS/s/ tests\b//' Makefile.in
         '';
         # Force HAVE_SAME_LONG_DOUBLE_AS_DOUBLE to avoid x87 FPU
         # instructions that don't exist on aarch64 (breaks fat builds).
@@ -193,12 +206,10 @@ let
 
       gnugrep = (super'.gnugrep.override {
         runtimeShellPackage = null;
-      }).overrideAttrs {
-        postPatch = ''
-          sed -i 's:gnulib-tests::g' Makefile.in
-        '';
+      }).overrideAttrs (old: {
         postInstall = "";
-      };
+        buildInputs = lib.filter (d: !(lib.hasInfix "glibc-iconv" (d.name or ""))) (old.buildInputs or [ ]);
+      });
     })
   ];
 
@@ -272,18 +283,21 @@ self: super: {
     };
   };
 
-  pkgsCosmo = mkCosmoVariant "pkgsCosmo" (stdenv.hostPlatform // { useCosmopolitan = true; });
+  pkgsCosmo = mkCosmoVariant "pkgsCosmo" (
+    if stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isx86_64
+    then stdenv.hostPlatform // { useCosmopolitan = true; }
+    else if stdenv.hostPlatform.isAarch64
+    then { config = "aarch64-unknown-linux-gnu"; useCosmopolitan = true; cosmoArch = "aarch64"; }
+    else { config = "x86_64-unknown-linux-gnu"; useCosmopolitan = true; }
+  );
 
-  pkgsCosmoAarch64 = mkCosmoVariant "pkgsCosmoAarch64" {
-    config = "aarch64-unknown-linux-gnu";
-    useCosmopolitan = true;
-    cosmoArch = "aarch64";
-  };
+  pkgsCosmoAarch64 = mkCosmoVariant "pkgsCosmoAarch64" lib.systems.examples.cosmo-aarch64;
 
-  pkgsCosmoFat = mkCosmoVariant "pkgsCosmoFat" (stdenv.hostPlatform // {
-    useCosmopolitan = true;
-    cosmoArch = "fat";
-  });
+  pkgsCosmoFat = mkCosmoVariant "pkgsCosmoFat" (
+    if stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isx86_64
+    then stdenv.hostPlatform // { useCosmopolitan = true; cosmoArch = "fat"; }
+    else { config = "x86_64-unknown-linux-gnu"; useCosmopolitan = true; cosmoArch = "fat"; }
+  );
 
   # All packages built with the Musl libc. This will override the
   # default GNU libc on Linux systems. Non-Linux systems are not

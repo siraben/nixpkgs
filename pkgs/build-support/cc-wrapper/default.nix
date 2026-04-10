@@ -30,6 +30,7 @@
   isAlireGNAT ? false,
   isZig ? cc.isZig or false,
   isArocc ? cc.isArocc or false,
+  isCosmopolitan ? cc.isCosmopolitan or false,
   isCcache ? cc.isCcache or false,
   gnugrep ? null,
   expand-response-params,
@@ -447,6 +448,7 @@ stdenvNoCC.mkDerivation {
       isGNU
       isClang
       isZig
+      isCosmopolitan
       ;
 
     emacsBufferSetup = pkgs: ''

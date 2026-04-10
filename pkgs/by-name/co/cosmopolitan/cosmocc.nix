@@ -1,4 +1,5 @@
 {
+  lib,
   runCommand,
   cosmopolitan,
   unzip,
@@ -41,6 +42,9 @@ let
 
         meta = cosmopolitan.meta // {
           description = "Compilers for Cosmopolitan C/C++ programs";
+          # cosmocc is a prebuilt APE toolchain that runs on any platform
+          platforms = lib.platforms.all;
+          badPlatforms = [ ];
         };
       }
       ''

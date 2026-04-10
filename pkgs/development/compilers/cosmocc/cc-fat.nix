@@ -9,6 +9,7 @@
 let
   common = import ./cc-common.nix { inherit lib stdenv; };
   inherit (common) targetPrefix;
+
 in
 runCommand "cosmocc-cc-fat-${cosmocc.version}"
   {

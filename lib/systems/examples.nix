@@ -317,6 +317,27 @@ rec {
   };
 
   #
+  # Cosmopolitan (Actually Portable Executables)
+  #
+
+  cosmo = {
+    config = "x86_64-unknown-linux-gnu";
+    useCosmopolitan = true;
+  };
+
+  cosmo-aarch64 = {
+    config = "aarch64-unknown-linux-gnu";
+    useCosmopolitan = true;
+    cosmoArch = "aarch64";
+  };
+
+  cosmo-fat = {
+    config = "x86_64-unknown-linux-gnu";
+    useCosmopolitan = true;
+    cosmoArch = "fat";
+  };
+
+  #
   # UEFI
   #
 
