@@ -11,6 +11,218 @@
   nixpkgsFun,
   overlays,
 }:
+let
+  cosmoCrossOverlays = [
+    # Package-specific fixes for cosmopolitan compatibility.
+    # Note: --disable-shared/--enable-static is handled globally by the
+    # makeCosmopolitan stdenv adapter (via makeStaticLibraries), and
+    # .aarch64/ companion archive copying is also handled globally.
+    (self': super': {
+      hello = super'.hello.overrideAttrs (old: {
+        patches = (old.patches or [ ]) ++ [
+          ../development/compilers/cosmocc/hello-no-wprintf.patch
+        ];
+      });
+
+      ncurses = (super'.ncurses.override { enableStatic = true; }).overrideAttrs (old: {
+        # Cosmopolitan declares wcwidth in libc/str/unicode.h, not wchar.h.
+        env = (old.env or { }) // {
+          NIX_CFLAGS_COMPILE = toString (old.env.NIX_CFLAGS_COMPILE or "") + " -include libc/str/unicode.h";
+        };
+        configureFlags = (old.configureFlags or [ ]) ++ [
+          "--without-dlsym"
+        ];
+        postInstall = (old.postInstall or "") + ''
+          # Replicate the non-wide and tinfo symlinks in .aarch64/
+          if [ -d "$out/lib/.aarch64" ]; then
+            for f in "$out/lib"/*.a; do
+              [ -L "$f" ] || continue
+              target="$(readlink "$f")"
+              ln -svf "$target" "$out/lib/.aarch64/$(basename "$f")"
+            done
+          fi
+        '';
+      });
+
+      gawk = super'.gawk.overrideAttrs (old: {
+        configureFlags = (old.configureFlags or [ ]) ++ [
+          "--disable-extensions"
+        ];
+      });
+
+      sqlite = let
+        cosmoCC = "${super'.stdenv.cc}/bin/${super'.stdenv.cc.targetPrefix}gcc";
+        cosmoAR = "${super'.stdenv.cc.bintools}/bin/${super'.stdenv.cc.targetPrefix}ar";
+      in super'.sqlite.overrideAttrs (old: {
+        configureFlags = (lib.filter (f: !(lib.hasPrefix "--with-tcl" f)) (old.configureFlags or [ ])) ++ [
+          "--disable-tcl"
+          "--disable-load-extension"
+          "--disable-math"
+          "--disable-threadsafe"
+        ];
+        makeFlags = (lib.filter (f:
+          !(lib.hasPrefix "cc=" f) && !(lib.hasPrefix "AR=" f)
+        ) (old.makeFlags or [ ])) ++ [
+          "cc=${cosmoCC}"
+          "AR=${cosmoAR}"
+        ];
+        env = (old.env or { }) // {
+          NIX_CFLAGS_COMPILE = toString (old.env.NIX_CFLAGS_COMPILE or "")
+            + " -DSQLITE_ENABLE_MATH_FUNCTIONS -DSQLITE_THREADSAFE=0";
+          NIX_LDFLAGS = toString (old.env.NIX_LDFLAGS or "") + " -lm";
+        };
+        nativeBuildInputs = lib.filter (d: d.pname or "" != "tcl") (old.nativeBuildInputs or [ ]);
+        buildInputs = lib.filter (d: d.pname or "" != "tcl") (old.buildInputs or [ ]);
+        preConfigure = (old.preConfigure or "") + ''
+          export CC="${cosmoCC}"
+          export AR="${cosmoAR}"
+        '';
+      });
+
+      tcl = super'.tcl.overrideAttrs (old: {
+        # cosmocc cannot handle arguments containing spaces.
+        env = (old.env or { }) // {
+          NIX_CFLAGS_COMPILE = toString (old.env.NIX_CFLAGS_COMPILE or "") + " -UPACKAGE_STRING -DPACKAGE_STRING='\"tcl-8.6\"'";
+        };
+      });
+
+      tzdata = super'.tzdata.overrideAttrs (old: {
+        # Cosmopolitan provides mempcpy and issetugid; tell tzdata.
+        makeFlags = (old.makeFlags or [ ]) ++ [
+          "CFLAGS+=-DHAVE_MEMPCPY=1"
+          "CFLAGS+=-DHAVE_ISSETUGID=1"
+        ];
+      });
+
+      jq = (super'.jq.override { onigurumaSupport = false; }).overrideAttrs (old: {
+        # cosmocc rejects arguments containing spaces in DEFS.
+        postConfigure = (old.postConfigure or "") + ''
+          sed -i 's/-DPACKAGE_STRING=[^ ]*\\ [^ ]*//' Makefile
+        '';
+        doInstallCheck = false;
+      });
+
+      lua = super'.lua.override { staticOnly = true; };
+
+      openssl = super'.openssl.overrideAttrs (old: {
+        configureFlags = (old.configureFlags or [ ]) ++ [
+          "no-shared"
+          "no-ktls"
+          "no-asm"
+          "no-dso"
+          "no-engine"
+        ];
+      });
+
+      curl = (super'.curl.override {
+        zstdSupport = false;
+        gssSupport = false;
+        http3Support = false;
+        http2Support = false;
+        brotliSupport = false;
+        idnSupport = false;
+        pslSupport = false;
+        scpSupport = false;
+        opensslSupport = false;
+        zlibSupport = false;
+      }).overrideAttrs (old: {
+        configureFlags = (old.configureFlags or [ ]) ++ [
+          "--without-librtmp"
+        ];
+      });
+
+      nghttp3 = super'.nghttp3.overrideAttrs (old: {
+        cmakeFlags = (old.cmakeFlags or [ ]) ++ [
+          "-DENABLE_SHARED_LIB=OFF"
+          "-DENABLE_STATIC_LIB=ON"
+        ];
+      });
+
+      ngtcp2 = super'.ngtcp2.overrideAttrs (old: {
+        cmakeFlags = (old.cmakeFlags or [ ]) ++ [
+          "-DENABLE_SHARED_LIB=OFF"
+          "-DENABLE_STATIC_LIB=ON"
+        ];
+      });
+
+      flex = super'.flex.overrideAttrs (old: {
+        nativeBuildInputs = lib.filter
+          (d: (d.pname or d.name or "") != "autoreconf-hook")
+          (old.nativeBuildInputs or [ ]);
+        patches = lib.filter
+          (p: !(lib.hasInfix "glibc-2.26" (builtins.toString p)))
+          (old.patches or [ ]);
+        # Clean native binutils paths that collide with cosmocc.
+        preConfigure = (old.preConfigure or "") + ''
+          export NIX_LDFLAGS_x86_64_unknown_linux_gnu="$(echo "$NIX_LDFLAGS_x86_64_unknown_linux_gnu" | tr ' ' '\n' | grep -v binutils | tr '\n' ' ')"
+          export PATH="$(echo "$PATH" | tr ':' '\n' | grep -v 'gcc-wrapper\|binutils-wrapper' | tr '\n' ':')"
+        '';
+      });
+
+      bison = super'.bison.overrideAttrs (old: {
+        # Cosmopolitan declares ffsl in libc/nexgen32e/ffs.h.
+        env = (old.env or { }) // {
+          NIX_CFLAGS_COMPILE = toString (old.env.NIX_CFLAGS_COMPILE or "") + " -include libc/nexgen32e/ffs.h";
+        };
+      });
+
+      gnum4 = super'.gnum4.overrideAttrs (old: {
+        # Fix gnulib getlocalename_l-unsafe.c for cosmopolitan.
+        postPatch = (old.postPatch or "") + ''
+          sed -i 's/#error "Please port gnulib getlocalename_l-unsafe.c to your platform.*/return (struct string_with_storage) { "C", STORAGE_INDEFINITE };/' lib/getlocalename_l-unsafe.c
+        '';
+        # Force HAVE_SAME_LONG_DOUBLE_AS_DOUBLE to avoid x87 FPU
+        # instructions that don't exist on aarch64 (breaks fat builds).
+        env = (old.env or { }) // {
+          NIX_CFLAGS_COMPILE = toString (old.env.NIX_CFLAGS_COMPILE or "") + " -DHAVE_SAME_LONG_DOUBLE_AS_DOUBLE=1";
+        };
+      });
+
+      bc = super'.bc.overrideAttrs (old: {
+        # Remove flex from buildInputs (only needed as build tool, not
+        # for linking).  Also remove depsBuildBuild and autoreconfHook
+        # which pull in the native GCC whose setup hooks collide with
+        # cosmocc due to the same target triple.
+        buildInputs = lib.filter (d: (d.pname or d.name or "") != "flex")
+          (old.buildInputs or [ ]);
+        depsBuildBuild = [ ];
+        nativeBuildInputs = lib.filter
+          (d: (d.pname or d.name or "") != "autoreconf-hook")
+          (old.nativeBuildInputs or [ ]);
+      });
+
+      gnugrep = (super'.gnugrep.override {
+        runtimeShellPackage = null;
+      }).overrideAttrs {
+        postPatch = ''
+          sed -i 's:gnulib-tests::g' Makefile.in
+        '';
+        postInstall = "";
+      };
+    })
+  ];
+
+  mkCosmoVariant =
+    name: crossSystem:
+    nixpkgsFun {
+      overlays = [
+        (self': super': {
+          ${name} = super';
+        })
+      ] ++ overlays;
+      crossOverlays = cosmoCrossOverlays;
+      inherit crossSystem;
+    };
+
+  makeLLVMParsedPlatform =
+    parsed:
+    (
+      parsed
+      // {
+        abi = lib.systems.parse.abis.llvm;
+      }
+    );
+in
 self: super: {
   pkgsLLVM = nixpkgsFun {
     overlays = [
@@ -59,6 +271,19 @@ self: super: {
       linker = "lld";
     };
   };
+
+  pkgsCosmo = mkCosmoVariant "pkgsCosmo" (stdenv.hostPlatform // { useCosmopolitan = true; });
+
+  pkgsCosmoAarch64 = mkCosmoVariant "pkgsCosmoAarch64" {
+    config = "aarch64-unknown-linux-gnu";
+    useCosmopolitan = true;
+    cosmoArch = "aarch64";
+  };
+
+  pkgsCosmoFat = mkCosmoVariant "pkgsCosmoFat" (stdenv.hostPlatform // {
+    useCosmopolitan = true;
+    cosmoArch = "fat";
+  });
 
   # All packages built with the Musl libc. This will override the
   # default GNU libc on Linux systems. Non-Linux systems are not

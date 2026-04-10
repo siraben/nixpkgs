@@ -38,7 +38,12 @@ lib.init bootStages
   (
     buildPackages:
     let
-      adaptStdenv = if crossSystem.isStatic then buildPackages.stdenvAdapters.makeStatic else lib.id;
+      adaptStdenv =
+        let
+          maybeStatic = if crossSystem.isStatic then buildPackages.stdenvAdapters.makeStatic else lib.id;
+          maybeCosmo = if crossSystem.useCosmopolitan or false then buildPackages.stdenvAdapters.makeCosmopolitan else lib.id;
+        in
+        stdenv: maybeCosmo (maybeStatic stdenv);
       stdenvNoCC = adaptStdenv (
         buildPackages.stdenv.override (old: rec {
           buildPlatform = localSystem;
@@ -117,6 +122,13 @@ lib.init bootStages
                 buildPackages.arocc
               else if crossSystem.useGccNG or false then
                 buildPackages.gccNGPackages.gcc
+              else if crossSystem.useCosmopolitan or false then
+                if crossSystem.cosmoArch or "x86_64" == "fat" then
+                  buildPackages.cosmocc.fat.cc
+                else if crossSystem.cosmoArch or "x86_64" == "aarch64" then
+                  buildPackages.cosmocc.aarch64.cc
+                else
+                  buildPackages.cosmocc.cc
               else
                 buildPackages.gcc;
 

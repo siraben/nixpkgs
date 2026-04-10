@@ -51,6 +51,44 @@ in
 
 rec {
 
+  # Adapt stdenv for Cosmopolitan: static-only libraries, no strip/patchelf
+  # (which corrupt APE binaries), and no checks (cosmo binaries can't
+  # always run in the build sandbox).
+  # Also copies .aarch64/ companion archives for fat builds.
+  makeCosmopolitan =
+    stdenv0:
+    makeStaticLibraries (
+      stdenv0.override (old: {
+        mkDerivationFromStdenv =
+          withOldMkDerivation old (
+            stdenv: mkDerivationSuper: args:
+            (mkDerivationSuper args).overrideAttrs (prevAttrs: {
+              dontStrip = true;
+              dontPatchELF = true;
+              doCheck = false;
+              doInstallCheck = false;
+              # cosmoar creates .aarch64/ companion archives next to each .a
+              # for fat builds. Most `make install` only copies the main .a.
+              # Append to postInstall to copy companions into the output.
+              postInstall = (prevAttrs.postInstall or "") + ''
+                for dir in "''${!outputLib}/lib" "$out/lib"; do
+                  [ -d "$dir" ] || continue
+                  for a in "$dir"/*.a; do
+                    [ -f "$a" ] || continue
+                    base="$(basename "$a")"
+                    src=$(find "$(pwd)" -path '*/.aarch64/'"$base" -print -quit 2>/dev/null || true)
+                    if [ -n "$src" ]; then
+                      mkdir -p "$dir/.aarch64"
+                      cp "$src" "$dir/.aarch64/$base"
+                    fi
+                  done
+                done
+              '';
+            })
+          );
+      })
+    );
+
   # Override the compiler in stdenv for specific packages.
   overrideCC =
     stdenv: cc:

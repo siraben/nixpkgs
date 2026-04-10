@@ -1,0 +1,29 @@
+--- a/src/hello.c
++++ b/src/hello.c
+@@ -129,9 +129,6 @@
+ main (int argc, char *argv[])
+ {
+   const char *greeting_msg;
+-  wchar_t *mb_greeting;
+-  mbstate_t mbstate; mbszero (&mbstate);
+-  size_t len;
+ 
+   set_program_name (argv[0]);
+ 
+@@ -155,15 +152,8 @@
+
+   parse_options (argc, argv, &greeting_msg);
+
+-  len = strlen (greeting_msg) + 1;
+-  mb_greeting = xmalloc (len * sizeof (wchar_t));
+-  len = mbsrtowcs (mb_greeting, &greeting_msg, len, &mbstate);
+-  if (len == (size_t) -1)
+-    error (EXIT_FAILURE, errno, _("conversion to a multibyte string failed"));
+-
+   /* Print greeting message and exit. */
+-  wprintf (L"%ls\n", mb_greeting);
+-  free (mb_greeting);
++  puts (greeting_msg);
+ 
+   exit (EXIT_SUCCESS);
+ }

@@ -11,10 +11,10 @@
 }:
 
 let
-  bootstrap-version = "3.9.2";
+  bootstrap-version = "4.0.2";
   cosmocc-zip = fetchurl {
     url = "https://github.com/jart/cosmopolitan/releases/download/${bootstrap-version}/cosmocc-${bootstrap-version}.zip";
-    sha256 = "sha256-9P8Tr2X80wnz8c/QQnWZb7f3KkiXcmYoqMnPcy6FAZM=";
+    sha256 = "sha256-hbjDekBthi5latTsFL6fbOR0wbQ2uWFekaVSCKztP0Q=";
   };
 in
 
@@ -95,8 +95,10 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
+    inherit cosmocc-zip;
     cosmocc = callPackage ./cosmocc.nix {
       cosmopolitan = finalAttrs.finalPackage;
+      inherit cosmocc-zip;
     };
   };
 
