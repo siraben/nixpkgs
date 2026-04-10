@@ -12,6 +12,14 @@
   overlays,
 }:
 let
+  # Helper: remove a dependency by pname from a list.
+  removeDep = name: lib.filter (d: (d.pname or d.name or "") != name);
+
+  # Helper: append to NIX_CFLAGS_COMPILE in env.
+  addCflags = old: flags: (old.env or { }) // {
+    NIX_CFLAGS_COMPILE = toString (old.env.NIX_CFLAGS_COMPILE or "") + " " + flags;
+  };
+
   cosmoCrossOverlays = [
     # Package-specific fixes for cosmopolitan compatibility.
     #
@@ -26,6 +34,7 @@ let
     # build settings (static-only, no strip/patchelf, .aarch64/ archive
     # copying) are in makeCosmopolitan (adapters.nix).
     (self': super': {
+      # cosmo libc lacks wprintf.
       hello = super'.hello.overrideAttrs (old: {
         patches = (old.patches or [ ]) ++ [
           ../development/compilers/cosmocc/hello-no-wprintf.patch
@@ -33,10 +42,7 @@ let
       });
 
       ncurses = (super'.ncurses.override { enableStatic = true; }).overrideAttrs (old: {
-        # Cosmopolitan declares wcwidth in libc/str/unicode.h, not wchar.h.
-        env = (old.env or { }) // {
-          NIX_CFLAGS_COMPILE = toString (old.env.NIX_CFLAGS_COMPILE or "") + " -include libc/str/unicode.h";
-        };
+        env = addCflags old "-include libc/str/unicode.h";
         configureFlags = (old.configureFlags or [ ]) ++ [
           "--without-dlsym"
           "--with-fallbacks=xterm-256color,tmux-256color,screen-256color,vt100,linux,dumb,xterm,xterm-color"
@@ -46,69 +52,52 @@ let
           export BUILD_CFLAGS="''${BUILD_CFLAGS:+$BUILD_CFLAGS }-include wchar.h"
         '';
         postInstall = (old.postInstall or "") + ''
-          # Replicate the non-wide and tinfo symlinks in .aarch64/
           if [ -d "$out/lib/.aarch64" ]; then
             for f in "$out/lib"/*.a; do
               [ -L "$f" ] || continue
-              target="$(readlink "$f")"
-              ln -svf "$target" "$out/lib/.aarch64/$(basename "$f")"
+              ln -svf "$(readlink "$f")" "$out/lib/.aarch64/$(basename "$f")"
             done
           fi
         '';
       });
 
       gawk = super'.gawk.overrideAttrs (old: {
-        configureFlags = (old.configureFlags or [ ]) ++ [
-          "--disable-extensions"
-        ];
+        configureFlags = (old.configureFlags or [ ]) ++ [ "--disable-extensions" ];
       });
 
       sqlite = let
-        cosmoCC = "${super'.stdenv.cc}/bin/${super'.stdenv.cc.targetPrefix}gcc";
-        cosmoAR = "${super'.stdenv.cc.bintools}/bin/${super'.stdenv.cc.targetPrefix}ar";
+        cc = "${super'.stdenv.cc}/bin/${super'.stdenv.cc.targetPrefix}gcc";
+        ar = "${super'.stdenv.cc.bintools}/bin/${super'.stdenv.cc.targetPrefix}ar";
       in super'.sqlite.overrideAttrs (old: {
-        configureFlags = (lib.filter (f: !(lib.hasPrefix "--with-tcl" f)) (old.configureFlags or [ ])) ++ [
-          "--disable-tcl"
-          "--disable-load-extension"
-          "--disable-math"
-          "--disable-threadsafe"
+        configureFlags = lib.filter (f: !(lib.hasPrefix "--with-tcl" f)) (old.configureFlags or [ ]) ++ [
+          "--disable-tcl" "--disable-load-extension" "--disable-math" "--disable-threadsafe"
         ];
-        makeFlags = (lib.filter (f:
-          !(lib.hasPrefix "cc=" f) && !(lib.hasPrefix "AR=" f)
-        ) (old.makeFlags or [ ])) ++ [
-          "cc=${cosmoCC}"
-          "AR=${cosmoAR}"
+        makeFlags = lib.filter (f: !(lib.hasPrefix "cc=" f) && !(lib.hasPrefix "AR=" f)) (old.makeFlags or [ ]) ++ [
+          "cc=${cc}" "AR=${ar}"
         ];
         env = (old.env or { }) // {
           NIX_CFLAGS_COMPILE = toString (old.env.NIX_CFLAGS_COMPILE or "")
             + " -DSQLITE_ENABLE_MATH_FUNCTIONS -DSQLITE_THREADSAFE=0";
           NIX_LDFLAGS = toString (old.env.NIX_LDFLAGS or "") + " -lm";
         };
-        nativeBuildInputs = lib.filter (d: d.pname or "" != "tcl") (old.nativeBuildInputs or [ ]);
-        buildInputs = lib.filter (d: d.pname or "" != "tcl") (old.buildInputs or [ ]);
+        nativeBuildInputs = removeDep "tcl" (old.nativeBuildInputs or [ ]);
+        buildInputs = removeDep "tcl" (old.buildInputs or [ ]);
         preConfigure = (old.preConfigure or "") + ''
-          export CC="${cosmoCC}"
-          export AR="${cosmoAR}"
+          export CC="${cc}" AR="${ar}"
         '';
       });
 
       tcl = super'.tcl.overrideAttrs (old: {
-        # cosmocc cannot handle arguments containing spaces.
-        env = (old.env or { }) // {
-          NIX_CFLAGS_COMPILE = toString (old.env.NIX_CFLAGS_COMPILE or "") + " -UPACKAGE_STRING -DPACKAGE_STRING='\"tcl-8.6\"'";
-        };
+        env = addCflags old "-UPACKAGE_STRING -DPACKAGE_STRING='\"tcl-8.6\"'";
       });
 
       tzdata = super'.tzdata.overrideAttrs (old: {
-        # Cosmopolitan provides mempcpy and issetugid; tell tzdata.
         makeFlags = (old.makeFlags or [ ]) ++ [
-          "CFLAGS+=-DHAVE_MEMPCPY=1"
-          "CFLAGS+=-DHAVE_ISSETUGID=1"
+          "CFLAGS+=-DHAVE_MEMPCPY=1" "CFLAGS+=-DHAVE_ISSETUGID=1"
         ];
       });
 
       jq = (super'.jq.override { onigurumaSupport = false; }).overrideAttrs (old: {
-        # cosmocc rejects arguments containing spaces in DEFS.
         postConfigure = (old.postConfigure or "") + ''
           sed -i 's/-DPACKAGE_STRING=[^ ]*\\ [^ ]*//' Makefile
         '';
@@ -119,53 +108,30 @@ let
 
       openssl = super'.openssl.overrideAttrs (old: {
         configureFlags = (old.configureFlags or [ ]) ++ [
-          "no-shared"
-          "no-ktls"
-          "no-asm"
-          "no-dso"
-          "no-engine"
+          "no-shared" "no-ktls" "no-asm" "no-dso" "no-engine"
         ];
       });
 
       curl = (super'.curl.override {
-        zstdSupport = false;
-        gssSupport = false;
-        http3Support = false;
-        http2Support = false;
-        brotliSupport = false;
-        idnSupport = false;
-        pslSupport = false;
-        scpSupport = false;
-        opensslSupport = false;
+        zstdSupport = false; gssSupport = false; http3Support = false;
+        http2Support = false; brotliSupport = false; idnSupport = false;
+        pslSupport = false; scpSupport = false; opensslSupport = false;
         zlibSupport = false;
       }).overrideAttrs (old: {
-        configureFlags = (old.configureFlags or [ ]) ++ [
-          "--without-librtmp"
-        ];
+        configureFlags = (old.configureFlags or [ ]) ++ [ "--without-librtmp" ];
       });
 
+      # Both use cmake and need static-only.
       nghttp3 = super'.nghttp3.overrideAttrs (old: {
-        cmakeFlags = (old.cmakeFlags or [ ]) ++ [
-          "-DENABLE_SHARED_LIB=OFF"
-          "-DENABLE_STATIC_LIB=ON"
-        ];
+        cmakeFlags = (old.cmakeFlags or [ ]) ++ [ "-DENABLE_SHARED_LIB=OFF" "-DENABLE_STATIC_LIB=ON" ];
       });
-
       ngtcp2 = super'.ngtcp2.overrideAttrs (old: {
-        cmakeFlags = (old.cmakeFlags or [ ]) ++ [
-          "-DENABLE_SHARED_LIB=OFF"
-          "-DENABLE_STATIC_LIB=ON"
-        ];
+        cmakeFlags = (old.cmakeFlags or [ ]) ++ [ "-DENABLE_SHARED_LIB=OFF" "-DENABLE_STATIC_LIB=ON" ];
       });
 
       flex = super'.flex.overrideAttrs (old: {
-        nativeBuildInputs = lib.filter
-          (d: (d.pname or d.name or "") != "autoreconf-hook")
-          (old.nativeBuildInputs or [ ]);
-        patches = lib.filter
-          (p: !(lib.hasInfix "glibc-2.26" (builtins.toString p)))
-          (old.patches or [ ]);
-        # Clean native binutils paths that collide with cosmocc.
+        nativeBuildInputs = removeDep "autoreconf-hook" (old.nativeBuildInputs or [ ]);
+        patches = lib.filter (p: !(lib.hasInfix "glibc-2.26" (builtins.toString p))) (old.patches or [ ]);
         preConfigure = (old.preConfigure or "") + ''
           export NIX_LDFLAGS_x86_64_unknown_linux_gnu="$(echo "$NIX_LDFLAGS_x86_64_unknown_linux_gnu" | tr ' ' '\n' | grep -v binutils | tr '\n' ' ')"
           export PATH="$(echo "$PATH" | tr ':' '\n' | grep -v 'gcc-wrapper\|binutils-wrapper' | tr '\n' ':')"
@@ -173,10 +139,7 @@ let
       });
 
       bison = super'.bison.overrideAttrs (old: {
-        # Cosmopolitan declares ffsl in libc/nexgen32e/ffs.h.
-        env = (old.env or { }) // {
-          NIX_CFLAGS_COMPILE = toString (old.env.NIX_CFLAGS_COMPILE or "") + " -include libc/nexgen32e/ffs.h";
-        };
+        env = addCflags old "-include libc/nexgen32e/ffs.h";
       });
 
       gnum4 = super'.gnum4.overrideAttrs (old: {
@@ -184,29 +147,115 @@ let
         postPatch = (old.postPatch or "") + ''
           sed -i '/^SUBDIRS/s/ tests\b//' Makefile.in
         '';
-        # Force HAVE_SAME_LONG_DOUBLE_AS_DOUBLE to avoid x87 FPU
-        # instructions that don't exist on aarch64 (breaks fat builds).
-        env = (old.env or { }) // {
-          NIX_CFLAGS_COMPILE = toString (old.env.NIX_CFLAGS_COMPILE or "") + " -DHAVE_SAME_LONG_DOUBLE_AS_DOUBLE=1";
-        };
+        env = addCflags old "-DHAVE_SAME_LONG_DOUBLE_AS_DOUBLE=1";
       });
 
       bc = super'.bc.overrideAttrs (old: {
-        # Remove flex from buildInputs (only needed as build tool, not
-        # for linking).  Also remove depsBuildBuild and autoreconfHook
-        # which pull in the native GCC whose setup hooks collide with
-        # cosmocc due to the same target triple.
-        buildInputs = lib.filter (d: (d.pname or d.name or "") != "flex")
-          (old.buildInputs or [ ]);
+        buildInputs = removeDep "flex" (old.buildInputs or [ ]);
         depsBuildBuild = [ ];
-        nativeBuildInputs = lib.filter
-          (d: (d.pname or d.name or "") != "autoreconf-hook")
-          (old.nativeBuildInputs or [ ]);
+        nativeBuildInputs = removeDep "autoreconf-hook" (old.nativeBuildInputs or [ ]);
       });
 
-      gnugrep = (super'.gnugrep.override {
-        runtimeShellPackage = null;
+      coreutils = (super'.coreutils.override {
+        aclSupport = false; attrSupport = false; selinuxSupport = false;
+        gmpSupport = false; withOpenssl = false; singleBinary = false;
       }).overrideAttrs (old: {
+        configureFlags = lib.filter (f:
+          !(lib.hasPrefix "--enable-install-program" f) &&
+          !(lib.hasPrefix "--with-selinux" f)
+        ) (old.configureFlags or [ ]) ++ [
+          "--without-selinux" "--disable-acl" "--disable-xattr"
+          "--enable-no-install-program=stdbuf"
+        ];
+        postPatch = (old.postPatch or "") + ''
+          cp ${../development/compilers/cosmocc/fadvise.h} lib/fadvise.h
+          cat > lib/fadvise.c <<'EOF'
+          #include <config.h>
+          #include "fadvise.h"
+          EOF
+          # O_* flags are extern const in cosmo — hardcode private flags.
+          sed -i '/^#define FFS_MASK/,/^static_assert.*O_SEEK_BYTES/c\
+          #define O_FULLBLOCK  (1 << 25)\
+          #define O_NOCACHE    (1 << 26)\
+          #define O_COUNT_BYTES (1 << 27)\
+          #define O_SKIP_BYTES  (1 << 28)\
+          #define O_SEEK_BYTES  (1 << 29)' src/dd.c
+          # PIPE_BUF is extern const in cosmo.
+          sed -i 's/enum { FACTOR_PIPE_BUF = PIPE_BUF };/enum { FACTOR_PIPE_BUF = 4096 };/' src/factor.c
+          # Symbol conflict with cosmo's touch(const char*, unsigned).
+          sed -i 's/\btouch\b/coreutils_touch/g' src/touch.c
+        '';
+        env = addCflags old "-Wno-error";
+        doCheck = false;
+        separateDebugInfo = false;
+      });
+
+      diffutils = (super'.diffutils.override { coreutils = null; }).overrideAttrs (old: {
+        postPatch = (old.postPatch or "") + ''
+          sed -i 's/ELOOP$/40/' src/diff.c
+          sed -i '/^SUBDIRS/s/ man / /' Makefile.in
+        '';
+      });
+
+      gnupatch = super'.gnupatch.overrideAttrs (old: {
+        postPatch = (old.postPatch or "") + ''
+          sed -i 's/enum { DIRFD_INVALID = -1 - (AT_FDCWD == -1) };/enum { DIRFD_INVALID = -1 - (-100 == -1) };/' src/safe.h
+        '';
+      });
+
+      findutils = super'.findutils.overrideAttrs (old: {
+        buildInputs = removeDep "coreutils" (old.buildInputs or [ ]);
+        postPatch = (old.postPatch or "") + ''
+          sed -i 's/(void) __STDC_LIMIT_MACROS;/(void) 0;/' xargs/xargs.c
+        '';
+        configureFlags = lib.filter (f: !(lib.hasPrefix "SORT=" f)) (old.configureFlags or [ ]) ++ [ "SORT=sort" ];
+      });
+
+      vim = super'.vim.overrideAttrs (old: {
+        configureFlags = (old.configureFlags or [ ]) ++ [
+          "--disable-darwin" "vim_cv_uname_output=Linux" "vim_cv_timer_create=no"
+        ];
+      });
+
+      gnutar = (super'.gnutar.override { aclSupport = false; }).overrideAttrs (old: {
+        postPatch = (old.postPatch or "") + ''
+          sed -i 's/enum { IMPOSTOR_ERRNO = ENOENT };/#define IMPOSTOR_ERRNO ENOENT/' src/create.c
+        '';
+      });
+
+      xz = super'.xz.overrideAttrs (old: {
+        configureFlags = (old.configureFlags or [ ]) ++ [ "--enable-sandbox=no" ];
+      });
+
+      zstd = (super'.zstd.override { static = true; }).overrideAttrs (old: {
+        # CMake can't execve APE ar on macOS; use plain Makefile build.
+        nativeBuildInputs = removeDep "cmake" (old.nativeBuildInputs or [ ]);
+        dontUseCmakeConfigure = true;
+        cmakeFlags = [ ]; cmakeDir = null; dontUseCmakeBuildDir = false;
+        preConfigure = "";
+        makeFlags = [
+          "PREFIX=$(out)" "BINDIR=$(bin)/bin" "INCLUDEDIR=$(dev)/include"
+          "MANDIR=$(man)/share/man" "LIBDIR=$(out)/lib" "PKGCONFIGDIR=$(dev)/lib/pkgconfig"
+        ];
+        buildFlags = [ "zstd-release" ];
+        buildPhase = ''
+          runHook preBuild
+          make -C lib libzstd.a $makeFlags
+          make -C programs zstd-release $makeFlags
+          runHook postBuild
+        '';
+        installPhase = ''
+          runHook preInstall
+          make -C lib install-static install-includes install-pc $makeFlags
+          make -C programs install $makeFlags
+          runHook postInstall
+        '';
+        preInstall = ''
+          mkdir -p $bin/bin $dev/include $dev/lib/pkgconfig $out/lib $man/share/man/man1
+        '';
+      });
+
+      gnugrep = (super'.gnugrep.override { runtimeShellPackage = null; }).overrideAttrs (old: {
         postInstall = "";
         buildInputs = lib.filter (d: !(lib.hasInfix "glibc-iconv" (d.name or ""))) (old.buildInputs or [ ]);
       });
@@ -285,10 +334,17 @@ self: super: {
 
   pkgsCosmo = mkCosmoVariant "pkgsCosmo" (
     if stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isx86_64
-    then stdenv.hostPlatform // { useCosmopolitan = true; }
+    then
+      # On x86_64-linux, reuse hostPlatform so build == host and APE binaries
+      # can execute during configure tests.
+      stdenv.hostPlatform // { useCosmopolitan = true; }
     else if stdenv.hostPlatform.isAarch64
-    then { config = "aarch64-unknown-linux-gnu"; useCosmopolitan = true; cosmoArch = "aarch64"; }
-    else { config = "x86_64-unknown-linux-gnu"; useCosmopolitan = true; }
+    then
+      # On aarch64 (Linux or Darwin), produce aarch64 cosmo binaries.
+      { config = "aarch64-unknown-linux-gnu"; useCosmopolitan = true; cosmoArch = "aarch64"; }
+    else
+      # Other platforms: cross-compile targeting x86_64.
+      { config = "x86_64-unknown-linux-gnu"; useCosmopolitan = true; }
   );
 
   pkgsCosmoAarch64 = mkCosmoVariant "pkgsCosmoAarch64" lib.systems.examples.cosmo-aarch64;
