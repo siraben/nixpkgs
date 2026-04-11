@@ -69,7 +69,7 @@ rec {
               doInstallCheck = false;
               # Global gnulib compatibility fixes for cosmopolitan libc.
               # Applied conditionally — only when the relevant files exist.
-              postPatch = (prevAttrs.postPatch or "") + ''
+              postPatch = (if prevAttrs.postPatch or null == null then "" else prevAttrs.postPatch) + ''
                 # gnulib tests don't build under cosmopolitan.
                 if [ -f Makefile.in ]; then
                   sed -i 's:gnulib-tests::g' Makefile.in
@@ -89,7 +89,7 @@ rec {
               # cosmoar creates .aarch64/ companion archives next to each .a
               # for fat builds. Most `make install` only copies the main .a.
               # Append to postInstall to copy companions into the output.
-              postInstall = (prevAttrs.postInstall or "") + "\n" + ''
+              postInstall = (if prevAttrs.postInstall or null == null then "" else prevAttrs.postInstall) + "\n" + ''
                 for dir in "''${!outputLib}/lib" "$out/lib"; do
                   [ -d "$dir" ] || continue
                   for a in "$dir"/*.a; do

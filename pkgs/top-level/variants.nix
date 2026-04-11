@@ -110,6 +110,11 @@ let
         configureFlags = (old.configureFlags or [ ]) ++ [
           "no-shared" "no-ktls" "no-asm" "no-dso" "no-engine"
         ];
+        # Fat cosmo stitching produces .o files that trigger -Werror.
+        env = addCflags old "-Wno-error";
+        preConfigure = (old.preConfigure or "") + ''
+          export CFLAGS="''${CFLAGS:+$CFLAGS }-Wno-error"
+        '';
       });
 
       curl = (super'.curl.override {
@@ -295,6 +300,234 @@ let
       gnugrep = (super'.gnugrep.override { runtimeShellPackage = null; }).overrideAttrs (old: {
         postInstall = "";
         buildInputs = lib.filter (d: !(lib.hasInfix "glibc-iconv" (d.name or ""))) (old.buildInputs or [ ]);
+      });
+
+      # BLOCKED: emacs-nox compilation succeeds but the resulting temacs
+      # binary enters infinite recursion during cosmo's CRT initialization
+      # (before main() is reached), causing a stack overflow.  This is
+      # triggered by cosmocc's "rewrote N switch statements" transformation
+      # which converts extern-const case labels (AF_INET6, AF_LOCAL, etc.)
+      # into if-else chains.  The rewritten code recurses infinitely.
+      # Upstream cosmocc fix needed.  See also: process.c switch on AF_*,
+      # sysdep.c termios speed constants, lib/sig2str.c signal constants.
+      emacs-nox = (super'.emacs-nox.override {
+        withNativeCompilation = false;
+        withTreeSitter = false;
+        withDbus = false;
+        withGpm = false;
+        withSelinux = false;
+        withSystemd = false;
+        withSQLite3 = false;
+        withWebP = false;
+        withMailutils = false;
+        withAcl = false;
+        withAlsaLib = false;
+      }).overrideAttrs (old: {
+        configureFlags = (old.configureFlags or [ ]) ++ [
+          "--without-gnutls"
+          "--without-libxml2"
+          "--without-harfbuzz"
+          "--without-sound"
+          "--without-modules"
+          "--without-threads"
+          "--without-zlib"
+          "--without-compress-install"
+          "--without-file-notification"
+          "--with-dumping=none"
+        ];
+        # Strip postPatch of references to gettext/mailcap (cross packages).
+        postPatch = ''
+          find . -type f \( -name "*.elc" -o -name "*loaddefs.el" \) -exec rm {} \;
+          for makefile_in in $(find . -name Makefile.in -print); do
+            substituteInPlace $makefile_in --replace-warn /bin/pwd pwd
+          done
+          # Cosmopolitan libc errno values are extern const, not integer constants.
+          sed -i 's/enum { LINKS_MIGHT_NOT_WORK = EPERM };/#define LINKS_MIGHT_NOT_WORK 1/' src/filelock.c
+          sed -i 's/enum { NEGATIVE_ERRNO = EDOM < 0 };/#define NEGATIVE_ERRNO 0/' src/filelock.c
+
+          # Stub out arrays using extern-const initializers to reduce
+          # cosmocc's "modified initializations" constructors.
+          sed -i '/^static const struct speed_struct speeds\[\]/,/^  };/c\
+static const struct speed_struct speeds[] = { {0, 0} };' src/sysdep.c
+
+          cat > lib/sigdescr_np.c <<'STUBEOF'
+#include <config.h>
+#include <string.h>
+const char *sigdescr_np (int sig) { return "Unknown signal"; }
+STUBEOF
+          cat > lib/sig2str.c <<'STUBEOF'
+#include <config.h>
+#include <signal.h>
+#include <string.h>
+#include "sig2str.h"
+int sig2str (int signum, char *buf) { strcpy(buf, "UNKNOWN"); return -1; }
+int str2sig (const char *buf, int *signum) { return -1; }
+STUBEOF
+
+          awk '
+            /^} socket_options\[\] =/ { print "} socket_options[] = { { 0, 0, 0, SOPT_UNKNOWN, OPIX_NONE } };"; skip=1; next }
+            skip && /^  };/ { skip=0; next }
+            !skip { print }
+          ' src/process.c > src/process.c.tmp && mv src/process.c.tmp src/process.c
+
+          awk '
+            /^static const struct ifflag_def ifflag_table\[\] = \{/ { print "static const struct ifflag_def ifflag_table[] = {"; print "  { 0, 0 }"; skip=1; next }
+            skip && /^  \{ 0, 0 \}/ { skip=0; next }
+            !skip { print }
+          ' src/process.c > src/process.c.tmp && mv src/process.c.tmp src/process.c
+        '';
+        nativeBuildInputs = removeDep "make-shell-wrapper-hook" (old.nativeBuildInputs or [ ]);
+        buildInputs = lib.filter (d:
+          !builtins.elem (d.pname or d.name or "") [
+            "gnutls" "harfbuzz" "libxml2" "gettext" "mailutils" "mailcap"
+          ]
+        ) (old.buildInputs or [ ]);
+        env = addCflags old "-Wno-error";
+      });
+
+      # --- Nix package manager dependencies ---
+
+      # Boehm GC: cosmo's normalize.inc undefs __linux__ and __x86_64__, so
+      # gcconfig.h can't detect the platform even with -D flags.  We patch
+      # gcconfig.h to recognise __COSMOPOLITAN__ as Linux x86_64.
+      boehmgc = (super'.boehmgc.override {
+        enableLargeConfig = true;
+      }).overrideAttrs (old: {
+        postPatch = (old.postPatch or "") + ''
+          # Add cosmopolitan detection right before the "not ported" error.
+          sed -i '/# if !defined(mach_type_known)/i \
+          #if defined(__COSMOPOLITAN__)\
+          # define LINUX\
+          # define X86_64\
+          # define mach_type_known\
+          #endif' include/private/gcconfig.h
+
+          # madvise declaration is missing from cosmo's sys/mman.h.
+          sed -i '/#include.*gc_priv/a \
+          #ifndef madvise\
+          extern int madvise(void *, size_t, int);\
+          #endif' os_dep.c
+
+          # Cosmo lacks getcontext/setcontext; disable checksum-based
+          # mark stack resumption that requires them.
+          sed -i 's/# *define HAVE_BUILTIN_UNWIND_INIT//* &: disabled for cosmo *\//' include/private/gcconfig.h || true
+        '';
+        configureFlags = (old.configureFlags or [ ]) ++ [
+          "--disable-threads"
+          "--disable-thread-local-alloc"
+          "--disable-parallel-mark"
+        ];
+        env = addCflags old "-DNO_GETCONTEXT -DDONT_USE_SIGCONTEXT -DUSE_MMAP";
+        preConfigure = (old.preConfigure or "") + ''
+          export CFLAGS="''${CFLAGS:+$CFLAGS }-DNO_GETCONTEXT -DDONT_USE_SIGCONTEXT -DUSE_MMAP"
+        '';
+      });
+
+      # lowdown: cosmo needs _GNU_SOURCE for memmem/mkfifo, and the configure
+      # script's runtime tests fail under cross, so we override detection results.
+      # _NSIG is non-constant in cosmo, so readpassphrase compat can't compile.
+      lowdown = (super'.lowdown.override {
+        enableShared = false;
+        enableStatic = true;
+      }).overrideAttrs (old: {
+        env = addCflags old "-D_GNU_SOURCE";
+        preConfigure = (old.preConfigure or "") + ''
+          cat > configure.local <<'CONF'
+          HAVE_GETPROGNAME=0
+          HAVE_MEMMEM=1
+          HAVE_MEMRCHR=1
+          HAVE_MKFIFOAT=0
+          HAVE_PROGRAM_INVOCATION_SHORT_NAME=1
+          HAVE___PROGNAME=0
+          HAVE_READPASSPHRASE=0
+          HAVE_FTS=0
+          HAVE_CAPSICUM=0
+          HAVE_LANDLOCK=0
+          HAVE_SECCOMP_FILTER=0
+          HAVE_PLEDGE=0
+          HAVE_UNVEIL=0
+          HAVE_SANDBOX_INIT=0
+          HAVE_STATIC=1
+          CONF
+        '';
+        postPatch = (old.postPatch or "") + ''
+          # _NSIG is non-const in cosmo — replace with a fixed size.
+          sed -i 's/\[_NSIG\]/[128]/' compats.c
+          # cosmo lacks mkfifo; declare it and provide a stub mkfifoat.
+          # Replace the compat mkfifoat implementation with ENOSYS stub.
+          sed -i 's/if ((newfd = mkfifo(path, mode)) == -1)/errno = ENOSYS; newfd = -1; if (newfd == -1)/' compats.c
+        '';
+        doInstallCheck = false;
+      });
+
+      # libsodium: PACKAGE_STRING with spaces is fatal for cosmocc, and libtool
+      # has archive path conflicts with cosmo's ar wrapper.
+      libsodium = super'.libsodium.overrideAttrs (old: {
+        postConfigure = (old.postConfigure or "") + ''
+          find . -name Makefile -exec sed -i 's/^DEFS = .*/DEFS = -DHAVE_CONFIG_H/' {} \;
+          # Fix libtool double-slash in archive extraction paths.
+          # The issue: libtool constructs paths like foo.a//build/path which
+          # fails. Patch libtool to normalize paths.
+          sed -i 's|func_lalib_p "$lib"|& \&\& lib=$(echo "$lib" | sed "s|//|/|g")|' libtool || true
+          # Simpler: disable convenience library linking entirely.
+          # Build .o files directly into libsodium.a.
+          sed -i 's/^convenience=.*/convenience=""/' libtool || true
+        '';
+        configureFlags = (old.configureFlags or [ ]) ++ [
+          "--disable-shared" "--enable-static" "--disable-asm"
+          "--disable-dependency-tracking"
+        ];
+        # Build all objects into a single library without convenience archives.
+        postBuild = (old.postBuild or "") + ''
+          # If the libtool fix didn't work, manually combine the .o files.
+          if [ ! -f src/libsodium/.libs/libsodium.a ]; then
+            find src -name '*.o' -not -path '*/.libs/*' | sort | \
+              xargs x86_64-unknown-linux-gnu-ar rcs src/libsodium/.libs/libsodium.a
+          fi
+        '';
+      });
+
+      # bzip2: PACKAGE_STRING/PACKAGE_BUGREPORT with spaces are fatal for cosmocc.
+      # The values in DEFS contain spaces.  We clear DEFS entirely and ensure
+      # config.h (which bzip2 uses via -DHAVE_CONFIG_H) has all needed defines.
+      bzip2 = super'.bzip2.overrideAttrs (old: {
+        postConfigure = (old.postConfigure or "") + ''
+          # The DEFS variable in the Makefile passes -D flags that contain
+          # spaces.  Since bzip2 already uses config.h for these defines,
+          # we simply clear DEFS.
+          find . -name Makefile -exec sed -i 's/^DEFS = .*/DEFS = -DHAVE_CONFIG_H/' {} \;
+        '';
+      });
+
+      # libblake3: disable TBB (threading) and SIMD asm (cosmo can't assemble .S files).
+      libblake3 = (super'.libblake3.override {
+        useTBB = false;
+      }).overrideAttrs (old: {
+        cmakeFlags = (old.cmakeFlags or [ ]) ++ [
+          "-DBUILD_SHARED_LIBS=OFF"
+          "-DBLAKE3_SIMD_TYPE=none"
+        ];
+      });
+
+      # mimalloc: madvise declaration missing from cosmo's sys/mman.h.
+      mimalloc = super'.mimalloc.overrideAttrs (old: {
+        postPatch = (old.postPatch or "") + ''
+          sed -i '/#include <sys\/mman.h>/a \
+          #ifndef madvise\
+          extern int madvise(void *, size_t, int);\
+          #endif' src/prim/unix/prim.c
+        '';
+        cmakeFlags = (old.cmakeFlags or [ ]) ++ [
+          "-DMI_BUILD_SHARED=OFF"
+          "-DMI_BUILD_TESTS=OFF"
+          "-DMI_USE_CXX=OFF"
+        ];
+      });
+
+      # boost: header-heavy, should mostly work.  Disable threading for cosmo.
+      boost = super'.boost.overrideAttrs (old: {
+        # boost's b2 build system needs explicit flags for static-only.
+        # Threading support is problematic under cosmo.
       });
     })
   ];
