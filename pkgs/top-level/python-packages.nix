@@ -3373,6 +3373,10 @@ self: super: with self; {
 
   colcon-cd = callPackage ../development/python-modules/colcon-cd { };
 
+  colcon-cmake = callPackage ../development/python-modules/colcon-cmake { };
+
+  colcon-common-extensions = callPackage ../development/python-modules/colcon-common-extensions { };
+
   colcon-coveragepy-result = callPackage ../development/python-modules/colcon-coveragepy-result { };
 
   colcon-defaults = callPackage ../development/python-modules/colcon-defaults { };
@@ -3407,9 +3411,15 @@ self: super: with self; {
 
   colcon-parallel-executor = callPackage ../development/python-modules/colcon-parallel-executor { };
 
+  colcon-pkg-config = callPackage ../development/python-modules/colcon-pkg-config { };
+
+  colcon-powershell = callPackage ../development/python-modules/colcon-powershell { };
+
   colcon-python-setup-py = callPackage ../development/python-modules/colcon-python-setup-py { };
 
   colcon-recursive-crawl = callPackage ../development/python-modules/colcon-recursive-crawl { };
+
+  colcon-ros = callPackage ../development/python-modules/colcon-ros { };
 
   colcon-ros-domain-id-coordinator =
     callPackage ../development/python-modules/colcon-ros-domain-id-coordinator
