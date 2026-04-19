@@ -84,6 +84,7 @@ stdenv.mkDerivation (finalAttrs: {
     "-Dxephyr=false"
     "-Dxorg=false"
     "-Dxnest=false"
+    "-Dxquartz=false"
     "-Dsecure-rpc=false"
     "-Dudev=false"
     "-Dudev_kms=false"
