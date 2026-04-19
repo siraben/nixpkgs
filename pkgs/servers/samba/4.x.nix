@@ -104,6 +104,11 @@ stdenv.mkDerivation (finalAttrs: {
       url = "https://raw.githubusercontent.com/LibreELEC/LibreELEC.tv/fe5538114371b98c7350e6fffbfc0d1ac063719c/packages/network/samba/patches/samba-200-4.11-fix-ASN1-bso14164.patch";
       hash = "sha256-0/c9TH5FZ4S1OoM04gwDBJoIN+10unjLSv7Hlwt9FEQ=";
     })
+    # Fixes a non-constant-expression initializer error from clang in
+    # lib/ldb/tests/test_ldb_comparison_fold.c when waf misdetects
+    # uintptr_t as 32-bit (observed on aarch64-darwin).
+    # Submitted upstream; tracked as nixpkgs-local until merged.
+    ./fix-ldb-str-val-constexpr.patch
     (fetchpatch {
       # workaround for https://github.com/NixOS/nixpkgs/issues/303436
       name = "samba-reproducible-builds.patch";

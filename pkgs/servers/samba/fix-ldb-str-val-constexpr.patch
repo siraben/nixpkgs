@@ -1,0 +1,44 @@
+From 23e8513366b6dda97897818eef0e4cad3ed8177f Mon Sep 17 00:00:00 2001
+From: Ben Siraphob <bensiraphob@gmail.com>
+Date: Sun, 19 Apr 2026 12:47:54 -0700
+Subject: [PATCH] ldb: tests: fix test_ldb_comparison_fold on platforms with
+ 32-bit uintptr_t
+
+The STR_VAL() macro used discard_const() to drop const from string
+literal initializers, which expands to ((void *)((uintptr_t)(ptr))).
+On platforms (or waf configure misdetections) where
+sizeof(uintptr_t) < sizeof(void *), this truncates the pointer and
+- more importantly - clang (and other strict C compilers) rejects the
+pointer->integer->pointer roundtrip as a non-constant expression in a
+static initializer, so the whole ranked_value[] array fails to compile
+with "initializer element is not a compile-time constant".
+
+Since the STR_VAL inputs are always string literals, a direct
+(uint8_t *) cast (matching the type of struct ldb_val.data) is both a
+valid constant expression and sufficient to strip const, so drop the
+discard_const indirection here.
+
+Observed on aarch64-darwin with samba 4.22.x under nixpkgs, where
+waf's uintptr_t probe was misdetecting the type as 'unsigned int'.
+
+Signed-off-by: Ben Siraphob <bensiraphob@gmail.com>
+---
+ lib/ldb/tests/test_ldb_comparison_fold.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/lib/ldb/tests/test_ldb_comparison_fold.c b/lib/ldb/tests/test_ldb_comparison_fold.c
+index 6c5a75e..e61ce73 100644
+--- a/lib/ldb/tests/test_ldb_comparison_fold.c
++++ b/lib/ldb/tests/test_ldb_comparison_fold.c
+@@ -53,7 +53,7 @@ struct ranked_value {
+ 	int rank;
+ };
+ 
+-#define STR_VAL(s, r) { { discard_const(s), sizeof(s) - 1 }, r}
++#define STR_VAL(s, r) { { (uint8_t *)(s), sizeof(s) - 1 }, r}
+ 
+ static const struct ranked_value values_common[] = {
+ 	STR_VAL("", 0),
+-- 
+2.53.0
+
