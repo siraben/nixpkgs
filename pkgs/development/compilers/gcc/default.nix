@@ -61,6 +61,7 @@
   apple-sdk_14,
   apple-sdk_15,
   darwin,
+  xtensaOverlays,
 }:
 
 let
@@ -302,6 +303,13 @@ pipe
            '-s' # workaround for hitting hydra log limit
            'LIMITS_H_TEST=false'
         )
+      ''
+      # GCC's bundled xtensa-config.h targets a generic big-endian
+      # core; swap in the LX6 (ESP32) config from xtensa-overlays.
+      + optionalString targetPlatform.isXtensa ''
+        install -m 0644 \
+          ${xtensaOverlays}/xtensa_esp32/gcc/include/xtensa-config.h \
+          include/xtensa-config.h
       '';
 
       inherit

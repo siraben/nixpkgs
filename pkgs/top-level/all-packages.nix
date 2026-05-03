@@ -4695,6 +4695,10 @@ with pkgs;
 
   vc4-newlib = callPackage ../development/misc/vc4/newlib.nix { };
 
+  xtensaOverlays = callPackage ../development/misc/xtensa/overlays.nix { };
+
+  xtensa-newlib = callPackage ../development/misc/xtensa/newlib.nix { };
+
   or1k-newlib = callPackage ../development/misc/or1k/newlib.nix { };
 
   ### DEVELOPMENT / TOOLS
@@ -5676,6 +5680,8 @@ with pkgs;
       vc4-newlib
     else if libc == "newlib" && stdenv.hostPlatform.isOr1k then
       or1k-newlib
+    else if libc == "newlib" && stdenv.hostPlatform.isXtensa then
+      xtensa-newlib
     else if libc == "newlib" then
       newlib
     else if libc == "newlib-nano" then

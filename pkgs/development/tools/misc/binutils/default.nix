@@ -24,6 +24,7 @@ in
   enableShared ? (!stdenv.hostPlatform.isStatic && !stdenv.hostPlatform.isCygwin),
   # WARN: Enabling all targets increases output size to a multiple.
   withAllTargets ? false,
+  xtensaOverlays,
 }:
 
 # WARN: configure silently disables ld.gold if it's unsupported, so we need to
@@ -121,6 +122,18 @@ stdenv.mkDerivation (finalAttrs: {
 
     ./windres-locate-gcc.patch
   ];
+
+  # The FSF-default Xtensa config in bfd/xtensa-modules.c lacks the LX6
+  # TIE opcodes libgcc emits; swap in the ESP32 (LX6) config data. The
+  # conditional name keeps non-Xtensa binutils unchanged (no rebuild).
+  ${if stdenv.targetPlatform.isXtensa then "postPatch" else null} = ''
+    install -m 0644 \
+      ${xtensaOverlays}/xtensa_esp32/binutils/bfd/xtensa-modules.c \
+      bfd/xtensa-modules.c
+    install -m 0644 \
+      ${xtensaOverlays}/xtensa_esp32/binutils/include/xtensa-config.h \
+      include/xtensa-config.h
+  '';
 
   outputs = [
     "out"
