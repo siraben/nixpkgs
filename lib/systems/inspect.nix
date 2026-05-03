@@ -259,6 +259,11 @@ rec {
         family = "or1k";
       };
     };
+    isXtensa = {
+      cpu = {
+        family = "xtensa";
+      };
+    };
     isM68k = {
       cpu = {
         family = "m68k";

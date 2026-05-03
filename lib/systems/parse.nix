@@ -391,6 +391,12 @@ rec {
         family = "or1k";
       };
 
+      xtensa = {
+        bits = 32;
+        significantByte = littleEndian;
+        family = "xtensa";
+      };
+
       arc = {
         bits = 32;
         significantByte = littleEndian;

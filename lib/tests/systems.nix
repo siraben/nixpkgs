@@ -125,6 +125,7 @@ lib.runTests (
       "s390x-linux"
       "s390x-none"
     ];
+    testxtensa = mseteq xtensa [ "xtensa-none" ];
     testx86_64 = mseteq x86_64 [
       "x86_64-linux"
       "x86_64-freebsd"

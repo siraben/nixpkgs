@@ -103,6 +103,7 @@ let
     "s390x-none"
     "vc4-none"
     "x86_64-none"
+    "xtensa-none"
 
     # OpenBSD
     "i686-openbsd"
@@ -160,6 +161,7 @@ in
   rx = filterDoubles predicates.isRx;
   vc4 = filterDoubles predicates.isVc4;
   or1k = filterDoubles predicates.isOr1k;
+  xtensa = filterDoubles predicates.isXtensa;
   m68k = filterDoubles predicates.isM68k;
   arc = filterDoubles predicates.isArc;
   sh4 = filterDoubles predicates.isSh4;
