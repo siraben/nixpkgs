@@ -290,6 +290,7 @@ in
   riscv64-embedded = mapTestOnCross systems.examples.riscv64-embedded embedded;
   riscv32-embedded = mapTestOnCross systems.examples.riscv32-embedded embedded;
   rx-embedded = mapTestOnCross systems.examples.rx-embedded embedded;
+  esp32-embedded = mapTestOnCross systems.examples.esp32-embedded embedded;
 
   x86_64-freebsd = mapTestOnCross systems.examples.x86_64-freebsd common;
   x86_64-netbsd = mapTestOnCross systems.examples.x86_64-netbsd common;

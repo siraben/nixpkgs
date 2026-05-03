@@ -174,6 +174,11 @@ rec {
     config = "riscv32-none-elf";
   };
 
+  esp32-embedded = {
+    config = "xtensa-none-elf";
+    libc = "newlib";
+  };
+
   mips64-embedded = {
     config = "mips64-none-elf";
   };
