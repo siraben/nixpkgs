@@ -121,6 +121,14 @@ let
           "${pkgs.nodejs-slim}/bin/node"
         else if final.isMmix then
           "${pkgs.mmixware}/bin/mmix"
+        else if final.isXtensa then
+          # -semihosting routes newlib's stdio to the host.
+          lib.getExe (
+            pkgs.writeShellScriptBin "qemu-esp32" ''
+              exec ${pkgs.qemu-esp}/bin/qemu-system-xtensa \
+                -machine esp32 -semihosting -kernel "$1"
+            ''
+          )
         else
           null;
 
