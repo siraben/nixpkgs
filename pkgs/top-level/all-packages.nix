@@ -4478,13 +4478,6 @@ with pkgs;
   mrustc-minicargo = callPackage ../development/compilers/mrustc/minicargo.nix { };
   mrustc-bootstrap = callPackage ../development/compilers/mrustc/bootstrap.nix { };
 
-  # Source-bootstrapped rustc chain: mrustc-bootstrap (rustc 1.90.0
-  # built from C++ via mrustc) -> rustc 1.91.1 -> 1.92.0 -> 1.93.1 ->
-  # 1.94.0. Each step uses a thin `intermediate.nix` derivation that
-  # invokes `x.py build library cargo` with `build-stage = 1`,
-  # `install-stage = 1`, and docs disabled, producing a stage1 rustc
-  # that's just functional enough to feed the next hop. Modeled on
-  # https://codeberg.org/whispers/nebula/src/branch/meow/nix/pkgs/rust-bootstrap.
   rustcBootstrapChain = callPackage ../development/compilers/rust/bootstrap-chain {
     inherit mrustc-bootstrap llvmPackages_21;
   };
@@ -4495,25 +4488,11 @@ with pkgs;
     rustc-1_94
     ;
 
-  # Final hop: rust 1.95.0 (the nixpkgs-pinned current release) built
-  # via the standard rustc.nix path, but with the chain's rustc 1.94.0
-  # standing in for the upstream binary stage0.
-  rustc_1_95_bootstrapped-unwrapped =
-    let
-      bootstrapRustc = rustc-1_94 // {
-        unwrapped = rustc-1_94;
-        inherit (rust_1_95.packages.stable.rustc-unwrapped)
-          targetPlatforms
-          targetPlatformsWithHostTools
-          badTargetPlatforms
-          ;
-      };
-    in
-    rust_1_95.packages.stable.rustc-unwrapped.override {
-      cargo = rustc-1_94;
-      rustc = bootstrapRustc;
-      rustfmt = rustc-1_94;
-    };
+  rustc_1_95_bootstrapped-unwrapped = rust_1_95.packages.stable.rustc-unwrapped.override {
+    cargo = rustc-1_94;
+    rustc = rustc-1_94;
+    rustfmt = rustc-1_94;
+  };
 
   rustc_1_95_bootstrapped = wrapRustcWith {
     rustc-unwrapped = rustc_1_95_bootstrapped-unwrapped;

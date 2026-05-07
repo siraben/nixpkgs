@@ -117,7 +117,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildPhase = ''
     runHook preBuild
-    python ./x.py build library cargo \
+    # Build rustc explicitly so x.py install doesn't serialize stage1
+    # rustc compilation behind the install copy step.
+    python ./x.py build library rustc cargo \
       --set=build.jobs="$NIX_BUILD_CORES"
     runHook postBuild
   '';
@@ -140,6 +142,11 @@ stdenv.mkDerivation (finalAttrs: {
     targetPlatforms = [ "x86_64-linux" ];
     targetPlatformsWithHostTools = [ "x86_64-linux" ];
     badTargetPlatforms = [ ];
+    # Standard rustc.nix consumers (e.g. when this chain rustc is fed
+    # back in as `rustc` for the final 1.95.0 hop) reach for
+    # `rustc.unwrapped`. The chain output IS the unwrapped rustc, so
+    # point it at itself.
+    unwrapped = finalAttrs.finalPackage;
   };
 
   meta = {

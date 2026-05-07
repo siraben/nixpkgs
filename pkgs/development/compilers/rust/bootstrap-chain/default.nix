@@ -12,9 +12,6 @@
   lib,
   callPackage,
   fetchurl,
-  pkgsBuildBuild,
-  pkgsBuildHost,
-  pkgsBuildTarget,
   mrustc-bootstrap,
   llvmPackages_21,
 }:
@@ -22,12 +19,8 @@ let
   llvmShared = llvmPackages_21.libllvm.override { enableSharedLibraries = true; };
 
   mkIntermediate =
-    {
-      version,
-      hash,
-      cargo,
-      rustc,
-    }:
+    prev:
+    { version, hash }:
     callPackage
       (import ./intermediate.nix {
         inherit version;
@@ -37,38 +30,50 @@ let
         };
       })
       {
-        inherit cargo rustc;
+        cargo = prev;
+        rustc = prev;
         llvmSharedForBuild = llvmShared;
         llvmSharedForHost = llvmShared;
         llvmSharedForTarget = llvmShared;
       };
+
+  hops = [
+    {
+      attr = "rustc-1_91";
+      version = "1.91.1";
+      hash = "sha256-ONziBdOfYVcSYfBEQjehzp7+y5cOdg2OxNlXr1tEVyM=";
+    }
+    {
+      attr = "rustc-1_92";
+      version = "1.92.0";
+      hash = "sha256-ng0sp1x+J1/cdYJVv0sDr7PWXRVDYCdGkHyTO2kBw7g=";
+    }
+    {
+      attr = "rustc-1_93";
+      version = "1.93.1";
+      hash = "sha256-TCMKRLPZyfPO+VCUNxn4OABY0nyR/aXjapqUfvAT4B8=";
+    }
+    {
+      attr = "rustc-1_94";
+      version = "1.94.0";
+      hash = "sha256-uD+SHNPzIf9hT5wGqLhw2JKZ/AKIi0ilVJaDo2gjR0w=";
+    }
+  ];
 in
-rec {
-  rustc-1_91 = mkIntermediate {
-    version = "1.91.1";
-    hash = "sha256-ONziBdOfYVcSYfBEQjehzp7+y5cOdg2OxNlXr1tEVyM=";
-    cargo = mrustc-bootstrap;
-    rustc = mrustc-bootstrap;
-  };
-
-  rustc-1_92 = mkIntermediate {
-    version = "1.92.0";
-    hash = "sha256-ng0sp1x+J1/cdYJVv0sDr7PWXRVDYCdGkHyTO2kBw7g=";
-    cargo = rustc-1_91;
-    rustc = rustc-1_91;
-  };
-
-  rustc-1_93 = mkIntermediate {
-    version = "1.93.1";
-    hash = "sha256-TCMKRLPZyfPO+VCUNxn4OABY0nyR/aXjapqUfvAT4B8=";
-    cargo = rustc-1_92;
-    rustc = rustc-1_92;
-  };
-
-  rustc-1_94 = mkIntermediate {
-    version = "1.94.0";
-    hash = "sha256-uD+SHNPzIf9hT5wGqLhw2JKZ/AKIi0ilVJaDo2gjR0w=";
-    cargo = rustc-1_93;
-    rustc = rustc-1_93;
-  };
-}
+(lib.foldl'
+  (
+    state: hop:
+    let
+      drv = mkIntermediate state.prev { inherit (hop) version hash; };
+    in
+    {
+      attrs = state.attrs // { ${hop.attr} = drv; };
+      prev = drv;
+    }
+  )
+  {
+    attrs = { };
+    prev = mrustc-bootstrap;
+  }
+  hops
+).attrs
