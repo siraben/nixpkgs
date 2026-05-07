@@ -6,9 +6,13 @@
 }:
 
 let
-  version = "0.12.0";
-  tag = "v${version}";
-  rev = "b6754f574f8846eb842feba4ccbeeecb10bdfacc";
+  # mrustc HEAD post-2026-04-13 is the first version that bootstraps
+  # rustc 1.90.0 (binary-equal to upstream rustc 1.91.1). No tagged
+  # release has this capability yet; pin a specific commit until v0.13.
+  version = "0.12.0-unstable-2026-04-13";
+  rev = "7392eca5bd4958cb184fb47cefbd4c7e4f43547b";
+  shortRev = builtins.substring 0 7 rev;
+  tag = rev;
 in
 
 stdenv.mkDerivation rec {
@@ -19,15 +23,21 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "thepowersgang";
     repo = "mrustc";
-    rev = tag;
-    hash = "sha256-wqHTTnk9c1khLsN6e0v703tUoTlpncMwZPXTKEVZ33s=";
+    inherit rev;
+    hash = "sha256-dn17f2fPvfGqGlveHk/7f5hk/jSTd8XOdPb1pPeTHJ8=";
   };
 
   postPatch = ''
-    sed -i 's/\$(shell git show --pretty=%H -s)/${rev}/' Makefile
-    sed -i 's/\$(shell git symbolic-ref -q --short HEAD || git describe --tags --exact-match)/${tag}/' Makefile
-    sed -i 's/\$(shell git diff-index --quiet HEAD; echo $$?)/0/' Makefile
-    sed '1i#include <limits>' -i src/trans/codegen_c.cpp
+    substituteInPlace Makefile \
+      --replace-fail '$(shell git show --pretty=%H -s --no-show-signature)' '${rev}' \
+      --replace-fail '$(shell git show -s --pretty=%h --no-show-signature)' '${shortRev}' \
+      --replace-fail '$(shell git symbolic-ref -q --short HEAD || git describe --tags --exact-match)' '${tag}' \
+      --replace-fail '$(shell git diff-index --quiet HEAD; echo $$?)' '0' \
+      --replace-fail '$(shell env LC_TIME=C date -u +"%a, %e %b %Y %T +0000")' 'unknown'
+
+    if ! grep -q '#include <limits>' src/trans/codegen_c.cpp; then
+      sed '1i#include <limits>' -i src/trans/codegen_c.cpp
+    fi
   '';
 
   strictDeps = true;

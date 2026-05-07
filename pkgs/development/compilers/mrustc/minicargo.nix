@@ -21,8 +21,10 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
     cp bin/minicargo $out/bin
 
-    # without it, minicargo defaults to "<minicargo_path>/../bin/mrustc"
-    wrapProgram "$out/bin/minicargo" --set MRUSTC_PATH ${mrustc}/bin/mrustc
+    # Default MRUSTC_PATH to the bundled mrustc, but allow callers
+    # (notably run_rustc, which invokes minicargo with the just-bootstrapped
+    # rustc as MRUSTC_PATH) to override it.
+    wrapProgram "$out/bin/minicargo" --set-default MRUSTC_PATH ${mrustc}/bin/mrustc
     runHook postInstall
   '';
 
