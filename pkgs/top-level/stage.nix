@@ -286,6 +286,37 @@ let
     # Prefer appendOverlays if used repeatedly.
     extend = f: self.appendOverlays [ f ];
 
+    pkgsBootstrappedRust = nixpkgsFun {
+      overlays = [
+        (self': super': {
+          pkgsBootstrappedRust = super';
+          rustc = super'.rustc_1_95_bootstrapped;
+          rustc-unwrapped = super'.rustc_1_95_bootstrapped-unwrapped;
+          # The chain's rustc-1_94 derivation ships its own bin/cargo
+          # (cargo 1.94). Reuse it instead of building cargo 1.95 from
+          # scratch — cargo is forwards-compatible with rustc and this
+          # avoids a separate cargo bootstrap step.
+          cargo = super'.rustc-1_94;
+          # cargo-auditable's doctests fail when run with the chain's
+          # stage1-only rustc 1.94 (some std intrinsics aren't available
+          # for rustdoc test harnesses). Mark it broken so
+          # buildRustPackage's `auditable ? !cargo-auditable.meta.broken`
+          # default falls to `false`. Bootstrappable closures don't need
+          # SBOM auditing anyway.
+          cargo-auditable = super'.cargo-auditable.overrideAttrs (old: {
+            meta = old.meta // {
+              broken = true;
+            };
+          });
+          rustPlatform = super'.makeRustPlatform {
+            rustc = super'.rustc_1_95_bootstrapped;
+            cargo = super'.rustc-1_94;
+          };
+        })
+      ]
+      ++ overlays;
+    };
+
     # Fully static packages.
     # Currently uses Musl on Linux (couldn’t get static glibc to work).
     pkgsStatic = nixpkgsFun {
