@@ -387,6 +387,62 @@ Wall times (variance within ±5%, no buildPhase change expected):
 
 Cumulative win vs original baseline: chain wall time **101 min → 45 min** (-56 min, -55%) and chain output **2.74 GB → 1.38 GB** (-50%). The wall-time ceiling at `cores=5` still holds; further wins need either mrustc-bootstrap surgery or a higher `cores` budget.
 
+### 5. `[rust] strip = true` and revert `codegen-units` to default 16
+
+Date: `2026-05-08T00:59` PDT.
+
+Two changes bundled in one rebuild:
+
+1. **`[rust] strip = true`** — adds `-Cstrip=symbols` to rustc's own
+   build of itself + libstd. Chain hops never run a debugger or print
+   rustc backtraces from these binaries; symbols are dead weight.
+2. **Drop `codegen-units = 256` / `codegen-units-std = 256`** — falls
+   back to upstream default of 16 (since `incremental = false`). The
+   "Run 2 17% speedup" was attributed to multiple flags changing at
+   once; with `cores = 5`, splitting each crate into 256 LLVM chunks
+   has more per-CGU overhead than parallelism benefit. 16 chunks +
+   5 cargo jobs already saturate the 5 build cores.
+
+Run: `strip-cgu16-20260508T005940`
+
+Per-hop closure (full chain rebuild):
+
+| Hop    | Run 4 | Run 5 | Δ size |
+|--------|------:|------:|-------:|
+| 1.91.1 | 271M | 214M | -57M |
+| 1.92.0 | 265M | 207M | -58M |
+| 1.93.1 | 264M | 206M | -58M |
+| 1.94.0 | 263M | 201M | -62M |
+| 1.95.0 | 321M | 237M | -84M (extra: stripped cargo + rustdoc) |
+| **5-hop sum** | 1.38 GB | **1.07 GB** | **-318M (-23%)** |
+
+`librustc_driver-HASH.so`: 150M → 88M (-42%).
+
+Wall times (cleaning up Run 4's variance):
+
+| Hop    | Run 4 (build) | Run 5 (build) | Δ |
+|--------|--------------:|--------------:|---:|
+| 1.91.1 | 6m 28s | 5m 40s | -48s |
+| 1.92.0 | 6m 21s | 5m 51s | -30s |
+| 1.93.1 | 6m 40s | 8m 22s | +1m 42s (host load variance) |
+| 1.94.0 | 6m 32s | 6m 16s | -16s |
+| 1.95.0 | 11m 35s | 11m 06s | -29s |
+| **5-hop chain total** | 45m 17s | **45m 32s** | wash |
+
+Validation: `pkgsBootstrappedRust.ripgrep` builds clean (`/nix/store/xfccdhv7w...-ripgrep-15.1.0`), closure audit passes (no prebuilt rust binaries), `rustc --version` and `cargo --version` succeed.
+
+Runtime closure of `rustc_1_95_bootstrapped`: 949 MB → **865 MB** (-84M, -8.8%).
+
+Cumulative win vs original baseline (Run 0):
+
+| Metric | Run 0 baseline | Run 5 (current) | Δ |
+|---|---:|---:|---:|
+| 5-hop chain wall | ~101 min | **45m 32s** | -55% |
+| 5-hop chain closure | 2.74 GB | **1.07 GB** | **-61%** |
+| `rustc.unwrapped` runtime closure | ~1.18 GB | **865 MB** | -27% |
+
+Codegen-units=16 isn't a regression vs 256 — confirmed via 5-hop wall time within variance. Reverting to default also makes `intermediate.nix` simpler (one less knob).
+
 ### Tuning ceiling reached (at host `cores=5`, `max-jobs=6`)
 
 After Run 3b, per-hop wall is ~7 min for intermediates and ~12 min for the

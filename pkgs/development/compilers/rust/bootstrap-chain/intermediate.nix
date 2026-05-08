@@ -76,11 +76,9 @@ let
     optimize = 2
     codegen-tests = false
     optimize-tests = false
-    # Default 16; bumping splits each crate into more parallel codegen
-    # jobs. Slightly less inlining, but the chain output rustc only
-    # ever compiles the next hop once.
-    codegen-units = 256
-    codegen-units-std = 256
+    # Strip symbols from rustc/std binaries. Chain hops never run a
+    # debugger or print rustc backtraces; symbols are dead weight.
+    strip = true
 
     [target.${triple}]
     llvm-config = "${lib.getExe' llvmShared.dev "llvm-config"}"
