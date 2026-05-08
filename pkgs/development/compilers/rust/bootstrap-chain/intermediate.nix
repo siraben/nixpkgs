@@ -1,4 +1,14 @@
-{ version, src }:
+{
+  version,
+  src,
+  # Build tools to install. Intermediate chain hops only need cargo
+  # (rustc and the std libraries are built unconditionally as part of
+  # `x.py build library cargo`). The terminal hop, whose output is fed
+  # into `wrapRustcWith` and used as `pkgs.rustc`, also needs rustdoc
+  # (the rustc wrapper ships a rustdoc shim that delegates to rustc-
+  # unwrapped's rustdoc binary).
+  tools ? [ "cargo" ],
+}:
 {
   lib,
   stdenv,
@@ -73,7 +83,7 @@ let
 
     docs = false
     extended = true
-    tools = ["cargo"]
+    tools = [${lib.concatMapStringsSep ", " (t: "\"${t}\"") tools}]
 
     [install]
     sysconfdir = "etc"
@@ -119,7 +129,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook preBuild
     # Build rustc explicitly so x.py install doesn't serialize stage1
     # rustc compilation behind the install copy step.
-    python ./x.py build library rustc cargo \
+    python ./x.py build library rustc ${lib.concatStringsSep " " tools} \
       --set=build.jobs="$NIX_BUILD_CORES"
     runHook postBuild
   '';
