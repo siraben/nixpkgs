@@ -1,12 +1,8 @@
+# Stage1-only rustc + (optionally) tools, intended as one hop in
+# `bootstrap-chain/default.nix`. Not for direct consumption.
 {
   version,
   src,
-  # Tools to install after build. `cargo` is needed for the *next* hop's
-  # stage0 — but cargo 1.90.0 from `mrustc-bootstrap` drives every hop
-  # via `--skip-stage0-validation`, so intermediate hops can pass `[]`
-  # and skip the cargo build entirely. The terminal hop passes
-  # `["cargo" "rustdoc"]` to get a real `pkgs.cargo` and to satisfy
-  # `wrapRustcWith`'s rustdoc shim.
   tools,
 }:
 {
@@ -21,17 +17,18 @@
   libgit2,
   openssl,
   sqlite,
-  # Tolerate stray override args from callers that treat this derivation
-  # as if it were the standard nixpkgs cargo (e.g. cargo-auditable does
-  # `cargo.override { auditable = false; }`).
+  # Tolerate stray `cargo.override` args from callers that treat this
+  # derivation as if it were the standard nixpkgs cargo (e.g.
+  # cargo-auditable does `cargo.override { auditable = false; }`).
   ...
 }:
 let
   triple = stdenv.targetPlatform.rust.rustcTargetSpec;
+  platforms = [ "x86_64-linux" ];
 
-  # Hand-write bootstrap.toml: `pkgs.formats.toml` pulls in remarshal
-  # and the entire Python test ecosystem (matplotlib, ffmpeg, …) just
-  # to convert a Nix attrset to TOML.
+  # Hand-written bootstrap.toml; `pkgs.formats.toml` would pull in
+  # remarshal -> matplotlib -> ffmpeg. Only flags that override an
+  # upstream default appear here.
   bootstrapToml = writeText "bootstrap.toml" ''
     change-id = "ignore"
 
@@ -39,73 +36,38 @@ let
     link-shared = true
 
     [build]
-    # Only build through stage1: stage2 (rustc N rebuilding itself) is
-    # what the standard nixpkgs `rustc.nix` does for `pkgs.rustc`. The
-    # chain just needs a working rustc + std + (optionally) cargo to
-    # feed the next hop.
     build-stage = 1
-    install-stage = 1
-
     build = "${triple}"
-    host = ["${triple}"]
-    target = ["${triple}"]
-
     cargo = "${lib.getExe' cargo "cargo"}"
     rustc = "${lib.getExe' rustc "rustc"}"
-
     docs = false
     extended = true
     tools = [${lib.concatMapStringsSep ", " (t: "\"${t}\"") tools}]
-    # Stable channel default forces a profile-guided rebuild of LLVM
-    # `compiler-builtins`. We don't need optimised intrinsics in a
-    # throwaway chain compiler.
     optimized-compiler-builtins = false
-
-    [install]
-    sysconfdir = "etc"
 
     [rust]
     channel = "stable"
-    llvm-bitcode-linker = false
-    # Skip building the bundled lld and the llvm-tools-preview
-    # component (llvm-objdump etc.). Nothing in the chain or in
-    # `pkgs.rustc`'s wrapper invokes them.
     lld = false
     llvm-tools = false
     lto = "off"
     optimize = 2
     codegen-tests = false
     optimize-tests = false
-    # Strip symbols from rustc/std binaries. Chain hops never run a
-    # debugger or print rustc backtraces; symbols are dead weight.
     strip = true
 
     [target.${triple}]
     llvm-config = "${lib.getExe' llvmShared.dev "llvm-config"}"
   '';
-
-  # `--skip-stage0-validation` disables x.py's "stage0 cargo must be
-  # within minor-1 of source version" guard. We always pass cargo
-  # 1.90.0 from `mrustc-bootstrap`, even when source is rustc 1.92+.
-  # cargo's rustc-driver protocol is stable enough across these
-  # releases that cargo 1.90 successfully drives every hop — the
-  # check is more conservative than reality.
-  xpyFlags = [
-    "--skip-stage0-validation"
-    ''--set=build.jobs="$NIX_BUILD_CORES"''
-  ];
 in
 stdenv.mkDerivation (finalAttrs: {
-  inherit version src;
   pname = "rustc-bootstrap";
+  inherit version src;
 
   strictDeps = true;
-
   nativeBuildInputs = [
     pkg-config
     python3Minimal
   ];
-
   buildInputs = [
     libgit2
     openssl
@@ -118,46 +80,44 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postConfigure
   '';
 
+  # `--skip-stage0-validation` lets the chain reuse cargo 1.90 from
+  # mrustc-bootstrap against rustc 1.92+ source; cargo's rustc-driver
+  # protocol is stable enough across minors that x.py's
+  # within-one-minor guard is over-conservative for our case.
   buildPhase = ''
     runHook preBuild
-    # Build rustc + tools explicitly so x.py install doesn't serialize
-    # them behind the install copy step.
     python ./x.py build library rustc ${lib.concatStringsSep " " tools} \
-      ${lib.concatStringsSep " " xpyFlags}
+      --skip-stage0-validation \
+      --set=build.jobs="$NIX_BUILD_CORES"
     runHook postBuild
   '';
 
   # Bypass `python ./x.py install`: it spends ~30-50 s/hop building
-  # `rust-installer` and `generate-copyright`, then runs install.sh to
-  # cp from a tarball staging area. We just need `bin/rustc`, the
-  # rustc dylib, and `lib/rustlib/` for the next hop's stage0 — copy
-  # them directly out of `build/$triple/stage1`.
+  # rust-installer + generate-copyright and re-cp-ing through a tarball
+  # staging area. Copy the stage1 outputs directly.
   installPhase = ''
     runHook preInstall
-
-    stage1="build/${triple}/stage1"
-
+    stage1=build/${triple}/stage1
     mkdir -p $out/bin $out/lib
 
-    install -m755 "$stage1/bin/rustc" "$out/bin/rustc"
-    cp -P "$stage1/lib/"librustc_driver-*.so "$out/lib/"
+    install -m755 $stage1/bin/rustc $out/bin/rustc
+    cp -P $stage1/lib/librustc_driver-*.so $out/lib/
 
-    # 1.91 ships a separate top-level libstd.so; 1.92+ static-link
-    # it into librustc_driver. Use a glob with nullglob-like guard.
-    for f in "$stage1/lib/"libstd*.so; do
-      [ -e "$f" ] && cp -P "$f" "$out/lib/"
-    done
+    # 1.91 ships a separate top-level libstd.so; 1.92+ static-link it.
+    cp -P $stage1/lib/libstd*.so $out/lib/ 2>/dev/null || true
 
-    cp -rP "$stage1/lib/rustlib" "$out/lib/"
-    # Drop dangling src symlinks that point back into /build.
-    rm -rf "$out/lib/rustlib/src" "$out/lib/rustlib/rustc-src"
+    cp -rP $stage1/lib/rustlib $out/lib/
+    # rustlib/{src,rustc-src} are symlinks back into /build.
+    rm -rf $out/lib/rustlib/src $out/lib/rustlib/rustc-src
 
+    # cargo lands in stage1-tools-bin, rustdoc in stage1/bin.
     for t in ${lib.concatStringsSep " " tools}; do
-      if [ -e "build/${triple}/stage1-tools-bin/$t" ]; then
-        install -m755 "build/${triple}/stage1-tools-bin/$t" "$out/bin/$t"
-      elif [ -e "$stage1/bin/$t" ]; then
-        install -m755 "$stage1/bin/$t" "$out/bin/$t"
-      fi
+      for d in stage1-tools-bin stage1/bin; do
+        if [ -e build/${triple}/$d/$t ]; then
+          install -m755 build/${triple}/$d/$t $out/bin/$t
+          break
+        fi
+      done
     done
 
     runHook postInstall
@@ -170,11 +130,11 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   passthru = {
-    targetPlatforms = [ "x86_64-linux" ];
-    targetPlatformsWithHostTools = [ "x86_64-linux" ];
+    targetPlatforms = platforms;
+    targetPlatformsWithHostTools = platforms;
     badTargetPlatforms = [ ];
-    # rustc.nix consumers reach for `rustc.unwrapped`; the chain
-    # output IS the unwrapped rustc, so point it at itself.
+    # rustc.nix consumers reach for `rustc.unwrapped`; the chain output
+    # IS the unwrapped rustc, so point it at itself.
     unwrapped = finalAttrs.finalPackage;
   };
 
@@ -185,7 +145,7 @@ stdenv.mkDerivation (finalAttrs: {
       mit
       asl20
     ];
-    platforms = [ "x86_64-linux" ];
+    inherit platforms;
     mainProgram = "rustc";
   };
 })

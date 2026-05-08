@@ -286,33 +286,27 @@ let
     # Prefer appendOverlays if used repeatedly.
     extend = f: self.appendOverlays [ f ];
 
+    # rustc bootstrapped from source via mrustc, with no prebuilt rust
+    # binaries in the closure. See pkgs/development/compilers/rust/bootstrap-chain.
     pkgsBootstrappedRust = nixpkgsFun {
       overlays = [
-        (self': super':
-          let
-            chainCargo = super'.rustcBootstrapChain.rustc-1_95;
-          in
-          {
-            pkgsBootstrappedRust = super';
+        (self': super': {
+          pkgsBootstrappedRust = super';
+          rustc = super'.rustc_1_95_bootstrapped;
+          rustc-unwrapped = super'.rustcBootstrapChain.rustc-1_95;
+          # The chain derivation ships its own bin/cargo; reuse it.
+          cargo = super'.rustcBootstrapChain.rustc-1_95;
+          # cargo-auditable's doctests fail under the chain's stage1-only
+          # rustc, so mark it broken to flip buildRustPackage's auditable
+          # default to false.
+          cargo-auditable = super'.cargo-auditable.overrideAttrs (old: {
+            meta = old.meta // { broken = true; };
+          });
+          rustPlatform = super'.makeRustPlatform {
             rustc = super'.rustc_1_95_bootstrapped;
-            rustc-unwrapped = super'.rustcBootstrapChain.rustc-1_95;
-            # The chain rustc derivation ships its own bin/cargo;
-            # reuse it instead of building a separate `cargo.nix`-built
-            # cargo on top of an already-bootstrapped rustc.
-            cargo = chainCargo;
-            # cargo-auditable's doctests fail under the chain's
-            # stage1-only rustc, so mark it broken to flip
-            # `buildRustPackage`'s `auditable` default to false.
-            cargo-auditable = super'.cargo-auditable.overrideAttrs (old: {
-              meta = old.meta // {
-                broken = true;
-              };
-            });
-            rustPlatform = super'.makeRustPlatform {
-              rustc = super'.rustc_1_95_bootstrapped;
-              cargo = chainCargo;
-            };
-          })
+            cargo = super'.rustcBootstrapChain.rustc-1_95;
+          };
+        })
       ]
       ++ overlays;
     };

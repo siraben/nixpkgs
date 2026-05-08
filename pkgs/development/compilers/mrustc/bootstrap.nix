@@ -26,6 +26,7 @@ let
   };
   rustcDir = "rustc-${rustcVersion}-src";
   outputDir = "output-${rustcVersion}";
+  platforms = [ "x86_64-linux" ];
 in
 
 stdenv.mkDerivation (finalAttrs: {
@@ -35,21 +36,18 @@ stdenv.mkDerivation (finalAttrs: {
   inherit (mrustc) src;
   postUnpack = "tar -xf ${rustcSrc} -C source/";
 
-  # the rust build system complains that nix alters the checksums
+  # The rust build system rejects checksum changes nix would make.
   dontFixLibtool = true;
+  # rustc carries cmake in tree to build llvm-rt; the normal path doesn't
+  # need it, so don't run cmake's configure hook on the mrustc tree.
+  dontUseCmakeConfigure = true;
 
-  patches = [
-    ./patches/0001-dont-download-rustc-1.90.patch
-  ];
+  patches = [ ./patches/0001-dont-download-rustc-1.90.patch ];
 
   postPatch = ''
     echo "applying patch ./rustc-${rustcVersion}-src.patch"
     patch -p0 -d ${rustcDir}/ < rustc-${rustcVersion}-src.patch
   '';
-
-  # rustc unfortunately needs cmake to compile llvm-rt but doesn't
-  # use it for the normal build. This disables cmake in Nix.
-  dontUseCmakeConfigure = true;
 
   strictDeps = true;
   nativeBuildInputs = [
@@ -137,8 +135,8 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    targetPlatforms = [ "x86_64-linux" ];
-    targetPlatformsWithHostTools = [ "x86_64-linux" ];
+    targetPlatforms = platforms;
+    targetPlatformsWithHostTools = platforms;
     badTargetPlatforms = [ ];
     unwrapped = finalAttrs.finalPackage;
   };
@@ -159,6 +157,6 @@ stdenv.mkDerivation (finalAttrs: {
       mit
       asl20
     ];
-    platforms = [ "x86_64-linux" ];
+    inherit platforms;
   };
 })
