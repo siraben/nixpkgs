@@ -288,31 +288,31 @@ let
 
     pkgsBootstrappedRust = nixpkgsFun {
       overlays = [
-        (self': super': {
-          pkgsBootstrappedRust = super';
-          rustc = super'.rustc_1_95_bootstrapped;
-          rustc-unwrapped = super'.rustc_1_95_bootstrapped-unwrapped;
-          # The chain's rustc-1_94 derivation ships its own bin/cargo
-          # (cargo 1.94). Reuse it instead of building cargo 1.95 from
-          # scratch — cargo is forwards-compatible with rustc and this
-          # avoids a separate cargo bootstrap step.
-          cargo = super'.rustc-1_94;
-          # cargo-auditable's doctests fail when run with the chain's
-          # stage1-only rustc 1.94 (some std intrinsics aren't available
-          # for rustdoc test harnesses). Mark it broken so
-          # buildRustPackage's `auditable ? !cargo-auditable.meta.broken`
-          # default falls to `false`. Bootstrappable closures don't need
-          # SBOM auditing anyway.
-          cargo-auditable = super'.cargo-auditable.overrideAttrs (old: {
-            meta = old.meta // {
-              broken = true;
-            };
-          });
-          rustPlatform = super'.makeRustPlatform {
+        (self': super':
+          let
+            chainCargo = super'.rustcBootstrapChain.rustc-1_95;
+          in
+          {
+            pkgsBootstrappedRust = super';
             rustc = super'.rustc_1_95_bootstrapped;
-            cargo = super'.rustc-1_94;
-          };
-        })
+            rustc-unwrapped = super'.rustcBootstrapChain.rustc-1_95;
+            # The chain rustc derivation ships its own bin/cargo;
+            # reuse it instead of building a separate `cargo.nix`-built
+            # cargo on top of an already-bootstrapped rustc.
+            cargo = chainCargo;
+            # cargo-auditable's doctests fail under the chain's
+            # stage1-only rustc, so mark it broken to flip
+            # `buildRustPackage`'s `auditable` default to false.
+            cargo-auditable = super'.cargo-auditable.overrideAttrs (old: {
+              meta = old.meta // {
+                broken = true;
+              };
+            });
+            rustPlatform = super'.makeRustPlatform {
+              rustc = super'.rustc_1_95_bootstrapped;
+              cargo = chainCargo;
+            };
+          })
       ]
       ++ overlays;
     };

@@ -1,13 +1,13 @@
 {
   version,
   src,
-  # Build tools to install. Intermediate chain hops only need cargo
-  # (rustc and the std libraries are built unconditionally as part of
-  # `x.py build library cargo`). The terminal hop, whose output is fed
-  # into `wrapRustcWith` and used as `pkgs.rustc`, also needs rustdoc
-  # (the rustc wrapper ships a rustdoc shim that delegates to rustc-
-  # unwrapped's rustdoc binary).
-  tools ? [ "cargo" ],
+  # Tools to install after build. `cargo` is needed for the *next* hop's
+  # stage0 — but cargo 1.90.0 from `mrustc-bootstrap` drives every hop
+  # via `--skip-stage0-validation`, so intermediate hops can pass `[]`
+  # and skip the cargo build entirely. The terminal hop passes
+  # `["cargo" "rustdoc"]` to get a real `pkgs.cargo` and to satisfy
+  # `wrapRustcWith`'s rustdoc shim.
+  tools,
 }:
 {
   lib,
@@ -17,48 +17,21 @@
   python3Minimal,
   cargo,
   rustc,
-  llvmSharedForBuild,
-  llvmSharedForHost,
-  llvmSharedForTarget,
+  llvmShared,
   libgit2,
   openssl,
   sqlite,
   # Tolerate stray override args from callers that treat this derivation
   # as if it were the standard nixpkgs cargo (e.g. cargo-auditable does
-  # `cargo.override { auditable = false; }`). The chain's "cargo" output
-  # is just a stage1 cargo binary in $out/bin/cargo — there's no
-  # auditing wrapper to enable here.
+  # `cargo.override { auditable = false; }`).
   ...
 }:
 let
-  buildTriple = stdenv.buildPlatform.rust.rustcTargetSpec;
-  hostTriple = stdenv.hostPlatform.rust.rustcTargetSpec;
-  targetTriple = stdenv.targetPlatform.rust.rustcTargetSpec;
+  triple = stdenv.targetPlatform.rust.rustcTargetSpec;
 
-  # When build/host/target are the same triple (the common native case)
-  # we'd otherwise emit three [target."<triple>"] sections, which TOML
-  # rejects. Build a {triple -> llvm-config} map and emit one section
-  # per unique triple.
-  llvmConfigByTriple =
-    {
-      ${buildTriple} = lib.getExe' llvmSharedForBuild.dev "llvm-config";
-    }
-    // {
-      ${hostTriple} = lib.getExe' llvmSharedForHost.dev "llvm-config";
-    }
-    // {
-      ${targetTriple} = lib.getExe' llvmSharedForTarget.dev "llvm-config";
-    };
-  targetSections = lib.concatStringsSep "\n" (
-    lib.mapAttrsToList (triple: llvmConfig: ''
-      [target.${triple}]
-      llvm-config = "${llvmConfig}"
-    '') llvmConfigByTriple
-  );
-
-  # Hand-write bootstrap.toml instead of going through pkgs.formats.toml,
-  # which pulls in remarshal -> the entire Python test ecosystem
-  # (matplotlib, ffmpeg, …) just to convert a Nix attrset to TOML.
+  # Hand-write bootstrap.toml: `pkgs.formats.toml` pulls in remarshal
+  # and the entire Python test ecosystem (matplotlib, ffmpeg, …) just
+  # to convert a Nix attrset to TOML.
   bootstrapToml = writeText "bootstrap.toml" ''
     change-id = "ignore"
 
@@ -66,17 +39,16 @@ let
     link-shared = true
 
     [build]
-    # Only build through stage1: stage0 N-1 builds rustc N's compiler
-    # crates and stdlib. Stage2 (rustc N rebuilding itself) is what the
-    # user-facing rustc package does, and its doc lints can be finicky
-    # for cross targets — chain hops just need to produce a working
-    # rustc + std + cargo to feed the next hop.
+    # Only build through stage1: stage2 (rustc N rebuilding itself) is
+    # what the standard nixpkgs `rustc.nix` does for `pkgs.rustc`. The
+    # chain just needs a working rustc + std + (optionally) cargo to
+    # feed the next hop.
     build-stage = 1
     install-stage = 1
 
-    build = "${buildTriple}"
-    host = ["${hostTriple}"]
-    target = ["${targetTriple}"]
+    build = "${triple}"
+    host = ["${triple}"]
+    target = ["${triple}"]
 
     cargo = "${lib.getExe' cargo "cargo"}"
     rustc = "${lib.getExe' rustc "rustc"}"
@@ -84,10 +56,9 @@ let
     docs = false
     extended = true
     tools = [${lib.concatMapStringsSep ", " (t: "\"${t}\"") tools}]
-    # Default for the stable channel is `true`, which forces LLVM
-    # `compiler-builtins` to be rebuilt with profile-guided / optimised
-    # intrinsics. The chain only needs a *working* libcompiler_builtins
-    # — the next hop will rebuild it anyway against its own libcore.
+    # Stable channel default forces a profile-guided rebuild of LLVM
+    # `compiler-builtins`. We don't need optimised intrinsics in a
+    # throwaway chain compiler.
     optimized-compiler-builtins = false
 
     [install]
@@ -96,27 +67,35 @@ let
     [rust]
     channel = "stable"
     llvm-bitcode-linker = false
-    # Skip building the bundled lld and the llvm-tools-preview component
-    # (llvm-objdump, llvm-as, llvm-dis, …). Nothing in the chain or
-    # downstream `pkgs.rustc` flow invokes them; we link with the
-    # nixpkgs gcc-wrapper-shipped binutils.
+    # Skip building the bundled lld and the llvm-tools-preview
+    # component (llvm-objdump etc.). Nothing in the chain or in
+    # `pkgs.rustc`'s wrapper invokes them.
     lld = false
     llvm-tools = false
     lto = "off"
     optimize = 2
-    # Skip optimising and codegen-checking test artifacts. We never run
-    # tests in chain hops.
     codegen-tests = false
     optimize-tests = false
-    # Default 16; bumping to 256 lets cargo schedule more parallel
-    # codegen jobs per crate, which the 32-thread host can absorb.
-    # Slightly less inlining across units, but the chain's output rustc
-    # is one-shot — it only ever compiles the next hop.
+    # Default 16; bumping splits each crate into more parallel codegen
+    # jobs. Slightly less inlining, but the chain output rustc only
+    # ever compiles the next hop once.
     codegen-units = 256
     codegen-units-std = 256
 
-    ${targetSections}
+    [target.${triple}]
+    llvm-config = "${lib.getExe' llvmShared.dev "llvm-config"}"
   '';
+
+  # `--skip-stage0-validation` disables x.py's "stage0 cargo must be
+  # within minor-1 of source version" guard. We always pass cargo
+  # 1.90.0 from `mrustc-bootstrap`, even when source is rustc 1.92+.
+  # cargo's rustc-driver protocol is stable enough across these
+  # releases that cargo 1.90 successfully drives every hop — the
+  # check is more conservative than reality.
+  xpyFlags = [
+    "--skip-stage0-validation"
+    ''--set=build.jobs="$NIX_BUILD_CORES"''
+  ];
 in
 stdenv.mkDerivation (finalAttrs: {
   inherit version src;
@@ -148,30 +127,18 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildPhase = ''
     runHook preBuild
-    # Build rustc explicitly so x.py install doesn't serialize stage1
-    # rustc compilation behind the install copy step.
-    #
-    # `--skip-stage0-validation` disables x.py's "stage0 cargo must be
-    # within minor-1 of source version" guard. Each chain hop in this
-    # design uses cargo 1.90.0 from mrustc-bootstrap as the stage0
-    # cargo, even when source is rustc 1.92, 1.93, 1.94, 1.95. cargo's
-    # rustc-driver protocol is stable enough across these releases that
-    # cargo 1.90 successfully compiles every source we ask of it; the
-    # check is more conservative than reality. Skipping it lets us
-    # avoid building cargo at every intermediate hop (`tools = []`) —
-    # only the terminal hop builds cargo for downstream `pkgs.cargo`.
+    # Build rustc + tools explicitly so x.py install doesn't serialize
+    # them behind the install copy step.
     python ./x.py build library rustc ${lib.concatStringsSep " " tools} \
-      --skip-stage0-validation \
-      --set=build.jobs="$NIX_BUILD_CORES"
+      ${lib.concatStringsSep " " xpyFlags}
     runHook postBuild
   '';
 
   installPhase = ''
     runHook preInstall
     python ./x.py install \
-      --skip-stage0-validation \
-      --set build.jobs="$NIX_BUILD_CORES" \
-      --set install.prefix="$out"
+      ${lib.concatStringsSep " " xpyFlags} \
+      --set=install.prefix="$out"
     runHook postInstall
   '';
 
@@ -185,10 +152,8 @@ stdenv.mkDerivation (finalAttrs: {
     targetPlatforms = [ "x86_64-linux" ];
     targetPlatformsWithHostTools = [ "x86_64-linux" ];
     badTargetPlatforms = [ ];
-    # Standard rustc.nix consumers (e.g. when this chain rustc is fed
-    # back in as `rustc` for the final 1.95.0 hop) reach for
-    # `rustc.unwrapped`. The chain output IS the unwrapped rustc, so
-    # point it at itself.
+    # rustc.nix consumers reach for `rustc.unwrapped`; the chain
+    # output IS the unwrapped rustc, so point it at itself.
     unwrapped = finalAttrs.finalPackage;
   };
 

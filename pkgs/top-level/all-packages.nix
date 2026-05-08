@@ -4481,21 +4481,9 @@ with pkgs;
   rustcBootstrapChain = callPackage ../development/compilers/rust/bootstrap-chain {
     inherit mrustc-bootstrap llvmPackages_21 llvmPackages_22;
   };
-  inherit (rustcBootstrapChain)
-    rustc-1_91
-    rustc-1_92
-    rustc-1_93
-    rustc-1_94
-    rustc-1_95
-    ;
-
-  # The chain's stage1-only rustc-1_95 is used directly: no need to run
-  # the full standard nixpkgs `rustc.nix` path (stage2 + docs + extra
-  # tools) to produce a working compiler for `pkgsBootstrappedRust`.
-  rustc_1_95_bootstrapped-unwrapped = rustc-1_95;
 
   rustc_1_95_bootstrapped = wrapRustcWith {
-    rustc-unwrapped = rustc_1_95_bootstrapped-unwrapped;
+    rustc-unwrapped = rustcBootstrapChain.rustc-1_95;
     sysroot = null;
   };
 
