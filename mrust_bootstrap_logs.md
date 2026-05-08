@@ -233,3 +233,63 @@ Result vs baseline:
 Run 1 conclusion: extending the chain from 1.94 to 1.95 — i.e. dropping the standard `rustc.nix` final hop entirely — saves about **33 minutes** on the cold e2e build. The Run 1a hops (1.92, 1.93, 1.94) are also slightly faster than baseline (12-14 min vs 15-17 min) thanks to building `rustc` explicitly in `x.py build` instead of letting `x.py install` serialize it. New e2e cold total (with mrustc + LLVM 20 + LLVM 21 + LLVM 22 already cached): roughly **~67 min** for the chain part (~5 hops × ~13 min).
 
 Tradeoff: `pkgsBootstrappedRust.rustc` is now stage1-only, no clippy or rust-analyzer or miri. For the overlay's typical consumers (compile a Rust binary or library) this is fine; users wanting clippy etc. can stay on the standard `pkgs.rustc`.
+
+### 2. Aggressive bootstrap.toml tuning
+
+Date: `2026-05-07T20:08` PDT.
+
+Hypothesis: the chain hops still spend a lot of time on things the chain doesn't need. Specifically:
+
+- `optimized-compiler-builtins = true` (default for stable channel) forces a slow PGO-like build of the LLVM compiler-builtins library. Throwaway chain hops only need a *correct* libcompiler_builtins; they can use the unoptimized version.
+- `rust.lld = true` (default on x86_64-linux) builds the bundled LLD linker. The chain uses gcc-wrapper's binutils linker; we never call rust-lld.
+- `rust.llvm-tools = true` (default) installs llvm-objdump, llvm-as, llvm-dis, etc. into the sysroot. Nothing in the chain or in `pkgs.rustc`'s wrapper invokes them.
+- `rust.codegen-tests = true` and `rust.optimize-tests = true` (defaults) build and optimize test artifacts. The chain never runs tests.
+- `rust.codegen-units = 16` (default for x86_64) limits cargo to 16 codegen jobs per crate. The 32-thread host can absorb more.
+
+Implementation: add to `intermediate.nix`'s hand-written `bootstrap.toml`:
+
+  [build]
+  optimized-compiler-builtins = false
+
+  [rust]
+  lld = false
+  llvm-tools = false
+  codegen-tests = false
+  optimize-tests = false
+  codegen-units = 256
+  codegen-units-std = 256
+
+Validated: bootstrap.toml content rebuilt cleanly; eval succeeds for all five chain hops + `pkgsBootstrappedRust.ripgrep`.
+
+Run: `aggressive-flags-20260507T200748`
+
+Cache state: all 5 hops invalidated by the bootstrap.toml content change; full chain rebuild from 1.91.1.
+
+Wall times (per `buildPhase completed in …` markers + installPhase):
+
+| Hop | Run 1 (no aggressive flags) | Run 2 (aggressive flags) | Δ |
+|---|---:|---:|---:|
+| 1.91.1 | ~14m | **11m 14s** | -2m 46s |
+| 1.92.0 | ~14m | **10m 52s** | -3m 08s |
+| 1.93.1 | ~13m | **10m 16s** | -2m 44s |
+| 1.94.0 | ~12m | **10m 57s** | -1m 03s |
+| 1.95.0 | 13m 48s | **11m 42s** | -2m 06s |
+| **5-hop chain total** | ~67m | **58m 48s** | **−~8m** |
+| `pkgsBootstrappedRust.ripgrep` | 45s | 54s | +9s (variance) |
+
+Per-hop average drops from ~14 min to ~11.7 min — roughly **17% faster per hop**.
+
+Result: success. Chain rustc 1.95.0 functional, `pkgsBootstrappedRust.ripgrep` builds and runs. Build closure still clean of any prebuilt rust binaries.
+
+Cumulative vs original baseline (Run 0):
+
+| Stage | Baseline (run 0) | After Run 2 | Δ |
+|---|---:|---:|---:|
+| 1.91.1 | 14m 49s | 11m 14s | -3m 35s |
+| 1.92.0 | 15m 02s | 10m 52s | -4m 10s |
+| 1.93.1 | 17m 39s | 10m 16s | -7m 23s |
+| 1.94.0 | 15m 47s | 10m 57s | -4m 50s |
+| 1.95.0 (terminal) | 37m 44s (standard `rustc.nix`) | 11m 42s (chain) | **-26m 02s** |
+| **5-hop total** | ~101 min | **~58.8 min** | **−~42 min** |
+
+That's a **~42% reduction** in chain wall time from baseline — most of it from Run 1's "drop the standard rustc.nix terminal hop" change, with another ~8 min from Run 2's aggressive bootstrap.toml flags.

@@ -84,6 +84,11 @@ let
     docs = false
     extended = true
     tools = [${lib.concatMapStringsSep ", " (t: "\"${t}\"") tools}]
+    # Default for the stable channel is `true`, which forces LLVM
+    # `compiler-builtins` to be rebuilt with profile-guided / optimised
+    # intrinsics. The chain only needs a *working* libcompiler_builtins
+    # — the next hop will rebuild it anyway against its own libcore.
+    optimized-compiler-builtins = false
 
     [install]
     sysconfdir = "etc"
@@ -91,8 +96,24 @@ let
     [rust]
     channel = "stable"
     llvm-bitcode-linker = false
+    # Skip building the bundled lld and the llvm-tools-preview component
+    # (llvm-objdump, llvm-as, llvm-dis, …). Nothing in the chain or
+    # downstream `pkgs.rustc` flow invokes them; we link with the
+    # nixpkgs gcc-wrapper-shipped binutils.
+    lld = false
+    llvm-tools = false
     lto = "off"
     optimize = 2
+    # Skip optimising and codegen-checking test artifacts. We never run
+    # tests in chain hops.
+    codegen-tests = false
+    optimize-tests = false
+    # Default 16; bumping to 256 lets cargo schedule more parallel
+    # codegen jobs per crate, which the 32-thread host can absorb.
+    # Slightly less inlining across units, but the chain's output rustc
+    # is one-shot — it only ever compiles the next hop.
+    codegen-units = 256
+    codegen-units-std = 256
 
     ${targetSections}
   '';
