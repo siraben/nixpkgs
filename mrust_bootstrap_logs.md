@@ -547,6 +547,21 @@ This was the last big closure target. Cumulative win vs original baseline:
 | 5-hop chain closure | 2.74 GB | **1.07 GB** | -61% |
 | `rustc.unwrapped` runtime closure | ~1.18 GB | **499 MB** | **-58%** |
 
+### 8. Code cleanup pass (no perf change)
+
+Date: `2026-05-08T08:00` PDT.
+
+Tightened the chain code without aiming for further perf wins:
+
+- `bootstrap-chain/default.nix`: hops list defaults `tools = []` and `llvmShared = llvmShared_21`, so intermediate hops collapse to one-liners. LLVM `.a` move is one `find -exec mv -t ... {} +`.
+- `bootstrap-chain/intermediate.nix`: `bootstrap.toml` now lists only flags that override an upstream default; dropped `install-stage`, `host`, `target`, `llvm-bitcode-linker`, the dead `[install]` section, the `man` output, and the `xpyFlags` let-binding.
+- `mrustc/bootstrap.nix`: comment cleanup, hoisted `platforms`. In-string content unchanged so the ~70 min mrustc-bootstrap rebuild stays cached.
+- `stage.nix`: inlined `chainCargo`, collapsed the cargo-auditable broken override.
+
+Net: -85 lines across 4 files. End-to-end re-validated: 5-hop chain wall ~41 min (within variance), output 1.07 GB, runtime closure 501 MB, `pkgsBootstrappedRust.ripgrep` builds clean, closure audit clean.
+
+Caveat: tried also dropping `extended = true` and `tools = [...]` from `bootstrap.toml` (we explicitly list build targets to `python ./x.py build`). That regressed each intermediate hop by ~1.5 min and grew per-hop output by ~6 MB — the upstream defaults for `extended = false` use a less-aggressive optimization profile somewhere. Restored both flags.
+
 ### Tuning ceiling reached (at host `cores=5`, `max-jobs=6`)
 
 After Run 3b, per-hop wall is ~7 min for intermediates and ~12 min for the
