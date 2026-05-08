@@ -337,3 +337,37 @@ Cumulative comparison:
 | **5-hop total** | ~101 min | **~45 min** | **−~56 min** |
 
 A **~56% reduction** in cold chain wall time vs the original baseline.
+
+### Tuning ceiling reached (at host `cores=5`, `max-jobs=6`)
+
+After Run 3b, per-hop wall is ~7 min for intermediates and ~12 min for the
+terminal hop (which still builds cargo + rustdoc). Almost all of that is
+spent compiling the rustc workspace itself: ~750 crates per hop, mostly
+LLVM codegen-bound. With Nix configured at `cores = 5`, each rustc
+compile gets only 5 CPUs (NIX_BUILD_CORES=5) even though the host has 32
+threads — at this concurrency level, codegen-units=256 already saturates
+those 5 cores.
+
+Tried and rejected:
+
+- **Skip a rustc minor entirely (1.90 → 1.92 directly)**: x.py's stage0
+  validation can be bypassed with `--skip-stage0-validation`, but the
+  rustc 1.92 source itself uses language features only stabilized in
+  rustc 1.91 (e.g. `core::range::RangeInclusive::last`). Build fails
+  with E0560/E0609 deep into compilation. Chain length is fundamentally
+  fixed at one minor per hop.
+- **Stub rustdoc on the terminal hop (skip `tools = ["rustdoc"]`)**:
+  saves ~2 min on the terminal hop, but breaks any downstream rust
+  package that runs doctests via `cargo test`. Reverted.
+
+Future wins would need either:
+
+- Changes to `mrustc-bootstrap`: skipping run_rustc's stage-2/X rebuild
+  could save ~25 min on the *one-time* mrustc-bootstrap build. The
+  resulting "stage 1 only" mrustc rustc 1.90 is functionally a working
+  rustc, but might compile the next chain hop slightly slower due to
+  mrustc's own non-optimised C codegen. Worth trying as a dedicated
+  follow-up since the rebuild cost (~70 min) is one-shot.
+- Raising `cores` past 5: not pursued (fixed by host config).
+- Profile-guided rustc compile: needs a representative profile run,
+  too complex for this branch's scope.
