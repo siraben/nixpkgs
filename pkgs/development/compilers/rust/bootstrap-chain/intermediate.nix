@@ -150,7 +150,18 @@ stdenv.mkDerivation (finalAttrs: {
     runHook preBuild
     # Build rustc explicitly so x.py install doesn't serialize stage1
     # rustc compilation behind the install copy step.
+    #
+    # `--skip-stage0-validation` disables x.py's "stage0 cargo must be
+    # within minor-1 of source version" guard. Each chain hop in this
+    # design uses cargo 1.90.0 from mrustc-bootstrap as the stage0
+    # cargo, even when source is rustc 1.92, 1.93, 1.94, 1.95. cargo's
+    # rustc-driver protocol is stable enough across these releases that
+    # cargo 1.90 successfully compiles every source we ask of it; the
+    # check is more conservative than reality. Skipping it lets us
+    # avoid building cargo at every intermediate hop (`tools = []`) —
+    # only the terminal hop builds cargo for downstream `pkgs.cargo`.
     python ./x.py build library rustc ${lib.concatStringsSep " " tools} \
+      --skip-stage0-validation \
       --set=build.jobs="$NIX_BUILD_CORES"
     runHook postBuild
   '';
@@ -158,6 +169,7 @@ stdenv.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
     python ./x.py install \
+      --skip-stage0-validation \
       --set build.jobs="$NIX_BUILD_CORES" \
       --set install.prefix="$out"
     runHook postInstall

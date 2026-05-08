@@ -27,7 +27,7 @@ let
       version,
       hash,
       llvmShared,
-      tools ? [ "cargo" ],
+      tools ? [ ],
     }:
     callPackage
       (import ./intermediate.nix {
@@ -38,7 +38,12 @@ let
         };
       })
       {
-        cargo = prev;
+        # Stage0 cargo is always mrustc-bootstrap's cargo 1.90.0. cargo
+        # is forwards-compatible enough across stable releases that
+        # cargo 1.90 can drive rustc 1.91 → 1.95 builds, which lets us
+        # skip building cargo at every intermediate hop (`tools = []`).
+        # Only the terminal hop builds cargo for downstream consumers.
+        cargo = mrustc-bootstrap;
         rustc = prev;
         llvmSharedForBuild = llvmShared;
         llvmSharedForHost = llvmShared;

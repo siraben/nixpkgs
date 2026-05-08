@@ -293,3 +293,47 @@ Cumulative vs original baseline (Run 0):
 | **5-hop total** | ~101 min | **~58.8 min** | **−~42 min** |
 
 That's a **~42% reduction** in chain wall time from baseline — most of it from Run 1's "drop the standard rustc.nix terminal hop" change, with another ~8 min from Run 2's aggressive bootstrap.toml flags.
+
+### 3. Skip building cargo at intermediate hops (use mrustc-bootstrap's cargo throughout)
+
+Date: `2026-05-07T21:34` PDT.
+
+Hypothesis: each chain hop spends ~3-4 min compiling cargo from source, even though only the *terminal* hop's cargo is actually consumed by `pkgs.cargo`. The intermediate hops' cargo binaries are only used as the next hop's stage0 cargo. cargo's rustc-driver protocol and Cargo.lock format are stable enough that mrustc-bootstrap's cargo 1.90.0 should be able to drive every chain hop's source build.
+
+Implementation:
+
+- `bootstrap-chain/default.nix`: `mkIntermediate` now always passes `cargo = mrustc-bootstrap` regardless of which hop is "previous". The `tools` parameter defaults to `[]` (no cargo built), and only the terminal `rustc-1_95` hop opts into `tools = ["cargo" "rustdoc"]`.
+- `intermediate.nix`: pass `--skip-stage0-validation` to `python ./x.py build` and `python ./x.py install` so x.py doesn't reject cargo 1.90 against rustc 1.92+ source. (x.py's stage0 cargo guard requires `stage0_minor in {source_minor, source_minor - 1}` — overly conservative for our case.)
+
+Run 3a: first attempt forgot `--skip-stage0-validation`. 1.91 succeeded (cargo 1.90.0 == rustc 1.91 source's `source_minor - 1`, so the guard passed). 1.92 failed: `Unexpected cargo version: 1.90.0, we should use 1.91.x/1.92.0 to build source with 1.92.0`.
+
+Run 3b: with `--skip-stage0-validation`. **All 5 hops succeed.**
+
+Wall times:
+
+| Hop | Run 2 (per-hop cargo) | Run 3b (cargo 1.90 throughout) | Δ |
+|---|---:|---:|---:|
+| 1.91.1 | 11m 14s | **7m 08s** | -4m 06s |
+| 1.92.0 | 10m 52s | **7m 08s** | -3m 44s |
+| 1.93.1 | 10m 16s | **7m 15s** | -3m 01s |
+| 1.94.0 | 10m 57s | **7m 38s** | -3m 19s |
+| 1.95.0 (terminal) | 11m 42s | **11m 57s** | +0m 15s (still builds cargo) |
+| **5-hop chain total** | 58m 48s | **44m 43s** | **−14m 05s** |
+| `pkgsBootstrappedRust.ripgrep` | 54s | 53s | wash |
+
+Saving per intermediate hop: ~3-4 min, exactly the time previously spent compiling cargo + cargo-* deps. Five-hop chain: about 14 minutes total.
+
+Closure audit: `pkgsBootstrappedRust.ripgrep` build closure still has zero prebuilt rust binaries. Source-only chain rooted at mrustc preserved.
+
+Cumulative comparison:
+
+| Stage | Run 0 (baseline) | Run 3b (current) | Δ |
+|---|---:|---:|---:|
+| 1.91.1 | 14m 49s | 7m 08s | -7m 41s |
+| 1.92.0 | 15m 02s | 7m 08s | -7m 54s |
+| 1.93.1 | 17m 39s | 7m 15s | -10m 24s |
+| 1.94.0 | 15m 47s | 7m 38s | -8m 09s |
+| 1.95.0 (terminal) | 37m 44s (standard rustc.nix) | 11m 57s (chain stage1) | -25m 47s |
+| **5-hop total** | ~101 min | **~45 min** | **−~56 min** |
+
+A **~56% reduction** in cold chain wall time vs the original baseline.
