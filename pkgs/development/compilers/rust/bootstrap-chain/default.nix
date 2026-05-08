@@ -17,7 +17,24 @@
   llvmPackages_22,
 }:
 let
-  mkLlvmShared = llvmPackages: llvmPackages.libllvm.override { enableSharedLibraries = true; };
+  # Chain-local slim LLVM. nixpkgs's LLVM packaging puts both
+  # `libLLVM.so` and ~370 MB of `.a` static archives in the same
+  # `$lib` output, and any consumer that references the .so drags
+  # the whole .a pile into its runtime closure. The chain only uses
+  # libLLVM.so via `link-shared = true`, never static archives, so
+  # we move the .a files into `$dev` (build-time-only) here.
+  mkLlvmShared =
+    llvmPackages:
+    (llvmPackages.libllvm.override { enableSharedLibraries = true; }).overrideAttrs (old: {
+      postInstall =
+        (old.postInstall or "")
+        + ''
+          if [ -d $lib/lib ]; then
+            mkdir -p $dev/lib
+            find $lib/lib -maxdepth 1 -name '*.a' -exec mv {} $dev/lib/ \;
+          fi
+        '';
+    });
   llvmShared_21 = mkLlvmShared llvmPackages_21;
   llvmShared_22 = mkLlvmShared llvmPackages_22;
 

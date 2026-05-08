@@ -485,6 +485,68 @@ Cumulative win vs original baseline (Run 0):
 | 5-hop chain closure | 2.74 GB | **1.07 GB** | -61% |
 | `rustc.unwrapped` runtime closure | ~1.18 GB | **865 MB** | -27% |
 
+### 7. Slim LLVM: move `.a` static archives out of `$lib`
+
+Date: `2026-05-08T02:56` PDT.
+
+Hypothesis: the `rustc.unwrapped` runtime closure carries a 563 MB LLVM `lib` output, but `librustc_driver-HASH.so` only `dlopen`s `libLLVM.so.22.1` (191 MB). Inspecting `/nix/store/...-llvm-22.1.5-lib/lib/`:
+
+```
+191M libLLVM.so.22.1
+~370 MB of libLLVM*.a static archives
+```
+
+Nixpkgs's LLVM packaging puts both the `.so` and the per-component `.a` archives in the same `$lib` output. Anything that references `$lib` to find `libLLVM.so` drags the whole `.a` pile into its closure even though it never links statically. The chain has `link-shared = true`, never touches the static archives.
+
+Implementation (in `bootstrap-chain/default.nix`'s `mkLlvmShared`): chain-locally `overrideAttrs` the LLVM derivation to add a `postInstall` hook that moves `lib/*.a` out of `$lib` into `$dev`, leaving only the dynamic library. This is local to the chain — `pkgs.llvmPackages_22.libllvm` (used by clang, mlir, polly, …) is unchanged.
+
+```nix
+mkLlvmShared = llvmPackages:
+  (llvmPackages.libllvm.override { enableSharedLibraries = true; }).overrideAttrs (old: {
+    postInstall = (old.postInstall or "") + ''
+      if [ -d $lib/lib ]; then
+        mkdir -p $dev/lib
+        find $lib/lib -maxdepth 1 -name '*.a' -exec mv {} $dev/lib/ \;
+      fi
+    '';
+  });
+```
+
+Run: `slim-llvm-20260508T025644`
+
+Cache state: full LLVM 21 + LLVM 22 rebuild (drv hash invalidated by `postInstall` change), then full chain rebuild on top.
+
+LLVM closure sizes:
+
+| Output | Before | After | Δ |
+|--------|------:|------:|---:|
+| llvm-21.1.8-lib | 563 MB | (similar shrink) | — |
+| llvm-22.1.5-lib | 563 MB | **197 MB** | **-366 MB (-65%)** |
+
+Runtime closure of `rustc_1_95_bootstrapped`:
+
+| | Before | After | Δ |
+|---|------:|------:|---:|
+| Top-level | 865 MB | **499 MB** | **-366 MB (-42%)** |
+| LLVM share | 563 MB | 197 MB | -366 MB |
+| Other refs (rustc 237 MB, glibc 35 MB, gcc-lib 10 MB, openssl 9 MB, sqlite 5.7 MB, pcre2 2.1 MB, …) | ~302 MB | ~302 MB | unchanged |
+
+Wall time: 1.91 6m19s, 1.92 ~6m, 1.93 6m12s, 1.94 7m31s, 1.95 11m18s — chain itself ~38 min, in line with Run 6. LLVM rebuild was a one-time ~30 min (LLVMs 21 and 22 build in parallel; LLVM tests dominate the wall clock).
+
+Validation:
+- `pkgsBootstrappedRust.ripgrep` builds (`/nix/store/wycx9a219l19fxdijkidv5zm3bkdc969-ripgrep-15.1.0`)
+- Closure audit clean
+- `rustc --version` succeeds (the chain's librustc_driver loads libLLVM.so.22.1 via RPATH; .a files were never on the runtime hot path)
+- Per-hop chain output size unchanged (213/207/206/201/237 MB)
+
+This was the last big closure target. Cumulative win vs original baseline:
+
+| Metric | Run 0 baseline | Run 7 (current) | Δ |
+|---|---:|---:|---:|
+| 5-hop chain wall | ~101 min | **38 min** | -62% |
+| 5-hop chain closure | 2.74 GB | **1.07 GB** | -61% |
+| `rustc.unwrapped` runtime closure | ~1.18 GB | **499 MB** | **-58%** |
+
 ### Tuning ceiling reached (at host `cores=5`, `max-jobs=6`)
 
 After Run 3b, per-hop wall is ~7 min for intermediates and ~12 min for the
