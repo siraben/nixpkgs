@@ -338,6 +338,55 @@ Cumulative comparison:
 
 A **~56% reduction** in cold chain wall time vs the original baseline.
 
+### 4. Closure dedup: drop the static-LLVM `librustc_driver.so` duplicate
+
+Date: `2026-05-08T00:02` PDT.
+
+Hypothesis: chain hop output is ~547 MB but the upstream prebuilt `rustc-1.95.0-x86_64-unknown-linux-gnu` is ~250 MB. Inspection of a chain hop output:
+
+```
+547M total
+  /lib/librustc_driver-5928bcd467957d32.so  145M  (links libLLVM.so dynamically)
+  /lib/librustc_driver.so                   289M  (no libLLVM linkage; LLVM statically embedded)
+  /lib/libstd.so                              9M
+  /lib/rustlib/x86_64-unknown-linux-gnu/lib 123M  (rlibs + rmetas)
+  +misc rust-installer manifest junk
+```
+
+The unhashed `librustc_driver.so` is shipped by `x.py install`'s rustc tarball staging step — `bin/rustc` only ever dlopens the hash-suffixed file. The unhashed copy exists to let downstream tooling (miri, rustc-dev consumers) link against `-lrustc_driver`. None of that applies to a chain-internal stage1.
+
+Implementation: `intermediate.nix` `postInstall` collapses the duplicate to a symlink and strips rust-installer leftovers (`uninstall.sh`, `manifest-*`, `install.log`, `components`, `rust-installer-version`, `share/doc/`).
+
+Run: `dedup-20260508T000258`
+
+Result (per chain hop output size):
+
+| Hop    | Run 3b | Run 4 | Δ |
+|--------|-------:|------:|---:|
+| 1.91.1 |  547M  | 271M  | -276M |
+| 1.92.0 |  547M  | 265M  | -282M |
+| 1.93.1 |  547M  | 264M  | -283M |
+| 1.94.0 |  547M  | 263M  | -284M |
+| 1.95.0 |  547M  | 321M  | -226M (still ships cargo + rustdoc) |
+| **Sum** | 2.74 GB | **1.38 GB** | **-1.36 GB (-50%)** |
+
+Note: `1.91.1` still has a separate `libstd.so` + the `librustc_driver.so` symlink. Starting in 1.92, x.py installs only one `librustc_driver-HASH.so` with libstd statically linked in — the unhashed file simply isn't produced anymore — so the postInstall is a no-op there but harmless.
+
+Wall times (variance within ±5%, no buildPhase change expected):
+
+| Hop    | Run 3b | Run 4 | Δ |
+|--------|-------:|------:|---:|
+| 1.91.1 | 7m 08s | 6m 28s + 47s install | -33s |
+| 1.92.0 | 7m 08s | 6m 21s + 49s install | -38s |
+| 1.93.1 | 7m 15s | 6m 40s + 55s install | -20s |
+| 1.94.0 | 7m 38s | 6m 32s + 52s install | -54s |
+| 1.95.0 | 11m 57s | 11m 35s + 55s install | -22s |
+| **5-hop total** | 44m 43s | **45m 17s** | wash |
+
+`pkgsBootstrappedRust.ripgrep` builds clean, closure audit passes (no prebuilt rustc/rust-std/cargo references).
+
+Cumulative win vs original baseline: chain wall time **101 min → 45 min** (-56 min, -55%) and chain output **2.74 GB → 1.38 GB** (-50%). The wall-time ceiling at `cores=5` still holds; further wins need either mrustc-bootstrap surgery or a higher `cores` budget.
+
 ### Tuning ceiling reached (at host `cores=5`, `max-jobs=6`)
 
 After Run 3b, per-hop wall is ~7 min for intermediates and ~12 min for the

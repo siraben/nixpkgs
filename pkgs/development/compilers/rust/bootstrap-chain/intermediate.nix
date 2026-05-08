@@ -142,6 +142,22 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
+  # x.py install ships `librustc_driver.so` (~290 MB, with LLVM linked
+  # statically) next to the hash-suffixed `librustc_driver-HASH.so`
+  # that `bin/rustc` actually dlopens. Collapse the duplicate to a
+  # symlink — saves ~290 MB per chain hop in the runtime closure. Also
+  # strip rust-installer bookkeeping that has no meaning under Nix.
+  postInstall = ''
+    if [ -f $out/lib/librustc_driver.so ] && [ ! -L $out/lib/librustc_driver.so ]; then
+      hashed=$(basename "$(echo $out/lib/librustc_driver-*.so)")
+      rm $out/lib/librustc_driver.so
+      ln -s "$hashed" $out/lib/librustc_driver.so
+    fi
+    rm -f $out/lib/rustlib/{uninstall.sh,install.log,components,rust-installer-version}
+    rm -f $out/lib/rustlib/manifest-*
+    rm -rf $out/share/doc
+  '';
+
   env = {
     LIBGIT2_NO_VENDOR = true;
     LIBSQLITE3_SYS_USE_PKG_CONFIG = true;
