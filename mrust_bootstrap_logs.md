@@ -443,6 +443,48 @@ Cumulative win vs original baseline (Run 0):
 
 Codegen-units=16 isn't a regression vs 256 — confirmed via 5-hop wall time within variance. Reverting to default also makes `intermediate.nix` simpler (one less knob).
 
+### 6. Replace `x.py install` with manual cp from `build/$triple/stage1`
+
+Date: `2026-05-08T02:10` PDT.
+
+Hypothesis: `python ./x.py install` spends ~30-50 s per hop building `rust-installer` and `generate-copyright`, generating per-component tarballs, and running `install.sh` to cp files out of the tarball staging area into `$out`. The chain only needs `bin/rustc`, the rustc dylib, `lib/rustlib/`, and (on terminal) `bin/cargo` + `bin/rustdoc` — all already present at known paths under `build/$triple/stage1/`. We can copy them directly and skip the entire installer-tool detour.
+
+Implementation: replace `installPhase` with direct `cp -P` / `install -m755` from `build/$triple/stage1/`. Drop the `man` output (manual cp doesn't populate it; nothing in the chain or `wrapRustcWith` consumes the man pages). Two false starts caught:
+- `compgen -G` is bash-only — Nix's stdenv shell rejected it. Replaced with a `for f in glob; [ -e "$f" ] && cp` portable form.
+- `cp -rP` on `lib/rustlib/` preserves `rustlib/{src,rustc-src} -> /build/...-src` symlinks; `noBrokenSymlinks` fixup phase then refused them. Added `rm -rf` for those two symlinks.
+
+Run: `manualcp-20260508T021011`
+
+Cache state: all 5 hops invalidated by installPhase content change.
+
+Wall times:
+
+| Hop    | Run 5 (build) | Run 6 (build) | Δ |
+|--------|--------------:|--------------:|---:|
+| 1.91.1 | 5m 40s | 5m 35s | -5s |
+| 1.92.0 | 5m 51s | 6m 24s | +33s (host load variance) |
+| 1.93.1 | 8m 22s | 6m 08s | -2m 14s (Run 5 outlier) |
+| 1.94.0 | 6m 16s | 6m 15s | wash |
+| 1.95.0 | 11m 06s | 11m 01s | -5s |
+| installPhase | ~50 s/hop ×5 = 4m | ~5 s/hop ×5 = 25s | **-3m 35s** |
+| **5-hop chain total** | 45m 32s | **38m 45s** | **-6m 47s (-15%)** |
+
+Per-hop output sizes unchanged (213/207/206/201/237 MB) — manual cp produces the same files x.py install used to ship, just without the rust-installer detour.
+
+Validation:
+- `pkgsBootstrappedRust.ripgrep` builds (`/nix/store/rza0wp1shhc5h6p74zif7xzkdyyx89hk-ripgrep-15.1.0`)
+- Closure audit passes (no prebuilt rust binaries)
+- `rustc --version` / `cargo --version` succeed against the chain output
+- Runtime closure of `rustc_1_95_bootstrapped` unchanged at 865.1 MB
+
+Cumulative win vs original baseline (Run 0):
+
+| Metric | Run 0 baseline | Run 6 (current) | Δ |
+|---|---:|---:|---:|
+| 5-hop chain wall | ~101 min | **38m 45s** | **-62%** |
+| 5-hop chain closure | 2.74 GB | **1.07 GB** | -61% |
+| `rustc.unwrapped` runtime closure | ~1.18 GB | **865 MB** | -27% |
+
 ### Tuning ceiling reached (at host `cores=5`, `max-jobs=6`)
 
 After Run 3b, per-hop wall is ~7 min for intermediates and ~12 min for the

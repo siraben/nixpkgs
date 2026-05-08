@@ -112,11 +112,6 @@ stdenv.mkDerivation (finalAttrs: {
     sqlite
   ];
 
-  outputs = [
-    "out"
-    "man"
-  ];
-
   configurePhase = ''
     runHook preConfigure
     ln -s ${bootstrapToml} bootstrap.toml
@@ -132,28 +127,40 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postBuild
   '';
 
+  # Bypass `python ./x.py install`: it spends ~30-50 s/hop building
+  # `rust-installer` and `generate-copyright`, then runs install.sh to
+  # cp from a tarball staging area. We just need `bin/rustc`, the
+  # rustc dylib, and `lib/rustlib/` for the next hop's stage0 — copy
+  # them directly out of `build/$triple/stage1`.
   installPhase = ''
     runHook preInstall
-    python ./x.py install \
-      ${lib.concatStringsSep " " xpyFlags} \
-      --set=install.prefix="$out"
-    runHook postInstall
-  '';
 
-  # x.py install ships `librustc_driver.so` (~290 MB, with LLVM linked
-  # statically) next to the hash-suffixed `librustc_driver-HASH.so`
-  # that `bin/rustc` actually dlopens. Collapse the duplicate to a
-  # symlink — saves ~290 MB per chain hop in the runtime closure. Also
-  # strip rust-installer bookkeeping that has no meaning under Nix.
-  postInstall = ''
-    if [ -f $out/lib/librustc_driver.so ] && [ ! -L $out/lib/librustc_driver.so ]; then
-      hashed=$(basename "$(echo $out/lib/librustc_driver-*.so)")
-      rm $out/lib/librustc_driver.so
-      ln -s "$hashed" $out/lib/librustc_driver.so
-    fi
-    rm -f $out/lib/rustlib/{uninstall.sh,install.log,components,rust-installer-version}
-    rm -f $out/lib/rustlib/manifest-*
-    rm -rf $out/share/doc
+    stage1="build/${triple}/stage1"
+
+    mkdir -p $out/bin $out/lib
+
+    install -m755 "$stage1/bin/rustc" "$out/bin/rustc"
+    cp -P "$stage1/lib/"librustc_driver-*.so "$out/lib/"
+
+    # 1.91 ships a separate top-level libstd.so; 1.92+ static-link
+    # it into librustc_driver. Use a glob with nullglob-like guard.
+    for f in "$stage1/lib/"libstd*.so; do
+      [ -e "$f" ] && cp -P "$f" "$out/lib/"
+    done
+
+    cp -rP "$stage1/lib/rustlib" "$out/lib/"
+    # Drop dangling src symlinks that point back into /build.
+    rm -rf "$out/lib/rustlib/src" "$out/lib/rustlib/rustc-src"
+
+    for t in ${lib.concatStringsSep " " tools}; do
+      if [ -e "build/${triple}/stage1-tools-bin/$t" ]; then
+        install -m755 "build/${triple}/stage1-tools-bin/$t" "$out/bin/$t"
+      elif [ -e "$stage1/bin/$t" ]; then
+        install -m755 "$stage1/bin/$t" "$out/bin/$t"
+      fi
+    done
+
+    runHook postInstall
   '';
 
   env = {
