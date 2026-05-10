@@ -3752,11 +3752,11 @@ with pkgs;
   jdk11 = openjdk11;
   jdk11_headless = openjdk11_headless;
 
-  openjdk17-bootstrap = javaPackages.compiler.openjdk17-bootstrap;
-  openjdk17 = javaPackages.compiler.openjdk17;
-  openjdk17_headless = javaPackages.compiler.openjdk17.headless;
-  jdk17 = openjdk17;
-  jdk17_headless = openjdk17_headless;
+  openjdk24-bootstrap = javaPackages.compiler.openjdk24-bootstrap;
+  openjdk24 = javaPackages.compiler.openjdk24;
+  openjdk24_headless = javaPackages.compiler.openjdk24.headless;
+  jdk17 = openjdk24;
+  jdk17_headless = openjdk24_headless;
 
   openjdk21 = javaPackages.compiler.openjdk21;
   openjdk21_headless = javaPackages.compiler.openjdk21.headless;
@@ -7797,6 +7797,16 @@ with pkgs;
   };
 
   mdadm = mdadm4;
+
+  # openjdk-bootstrap is the full-source Java bootstrap chain
+  # (gcc-6+gcj -> fastjar -> java-gcj-compat -> IcedTea OpenJDK 7
+  # -> ... -> OpenJDK 24). Stage outputs are bootstrap-only; only
+  # `openjdk-bootstrap.openjdk24` is intended for end-user use, via
+  # the `pkgsBootstrappedOpenjdk` variant. Marked search=false so
+  # individual stages don't appear in package search results.
+  openjdk-bootstrap = recurseIntoAttrsWith { search = false; } (
+    callPackage ../development/compilers/openjdk-bootstrap { }
+  );
 
   # minimal-bootstrap packages aren't used for anything but bootstrapping our
   # stdenv. They should not be used for any other purpose and therefore not
