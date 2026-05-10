@@ -1,0 +1,45 @@
+diff --color -urN orig/src/java.base/unix/native/libnet/DefaultProxySelector.c mod/src/java.base/unix/native/libnet/DefaultProxySelector.c
+--- a/src/java.base/unix/native/libnet/DefaultProxySelector.c	2026-05-08 01:35:06.315417208 -0700
++++ b/src/java.base/unix/native/libnet/DefaultProxySelector.c	2026-05-08 01:35:06.338651199 -0700
+@@ -94,12 +94,12 @@
+ typedef struct _GProxyResolver GProxyResolver;
+ typedef struct _GSocketConnectable GSocketConnectable;
+ typedef struct GError GError;
+-typedef GProxyResolver* g_proxy_resolver_get_default_func();
+-typedef char** g_proxy_resolver_lookup_func();
+-typedef GSocketConnectable* g_network_address_parse_uri_func();
+-typedef const char* g_network_address_get_hostname_func();
+-typedef unsigned short g_network_address_get_port_func();
+-typedef void g_strfreev_func();
++typedef GProxyResolver* g_proxy_resolver_get_default_func(void);
++typedef char** g_proxy_resolver_lookup_func(void*, const char*, void*, GError**);
++typedef GSocketConnectable* g_network_address_parse_uri_func(const char*, unsigned short, GError**);
++typedef const char* g_network_address_get_hostname_func(GSocketConnectable*);
++typedef unsigned short g_network_address_get_port_func(GSocketConnectable*);
++typedef void g_strfreev_func(char**);
+ 
+ static g_proxy_resolver_get_default_func* g_proxy_resolver_get_default = NULL;
+ static g_proxy_resolver_lookup_func* g_proxy_resolver_lookup = NULL;
+diff --color -urN orig/src/java.desktop/share/native/libawt/awt/medialib/awt_ImagingLib.h mod/src/java.desktop/share/native/libawt/awt/medialib/awt_ImagingLib.h
+--- a/src/java.desktop/share/native/libawt/awt/medialib/awt_ImagingLib.h	2026-05-08 01:35:06.319417228 -0700
++++ b/src/java.desktop/share/native/libawt/awt/medialib/awt_ImagingLib.h	2026-05-08 01:35:06.339004574 -0700
+@@ -32,7 +32,7 @@
+ 
+ /* Struct that holds the mlib function ptrs and names */
+ typedef struct {
+-    mlib_status (*fptr)();
++    mlib_status (*fptr)(void *, ...);
+     char *fname;
+ } mlibFnS_t;
+ 
+diff --color -urN orig/src/java.desktop/unix/native/common/awt/awt_GraphicsEnv.h mod/src/java.desktop/unix/native/common/awt/awt_GraphicsEnv.h
+--- a/src/java.desktop/unix/native/common/awt/awt_GraphicsEnv.h	2026-05-08 01:55:40.978000497 -0700
++++ b/src/java.desktop/unix/native/common/awt/awt_GraphicsEnv.h	2026-05-08 01:55:40.984000531 -0700
+@@ -50,7 +50,6 @@
+ #define MITSHM_PERM_COMMON (0666)
+ #define MITSHM_PERM_OWNER  (0600)
+ 
+-extern int XShmQueryExtension();
+ 
+ void TryInitMITShm(JNIEnv *env, jint *shmExt, jint *shmPixmaps);
+ void resetXShmAttachFailed();

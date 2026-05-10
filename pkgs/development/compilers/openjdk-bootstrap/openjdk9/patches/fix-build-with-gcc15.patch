@@ -1,0 +1,58 @@
+diff --color -urN oj9-orig/hotspot/src/share/vm/memory/virtualspace.cpp oj9-mod/hotspot/src/share/vm/memory/virtualspace.cpp
+--- a/hotspot/src/share/vm/memory/virtualspace.cpp	2026-05-07 16:12:11.460911536 -0700
++++ b/hotspot/src/share/vm/memory/virtualspace.cpp	2026-05-07 16:12:42.746607122 -0700
+@@ -581,7 +581,7 @@
+   assert(markOopDesc::encode_pointer_as_mark(&_base[size])->decode_pointer() == &_base[size],
+          "area must be distinguishable from marks for mark-sweep");
+ 
+-  if (base() > 0) {
++  if (base() != NULL) {
+     MemTracker::record_virtual_memory_type((address)base(), mtJavaHeap);
+   }
+ }
+diff --color -urN oj9-orig/hotspot/src/share/vm/opto/lcm.cpp oj9-mod/hotspot/src/share/vm/opto/lcm.cpp
+--- a/hotspot/src/share/vm/opto/lcm.cpp	2026-05-07 16:12:11.477425192 -0700
++++ b/hotspot/src/share/vm/opto/lcm.cpp	2026-05-07 16:12:42.743156924 -0700
+@@ -39,7 +39,7 @@
+ // Check whether val is not-null-decoded compressed oop,
+ // i.e. will grab into the base of the heap if it represents NULL.
+ static bool accesses_heap_base_zone(Node *val) {
+-  if (Universe::narrow_oop_base() > 0) { // Implies UseCompressedOops.
++  if (Universe::narrow_oop_base() != NULL) { // Implies UseCompressedOops.
+     if (val && val->is_Mach()) {
+       if (val->as_Mach()->ideal_Opcode() == Op_DecodeN) {
+         // This assumes all Decodes with TypePtr::NotNull are matched to nodes that
+diff --color -urN oj9-orig/jdk/src/java.base/share/native/libjava/jni_util.h oj9-mod/jdk/src/java.base/share/native/libjava/jni_util.h
+--- a/jdk/src/java.base/share/native/libjava/jni_util.h	2026-05-07 16:12:13.142434891 -0700
++++ b/jdk/src/java.base/share/native/libjava/jni_util.h	2026-05-07 16:12:42.749918870 -0700
+@@ -387,7 +387,7 @@
+ 
+ int getFastEncoding();
+ 
+-void initializeEncoding();
++void initializeEncoding(JNIEnv *env);
+ 
+ void* getProcessHandle();
+ 
+diff --color -urN oj9-orig/jdk/src/java.base/unix/native/libnet/DefaultProxySelector.c oj9-mod/jdk/src/java.base/unix/native/libnet/DefaultProxySelector.c
+--- a/jdk/src/java.base/unix/native/libnet/DefaultProxySelector.c	2026-05-07 16:12:13.167537090 -0700
++++ b/jdk/src/java.base/unix/native/libnet/DefaultProxySelector.c	2026-05-07 16:12:42.776289829 -0700
+@@ -94,12 +94,12 @@
+ typedef struct _GProxyResolver GProxyResolver;
+ typedef struct _GSocketConnectable GSocketConnectable;
+ typedef struct GError GError;
+-typedef GProxyResolver* g_proxy_resolver_get_default_func();
+-typedef char** g_proxy_resolver_lookup_func();
+-typedef GSocketConnectable* g_network_address_parse_uri_func();
+-typedef const char* g_network_address_get_hostname_func();
+-typedef unsigned short g_network_address_get_port_func();
+-typedef void g_strfreev_func();
++typedef GProxyResolver* g_proxy_resolver_get_default_func(void);
++typedef char** g_proxy_resolver_lookup_func(void*, const char*, void*, GError**);
++typedef GSocketConnectable* g_network_address_parse_uri_func(const char*, unsigned short, GError**);
++typedef const char* g_network_address_get_hostname_func(GSocketConnectable*);
++typedef unsigned short g_network_address_get_port_func(GSocketConnectable*);
++typedef void g_strfreev_func(char**);
+ 
+ static g_proxy_resolver_get_default_func* g_proxy_resolver_get_default = NULL;
+ static g_proxy_resolver_lookup_func* g_proxy_resolver_lookup = NULL;

@@ -1,0 +1,24 @@
+--- a/src/hotspot/os/linux/os_linux.cpp	2026-05-07 19:22:55.050475385 -0700
++++ b/src/hotspot/os/linux/os_linux.cpp	2026-05-07 19:22:55.059475384 -0700
+@@ -2155,7 +2155,7 @@
+     }
+ 
+     p = OSContainer::cpu_cpuset_memory_nodes();
+-    if (p < 0)
++    if (p == NULL)
+       st->print("cpu_memory_nodes() failed\n");
+     else {
+       st->print("cpu_memory_nodes: %s\n", p);
+--- a/make/jdk/src/classes/build/tools/generatecurrencydata/GenerateCurrencyData.java	2026-05-07 20:05:07.076207246 -0700
++++ b/make/jdk/src/classes/build/tools/generatecurrencydata/GenerateCurrencyData.java	2026-05-07 20:05:07.125910563 -0700
+@@ -284,9 +284,7 @@
+             checkCurrencyCode(newCurrency);
+             String timeString = currencyInfo.substring(4, length - 4);
+             long time = format.parse(timeString).getTime();
+-            if (Math.abs(time - System.currentTimeMillis()) > ((long) 10) * 365 * 24 * 60 * 60 * 1000) {
+-                throw new RuntimeException("time is more than 10 years from present: " + time);
+-            }
++            // 10-year sanity check disabled for reproducible builds
+             specialCaseCutOverTimes[specialCaseCount] = time;
+             specialCaseOldCurrencies[specialCaseCount] = oldCurrency;
+             specialCaseOldCurrenciesDefaultFractionDigits[specialCaseCount] = getDefaultFractionDigits(oldCurrency);
