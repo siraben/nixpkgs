@@ -81,6 +81,57 @@ self: super: {
     else
       throw "Musl libc only supports 64-bit Linux systems, and i686-linux.";
 
+  # All JDK consumers routed through the full-source openjdk-bootstrap
+  # chain (gcc-6+gcj -> fastjar -> java-gcj-compat -> IcedTea OpenJDK 7
+  # -> ... -> OpenJDK 24). Eliminates the temurin-bin binary tarball.
+  # Linux x86_64/i686 only because minimal-bootstrap and gcj's
+  # supported targets are limited.
+  pkgsBootstrappedOpenjdk =
+    if
+      stdenv.hostPlatform.isLinux
+      && (stdenv.hostPlatform.system == "x86_64-linux" || stdenv.hostPlatform.system == "i686-linux")
+    then
+      nixpkgsFun {
+        overlays = [
+          (self': super': {
+            pkgsBootstrappedOpenjdk = super';
+            jdk = super'.openjdk-bootstrap.openjdk24;
+            jdk_headless = super'.openjdk-bootstrap.openjdk24;
+            openjdk = super'.openjdk-bootstrap.openjdk24;
+            openjdk24 = super'.openjdk-bootstrap.openjdk24;
+            # Older JDKs in the chain are bootstrap-only; expose them
+            # so users can still depend on them, but document risk.
+            openjdk11 = super'.openjdk-bootstrap.openjdk11;
+            openjdk8 = super'.openjdk-bootstrap.openjdk8-icedtea;
+          })
+        ]
+        ++ overlays;
+      }
+    else
+      throw "pkgsBootstrappedOpenjdk: only x86_64-linux and i686-linux are supported.";
+
+  # x86_64-darwin packages for aarch64-darwin users to use with Rosetta for incompatible packages
+  pkgsx86_64Darwin =
+    if stdenv.hostPlatform.isDarwin then
+      nixpkgsFun {
+        overlays = [
+          (self': super': {
+            pkgsx86_64Darwin = super';
+          })
+        ]
+        ++ overlays;
+        localSystem = {
+          config = lib.systems.parse.tripleFromSystem (
+            stdenv.hostPlatform.parsed
+            // {
+              cpu = lib.systems.parse.cpuTypes.x86_64;
+            }
+          );
+        };
+      }
+    else
+      throw "x86_64 Darwin package set can only be used on Darwin systems.";
+
   # Full package set with rocm on cuda off
   # Mostly useful for asserting pkgs.pkgsRocm.torchWithRocm == pkgs.torchWithRocm and similar
   pkgsRocm = nixpkgsFun {

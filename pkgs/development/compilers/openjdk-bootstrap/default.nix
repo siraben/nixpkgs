@@ -3,9 +3,9 @@
   newScope,
 }:
 
-# Full-source Java bootstrap chain. Only the terminal source-build
-# stage is intended for direct use; earlier stages exist solely as
-# boot JDKs for the next link.
+# Full-source Java bootstrap chain. Only `openjdk24` (or whichever
+# stage you pin) is intended for direct use; earlier stages exist
+# solely as boot JDKs for the next link.
 
 let
   # Each stage's boot JDK is openjdk${major-1} (or openjdk8-icedtea
@@ -64,6 +64,41 @@ let
       version = "17.0.16";
       gitRev = "162dbac82cf31c6948414944af836187aff9e6ca";
       srcHash = "sha256-YN9mPfi3oMGjeRIren2cdWWySpYXsIcOnP29Zh3ym8c=";
+    }
+    {
+      version = "18.0.2.1";
+      gitRev = "823b5c16e97921e62154faef9bf285d16e1bb64e";
+      srcHash = "sha256-L6dsN0kqWcfemM8LBg62qtHQdymwRQoV1ndc8r+0qn8=";
+    }
+    {
+      version = "19.0.2";
+      gitRev = "1ea4fe35ee49a3672d038bd5200f7750eaf6e18d";
+      srcHash = "sha256-pBEHmBtIgG4Czou4C/zpBBYZEDImvXiLoA5CjOzpeyI=";
+    }
+    {
+      version = "20.0.2";
+      gitRev = "0660291f832e766d10838088c7251af956dc18a6";
+      srcHash = "sha256-CZH2JwR+MrkTlLdcVYuFRB3McdrM0A+1YaSjNpjYwak=";
+    }
+    {
+      version = "21.0.9";
+      gitRev = "643cd2bbc86ec2e5c3b1bcfc0c4fdbdd857bea59";
+      srcHash = "sha256-VYTitbgKgd9co9LXVnneaaKjMwAXFmscYp9McJV01Jg=";
+    }
+    {
+      version = "22.0.2";
+      gitRev = "1e23fd3990562e79c1a4d4cb28550d5430a2a03f";
+      srcHash = "sha256-Zo1LOumkt9zTaPqbDcRL8lVJMqVle0QqzThtIz0JRNo=";
+    }
+    {
+      version = "23.0.2";
+      gitRev = "0dbd39c39c20a1f0c7017768c930bba10589e77c";
+      srcHash = "sha256-zlL2DV6iOfV3hgq/Ci95gTwVrhcvz5MWsg4/+O2ntE8=";
+    }
+    {
+      version = "24.0.2";
+      gitRev = "c7abb957cb125f7a8c7e10cf1cc1499022c9e6e5";
+      srcHash = "sha256-YgkTSh7U/tJxiJIi8fxCkVgcogMQbcN4PgjmlcHcOBE=";
     }
   ];
 in
