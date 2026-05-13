@@ -963,12 +963,13 @@ let
       env' =
         if attrs ? meta.mainProgram then env // { NIX_MAIN_PROGRAM = attrs.meta.mainProgram; } else env;
 
+      crossCompiling = stdenv.hostPlatform != stdenv.buildPlatform;
       derivationArg = makeDerivationArgument (
         removeAttrs attrs argumentAttrsToRemove
         // {
           ${if __structuredAttrs then "env" else null} = checkedEnv;
-          cmakeFlags = makeCMakeFlags attrs;
-          mesonFlags = makeMesonFlags attrs;
+          ${if attrs ? cmakeFlags || crossCompiling then "cmakeFlags" else null} = makeCMakeFlags attrs;
+          ${if attrs ? mesonFlags || crossCompiling then "mesonFlags" else null} = makeMesonFlags attrs;
         }
       );
 
