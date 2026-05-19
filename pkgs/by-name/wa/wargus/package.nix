@@ -98,5 +98,6 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2Only;
     maintainers = [ lib.maintainers.astro ];
     platforms = lib.platforms.linux;
+    broken = true;
   };
 }
