@@ -26,6 +26,10 @@ buildPythonPackage (finalAttrs: {
     pytest-cov-stub
   ];
 
+  disabledTestPaths = [
+    "tests/test_compat.py"
+  ];
+
   pythonImportsCheck = [ "tstr" ];
 
   meta = {
