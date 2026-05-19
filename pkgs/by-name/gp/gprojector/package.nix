@@ -11,11 +11,11 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "gprojector";
-  version = "3.1.0";
+  version = "3.4.7";
 
   src = fetchzip {
     url = "https://www.giss.nasa.gov/tools/gprojector/download/G.ProjectorJ-${version}.tgz";
-    sha256 = "sha256-cMmjyitetXxQzfSBh5ry5tIsLWOnBaaYOD1eQg1IX+w=";
+    sha256 = "sha256-KOTZIPpyPcuqAw1USCI2jGxQ8kvSaMBU5BuW2WcFqMA=";
   };
 
   desktopItems = [
