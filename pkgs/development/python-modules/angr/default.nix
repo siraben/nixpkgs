@@ -108,5 +108,6 @@ buildPythonPackage rec {
     homepage = "https://angr.io/";
     license = lib.licenses.bsd2;
     maintainers = with lib.maintainers; [ fab ];
+    broken = true;
   };
 }
