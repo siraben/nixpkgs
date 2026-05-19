@@ -73,5 +73,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/diofant/diofant";
     license = lib.licenses.bsd3;
     maintainers = [ ];
+    broken = lib.versionOlder mpmath.version "1.4";
   };
 }
