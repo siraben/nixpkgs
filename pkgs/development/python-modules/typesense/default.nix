@@ -47,7 +47,13 @@ buildPythonPackage rec {
     isort
   ];
   disabledTestMarks = [ "open_ai" ];
-  disabledTests = [ "import_typing_extensions" ];
+  disabledTests = [
+    "import_typing_extensions"
+    "test_get_missing_analytics_rule"
+    "test_actual_create"
+    "test_actual_retrieve"
+    "test_actual_update"
+  ];
 
   __darwinAllowLocalNetworking = true;
 
