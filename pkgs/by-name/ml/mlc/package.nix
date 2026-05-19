@@ -33,5 +33,6 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ basvandijk ];
     platforms = with lib.platforms; linux;
     mainProgram = "mlc";
+    broken = true;
   };
 }
