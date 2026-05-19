@@ -80,5 +80,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.unfree;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ magnetophon ];
+    broken = true;
   };
 })
