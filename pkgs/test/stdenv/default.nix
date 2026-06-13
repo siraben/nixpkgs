@@ -667,3 +667,16 @@ in
       };
   };
 }
+// lib.optionalAttrs stdenv.hostPlatform.isDarwin {
+  # The provenance checks of the Darwin stdenv bootstrap are skipped during regular evaluation because they are
+  # expensive. Re-evaluate the stdenv with them enabled so CI runs them. The result is the regular stdenv
+  # derivation, so this never causes a build.
+  bootstrap-provenance =
+    (import pkgs.path {
+      inherit (stdenv.hostPlatform) system;
+      inherit config;
+      stdenvStages =
+        args:
+        import ../../stdenv/darwin (removeAttrs args [ "crossOverlays" ] // { checkProvenance = true; });
+    }).stdenv;
+}

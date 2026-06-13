@@ -20,6 +20,9 @@
     else
       import ./bootstrap-files/x86_64-apple-darwin.nix
   ),
+  # Whether to assert the provenance of the dependency sets at every stage transition (see `allDeps`). This is
+  # expensive, so it is only enabled in CI, via the `tests.stdenv.bootstrap-provenance` test.
+  checkProvenance ? false,
 }:
 
 assert crossSystem == localSystem;
@@ -173,14 +176,19 @@ let
   # When multiple dependency sets share a dependency, it should be put in the one that will be (re)built first.
   # That makes sure everything else will share the same dependency in the final stdenv.
 
+  # `allDeps` walks entire dependency sets, forcing the evaluation of many bootstrap-stage packages that lazy
+  # evaluation would otherwise skip. That costs time and memory, so it is skipped unless `checkProvenance` is set.
   allDeps =
-    checkFn: sets:
-    let
-      sets' = mergeDisjointAttrs sets;
-      result = lib.all checkFn (lib.attrValues sets');
-      resultDetails = lib.mapAttrs (_: checkFn) sets';
-    in
-    lib.traceIf (!result) (lib.deepSeq resultDetails resultDetails) result;
+    if checkProvenance then
+      checkFn: sets:
+      let
+        sets' = mergeDisjointAttrs sets;
+        result = lib.all checkFn (lib.attrValues sets');
+        resultDetails = lib.mapAttrs (_: checkFn) sets';
+      in
+      lib.traceIf (!result) (lib.deepSeq resultDetails resultDetails) result
+    else
+      _checkFn: _sets: true;
 
   # These packages are built in stage 1 then never built again. They must not be included in the final overlay
   # or as dependencies to packages that are in the final overlay. They are mostly tools used as native build inputs.
