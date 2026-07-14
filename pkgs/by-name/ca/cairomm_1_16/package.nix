@@ -45,6 +45,11 @@ stdenv.mkDerivation (finalAttrs: {
     "-Dbuild-tests=true"
   ];
 
+  env = {
+    BOOST_INCLUDEDIR = "${lib.getDev boost}/include";
+    BOOST_LIBRARYDIR = "${lib.getLib boost}/lib";
+  };
+
   # Tests fail on Darwin, possibly because of sandboxing.
   doCheck = !stdenv.hostPlatform.isDarwin;
 
