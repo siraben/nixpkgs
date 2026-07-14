@@ -118,7 +118,8 @@ in
       "vmw_vmci"
       "vmwgfx"
       "vmw_vsock_vmci_transport"
-
+    ]
+    ++ lib.optionals pkgs.stdenv.hostPlatform.isx86_64 [
       # Hyper-V support.
       "hv_storvsc"
     ]
