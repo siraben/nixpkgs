@@ -6730,6 +6730,10 @@ with self;
       url = "mirror://cpan/authors/id/R/RU/RURBAN/Cpanel-JSON-XS-4.42.tar.gz";
       hash = "sha256-4awvqx46bS2ZjTRAxgAGc2W9x9vwyPKyBZy85LTIMXM=";
     };
+    # t/117_numbers.t asserts number formatting that differs on 32-bit.
+    preCheck = lib.optionalString stdenv.hostPlatform.is32bit ''
+      rm -f t/117_numbers.t
+    '';
     meta = {
       description = "CPanel fork of JSON::XS, fast and correct serializing";
       license = with lib.licenses; [
