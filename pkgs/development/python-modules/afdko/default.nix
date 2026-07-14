@@ -132,6 +132,8 @@ buildPythonPackage (finalAttrs: {
   ++ lib.optionals (stdenv.hostPlatform.isi686) [
     "test_dump_option"
     "test_type1mm_inputs"
+    # floating-point rounding differs, so the generated font output differs
+    "test_overlap_removal"
   ];
 
   passthru.tests = {
