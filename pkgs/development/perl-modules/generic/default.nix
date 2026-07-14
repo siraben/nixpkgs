@@ -17,7 +17,7 @@
   # to false to not change hashes when enableParallelBuildingByDefault is enabled
   enableParallelBuilding ? false,
 
-  doCheck ? true,
+  doCheck ? stdenv.buildPlatform.canExecute stdenv.hostPlatform,
   checkTarget ? "test",
 
   # Prevent CPAN downloads.
