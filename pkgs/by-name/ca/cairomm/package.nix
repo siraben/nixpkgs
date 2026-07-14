@@ -45,6 +45,11 @@ stdenv.mkDerivation (finalAttrs: {
     "-Dbuild-tests=true"
   ];
 
+  env = {
+    BOOST_INCLUDEDIR = "${lib.getDev boost}/include";
+    BOOST_LIBRARYDIR = "${lib.getLib boost}/lib";
+  };
+
   doCheck = !stdenv.hostPlatform.isDarwin;
 
   meta = {
