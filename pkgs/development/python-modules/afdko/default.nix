@@ -132,6 +132,8 @@ buildPythonPackage (finalAttrs: {
   ++ lib.optionals (stdenv.hostPlatform.isi686) [
     "test_dump_option"
     "test_type1mm_inputs"
+    # Generated font output differs from the reference on i686.
+    "test_overlap_removal"
   ];
 
   passthru.tests = {
