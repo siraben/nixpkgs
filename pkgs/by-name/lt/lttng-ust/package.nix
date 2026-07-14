@@ -77,7 +77,7 @@ stdenv.mkDerivation (finalAttrs: {
     "CFLAGS=-Wl,-z,stack-size=2097152"
   ];
 
-  doCheck = true;
+  doCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
 
   strictDeps = true;
 
