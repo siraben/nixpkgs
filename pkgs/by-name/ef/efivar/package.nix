@@ -42,12 +42,16 @@ stdenv.mkDerivation (finalAttrs: {
     "PCDIR=$(dev)/lib/pkgconfig"
   ];
 
+  patches = [ ./fix-off_t-format.patch ];
+  patchFlags = [
+    "-p1"
+    "-l"
+  ];
+
   meta = {
     description = "Tools and library to manipulate EFI variables";
     homepage = "https://github.com/rhboot/efivar";
     platforms = lib.platforms.linux;
     license = lib.licenses.lgpl21Only;
-    # See https://github.com/NixOS/nixpkgs/issues/388309
-    broken = stdenv.hostPlatform.is32bit;
   };
 })
