@@ -113,6 +113,10 @@ buildPythonPackage rec {
 
     # AssertionError: assert 'wheel' == 'nixbld'
     "test_group"
+  ]
+  ++ lib.optionals stdenv.hostPlatform.is32bit [
+    # 5 second timeout expired on slower 32-bit builders
+    "test_keyboard_interrupt_does_not_resume_test"
   ];
 
   disabledTestPaths = [
