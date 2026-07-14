@@ -168,7 +168,7 @@ stdenv.mkDerivation (finalAttrs: {
       sed -E '/CONFCMDLINE/ s;${storeDir}/[a-z0-9]{32}-;${storeDir}/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-;g' -i config.h
     '';
 
-  doCheck = true;
+  doCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
 
   postPatch = lib.optionalString withPythonModule ''
     substituteInPlace Makefile.in \
