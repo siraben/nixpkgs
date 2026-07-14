@@ -136,7 +136,7 @@ stdenv.mkDerivation (finalAttrs: {
     rm -f tests/scripts/test*-sync*
   '';
 
-  doCheck = true;
+  doCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
 
   # The directory is empty and serve no purpose.
   preFixup = ''
