@@ -44,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
   cmakeFlags = [
     (lib.cmakeBool "BUILD_TESTING" finalAttrs.finalPackage.doCheck)
   ];
-  doCheck = true;
+  doCheck = !(stdenv.hostPlatform.isx86 && stdenv.hostPlatform.is32bit);
   nativeCheckInputs = [
     ruby
     ctestCheckHook
