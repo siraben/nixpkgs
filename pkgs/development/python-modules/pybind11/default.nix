@@ -83,6 +83,9 @@ buildPythonPackage (finalAttrs: {
 
   checkPhase = "ninjaCheckPhase";
 
+  doCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
+  doInstallCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
+
   # Make the headers and CMake/pkg-config files inside the wheel
   # discoverable. This simulates the effect of the `pybind11[global]`
   # installation but works better for our build.
