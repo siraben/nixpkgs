@@ -1,5 +1,6 @@
 {
   lib,
+  stdenv,
   buildPythonPackage,
   fetchFromGitHub,
   attrs,
@@ -75,6 +76,17 @@ buildPythonPackage rec {
 
   # `tests/typing` runs type checkers
   enabledTestPaths = [ "tests/unit" ];
+
+  # 32-bit: time_t overflow on the timestamp-extreme tests and size-related
+  # decoder limits on the large-array tests.
+  disabledTests = lib.optionals stdenv.hostPlatform.is32bit [
+    "test_timestamp32_upper"
+    "test_timestamp64_upper"
+    "test_timestamp96_upper"
+    "test_decoding_large_arrays_doesnt_preallocate"
+    "test_decoding_large_arrays_as_keys_doesnt_preallocate"
+    "test_hashtable"
+  ];
 
   pythonImportsCheck = [ "msgspec" ];
 
