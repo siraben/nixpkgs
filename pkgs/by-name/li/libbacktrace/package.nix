@@ -88,7 +88,10 @@ stdenv.mkDerivation {
   # TODO use `lib.optionalString` at the cost of some rebuilds.
   makeFlags = if enableShared && stdenv.hostPlatform.isPE then "LDFLAGS=-no-undefined" else null;
 
-  doCheck = stdenv.hostPlatform.isLinux && !stdenv.hostPlatform.isMusl;
+  doCheck =
+    stdenv.hostPlatform.isLinux
+    && !stdenv.hostPlatform.isMusl
+    && stdenv.buildPlatform.canExecute stdenv.hostPlatform;
 
   passthru = {
     updateScript = unstableGitUpdater { };
