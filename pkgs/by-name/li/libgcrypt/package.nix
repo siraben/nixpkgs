@@ -116,7 +116,7 @@ stdenv.mkDerivation (finalAttrs: {
       cp src/.libs/libgcrypt.20.dylib $lib/lib
     '';
 
-  doCheck = true;
+  doCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
   enableParallelChecking = true;
 
   passthru.tests = {
