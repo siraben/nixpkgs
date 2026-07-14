@@ -66,6 +66,11 @@ mkMesonLibrary (finalAttrs: {
     (lib.mesonEnable "gc" enableGC)
   ];
 
+  env = {
+    BOOST_INCLUDEDIR = "${lib.getDev boost}/include";
+    BOOST_LIBRARYDIR = "${lib.getLib boost}/lib";
+  };
+
   meta = {
     platforms = lib.platforms.unix ++ lib.platforms.windows;
   };
