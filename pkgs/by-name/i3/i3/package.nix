@@ -93,8 +93,8 @@ stdenv.mkDerivation (finalAttrs: {
     patchShebangs .
   '';
 
-  # xvfb-run is available only on Linux
-  doCheck = stdenv.hostPlatform.isLinux;
+  # xvfb-run is available only on Linux; the testsuite hangs on 32-bit.
+  doCheck = stdenv.hostPlatform.isLinux && !stdenv.hostPlatform.is32bit;
 
   nativeCheckInputs = lib.optionals finalAttrs.finalPackage.doCheck [
     xorg-server
