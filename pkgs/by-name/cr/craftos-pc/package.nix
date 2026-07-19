@@ -2,6 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  nix-update-script,
   callPackage,
   patchelf,
   unzip,
@@ -115,6 +116,10 @@ stdenv.mkDerivation rec {
   passthru.tests = {
     eval-hello-world = callPackage ./test-eval-hello-world { };
     eval-periphemu = callPackage ./test-eval-periphemu { };
+  };
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--version-regex=^v?([0-9]+\\.[0-9]+\\.[0-9]+)$" ];
   };
 
   meta = {
