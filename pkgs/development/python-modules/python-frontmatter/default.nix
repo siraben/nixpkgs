@@ -2,34 +2,35 @@
   lib,
   fetchFromGitHub,
   buildPythonPackage,
+  uv-build,
   pyyaml,
-  six,
   pytest,
   pyaml,
 }:
 
 buildPythonPackage rec {
   pname = "python-frontmatter";
-  version = "1.1.0";
-  format = "setuptools";
+  version = "1.3.0";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "eyeseast";
     repo = "python-frontmatter";
     tag = "v${version}";
-    sha256 = "sha256-Sr0RbNVk87Zu01U7nkuPUSnl1bm6G72EZDP/eDn099s=";
+    sha256 = "sha256-b/ruWPPiKvDzMjcVhxiBtnAaMNWnWvy1v8GZxGeibyY=";
   };
 
-  propagatedBuildInputs = [
-    pyyaml
-    pyaml # yes, it's needed
-    six
-  ];
+  build-system = [ uv-build ];
+
+  dependencies = [ pyyaml ];
 
   # tries to import test.test, which conflicts with module
   # exported by python interpreter
   doCheck = false;
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [
+    pyaml
+    pytest
+  ];
 
   pythonImportsCheck = [ "frontmatter" ];
 
