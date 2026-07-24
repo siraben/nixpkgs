@@ -279,7 +279,140 @@ let
     }
   );
 
+  dependencyRoleTests =
+    let
+      mkModule =
+        name: marker: dependencies:
+        python.pkgs.toPythonModule (
+          runCommand name
+            {
+              pname = name;
+              passthru = { inherit dependencies; };
+            }
+            ''
+              mkdir -p "$out/${python.sitePackages}"
+              echo ${lib.escapeShellArg marker} > "$out/${python.sitePackages}/${name}-marker"
+            ''
+        );
+
+      cycleA = mkModule "cycle-a" "a" [ cycleB ];
+      cycleB = mkModule "cycle-b" "b" [ cycleA ];
+      cycleClosure = python.pkgs.requiredPythonModules [ cycleA ];
+      cycleEnvironment = python.withPackages (_: [ cycleA ]);
+
+      nestedDependency = mkModule "same-distribution" "nested" [ ];
+      directDependency = mkModule "same-distribution" "direct" [ ];
+      parent = mkModule "parent" "parent" [ nestedDependency ];
+      precedenceClosure = python.pkgs.requiredPythonModules [
+        directDependency
+        parent
+      ];
+
+      runtimeV1 = mkModule "runtime-sentinel" "v1" [ ];
+      runtimeV2 = mkModule "runtime-sentinel" "v2" [ ];
+      source = pkgs.writeText "dependency-roles-pyproject.toml" ''
+        [build-system]
+        build-backend = "setuptools.build_meta"
+      '';
+      packageFor =
+        dependency:
+        python.pkgs.buildPythonPackage {
+          pname = "dependency-roles-test";
+          version = "1";
+          pyproject = true;
+          src = source;
+          build-system = [ python.pkgs.setuptools ];
+          dependencies = [ dependency ];
+          pythonImportsCheck = [ "dependency_roles_test" ];
+          installCheckPhase = "touch $out/checked";
+        };
+      packageV1 = packageFor runtimeV1;
+      packageV2 = packageFor runtimeV2;
+      packageWithDifferentTests = packageV1.overridePythonAttrs {
+        disabledTests = [ "not-a-real-test" ];
+      };
+      applicationV1 = python.pkgs.toPythonApplication packageV1;
+      applicationV2 = python.pkgs.toPythonApplication packageV2;
+      applicationWithOverride = applicationV1.override {
+        extraDependencies = [ runtimeV2 ];
+      };
+      builtApplication = python.pkgs.buildPythonApplication {
+        pname = "dependency-roles-application";
+        version = "1";
+        pyproject = true;
+        src = source;
+        build-system = [ python.pkgs.setuptools ];
+        dependencies = [ runtimeV1 ];
+        doCheck = false;
+      };
+      applicationRuntimeV2 = builtApplication.overridePythonAttrs {
+        dependencies = [ runtimeV2 ];
+      };
+      overriddenApplication = builtApplication.overrideAttrs {
+        postPatch = "touch override-marker";
+      };
+
+      nonPythonInput = runCommand "non-python-propagated-input" { } "touch $out";
+      legacyPackage = python.pkgs.buildPythonPackage {
+        pname = "legacy-python-propagation-test";
+        version = "1";
+        pyproject = true;
+        src = source;
+        build-system = [ python.pkgs.setuptools ];
+        propagatedBuildInputs = [
+          runtimeV1
+          nonPythonInput
+        ];
+        doCheck = false;
+      };
+    in
+    {
+      dependency-roles =
+        assert
+          map (drv: drv.pname) cycleClosure == [
+            python.pname
+            "cycle-a"
+            "cycle-b"
+          ];
+        assert
+          map (drv: drv.drvPath) precedenceClosure == [
+            python.drvPath
+            directDependency.drvPath
+            parent.drvPath
+          ];
+        assert packageV1.drvPath == packageV2.drvPath;
+        assert packageV1.tests.python.drvPath != packageV2.tests.python.drvPath;
+        assert packageV1.drvPath == packageWithDifferentTests.drvPath;
+        assert packageV1.tests.python.drvPath != packageWithDifferentTests.tests.python.drvPath;
+        assert applicationV1.unwrapped.drvPath == applicationV2.unwrapped.drvPath;
+        assert applicationV1.drvPath != applicationV2.drvPath;
+        assert lib.elem runtimeV2.drvPath (map (drv: drv.drvPath) applicationWithOverride.runtimeModules);
+        assert
+          !(lib.elem runtimeV1.drvPath (map (drv: drv.drvPath) applicationWithOverride.runtimeModules));
+        assert builtApplication.unwrapped.drvPath == applicationRuntimeV2.unwrapped.drvPath;
+        assert builtApplication.drvPath != applicationRuntimeV2.drvPath;
+        assert builtApplication.unwrapped.drvPath != overriddenApplication.unwrapped.drvPath;
+        assert map (drv: drv.drvPath) legacyPackage.dependencies == [ runtimeV1.drvPath ];
+        assert
+          map (drv: drv.drvPath) legacyPackage.propagatedBuildInputs == [
+            nonPythonInput.drvPath
+          ];
+        runCommand "${python.name}-dependency-roles"
+          {
+            nativeBuildInputs = [ cycleEnvironment ];
+          }
+          ''
+            python -c 'import sys; assert sys.version_info.major == 3'
+            touch "$out"
+          '';
+    };
+
 in
 lib.optionalAttrs (stdenv.hostPlatform == stdenv.buildPlatform) (
-  environmentTests // integrationTests // overrideTests // condaTests // editableTests
+  environmentTests
+  // integrationTests
+  // overrideTests
+  // condaTests
+  // editableTests
+  // dependencyRoleTests
 )
