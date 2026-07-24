@@ -148,10 +148,13 @@ The `buildPythonPackage` mainly does four things:
 * In the [`postFixup`](#var-stdenv-postFixup) phase, the `wrapPythonPrograms` bash function is called to
   wrap all programs in the `$out/bin/*` directory to include `$PATH`
   environment variable and add dependent libraries to script's `sys.path`.
-* In the [`installCheck`](#ssec-installCheck-phase) phase, `${python.interpreter} -m pytest` is run.
+* In the independent `passthru.tests.python` derivation, runtime metadata,
+  imports, conflicts, and the package's test suite are checked.
 
-By default tests are run because [`doCheck = true`](#var-stdenv-doCheck). Test dependencies, like
-e.g. the test runner, should be added to [`nativeCheckInputs`](#var-stdenv-nativeCheckInputs).
+By default tests are run because [`doCheck = true`](#var-stdenv-doCheck). Test
+dependencies, such as a test runner, should be added to
+[`nativeCheckInputs`](#var-stdenv-nativeCheckInputs). These inputs do not affect
+the installed package's derivation.
 
 By default `meta.platforms` is set to the same value
 as the interpreter unless overridden otherwise.
@@ -168,6 +171,9 @@ following are specific to `buildPythonPackage`:
 * `dontWrapPythonPrograms ? false`: Skip wrapping of Python programs.
 * `permitUserSite ? false`: Skip setting the `PYTHONNOUSERSITE` environment
   variable in wrapped programs.
+* `separateChecks ? null`: Run checks in `passthru.tests.python`. The default is
+  `true` for standard native Python build formats and `false` for `format =
+  "other"`, bootstrap packages, and cross builds.
 * `pyproject`: Whether the pyproject format should be used. As all other formats
   are deprecated, you are recommended to set this to `true`. When you do so,
   `pypaBuildHook` will be used, and you can add the required build dependencies
@@ -256,12 +262,13 @@ because their behaviour is different:
 * `buildInputs ? []`: Build and/or run-time dependencies that need to be
   compiled for the host machine. Typically non-Python libraries which are being
   linked.
-* `nativeCheckInputs ? []`: Dependencies needed for running the [`checkPhase`](#ssec-check-phase). These
-  are added to [`nativeBuildInputs`](#var-stdenv-nativeBuildInputs) when [`doCheck = true`](#var-stdenv-doCheck). Items listed in
+* `nativeCheckInputs ? []`: Dependencies needed for running the
+  [`checkPhase`](#ssec-check-phase) in `passthru.tests.python`. Items listed in
   `tests_require` go here.
-* `dependencies ? []`: Aside from propagating dependencies,
-  `buildPythonPackage` also injects code into and wraps executables with the
-  paths included in this list. Items listed in `install_requires` go here.
+* `dependencies ? []`: Python runtime dependencies. They are recorded as
+  direct dependency metadata and resolved only when constructing an
+  application, environment, or check. Items listed in `install_requires` go
+  here.
 * `optional-dependencies ? { }`: Optional feature flagged dependencies.  Items listed in `extras_require` go here.
 
 
@@ -315,11 +322,12 @@ compilation issues, because scipy dependencies need to use the same blas impleme
 
 #### `buildPythonApplication` function {#buildpythonapplication-function}
 
-The [`buildPythonApplication`](#buildpythonapplication-function) function is practically the same as
-[`buildPythonPackage`](#buildpythonpackage-function). The main purpose of this function is to build a Python
-package where one is interested only in the executables, and not importable
-modules. For that reason, when adding this package to a [`python.buildEnv`](#python.buildenv-function), the
-modules won't be made available.
+The [`buildPythonApplication`](#buildpythonapplication-function) function first
+builds the same unbundled artifact as
+[`buildPythonPackage`](#buildpythonpackage-function), then returns a lightweight
+application derivation which composes and wraps its runtime dependency graph.
+The artifact is available as `passthru.unwrapped`. Runtime dependency changes
+therefore rebuild the application wrapper, but not the package artifact.
 
 Another difference is that [`buildPythonPackage`](#buildpythonpackage-function) by default prefixes the names of
 the packages with the version of the interpreter. Because this is irrelevant for
@@ -1247,9 +1255,10 @@ Note also the line [`doCheck = false;`](#var-stdenv-doCheck), we explicitly disa
 
 #### Testing Python Packages {#testing-python-packages}
 
-It is highly encouraged to have testing as part of the package build. This
-helps to avoid situations where the package was able to build and install,
-but is not usable at runtime.
+It is highly encouraged to provide tests. Standard Python packages expose them
+as `passthru.tests.python`, which consumes the installed package and its runtime
+graph without making test or runtime dependencies inputs of the package build.
+The Python release job exposes these checks to Hydra.
 Your package should provide its own [`checkPhase`](#ssec-check-phase).
 
 ::: {.note}
