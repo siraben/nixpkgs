@@ -27,7 +27,11 @@ buildPythonPackage rec {
 
   postPatch = null;
 
-  build-system = [ setuptools ];
+  # setup.py imports setuptools_scm while building the wheel.
+  build-system = [
+    setuptools
+    vcs-versioning
+  ];
 
   dependencies = [
     setuptools

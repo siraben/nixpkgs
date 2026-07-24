@@ -1,13 +1,17 @@
 # Setup hook for PyPA installer.
+# shellcheck shell=bash
 echo "Sourcing python-runtime-deps-check-hook"
 
 pythonRuntimeDepsCheckHook() {
     echo "Executing pythonRuntimeDepsCheck"
 
-    export PYTHONPATH="$out/@pythonSitePackages@:$PYTHONPATH"
+    local output="${pythonRuntimeDepsCheckOutput:-$out}"
+    local dist="${pythonRuntimeDepsCheckDist:-dist}"
 
-    for wheel in dist/*.whl; do
-        echo "Checking runtime dependencies for $(basename $wheel)"
+    export PYTHONPATH="$output/@pythonSitePackages@:$PYTHONPATH"
+
+    for wheel in "$dist"/*.whl; do
+        echo "Checking runtime dependencies for $(basename "$wheel")"
         @pythonInterpreter@ @hook@ "$wheel"
     done
 

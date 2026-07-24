@@ -8,11 +8,13 @@ pythonImportsCheckPhase() {
 
     if [[ -n "${pythonImportsCheck[*]-}" ]]; then
         echo "Check whether the following modules can be imported: ${pythonImportsCheck[*]}"
-        # shellcheck disable=SC2154
-        pythonImportsCheckOutput="$out"
-        if [[ -n "${python-}" ]]; then
-            echo "Using python specific output \$python for imports check"
-            pythonImportsCheckOutput=$python
+        if [[ -z "${pythonImportsCheckOutput-}" ]]; then
+            # shellcheck disable=SC2154
+            pythonImportsCheckOutput="$out"
+            if [[ -n "${python-}" ]]; then
+                echo "Using python specific output \$python for imports check"
+                pythonImportsCheckOutput=$python
+            fi
         fi
         export PYTHONPATH="$pythonImportsCheckOutput/@pythonSitePackages@:$PYTHONPATH"
         # Python modules and namespaces names are Python identifiers, which must not contain spaces.

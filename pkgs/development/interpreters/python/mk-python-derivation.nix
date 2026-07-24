@@ -25,6 +25,7 @@
   pythonRemoveBinBytecodeHook,
   pythonRemoveTestsDirHook,
   pythonRuntimeDepsCheckHook,
+  requiredPythonModules,
   setuptoolsBuildHook,
   wheelUnpackHook,
   eggUnpackHook,
@@ -92,6 +93,46 @@ let
     "wheel"
   ];
 
+  pythonCheckDrvArgNames = [
+    "installCheckPhase"
+    "preCheck"
+    "postCheck"
+    "preInstallCheck"
+    "postInstallCheck"
+    "pythonImportsCheck"
+    "dontUsePythonImportsCheck"
+    "dontUsePythonCatchConflicts"
+    "dontCheckRuntimeDeps"
+    "dontUsePytestCheck"
+    "pytestFlags"
+    "disabledTests"
+    "disabledTestPaths"
+    "disabledTestMarks"
+    "enabledTests"
+    "enabledTestPaths"
+    "enabledTestMarks"
+    "disabledTestsRegex"
+    "unittestFlags"
+    "stestrFlags"
+    "__darwinAllowLocalNetworking"
+  ];
+
+  pythonCheckSourceArgNames = [
+    "src"
+    "srcs"
+    "sourceRoot"
+    "setSourceRoot"
+    "dontUnpack"
+    "unpackPhase"
+    "preUnpack"
+    "postUnpack"
+    "patches"
+    "patchFlags"
+    "patchPhase"
+    "prePatch"
+    "postPatch"
+  ];
+
 in
 
 lib.extendMkDerivation {
@@ -99,11 +140,15 @@ lib.extendMkDerivation {
 
   excludeDrvArgNames = [
     "disabled"
+    "catchConflicts"
     "checkPhase"
     "checkInputs"
     "nativeCheckInputs"
+    "installCheckInputs"
+    "nativeInstallCheckInputs"
     "doCheck"
     "doInstallCheck"
+    "separateChecks"
     "pyproject"
     "format"
     "stdenv"
@@ -113,7 +158,8 @@ lib.extendMkDerivation {
 
     # Deprecated arguments
     "pytestFlagsArray"
-  ];
+  ]
+  ++ pythonCheckDrvArgNames;
 
   extendDrvArgs =
     finalAttrs:
@@ -194,6 +240,10 @@ lib.extendMkDerivation {
       meta ? { },
 
       doCheck ? true,
+
+      # Run tests and runtime validation in an independent derivation. This
+      # defaults to true for the standardized native Python build formats.
+      separateChecks ? null,
 
       ...
     }@attrs:
@@ -287,11 +337,110 @@ lib.extendMkDerivation {
         else
           pythonRuntimeDepsCheckHook;
 
+      pythonDependencies = dependencies ++ lib.filter isPythonModule propagatedBuildInputs;
+
+      nonPythonPropagatedBuildInputs = lib.filter (drv: !isPythonModule drv) propagatedBuildInputs;
+
+      separateChecks' =
+        if separateChecks != null then
+          separateChecks
+        else
+          format' != "other" && !isBootstrapPackage && stdenv.buildPlatform == stdenv.hostPlatform;
+
+      runtimeModules = validatePythonMatches "dependencies" (
+        requiredPythonModules (getFinalPassthru "dependencies")
+      );
+
+      nativeCheckInputs' = nativeCheckInputs ++ attrs.nativeInstallCheckInputs or [ ];
+
+      checkInputs' = checkInputs ++ attrs.installCheckInputs or [ ];
+
+      buildRuntimeModules = python.pythonOnBuildForHost.pkgs.requiredPythonModules (
+        nativeBuildInputs ++ getFinalPassthru "build-system"
+      );
+
+      checkRuntimeModules = validatePythonMatches "check inputs" (
+        requiredPythonModules (
+          getFinalPassthru "dependencies" ++ optionals doCheck (checkInputs' ++ nativeCheckInputs')
+        )
+      );
+
+      pythonCheckDrvAttrs = builtins.intersectAttrs (lib.genAttrs pythonCheckDrvArgNames (_: null)) attrs;
+
+      pythonCheckSourceAttrs = builtins.intersectAttrs (lib.genAttrs pythonCheckSourceArgNames (
+        _: null
+      )) attrs;
+
+      pythonEnv = {
+        LANG = "${if python.stdenv.hostPlatform.isDarwin then "en_US" else "C"}.UTF-8";
+      }
+      // (attrs.env or { });
+
+      pythonCheck = stdenv.mkDerivation (
+        pythonCheckSourceAttrs
+        // pythonCheckDrvAttrs
+        // {
+          name = "${name}-python-check";
+
+          strictDeps = true;
+          dontConfigure = true;
+          dontBuild = true;
+          doCheck = false;
+          doInstallCheck = doCheck;
+          dontFixup = true;
+
+          installPhase = ''
+            runHook preInstall
+            mkdir -p "$out"
+            runHook postInstall
+          '';
+
+          pythonImportsCheckOutput = finalAttrs.finalPackage;
+          pythonRuntimeDepsCheckOutput = finalAttrs.finalPackage;
+          pythonRuntimeDepsCheckDist = finalAttrs.finalPackage.dist or null;
+
+          inherit meta;
+        }
+        // optionalAttrs (attrs ? checkPhase) {
+          installCheckPhase = attrs.checkPhase;
+        }
+        // {
+          nativeBuildInputs = [
+            python
+          ]
+          ++ nativeBuildInputs
+          ++ optionals doCheck nativeCheckInputs'
+          ++ optionals (format' == "wheel") [
+            wheelUnpackHook
+          ]
+          ++ optionals (format' == "egg") [
+            eggUnpackHook
+          ]
+          ++ optionals (catchConflicts && !isSetuptoolsDependency) [
+            pythonCatchConflictsHook
+          ]
+          ++ [
+            pythonImportsCheckHook
+          ]
+          ++ optionals (withDistOutput && format' != "setuptools") [
+            runtimeDepsCheckHook
+          ];
+          buildInputs = [
+            finalAttrs.finalPackage
+          ]
+          ++ checkRuntimeModules
+          ++ optionals doCheck checkInputs';
+          env =
+            pythonEnv
+            // optionalAttrs (python.pythonAtLeast "3.11") {
+              PYTHONSAFEPATH = "1";
+            };
+        }
+      );
+
     in
     {
       inherit name;
-
-      inherit catchConflicts;
 
       nativeBuildInputs = [
         python
@@ -299,17 +448,19 @@ lib.extendMkDerivation {
         ensureNewerSourcesForZipFilesHook # move to wheel installer (pip) or builder (setuptools, flit, ...)?
         pythonRemoveTestsDirHook
       ]
-      ++ optionals (finalAttrs.catchConflicts && !isBootstrapPackage && !isSetuptoolsDependency) [
-        #
-        # 1. When building a package that is also part of the bootstrap chain, we
-        #    must ignore conflicts after installation, because there will be one with
-        #    the package in the bootstrap.
-        #
-        # 2. When a package is a dependency of setuptools, we must ignore conflicts
-        #    because the hook that checks for conflicts uses setuptools.
-        #
-        pythonCatchConflictsHook
-      ]
+      ++
+        optionals (!separateChecks' && catchConflicts && !isBootstrapPackage && !isSetuptoolsDependency)
+          [
+            #
+            # 1. When building a package that is also part of the bootstrap chain, we
+            #    must ignore conflicts after installation, because there will be one with
+            #    the package in the bootstrap.
+            #
+            # 2. When a package is a dependency of setuptools, we must ignore conflicts
+            #    because the hook that checks for conflicts uses setuptools.
+            #
+            pythonCatchConflictsHook
+          ]
       ++
         optionals (finalAttrs.pythonRelaxDeps or [ ] != [ ] || finalAttrs.pythonRemoveDeps or [ ] != [ ])
           [
@@ -334,10 +485,14 @@ lib.extendMkDerivation {
           else
             pypaBuildHook
         )
+      ]
+      ++ optionals (!separateChecks' && format' == "pyproject") [
         runtimeDepsCheckHook
       ]
       ++ optionals (format' == "wheel") [
         wheelUnpackHook
+      ]
+      ++ optionals (!separateChecks' && format' == "wheel") [
         runtimeDepsCheckHook
       ]
       ++ optionals (format' == "egg") [
@@ -355,7 +510,7 @@ lib.extendMkDerivation {
             pypaInstallHook
         )
       ]
-      ++ optionals (stdenv.buildPlatform == stdenv.hostPlatform) [
+      ++ optionals (!separateChecks' && stdenv.buildPlatform == stdenv.hostPlatform) [
         # This is a test, however, it should be ran independent of the checkPhase and checkInputs
         pythonImportsCheckHook
       ]
@@ -382,39 +537,39 @@ lib.extendMkDerivation {
         pythonOutputDistHook
       ]
       ++ nativeBuildInputs
-      ++ getFinalPassthru "build-system";
+      ++ getFinalPassthru "build-system"
+      ++ buildRuntimeModules;
 
-      buildInputs = validatePythonMatches "buildInputs" (buildInputs ++ pythonPath);
+      buildInputs = validatePythonMatches "buildInputs" (
+        buildInputs
+        ++ pythonPath
+        ++ optionals (!separateChecks') runtimeModules
+        ++ optionals (!separateChecks' && doCheck) checkRuntimeModules
+      );
 
-      propagatedBuildInputs =
-        validatePythonMatches "propagatedBuildInputs" (
-          propagatedBuildInputs ++ getFinalPassthru "dependencies"
-        )
-        ++ [
-          # we propagate python even for packages transformed with 'toPythonApplication'
-          # this pollutes the PATH but avoids rebuilds
-          # see https://github.com/NixOS/nixpkgs/issues/170887 for more context
-          python
-        ];
+      propagatedBuildInputs = validatePythonMatches "propagatedBuildInputs" nonPythonPropagatedBuildInputs;
 
       inherit strictDeps;
 
-      env = {
-        LANG = "${if python.stdenv.hostPlatform.isDarwin then "en_US" else "C"}.UTF-8";
-      }
-      // (attrs.env or { });
+      env = pythonEnv;
 
       # Python packages don't have a checkPhase, only an installCheckPhase
       doCheck = false;
-      doInstallCheck = attrs.doCheck or true;
-      nativeInstallCheckInputs = nativeCheckInputs ++ attrs.nativeInstallCheckInputs or [ ];
-      installCheckInputs = checkInputs ++ attrs.installCheckInputs or [ ];
+      doInstallCheck = doCheck && !separateChecks';
+      nativeInstallCheckInputs = optionals (!separateChecks') nativeCheckInputs';
+      installCheckInputs = optionals (!separateChecks') checkInputs';
 
       inherit dontWrapPythonPrograms;
 
       postFixup =
         optionalString (!finalAttrs.dontWrapPythonPrograms) ''
           wrapPythonPrograms
+        ''
+        + ''
+          # Keep postFixup hooks which remove propagation metadata working when
+          # the package has no non-Python propagated inputs.
+          mkdir -p "$out/nix-support"
+          touch "$out/nix-support/propagated-build-inputs"
         ''
         + attrs.postFixup or "";
 
@@ -430,9 +585,9 @@ lib.extendMkDerivation {
           disabled
           pyproject
           build-system
-          dependencies
           optional-dependencies
           ;
+        dependencies = validatePythonMatches "dependencies" pythonDependencies;
         updateScript = nix-update-script { };
         # __stdenvPythonCompat[Pos] attributes are here for overrideStdenvCompat in `python-packages-base.nix` to work.
         # They are internal and subject to changes.
@@ -441,7 +596,12 @@ lib.extendMkDerivation {
         ${if attrs ? stdenv then "__stdenvPythonCompatPos" else null} =
           builtins.unsafeGetAttrPos "stdenv" attrs;
       }
-      // attrs.passthru or { };
+      // attrs.passthru or { }
+      // {
+        tests = (attrs.passthru.tests or { }) // {
+          python = if separateChecks' then pythonCheck else null;
+        };
+      };
 
       meta = {
         # default to python's platforms
@@ -450,10 +610,11 @@ lib.extendMkDerivation {
       }
       // meta;
     }
+    // lib.mapAttrs (_: value: if separateChecks' then null else value) pythonCheckDrvAttrs
     // optionalAttrs (attrs ? checkPhase) {
       # If given use the specified checkPhase, otherwise use the setup hook.
       # Longer-term we should get rid of `checkPhase` and use `installCheckPhase`.
-      installCheckPhase = attrs.checkPhase;
+      installCheckPhase = if separateChecks' then null else attrs.checkPhase;
     }
     // (
       let
@@ -472,9 +633,12 @@ lib.extendMkDerivation {
       lib.mapAttrs
         (
           name: value:
-          lib.throwIf (
-            attrs.${name} == [ ]
-          ) "${lib.getName finalAttrs}: ${name} must be unspecified, null or a non-empty list." attrs.${name}
+          if separateChecks' then
+            null
+          else
+            lib.throwIf (
+              attrs.${name} == [ ]
+            ) "${lib.getName finalAttrs}: ${name} must be unspecified, null or a non-empty list." attrs.${name}
         )
         {
           ${if attrs ? enabledTestMarks then "enabledTestMarks" else null} = attrs.enabledTestMarks;

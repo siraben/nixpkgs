@@ -36,6 +36,16 @@ buildPythonPackage (finalAttrs: {
     trove-classifiers
   ];
 
+  # Hatchling builds itself from the in-tree backend, which imports these
+  # modules while producing the wheel.
+  build-system = [
+    editables
+    packaging
+    pathspec
+    pluggy
+    trove-classifiers
+  ];
+
   pythonImportsCheck = [
     "hatchling"
     "hatchling.build"

@@ -92,13 +92,14 @@ in
         {
           makePythonHook,
           build,
+          toPythonApplication,
           wheel,
         }:
         makePythonHook {
           name = "pypa-build-hook.sh";
           propagatedBuildInputs = [ wheel ];
           substitutions = {
-            inherit build;
+            build = toPythonApplication build;
           };
           # A test to ensure that this hook never propagates any of its dependencies
           #   into the build environment.
