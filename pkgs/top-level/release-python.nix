@@ -26,7 +26,7 @@ let
     inherit supportedSystems nixpkgsArgs;
   };
 
-  inherit (release-lib) mapTestOn pkgs;
+  inherit (release-lib) mapTestOn mapTestOnWith pkgs;
 
   inherit (release-lib.lib) isDerivation mapAttrs optionals;
 
@@ -38,6 +38,21 @@ let
           value.meta.isBuildPythonPackage or [ ]
         else if value.recurseForDerivations or false || value.recurseForRelease or false then
           packagePython value
+        else
+          [ ]
+      );
+    in
+    optionals res.success res.value
+  );
+
+  packagePythonTests = mapAttrs (
+    name: value:
+    let
+      res = builtins.tryEval (
+        if isDerivation value && isDerivation (value.passthru.tests.python or null) then
+          value.meta.isBuildPythonPackage or [ ]
+        else if value.recurseForDerivations or false || value.recurseForRelease or false then
+          packagePythonTests value
         else
           [ ]
       );
@@ -65,6 +80,11 @@ let
     };
 
   }
-  // (mapTestOn (packagePython pkgs));
+  // (mapTestOn (packagePython pkgs))
+  // {
+    python-package-tests = mapTestOnWith (package: package.passthru.tests.python) (
+      packagePythonTests pkgs
+    );
+  };
 in
 jobs

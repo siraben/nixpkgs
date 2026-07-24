@@ -184,6 +184,10 @@ let
   */
   mapTestOn = _mapTestOnHelper id null;
 
+  # Like mapTestOn, but transform each selected package before creating the
+  # Hydra job. This is useful for standardized passthru outputs such as tests.
+  mapTestOnWith = f: _mapTestOnHelper f null;
+
   _mapTestOnHelper =
     f: crossSystem:
     mapAttrsRecursive (
@@ -242,6 +246,7 @@ in
     hydraJob'
     lib
     mapTestOn
+    mapTestOnWith
     mapTestOnCross
     recursiveMapPackages
     getPlatforms
