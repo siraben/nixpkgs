@@ -48,7 +48,17 @@ let
         // {
           overridePythonAttrs = newArgs: makeOverridablePythonPackage f (overrideWith newArgs);
           overrideAttrs =
-            newArgs: makeOverridablePythonPackage (args: (f args).overrideAttrs newArgs) origArgs;
+            newArgs:
+            makeOverridablePythonPackage (
+              args:
+              let
+                current = f args;
+              in
+              if current ? unwrapped then
+                toPythonApplication (current.unwrapped.overrideAttrs newArgs)
+              else
+                current.overrideAttrs newArgs
+            ) origArgs;
         }
       else
         result
@@ -118,28 +128,46 @@ let
     )
   );
 
-  buildPythonApplication = makeOverridablePythonPackage (
-    overrideStdenvCompat (
-      callPackage mkPythonDerivation {
-        namePrefix = ""; # Python applications should not have any prefix
-        toPythonModule = x: x; # Application does not provide modules.
-        inherit (python) stdenv;
-      }
-    )
-  );
-
   # Check whether a derivation provides a Python module.
   hasPythonModule = drv: drv ? pythonModule && drv.pythonModule == python;
 
-  # Get list of required Python modules given a list of derivations.
+  # Normalize distribution names according to PEP 503. The explicit passthru
+  # attribute is useful when the Nix pname and the Python distribution name do
+  # not match.
+  pythonModuleKey =
+    drv:
+    lib.concatStringsSep "-" (
+      lib.filter builtins.isString (
+        builtins.split "[-_.]+" (lib.toLower (drv.pythonDistributionName or drv.pname or (lib.getName drv)))
+      )
+    );
+
+  # Get the cycle-safe closure of required Python modules. genericClosure keeps
+  # the first node for a key, so dependencies explicitly placed at the front of
+  # `drvs` override same-named transitive dependencies without rebuilding a
+  # Python package set.
   requiredPythonModules =
     drvs:
     let
-      modules = lib.filter hasPythonModule drvs;
+      mkNode = drv: {
+        key = if hasPythonModule drv then "python:${pythonModuleKey drv}" else "derivation:${drv.drvPath}";
+        inherit drv;
+      };
+      closure = builtins.genericClosure {
+        startSet = map mkNode (lib.filter lib.isDerivation drvs);
+        operator =
+          node:
+          map mkNode (
+            lib.filter lib.isDerivation (
+              if hasPythonModule node.drv then
+                node.drv.dependencies or node.drv.propagatedBuildInputs or [ ]
+              else
+                node.drv.propagatedBuildInputs or [ ]
+            )
+          );
+      };
     in
-    lib.unique (
-      [ python ] ++ modules ++ lib.concatLists (lib.catAttrs "requiredPythonModules" modules)
-    );
+    [ python ] ++ map (node: node.drv) (lib.filter (node: hasPythonModule node.drv) closure);
 
   # Create a PYTHONPATH from a list of derivations. This function recurses into the items to find derivations
   # providing Python modules.
@@ -159,24 +187,33 @@ let
       passthru = (oldAttrs.passthru or { }) // {
         pythonModule = python;
         pythonPath = [ ]; # Deprecated, for compatibility.
-        requiredPythonModules = builtins.addErrorContext "while calculating requiredPythonModules for ${drv.name or drv.pname}:" (
-          requiredPythonModules drv.propagatedBuildInputs
-        );
+        requiredPythonModules =
+          builtins.addErrorContext "while calculating requiredPythonModules for ${drv.name or drv.pname}:"
+            (requiredPythonModules (oldAttrs.passthru.dependencies or [ ]));
       };
     });
 
   # Convert a Python library to an application.
   toPythonApplication =
     drv:
-    drv.overrideAttrs (oldAttrs: {
-      passthru = (oldAttrs.passthru or { }) // {
-        # Remove Python prefix from name so we have a "normal" name.
-        # While the prefix shows up in the store path, it won't be
-        # used by `nix-env`.
-        name = removePythonPrefix oldAttrs.name;
-        pythonModule = false;
-      };
-    });
+    callPackage ./application.nix {
+      inherit
+        drv
+        python
+        requiredPythonModules
+        removePythonPrefix
+        ;
+    };
+
+  buildPythonApplication = makeOverridablePythonPackage (
+    overrideStdenvCompat (
+      callPackage mkPythonDerivation {
+        namePrefix = "";
+        toPythonModule = drv: toPythonApplication (toPythonModule drv);
+        inherit (python) stdenv;
+      }
+    )
+  );
 
   disabled =
     drv:
