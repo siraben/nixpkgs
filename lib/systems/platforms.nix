@@ -39,14 +39,33 @@ rec {
     gcc = {
       fpu = "neon";
       cpu = "cortex-a9";
+      float-abi = "hard";
     };
   };
 
   zero-sugar = {
     gcc = {
       cpu = "cortex-a7";
-      fpu = "neon-vfpv4";
+      fpu = "neon";
       float-abi = "hard";
+    };
+  };
+
+  remarkable-paper-pro = {
+    gcc = {
+      cpu = "cortex-a53+crc+crypto";
+    };
+  };
+
+  remarkable-paper-pro-move = {
+    gcc = {
+      cpu = "cortex-a55+crypto";
+    };
+  };
+
+  remarkable-paper-pure = {
+    gcc = {
+      cpu = "cortex-a55+crypto";
     };
   };
 

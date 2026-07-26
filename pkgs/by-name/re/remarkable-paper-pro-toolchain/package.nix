@@ -1,5 +1,5 @@
 { remarkable-toolchain }:
 
 remarkable-toolchain.override {
-  device = "rm2";
+  device = "ferrari";
 }

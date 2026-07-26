@@ -64,6 +64,21 @@ rec {
   }
   // platforms.zero-sugar;
 
+  remarkablePaperPro = {
+    config = "aarch64-unknown-linux-gnu";
+  }
+  // platforms.remarkable-paper-pro;
+
+  remarkablePaperProMove = {
+    config = "aarch64-unknown-linux-gnu";
+  }
+  // platforms.remarkable-paper-pro-move;
+
+  remarkablePaperPure = {
+    config = "aarch64-unknown-linux-gnu";
+  }
+  // platforms.remarkable-paper-pure;
+
   armv7l-hf-multiplatform = {
     config = "armv7l-unknown-linux-gnueabihf";
   };

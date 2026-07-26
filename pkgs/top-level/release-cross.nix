@@ -235,6 +235,9 @@ in
   # Linux on the Remarkable
   remarkable1 = mapTestOnCross systems.examples.remarkable1 linuxCommon;
   remarkable2 = mapTestOnCross systems.examples.remarkable2 linuxCommon;
+  remarkablePaperPro = mapTestOnCross systems.examples.remarkablePaperPro linuxCommon;
+  remarkablePaperProMove = mapTestOnCross systems.examples.remarkablePaperProMove linuxCommon;
+  remarkablePaperPure = mapTestOnCross systems.examples.remarkablePaperPure linuxCommon;
 
   # Linux on armv7l-hf
   armv7l-hf = mapTestOnCross systems.examples.armv7l-hf-multiplatform linuxCommon;
