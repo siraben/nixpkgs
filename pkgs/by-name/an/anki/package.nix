@@ -30,7 +30,6 @@
   swift,
 
   mesa,
-  imagemagick,
 }:
 
 let
@@ -181,7 +180,6 @@ python3Packages.buildPythonApplication (finalAttrs: {
     rustPlatform.cargoSetupHook
     writableTmpDirAsHomeHook
     yarn-berry_4.yarnBerryConfigHook
-    imagemagick
   ]
   ++ lib.optional stdenv.hostPlatform.isDarwin swift
   # Needed for when Qt uses a system's GTK file picker.
@@ -316,9 +314,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     install -D -t $doc/share/doc/anki README* LICENSE*
     install -D -t $out/share/mime/packages qt/launcher/lin/anki.xml
 
-    mkdir -p $out/share/icons/hicolor/{32x32,128x128}/apps
-    magick qt/launcher/lin/anki.xpm $out/share/icons/hicolor/32x32/apps/anki.png
-    magick qt/launcher/lin/anki.png -resize 128x128 $out/share/icons/hicolor/128x128/apps/anki.png
+    install -Dm644 -t $out/share/pixmaps qt/launcher/lin/{anki.xpm,anki.png}
     installManPage qt/launcher/lin/anki.1
 
     runHook postInstall
