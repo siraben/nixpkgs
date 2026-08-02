@@ -7,15 +7,13 @@
   # Override jsRuntime with `nodejs`, `bun`, `quickjs`, or `quickjs-ng` if you want to use another default JS runtime.
   # You still need to enable them in your yt-dlp config with `--js-runtimes [runtime]`.
   jsRuntime ? deno,
-  fetchFromGitHub,
+  fetchurl,
   ffmpeg-headless,
-  installShellFiles,
-  pandoc,
   rtmpdump,
   atomicparsleySupport ? true,
   ffmpegSupport ? true,
   javascriptSupport ? true,
-  rtmpSupport ? true,
+  rtmpSupport ? !ffmpegSupport,
   withAlias ? false, # Provides bin/youtube-dl for backcompat
   withSecretStorage ? !stdenvNoCC.hostPlatform.isDarwin,
   nix-update-script,
@@ -35,11 +33,9 @@ python3Packages.buildPythonApplication rec {
   version = "2026.07.04";
   pyproject = true;
 
-  src = fetchFromGitHub {
-    owner = "yt-dlp";
-    repo = "yt-dlp";
-    tag = version;
-    hash = "sha256-+oHcVylLXFJTRR6jXF6IXvgntXJz0tRdtnwTruRPkoc=";
+  src = fetchurl {
+    url = "https://github.com/yt-dlp/yt-dlp/releases/download/${version}/yt-dlp.tar.gz";
+    hash = "sha256-McMkV9Glc6NBuwkpOGxiT+RzOaUziCnm6clFS9+nOXo=";
   };
 
   postPatch = ''
@@ -63,11 +59,6 @@ python3Packages.buildPythonApplication rec {
 
   build-system = with python3Packages; [ hatchling ];
 
-  nativeBuildInputs = [
-    installShellFiles
-    pandoc
-  ];
-
   # expose optional-dependencies, but provide all features
   dependencies =
     optional-dependencies.default
@@ -75,16 +66,17 @@ python3Packages.buildPythonApplication rec {
     ++ lib.optionals withSecretStorage optional-dependencies.secretstorage;
 
   optional-dependencies = {
-    default = with python3Packages; [
-      brotli
-      certifi
-      mutagen
-      pycryptodomex
-      requests
-      urllib3
-      websockets
-      yt-dlp-ejs # keep pinned version in sync!
-    ];
+    default =
+      (with python3Packages; [
+        brotli
+        certifi
+        mutagen
+        pycryptodomex
+        requests
+        urllib3
+        websockets
+      ])
+      ++ lib.optional javascriptSupport python3Packages.yt-dlp-ejs; # keep pinned version in sync!
     curl-cffi = [ python3Packages.curl-cffi ];
     secretstorage = with python3Packages; [
       cffi
@@ -94,24 +86,9 @@ python3Packages.buildPythonApplication rec {
 
   pythonRelaxDeps = [ "websockets" ];
 
-  preBuild = ''
-    python devscripts/make_lazy_extractors.py
-  '';
-
-  postBuild = ''
-    python devscripts/prepare_manpage.py yt-dlp.1.temp.md
-    pandoc -s -f markdown-smart -t man yt-dlp.1.temp.md -o yt-dlp.1
-    rm yt-dlp.1.temp.md
-
-    mkdir -p completions/{bash,fish,zsh}
-    python devscripts/bash-completion.py completions/bash/yt-dlp
-    python devscripts/zsh-completion.py completions/zsh/_yt-dlp
-    python devscripts/fish-completion.py completions/fish/yt-dlp.fish
-  '';
-
   # Ensure these utilities are available in $PATH:
   # - ffmpeg: post-processing & transcoding support
-  # - rtmpdump: download files over RTMP
+  # - rtmpdump: legacy RTMP downloader fallback when ffmpeg support is disabled
   # - atomicparsley: embedding thumbnails
   makeWrapperArgs =
     let
@@ -124,7 +101,7 @@ python3Packages.buildPythonApplication rec {
       "--prefix"
       "PATH"
       ":"
-      ''"${lib.makeBinPath packagesToBinPath}"''
+      (lib.makeBinPath packagesToBinPath)
     ];
 
   checkPhase = ''
@@ -137,14 +114,7 @@ python3Packages.buildPythonApplication rec {
   '';
 
   postInstall = ''
-    installManPage yt-dlp.1
-
-    installShellCompletion \
-      --bash completions/bash/yt-dlp \
-      --fish completions/fish/yt-dlp.fish \
-      --zsh completions/zsh/_yt-dlp
-
-    install -Dm644 Changelog.md README.md -t "$doc/share/doc/yt_dlp"
+    install -Dm644 Changelog.md README.md -t "$out/share/doc/yt_dlp"
   ''
   + lib.optionalString withAlias ''
     ln -s "$out/bin/yt-dlp" "$out/bin/youtube-dl"
