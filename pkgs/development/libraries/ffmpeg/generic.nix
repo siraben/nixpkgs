@@ -370,6 +370,7 @@
   cuda_nvcc,
   libnpp,
   # Testing
+  runCommand,
   testers,
 }:
 
@@ -395,6 +396,256 @@ let
     versionOlder
     versionAtLeast
     ;
+
+  regularFeatureIf = available: enabled: configureName: package: {
+    inherit
+      available
+      enabled
+      configureName
+      package
+      ;
+    configureFlags = optionals available [ (enableFeature enabled configureName) ];
+    buildInputs = optionals enabled [ package ];
+  };
+  regularFeature = regularFeatureIf true;
+
+  # Keep regular option -> configure flag -> build input relationships together.
+  # Literal rows are intentional exceptions for shared or multiple inputs, version
+  # alternatives, CUDA toolchains, or configure-only features.
+  featureSpecs = finalVersion: [
+    (regularFeature withAlsa "alsa" alsa-lib)
+    (regularFeature withAmf "amf" amf-headers)
+    (regularFeature withAom "libaom" libaom)
+    (regularFeature withAribb24 "libaribb24" aribb24)
+    (regularFeatureIf (versionAtLeast version "6.1") withAribcaption "libaribcaption" libaribcaption)
+    (regularFeature withAss "libass" libass)
+    (regularFeature withAvisynth "avisynth" avisynthplus)
+    (regularFeature withBluray "libbluray" libbluray)
+    (regularFeature withBs2b "libbs2b" libbs2b)
+    (regularFeature withBzlib "bzlib" bzip2)
+    (regularFeature withCaca "libcaca" libcaca)
+    {
+      configureFlags = [ (enableFeature withCdio "libcdio") ];
+      buildInputs = optionals withCdio [
+        libcdio
+        libcdio-paranoia
+      ];
+    }
+    (regularFeature withCelt "libcelt" celt)
+    (regularFeature withChromaprint "chromaprint" chromaprint)
+    (regularFeature withCodec2 "libcodec2" codec2)
+    {
+      configureFlags = [ (enableFeature withCuda "cuda") ];
+      buildInputs = [ ];
+    }
+    {
+      configureFlags = [ (enableFeature withCudaLLVM "cuda-llvm") ];
+      buildInputs = [ ];
+    }
+    {
+      configureFlags = [ (enableFeature withCudaNVCC "cuda-nvcc") ];
+      buildInputs = optionals withCudaNVCC [
+        cuda_cudart
+        cuda_nvcc
+      ];
+    }
+    {
+      configureFlags = [ (enableFeature withCuvid "cuvid") ];
+      buildInputs = [ ];
+    }
+    (regularFeature withDav1d "libdav1d" dav1d)
+    (regularFeature withDavs2 "libdavs2" davs2)
+    {
+      configureFlags = [ (enableFeature withDc1394 "libdc1394") ];
+      buildInputs = optionals withDc1394 (
+        [ libdc1394 ] ++ optional stdenv.hostPlatform.isLinux libraw1394
+      );
+    }
+    (regularFeature withDrm "libdrm" libdrm)
+    (regularFeatureIf (versionAtLeast version "7") withDvdnav "libdvdnav" libdvdnav)
+    (regularFeatureIf (versionAtLeast version "7") withDvdread "libdvdread" libdvdread)
+    (regularFeature withFdkAac "libfdk-aac" fdk_aac)
+    {
+      configureFlags = [ (enableFeature withNvcodec "ffnvcodec") ];
+      buildInputs = optionals withNvcodec [
+        (if versionAtLeast version "6" then nv-codec-headers-12 else nv-codec-headers)
+      ];
+    }
+    (regularFeature withFlite "libflite" flite)
+    {
+      configureFlags = [
+        (enableFeature withFontconfig "fontconfig")
+        (enableFeature withFontconfig "libfontconfig")
+      ];
+      buildInputs = optionals withFontconfig [ fontconfig ];
+    }
+    (regularFeature withFreetype "libfreetype" freetype)
+    (regularFeature withFrei0r "frei0r" frei0r)
+    (regularFeature withFribidi "libfribidi" fribidi)
+    (regularFeature withGme "libgme" game-music-emu)
+    (regularFeature withGmp "gmp" gmp)
+    (regularFeature withGnutls "gnutls" gnutls)
+    (regularFeature withGsm "libgsm" gsm)
+    (regularFeatureIf (versionAtLeast version "6.1") withHarfbuzz "libharfbuzz" harfbuzz)
+    (regularFeature withIconv "iconv" libiconv)
+    (regularFeature withIlbc "libilbc" libilbc)
+    (regularFeature withJack "libjack" libjack2)
+    (regularFeatureIf (versionAtLeast finalVersion "5.0") withJxl "libjxl" libjxl)
+    (regularFeature withKvazaar "libkvazaar" kvazaar)
+    (regularFeature withLadspa "ladspa" ladspa-header)
+    (regularFeatureIf (versionAtLeast version "7.1") withLc3 "liblc3" liblc3)
+    (regularFeatureIf (versionAtLeast version "7.1") withLcevcdec "liblcevc-dec" lcevcdec)
+    (regularFeatureIf (versionAtLeast version "5.1") withLcms2 "lcms2" lcms2)
+    (regularFeature withLzma "lzma" xz)
+    {
+      configureFlags = optionals (versionAtLeast version "5.0") [ (enableFeature withMetal "metal") ];
+      buildInputs = [ ];
+    }
+    (regularFeature withMfx "libmfx" intel-media-sdk)
+    (regularFeature withModplug "libmodplug" libmodplug)
+    (regularFeature withMp3lame "libmp3lame" lame)
+    (regularFeature withMysofa "libmysofa" libmysofa)
+    {
+      configureFlags = [ (enableFeature withNpp "libnpp") ];
+      buildInputs = optionals withNpp [
+        libnpp
+        cuda_cudart
+        cuda_nvcc
+      ];
+    }
+    {
+      configureFlags = [ (enableFeature withNvdec "nvdec") ];
+      buildInputs = [ ];
+    }
+    {
+      configureFlags = [ (enableFeature withNvenc "nvenc") ];
+      buildInputs = [ ];
+    }
+    (regularFeature withOpenal "openal" openal)
+    (regularFeatureIf (versionAtLeast version "8.0") withOpenapv "liboapv" openapv)
+    {
+      configureFlags = [ (enableFeature withOpencl "opencl") ];
+      buildInputs = optionals withOpencl [
+        ocl-icd
+        opencl-headers
+      ];
+    }
+    {
+      configureFlags = [
+        (enableFeature withOpencoreAmrnb "libopencore-amrnb")
+        (enableFeature withOpencoreAmrwb "libopencore-amrwb")
+      ];
+      buildInputs = optionals (withOpencoreAmrnb || withOpencoreAmrwb) [ opencore-amr ];
+    }
+    {
+      configureFlags = [ (enableFeature withOpengl "opengl") ];
+      buildInputs = optionals withOpengl [
+        libGL
+        libGLU
+      ];
+    }
+    (regularFeature withOpenh264 "libopenh264" openh264)
+    (regularFeature withOpenjpeg "libopenjpeg" openjpeg)
+    (regularFeature withOpenmpt "libopenmpt" libopenmpt)
+    (regularFeature withOpus "libopus" libopus)
+    {
+      configureFlags = optionals (versionAtLeast version "5.0") [
+        (enableFeature withPlacebo "libplacebo")
+      ];
+      buildInputs = optionals withPlacebo [
+        (if versionAtLeast version "6.1" then libplacebo else libplacebo_5)
+        vulkan-headers
+      ];
+    }
+    (regularFeature withPulse "libpulse" libpulseaudio)
+    (regularFeatureIf (versionAtLeast version "7") withQrencode "libqrencode" qrencode)
+    (regularFeatureIf (versionAtLeast version "7") withQuirc "libquirc" quirc)
+    (regularFeature withRav1e "librav1e" rav1e)
+    (regularFeature withRist "librist" librist)
+    (regularFeature withRtmp "librtmp" rtmpdump)
+    (regularFeature withRubberband "librubberband" rubberband)
+    (regularFeature withSamba "libsmbclient" samba)
+    (regularFeature withSdl2 "sdl2" SDL2)
+    (regularFeatureIf (versionAtLeast version "5.0") withShaderc "libshaderc" shaderc)
+    (regularFeature withShine "libshine" shine)
+    (regularFeature withSnappy "libsnappy" snappy)
+    (regularFeature withSoxr "libsoxr" soxr)
+    (regularFeature withSpeex "libspeex" speex)
+    (regularFeature withSrt "libsrt" srt)
+    (regularFeature withSsh "libssh" libssh)
+    (regularFeature withSvg "librsvg" librsvg)
+    (regularFeature withSvtav1 "libsvtav1" svt-av1)
+    (regularFeature withTensorflow "libtensorflow" libtensorflow)
+    (regularFeature withTheora "libtheora" libtheora)
+    (regularFeature withTwolame "libtwolame" twolame)
+    (regularFeature withUavs3d "libuavs3d" uavs3d)
+    (regularFeature withV4l2 "libv4l2" libv4l)
+    {
+      configureFlags = [ (enableFeature withV4l2M2m "v4l2-m2m") ];
+      buildInputs = [ ];
+    }
+    {
+      configureFlags = [ (enableFeature withVaapi "vaapi") ];
+      buildInputs = optionals withVaapi [ (if withSmallDeps then libva else libva-minimal) ];
+    }
+    (regularFeature withVdpau "vdpau" libvdpau)
+    {
+      configureFlags = optionals (versionAtLeast version "6.0") [ (enableFeature withVpl "libvpl") ];
+      buildInputs = [ ];
+    }
+    (regularFeature withVidStab "libvidstab" vid-stab)
+    (regularFeature withVmaf "libvmaf" libvmaf)
+    (regularFeature withVoAmrwbenc "libvo-amrwbenc" vo-amrwbenc)
+    (regularFeature withVorbis "libvorbis" libvorbis)
+    {
+      configureFlags = [ ];
+      buildInputs = optionals withVpl [ libvpl ];
+    }
+    (regularFeature withVpx "libvpx" libvpx)
+    {
+      configureFlags = [ (enableFeature withVulkan "vulkan") ];
+      buildInputs = optionals withVulkan [
+        vulkan-headers
+        vulkan-loader
+      ];
+    }
+    (regularFeatureIf (versionAtLeast version "7.1") withVvenc "libvvenc" vvenc)
+    (regularFeature withWebp "libwebp" libwebp)
+    (regularFeatureIf (versionAtLeast version "8.0") withWhisper "whisper" whisper-cpp)
+    (regularFeature withX264 "libx264" x264)
+    (regularFeature withX265 "libx265" x265)
+    (regularFeature withXavs "libxavs" xavs)
+    (regularFeature withXavs2 "libxavs2" xavs2)
+    {
+      configureFlags = [
+        (enableFeature withXcb "libxcb")
+        (enableFeature withXcbShape "libxcb-shape")
+        (enableFeature withXcbShm "libxcb-shm")
+        (enableFeature withXcbxfixes "libxcb-xfixes")
+      ];
+      buildInputs = optionals withXcb [ libxcb ];
+    }
+    (regularFeatureIf (versionAtLeast version "7") withXevd "libxevd" xevd)
+    (regularFeatureIf (versionAtLeast version "7") withXeve "libxeve" xeve)
+    {
+      configureFlags = [ (enableFeature withXlib "xlib") ];
+      buildInputs = optionals withXlib [
+        libx11
+        libxv
+        libxext
+      ];
+    }
+    (regularFeature withXml2 "libxml2" libxml2)
+    (regularFeature withXvid "libxvid" xvidcore)
+    (regularFeature withZimg "libzimg" zimg)
+    (regularFeature withZlib "zlib" zlib)
+    (regularFeature withZmq "libzmq" zeromq)
+    (regularFeature withZvbi "libzvbi" zvbi)
+  ];
+
+  featureConfigureFlags =
+    finalVersion: lib.concatMap (feature: feature.configureFlags) (featureSpecs finalVersion);
+  featureBuildInputs = lib.concatMap (feature: feature.buildInputs) (featureSpecs version);
 in
 
 assert lib.elem ffmpegVariant [
@@ -592,186 +843,8 @@ stdenv.mkDerivation (
     ++ optionals withDoc [
       "--docdir=${placeholder "doc"}/share/doc/ffmpeg"
     ]
+    ++ featureConfigureFlags finalAttrs.version
     ++ [
-      # External libraries
-      (enableFeature withAlsa "alsa")
-      (enableFeature withAmf "amf")
-      (enableFeature withAom "libaom")
-      (enableFeature withAribb24 "libaribb24")
-    ]
-    ++ optionals (versionAtLeast version "6.1") [
-      (enableFeature withAribcaption "libaribcaption")
-    ]
-    ++ [
-      (enableFeature withAss "libass")
-      (enableFeature withAvisynth "avisynth")
-      (enableFeature withBluray "libbluray")
-      (enableFeature withBs2b "libbs2b")
-      (enableFeature withBzlib "bzlib")
-      (enableFeature withCaca "libcaca")
-      (enableFeature withCdio "libcdio")
-      (enableFeature withCelt "libcelt")
-      (enableFeature withChromaprint "chromaprint")
-      (enableFeature withCodec2 "libcodec2")
-      (enableFeature withCuda "cuda")
-      (enableFeature withCudaLLVM "cuda-llvm")
-      (enableFeature withCudaNVCC "cuda-nvcc")
-      (enableFeature withCuvid "cuvid")
-      (enableFeature withDav1d "libdav1d")
-      (enableFeature withDavs2 "libdavs2")
-      (enableFeature withDc1394 "libdc1394")
-      (enableFeature withDrm "libdrm")
-    ]
-    ++ optionals (versionAtLeast version "7") [
-      (enableFeature withDvdnav "libdvdnav")
-      (enableFeature withDvdread "libdvdread")
-    ]
-    ++ [
-      (enableFeature withFdkAac "libfdk-aac")
-      (enableFeature withNvcodec "ffnvcodec")
-      (enableFeature withFlite "libflite")
-      (enableFeature withFontconfig "fontconfig")
-      (enableFeature withFontconfig "libfontconfig")
-      (enableFeature withFreetype "libfreetype")
-      (enableFeature withFrei0r "frei0r")
-      (enableFeature withFribidi "libfribidi")
-      (enableFeature withGme "libgme")
-      (enableFeature withGmp "gmp")
-      (enableFeature withGnutls "gnutls")
-      (enableFeature withGsm "libgsm")
-    ]
-    ++ optionals (versionAtLeast version "6.1") [
-      (enableFeature withHarfbuzz "libharfbuzz")
-    ]
-    ++ [
-      (enableFeature withIconv "iconv")
-      (enableFeature withIlbc "libilbc")
-      (enableFeature withJack "libjack")
-    ]
-    ++ optionals (versionAtLeast finalAttrs.version "5.0") [
-      (enableFeature withJxl "libjxl")
-    ]
-    ++ [
-      (enableFeature withKvazaar "libkvazaar")
-      (enableFeature withLadspa "ladspa")
-    ]
-    ++ optionals (versionAtLeast version "7.1") [
-      (enableFeature withLc3 "liblc3")
-      (enableFeature withLcevcdec "liblcevc-dec")
-    ]
-    ++ optionals (versionAtLeast version "5.1") [
-      (enableFeature withLcms2 "lcms2")
-    ]
-    ++ [
-      (enableFeature withLzma "lzma")
-    ]
-    ++ optionals (versionAtLeast version "5.0") [
-      (enableFeature withMetal "metal")
-    ]
-    ++ [
-      (enableFeature withMfx "libmfx")
-      (enableFeature withModplug "libmodplug")
-      (enableFeature withMp3lame "libmp3lame")
-      (enableFeature withMysofa "libmysofa")
-      (enableFeature withNpp "libnpp")
-      (enableFeature withNvdec "nvdec")
-      (enableFeature withNvenc "nvenc")
-      (enableFeature withOpenal "openal")
-    ]
-    ++ optionals (versionAtLeast version "8.0") [
-      (enableFeature withOpenapv "liboapv")
-    ]
-    ++ [
-      (enableFeature withOpencl "opencl")
-      (enableFeature withOpencoreAmrnb "libopencore-amrnb")
-      (enableFeature withOpencoreAmrwb "libopencore-amrwb")
-      (enableFeature withOpengl "opengl")
-      (enableFeature withOpenh264 "libopenh264")
-      (enableFeature withOpenjpeg "libopenjpeg")
-      (enableFeature withOpenmpt "libopenmpt")
-      (enableFeature withOpus "libopus")
-    ]
-    ++ optionals (versionAtLeast version "5.0") [
-      (enableFeature withPlacebo "libplacebo")
-    ]
-    ++ [
-      (enableFeature withPulse "libpulse")
-    ]
-    ++ optionals (versionAtLeast version "7") [
-      (enableFeature withQrencode "libqrencode")
-      (enableFeature withQuirc "libquirc")
-    ]
-    ++ [
-      (enableFeature withRav1e "librav1e")
-      (enableFeature withRist "librist")
-      (enableFeature withRtmp "librtmp")
-      (enableFeature withRubberband "librubberband")
-      (enableFeature withSamba "libsmbclient")
-      (enableFeature withSdl2 "sdl2")
-    ]
-    ++ optionals (versionAtLeast version "5.0") [
-      (enableFeature withShaderc "libshaderc")
-    ]
-    ++ [
-      (enableFeature withShine "libshine")
-      (enableFeature withSnappy "libsnappy")
-      (enableFeature withSoxr "libsoxr")
-      (enableFeature withSpeex "libspeex")
-      (enableFeature withSrt "libsrt")
-      (enableFeature withSsh "libssh")
-      (enableFeature withSvg "librsvg")
-      (enableFeature withSvtav1 "libsvtav1")
-      (enableFeature withTensorflow "libtensorflow")
-      (enableFeature withTheora "libtheora")
-      (enableFeature withTwolame "libtwolame")
-      (enableFeature withUavs3d "libuavs3d")
-      (enableFeature withV4l2 "libv4l2")
-      (enableFeature withV4l2M2m "v4l2-m2m")
-      (enableFeature withVaapi "vaapi")
-      (enableFeature withVdpau "vdpau")
-    ]
-    ++ optionals (versionAtLeast version "6.0") [
-      (enableFeature withVpl "libvpl")
-    ]
-    ++ [
-      (enableFeature withVidStab "libvidstab") # Actual min. version 2.0
-      (enableFeature withVmaf "libvmaf")
-      (enableFeature withVoAmrwbenc "libvo-amrwbenc")
-      (enableFeature withVorbis "libvorbis")
-      (enableFeature withVpx "libvpx")
-      (enableFeature withVulkan "vulkan")
-    ]
-    ++ optionals (versionAtLeast version "7.1") [
-      (enableFeature withVvenc "libvvenc")
-    ]
-    ++ [
-      (enableFeature withWebp "libwebp")
-    ]
-    ++ optionals (versionAtLeast version "8.0") [
-      (enableFeature withWhisper "whisper")
-    ]
-    ++ [
-      (enableFeature withX264 "libx264")
-      (enableFeature withX265 "libx265")
-      (enableFeature withXavs "libxavs")
-      (enableFeature withXavs2 "libxavs2")
-      (enableFeature withXcb "libxcb")
-      (enableFeature withXcbShape "libxcb-shape")
-      (enableFeature withXcbShm "libxcb-shm")
-      (enableFeature withXcbxfixes "libxcb-xfixes")
-    ]
-    ++ optionals (versionAtLeast version "7") [
-      (enableFeature withXevd "libxevd")
-      (enableFeature withXeve "libxeve")
-    ]
-    ++ [
-      (enableFeature withXlib "xlib")
-      (enableFeature withXml2 "libxml2")
-      (enableFeature withXvid "libxvid")
-      (enableFeature withZimg "libzimg")
-      (enableFeature withZlib "zlib")
-      (enableFeature withZmq "libzmq")
-      (enableFeature withZvbi "libzvbi")
       # Developer flags
       (enableFeature withDebug "debug")
       (enableFeature withOptimisations "optimizations")
@@ -842,145 +915,7 @@ stdenv.mkDerivation (
     ++ optionals (lib.versionAtLeast version "6") [ texinfo ]
     ++ optionals withCudaNVCC [ cuda_nvcc ];
 
-    buildInputs =
-      [ ]
-      ++ optionals stdenv.hostPlatform.isDarwin [ apple-sdk_15 ]
-      ++ optionals withAlsa [ alsa-lib ]
-      ++ optionals withAmf [ amf-headers ]
-      ++ optionals withAom [ libaom ]
-      ++ optionals withAribb24 [ aribb24 ]
-      ++ optionals withAribcaption [ libaribcaption ]
-      ++ optionals withAss [ libass ]
-      ++ optionals withAvisynth [ avisynthplus ]
-      ++ optionals withBluray [ libbluray ]
-      ++ optionals withBs2b [ libbs2b ]
-      ++ optionals withBzlib [ bzip2 ]
-      ++ optionals withCaca [ libcaca ]
-      ++ optionals withCdio [
-        libcdio
-        libcdio-paranoia
-      ]
-      ++ optionals withCelt [ celt ]
-      ++ optionals withChromaprint [ chromaprint ]
-      ++ optionals withCodec2 [ codec2 ]
-      ++ optionals withCudaNVCC [
-        cuda_cudart
-        cuda_nvcc
-      ]
-      ++ optionals withDav1d [ dav1d ]
-      ++ optionals withDavs2 [ davs2 ]
-      ++ optionals withDc1394 ([ libdc1394 ] ++ (lib.optional stdenv.hostPlatform.isLinux libraw1394))
-      ++ optionals withDrm [ libdrm ]
-      ++ optionals withDvdnav [ libdvdnav ]
-      ++ optionals withDvdread [ libdvdread ]
-      ++ optionals withFdkAac [ fdk_aac ]
-      ++ optionals withNvcodec [
-        (if (lib.versionAtLeast version "6") then nv-codec-headers-12 else nv-codec-headers)
-      ]
-      ++ optionals withFlite [ flite ]
-      ++ optionals withFontconfig [ fontconfig ]
-      ++ optionals withFreetype [ freetype ]
-      ++ optionals withFrei0r [ frei0r ]
-      ++ optionals withFribidi [ fribidi ]
-      ++ optionals withGme [ game-music-emu ]
-      ++ optionals withGmp [ gmp ]
-      ++ optionals withGnutls [ gnutls ]
-      ++ optionals withGsm [ gsm ]
-      ++ optionals withHarfbuzz [ harfbuzz ]
-      ++ optionals withIconv [ libiconv ] # On Linux this should be in libc, do we really need it?
-      ++ optionals withIlbc [ libilbc ]
-      ++ optionals withJack [ libjack2 ]
-      ++ optionals withJxl [ libjxl ]
-      ++ optionals withKvazaar [ kvazaar ]
-      ++ optionals withLadspa [ ladspa-header ]
-      ++ optionals withLc3 [ liblc3 ]
-      ++ optionals withLcevcdec [ lcevcdec ]
-      ++ optionals withLcms2 [ lcms2 ]
-      ++ optionals withLzma [ xz ]
-      ++ optionals withMfx [ intel-media-sdk ]
-      ++ optionals withModplug [ libmodplug ]
-      ++ optionals withMp3lame [ lame ]
-      ++ optionals withMysofa [ libmysofa ]
-      ++ optionals withNpp [
-        libnpp
-        cuda_cudart
-        cuda_nvcc
-      ]
-      ++ optionals withOpenal [ openal ]
-      ++ optionals withOpenapv [ openapv ]
-      ++ optionals withOpencl [
-        ocl-icd
-        opencl-headers
-      ]
-      ++ optionals (withOpencoreAmrnb || withOpencoreAmrwb) [ opencore-amr ]
-      ++ optionals withOpengl [
-        libGL
-        libGLU
-      ]
-      ++ optionals withOpenh264 [ openh264 ]
-      ++ optionals withOpenjpeg [ openjpeg ]
-      ++ optionals withOpenmpt [ libopenmpt ]
-      ++ optionals withOpus [ libopus ]
-      ++ optionals withPlacebo [
-        (if (lib.versionAtLeast version "6.1") then libplacebo else libplacebo_5)
-        vulkan-headers
-      ]
-      ++ optionals withPulse [ libpulseaudio ]
-      ++ optionals withQrencode [ qrencode ]
-      ++ optionals withQuirc [ quirc ]
-      ++ optionals withRav1e [ rav1e ]
-      ++ optionals withRist [ librist ]
-      ++ optionals withRtmp [ rtmpdump ]
-      ++ optionals withRubberband [ rubberband ]
-      ++ optionals withSamba [ samba ]
-      ++ optionals withSdl2 [ SDL2 ]
-      ++ optionals withShaderc [ shaderc ]
-      ++ optionals withShine [ shine ]
-      ++ optionals withSnappy [ snappy ]
-      ++ optionals withSoxr [ soxr ]
-      ++ optionals withSpeex [ speex ]
-      ++ optionals withSrt [ srt ]
-      ++ optionals withSsh [ libssh ]
-      ++ optionals withSvg [ librsvg ]
-      ++ optionals withSvtav1 [ svt-av1 ]
-      ++ optionals withTensorflow [ libtensorflow ]
-      ++ optionals withTheora [ libtheora ]
-      ++ optionals withTwolame [ twolame ]
-      ++ optionals withUavs3d [ uavs3d ]
-      ++ optionals withV4l2 [ libv4l ]
-      ++ optionals withVaapi [ (if withSmallDeps then libva else libva-minimal) ]
-      ++ optionals withVdpau [ libvdpau ]
-      ++ optionals withVidStab [ vid-stab ]
-      ++ optionals withVmaf [ libvmaf ]
-      ++ optionals withVoAmrwbenc [ vo-amrwbenc ]
-      ++ optionals withVorbis [ libvorbis ]
-      ++ optionals withVpl [ libvpl ]
-      ++ optionals withVpx [ libvpx ]
-      ++ optionals withVulkan [
-        vulkan-headers
-        vulkan-loader
-      ]
-      ++ optionals withVvenc [ vvenc ]
-      ++ optionals withWebp [ libwebp ]
-      ++ optionals withWhisper [ whisper-cpp ]
-      ++ optionals withX264 [ x264 ]
-      ++ optionals withX265 [ x265 ]
-      ++ optionals withXavs [ xavs ]
-      ++ optionals withXavs2 [ xavs2 ]
-      ++ optionals withXcb [ libxcb ]
-      ++ optionals withXevd [ xevd ]
-      ++ optionals withXeve [ xeve ]
-      ++ optionals withXlib [
-        libx11
-        libxv
-        libxext
-      ]
-      ++ optionals withXml2 [ libxml2 ]
-      ++ optionals withXvid [ xvidcore ]
-      ++ optionals withZimg [ zimg ]
-      ++ optionals withZlib [ zlib ]
-      ++ optionals withZmq [ zeromq ]
-      ++ optionals withZvbi [ zvbi ];
+    buildInputs = [ ] ++ optionals stdenv.hostPlatform.isDarwin [ apple-sdk_15 ] ++ featureBuildInputs;
 
     buildFlags = [ "all" ] ++ optional buildQtFaststart "tools/qt-faststart"; # Build qt-faststart executable
 
@@ -1048,7 +983,45 @@ stdenv.mkDerivation (
 
     enableParallelBuilding = true;
 
-    passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
+    passthru.tests = {
+      pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
+      feature-spec =
+        let
+          regularFeatures = lib.filter (feature: feature ? configureName && feature.available) (
+            featureSpecs finalAttrs.version
+          );
+          expectedLine =
+            feature:
+            let
+              flag = enableFeature feature.enabled feature.configureName;
+              input = optionalString feature.enabled "\t${feature.package.name}";
+            in
+            "${flag}${input}";
+          actualLine =
+            feature:
+            let
+              flag = enableFeature feature.enabled feature.configureName;
+              actualFlag = if lib.elem flag finalAttrs.configureFlags then flag else "missing: ${flag}";
+              actualInput = optionalString feature.enabled "\t${
+                if lib.elem feature.package finalAttrs.buildInputs then feature.package.name else "missing input"
+              }";
+            in
+            "${actualFlag}${actualInput}";
+        in
+        runCommand "ffmpeg-regular-feature-spec"
+          {
+            actual = builtins.toFile "ffmpeg-regular-feature-spec-actual" (
+              lib.concatMapStringsSep "\n" actualLine regularFeatures
+            );
+            expected = builtins.toFile "ffmpeg-regular-feature-spec-expected" (
+              lib.concatMapStringsSep "\n" expectedLine regularFeatures
+            );
+          }
+          ''
+            diff -u "$expected" "$actual"
+            touch "$out"
+          '';
+    };
 
     meta = {
       description = "Complete, cross-platform solution to record, convert and stream audio and video";
