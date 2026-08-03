@@ -32,6 +32,6 @@ python3Packages.buildPythonApplication (finalAttrs: {
     mainProgram = "termdown";
     longDescription = "Countdown timer and stopwatch in your terminal";
     homepage = "https://github.com/trehn/termdown";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
   };
 })

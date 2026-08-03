@@ -85,7 +85,7 @@ let
     meta = {
       description = "Free and Open Source Reverse Engineering Platform powered by rizin";
       homepage = src.meta.homepage;
-      license = lib.licenses.gpl3;
+      license = lib.licenses.gpl3Only;
       mainProgram = "cutter";
       maintainers = with lib.maintainers; [ mic92 ];
       inherit (rizin.meta) platforms;

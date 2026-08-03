@@ -133,7 +133,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
   meta = {
     description = "Interactive terminal multitool for tabular data";
     mainProgram = "visidata";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [
       raskin
       markus1189

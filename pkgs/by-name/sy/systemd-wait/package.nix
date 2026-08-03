@@ -25,7 +25,7 @@ python3Packages.buildPythonApplication {
 
   meta = {
     homepage = "https://github.com/Stebalien/systemd-wait";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
     description = "Wait for a systemd unit to enter a specific state";
     mainProgram = "systemd-wait";
     maintainers = [ lib.maintainers.benley ];

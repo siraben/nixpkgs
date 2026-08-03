@@ -81,7 +81,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
       to control lighting effects and more on GNU/Linux.
     '';
     changelog = "https://github.com/polychromatic/polychromatic/releases/tag/v${finalAttrs.version}";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [
       evanjs

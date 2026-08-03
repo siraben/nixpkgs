@@ -20,7 +20,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   meta = {
     description = "TCP connection hijacker";
     homepage = "https://github.com/kpcyrd/rshijack";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ xrelkd ];
     platforms = lib.platforms.unix;
     mainProgram = "rshijack";

@@ -65,7 +65,7 @@ buildGoModule (finalAttrs: {
     license = with lib.licenses; [
       bsd2
       bsd3
-      gpl3
+      gpl3Plus
     ];
     maintainers = with lib.maintainers; [
       thoughtpolice

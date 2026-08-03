@@ -32,7 +32,7 @@ let
   common = pname: src: {
     inherit pname version src;
 
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
     homepage = "https://tamarin-prover.github.io";
     description = "Security protocol verification in the symbolic model";
     maintainers = [ lib.maintainers.thoughtpolice ];

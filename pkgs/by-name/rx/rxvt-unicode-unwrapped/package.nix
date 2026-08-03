@@ -170,7 +170,7 @@ stdenv.mkDerivation {
     downloadPage = "http://dist.schmorp.de/rxvt-unicode/Attic/";
     maintainers = with lib.maintainers; [ rnhmjoj ];
     platforms = lib.platforms.unix;
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     mainProgram = "urxvt";
   };
 }

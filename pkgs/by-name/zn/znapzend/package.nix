@@ -73,7 +73,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "High performance open source ZFS backup with mbuffer and ssh support";
     homepage = "https://www.znapzend.org";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [
       otwieracz
       ma27

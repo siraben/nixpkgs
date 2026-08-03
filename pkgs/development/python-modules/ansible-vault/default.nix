@@ -65,7 +65,7 @@ buildPythonPackage (finalAttrs: {
     description = "R/W an ansible-vault yaml file";
     homepage = "https://github.com/tomoh1r/ansible-vault";
     changelog = "https://github.com/tomoh1r/ansible-vault/blob/master/CHANGES.txt";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ StillerHarpo ];
   };
 })

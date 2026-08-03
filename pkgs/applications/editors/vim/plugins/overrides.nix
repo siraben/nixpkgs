@@ -6115,7 +6115,7 @@ assertNoAdditions {
     meta = old.meta // {
       description = "Code-completion engine for Vim";
       homepage = "https://github.com/Valloric/YouCompleteMe";
-      license = lib.licenses.gpl3;
+      license = lib.licenses.gpl3Plus;
       maintainers = with lib.maintainers; [
         mel
       ];

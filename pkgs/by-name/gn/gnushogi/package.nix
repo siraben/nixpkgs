@@ -32,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "GNU implementation of Shogi, also known as Japanese Chess";
     mainProgram = "gnushogi";
     homepage = "https://www.gnu.org/software/gnushogi/";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = [ ];
     platforms = lib.platforms.unix;
   };

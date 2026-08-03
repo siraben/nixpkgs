@@ -53,7 +53,7 @@ stdenv.mkDerivation {
       released on its own.
     '';
     homepage = "https://github.com/alols/xcape";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ raskin ];
     platforms = lib.platforms.linux;
     mainProgram = "xcape";

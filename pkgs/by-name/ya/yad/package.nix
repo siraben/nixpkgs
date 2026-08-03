@@ -69,7 +69,7 @@ stdenv.mkDerivation (finalAttrs: {
       dialogs, pop-up menu in notification icon and more.
     '';
 
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     mainProgram = "yad";
     maintainers = with lib.maintainers; [ RoGreat ];
     platforms = with lib.platforms; linux;

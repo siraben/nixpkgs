@@ -44,7 +44,7 @@ buildPythonPackage (finalAttrs: {
   meta = {
     description = "pytest plugin that adds the ability to filter test cases by an associated ticket of a tracker of your choice";
     homepage = "https://github.com/next-actions/pytest-ticket";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ joaosreis ];
   };
 })

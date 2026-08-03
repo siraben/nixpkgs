@@ -30,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://github.com/jpfleury/clearlooks-phenix";
     downloadPage = "https://github.com/jpfleury/clearlooks-phenix/releases";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.prikhi ];
     platforms = lib.platforms.linux;
   };

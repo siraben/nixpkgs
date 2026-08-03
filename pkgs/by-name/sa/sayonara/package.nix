@@ -75,7 +75,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Sayonara music player";
     homepage = "https://sayonara-player.com/";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = [ ];
     platforms = lib.platforms.unix;
   };

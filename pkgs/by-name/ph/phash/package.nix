@@ -43,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Compute the perceptual hash of an image";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.imalsogreg ];
     platforms = lib.platforms.all;
     homepage = "http://www.phash.org";

@@ -43,6 +43,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Used to break the encryption on old Microsoft Excel and Microsoft Word files";
     mainProgram = "crackxls2003";
     platforms = lib.platforms.linux;
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
   };
 })

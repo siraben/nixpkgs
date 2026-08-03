@@ -66,7 +66,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Minimal Application using the QCSXCAD library";
     mainProgram = "AppCSXCAD";
     homepage = "https://github.com/thliebig/AppCSXCAD";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ matthuszagh ];
     platforms = lib.platforms.linux;
   };

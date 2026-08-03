@@ -42,7 +42,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
       q treats ordinary files as database tables, and supports all SQL constructs, such as WHERE, GROUP BY, JOINs etc. It supports automatic column name and column type detection, and provides full support for multiple encodings.
     '';
     homepage = "http://harelba.github.io/q/";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.taneb ];
     platforms = lib.platforms.all;
     mainProgram = "q";

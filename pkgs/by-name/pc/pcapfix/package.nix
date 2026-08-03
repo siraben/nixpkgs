@@ -18,7 +18,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "https://f00l.de/pcapfix/";
     description = "Repair your broken pcap and pcapng files";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.all;
     mainProgram = "pcapfix";
   };

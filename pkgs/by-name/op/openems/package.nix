@@ -81,7 +81,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Open Source Electromagnetic Field Solver";
     homepage = "https://wiki.openems.de/index.php/Main_Page.html";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ matthuszagh ];
     platforms = lib.platforms.linux;
   };

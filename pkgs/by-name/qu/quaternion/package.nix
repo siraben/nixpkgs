@@ -54,7 +54,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Cross-platform desktop IM client for the Matrix protocol";
     mainProgram = "quaternion";
     homepage = "https://matrix.org/ecosystem/clients/quaternion/";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ peterhoeg ];
   };
 })

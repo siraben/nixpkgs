@@ -70,7 +70,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "brewtarget";
     homepage = "https://www.brewtarget.beer";
     changelog = "https://github.com/Brewtarget/brewtarget/releases/tag/v${finalAttrs.version}";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.all;
     maintainers = with lib.maintainers; [
       avnik

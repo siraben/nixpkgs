@@ -21,6 +21,6 @@ stdenv.mkDerivation rec {
     description = "Shell Script Compiler";
     mainProgram = "shc";
     platforms = lib.platforms.all;
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
   };
 }

@@ -48,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Comprehensive update to the PLINK association analysis toolset";
     mainProgram = "plink";
     homepage = "https://www.cog-genomics.org/plink2";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
   };
 })

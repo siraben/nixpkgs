@@ -25,7 +25,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     homepage = "https://github.com/yboetz/pyznap";
     description = "ZFS snapshot tool written in python";
     mainProgram = "pyznap";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ rbrewer ];
   };
 })

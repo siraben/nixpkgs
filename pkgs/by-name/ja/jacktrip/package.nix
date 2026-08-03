@@ -74,8 +74,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://jacktrip.github.io/jacktrip/";
     changelog = "https://github.com/jacktrip/jacktrip/releases/tag/v${finalAttrs.version}";
     license = with lib.licenses; [
-      gpl3
-      lgpl3
+      gpl3Plus
+      lgpl3Only
       mit
     ];
     maintainers = with lib.maintainers; [ iwanb ];

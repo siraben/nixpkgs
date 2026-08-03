@@ -48,7 +48,7 @@ buildPythonPackage (finalAttrs: {
     description = "pytest plugin that allows you to run shell commands and scripts over SSH on remote Linux or Windows hosts";
     homepage = "https://github.com/next-actions/pytest-mh";
     changelog = "https://github.com/next-actions/pytest-mh/releases/tag/${finalAttrs.src.tag}";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ joaosreis ];
   };
 })

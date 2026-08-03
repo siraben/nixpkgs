@@ -48,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "This server for TiMBL implements several memory-based learning algorithms";
     homepage = "https://github.com/LanguageMachines/timblserver/";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.all;
     maintainers = with lib.maintainers; [ roberth ];
 

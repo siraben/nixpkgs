@@ -94,7 +94,7 @@ clangStdenv.mkDerivation rec {
     description = "Vector motion graphics program";
     longDescription = "Friction is a powerful and versatile motion graphics application that allows you to create stunning vector and raster animations for web and video platforms with ease.";
     homepage = "https://friction.graphics/";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ socksy ];
     mainProgram = "friction";

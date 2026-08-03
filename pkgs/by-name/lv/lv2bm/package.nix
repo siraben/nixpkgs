@@ -41,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "https://github.com/portalmod/lv2bm";
     description = "Benchmark tool for LV2 plugins";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.magnetophon ];
     platforms = lib.platforms.linux;
     mainProgram = "lv2bm";

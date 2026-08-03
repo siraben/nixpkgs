@@ -27,6 +27,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/tgalal/python-axolotl";
     description = "Python port of libaxolotl-android";
     maintainers = [ ];
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
   };
 }

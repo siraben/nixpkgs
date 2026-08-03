@@ -49,7 +49,7 @@ buildPythonApplication {
   meta = {
     description = "Native Linux GUI for Chromecasting local files";
     homepage = "https://github.com/keredson/gnomecast";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
     broken = stdenv.hostPlatform.isDarwin;
     mainProgram = "gnomecast";
   };

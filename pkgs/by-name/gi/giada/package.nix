@@ -89,7 +89,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Free, minimal, hardcore audio tool for DJs, live performers and electronic musicians";
     mainProgram = "giada";
     homepage = "https://giadamusic.com/";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ kashw2 ];
     platforms = lib.platforms.all;
   };

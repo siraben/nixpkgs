@@ -60,6 +60,6 @@ stdenv.mkDerivation {
     description = "Official LastFM library";
     platforms = lib.platforms.unix;
     maintainers = [ ];
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
   };
 }

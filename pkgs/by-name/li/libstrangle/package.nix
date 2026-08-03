@@ -53,7 +53,7 @@ stdenv_32bit.mkDerivation {
   meta = {
     homepage = "https://gitlab.com/torkel104/libstrangle";
     description = "Frame rate limiter for Linux/OpenGL";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = [ "x86_64-linux" ];
     maintainers = with lib.maintainers; [ aske ];
     mainProgram = "strangle";

@@ -49,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Open-Source, Automated Benchmarking";
     homepage = "https://www.phoronix-test-suite.com/";
     maintainers = with lib.maintainers; [ davidak ];
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = with lib.platforms; unix;
     mainProgram = "phoronix-test-suite";
   };

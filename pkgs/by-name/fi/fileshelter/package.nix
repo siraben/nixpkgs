@@ -57,7 +57,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "One-click file sharing web application";
     mainProgram = "fileshelter";
     maintainers = [ ];
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = [ "x86_64-linux" ];
   };
 })

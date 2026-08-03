@@ -29,7 +29,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     description = "Paste text into X windows that don't work with selections";
     mainProgram = "xpaste";
     homepage = "https://github.com/ossobv/xpaste";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ gador ];
   };
 })

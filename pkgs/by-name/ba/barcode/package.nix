@@ -31,6 +31,6 @@ stdenv.mkDerivation (finalAttrs: {
     platforms = lib.platforms.unix;
     downloadPage = "https://ftp.gnu.org/gnu/barcode/";
     homepage = "https://www.gnu.org/software/barcode/";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
   };
 })

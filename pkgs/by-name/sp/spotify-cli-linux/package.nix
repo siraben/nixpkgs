@@ -36,7 +36,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     maintainers = [ lib.maintainers.kmein ];
     description = "Command line interface to Spotify on Linux";
     mainProgram = "spotifycli";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
     platforms = lib.platforms.linux;
   };
 })

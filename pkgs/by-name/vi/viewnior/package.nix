@@ -83,7 +83,7 @@ stdenv.mkDerivation {
       with the quality of it's functions. The program is made with better integration
       in mind (follows Gnome HIG2).
     '';
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     homepage = "https://siyanpanayotov.com/project/viewnior/";
     maintainers = with lib.maintainers; [
       artturin

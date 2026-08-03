@@ -91,7 +91,7 @@ stdenv.mkDerivation (finalAttrs: {
       developed by Arkane Studios.
     '';
     homepage = "https://arx-libertatis.org/";
-    license = licenses.gpl3;
+    license = licenses.gpl3Plus;
     maintainers = with maintainers; [ rnhmjoj ];
     platforms = platforms.linux;
   };

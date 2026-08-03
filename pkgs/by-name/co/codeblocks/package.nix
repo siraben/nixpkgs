@@ -75,6 +75,6 @@ stdenv.mkDerivation rec {
       Finally, an IDE with all the features you need, having a consistent look, feel and operation across platforms.
     '';
     homepage = "http://www.codeblocks.org";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
   };
 }

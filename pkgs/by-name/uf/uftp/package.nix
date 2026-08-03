@@ -34,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Encrypted UDP based FTP with multicast";
     homepage = "https://uftp-multicast.sourceforge.net/";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = with lib.platforms; linux ++ darwin;
   };
 })

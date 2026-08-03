@@ -92,7 +92,7 @@ stdenv.mkDerivation (finalAttrs: {
       screenshot upon displaying info, and even customizing the screenshot
       command! This script is very easy to add to and can easily be extended.
     '';
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     homepage = "https://github.com/KittyKatt/screenFetch";
     maintainers = with lib.maintainers; [ relrod ];
     platforms = lib.platforms.all;

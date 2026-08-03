@@ -41,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Scan HDD/SSD for failed and near failed sectors";
     platforms = with lib.platforms; linux;
     maintainers = with lib.maintainers; [ peterhoeg ];
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     mainProgram = "diskscan";
   };
 })

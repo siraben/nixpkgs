@@ -40,7 +40,7 @@ stdenv.mkDerivation {
   meta = {
     description = "Only backup program that doesn't make backups";
     homepage = "https://github.com/miekg/rdup";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ sternenseemann ];
   };

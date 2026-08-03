@@ -207,7 +207,7 @@ stdenv.mkDerivation (finalAttrs: {
       # Must be GPL3 when building with "technologies that require it,
       # such as the VST3 audio plugin interface".
       # https://github.com/audacity/audacity/discussions/2142.
-      gpl3
+      gpl3Only
       # Documentation.
       cc-by-30
     ];

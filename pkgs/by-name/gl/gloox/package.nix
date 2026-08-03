@@ -53,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Portable high-level Jabber/XMPP library for C++";
     mainProgram = "gloox-config";
     homepage = "http://camaya.net/gloox";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.philocalyst ];
     platforms = lib.platforms.unix;
   };

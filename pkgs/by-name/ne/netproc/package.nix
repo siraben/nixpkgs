@@ -26,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Tool to monitor network traffic based on processes";
     homepage = "https://github.com/berghetti/netproc";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     mainProgram = "netproc";
     maintainers = [ lib.maintainers.azuwis ];
     platforms = lib.platforms.linux;

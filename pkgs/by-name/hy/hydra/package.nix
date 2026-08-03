@@ -277,7 +277,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Nix-based continuous build system";
     homepage = "https://nixos.org/hydra";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [
       conni2461

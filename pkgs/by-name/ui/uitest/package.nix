@@ -30,6 +30,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/Grumbel/uitest";
     maintainers = [ lib.maintainers.SchweGELBin ];
     platforms = lib.platforms.linux;
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
   };
 }

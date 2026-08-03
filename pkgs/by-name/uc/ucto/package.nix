@@ -71,7 +71,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Rule-based tokenizer for natural language";
     mainProgram = "ucto";
     homepage = "https://languagemachines.github.io/ucto/";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.all;
     maintainers = with lib.maintainers; [ roberth ];
 

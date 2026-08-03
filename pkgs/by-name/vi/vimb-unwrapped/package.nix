@@ -52,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
       keyboard driven and does not detract you from your daily work.
     '';
     homepage = "https://fanglingsu.github.io/vimb/";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = [ ];
     platforms = lib.platforms.linux;
   };

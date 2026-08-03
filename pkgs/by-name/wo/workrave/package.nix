@@ -91,7 +91,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "http://www.workrave.org/";
     downloadPage = "https://github.com/rcaelers/workrave/releases";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ prikhi ];
     platforms = lib.platforms.linux;
   };

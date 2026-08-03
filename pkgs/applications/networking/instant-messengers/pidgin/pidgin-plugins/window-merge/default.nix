@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://github.com/dm0-/window_merge";
     description = "Pidgin plugin that merges the Buddy List window with a conversation window";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
     maintainers = [ ];
   };

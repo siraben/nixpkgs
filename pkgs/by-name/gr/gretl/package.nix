@@ -58,7 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Software package for econometric analysis";
     homepage = "https://gretl.sourceforge.net";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     longDescription = ''
       gretl is a cross-platform software package for econometric analysis,
       written in the C programming language.

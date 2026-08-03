@@ -30,7 +30,7 @@ buildPythonPackage (finalAttrs: {
     description = "Library to parse SML byte streams";
     homepage = "https://github.com/spacemanspiff2007/SmlLib";
     changelog = "https://github.com/spacemanspiff2007/SmlLib/releases/tag/${finalAttrs.version}";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ hensoko ];
   };
 })

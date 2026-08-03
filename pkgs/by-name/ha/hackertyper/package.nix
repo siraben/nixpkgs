@@ -27,7 +27,7 @@ stdenv.mkDerivation {
   meta = {
     description = "C rewrite of hackertyper.net";
     homepage = "https://github.com/hyasynthesized/Hackertyper";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.marius851000 ];
     mainProgram = "hackertyper";
   };

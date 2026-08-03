@@ -49,7 +49,7 @@ buildPythonPackage rec {
     mainProgram = "diceware";
     homepage = "https://github.com/ulif/diceware";
     changelog = "https://github.com/ulif/diceware/blob/v${version}/CHANGES.rst";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ asymmetric ];
   };
 }

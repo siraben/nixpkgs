@@ -201,7 +201,7 @@ stdenv.mkDerivation {
   meta = {
     description = "Elegant Linux app for the Elgato Stream Deck with support for plugins";
     homepage = "https://streamcontroller.core447.com/";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     mainProgram = "streamcontroller";
     maintainers = with lib.maintainers; [ sifmelcara ];
     platforms = lib.platforms.linux;

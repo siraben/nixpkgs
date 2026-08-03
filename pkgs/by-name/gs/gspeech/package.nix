@@ -83,7 +83,7 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
     description = "Minimal GUI for the Text To Speech 'Svox Pico'. Read clipboard or selected text in different languages and manage it : pause, stop, replay";
     homepage = "https://github.com/mothsART/gSpeech";
     maintainers = with lib.maintainers; [ mothsart ];
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
     platforms = lib.platforms.unix;
   };
 })

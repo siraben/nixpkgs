@@ -85,7 +85,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Analysis for Finnish text";
     homepage = "https://github.com/flammie/omorfi";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ lurkki ];
     # Darwin build fails due to hfst not being found
     broken = stdenv.hostPlatform.isDarwin;

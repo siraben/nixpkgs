@@ -43,7 +43,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   meta = {
     description = "Dark SDDM theme from the sugar family";
     homepage = "https://github.com/MarianArlt/sddm-sugar-dark";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ danid3v ];
   };

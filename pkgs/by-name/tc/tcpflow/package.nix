@@ -54,7 +54,7 @@ stdenv.mkDerivation (finalAttrs: {
       protocol analysis and debugging.
     '';
     inherit (finalAttrs.src.meta) homepage;
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [
       raskin
       obadz

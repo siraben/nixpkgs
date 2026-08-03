@@ -59,7 +59,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "This module contains useful functions for general use in the TiCC software stack and beyond";
     homepage = "https://github.com/LanguageMachines/ticcutils";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.all;
     maintainers = with lib.maintainers; [ roberth ];
   };

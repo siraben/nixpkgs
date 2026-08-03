@@ -38,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://www.nongnu.org/xlog";
     maintainers = [ lib.maintainers.mafo ];
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.unix;
     mainProgram = "xlog";
     broken = stdenv.hostPlatform.isDarwin;

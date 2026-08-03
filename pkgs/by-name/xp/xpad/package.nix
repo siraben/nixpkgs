@@ -45,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Sticky note application for jotting down things to remember";
     mainProgram = "xpad";
     homepage = "https://launchpad.net/xpad";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ michalrus ];
   };

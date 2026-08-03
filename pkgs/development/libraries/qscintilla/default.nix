@@ -72,7 +72,7 @@ stdenv.mkDerivation (finalAttrs: {
       background colours and multiple fonts.
     '';
     homepage = "https://www.riverbankcomputing.com/software/qscintilla/intro";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ peterhoeg ];
     platforms = lib.platforms.unix;
   };

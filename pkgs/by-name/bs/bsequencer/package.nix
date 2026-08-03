@@ -33,6 +33,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Multi channel MIDI step sequencer LV2 plugin";
     maintainers = [ lib.maintainers.magnetophon ];
     platforms = lib.platforms.linux;
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
   };
 })

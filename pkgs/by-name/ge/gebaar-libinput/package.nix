@@ -42,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Gebaar, A Super Simple WM Independent Touchpad Gesture Daemon for libinput";
     mainProgram = "gebaard";
     homepage = "https://github.com/Coffee2CodeNL/gebaar-libinput";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [
       lovesegfault

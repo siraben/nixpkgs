@@ -42,7 +42,7 @@ buildPythonPackage (finalAttrs: {
     description = "Library for Partially Homomorphic Encryption in Python";
     mainProgram = "pheutil";
     homepage = "https://github.com/data61/python-paillier";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ tomasajt ];
   };
 })

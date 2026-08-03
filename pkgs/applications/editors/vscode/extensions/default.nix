@@ -859,7 +859,7 @@ let
           description = "VSCode extension for writing polytonic Greek";
           downloadPage = "https://marketplace.visualstudio.com/items?itemName=Capatech.betacode";
           homepage = "https://github.com/kugland/vscode-extension-betacode";
-          license = lib.licenses.gpl3;
+          license = lib.licenses.gpl3Plus;
           maintainers = with lib.maintainers; [ thtrf ];
         };
       };
@@ -1399,7 +1399,7 @@ let
           description = "Makes judging, compiling, and downloading problems for competitive programming easy. Also supports auto-submit for a few sites";
           downloadPage = "https://marketplace.visualstudio.com/items?itemName=DivyanshuAgrawal.competitive-programming-helper";
           homepage = "https://github.com/agrawal-d/cph";
-          license = lib.licenses.gpl3;
+          license = lib.licenses.gpl3Plus;
           maintainers = [ lib.maintainers.arcticlimer ];
         };
       };
@@ -1572,7 +1572,7 @@ let
           description = "Adwaita VS Code theme with GitHub syntax highlighting";
           downloadPage = "https://marketplace.visualstudio.com/items?itemName=egirlcatnip.adwaita-github-theme";
           homepage = "https://github.com/egirlcatnip/adwaita-github-theme";
-          license = lib.licenses.gpl3;
+          license = lib.licenses.gpl3Only;
           maintainers = with lib.maintainers; [ thtrf ];
         };
       };
@@ -3829,7 +3829,7 @@ let
           description = "Theme for the GNOME desktop";
           downloadPage = "https://marketplace.visualstudio.com/items?itemName=piousdeer.adwaita-theme";
           homepage = "https://github.com/piousdeer/vscode-adwaita";
-          license = lib.licenses.gpl3;
+          license = lib.licenses.gpl3Only;
           maintainers = [ lib.maintainers.wyndon ];
         };
       };

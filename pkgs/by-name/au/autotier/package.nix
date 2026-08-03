@@ -88,7 +88,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "https://github.com/45Drives/autotier";
     description = "Passthrough FUSE filesystem that intelligently moves files between storage tiers based on frequency of use, file age, and tier fullness";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ jadewilk ];
     mainProgram = "autotier"; # cli, for file system use autotierfs
     platforms = lib.platforms.linux; # uses io_uring so only available on linux not unix

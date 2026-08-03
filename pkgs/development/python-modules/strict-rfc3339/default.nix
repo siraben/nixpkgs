@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   meta = {
     homepage = "https://github.com/danielrichman/strict-rfc3339";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     description = "Strict, simple, lightweight RFC3339 functions";
     maintainers = with lib.maintainers; [ vanschelven ];
   };

@@ -31,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
       resource demands and meaningful control interfaces.
     '';
     homepage = "http://www.quitte.de/dsp/caps.html";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
   };
 })

@@ -46,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Native messaging host to integrate uGet Download Manager with web browsers";
     mainProgram = "uget-integrator";
     homepage = "https://github.com/ugetdm/uget-integrator";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.romildo ];
   };

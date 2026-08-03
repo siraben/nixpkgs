@@ -48,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
       on a specific workspace.
     '';
     homepage = "https://www.nongnu.org/devilspie2/";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
     mainProgram = "devilspie2";
   };

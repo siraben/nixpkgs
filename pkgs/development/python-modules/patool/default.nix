@@ -84,7 +84,7 @@ buildPythonPackage rec {
     description = "Portable archive file manager";
     mainProgram = "patool";
     homepage = "https://wummel.github.io/patool/";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ marius851000 ];
   };
 }

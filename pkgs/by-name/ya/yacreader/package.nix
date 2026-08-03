@@ -110,7 +110,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Comic reader for cross-platform reading and managing your digital comic collection";
     homepage = "https://www.yacreader.com";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
     mainProgram = "YACReader";
     maintainers = [ ];
   };

@@ -75,7 +75,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "Simple password manager written in Rust";
     mainProgram = "ripasso-cursive";
     homepage = "https://github.com/cortex/ripasso";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ sgo ];
     platforms = lib.platforms.unix;
   };

@@ -41,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Command-line download/upload tool for popular file sharing websites";
     homepage = "https://github.com/mcrapet/plowshare";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ aforemny ];
     platforms = lib.platforms.linux;
   };

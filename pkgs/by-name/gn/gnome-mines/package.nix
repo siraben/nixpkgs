@@ -57,7 +57,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Clear hidden mines from a minefield";
     mainProgram = "gnome-mines";
     teams = [ lib.teams.gnome ];
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.unix;
   };
 })

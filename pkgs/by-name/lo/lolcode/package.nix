@@ -46,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
       LOLCODE is a funny esoteric  programming language, a bit Pascal-like,
       whose keywords are LOLspeak.
     '';
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = [ ];
     mainProgram = "lolcode-lci";
     platforms = lib.platforms.unix;

@@ -73,7 +73,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Real-time audio visualizer inspired by MiniMeters";
     homepage = "https://github.com/Audio-Solutions/pulse-visualizer";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ miyu ];
     platforms = lib.platforms.x86_64;
     badPlatforms = lib.platforms.darwin;

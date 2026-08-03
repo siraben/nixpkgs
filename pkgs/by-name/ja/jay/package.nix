@@ -81,7 +81,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   meta = {
     description = "Wayland compositor written in Rust";
     homepage = "https://github.com/mahkoh/jay";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ uku3lig ];
     mainProgram = "jay";

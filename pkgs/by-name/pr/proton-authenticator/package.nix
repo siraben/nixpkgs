@@ -94,7 +94,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       For the pre-built binary version, use proton-authenticator-bin instead.
     '';
     homepage = "https://proton.me/authenticator";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [
       demic-dev
       pbek

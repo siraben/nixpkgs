@@ -100,7 +100,7 @@ in
         fusion809
         msteen
       ];
-      license = licenses.gpl3;
+      license = licenses.gpl3Plus;
       platforms = platforms.linux;
     };
   };

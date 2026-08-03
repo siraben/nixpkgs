@@ -194,6 +194,6 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
     homepage = "https://launchpad.net/onboard";
     description = "Onscreen keyboard useful for tablet PC users and for mobility impaired users";
     maintainers = [ ];
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
   };
 })

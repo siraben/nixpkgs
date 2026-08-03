@@ -37,7 +37,7 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
     mainProgram = "bitbake-language-server";
     homepage = "https://github.com/Freed-Wu/bitbake-language-server";
     changelog = "https://github.com/Freed-Wu/bitbake-language-server/releases/tag/${finalAttrs.version}";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
     maintainers = [ lib.maintainers.otavio ];
   };
 })

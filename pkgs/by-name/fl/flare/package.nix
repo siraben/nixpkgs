@@ -29,7 +29,7 @@ buildEnv {
       McSinyx
     ];
     license = [
-      lib.licenses.gpl3
+      lib.licenses.gpl3Plus
       lib.licenses.cc-by-sa-30
     ];
     platforms = lib.platforms.unix;

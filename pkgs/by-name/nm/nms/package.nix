@@ -27,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
       A command line tool that recreates the famous data decryption
       effect seen in the 1992 movie Sneakers.
     '';
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = [ ];
     platforms = lib.platforms.unix;
   };

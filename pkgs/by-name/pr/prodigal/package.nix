@@ -24,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Fast, reliable protein-coding gene prediction for prokaryotic genomes";
     mainProgram = "prodigal";
     homepage = "https://github.com/hyattpd/Prodigal";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.all;
     maintainers = with lib.maintainers; [ luispedro ];
   };

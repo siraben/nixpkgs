@@ -42,7 +42,7 @@ stdenvNoCC.mkDerivation {
   meta = {
     description = "Full set of Faba monochrome panel icons";
     homepage = "https://snwh.org/moka";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     # moka-icon-theme dependency is restricted to linux
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ romildo ];

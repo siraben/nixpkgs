@@ -124,7 +124,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Internet radio player for linux";
     homepage = "https://github.com/ebruck/radiotray-ng";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.somasis ];
     platforms = lib.platforms.linux;
   };

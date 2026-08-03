@@ -36,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Command line utility to communicate with ModBus slave (RTU or TCP)";
     homepage = "https://epsilonrt.fr";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     mainProgram = "mbpoll";
     platforms = lib.platforms.linux;
   };

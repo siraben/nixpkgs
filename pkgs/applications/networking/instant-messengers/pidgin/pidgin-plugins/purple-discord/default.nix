@@ -36,7 +36,7 @@ stdenv.mkDerivation {
   meta = {
     homepage = "https://github.com/EionRobb/purple-discord";
     description = "Discord plugin for Pidgin";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ sna ];
   };

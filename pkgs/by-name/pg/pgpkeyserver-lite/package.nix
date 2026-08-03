@@ -23,7 +23,7 @@ stdenv.mkDerivation {
   meta = {
     homepage = "https://github.com/mattrude/pgpkeyserver-lite";
     description = "Lightweight static front-end for a sks keyserver";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ calbrecht ];
   };
 }

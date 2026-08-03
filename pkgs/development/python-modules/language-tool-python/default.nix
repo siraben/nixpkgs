@@ -34,7 +34,7 @@ buildPythonPackage rec {
   meta = {
     description = "Free python grammar checker";
     homepage = "https://github.com/jxmorris12/language_tool_python";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ justdeeevin ];
     platforms = lib.platforms.all;
     changelog = "https://github.com/jxmorris12/language_tool_python/releases/tag/${src.tag}";

@@ -62,7 +62,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Successor of clalsadrv, provides easy access to ALSA PCM devices";
     version = finalAttrs.version;
     homepage = "http://kokkinizita.linuxaudio.org/linuxaudio/downloads/index.html";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.magnetophon ];
     platforms = lib.platforms.linux;
   };

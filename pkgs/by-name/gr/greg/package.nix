@@ -27,7 +27,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     homepage = "https://github.com/manolomartinez/greg";
     description = "Command-line podcast aggregator";
     mainProgram = "greg";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ edwtjo ];
   };
 })

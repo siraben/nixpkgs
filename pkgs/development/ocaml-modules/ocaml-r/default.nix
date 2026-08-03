@@ -47,7 +47,7 @@ buildDunePackage (finalAttrs: {
   meta = {
     description = "OCaml bindings for the R interpreter";
     homepage = "https://github.com/pveber/ocaml-r/";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.bcdarwin ];
   };
 

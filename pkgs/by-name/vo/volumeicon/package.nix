@@ -41,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://nullwise.com/pages/volumeicon/volumeicon.html";
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ bobvanderlinden ];
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
     mainProgram = "volumeicon";
   };
 })

@@ -50,7 +50,7 @@ stdenvNoCC.mkDerivation rec {
     description = "Podcast aggregator optimized for running as a scheduled job (i.e. cron) on Linux";
     homepage = "https://github.com/dvehrs/podget";
     changelog = "https://github.com/dvehrs/podget/blob/dev/Changelog";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.all;
     maintainers = with lib.maintainers; [ _9R ];
     mainProgram = "podget";

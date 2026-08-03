@@ -42,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Ultra-fast single-node solution for large and complex metagenomics assembly via succinct de Bruijn graph";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     homepage = "https://github.com/voutcn/megahit";
     maintainers = with lib.maintainers; [ luispedro ];
     platforms = [ "x86_64-linux" ];

@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "urxvt plugin allowing user to easily complete arbitrary text";
     homepage = "https://github.com/Vifon/autocomplete-ALL-the-things";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ nickhu ];
     platforms = with lib.platforms; unix;
   };

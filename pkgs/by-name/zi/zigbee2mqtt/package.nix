@@ -58,7 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/Koenkk/zigbee2mqtt/releases/tag/${finalAttrs.version}";
     description = "Zigbee to MQTT bridge using zigbee-shepherd";
     homepage = "https://github.com/Koenkk/zigbee2mqtt";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
     longDescription = ''
       Allows you to use your Zigbee devices without the vendor's bridge or gateway.
 

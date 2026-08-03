@@ -48,7 +48,7 @@ buildPythonPackage {
   meta = {
     homepage = "https://github.com/allefeld/pytikz";
     description = "Python interface to TikZ";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ pbsds ];
   };
 }

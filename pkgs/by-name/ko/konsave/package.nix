@@ -32,7 +32,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     mainProgram = "konsave";
     maintainers = with lib.maintainers; [ MoritzBoehme ];
     homepage = "https://github.com/Prayag2/konsave";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
   };
 })

@@ -105,7 +105,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "clightd";
     homepage = "https://github.com/FedeDP/Clightd";
     platforms = lib.platforms.linux;
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [
       eadwu
     ];

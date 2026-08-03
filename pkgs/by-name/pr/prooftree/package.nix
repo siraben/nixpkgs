@@ -47,6 +47,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "http://askra.de/software/prooftree";
     platforms = lib.platforms.unix;
     maintainers = [ lib.maintainers.jwiegley ];
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
   };
 })

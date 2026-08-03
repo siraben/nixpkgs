@@ -60,7 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/LekKit/RVVM";
     description = "RISC-V Virtual Machine";
     license = with lib.licenses; [
-      gpl3 # or
+      gpl3Plus # or
       mpl20
     ];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;

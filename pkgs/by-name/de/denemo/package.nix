@@ -101,7 +101,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Music notation and composition software used with lilypond";
     homepage = "http://denemo.org";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.olynch ];
   };

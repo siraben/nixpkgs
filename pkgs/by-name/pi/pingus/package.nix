@@ -81,6 +81,6 @@ stdenv.mkDerivation {
       raskin
       SchweGELBin
     ];
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
   };
 }

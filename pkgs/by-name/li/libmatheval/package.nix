@@ -53,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
       symbolic derivatives and output expressions to strings.
     '';
     homepage = "https://www.gnu.org/software/libmatheval/";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.bzizou ];
     platforms = lib.platforms.unix;
   };

@@ -73,7 +73,7 @@ stdenv.mkDerivation {
       It interacts with OpenGribs's Grib server providing a choice
       of global and large area atmospheric and wave models.
     '';
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.all;
   };
 }

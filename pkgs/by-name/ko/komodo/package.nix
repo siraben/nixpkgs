@@ -64,6 +64,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
       r17x
       channinghe
     ];
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
   };
 })

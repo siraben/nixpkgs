@@ -131,7 +131,7 @@ stdenv.mkDerivation rec {
       astro
       marenz
     ];
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     mainProgram = "FIRESTARTER";
   };
 }

@@ -57,7 +57,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Fast, indexed regexp search over large file trees";
     homepage = "https://github.com/sc0ty/grip";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.all;
     maintainers = [ ];
   };

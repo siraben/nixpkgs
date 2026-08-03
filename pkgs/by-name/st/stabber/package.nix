@@ -37,7 +37,7 @@ stdenv.mkDerivation {
     description = "Stubbed XMPP Server";
     mainProgram = "stabber";
     homepage = "https://github.com/profanity-im/stabber";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ hschaeidt ];
   };

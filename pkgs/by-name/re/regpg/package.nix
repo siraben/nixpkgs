@@ -50,7 +50,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "GPG wrapper utility for storing secrets in VCS";
     mainProgram = "regpg";
     homepage = "https://dotat.at/prog/regpg";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.all;
     maintainers = with lib.maintainers; [ _0xC45 ];
   };

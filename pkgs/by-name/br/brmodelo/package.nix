@@ -125,7 +125,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Entity-relationship diagram tool for making conceptual and logical database models";
     homepage = "https://github.com/chcandido/brModelo";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     mainProgram = "brmodelo";
     maintainers = [ ];
   };

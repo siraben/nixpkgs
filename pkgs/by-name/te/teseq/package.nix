@@ -19,7 +19,7 @@ stdenv.mkDerivation {
   meta = {
     homepage = "https://www.gnu.org/software/teseq/";
     description = "Escape sequence illuminator";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
 
     platforms = lib.platforms.unix;
     maintainers = [ lib.maintainers.vaibhavsagar ];

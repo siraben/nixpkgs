@@ -32,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Fast-paced action strategy game";
     homepage = "https://a-nikolaev.github.io/curseofwar/";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     mainProgram = if withSDL then "curseofwar-sdl" else "curseofwar";
     maintainers = with lib.maintainers; [ fgaz ];
     platforms = lib.platforms.all;

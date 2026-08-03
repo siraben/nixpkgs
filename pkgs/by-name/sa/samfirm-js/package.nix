@@ -26,7 +26,7 @@ buildNpmPackage {
   meta = {
     description = "Program for downloading Samsung firmware";
     homepage = "https://github.com/DavidArsene/samfirm.js";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ ungeskriptet ];
     mainProgram = "samfirm-js";
   };

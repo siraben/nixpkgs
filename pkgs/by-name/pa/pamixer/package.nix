@@ -52,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://github.com/cdemoulins/pamixer";
     maintainers = with lib.maintainers; [ thiagokokada ];
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
     mainProgram = "pamixer";
   };

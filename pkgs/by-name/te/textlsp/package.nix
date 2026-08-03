@@ -32,7 +32,7 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
   meta = {
     description = "Language server for text spell and grammar check with various tools";
     homepage = "https://github.com/hangyav/textLSP/tree/main";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ justdeeevin ];
     mainProgram = "textlsp";
     changelog = "https://github.com/hangyav/textLSP/releases/tag/v${finalAttrs.version}";

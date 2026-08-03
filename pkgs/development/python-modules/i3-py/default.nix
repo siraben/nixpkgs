@@ -23,7 +23,7 @@ buildPythonPackage (finalAttrs: {
   meta = {
     description = "Tools for i3 users and developers";
     homepage = "https://github.com/ziberna/i3-py";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.unix;
   };
 })

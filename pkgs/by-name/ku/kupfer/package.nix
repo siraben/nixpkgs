@@ -66,7 +66,7 @@ buildPythonApplication (finalAttrs: {
   meta = {
     description = "Smart, quick launcher";
     homepage = "https://kupferlauncher.github.io/";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ cobbal ];
     platforms = lib.platforms.linux;
   };

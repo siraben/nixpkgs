@@ -62,7 +62,7 @@ stdenvNoCC.mkDerivation rec {
     description = "Write-only command-line Discord webhook integration written in 100% Bash script";
     mainProgram = "discord.sh";
     homepage = "https://github.com/fieu/discord.sh";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ matthewcroughan ];
   };

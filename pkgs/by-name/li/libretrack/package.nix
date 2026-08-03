@@ -46,7 +46,7 @@ flutter329.buildFlutterApplication rec {
     description = "Private, cross-platform package tracking app";
     homepage = "https://github.com/proninyaroslav/libretrack";
     changelog = "https://github.com/proninyaroslav/libretrack/releases/tag/${version}";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ genga898 ];
     mainProgram = "libretrack";
     platforms = lib.platforms.linux;

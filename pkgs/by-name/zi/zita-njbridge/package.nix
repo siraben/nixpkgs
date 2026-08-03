@@ -33,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Command line Jack clients to transmit full quality multichannel audio over a local IP network";
     homepage = "http://kokkinizita.linuxaudio.org/linuxaudio/index.html";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.magnetophon ];
     platforms = lib.platforms.linux;
   };

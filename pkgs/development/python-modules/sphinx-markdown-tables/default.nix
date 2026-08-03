@@ -26,6 +26,6 @@ buildPythonPackage rec {
   meta = {
     description = "Sphinx extension for rendering tables written in markdown";
     homepage = "https://github.com/ryanfox/sphinx-markdown-tables";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
   };
 }

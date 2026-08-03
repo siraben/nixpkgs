@@ -39,7 +39,7 @@ buildGoModule {
     homepage = "https://github.com/Stebalien/localtime";
     maintainers = with lib.maintainers; [ lovesegfault ];
     platforms = lib.platforms.linux;
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
     mainProgram = "localtimed";
   };
 }

@@ -59,7 +59,7 @@ buildPythonPackage rec {
     description = "Flash firmware to STM32 microcontrollers in Python";
     mainProgram = "stm32loader";
     homepage = "https://github.com/florisla/stm32loader";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = [ ];
   };
 }

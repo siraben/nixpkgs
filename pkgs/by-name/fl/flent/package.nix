@@ -59,7 +59,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
   meta = {
     description = "FLExible Network Tester";
     homepage = "https://flent.org";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ mmlb ];
     mainProgram = "flent";
     badPlatforms = lib.platforms.darwin;

@@ -88,7 +88,7 @@ python3Packages.buildPythonApplication rec {
     changelog = "https://github.com/sharkwouter/minigalaxy/blob/${version}/CHANGELOG.md";
     downloadPage = "https://github.com/sharkwouter/minigalaxy/releases";
     description = "Simple GOG client for Linux";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ RoGreat ];
     platforms = lib.platforms.linux;
   };

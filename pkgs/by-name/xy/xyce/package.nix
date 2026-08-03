@@ -208,7 +208,7 @@ stdenv.mkDerivation rec {
       large-scale parallel computing platforms.
     '';
     homepage = "https://xyce.sandia.gov";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ fbeffa ];
     platforms = [ "x86_64-linux" ];
   };

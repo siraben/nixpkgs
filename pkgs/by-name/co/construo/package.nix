@@ -50,7 +50,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Masses and springs simulation game";
     mainProgram = "construo.x11";
     homepage = "http://fs.fsf.org/construo/";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     priority = 10;
   };
 })

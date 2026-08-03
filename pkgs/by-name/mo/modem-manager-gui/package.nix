@@ -80,7 +80,7 @@ stdenv.mkDerivation (finalAttrs: {
       messages, control mobile traffic consumption and more.
     '';
     homepage = "https://linuxonly.ru/page/modem-manager-gui";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [
       ahuzik
       galagora

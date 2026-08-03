@@ -35,7 +35,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     homepage = "https://github.com/JonnyHaystack/i3-resurrect";
     description = "Simple but flexible solution to saving and restoring i3 workspaces";
     mainProgram = "i3-resurrect";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ magnetophon ];
   };

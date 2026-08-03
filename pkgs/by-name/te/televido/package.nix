@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Viewer for German-language public broadcasting live streams and archives";
     homepage = "https://github.com/d-k-bo/televido";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     mainProgram = "televido";
     maintainers = with lib.maintainers; [ seineeloquenz ];
     platforms = lib.platforms.linux;

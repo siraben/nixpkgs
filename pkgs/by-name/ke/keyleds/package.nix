@@ -63,7 +63,7 @@ stdenv.mkDerivation {
   meta = {
     homepage = "https://github.com/keyleds/keyleds";
     description = "Advanced RGB animation service for Logitech keyboards";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ GaetanLepage ];
   };

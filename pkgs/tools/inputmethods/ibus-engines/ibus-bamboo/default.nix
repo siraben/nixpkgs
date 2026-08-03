@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     isIbusEngine = true;
     description = "Vietnamese IME for IBus";
     homepage = "https://github.com/BambooEngine/ibus-bamboo";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
     maintainers = [ ];
   };

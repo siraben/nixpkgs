@@ -96,7 +96,7 @@ buildPythonPackage (finalAttrs: {
     changelog = "https://docs.mailman3.org/projects/hyperkitty/en/latest/news.html";
     homepage = "https://www.gnu.org/software/mailman/";
     description = "Archiver for GNU Mailman v3";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ qyliss ];
   };

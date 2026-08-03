@@ -41,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Digital Speech Decoder (DSD) rewritten as a C++ library";
     homepage = "https://github.com/f4exb/dsdcc";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     mainProgram = "dsdccx";
     maintainers = with lib.maintainers; [ alexwinter ];
     platforms = lib.platforms.unix;

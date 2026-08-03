@@ -21,7 +21,7 @@ buildPythonPackage rec {
   meta = {
     homepage = "https://github.com/crustymonkey/py-sonic";
     description = "Python wrapper library for the Subsonic REST API";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ wenngle ];
   };
 }

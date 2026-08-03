@@ -25,7 +25,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "Terminal User Interface (TUI) budget tracker";
     changelog = "https://github.com/Feromond/budget_tracker_tui/releases/tag/${finalAttrs.src.tag}";
     mainProgram = "Budget_Tracker";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ tomasrivera ];
   };
 })

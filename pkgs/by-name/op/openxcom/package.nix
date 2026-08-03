@@ -49,7 +49,7 @@ stdenv.mkDerivation {
     description = "Open source clone of UFO: Enemy Unknown";
     mainProgram = "openxcom";
     homepage = "https://openxcom.org";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = [ ];
     platforms = lib.platforms.linux;
   };

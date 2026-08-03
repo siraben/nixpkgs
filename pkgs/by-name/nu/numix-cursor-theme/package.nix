@@ -35,7 +35,7 @@ stdenvNoCC.mkDerivation rec {
   meta = {
     description = "Numix cursor theme";
     homepage = "https://numixproject.github.io";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.all;
     maintainers = [ ];
   };

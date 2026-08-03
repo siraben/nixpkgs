@@ -46,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "C interface library to i3wm";
     homepage = "https://github.com/altdesktop/i3ipc-glib";
     maintainers = with lib.maintainers; [ teto ];
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
   };
 })

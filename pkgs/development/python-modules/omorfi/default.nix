@@ -23,7 +23,7 @@ buildPythonPackage rec {
   meta = {
     description = "Python interface for Omorfi";
     homepage = "https://github.com/flammie/omorfi";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ lurkki ];
   };
 }

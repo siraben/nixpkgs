@@ -54,7 +54,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://cgi.csc.liv.ac.uk/~ullrich/CLProver++/";
     maintainers = with lib.maintainers; [ mgttlinger ];
     platforms = with lib.platforms; linux ++ windows;
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     mainProgram = if stdenv.targetPlatform.isWindows then "CLProver++.exe" else "CLProver++";
   };
 })

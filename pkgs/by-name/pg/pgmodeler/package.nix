@@ -81,7 +81,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Database modeling tool for PostgreSQL";
     homepage = "https://pgmodeler.io/";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
     maintainers = [ lib.maintainers.esclear ];
     platforms = lib.platforms.unix;
   };

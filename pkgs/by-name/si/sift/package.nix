@@ -43,6 +43,6 @@ buildGoModule (finalAttrs: {
     mainProgram = "sift";
     homepage = "https://sift-tool.org";
     maintainers = with lib.maintainers; [ viraptor ];
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
   };
 })

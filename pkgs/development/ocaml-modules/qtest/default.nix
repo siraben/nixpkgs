@@ -29,6 +29,6 @@ buildDunePackage (finalAttrs: {
     mainProgram = "qtest";
     inherit (finalAttrs.src.meta) homepage;
     maintainers = with lib.maintainers; [ vbgl ];
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
   };
 })

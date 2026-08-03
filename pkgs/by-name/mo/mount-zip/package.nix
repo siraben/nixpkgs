@@ -57,7 +57,7 @@ stdenv.mkDerivation (finalAttrs: {
 
       This project is a fork of fuse-zip.
     '';
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [
       arti5an
       progrm_jarvis

@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     description = "Audio spectral analysis plugin for OBS";
     homepage = "https://github.com/phandasm/waveform";
     maintainers = with lib.maintainers; [ matthewcroughan ];
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     # Hard coded x86_64 support
     platforms = [ "x86_64-linux" ];
   };

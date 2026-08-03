@@ -37,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Simple script to deflicker images taken for timelapses";
     mainProgram = "timelapse-deflicker";
     homepage = "https://github.com/cyberang3l/timelapse-deflicker";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ valeriangalliat ];
     platforms = lib.platforms.unix;
   };

@@ -41,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
       access. By doing this, cdparanoia runs on platforms other than GNU/Linux.
     '';
     homepage = "https://github.com/libcdio/libcdio-paranoia";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = [ ];
     mainProgram = "cd-paranoia";
     platforms = lib.platforms.unix;

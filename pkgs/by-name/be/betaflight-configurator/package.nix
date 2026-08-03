@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/betaflight/betaflight/wiki";
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ wucke13 ];
     platforms = lib.platforms.linux;
   };

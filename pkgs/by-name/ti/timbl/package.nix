@@ -57,7 +57,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "TiMBL implements several memory-based learning algorithms";
     mainProgram = "timbl";
     homepage = "https://github.com/LanguageMachines/timbl/";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.all;
     maintainers = with lib.maintainers; [ roberth ];
 

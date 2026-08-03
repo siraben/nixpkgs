@@ -25,7 +25,7 @@ python3.pkgs.buildPythonPackage rec {
       me_cleaner is a Python script able to modify an Intel ME firmware image
       with the final purpose of reducing its ability to interact with the system.
     '';
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = [ ];
     mainProgram = "me_cleaner.py";
   };

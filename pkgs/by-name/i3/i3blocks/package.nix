@@ -36,7 +36,7 @@ stdenv.mkDerivation {
     description = "Flexible scheduler for your i3bar blocks";
     mainProgram = "i3blocks";
     homepage = "https://github.com/vivien/i3blocks";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = with lib.platforms; freebsd ++ linux;
   };
 }

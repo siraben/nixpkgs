@@ -33,7 +33,7 @@ stdenv.mkDerivation {
   meta = {
     homepage = "https://github.com/eyal0/Marlin";
     description = "Marlin 3D printer timing simulator";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = [ ];
     platforms = lib.platforms.unix;
     broken = stdenv.hostPlatform.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/marlin-calc.x86_64-darwin

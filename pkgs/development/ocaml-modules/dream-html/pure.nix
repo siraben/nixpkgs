@@ -24,7 +24,7 @@ buildDunePackage (finalAttrs: {
     description = "Write HTML directly in your OCaml source files with editor support";
     homepage = "https://github.com/yawaramin/dream-html";
     changelog = "https://raw.githubusercontent.com/yawaramin/dream-html/refs/tags/v${finalAttrs.version}/CHANGES.md";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.naora ];
   };
 })

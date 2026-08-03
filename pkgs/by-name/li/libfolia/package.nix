@@ -59,7 +59,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "C++ API for FoLiA documents; an XML-based linguistic annotation format";
     mainProgram = "folialint";
     homepage = "https://proycon.github.io/folia/";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.all;
     maintainers = with lib.maintainers; [ roberth ];
 

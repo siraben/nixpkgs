@@ -47,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Calculate display info like DPI and aspect ratio";
     homepage = "https://github.com/cassidyjames/dippi";
     mainProgram = "com.cassidyjames.dippi";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ zendo ];
   };

@@ -32,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Evolutionary simulation framework";
     homepage = "https://messerlab.org/slim/";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ bzizou ];
     platforms = lib.platforms.all;
   };

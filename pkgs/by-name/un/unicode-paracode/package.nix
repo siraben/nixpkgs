@@ -49,7 +49,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
   meta = {
     description = "Display unicode character properties";
     homepage = "https://github.com/garabik/unicode";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
     maintainers = [ lib.maintainers.woffs ];
     mainProgram = "unicode";
     platforms = lib.platforms.all;

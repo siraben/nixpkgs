@@ -41,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "LV2 plugin for broadband noise reduction";
     homepage = "https://github.com/lucianodato/noise-repellent";
     changelog = "https://github.com/lucianodato/noise-repellent/releases/tag/v${finalAttrs.version}";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.magnetophon ];
     platforms = lib.platforms.unix;
   };

@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
       and fingerprint IP hosts on the local network.
     '';
     homepage = "https://github.com/royhills/arp-scan/wiki/arp-scan-User-Guide";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
     maintainers = with lib.maintainers; [
       bjornfor

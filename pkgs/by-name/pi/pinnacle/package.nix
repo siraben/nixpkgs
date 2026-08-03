@@ -44,7 +44,7 @@ let
   meta = {
     description = "A WIP Smithay-based Wayland compositor, inspired by AwesomeWM and configured in Lua or Rust";
     homepage = "https://pinnacle-comp.github.io/pinnacle/";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     mainProgram = "pinnacle";
     platforms = lib.platforms.linux;
     badPlatforms = [

@@ -96,7 +96,7 @@ resholve.mkDerivation (finalAttrs: {
   meta = {
     description = "Git powered FTP client written as shell script";
     homepage = "https://git-ftp.github.io/";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ tweber ];
     platforms = lib.platforms.unix;
     mainProgram = "git-ftp";

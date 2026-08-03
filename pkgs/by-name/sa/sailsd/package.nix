@@ -46,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Simulator daemon for autonomous sailing boats";
     homepage = "https://github.com/sails-simulator/sailsd";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     longDescription = ''
       Sails is a simulator designed to test the AI of autonomous sailing
       robots. It emulates the basic physics of sailing a small single sail

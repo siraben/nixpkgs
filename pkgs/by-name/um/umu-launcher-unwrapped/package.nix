@@ -96,7 +96,7 @@ python3Packages.buildPythonPackage rec {
     description = "Unified launcher for Windows games on Linux using the Steam Linux Runtime and Tools";
     changelog = "https://github.com/Open-Wine-Components/umu-launcher/releases/tag/${version}";
     homepage = "https://github.com/Open-Wine-Components/umu-launcher";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
     mainProgram = "umu-run";
     maintainers = with lib.maintainers; [
       MattSturgeon

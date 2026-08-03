@@ -61,7 +61,7 @@ stdenvNoCC.mkDerivation {
   meta = {
     description = "Modern looking qt6 sddm theme";
     homepage = "https://github.com/Keyitdev/sddm-astronaut-theme";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [
       danid3v

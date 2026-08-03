@@ -70,7 +70,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Qt Tox client";
     mainProgram = "qtox";
     homepage = "https://tox.chat";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [
       akaWolf
       peterhoeg

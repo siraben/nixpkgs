@@ -85,7 +85,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "https://colobot.info/";
     description = "Real-time strategy game with programmable bots";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = [ ];
     platforms = lib.platforms.linux;
   };

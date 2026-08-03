@@ -46,7 +46,7 @@ stdenv.mkDerivation {
   meta = {
     homepage = "https://github.com/svn-all-fast-export/svn2git";
     description = "Fast-import based converter for an svn repo to git repos";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.all;
     maintainers = [ lib.maintainers.flokli ];
     mainProgram = "svn-all-fast-export";

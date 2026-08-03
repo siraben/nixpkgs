@@ -111,7 +111,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "https://github.com/anilibria/anilibria-winmaclinux";
     description = "AniLiberty (ex AniLibria) cross platform desktop client, an anime theater for any computer you own";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ _3JlOy-PYCCKUi ];
     inherit (qt6Packages.qtbase.meta) platforms;
     mainProgram = "AniLiberty";

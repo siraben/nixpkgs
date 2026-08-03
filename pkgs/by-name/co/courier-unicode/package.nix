@@ -26,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "http://www.courier-mta.org/unicode/";
     description = "Courier Unicode Library is used by most other Courier packages";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
   };
 })

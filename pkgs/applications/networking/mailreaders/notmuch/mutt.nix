@@ -49,7 +49,7 @@ stdenv.mkDerivation {
     description = "Mutt support for notmuch";
     mainProgram = "notmuch-mutt";
     homepage = "https://notmuchmail.org/";
-    license = with lib.licenses; gpl3;
+    license = with lib.licenses; gpl3Plus;
     maintainers = with lib.maintainers; [ peterhoeg ];
     platforms = lib.platforms.unix;
   };

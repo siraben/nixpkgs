@@ -55,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Set of LADSPA and LV2 plugins for guitar sound processing";
     homepage = "https://github.com/olegkapitonov/Kapitonov-Plugins-Pack";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ magnetophon ];
   };

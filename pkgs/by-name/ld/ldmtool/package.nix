@@ -54,7 +54,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Tool and library for managing Microsoft Windows Dynamic Disks";
     homepage = "https://github.com/mdbooth/libldm";
     maintainers = with lib.maintainers; [ jensbin ];
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
     mainProgram = "ldmtool";
   };

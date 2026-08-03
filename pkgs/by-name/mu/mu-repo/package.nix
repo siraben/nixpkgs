@@ -35,7 +35,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
   meta = {
     description = "Tool to help in dealing with multiple git repositories";
     homepage = "http://fabioz.github.io/mu-repo/";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ sikmir ];
     mainProgram = "mu";

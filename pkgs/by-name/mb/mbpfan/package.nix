@@ -22,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Daemon that uses input from coretemp module and sets the fan speed using the applesmc module";
     mainProgram = "mbpfan";
     homepage = "https://github.com/linux-on-mac/mbpfan";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
     maintainers = [ ];
   };

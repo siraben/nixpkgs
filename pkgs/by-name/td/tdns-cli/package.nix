@@ -20,7 +20,7 @@ rustPlatform.buildRustPackage {
   meta = {
     description = "DNS tool that aims to replace dig and nsupdate";
     homepage = "https://github.com/rotty/tdns-cli";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ astro ];
     mainProgram = "tdns";
   };

@@ -102,7 +102,7 @@ python3Packages.buildPythonApplication rec {
     description = "Collection of more than 1000 solitaire card games";
     mainProgram = "pysol.py";
     homepage = "https://pysolfc.sourceforge.io";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = [ ];
   };
 }

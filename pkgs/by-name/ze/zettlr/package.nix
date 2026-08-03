@@ -45,7 +45,7 @@ appimageTools.wrapType2 rec {
     homepage = "https://www.zettlr.com";
     platforms = [ "x86_64-linux" ];
     maintainers = with lib.maintainers; [ maj0e ];
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
     mainProgram = "zettlr";
   };
 }

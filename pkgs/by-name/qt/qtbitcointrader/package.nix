@@ -42,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Bitcoin trading client";
     mainProgram = "QtBitcoinTrader";
     homepage = "https://centrabit.com/";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = libsForQt5.qtbase.meta.platforms;
   };
 })

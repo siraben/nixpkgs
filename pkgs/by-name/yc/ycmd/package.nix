@@ -133,7 +133,7 @@ stdenv.mkDerivation {
     '';
     mainProgram = "ycmd";
     homepage = "https://github.com/ycm-core/ycmd";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [
       mel
       S0AndS0

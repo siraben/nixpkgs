@@ -71,7 +71,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "CPU/GPU miner in c for bitcoin";
     mainProgram = "cgminer";
     homepage = "https://github.com/ckolivas/cgminer";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [
       mmahut
     ];

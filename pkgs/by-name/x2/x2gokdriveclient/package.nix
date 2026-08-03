@@ -68,7 +68,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "x2gokdriveclient";
     homepage = "https://x2go.org/";
     maintainers = with lib.maintainers; [ juliabru ];
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
   };
 })

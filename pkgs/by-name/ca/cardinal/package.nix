@@ -100,7 +100,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Plugin wrapper around VCV Rack";
     homepage = "https://github.com/DISTRHO/cardinal";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [
       magnetophon
       PowerUser64

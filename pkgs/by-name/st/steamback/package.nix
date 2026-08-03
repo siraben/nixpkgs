@@ -55,7 +55,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     description = "Decky plugin to add versioned save-game snapshots to Steam-cloud enabled games";
     mainProgram = "steamback";
     homepage = "https://github.com/geeksville/steamback";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ AngryAnt ];
   };
 })

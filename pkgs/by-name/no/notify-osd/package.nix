@@ -65,7 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Daemon that displays passive pop-up notifications";
     mainProgram = "notify-osd";
     homepage = "https://launchpad.net/notify-osd";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ bodil ];
     platforms = lib.platforms.linux;
   };

@@ -30,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "GNU Go - A computer go player";
     mainProgram = "gnugo";
     homepage = "https://www.gnu.org/software/gnugo/";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.unix;
   };
 })

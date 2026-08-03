@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
     description = "Modern and open-source cross-platform software for chips reverse engineering";
     mainProgram = "Degate";
     homepage = "https://degate.readthedocs.io/";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ ris ];
   };

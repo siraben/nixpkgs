@@ -69,6 +69,6 @@ buildPythonPackage rec {
     description = "Python wrapper for ppl";
     homepage = "https://gitlab.com/videlec/pplpy";
     teams = [ lib.teams.sage ];
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
   };
 }

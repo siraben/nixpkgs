@@ -70,7 +70,7 @@ python3Packages.buildPythonApplication rec {
     description = "MTK reverse engineering and flash tool";
     homepage = "https://github.com/bkerler/mtkclient";
     mainProgram = "mtk";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
     sourceProvenance = with lib.sourceTypes; [
       # loaders, preloaders and exploit payloads
       binaryFirmware

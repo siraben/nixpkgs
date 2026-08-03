@@ -28,7 +28,7 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
   meta = {
     homepage = "https://github.com/genomematt/xenomapper";
     description = "Utility for post processing mapped reads that have been aligned to a primary genome and a secondary genome and binning reads into species specific, multimapping in each species, unmapped and unassigned bins";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.all;
     maintainers = [ lib.maintainers.jbedo ];
   };

@@ -145,7 +145,7 @@ python3.pkgs.buildPythonApplication {
     description = "Decentralized P2P filesharing client based on the Bittorrent protocol";
     homepage = "https://www.tribler.org/";
     changelog = "https://github.com/Tribler/tribler/releases/tag/v${version}";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [
       mkg20001
       mlaradji

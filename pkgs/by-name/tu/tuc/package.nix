@@ -20,7 +20,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "When cut doesn't cut it";
     mainProgram = "tuc";
     homepage = "https://github.com/riquito/tuc";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = [ ];
   };
 })

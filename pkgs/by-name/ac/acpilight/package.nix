@@ -40,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "https://gitlab.com/wavexx/acpilight";
     description = "ACPI backlight control";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ smakarov ];
     platforms = lib.platforms.linux;
     mainProgram = "xbacklight";

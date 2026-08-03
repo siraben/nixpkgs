@@ -90,7 +90,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     description = "Front-end to glxinfo, vulkaninfo, clinfo and es2_info";
     changelog = "https://github.com/arunsivaramanneo/GPU-Viewer/releases/tag/${finalAttrs.src.tag}";
     maintainers = with lib.maintainers; [ GaetanLepage ];
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
     mainProgram = "gpu-viewer";
   };

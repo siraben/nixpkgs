@@ -364,7 +364,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.samba.org";
     changelog = "https://www.samba.org/samba/history/samba-${finalAttrs.version}.html";
     description = "Standard Windows interoperability suite of programs for Linux and Unix";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.unix;
     broken = enableGlusterFS;
     maintainers = with lib.maintainers; [ aneeshusa ];

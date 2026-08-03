@@ -155,7 +155,7 @@ in
       real-world radio systems.
     '';
     homepage = "https://www.gnuradio.org";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [
       doronbehar

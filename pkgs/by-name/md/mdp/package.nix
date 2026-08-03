@@ -24,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/visit1985/mdp";
     description = "Command-line based markdown presentation tool";
     maintainers = with lib.maintainers; [ matthiasbeyer ];
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = with lib.platforms; unix;
     mainProgram = "mdp";
   };

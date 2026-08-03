@@ -48,7 +48,7 @@ stdenv.mkDerivation {
   meta = {
     description = "High performance peer-to-peer hub for the ADC network";
     homepage = "https://www.uhub.org/";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.unix;
   };
 }

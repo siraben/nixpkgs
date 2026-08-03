@@ -60,7 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
       Games can be created easily using the editor.
     '';
     homepage = "https://www.solarus-games.org";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ marcin-serwin ];
     platforms = lib.platforms.linux;
   };

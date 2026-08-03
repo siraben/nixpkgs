@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
       vskilet
       ma27
     ];
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.all;
   };
 }

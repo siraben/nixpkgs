@@ -198,7 +198,7 @@ stdenv.mkDerivation rec {
       (e.g. adding python modules for scripts that would require them, etc.)
       on https://nixos.org/nixpkgs/manual/#sec-weechat .
     '';
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ abbe ];
     mainProgram = "weechat";
     platforms = lib.platforms.unix;

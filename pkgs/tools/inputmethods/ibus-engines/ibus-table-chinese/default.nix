@@ -37,7 +37,7 @@ stdenv.mkDerivation {
     isIbusEngine = true;
     description = "Chinese tables for IBus-Table";
     homepage = "https://github.com/mike-fabian/ibus-table-chinese";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
     maintainers = [ ];
   };

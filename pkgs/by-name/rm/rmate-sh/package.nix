@@ -53,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://github.com/aurora/rmate";
     platforms = lib.platforms.linux;
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ pbsds ];
     mainProgram = "rmate";
   };

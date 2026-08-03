@@ -82,7 +82,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Note editor designed to remain simple to use";
     mainProgram = "bijiben";
     homepage = "https://gitlab.gnome.org/GNOME/gnome-notes";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     teams = [ lib.teams.gnome ];
     platforms = lib.platforms.linux;
   };

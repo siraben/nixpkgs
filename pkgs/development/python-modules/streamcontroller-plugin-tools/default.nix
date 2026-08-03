@@ -27,7 +27,7 @@ buildPythonPackage rec {
   meta = {
     description = "StreamController plugin tools";
     homepage = "https://github.com/StreamController/streamcontroller-plugin-tools";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ sifmelcara ];
     platforms = lib.platforms.linux;
   };

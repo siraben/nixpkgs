@@ -53,7 +53,7 @@ stdenv.mkDerivation {
   meta = {
     description = "Sega Model 3 Arcade Emulator";
     homepage = "https://github.com/trzy/supermodel";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     longDescription = ''
       Supermodel requires specific files to be present in the $HOME directory of
       the user running the emulator. To ensure these files are present, move the

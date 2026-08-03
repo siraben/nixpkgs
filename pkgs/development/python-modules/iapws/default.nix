@@ -20,7 +20,7 @@ buildPythonPackage rec {
   meta = {
     description = "Python implementation of standard from IAPWS";
     homepage = "https://github.com/jjgomera/iapws";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ dawidsowa ];
   };
 }
