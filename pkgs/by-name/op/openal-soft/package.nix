@@ -65,7 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "OpenAL alternative";
     homepage = "https://openal-soft.org/";
     changelog = "https://github.com/kcat/openal-soft/blob/master/ChangeLog";
-    license = lib.licenses.lgpl2;
+    license = lib.licenses.lgpl2Plus;
     pkgConfigModules = [ "openal" ];
     maintainers = [ ];
     platforms = lib.platforms.unix;

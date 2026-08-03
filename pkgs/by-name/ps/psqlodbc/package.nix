@@ -60,7 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "https://odbc.postgresql.org/";
     description = "ODBC driver for PostgreSQL";
-    license = lib.licenses.lgpl2;
+    license = lib.licenses.lgpl2Plus;
     platforms = lib.platforms.unix;
     teams = libpq.meta.teams;
   };

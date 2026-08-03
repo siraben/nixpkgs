@@ -62,7 +62,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://mdbtools.github.io/";
     license = with lib.licenses; [
       gpl2Plus
-      lgpl2
+      lgpl2Plus
     ];
     platforms = lib.platforms.unix;
   };

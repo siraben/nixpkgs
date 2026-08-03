@@ -28,7 +28,7 @@ buildDunePackage (finalAttrs: {
     description = "Library for multicore parallel programming";
     downloadPage = "https://github.com/rdicosmo/parmap";
     homepage = "https://rdicosmo.github.io/parmap";
-    license = lib.licenses.lgpl2;
+    license = lib.licenses.lgpl2Plus;
     maintainers = with lib.maintainers; [ bcdarwin ];
   };
 })

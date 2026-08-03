@@ -70,6 +70,6 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "ASCII art graphics library";
     platforms = lib.platforms.unix;
-    license = lib.licenses.lgpl2;
+    license = lib.licenses.lgpl2Plus;
   };
 })

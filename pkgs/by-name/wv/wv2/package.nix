@@ -53,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Excellent MS Word filter lib, used in most Office suites";
     mainProgram = "wv2-config";
-    license = lib.licenses.lgpl2;
+    license = lib.licenses.lgpl2Only;
     homepage = "https://wvware.sourceforge.net";
   };
 })

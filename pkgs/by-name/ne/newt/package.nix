@@ -94,7 +94,7 @@ stdenv.mkDerivation rec {
     mainProgram = "whiptail";
     homepage = "https://pagure.io/newt";
     changelog = "https://pagure.io/newt/blob/master/f/CHANGES";
-    license = lib.licenses.lgpl2;
+    license = lib.licenses.lgpl2Only;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ bryango ];
   };

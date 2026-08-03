@@ -48,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "https://calf-studio-gear.org";
     description = "Set of high quality open source audio plugins for musicians";
-    license = lib.licenses.lgpl2;
+    license = lib.licenses.lgpl2Plus;
     maintainers = [ ];
     platforms = lib.platforms.linux;
     mainProgram = "calfjackhost";

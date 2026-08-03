@@ -18,6 +18,6 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "libcdaudio-config";
     homepage = "https://libcdaudio.sourceforge.net";
     platforms = lib.platforms.linux;
-    license = lib.licenses.lgpl2;
+    license = lib.licenses.lgpl2Plus;
   };
 })

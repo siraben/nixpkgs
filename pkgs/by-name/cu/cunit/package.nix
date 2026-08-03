@@ -39,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     homepage = "https://cunit.sourceforge.net/";
 
-    license = lib.licenses.lgpl2;
+    license = lib.licenses.lgpl2Plus;
     platforms = lib.platforms.unix;
   };
 })

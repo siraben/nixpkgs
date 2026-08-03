@@ -25,7 +25,7 @@ buildPythonPackage rec {
   meta = {
     homepage = "http://freedesktop.org/wiki/Software/pyxdg";
     description = "Contains implementations of freedesktop.org standards";
-    license = lib.licenses.lgpl2;
+    license = lib.licenses.lgpl2Only;
     maintainers = [ ];
   };
 }

@@ -74,6 +74,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://wiki.flightgear.org/SimGear";
     maintainers = with lib.maintainers; [ raskin ];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
-    license = lib.licenses.lgpl2;
+    license = lib.licenses.lgpl2Plus;
   };
 })
