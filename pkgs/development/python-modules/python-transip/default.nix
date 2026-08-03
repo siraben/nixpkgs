@@ -42,7 +42,7 @@ buildPythonPackage rec {
     description = "Python wrapper for the TransIP REST API V6";
     homepage = "https://github.com/roaldnefs/python-transip";
     changelog = "https://github.com/roaldnefs/python-transip/blob/${src.tag}/CHANGELOG.md";
-    license = lib.licenses.lgpl3;
+    license = lib.licenses.lgpl3Plus;
     maintainers = [ lib.maintainers.provokateurin ];
   };
 }

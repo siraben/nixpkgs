@@ -76,7 +76,7 @@ stdenv.mkDerivation (finalAttrs: {
       traversing fewer network hops, eliminating redundant requests,
       and consuming less resources overall.
     '';
-    license = lib.licenses.lgpl3;
+    license = lib.licenses.lgpl3Plus;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [
       bertof

@@ -24,7 +24,7 @@ buildPythonPackage rec {
   meta = {
     homepage = "https://github.com/architest/pymeeus";
     description = "Library of astronomical algorithms";
-    license = lib.licenses.lgpl3;
+    license = lib.licenses.lgpl3Plus;
     maintainers = with lib.maintainers; [ jluttine ];
   };
 }

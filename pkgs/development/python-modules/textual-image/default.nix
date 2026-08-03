@@ -52,7 +52,7 @@ buildPythonPackage (finalAttrs: {
     description = "Render images in the terminal with Textual and rich";
     homepage = "https://github.com/lnqs/textual-image/";
     changelog = "https://github.com/lnqs/textual-image/blob/${finalAttrs.src.tag}/CHANGELOG.md";
-    license = lib.licenses.lgpl3;
+    license = lib.licenses.lgpl3Plus;
     maintainers = with lib.maintainers; [ gaelj ];
   };
 })

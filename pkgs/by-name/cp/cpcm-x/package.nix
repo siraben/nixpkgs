@@ -95,7 +95,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Extended conductor-like polarizable continuum solvation model";
     homepage = "https://github.com/grimme-lab/CPCM-X";
     changelog = "https://github.com/grimme-lab/CPCM-X/releases/tag/${finalAttrs.src.tag}";
-    license = lib.licenses.lgpl3;
+    license = lib.licenses.lgpl3Plus;
     maintainers = with lib.maintainers; [ GaetanLepage ];
     mainProgram = "cpx";
     platforms = lib.platforms.linux;

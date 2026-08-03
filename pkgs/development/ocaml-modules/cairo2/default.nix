@@ -40,7 +40,7 @@ buildDunePackage (finalAttrs: {
       the X Window System, Quartz, Win32, image buffers, PostScript, PDF,
       and SVG file output.
     '';
-    license = lib.licenses.lgpl3;
+    license = lib.licenses.lgpl3Plus;
     maintainers = with lib.maintainers; [
       jirkamarsik
       vbgl

@@ -47,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
       threads in a very simple and efficient way from your C++ code.
     '';
     maintainers = with lib.maintainers; [ izorkin ];
-    license = lib.licenses.lgpl3;
+    license = lib.licenses.lgpl3Plus;
     platforms = lib.platforms.unix;
   };
 })

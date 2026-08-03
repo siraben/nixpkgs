@@ -33,7 +33,7 @@ stdenv.mkDerivation {
     description = "Game that teaches you vim commands";
     mainProgram = "pacvim";
     maintainers = [ ];
-    license = lib.licenses.lgpl3;
+    license = lib.licenses.lgpl3Plus;
     platforms = lib.platforms.unix;
   };
 }

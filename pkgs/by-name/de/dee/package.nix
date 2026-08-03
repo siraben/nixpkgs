@@ -69,7 +69,7 @@ stdenv.mkDerivation {
     description = "Library that uses DBus to provide objects allowing you to create Model-View-Controller type programs across DBus";
     mainProgram = "dee-tool";
     homepage = "https://launchpad.net/dee";
-    license = lib.licenses.lgpl3;
+    license = lib.licenses.lgpl3Only;
     platforms = lib.platforms.linux;
     maintainers = [ ];
   };

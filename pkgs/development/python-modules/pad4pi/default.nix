@@ -24,7 +24,7 @@ buildPythonPackage rec {
   meta = {
     homepage = "https://github.com/brettmclean/pad4pi";
     description = "Interrupt-based matrix keypad library for Raspberry Pi";
-    license = lib.licenses.lgpl3;
+    license = lib.licenses.lgpl3Only;
     maintainers = with lib.maintainers; [ onny ];
   };
 }

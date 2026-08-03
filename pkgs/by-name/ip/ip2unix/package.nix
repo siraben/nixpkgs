@@ -64,7 +64,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/nixcloud/ip2unix";
     description = "Turn IP sockets into Unix domain sockets";
     platforms = lib.platforms.linux;
-    license = lib.licenses.lgpl3;
+    license = lib.licenses.lgpl3Only;
     maintainers = [ lib.maintainers.aszlig ];
     mainProgram = "ip2unix";
   };

@@ -53,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Small library intended for internal use by GNOME Games, but it may be used by others";
     homepage = "https://gitlab.gnome.org/GNOME/libgnome-games-support";
-    license = lib.licenses.lgpl3;
+    license = lib.licenses.lgpl3Plus;
     teams = [ lib.teams.gnome ];
     platforms = lib.platforms.unix;
   };

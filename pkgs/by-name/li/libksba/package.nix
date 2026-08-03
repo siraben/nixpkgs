@@ -42,6 +42,6 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "ksba-config";
     platforms = lib.platforms.all;
     maintainers = [ ];
-    license = lib.licenses.lgpl3;
+    license = lib.licenses.lgpl3Plus;
   };
 })

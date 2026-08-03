@@ -55,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Command-line utility and library for controlling media players that implement MPRIS";
     homepage = "https://github.com/altdesktop/playerctl";
-    license = lib.licenses.lgpl3;
+    license = lib.licenses.lgpl3Plus;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [
       puffnfresh

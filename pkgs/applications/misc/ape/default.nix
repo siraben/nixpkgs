@@ -7,7 +7,7 @@
   lexiconPath ? "prolog/lexicon/clex_lexicon.pl",
   pname ? "ape",
   description ? "Parser for Attempto Controlled English (ACE)",
-  license ? lib.licenses.lgpl3,
+  license ? lib.licenses.lgpl3Plus,
 }:
 
 stdenv.mkDerivation {

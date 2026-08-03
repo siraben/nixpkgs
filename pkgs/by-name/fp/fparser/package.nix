@@ -21,7 +21,7 @@ stdenv.mkDerivation {
   meta = {
     description = "C++ Library for Evaluating Mathematical Functions";
     homepage = "https://github.com/thliebig/fparser";
-    license = lib.licenses.lgpl3;
+    license = lib.licenses.lgpl3Only;
     maintainers = with lib.maintainers; [ matthuszagh ];
     platforms = lib.platforms.linux;
   };

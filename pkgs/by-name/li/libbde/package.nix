@@ -39,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Library to access the BitLocker Drive Encryption (BDE) format";
     homepage = "https://github.com/libyal/libbde/";
-    license = lib.licenses.lgpl3;
+    license = lib.licenses.lgpl3Plus;
     maintainers = with lib.maintainers; [
       eliasp
       bot-wxt1221

@@ -61,7 +61,7 @@ buildPythonPackage rec {
     description = "JP2 (JPEG 2000 Part 1) image validator and properties extractor";
     mainProgram = "jpylyzer";
     homepage = "https://jpylyzer.openpreservation.org/";
-    license = lib.licenses.lgpl3;
+    license = lib.licenses.lgpl3Plus;
     maintainers = with lib.maintainers; [ ris ];
   };
 }

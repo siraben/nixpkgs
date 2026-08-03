@@ -59,7 +59,7 @@ buildPythonPackage rec {
     homepage = "https://podgen.readthedocs.io/en/latest/";
     license = with lib.licenses; [
       bsd2
-      lgpl3
+      lgpl3Plus
     ];
     maintainers = with lib.maintainers; [ ethancedwards8 ];
   };

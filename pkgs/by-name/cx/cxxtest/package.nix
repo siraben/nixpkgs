@@ -44,7 +44,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/CxxTest/cxxtest";
     description = "Unit testing framework for C++";
     mainProgram = "cxxtestgen";
-    license = lib.licenses.lgpl3;
+    license = lib.licenses.lgpl3Only;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ juliendehos ];
   };

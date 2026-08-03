@@ -83,7 +83,7 @@ stdenv.mkDerivation (finalAttrs: {
     downloadPage = "https://moonlight-mod.github.io/using/install/#nix";
     changelog = "https://raw.githubusercontent.com/moonlight-mod/moonlight/refs/tags/v${finalAttrs.version}/CHANGELOG.md";
 
-    license = lib.licenses.lgpl3;
+    license = lib.licenses.lgpl3Plus;
     maintainers = with lib.maintainers; [
       ilys
       isabelroses

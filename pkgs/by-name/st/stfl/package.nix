@@ -62,7 +62,7 @@ stdenv.mkDerivation {
     homepage = "https://web.archive.org/web/20211113222004/http://www.clifford.at/stfl/";
     description = "Library which implements a curses-based widget set for text terminals";
     maintainers = [ ];
-    license = lib.licenses.lgpl3;
+    license = lib.licenses.lgpl3Plus;
     platforms = lib.platforms.unix;
   };
 }

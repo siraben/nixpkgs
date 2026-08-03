@@ -57,7 +57,7 @@ buildGoModule (finalAttrs: {
   meta = {
     homepage = "https://github.com/erigontech/erigon/";
     description = "Erigon is an implementation of Ethereum (execution layer with embeddable consensus layer), on the efficiency frontier.";
-    license = lib.licenses.lgpl3;
+    license = lib.licenses.lgpl3Plus;
     maintainers = with lib.maintainers; [
       happysalada
       pmw

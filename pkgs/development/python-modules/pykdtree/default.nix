@@ -46,7 +46,7 @@ buildPythonPackage rec {
   meta = {
     description = "kd-tree implementation for fast nearest neighbour search in Python";
     homepage = "https://github.com/storpipfugl/pykdtree";
-    license = lib.licenses.lgpl3;
+    license = lib.licenses.lgpl3Plus;
     maintainers = with lib.maintainers; [ psyanticy ];
   };
 }

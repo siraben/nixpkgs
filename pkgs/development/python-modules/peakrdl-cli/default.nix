@@ -38,7 +38,7 @@ buildPythonPackage (finalAttrs: {
   meta = {
     description = "Control and status register code generator toolchain";
     homepage = "https://peakrdl.readthedocs.io/";
-    license = lib.licenses.lgpl3;
+    license = lib.licenses.lgpl3Only;
     maintainers = [ lib.maintainers.jmbaur ];
     mainProgram = "peakrdl";
   };

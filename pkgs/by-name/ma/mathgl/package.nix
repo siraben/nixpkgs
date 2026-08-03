@@ -31,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://mathgl.sourceforge.net/";
     license = with lib.licenses; [
       gpl3
-      lgpl3
+      lgpl3Plus
     ];
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.GabrielDougherty ];

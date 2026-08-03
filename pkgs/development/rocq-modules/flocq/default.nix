@@ -53,7 +53,7 @@ let
 
     meta = {
       description = "Floating-point formalization for the Coq system";
-      license = lib.licenses.lgpl3;
+      license = lib.licenses.lgpl3Plus;
       maintainers = with lib.maintainers; [ jwiegley ];
     };
   };

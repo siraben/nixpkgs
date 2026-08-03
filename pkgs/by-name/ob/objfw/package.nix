@@ -44,7 +44,7 @@ clangStdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Portable framework for the Objective-C language";
     homepage = "https://objfw.nil.im";
-    license = lib.licenses.lgpl3;
+    license = lib.licenses.lgpl3Only;
     maintainers = [ ];
     platforms = lib.platforms.linux;
   };

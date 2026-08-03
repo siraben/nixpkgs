@@ -33,7 +33,7 @@ buildPythonPackage rec {
   meta = {
     description = "Simple VTXXX-compatible linux terminal emulator";
     homepage = "https://github.com/selectel/pyte";
-    license = lib.licenses.lgpl3;
+    license = lib.licenses.lgpl3Only;
     maintainers = with lib.maintainers; [ flokli ];
   };
 }

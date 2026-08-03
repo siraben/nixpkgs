@@ -51,7 +51,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "https://github.com/xsco/libdjinterop";
     description = "C++ library for access to DJ record libraries";
-    license = lib.licenses.lgpl3;
+    license = lib.licenses.lgpl3Plus;
     maintainers = with lib.maintainers; [ benley ];
     platforms = lib.platforms.unix;
   };

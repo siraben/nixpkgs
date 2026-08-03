@@ -41,7 +41,7 @@ buildPythonPackage (finalAttrs: {
     description = "Netbox plugin providing floorplan mapping capability for locations and sites";
     homepage = "https://github.com/netbox-community/netbox-floorplan-plugin";
     changelog = "https://github.com/netbox-community/netbox-floorplan-plugin/releases/tag/${finalAttrs.src.tag}";
-    license = lib.licenses.lgpl3;
+    license = lib.licenses.lgpl3Plus;
     maintainers = with lib.maintainers; [ cobalt ];
   };
 })

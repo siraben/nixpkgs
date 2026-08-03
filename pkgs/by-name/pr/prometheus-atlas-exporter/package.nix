@@ -24,7 +24,7 @@ buildGoModule (finalAttrs: {
     mainProgram = "atlas_exporter";
     homepage = "https://github.com/czerwonk/atlas_exporter";
     changelog = "https://github.com/czerwonk/atlas_exporter/releases/tag/${finalAttrs.src.tag}";
-    license = lib.licenses.lgpl3;
+    license = lib.licenses.lgpl3Plus;
     maintainers = with lib.maintainers; [ clerie ];
   };
 })

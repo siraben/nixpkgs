@@ -94,7 +94,7 @@ buildDunePackage {
     description = "Toolchain to produce JS from Reason/OCaml";
     homepage = "https://melange.re/";
     mainProgram = "melc";
-    license = lib.licenses.lgpl3;
+    license = lib.licenses.lgpl3Plus;
     maintainers = [
       lib.maintainers.vog
     ];

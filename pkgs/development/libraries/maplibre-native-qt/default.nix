@@ -58,7 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
     license = with lib.licenses; [
       bsd2
       gpl3
-      lgpl3
+      lgpl3Only
     ];
     maintainers = with lib.maintainers; [ dotlambda ];
     platforms = lib.platforms.all;

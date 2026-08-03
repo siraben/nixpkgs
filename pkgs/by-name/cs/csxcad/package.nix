@@ -60,7 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "C++ library to describe geometrical objects";
     homepage = "https://github.com/thliebig/CSXCAD";
-    license = lib.licenses.lgpl3;
+    license = lib.licenses.lgpl3Plus;
     maintainers = with lib.maintainers; [ matthuszagh ];
     platforms = lib.platforms.linux;
   };

@@ -30,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Small but extremely powerful library which implements the client IRC protocol";
     homepage = "http://www.ulduzsoft.com/libircclient/";
-    license = lib.licenses.lgpl3;
+    license = lib.licenses.lgpl3Plus;
     maintainers = with lib.maintainers; [ obadz ];
     platforms = lib.platforms.linux;
   };

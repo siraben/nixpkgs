@@ -23,6 +23,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/Grumbel/xdgcpp";
     maintainers = [ lib.maintainers.SchweGELBin ];
     platforms = lib.platforms.linux;
-    license = lib.licenses.lgpl3;
+    license = lib.licenses.lgpl3Plus;
   };
 }

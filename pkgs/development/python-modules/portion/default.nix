@@ -42,7 +42,7 @@ buildPythonPackage (finalAttrs: {
     description = "Python library providing data structure and operations for intervals";
     homepage = "https://github.com/AlexandreDecan/portion";
     changelog = "https://github.com/AlexandreDecan/portion/blob/${finalAttrs.src.tag}/CHANGELOG.md";
-    license = lib.licenses.lgpl3;
+    license = lib.licenses.lgpl3Plus;
     maintainers = with lib.maintainers; [ GaetanLepage ];
   };
 })

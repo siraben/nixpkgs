@@ -37,7 +37,7 @@ buildPythonPackage (finalAttrs: {
   meta = {
     description = "Generate SystemVerilog RTL that implements a register block from compiled SystemRDL input";
     homepage = "http://peakrdl-regblock.readthedocs.io/";
-    license = lib.licenses.lgpl3;
+    license = lib.licenses.lgpl3Only;
     maintainers = [ lib.maintainers.jmbaur ];
   };
 })

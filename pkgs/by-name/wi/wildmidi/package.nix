@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://wildmidi.sourceforge.net/";
     # The library is LGPLv3, the wildmidi executable is GPLv3
-    license = lib.licenses.lgpl3;
+    license = lib.licenses.lgpl3Plus;
     platforms = lib.platforms.unix;
     maintainers = [ lib.maintainers.bjornfor ];
   };
