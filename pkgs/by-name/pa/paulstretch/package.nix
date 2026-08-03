@@ -68,7 +68,7 @@ stdenv.mkDerivation {
     '';
     homepage = "https://github.com/paulnasca/paulstretch_cpp/";
     platforms = lib.platforms.linux;
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Only;
     mainProgram = "paulstretch";
   };
 }

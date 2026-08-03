@@ -60,7 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
     # 2. GPLv2 covers all of the software
     # 3. Proprietary commercial software development license (removes GPL
     #    restrictions)
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [
       bjornfor

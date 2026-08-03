@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "SIPE plugin for Pidgin IM";
     homepage = "http://sipe.sourceforge.net/";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
   };
 }

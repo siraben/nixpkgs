@@ -148,7 +148,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Digital DJ mixing software";
     mainProgram = "mixxx";
     changelog = "https://github.com/mixxxdj/mixxx/blob/${finalAttrs.version}/CHANGELOG.md";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [
       benley
       bfortz

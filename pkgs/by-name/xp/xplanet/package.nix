@@ -52,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Renders an image of the earth or other planets into the X root window";
     mainProgram = "xplanet";
     homepage = "https://xplanet.sourceforge.net";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [
       lassulus
     ];

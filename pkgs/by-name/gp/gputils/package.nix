@@ -27,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "https://gputils.sourceforge.io";
     description = "Collection of tools for the Microchip (TM) PIC microcontrollers. It includes gpasm, gplink, and gplib";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [ yorickvp ];
     platforms = lib.platforms.linux;
   };

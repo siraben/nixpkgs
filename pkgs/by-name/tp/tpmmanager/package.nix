@@ -51,7 +51,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://projects.sirrix.com/trac/tpmmanager";
     description = "Tool for managing the TPM";
     mainProgram = "tpmmanager";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     maintainers = [ ];
     platforms = lib.platforms.linux;
   };

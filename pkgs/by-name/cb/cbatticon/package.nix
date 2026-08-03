@@ -43,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Lightweight and fast battery icon that sits in the system tray";
     mainProgram = "cbatticon";
     homepage = "https://github.com/valr/cbatticon";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
     maintainers = [ ];
   };

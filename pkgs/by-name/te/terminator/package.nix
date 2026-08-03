@@ -85,7 +85,7 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
     '';
     changelog = "https://github.com/gnome-terminator/terminator/releases/tag/${finalAttrs.src.tag}";
     homepage = "https://github.com/gnome-terminator/terminator";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Only;
     maintainers = with lib.maintainers; [ bjornfor ];
     platforms = lib.platforms.linux;
   };

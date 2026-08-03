@@ -49,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Multi-effects processor emulating a guitar effects pedalboard";
     homepage = "https://rakarrack.sourceforge.net";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Only;
     platforms = lib.platforms.linux;
     maintainers = [ ];
   };

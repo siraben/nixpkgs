@@ -92,7 +92,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/akopytov/sysbench";
     downloadPage = "https://github.com/akopytov/sysbench/releases/tag/${finalAttrs.version}";
     changelog = "https://github.com/akopytov/sysbench/blob/${finalAttrs.version}/ChangeLog";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
   };
 })

@@ -64,7 +64,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "JVM-based Common Lisp implementation";
     homepage = "https://common-lisp.net/project/armedbear/";
     license = with lib.licenses; [
-      gpl2
+      gpl2Plus
       classpathException20
     ];
     mainProgram = "abcl";

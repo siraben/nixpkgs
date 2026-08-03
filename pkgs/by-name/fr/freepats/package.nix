@@ -22,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
       patches, in any format, that can be used with softsynths.
     '';
     homepage = "https://freepats.zenvoid.org/";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.all;
     maintainers = [ lib.maintainers.bjornfor ];
   };

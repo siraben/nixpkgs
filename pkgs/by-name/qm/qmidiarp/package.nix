@@ -45,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
 
     homepage = "https://qmidiarp.sourceforge.net";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ sjfloat ];
   };

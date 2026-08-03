@@ -48,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://dushistov.github.io/sdcv/";
     description = "Console version of StarDict";
     maintainers = [ ];
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
     mainProgram = "sdcv";
   };

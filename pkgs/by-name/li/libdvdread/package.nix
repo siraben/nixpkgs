@@ -36,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "http://dvdnav.mplayerhq.hu/";
     description = "Library for reading DVDs";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     maintainers = [ lib.maintainers.wmertens ];
     platforms = lib.platforms.unix;
   };

@@ -200,7 +200,7 @@ stdenv.mkDerivation (finalAttrs: {
       better management of, and seamless user interactions with, guests.
     '';
     license = with licenses; [
-      gpl2
+      gpl2Only
       lgpl21Only
     ];
     platforms = [

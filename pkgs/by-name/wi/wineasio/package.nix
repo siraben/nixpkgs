@@ -86,8 +86,8 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/wineasio/wineasio/releases/tag/${finalAttrs.src.tag}";
     description = "ASIO to JACK driver for WINE";
     license = with lib.licenses; [
-      gpl2
-      lgpl21
+      gpl2Plus
+      lgpl21Plus
     ];
     maintainers = with lib.maintainers; [
       lovesegfault

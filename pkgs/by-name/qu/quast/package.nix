@@ -67,7 +67,7 @@ pythonPackages.buildPythonApplication rec {
       fromSource
       binaryNativeCode # source bundles binary dependencies
     ];
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Only;
     maintainers = [ lib.maintainers.bzizou ];
     platforms = lib.platforms.all;
   };

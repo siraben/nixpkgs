@@ -105,7 +105,7 @@ stdenv.mkDerivation (finalAttrs: {
           mcube - A fast, non-optimal 4x4x4 solver
     '';
     license = with lib.licenses; [
-      gpl2 # Michael Reid's and Eric Dietz software
+      gpl2Plus # Michael Reid's and Eric Dietz software
       mit # Dik T. Winter's software
     ];
     teams = [ lib.teams.sage ];

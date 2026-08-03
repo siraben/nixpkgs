@@ -135,7 +135,7 @@ let
 
     meta = {
       license = with lib.licenses; [
-        gpl2
+        gpl2Only
         classpathException20
       ];
       sourceProvenance = with lib.sourceTypes; [

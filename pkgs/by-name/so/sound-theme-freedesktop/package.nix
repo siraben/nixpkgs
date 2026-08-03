@@ -23,7 +23,7 @@ stdenv.mkDerivation (finalAttrs: {
     license = with lib.licenses; [
       cc-by-30
       cc-by-sa-25
-      gpl2
+      gpl2Only
       gpl2Plus
     ];
     platforms = with lib.platforms; unix;

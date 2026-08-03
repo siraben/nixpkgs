@@ -60,7 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Remove colored balls from the board by forming lines";
     mainProgram = "five-or-more";
     teams = [ lib.teams.gnome ];
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
   };
 })

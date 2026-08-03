@@ -36,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Themeable hex editor with diff mode";
     homepage = "http://www.dettus.net/dhex/";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [ qknight ];
     platforms = with lib.platforms; linux;
     mainProgram = "dhex";

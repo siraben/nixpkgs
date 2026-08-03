@@ -67,7 +67,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Graphical Audio CD ripper and encoder for Linux";
     mainProgram = "asunder";
     homepage = "https://github.com/rizalmart/asunder-gtk3";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Only;
     maintainers = with lib.maintainers; [ mudri ];
     platforms = lib.platforms.linux;
 

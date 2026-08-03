@@ -107,7 +107,7 @@ stdenv.mkDerivation (finalAttrs: {
       virtual machines through libvirt. It primarily targets KVM VMs, but also
       manages Xen and LXC (linux containers).
     '';
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
     mainProgram = "virt-manager";
     maintainers = with lib.maintainers; [

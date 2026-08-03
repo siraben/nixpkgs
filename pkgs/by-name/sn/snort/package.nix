@@ -64,7 +64,7 @@ stdenv.mkDerivation (finalAttrs: {
       brianmcgillion
     ];
     changelog = "https://github.com/snort3/snort3/blob/${finalAttrs.src.rev}/ChangeLog.md";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Only;
     platforms = with lib.platforms; linux;
   };
 })

@@ -32,7 +32,7 @@ stdenv.mkDerivation {
   meta = {
     description = "Fork of mfoc integrating hardnested code from the proxmark";
     mainProgram = "mfoc-hardnested";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     homepage = "https://github.com/nfc-tools/mfoc-hardnested";
     changelog = "https://github.com/nfc-tools/mfoc-hardnested/blob/master/debian/changelog";
     maintainers = with lib.maintainers; [ azuwis ];

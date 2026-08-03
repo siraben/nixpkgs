@@ -158,7 +158,7 @@ stdenv.mkDerivation {
   meta = {
     description = "Terminal audio player designed to be powerful and easy to use";
     homepage = "http://moc.daper.net/";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [
       aethelz
       pSub

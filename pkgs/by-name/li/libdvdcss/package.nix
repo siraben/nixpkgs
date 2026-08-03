@@ -27,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "http://www.videolan.org/developers/libdvdcss.html";
     changelog = "https://code.videolan.org/videolan/libdvdcss/blob/${finalAttrs.src.tag}/NEWS";
     description = "Library for decrypting DVDs";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
   };
 })

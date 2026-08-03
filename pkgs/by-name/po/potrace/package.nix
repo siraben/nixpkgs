@@ -26,6 +26,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Tool for tracing a bitmap, which means, transforming a bitmap into a smooth, scalable image";
     platforms = lib.platforms.unix;
     maintainers = [ lib.maintainers.pSub ];
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
   };
 })

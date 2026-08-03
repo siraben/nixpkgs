@@ -31,8 +31,8 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "lcsync";
     homepage = "https://librecast.net/lcsync.html";
     license = [
-      lib.licenses.gpl2
-      lib.licenses.gpl3
+      lib.licenses.gpl2Only
+      lib.licenses.gpl3Only
     ];
     maintainers = with lib.maintainers; [
       albertchae

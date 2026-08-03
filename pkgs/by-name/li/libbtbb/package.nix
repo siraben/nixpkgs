@@ -32,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Bluetooth baseband decoding library";
     homepage = "https://github.com/greatscottgadgets/libbtbb";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     maintainers = [ ];
   };
 })

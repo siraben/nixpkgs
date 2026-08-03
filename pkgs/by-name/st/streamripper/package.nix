@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://streamripper.sourceforge.net/";
     description = "Application that lets you record streaming mp3 to your hard drive";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     mainProgram = "streamripper";
     maintainers = with lib.maintainers; [ cybershadow ];
   };

@@ -57,7 +57,7 @@ stdenv.mkDerivation {
       cc-tool provides support for Texas Instruments CC Debugger
     '';
     homepage = "https://github.com/dashesy/cc-tool";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Only;
     platforms = with lib.platforms; linux ++ darwin;
     maintainers = [ lib.maintainers.CRTified ];
   };

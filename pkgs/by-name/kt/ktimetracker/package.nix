@@ -49,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Todo management and time tracking application";
     mainProgram = "ktimetracker";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     homepage = "https://userbase.kde.org/KTimeTracker";
     maintainers = [ ];
   };

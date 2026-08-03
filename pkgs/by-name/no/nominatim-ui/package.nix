@@ -91,7 +91,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Debugging user interface for Nominatim geocoder";
     homepage = "https://github.com/osm-search/nominatim-ui";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Only;
     teams = with lib.teams; [
       geospatial
       ngi

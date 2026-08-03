@@ -84,7 +84,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.gnome.org/Archive/nemiver";
     description = "Easy to use standalone C/C++ debugger";
     mainProgram = "nemiver";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.juliendehos ];
   };

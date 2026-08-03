@@ -24,6 +24,6 @@ mkLibretroCore {
   meta = {
     description = "Port of vice to libretro";
     homepage = "https://github.com/libretro/vice-libretro";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
   };
 }

@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [
       magnetophon
     ];
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     platforms = [
       "i686-linux"
       "x86_64-linux"

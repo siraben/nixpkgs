@@ -37,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "GPL reimplementation of libdjb";
     homepage = "https://www.fefe.de/libowfat/";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Only;
     platforms = lib.platforms.linux;
     # build tool "json" is built for the host platform
     broken = !stdenv.buildPlatform.canExecute stdenv.hostPlatform;

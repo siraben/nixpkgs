@@ -51,7 +51,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Open source wireless development platform suitable for Bluetooth experimentation";
     homepage = "https://github.com/greatscottgadgets/ubertooth";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     maintainers = [ ];
     platforms = lib.platforms.linux;
   };

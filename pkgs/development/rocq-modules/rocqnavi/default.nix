@@ -42,6 +42,6 @@ mkRocqDerivation {
   meta = {
     description = "Rocqnavi: an HTML documentation generator for Rocq prover";
     maintainers = with maintainers; [ cohencyril ];
-    license = licenses.gpl2;
+    license = licenses.gpl2Plus;
   };
 }

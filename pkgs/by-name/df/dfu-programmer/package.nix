@@ -38,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
   passthru.updateScript = nix-update-script { };
 
   meta = {
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     description = "Device Firmware Update based USB programmer for Atmel chips with a USB bootloader";
     mainProgram = "dfu-programmer";
     homepage = "https://github.com/dfu-programmer/dfu-programmer";

@@ -131,7 +131,7 @@ stdenv.mkDerivation rec {
       pseudopotentials.
     '';
     homepage = "https://www.quantum-espresso.org/";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     platforms = [
       "x86_64-linux"
     ];

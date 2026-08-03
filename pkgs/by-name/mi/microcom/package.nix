@@ -24,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Minimalistic terminal program for communicating
     with devices over a serial connection";
     inherit (finalAttrs.src.meta) homepage;
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [ emantor ];
     platforms = with lib.platforms; linux;
     mainProgram = "microcom";

@@ -54,7 +54,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.freedesktop.org/software/PackageKit/";
     platforms = lib.platforms.linux;
     teams = [ lib.teams.gnome ];
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     description = "Tools for installing software on the GNOME desktop using PackageKit";
   };
 })

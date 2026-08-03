@@ -110,7 +110,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/linuxmint/cinnamon-screensaver";
     description = "Cinnamon screen locker and screensaver program";
     license = [
-      lib.licenses.gpl2
+      lib.licenses.gpl2Plus
       lib.licenses.lgpl2
     ];
     platforms = lib.platforms.linux;

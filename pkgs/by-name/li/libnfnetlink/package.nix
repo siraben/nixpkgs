@@ -25,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
       It is only used by other netfilter.org projects, like the aforementioned ones.
     '';
     homepage = "https://www.netfilter.org/projects/libnfnetlink/index.html";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Only;
 
     platforms = lib.platforms.linux;
   };

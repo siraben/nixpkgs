@@ -59,7 +59,7 @@ stdenv.mkDerivation {
     description = "Generic drawing program tailored to circuit diagrams";
     mainProgram = "xcircuit";
     homepage = "http://opencircuitdesign.com/xcircuit";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [
       john-shaffer

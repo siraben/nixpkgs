@@ -67,7 +67,7 @@ stdenv.mkDerivation (finalAttrs: {
       platforms.
     '';
     homepage = "https://xiph.org/ao/";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     maintainers = [ ];
     platforms = with lib.platforms; unix;
   };

@@ -61,7 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "TV application for Linux with apps and tools such as a teletext browser";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     homepage = "https://www.kraxel.org/blog/linux/xawtv/";
     maintainers = [ ];
     platforms = lib.platforms.linux;

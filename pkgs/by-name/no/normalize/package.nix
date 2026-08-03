@@ -28,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "https://www.nongnu.org/normalize/";
     description = "Audio file normalizer";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
   };
 })

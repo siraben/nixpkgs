@@ -40,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Viewer for Microsoft HTML Help files";
     homepage = "https://github.com/rzvncj/xCHM";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [ sikmir ];
     platforms = lib.platforms.unix;
     mainProgram = "xchm";

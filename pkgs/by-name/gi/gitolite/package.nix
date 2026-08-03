@@ -65,7 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Finely-grained git repository hosting";
     homepage = "https://gitolite.com/gitolite/index.html";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Only;
     platforms = lib.platforms.unix;
     maintainers = [
       lib.maintainers.thoughtpolice

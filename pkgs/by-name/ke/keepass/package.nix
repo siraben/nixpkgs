@@ -169,7 +169,7 @@ stdenv.mkDerivation (finalAttrs: {
       obadz
     ];
     platforms = with lib.platforms; all;
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     mainProgram = "keepass";
   };
 })

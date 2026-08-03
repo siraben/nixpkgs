@@ -17,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Next generation SRS library from the original designer of SRS";
     mainProgram = "srs";
     license = with lib.licenses; [
-      gpl2
+      gpl2Only
       bsd3
     ];
     homepage = "https://www.libsrs2.org/";

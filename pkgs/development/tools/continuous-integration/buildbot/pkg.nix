@@ -33,6 +33,6 @@ buildPythonPackage {
     homepage = "https://buildbot.net/";
     description = "Buildbot Packaging Helper";
     teams = [ lib.teams.buildbot ];
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Only;
   };
 }

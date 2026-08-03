@@ -80,7 +80,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "System Monitor shows you what programs are running and how much processor time, memory, and disk space are being used";
     mainProgram = "gnome-system-monitor";
     teams = [ lib.teams.gnome ];
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
   };
 })

@@ -112,7 +112,7 @@ stdenv.mkDerivation {
     '';
     homepage = "https://github.com/lkl/linux/";
     platforms = lib.platforms.linux; # Darwin probably works too but I haven't tested it
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Only;
     maintainers = with lib.maintainers; [
       timschumi
     ];

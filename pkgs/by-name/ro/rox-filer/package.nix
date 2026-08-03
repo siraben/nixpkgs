@@ -102,8 +102,8 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "rox";
     homepage = "http://rox.sourceforge.net/desktop";
     license = with lib.licenses; [
-      gpl2
-      lgpl2
+      gpl2Plus
+      lgpl2Plus
     ];
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.eleanor ];

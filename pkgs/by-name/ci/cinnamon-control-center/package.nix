@@ -81,7 +81,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/linuxmint/cinnamon-control-center";
     description = "Collection of configuration plugins used in cinnamon-settings";
     mainProgram = "cinnamon-control-center";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
     teams = [ lib.teams.cinnamon ];
   };

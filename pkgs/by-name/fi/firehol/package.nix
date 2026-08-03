@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
       FireQOS, a TC based bandwidth shaper for humans!
     '';
     homepage = "https://firehol.org/";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     maintainers = [ ];
     platforms = lib.platforms.linux;
   };

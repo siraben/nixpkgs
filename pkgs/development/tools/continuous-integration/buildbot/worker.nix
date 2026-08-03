@@ -59,6 +59,6 @@ buildPythonPackage {
     homepage = "https://buildbot.net/";
     description = "Buildbot Worker Daemon";
     teams = [ lib.teams.buildbot ];
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Only;
   };
 }

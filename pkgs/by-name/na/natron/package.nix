@@ -102,7 +102,7 @@ stdenv.mkDerivation {
       functionalities to Adobe After Effects and Nuke by The Foundry.
     '';
     homepage = "https://natron.fr/";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     maintainers = [ lib.maintainers.puffnfresh ];
     platforms = lib.platforms.linux;
     # error: 'LogMessageVoidify' is not a member of 'google'

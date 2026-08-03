@@ -74,7 +74,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "vifm";
     maintainers = with lib.maintainers; [ raskin ];
     platforms = if mediaSupport then lib.platforms.linux else lib.platforms.unix;
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     downloadPage = "https://vifm.info/downloads.shtml";
     homepage = "https://vifm.info/";
     changelog = "https://github.com/vifm/vifm/blob/v${finalAttrs.version}/ChangeLog";

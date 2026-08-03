@@ -29,7 +29,7 @@ stdenv.mkDerivation {
     description = "Linux MDIO register access";
     homepage = "https://github.com/wkz/phytool";
     changelog = "https://github.com/wkz/phytool/releases";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     maintainers = [ lib.maintainers.connorbaker ];
   };
 }

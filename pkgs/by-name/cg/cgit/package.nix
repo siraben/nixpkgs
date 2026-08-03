@@ -117,7 +117,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "https://git.zx2c4.com/cgit/about/";
     description = "Web frontend for git repositories";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Only;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [
       bjornfor

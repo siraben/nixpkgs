@@ -55,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Cuddly teddy bear for your X desktop";
     homepage = "https://weber.itn.liu.se/~stegu/xteddy/";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     maintainers = [ lib.maintainers.xaverdh ];
     platforms = lib.platforms.linux;
   };

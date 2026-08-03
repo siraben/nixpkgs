@@ -121,7 +121,7 @@ stdenv.mkDerivation (
         translators of the Bible, and have a growing collection of many hundred
         texts in around 100 languages.
       '';
-      license = lib.licenses.gpl2;
+      license = lib.licenses.gpl2Only;
       maintainers = with lib.maintainers; [
         greg
       ];

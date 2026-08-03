@@ -37,7 +37,7 @@ stdenv.mkDerivation (finalAttr: {
     description = "OBS Studio plugin to integrate OBS hotkeys with the Wayland global shortcuts portal";
     homepage = "https://github.com/leia-uwu/obs-wayland-hotkeys";
     maintainers = with lib.maintainers; [ terrorw0lf ];
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
   };
 })

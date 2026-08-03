@@ -46,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/brummer10/Fluida.lv2/releases/tag/v${finalAttrs.version}";
     description = "Fluidsynth as LV2 plugin";
     homepage = "https://github.com/brummer10/Fluida.lv2";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [ joostn ];
     platforms = [ "x86_64-linux" ];
   };

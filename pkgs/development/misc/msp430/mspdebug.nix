@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
     description = "Free programmer, debugger, and gdb proxy for MSP430 MCUs";
     mainProgram = "mspdebug";
     homepage = "https://dlbeer.co.nz/mspdebug/";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.all;
     maintainers = with lib.maintainers; [ aerialx ];
   };

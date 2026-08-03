@@ -23,7 +23,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Command line calculator";
     homepage = "https://w-calc.sourceforge.net";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.all;
     mainProgram = "wcalc";
   };

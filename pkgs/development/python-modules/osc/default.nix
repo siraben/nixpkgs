@@ -57,6 +57,6 @@ buildPythonPackage rec {
       peti
       saschagrunert
     ];
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
   };
 }

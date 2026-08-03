@@ -31,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Just Another Gibbs Sampler";
     mainProgram = "jags";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Only;
     homepage = "http://mcmc-jags.sourceforge.net";
     maintainers = [ lib.maintainers.andres ];
     platforms = lib.platforms.unix;

@@ -90,7 +90,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.kraxel.org/blog/linux/fbida/";
     downloadPage = "https://gitlab.com/kraxel/fbida/";
     changelog = "https://gitlab.com/kraxel/fbida/-/blob/${finalAttrs.src.tag}/Changes?ref_type=tags";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [ pSub ];
     platforms = lib.platforms.linux;
   };

@@ -38,7 +38,7 @@ stdenvNoCC.mkDerivation {
       If your DE is not listed in https://github.com/roddhjav/apparmor.d
       Do not use this, else it may break your system.
     '';
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Only;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [
       johnrtitor

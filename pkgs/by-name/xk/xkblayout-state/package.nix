@@ -26,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Small command-line program to get/set the current XKB keyboard layout";
     homepage = "https://github.com/nonpop/xkblayout-state";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
     mainProgram = "xkblayout-state";
   };

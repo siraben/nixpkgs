@@ -65,7 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
       same time (using a single "cvs commit" command).
     '';
     homepage = "https://sourceforge.net/projects/cvsps/";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Only;
     platforms = lib.platforms.unix;
     mainProgram = "cvsps";
   };

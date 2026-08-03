@@ -63,7 +63,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "transmission-remote-gtk";
     homepage = "https://github.com/transmission-remote-gtk/transmission-remote-gtk";
     changelog = "https://github.com/transmission-remote-gtk/transmission-remote-gtk/releases/tag/${finalAttrs.version}";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
   };
 })

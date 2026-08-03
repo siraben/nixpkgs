@@ -36,7 +36,7 @@ stdenv.mkDerivation {
   meta = {
     description = "Advanced IRC Client";
     homepage = "https://www.kvirc.net/";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     maintainers = [ lib.maintainers.suhr ];
     platforms = lib.platforms.linux;
   };

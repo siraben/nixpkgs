@@ -36,7 +36,7 @@ buildPythonPackage rec {
   meta = {
     description = "Python etcd client that just works";
     homepage = "https://github.com/dsoprea/PythonEtcdClient";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Only;
     maintainers = [ ];
   };
 }

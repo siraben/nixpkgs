@@ -171,7 +171,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Remote desktop application, server component";
     homepage = "http://x2go.org/";
     platforms = lib.platforms.linux;
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     maintainers = [ ];
   };
 })

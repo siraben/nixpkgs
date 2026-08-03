@@ -52,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "http://www.linuxsampler.org";
     description = "Gigasampler file access library";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     maintainers = [ ];
     platforms = lib.platforms.linux;
     mainProgram = "gigedit";

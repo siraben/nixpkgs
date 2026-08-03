@@ -48,6 +48,6 @@ stdenv.mkDerivation (finalAttrs: {
       stepping through code.
     '';
     mainProgram = "kdbg";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Only;
   };
 })

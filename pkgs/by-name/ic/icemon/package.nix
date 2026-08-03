@@ -44,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Icecream GUI Monitor";
     homepage = "https://github.com/icecc/icemon";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [ emantor ];
     platforms = with lib.platforms; linux ++ darwin;
     mainProgram = "icemon";

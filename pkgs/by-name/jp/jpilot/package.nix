@@ -47,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Desktop organizer software for the Palm Pilot";
     homepage = "https://www.jpilot.org/";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Only;
     mainProgram = "jpilot";
     maintainers = with lib.maintainers; [ PapayaJackal ];
   };

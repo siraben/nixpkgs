@@ -200,7 +200,7 @@ stdenv.mkDerivation (finalAttrs: {
       interested in creating computer-animated movies.
     '';
     homepage = "https://openscad.org/";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [
       bjornfor

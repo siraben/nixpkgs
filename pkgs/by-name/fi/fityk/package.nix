@@ -51,7 +51,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Curve fitting and peak fitting software";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     homepage = "https://fityk.nieto.pl/";
     platforms = lib.platforms.linux;
   };

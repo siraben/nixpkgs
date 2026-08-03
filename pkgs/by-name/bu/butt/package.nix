@@ -70,7 +70,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://danielnoethen.de/butt/Changelog.html";
     description = "Easy to use, multi OS streaming tool";
     homepage = "https://danielnoethen.de/butt/";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     mainProgram = "butt";
     platforms = lib.platforms.linux;
   };

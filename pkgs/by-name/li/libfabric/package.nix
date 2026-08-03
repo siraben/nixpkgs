@@ -51,7 +51,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://ofiwg.github.io/libfabric/";
     description = "Open Fabric Interfaces";
     license = with lib.licenses; [
-      gpl2
+      gpl2Only
       bsd2
     ];
     platforms = lib.platforms.all;

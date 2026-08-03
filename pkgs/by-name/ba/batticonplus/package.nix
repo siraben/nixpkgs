@@ -47,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Lightweight battery status icon for the system tray and notifier (based on cbatticon)";
     mainProgram = "batticonplus";
     homepage = "https://github.com/artist4artixlinux/batticonplus";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ yechielw ];
   };

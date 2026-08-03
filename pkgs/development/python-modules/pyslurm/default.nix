@@ -37,7 +37,7 @@ buildPythonPackage rec {
   meta = {
     homepage = "https://github.com/PySlurm/pyslurm";
     description = "Python bindings to Slurm";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
   };
 }

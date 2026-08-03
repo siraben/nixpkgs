@@ -62,7 +62,7 @@ buildPythonPackage {
   meta = {
     description = "Python tool to program SIMs / USIMs / ISIMs";
     homepage = "https://github.com/osmocom/pysim";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [ flokli ];
   };
 }

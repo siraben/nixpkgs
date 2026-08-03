@@ -30,7 +30,7 @@ stdenv.mkDerivation {
     inherit homepage;
     description = "Subband sinusoidal modeling library for time stretching and pitch scaling audio";
     maintainers = [ ];
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Only;
     platforms = lib.platforms.all;
   };
 }

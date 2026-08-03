@@ -42,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
       complexity and metrics proposed by Chidamber&Kemerer and Henry&Kafura.
     '';
     homepage = "https://github.com/sarnold/cccc";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ tbutter ];
   };

@@ -43,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
       functional language used in teaching and research.
     '';
     homepage = "https://mosml.org/";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ vaibhavsagar ];
   };

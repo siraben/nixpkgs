@@ -51,7 +51,7 @@ stdenv.mkDerivation (finalAttrs: {
       disc space and its annexation of your physical memory.
     '';
     homepage = "http://www.jfc.org.uk/software/lwm.html";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     maintainers = [ ];
     platforms = lib.platforms.linux;
     mainProgram = "lwm";

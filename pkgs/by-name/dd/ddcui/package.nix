@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     description = "Graphical user interface for ddcutil - control monitor settings";
     mainProgram = "ddcui";
     homepage = "https://www.ddcutil.com/ddcui_main/";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [ nh2 ];
     platforms = with lib.platforms; linux;
   };

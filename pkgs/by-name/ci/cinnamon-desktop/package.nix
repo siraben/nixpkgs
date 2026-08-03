@@ -82,8 +82,8 @@ stdenv.mkDerivation (finalAttrs: {
     '';
 
     license = [
-      lib.licenses.gpl2
-      lib.licenses.lgpl2
+      lib.licenses.gpl2Plus
+      lib.licenses.lgpl2Plus
     ];
     platforms = lib.platforms.linux;
     teams = [ lib.teams.cinnamon ];

@@ -74,7 +74,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://sonosaurus.com/sooperlooper/";
     downloadPage = "https://github.com/essej/sooperlooper";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [ magnetophon ];
     platforms = lib.platforms.linux;
   };

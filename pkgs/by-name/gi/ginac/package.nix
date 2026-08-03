@@ -43,7 +43,7 @@ gccStdenv.mkDerivation (finalAttrs: {
     description = "GiNaC C++ library for symbolic manipulations";
     homepage = "https://www.ginac.de/";
     maintainers = [ ];
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.all;
   };
 })

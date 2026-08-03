@@ -29,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Enjoy the mysteries of the sea from the safety of your own terminal";
     mainProgram = "asciiquarium";
     homepage = "https://robobunny.com/projects/asciiquarium/html/";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [
       sigmasquadron

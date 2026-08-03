@@ -69,7 +69,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     description = "DBus daemon to access Wacom SmartPad devices";
     mainProgram = "tuhi";
     homepage = "https://github.com/tuhiproject/tuhi";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ lammermann ];
   };

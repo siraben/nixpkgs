@@ -45,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
       files, notably the `ogg123' player and the `oggenc' encoder.
     '';
     homepage = "https://xiph.org/vorbis/";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Only;
     platforms = lib.platforms.all;
   };
 })

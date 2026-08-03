@@ -72,7 +72,7 @@ stdenv.mkDerivation (finalAttrs: {
       # repository's archival. At the very least we know it's not `OR [ gpl2 cc-by-sa-40 ]`
       # based on the README.md and the svg sources (which say cc-by-sa-40 in their xml).
       AND [
-        gpl2
+        gpl2Plus
         cc-by-sa-40
       ];
     platforms = lib.platforms.unix;

@@ -34,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "LMI (Lambda Lisp Machine) emulator";
     homepage = "https://github.com/dseagrav/ld";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [ siraben ];
     platforms = lib.platforms.unix;
   };

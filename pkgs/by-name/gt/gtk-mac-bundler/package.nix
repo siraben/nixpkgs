@@ -30,6 +30,6 @@ stdenv.mkDerivation rec {
     maintainers = [ ];
     platforms = lib.platforms.darwin;
     homepage = "https://gitlab.gnome.org/GNOME/gtk-mac-bundler";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Only;
   };
 }

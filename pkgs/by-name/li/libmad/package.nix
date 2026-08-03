@@ -86,7 +86,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "https://sourceforge.net/projects/mad/";
     description = "High-quality, fixed-point MPEG audio decoder supporting MPEG-1 and MPEG-2";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     maintainers = [ ];
     platforms = lib.platforms.unix;
   };

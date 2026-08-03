@@ -54,7 +54,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/lyonel/lshw/blob/master/docs/Changelog";
     description = "Provide detailed information on the hardware configuration of the machine";
     homepage = "https://ezix.org/project/wiki/HardwareLiSter";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Only;
     mainProgram = "lshw";
     maintainers = with lib.maintainers; [ thiagokokada ];
     platforms = lib.platforms.linux;

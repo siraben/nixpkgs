@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/apertium/lttoolbox";
     maintainers = with lib.maintainers; [ onthestairs ];
     changelog = "https://github.com/apertium/lttoolbox/releases/tag/v${version}";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 }

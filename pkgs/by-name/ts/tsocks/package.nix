@@ -38,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Transparent SOCKS v4 proxying library";
     mainProgram = "tsocks";
     homepage = "https://tsocks.sourceforge.net/";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [ edwtjo ];
     platforms = lib.platforms.unix;
     broken = stdenv.hostPlatform.isDarwin;

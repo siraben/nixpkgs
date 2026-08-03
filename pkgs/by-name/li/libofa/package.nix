@@ -58,6 +58,6 @@ stdenv.mkDerivation rec {
       LibOFA (Library Open Fingerprint Architecture) is an open-source audio
       fingerprint created and provided by MusicIP'';
     platforms = lib.platforms.linux;
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Only;
   };
 }

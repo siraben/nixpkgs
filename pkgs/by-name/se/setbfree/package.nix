@@ -63,7 +63,7 @@ stdenv.mkDerivation {
   meta = {
     description = "DSP tonewheel organ emulator";
     homepage = "https://setbfree.org";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     platforms = [
       "x86_64-linux"
       "i686-linux"

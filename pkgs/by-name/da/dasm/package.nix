@@ -41,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Assembler for 6502 and other 8-bit microprocessors";
     homepage = "https://dasm-assembler.github.io";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     maintainers = [ lib.maintainers.jwatt ];
     platforms = lib.platforms.all;
   };

@@ -28,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Computer Music Toolkit";
     homepage = "https://www.ladspa.org/cmt";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ sjfloat ];
   };

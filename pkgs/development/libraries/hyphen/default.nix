@@ -45,8 +45,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/hunspell/hyphen";
     platforms = lib.platforms.all;
     license = with lib.licenses; [
-      gpl2
-      lgpl21
+      gpl2Plus
+      lgpl21Plus
       mpl11
     ];
   };

@@ -59,7 +59,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Easy, intuitive tool to make 2D hand-drawn animations";
     homepage = "https://www.pencil2d.org/";
     downloadPage = "https://github.com/pencil2d/pencil";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Only;
     maintainers = with lib.maintainers; [ agvantibo ];
     platforms = lib.platforms.linux;
     mainProgram = "pencil2d";

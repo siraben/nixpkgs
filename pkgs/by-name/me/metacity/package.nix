@@ -63,7 +63,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Window manager used in Gnome Flashback";
     homepage = "https://gitlab.gnome.org/GNOME/metacity";
     changelog = "https://gitlab.gnome.org/GNOME/metacity/-/blob/${finalAttrs.version}/NEWS?ref_type=tags";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     teams = [ lib.teams.gnome ];
     platforms = lib.platforms.linux;
   };

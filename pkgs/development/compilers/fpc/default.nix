@@ -104,7 +104,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.freepascal.org";
     maintainers = [ lib.maintainers.raskin ];
     license = with lib.licenses; [
-      gpl2
+      gpl2Plus
       lgpl2
     ];
     platforms = lib.platforms.unix;

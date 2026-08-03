@@ -78,7 +78,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Library for manipulating storage volume encryption keys and storing them separately from volumes to handle forgotten passphrases, and the associated command-line tool";
     mainProgram = "volume_key";
     homepage = "https://pagure.io/volume_key/";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Only;
     maintainers = [ ];
     platforms = lib.platforms.linux;
   };

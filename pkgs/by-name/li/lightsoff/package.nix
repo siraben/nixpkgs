@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     description = "Puzzle game, where the objective is to turn off all of the tiles on the board";
     mainProgram = "lightsoff";
     teams = [ lib.teams.gnome ];
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
   };
 }

@@ -42,7 +42,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
   meta = {
     homepage = "https://github.com/mnauw/git-remote-hg";
     description = "Semi-official Mercurial bridge from Git project";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Only;
     maintainers = [ ];
     platforms = lib.platforms.unix;
   };

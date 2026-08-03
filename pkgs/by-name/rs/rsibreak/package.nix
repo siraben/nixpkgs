@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Takes care of your health and regularly breaks your work to avoid repetitive strain injury (RSI)";
     mainProgram = "rsibreak";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     homepage = "https://www.kde.org/applications/utilities/rsibreak/";
     maintainers = with lib.maintainers; [ vandenoever ];
   };

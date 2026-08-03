@@ -110,7 +110,7 @@ stdenv.mkDerivation (finalAttrs: {
       atemu
     ];
     platforms = with lib.platforms; linux ++ darwin;
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     mainProgram = "virt-viewer";
   };
   passthru = {

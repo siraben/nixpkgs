@@ -44,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Realtime modular synthesizer for ALSA";
     mainProgram = "ams";
     homepage = "https://alsamodular.sourceforge.net";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Only;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ sjfloat ];
   };

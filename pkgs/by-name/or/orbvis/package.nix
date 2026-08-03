@@ -46,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "View and propagate the full CelesTrak satellite catalog in realtime";
     homepage = "https://github.com/wojciech-graj/OrbVis";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [ thtrf ];
     mainProgram = "orbvis";
     platforms = lib.platforms.linux;
