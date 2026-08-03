@@ -205,7 +205,11 @@ stdenv.mkDerivation rec {
     # 32 bit x86 fails with some link error: `undefined reference to `__divmoddi4@GCC_7.0.0'`
     # https://www.singular.uni-kl.de:8002/trac/ticket/837
     platforms = lib.subtractLists lib.platforms.i686 lib.platforms.unix;
-    license = lib.licenses.gpl3; # Or GPLv2 at your option - but not GPLv4
+    # Upstream offers GPLv2 or GPLv3 at the user's option, and no later version.
+    license = with lib.licenses; [
+      gpl2Only
+      gpl3Only
+    ];
     homepage = "https://www.singular.uni-kl.de";
     downloadPage = "http://www.mathematik.uni-kl.de/ftp/pub/Math/Singular/SOURCES/";
     mainProgram = "Singular";

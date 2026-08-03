@@ -23,6 +23,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Library for downloading (streaming) media files using the mmst and mmsh protocols";
     homepage = "http://libmms.sourceforge.net";
     platforms = lib.platforms.all;
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl2Plus;
   };
 })

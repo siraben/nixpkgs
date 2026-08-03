@@ -63,7 +63,10 @@ stdenv.mkDerivation {
   meta = {
     description = "Suite of tools for connecting to PalmOS handheld devices";
     homepage = "https://github.com/desrod/pilot-link";
-    license = lib.licenses.gpl2;
+    license = with lib.licenses; [
+      gpl2Plus
+      lgpl2Plus
+    ];
     maintainers = with lib.maintainers; [ PapayaJackal ];
   };
 }

@@ -60,7 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "IBM JFS utilities";
     homepage = "https://jfs.sourceforge.net";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
   };
 })

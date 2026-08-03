@@ -60,7 +60,10 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://github.com/jindrapetrik/jpexs-decompiler";
     sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
-    license = lib.licenses.gpl3;
+    license = with lib.licenses; [
+      gpl3Plus
+      lgpl3Plus
+    ];
     platforms = jdk8.meta.platforms;
     maintainers = with lib.maintainers; [
       xrtxn

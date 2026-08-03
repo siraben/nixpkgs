@@ -45,7 +45,7 @@ buildDunePackage (finalAttrs: {
   meta = {
     homepage = "https://github.com/ocaml/ocaml-re";
     description = "Pure OCaml regular expressions, with support for Perl and POSIX-style strings";
-    license = lib.licenses.lgpl2;
+    license = lib.licenses.lgpl21Plus;
     maintainers = with lib.maintainers; [ vbgl ];
   };
 })

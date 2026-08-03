@@ -184,8 +184,9 @@ stdenv.mkDerivation (finalAttrs: {
     platforms = lib.platforms.unix;
     badPlatforms = [ lib.systems.inspect.platformPatterns.isStatic ];
     license = with lib.licenses; [
-      gpl2
-      lgpl2
+      bsd2
+      gpl2Plus
+      lgpl2Plus
     ];
 
     longDescription = ''

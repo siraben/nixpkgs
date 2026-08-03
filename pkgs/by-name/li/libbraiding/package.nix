@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     longDescription = ''
       A library to compute several properties of braids, including centralizer and conjugacy check.
     '';
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl2Plus;
     teams = [ lib.teams.sage ];
     platforms = lib.platforms.all;
   };

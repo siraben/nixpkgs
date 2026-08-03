@@ -33,7 +33,7 @@ buildPythonPackage (finalAttrs: {
   meta = {
     description = "Import and export IP-XACT XML register models";
     homepage = "http://peakrdl-ipxact.readthedocs.io/";
-    license = lib.licenses.lgpl3;
+    license = lib.licenses.gpl3Only;
     maintainers = [ lib.maintainers.jmbaur ];
   };
 })

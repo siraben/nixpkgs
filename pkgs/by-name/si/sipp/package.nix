@@ -51,7 +51,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "http://sipp.sf.net";
     description = "SIPp testing tool";
     mainProgram = "sipp";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
   };
 })

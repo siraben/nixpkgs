@@ -16,7 +16,11 @@ vscode-utils.buildVscodeMarketplaceExtension {
     description = "Visual Studio Code extension for HDL developments (SystemVerilog/Verilog/VHDL)";
     downloadPage = "https://marketplace.visualstudio.com/items?itemName=teros-technology.teroshdl";
     homepage = "https://github.com/TerosTechnology/vscode-terosHDL";
-    license = lib.licenses.gpl3;
+    license = with lib.licenses; [
+      gpl3Plus
+      asl20
+      gpl2Plus
+    ];
     maintainers = with lib.maintainers; [ lheintzmann1 ];
   };
 }

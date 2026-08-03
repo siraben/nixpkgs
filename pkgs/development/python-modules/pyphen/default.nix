@@ -27,9 +27,9 @@ buildPythonPackage rec {
     homepage = "https://github.com/Kozea/Pyphen";
     changelog = "https://github.com/Kozea/Pyphen/releases/tag/${version}";
     license = with lib.licenses; [
-      gpl2
-      lgpl21
-      mpl20
+      gpl2Plus
+      lgpl21Plus
+      mpl11
     ];
   };
 }

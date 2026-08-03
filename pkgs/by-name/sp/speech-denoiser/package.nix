@@ -59,7 +59,10 @@ stdenv.mkDerivation {
     broken = (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64);
     description = "Speech denoise lv2 plugin based on RNNoise library";
     homepage = "https://github.com/lucianodato/speech-denoiser";
-    license = lib.licenses.lgpl3;
+    license = with lib.licenses; [
+      lgpl3Plus
+      bsd3
+    ];
     maintainers = [ lib.maintainers.magnetophon ];
     platforms = lib.platforms.linux;
   };

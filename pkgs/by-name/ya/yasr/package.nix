@@ -34,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "General-purpose console screen reader";
     longDescription = "Yasr is a general-purpose console screen reader for GNU/Linux and other Unix-like operating systems.";
     platforms = lib.platforms.linux;
-    license = lib.licenses.gpl2;
+    license = lib.licenses.lgpl2Only;
     maintainers = [ ];
     mainProgram = "yasr";
   };

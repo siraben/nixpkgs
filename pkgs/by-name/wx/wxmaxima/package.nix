@@ -49,7 +49,10 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Cross platform GUI for the computer algebra system Maxima";
     mainProgram = "wxmaxima";
-    license = lib.licenses.gpl2;
+    license = with lib.licenses; [
+      gpl2Plus
+      zlib
+    ];
     homepage = "https://wxmaxima-developers.github.io/wxmaxima/";
     maintainers = with lib.maintainers; [ doronbehar ];
     platforms = lib.platforms.linux;

@@ -36,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Source code indenter, formatter, and beautifier for C, C++, C# and Java";
     mainProgram = "astyle";
     homepage = "https://astyle.sourceforge.net/";
-    license = lib.licenses.lgpl3;
+    license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ carlossless ];
     platforms = lib.platforms.unix;
   };

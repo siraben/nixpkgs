@@ -67,7 +67,11 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Tools for filtering, mapping, and OTU-picking from shotgun genomics data";
     mainProgram = "sortmerna";
-    license = lib.licenses.lgpl3;
+    license = with lib.licenses; [
+      lgpl3Plus
+      mpl11
+      lgpl2Plus
+    ];
     platforms = lib.platforms.x86_64;
     homepage = "https://bioinfo.lifl.fr/RNA/sortmerna/";
     maintainers = with lib.maintainers; [ luispedro ];

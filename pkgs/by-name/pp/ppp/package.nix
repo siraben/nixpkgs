@@ -95,10 +95,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://ppp.samba.org";
     description = "Point-to-point implementation to provide Internet connections over serial lines";
     license = with lib.licenses; [
-      bsdOriginal
       publicDomain
       gpl2Only
-      lgpl2
     ];
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ stv0g ];

@@ -37,7 +37,7 @@ buildPythonPackage rec {
   meta = {
     description = "Python bindings for HFST";
     homepage = "https://github.com/hfst/hfst";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.lgpl3Plus;
     maintainers = with lib.maintainers; [ lurkki ];
   };
 }

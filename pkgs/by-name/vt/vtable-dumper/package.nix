@@ -23,7 +23,10 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/lvc/vtable-dumper";
     description = "Tool to list content of virtual tables in a C++ shared library";
     mainProgram = "vtable-dumper";
-    license = lib.licenses.lgpl21;
+    license = with lib.licenses; [
+      gpl2Only
+      lgpl2Only
+    ];
     platforms = lib.platforms.all;
   };
 })

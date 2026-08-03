@@ -73,7 +73,10 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Show keyboard, gamepad and mouse input on stream";
     homepage = "https://github.com/univrsal/input-overlay";
     maintainers = with lib.maintainers; [ glittershark ];
-    license = lib.licenses.gpl2;
+    license = with lib.licenses; [
+      gpl2Only
+      lgpl3Plus
+    ];
     inherit (obs-studio.meta) platforms;
   };
 })

@@ -34,7 +34,7 @@ stdenv.mkDerivation {
   meta = {
     description = "Small signal processing utility library";
     homepage = "https://github.com/BatchDrake/sigutils";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.lgpl3Only;
     platforms = lib.platforms.all;
     maintainers = with lib.maintainers; [
       polygon

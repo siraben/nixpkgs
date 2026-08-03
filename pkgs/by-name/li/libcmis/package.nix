@@ -54,7 +54,11 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/tdf/libcmis/blob/${finalAttrs.src.tag}/NEWS";
     description = "C++ client library for the CMIS interface";
     homepage = "https://github.com/tdf/libcmis";
-    license = lib.licenses.gpl2;
+    license = with lib.licenses; [
+      mpl11
+      gpl2Plus
+      lgpl2Plus
+    ];
     mainProgram = "cmis-client";
     platforms = lib.platforms.unix;
   };

@@ -28,7 +28,7 @@ stdenv.mkDerivation {
   meta = {
     description = "Visual Interface heXadecimal dump";
     homepage = "http://actinid.org/vix/";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.lgpl3Plus;
     mainProgram = "vix";
     # sys/io.h missing on other platforms
     platforms = [ "x86_64-linux" ];

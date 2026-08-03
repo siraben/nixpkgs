@@ -58,7 +58,10 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Webcam-tools package";
     platforms = lib.platforms.linux;
-    license = lib.licenses.lgpl3;
+    license = with lib.licenses; [
+      lgpl3Plus
+      gpl3Plus
+    ];
     maintainers = with lib.maintainers; [ jraygauthier ];
   };
 })

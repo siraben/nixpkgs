@@ -37,6 +37,9 @@ buildPythonPackage (finalAttrs: {
     homepage = "https://github.com/IanHarvey/bluepy";
     maintainers = with lib.maintainers; [ georgewhewell ];
     platforms = lib.platforms.linux;
-    license = lib.licenses.gpl2;
+    license = with lib.licenses; [
+      gpl2Plus
+      lgpl21Plus
+    ];
   };
 })

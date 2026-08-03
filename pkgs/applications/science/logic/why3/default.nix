@@ -107,7 +107,10 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Platform for deductive program verification";
     homepage = "https://why3.lri.fr/";
-    license = lib.licenses.lgpl21;
+    license = with lib.licenses; [
+      lgpl21Only
+      ocamlLgplLinkingException
+    ];
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [
       thoughtpolice

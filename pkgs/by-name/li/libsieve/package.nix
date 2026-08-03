@@ -15,7 +15,10 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Interpreter for RFC 3028 Sieve and various extensions";
     homepage = "http://sodabrew.com/libsieve/";
-    license = lib.licenses.lgpl21;
+    license = with lib.licenses; [
+      lgpl21Plus
+      mit
+    ];
     platforms = lib.platforms.unix;
   };
 })

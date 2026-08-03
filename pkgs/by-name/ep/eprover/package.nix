@@ -42,7 +42,10 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Automated theorem prover for full first-order logic with equality";
     homepage = "http://www.eprover.org/";
-    license = lib.licenses.gpl2;
+    license = with lib.licenses; [
+      gpl2Plus
+      lgpl21Plus
+    ];
     maintainers = with lib.maintainers; [
       raskin
     ];

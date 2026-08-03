@@ -103,7 +103,11 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "https://github.com/linuxmint/xapp";
     description = "Cross-desktop libraries and common resources";
-    license = lib.licenses.lgpl3;
+    license = with lib.licenses; [
+      lgpl3Only
+      gpl3Only
+      lgpl21Plus
+    ];
     platforms = lib.platforms.linux;
     teams = [ lib.teams.cinnamon ];
   };

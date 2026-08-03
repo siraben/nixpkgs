@@ -21,7 +21,10 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.i-scream.org/libstatgrab/";
     description = "Library that provides cross platforms access to statistics about the running system";
     maintainers = [ ];
-    license = lib.licenses.gpl2;
+    license = with lib.licenses; [
+      gpl2Plus
+      lgpl21Plus
+    ];
     platforms = lib.platforms.unix;
   };
 })

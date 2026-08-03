@@ -70,9 +70,9 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.jruby.org/";
     changelog = "https://github.com/jruby/jruby/releases/tag/${finalAttrs.version}";
     license = with lib.licenses; [
-      cpl10
-      gpl2
-      lgpl21
+      epl20
+      gpl2Only
+      lgpl21Only
     ];
     platforms = jre.meta.platforms;
     maintainers = [ lib.maintainers.fzakaria ];

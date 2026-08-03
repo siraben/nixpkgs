@@ -37,7 +37,7 @@ let
   meta = {
     homepage = "https://faust.grame.fr/";
     downloadPage = "https://github.com/grame-cncm/faust/";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.lgpl21Plus;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [
       magnetophon

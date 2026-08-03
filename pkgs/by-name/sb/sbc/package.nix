@@ -27,7 +27,10 @@ stdenv.mkDerivation (finalAttrs: {
     description = "SubBand Codec Library";
     homepage = "https://www.bluez.org/";
     changelog = "https://git.kernel.org/pub/scm/bluetooth/sbc.git/tree/ChangeLog?h=${finalAttrs.version}";
-    license = lib.licenses.gpl2;
+    license = with lib.licenses; [
+      lgpl21Plus
+      gpl2Plus
+    ];
     platforms = lib.platforms.linux;
   };
 })

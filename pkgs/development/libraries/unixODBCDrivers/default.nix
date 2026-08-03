@@ -106,7 +106,7 @@
     meta = {
       description = "MariaDB ODBC database driver";
       homepage = "https://downloads.mariadb.org/connector-odbc/";
-      license = lib.licenses.gpl2;
+      license = lib.licenses.lgpl21Plus;
       platforms = lib.platforms.linux ++ lib.platforms.darwin;
     };
   };

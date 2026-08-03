@@ -94,7 +94,10 @@ stdenv.mkDerivation rec {
       combination of screen and a text-based IRC client such
       as WeeChat, but graphical (based on Qt4/KDE4 or Qt5/KF5).
     '';
-    license = lib.licenses.gpl3;
+    license = with lib.licenses; [
+      gpl2Only
+      gpl3Only
+    ];
     maintainers = [ ];
     mainProgram =
       if monolithic then

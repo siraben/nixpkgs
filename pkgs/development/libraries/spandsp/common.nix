@@ -219,7 +219,7 @@ stdenv.mkDerivation (finalAttrs: {
     platforms = with lib.platforms; unix;
     maintainers = with lib.maintainers; [ misuzu ];
     teams = [ lib.teams.ngi ];
-    license = lib.licenses.gpl2;
+    license = lib.licenses.lgpl21Only;
     downloadPage = "http://www.soft-switch.org/downloads/spandsp/";
   };
 })

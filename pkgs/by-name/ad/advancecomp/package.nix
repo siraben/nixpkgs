@@ -29,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Set of tools to optimize deflate-compressed files";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl2Plus;
     maintainers = [ lib.maintainers.raskin ];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
     homepage = "https://github.com/amadvance/advancecomp";

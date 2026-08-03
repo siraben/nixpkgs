@@ -26,7 +26,10 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://htmlcxx.sourceforge.net/";
     description = "Simple non-validating css1 and html parser for C++";
     mainProgram = "htmlcxx";
-    license = lib.licenses.lgpl2;
+    license = with lib.licenses; [
+      lgpl2Only
+      asl20
+    ];
     platforms = lib.platforms.all;
   };
 })

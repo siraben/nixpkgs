@@ -29,7 +29,10 @@ buildDunePackage (finalAttrs: {
 
   meta = {
     description = "Bindings for Linux’s filesystem monitoring interface, inotify";
-    license = lib.licenses.lgpl21;
+    license = with lib.licenses; [
+      lgpl21Only
+      ocamlLgplLinkingException
+    ];
     maintainers = [ lib.maintainers.vbgl ];
     inherit (finalAttrs.src.meta) homepage;
     platforms = lib.platforms.linux;

@@ -34,6 +34,10 @@ stdenv.mkDerivation (finalAttrs: {
       aciceri
       alkeryn
     ];
-    license = lib.licenses.gpl3;
+    license = with lib.licenses; [
+      bsd3
+      gpl3Only
+      mit
+    ];
   };
 })

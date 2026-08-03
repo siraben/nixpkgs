@@ -119,7 +119,10 @@ buildPythonPackage (finalAttrs: {
     mainProgram = "ale-import-roms";
     homepage = "https://github.com/mgbellemare/Arcade-Learning-Environment";
     changelog = "https://github.com/Farama-Foundation/Arcade-Learning-Environment/releases/tag/${finalAttrs.src.tag}";
-    license = lib.licenses.gpl2;
+    license = with lib.licenses; [
+      gpl2Only
+      zlib
+    ];
     maintainers = with lib.maintainers; [ billhuang ];
   };
 })

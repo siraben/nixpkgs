@@ -46,7 +46,10 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/strukturag/libde265/releases/tag/${finalAttrs.src.tag}";
     description = "Open h.265 video codec implementation";
     mainProgram = "dec265";
-    license = lib.licenses.lgpl3;
+    license = with lib.licenses; [
+      lgpl3Plus
+      mit
+    ];
     platforms = lib.platforms.unix;
     maintainers = [ ];
   };

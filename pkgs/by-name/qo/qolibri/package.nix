@@ -54,7 +54,10 @@ stdenv.mkDerivation {
   meta = {
     description = "EPWING reader for viewing Japanese dictionaries";
     homepage = "https://github.com/mvf/qolibri";
-    license = lib.licenses.gpl2;
+    license = with lib.licenses; [
+      gpl2Plus
+      bsd3
+    ];
     maintainers = [ lib.maintainers.azahi ];
     platforms = lib.platforms.unix;
     mainProgram = "qolibri";

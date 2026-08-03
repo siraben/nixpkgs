@@ -53,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "qsstv";
     homepage = "https://www.qsl.net/on4qz/";
     platforms = lib.platforms.linux;
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [ hax404 ];
   };
 })

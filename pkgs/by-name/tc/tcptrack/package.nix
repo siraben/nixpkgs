@@ -39,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     inherit (finalAttrs.src.meta) homepage;
     description = "libpcap based program for live TCP connection monitoring";
     mainProgram = "tcptrack";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.bjornfor ];
   };

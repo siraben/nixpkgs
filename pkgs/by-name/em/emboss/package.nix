@@ -52,7 +52,10 @@ stdenv.mkDerivation (finalAttrs: {
       data in a variety of formats and even allows transparent retrieval of
       sequence data from the web.
     '';
-    license = lib.licenses.gpl2;
+    license = with lib.licenses; [
+      gpl2Plus
+      lgpl21Plus
+    ];
     homepage = "https://emboss.sourceforge.net/";
     # The last successful Darwin Hydra build was in 2024
     broken = stdenv.hostPlatform.isDarwin;

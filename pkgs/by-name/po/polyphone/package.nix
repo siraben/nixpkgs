@@ -63,7 +63,10 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Soundfont editor for creating musical instruments";
     mainProgram = "polyphone";
     homepage = "https://www.polyphone-soundfonts.com/";
-    license = lib.licenses.gpl3;
+    license = with lib.licenses; [
+      gpl3Plus
+      lgpl2Plus
+    ];
     maintainers = with lib.maintainers; [
       maxdamantus
     ];

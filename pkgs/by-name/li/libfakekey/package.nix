@@ -43,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "X virtual keyboard library";
     homepage = "https://www.yoctoproject.org/tools-resources/projects/matchbox";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.lgpl2Plus;
     maintainers = [ ];
     platforms = lib.platforms.linux;
   };

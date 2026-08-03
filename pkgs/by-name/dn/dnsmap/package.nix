@@ -34,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Scan for subdomains using brute-force techniques";
     homepage = "https://github.com/resurrecting-open-source-projects/dnsmap";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.all;
     maintainers = with lib.maintainers; [ heywoodlh ];
     changelog = "https://github.com/resurrecting-open-source-projects/dnsmap/releases/tag/${finalAttrs.tag}";

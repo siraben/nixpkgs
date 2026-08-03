@@ -85,7 +85,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Hierarchical pool based memory allocator with destructors";
     homepage = "https://tdb.samba.org/";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.lgpl3Plus;
     platforms = lib.platforms.all;
     maintainers = [ lib.maintainers.matthiasbeyer ];
   };

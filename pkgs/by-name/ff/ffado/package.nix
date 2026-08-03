@@ -126,7 +126,10 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "http://www.ffado.org";
     description = "FireWire audio drivers";
-    license = lib.licenses.gpl3;
+    license = with lib.licenses; [
+      gpl2Only
+      gpl3Only
+    ];
     maintainers = with lib.maintainers; [
       michojel
     ];

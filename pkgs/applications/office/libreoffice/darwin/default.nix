@@ -57,7 +57,11 @@ stdenvNoCC.mkDerivation {
   meta = {
     description = "Comprehensive, professional-quality productivity suite, a variant of openoffice.org";
     homepage = "https://libreoffice.org/";
-    license = lib.licenses.lgpl3;
+    license = with lib.licenses; [
+      mpl20
+      lgpl3Plus
+      asl20
+    ];
     maintainers = with lib.maintainers; [ tricktron ];
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     platforms = [

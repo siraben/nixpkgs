@@ -121,7 +121,10 @@ stdenv.mkDerivation (finalAttrs: {
       certification of critical software.
     '';
     homepage = "https://www.frama-c.com/index.html";
-    license = lib.licenses.lgpl21;
+    license = with lib.licenses; [
+      lgpl21Only
+      bsd3
+    ];
     maintainers = with lib.maintainers; [
       thoughtpolice
       luc65r

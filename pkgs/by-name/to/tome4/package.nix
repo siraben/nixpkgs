@@ -140,7 +140,11 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Tales of Maj'eyal (rogue-like game)";
     mainProgram = "tome4";
     homepage = "https://te4.org/";
-    license = lib.licenses.gpl3;
+    license = with lib.licenses; [
+      gpl3Plus
+      bsd3
+      bsd2
+    ];
     maintainers = with lib.maintainers; [ peterhoeg ];
     platforms = [
       "i686-linux"

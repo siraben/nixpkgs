@@ -104,7 +104,10 @@ stdenv.mkDerivation (finalAttrs: {
       into a simple DBus daemon and c wrapper library.
     '';
     homepage = "https://launchpad.net/bamf";
-    license = lib.licenses.lgpl3;
+    license = with lib.licenses; [
+      gpl3Only
+      lgpl3Only
+    ];
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ davidak ];
     teams = [ lib.teams.pantheon ];

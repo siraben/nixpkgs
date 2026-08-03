@@ -49,7 +49,10 @@ stdenv.mkDerivation (finalAttrs: {
     broken = stdenv.hostPlatform.isDarwin;
     description = "Simple XML editor based on qt libraries";
     homepage = "https://sourceforge.net/projects/qxmledit";
-    license = lib.licenses.lgpl2;
+    license = with lib.licenses; [
+      lgpl2Plus
+      zlib
+    ];
     platforms = lib.platforms.unix;
     changelog = "https://github.com/lbellonda/qxmledit/blob/${finalAttrs.version}/NEWS";
     mainProgram = "qxmledit";

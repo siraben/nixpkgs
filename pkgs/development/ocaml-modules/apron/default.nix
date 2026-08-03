@@ -59,7 +59,10 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   meta = {
-    license = lib.licenses.lgpl21;
+    license = with lib.licenses; [
+      lgpl21Only
+      gpl2Only
+    ];
     homepage = "http://apron.cri.ensmp.fr/library/";
     maintainers = [ lib.maintainers.vbgl ];
     description = "Numerical abstract domain library";

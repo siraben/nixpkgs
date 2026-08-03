@@ -28,9 +28,9 @@ stdenv.mkDerivation (finalAttrs: {
     description = "NFS client library";
     homepage = "https://github.com/sahlberg/libnfs";
     license = with lib.licenses; [
-      lgpl2
+      lgpl21Plus
       bsd2
-      gpl3
+      gpl3Plus
     ];
     maintainers = with lib.maintainers; [ peterhoeg ];
     platforms = lib.platforms.unix;

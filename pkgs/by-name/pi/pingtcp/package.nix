@@ -33,7 +33,10 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Measure TCP handshake time";
     homepage = "https://github.com/LanetNetwork/pingtcp";
-    license = lib.licenses.gpl3;
+    license = with lib.licenses; [
+      gpl3Only
+      asl20
+    ];
     platforms = lib.platforms.linux;
     mainProgram = "pingtcp";
   };

@@ -47,7 +47,7 @@ stdenvNoCC.mkDerivation {
   meta = {
     description = "Sleek and stylish SDDM theme crafted in QML for Qt6";
     homepage = "https://github.com/rainD4X/Elegant-sddm-qt6";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.cc-by-sa-30;
     maintainers = with lib.maintainers; [
       GaetanLepage
       redlonghead

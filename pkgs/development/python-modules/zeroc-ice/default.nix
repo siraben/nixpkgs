@@ -35,7 +35,10 @@ buildPythonPackage rec {
 
   meta = {
     homepage = "https://zeroc.com/";
-    license = lib.licenses.gpl2;
+    license = with lib.licenses; [
+      gpl2Only
+      bsd2
+    ];
     description = "Comprehensive RPC framework with support for Python, C++, .NET, Java, JavaScript and more";
     mainProgram = "slice2py";
     maintainers = [ ];

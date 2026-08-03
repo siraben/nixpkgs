@@ -24,8 +24,9 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Build system designed for scalability and portability";
     homepage = "http://projects.camlcity.org/projects/omake.html";
     license = with lib.licenses; [
-      mit # scripts
-      gpl2 # program
+      mit
+      gpl2Only
+      lgpl21Only
     ];
     inherit (ocaml.meta) platforms;
   };

@@ -57,7 +57,12 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "https://github.com/projectM-visualizer/projectm";
     description = "Cross-platform Milkdrop-compatible music visualizer";
-    license = lib.licenses.lgpl21;
+    license = with lib.licenses; [
+      lgpl21Plus
+      mit
+      asl20
+      publicDomain
+    ];
     platforms = lib.platforms.unix;
     maintainers = [ ];
     longDescription = ''

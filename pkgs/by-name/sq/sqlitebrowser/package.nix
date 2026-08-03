@@ -86,7 +86,10 @@ stdenv.mkDerivation (finalAttrs: {
     description = "DB Browser for SQLite";
     mainProgram = "sqlitebrowser";
     homepage = "https://sqlitebrowser.org/";
-    license = lib.licenses.gpl3;
+    license = with lib.licenses; [
+      mpl20
+      gpl3Plus
+    ];
     maintainers = with lib.maintainers; [
       peterhoeg
       savtrip

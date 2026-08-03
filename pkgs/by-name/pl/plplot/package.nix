@@ -57,6 +57,9 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://plplot.org";
     maintainers = with lib.maintainers; [ bcdarwin ];
     platforms = lib.platforms.unix;
-    license = lib.licenses.lgpl2;
+    license = with lib.licenses; [
+      lgpl2Plus
+      bsd2
+    ];
   };
 })

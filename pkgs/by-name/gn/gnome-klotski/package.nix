@@ -69,7 +69,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Slide blocks to solve the puzzle";
     mainProgram = "gnome-klotski";
     teams = [ lib.teams.gnome ];
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.unix;
   };
 })

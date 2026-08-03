@@ -36,10 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "https://github.com/linuxmint/cinnamon-menus";
     description = "Menu system for the Cinnamon project";
-    license = [
-      lib.licenses.gpl2
-      lib.licenses.lgpl2
-    ];
+    license = lib.licenses.lgpl2Plus;
     platforms = lib.platforms.linux;
     teams = [ lib.teams.cinnamon ];
   };

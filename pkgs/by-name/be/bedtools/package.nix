@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Powerful toolset for genome arithmetic";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.mit;
     homepage = "https://bedtools.readthedocs.io/en/latest/";
     maintainers = with lib.maintainers; [ jbedo ];
     platforms = lib.platforms.unix;

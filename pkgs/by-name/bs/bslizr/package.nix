@@ -33,6 +33,9 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Sequenced audio slicing effect LV2 plugin (step sequencer effect)";
     maintainers = [ lib.maintainers.magnetophon ];
     platforms = lib.platforms.linux;
-    license = lib.licenses.gpl3;
+    license = with lib.licenses; [
+      gpl3Plus
+      isc
+    ];
   };
 })

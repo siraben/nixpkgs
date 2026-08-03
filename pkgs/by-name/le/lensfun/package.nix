@@ -109,7 +109,7 @@ stdenv.mkDerivation {
       flokli
       paperdigits
     ];
-    license = lib.licenses.lgpl3;
+    license = lib.licenses.lgpl2Plus;
     description = "Opensource database of photographic lenses and their characteristics";
     homepage = "https://lensfun.github.io";
   };

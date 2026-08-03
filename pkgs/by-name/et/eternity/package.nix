@@ -66,7 +66,11 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://doomworld.com/eternity";
     description = "New school Doom port by James Haley";
     mainProgram = "eternity";
-    license = lib.licenses.gpl3;
+    license = with lib.licenses; [
+      gpl3Plus
+      lgpl21Plus
+      lgpl3Plus
+    ];
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ aware70 ];
   };

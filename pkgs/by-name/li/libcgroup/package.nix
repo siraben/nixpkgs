@@ -55,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Library and tools to manage Linux cgroups";
     homepage = "https://github.com/libcgroup/libcgroup";
-    license = lib.licenses.lgpl2;
+    license = lib.licenses.lgpl21Only;
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.thoughtpolice ];
   };

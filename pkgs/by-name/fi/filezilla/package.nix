@@ -79,7 +79,7 @@ stdenv.mkDerivation (finalAttrs: {
       under many platforms, binaries for Windows, Linux and macOS are
       provided.
     '';
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [
       iedame

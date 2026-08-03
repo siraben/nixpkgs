@@ -35,6 +35,9 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Pattern-controlled audio stream / sample re-sequencer LV2 plugin";
     maintainers = [ lib.maintainers.magnetophon ];
     platforms = lib.platforms.linux;
-    license = lib.licenses.gpl3;
+    license = with lib.licenses; [
+      gpl3Plus
+      isc
+    ];
   };
 })

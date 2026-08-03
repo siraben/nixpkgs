@@ -24,7 +24,10 @@ buildDunePackage (finalAttrs: {
   meta = {
     homepage = "https://github.com/gildor478/ocamlify";
     description = "Include files in OCaml code";
-    license = lib.licenses.lgpl21;
+    license = with lib.licenses; [
+      lgpl21Plus
+      ocamlLgplLinkingException
+    ];
     mainProgram = "ocamlify";
   };
 })

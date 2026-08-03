@@ -41,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Object and executable file converter, modifier and disassembler";
     mainProgram = "objconv";
     homepage = "https://www.agner.org/optimize/";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl3Plus;
     maintainers = [ ];
     platforms = lib.platforms.unix;
   };

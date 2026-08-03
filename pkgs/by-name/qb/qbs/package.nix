@@ -29,7 +29,10 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Tool that helps simplify the build process for developing projects across multiple platforms";
     homepage = "https://wiki.qt.io/Qbs";
-    license = lib.licenses.lgpl3;
+    license = with lib.licenses; [
+      lgpl3Only
+      gpl2Plus
+    ];
     maintainers = with lib.maintainers; [
       robinheghan
     ];

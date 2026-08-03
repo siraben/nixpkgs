@@ -30,6 +30,9 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://libwps.sourceforge.net/";
     description = "Microsoft Works document format import filter library";
     platforms = lib.platforms.unix;
-    license = lib.licenses.lgpl21;
+    license = with lib.licenses; [
+      mpl20
+      lgpl21Plus
+    ];
   };
 })

@@ -140,9 +140,8 @@ stdenv.mkDerivation (finalAttrs: {
       the operating systems on which it is implemented.
     '';
     license = with lib.licenses; [
-      # All of these are located in the about_files directory of the source
-      ijg
-      lgpl21
+      epl20
+      lgpl21Only
       mpl11
       mpl20
     ];

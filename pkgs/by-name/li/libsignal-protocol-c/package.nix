@@ -34,7 +34,10 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Signal Protocol C Library";
     homepage = "https://github.com/signalapp/libsignal-protocol-c";
-    license = lib.licenses.gpl3;
+    license = with lib.licenses; [
+      gpl3Only
+      bsd3
+    ];
     platforms = lib.platforms.all;
     maintainers = [ ];
   };

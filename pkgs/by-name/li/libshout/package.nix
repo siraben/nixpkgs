@@ -59,7 +59,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
 
     homepage = "https://www.icecast.org";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.lgpl2Plus;
     maintainers = with lib.maintainers; [ jcumming ];
     mainProgram = "shout";
     platforms = with lib.platforms; unix;

@@ -129,7 +129,7 @@ stdenv.mkDerivation (finalAttrs: {
       And some server tools included in MP4Box and MP42TS applications.
     '';
     homepage = "https://gpac.wp.imt.fr";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl2Plus;
     maintainers = with lib.maintainers; [
       mgdelacroix
       thesn

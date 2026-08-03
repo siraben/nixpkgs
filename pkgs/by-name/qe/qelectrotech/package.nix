@@ -95,7 +95,10 @@ stdenv.mkDerivation rec {
     description = "Free software to create electric diagrams";
     mainProgram = "qelectrotech";
     homepage = "https://qelectrotech.org/";
-    license = lib.licenses.gpl2;
+    license = with lib.licenses; [
+      gpl2Plus
+      mit
+    ];
     maintainers = with lib.maintainers; [ yvesf ];
     platforms = libsForQt5.qtbase.meta.platforms;
     broken = stdenv.hostPlatform.isDarwin;

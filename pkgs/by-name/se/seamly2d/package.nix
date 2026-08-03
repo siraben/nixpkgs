@@ -82,7 +82,12 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Open source patternmaking software";
     homepage = "https://seamly.net/";
-    license = lib.licenses.gpl3;
+    license = with lib.licenses; [
+      gpl3Plus
+      gpl2Plus
+      lgpl3Plus
+      mit
+    ];
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ WhittlesJr ];
   };

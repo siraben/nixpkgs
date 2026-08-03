@@ -36,10 +36,7 @@ stdenvNoCC.mkDerivation rec {
   meta = {
     description = "Icon theme for Pop!_OS with a semi-flat design and raised 3D motifs";
     homepage = "https://github.com/pop-os/icon-theme";
-    license = with lib.licenses; [
-      cc-by-sa-40
-      gpl3
-    ];
+    license = lib.licenses.cc-by-sa-40;
     platforms = lib.platforms.linux; # hash mismatch on darwin due to file names differing only in case
     maintainers = with lib.maintainers; [ romildo ];
   };

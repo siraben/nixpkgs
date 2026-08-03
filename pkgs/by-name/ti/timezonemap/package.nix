@@ -77,7 +77,10 @@ stdenv.mkDerivation {
   meta = {
     homepage = "https://launchpad.net/timezonemap";
     description = "GTK+3 Timezone Map Widget";
-    license = lib.licenses.gpl2;
+    license = with lib.licenses; [
+      gpl2Plus
+      gpl3Only
+    ];
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.mkg20001 ];
   };

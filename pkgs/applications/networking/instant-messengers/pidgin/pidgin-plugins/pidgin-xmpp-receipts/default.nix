@@ -29,7 +29,7 @@ stdenv.mkDerivation {
   meta = {
     homepage = "http://devel.kondorgulasch.de/pidgin-xmpp-receipts/";
     description = "Message delivery receipts (XEP-0184) Pidgin plugin";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
     maintainers = [ ];
   };

@@ -27,8 +27,10 @@ buildDunePackage (finalAttrs: {
     downloadPage = "https://github.com/AltGr/ocaml-mccs";
     homepage = "https://www.i3s.unice.fr/~cpjm/misc/";
     license = with lib.licenses; [
-      lgpl21
-      gpl3
+      lgpl21Only
+      ocamlLgplLinkingException
+      bsd3
+      gpl3Only
     ];
     maintainers = [ ];
   };

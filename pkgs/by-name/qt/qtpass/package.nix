@@ -76,7 +76,10 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Multi-platform GUI for pass, the standard unix password manager";
     mainProgram = "qtpass";
     homepage = "https://qtpass.org";
-    license = lib.licenses.gpl3;
+    license = with lib.licenses; [
+      gpl3Plus
+      mit
+    ];
     platforms = lib.platforms.all;
   };
 })

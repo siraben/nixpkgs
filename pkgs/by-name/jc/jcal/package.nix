@@ -25,7 +25,10 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Jalali calendar is a small and portable free software library to manipulate date and time in Jalali calendar system";
     homepage = "http://nongnu.org/jcal/";
-    license = lib.licenses.gpl3;
+    license = with lib.licenses; [
+      gpl3Plus
+      lgpl3Plus
+    ];
     maintainers = [ ];
     platforms = lib.platforms.all;
   };

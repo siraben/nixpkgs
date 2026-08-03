@@ -37,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Zita thread library";
     homepage = "http://kokkinizita.linuxaudio.org/linuxaudio/downloads/index.html";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [ magnetophon ];
     platforms = lib.platforms.linux;
   };

@@ -38,7 +38,7 @@ buildPythonPackage rec {
     mainProgram = "eyeD3";
     downloadPage = "https://github.com/nicfit/eyeD3";
     homepage = "https://eyed3.nicfit.net/";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl3Plus;
     maintainers = [ ];
     platforms = lib.platforms.unix;
     longDescription = ''

@@ -71,7 +71,10 @@ python3Packages.buildPythonApplication (finalAttrs: {
     description = "Pandora Internet Radio player for GNOME";
     mainProgram = "pithos";
     homepage = "https://pithos.github.io/";
-    license = lib.licenses.gpl3;
+    license = with lib.licenses; [
+      gpl3Only
+      agpl3Plus
+    ];
     maintainers = with lib.maintainers; [ obadz ];
   };
 })

@@ -61,7 +61,10 @@ python3Packages.buildPythonApplication (finalAttrs: {
       outline your story. Organize your ideas about the world your
       characters live in.
     '';
-    license = lib.licenses.gpl3;
+    license = with lib.licenses; [
+      gpl3Plus
+      asl20
+    ];
     maintainers = with lib.maintainers; [ strawbee ];
     platforms = lib.platforms.unix;
     mainProgram = "manuskript";

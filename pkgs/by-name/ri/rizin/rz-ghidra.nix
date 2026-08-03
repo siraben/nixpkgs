@@ -56,7 +56,10 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Deep ghidra decompiler and sleigh disassembler integration for rizin";
     homepage = finalAttrs.src.meta.homepage;
     changelog = "${finalAttrs.src.meta.homepage}/releases/tag/${finalAttrs.src.rev}";
-    license = lib.licenses.lgpl3;
+    license = with lib.licenses; [
+      lgpl3Plus
+      asl20
+    ];
     maintainers = with lib.maintainers; [ chayleaf ];
     inherit (rizin.meta) platforms;
   };

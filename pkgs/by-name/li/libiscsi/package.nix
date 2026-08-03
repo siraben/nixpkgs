@@ -40,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "iSCSI client library and utilities";
     homepage = "https://github.com/sahlberg/libiscsi";
-    license = lib.licenses.lgpl2;
+    license = lib.licenses.lgpl21Plus;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ misuzu ];
   };

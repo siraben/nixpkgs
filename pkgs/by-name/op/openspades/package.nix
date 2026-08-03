@@ -99,7 +99,11 @@ stdenv.mkDerivation rec {
     description = "Compatible client of Ace of Spades 0.75";
     mainProgram = "openspades";
     homepage = "https://github.com/yvt/openspades/";
-    license = lib.licenses.gpl3;
+    license = with lib.licenses; [
+      gpl3Plus
+      mit
+      zlib
+    ];
     platforms = lib.platforms.all;
     maintainers = [ ];
     # never built on aarch64-linux since first introduction in nixpkgs

@@ -81,10 +81,7 @@ buildPythonPackage rec {
     description = "Python bindings for Enlightenment Foundation Libraries";
     homepage = "https://github.com/DaveMDS/python-efl";
     platforms = lib.platforms.linux;
-    license = with lib.licenses; [
-      gpl3
-      lgpl3
-    ];
+    license = lib.licenses.lgpl3Plus;
     maintainers = with lib.maintainers; [
       matejc
     ];

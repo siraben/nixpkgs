@@ -60,7 +60,11 @@ stdenv.mkDerivation rec {
   meta = {
     description = "World class backgammon application";
     homepage = "https://www.gnu.org/software/gnubg/";
-    license = lib.licenses.gpl3;
+    license = with lib.licenses; [
+      gpl3Plus
+      bsd3
+      publicDomain
+    ];
     platforms = lib.platforms.linux;
   };
 }

@@ -15,7 +15,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     homepage = "https://www.openfabrics.org/";
-    license = lib.licenses.gpl2;
+    license = with lib.licenses; [
+      gpl2Only
+      bsd2
+    ];
     platforms = lib.platforms.linux;
   };
 })

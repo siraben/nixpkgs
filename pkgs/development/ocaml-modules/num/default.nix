@@ -38,7 +38,10 @@ stdenv.mkDerivation (
 
     meta = {
       description = "Legacy Num library for arbitrary-precision integer and rational arithmetic";
-      license = lib.licenses.lgpl21;
+      license = with lib.licenses; [
+        lgpl21Only
+        ocamlLgplLinkingException
+      ];
       inherit (ocaml.meta) platforms;
       inherit (src.meta) homepage;
     };

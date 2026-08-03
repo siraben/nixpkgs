@@ -23,7 +23,10 @@ buildDunePackage rec {
   meta = {
     homepage = "http://ocsigen.org/tyxml/";
     description = "Library that makes it almost impossible for your OCaml programs to generate wrong XML output, using static typing";
-    license = lib.licenses.lgpl21;
+    license = with lib.licenses; [
+      lgpl21Only
+      ocamlLgplLinkingException
+    ];
     maintainers = with lib.maintainers; [
       gal_bolle
       vbgl

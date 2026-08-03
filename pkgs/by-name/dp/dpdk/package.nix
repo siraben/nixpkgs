@@ -113,9 +113,10 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Set of libraries and drivers for fast packet processing";
     homepage = "http://dpdk.org/";
     license = with lib.licenses; [
-      lgpl21
+      lgpl21Only
       gpl2Only
-      bsd2
+      bsd3
+      mit
     ];
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [

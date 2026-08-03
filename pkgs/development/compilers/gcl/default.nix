@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     description = "GNU Common Lisp compiler working via GCC";
     mainProgram = "gcl";
     teams = [ lib.teams.lisp ];
-    license = lib.licenses.gpl2;
+    license = lib.licenses.lgpl2Plus;
     platforms = lib.platforms.linux;
     broken = true; # 2025-01-21; to check after 2.7.0 is tagged
   };

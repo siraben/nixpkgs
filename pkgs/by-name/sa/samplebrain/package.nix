@@ -65,7 +65,10 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://thentrythis.org/projects/samplebrain";
     changelog = "https://gitlab.com/then-try-this/samplebrain/-/releases/v${finalAttrs.version}_release";
     maintainers = with lib.maintainers; [ mitchmindtree ];
-    license = lib.licenses.gpl2;
+    license = with lib.licenses; [
+      gpl2Plus
+      mit
+    ];
     platforms = lib.platforms.linux;
   };
 })

@@ -71,7 +71,10 @@ python3Packages.buildPythonApplication (finalAttrs: {
     description = "GUI tool to find duplicate files in a system";
     homepage = "https://github.com/arsenetar/dupeguru";
     changelog = "https://github.com/arsenetar/dupeguru/releases/tag/${builtins.head (lib.strings.splitString "-" finalAttrs.version)}";
-    license = lib.licenses.gpl3;
+    license = with lib.licenses; [
+      gpl3Only
+      bsd3
+    ];
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ novoxd ];
     mainProgram = "dupeguru";

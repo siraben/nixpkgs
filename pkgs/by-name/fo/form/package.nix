@@ -52,7 +52,10 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Symbolic manipulation of very big expressions";
     homepage = "https://www.nikhef.nl/~form/";
-    license = lib.licenses.gpl3;
+    license = with lib.licenses; [
+      gpl3Plus
+      bsd3
+    ];
     maintainers = [ lib.maintainers.veprbl ];
     platforms = lib.platforms.unix;
   };

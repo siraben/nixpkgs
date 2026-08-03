@@ -43,7 +43,10 @@ stdenv.mkDerivation {
 
   meta = {
     description = "GNU/Linux keylogger that works";
-    license = lib.licenses.gpl3;
+    license = with lib.licenses; [
+      gpl3Plus
+      wtfpl
+    ];
     homepage = "https://github.com/kernc/logkeys";
     maintainers = with lib.maintainers; [
       mikoim

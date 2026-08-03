@@ -38,7 +38,11 @@ let
     description = "Compiler for Ethereum smart contract language Solidity";
     homepage = "https://github.com/ethereum/solidity";
     changelog = "https://github.com/ethereum/solidity/releases/tag/v${version}";
-    license = lib.licenses.gpl3;
+    license = with lib.licenses; [
+      gpl3Plus
+      mit
+      boost
+    ];
     maintainers = with lib.maintainers; [
       dbrock
       akru

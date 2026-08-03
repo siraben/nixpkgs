@@ -23,7 +23,10 @@ buildDunePackage (finalAttrs: {
   meta = {
     description = "OCaml module for functional reactive programming (FRP) based on React";
     homepage = "https://github.com/ocsigen/reactiveData";
-    license = lib.licenses.lgpl21;
+    license = with lib.licenses; [
+      lgpl3Plus
+      ocamlLgplLinkingException
+    ];
     maintainers = with lib.maintainers; [ vbgl ];
   };
 })

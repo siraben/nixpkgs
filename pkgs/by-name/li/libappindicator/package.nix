@@ -84,8 +84,9 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Library to allow applications to export a menu into the Unity Menu bar";
     homepage = "https://launchpad.net/libappindicator";
     license = with lib.licenses; [
-      lgpl21
-      lgpl3
+      lgpl21Only
+      lgpl3Only
+      gpl3Only
     ];
     pkgConfigModules = [ "appindicator3-0.1" ];
 

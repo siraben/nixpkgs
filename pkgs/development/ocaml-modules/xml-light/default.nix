@@ -26,7 +26,10 @@ buildDunePackage rec {
       library.
     '';
     homepage = "http://tech.motion-twin.com/xmllight.html";
-    license = lib.licenses.lgpl21;
+    license = with lib.licenses; [
+      lgpl21Plus
+      ocamlLgplLinkingException
+    ];
     maintainers = [ lib.maintainers.romildo ];
   };
 }

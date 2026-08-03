@@ -23,7 +23,10 @@ buildDunePackage (finalAttrs: {
       This project provides a Mmap.map_file functions for mapping files in memory.
     '';
     changelog = "https://raw.githubusercontent.com/mirage/mmap/refs/tags/v${finalAttrs.version}/CHANGES.md";
-    license = lib.licenses.lgpl21;
+    license = with lib.licenses; [
+      lgpl21Only
+      ocamlLgplLinkingException
+    ];
     maintainers = [ lib.maintainers.vbgl ];
   };
 })

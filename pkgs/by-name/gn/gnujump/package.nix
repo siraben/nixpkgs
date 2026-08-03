@@ -60,7 +60,10 @@ stdenv.mkDerivation (finalAttrs: {
       Try to survive longer get upper than anyone. It might seem too simple but
       once you've tried you'll realize how addictive this is.
     '';
-    license = lib.licenses.gpl3;
+    license = with lib.licenses; [
+      gpl3Plus
+      lgpl21Plus
+    ];
     maintainers = with lib.maintainers; [ fgaz ];
     platforms = lib.platforms.linux;
   };

@@ -49,7 +49,12 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   meta = {
-    license = lib.licenses.gpl2;
+    license = with lib.licenses; [
+      gpl2Only
+      gpl3Only
+      lgpl21Only
+      lgpl3Only
+    ];
     description = "Hex editor";
     homepage = "https://apps.kde.org/okteta/";
     maintainers = with lib.maintainers; [

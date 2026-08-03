@@ -26,7 +26,11 @@ buildPythonPackage rec {
     description = "Python software implementation and hardware API of CRC32C checksum algorithm";
     homepage = "https://github.com/ICRAR/crc32c";
     changelog = "https://github.com/ICRAR/crc32c/blob/master/CHANGELOG.md";
-    license = lib.licenses.lgpl21;
+    license = with lib.licenses; [
+      lgpl21Plus
+      bsd3
+      zlib
+    ];
     maintainers = with lib.maintainers; [ bcdarwin ];
   };
 }

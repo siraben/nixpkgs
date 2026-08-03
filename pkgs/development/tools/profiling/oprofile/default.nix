@@ -60,7 +60,10 @@ stdenv.mkDerivation (finalAttrs: {
       is profiled: hardware and software interrupt handlers, kernel
       modules, the kernel, shared libraries, and applications.
     '';
-    license = lib.licenses.gpl2;
+    license = with lib.licenses; [
+      gpl2Only
+      lgpl21Plus
+    ];
     homepage = "http://oprofile.sourceforge.net/";
 
     platforms = lib.platforms.linux;

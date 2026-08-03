@@ -80,7 +80,10 @@ let
         homepage = "https://www.webtoolkit.eu/wt";
         description = "C++ library for developing web applications";
         platforms = lib.platforms.linux;
-        license = lib.licenses.gpl2;
+        license = with lib.licenses; [
+          gpl2Only
+          mit
+        ];
         maintainers = with lib.maintainers; [ juliendehos ];
       };
     };

@@ -37,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://lse.sourceforge.net/io/aio.html";
     downloadPage = "https://codeberg.org/jmoyer/libaio";
     platforms = lib.platforms.linux;
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl2Plus;
     maintainers = [ ];
   };
 })

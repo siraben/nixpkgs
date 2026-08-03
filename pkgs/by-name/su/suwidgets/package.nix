@@ -44,7 +44,11 @@ stdenv.mkDerivation {
   meta = {
     description = "Sigutils-related widgets";
     homepage = "https://github.com/BatchDrake/SuWidgets";
-    license = lib.licenses.gpl3;
+    license = with lib.licenses; [
+      lgpl3Plus
+      asl20
+      bsd2
+    ];
     platforms = lib.platforms.all;
     maintainers = with lib.maintainers; [
       polygon

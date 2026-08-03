@@ -38,7 +38,13 @@ stdenv.mkDerivation (finalAttrs: {
       MIDI functionality to the Linux-based operating system.
     '';
 
-    license = lib.licenses.gpl2;
+    license = with lib.licenses; [
+
+      gpl2Plus
+
+      lgpl2Plus
+
+    ];
     platforms = lib.platforms.linux;
   };
 })

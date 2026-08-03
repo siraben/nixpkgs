@@ -67,7 +67,13 @@ buildDunePackage (finalAttrs: {
       Ocsigen Js_of_ocaml.
     '';
 
-    license = lib.licenses.lgpl21;
+    license = with lib.licenses; [
+
+      lgpl21Only
+
+      ocamlLgplLinkingException
+
+    ];
     maintainers = [ lib.maintainers.gal_bolle ];
   };
 })

@@ -23,7 +23,10 @@ buildDunePackage (finalAttrs: {
   meta = {
     homepage = "https://www.lri.fr/~filliatr/software.en.html";
     description = "Maps over integers implemented as Patricia trees";
-    license = lib.licenses.lgpl21;
+    license = with lib.licenses; [
+      lgpl21Only
+      ocamlLgplLinkingException
+    ];
     maintainers = [ ];
   };
 })

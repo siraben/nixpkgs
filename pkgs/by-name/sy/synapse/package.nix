@@ -52,7 +52,11 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     description = "Semantic launcher to start applications and find relevant files";
     homepage = "https://launchpad.net/synapse-project";
-    license = lib.licenses.gpl3;
+    license = with lib.licenses; [
+      gpl2Plus
+      gpl3Plus
+      lgpl21Plus
+    ];
     maintainers = with lib.maintainers; [ mahe ];
     platforms = with lib.platforms; all;
     mainProgram = "synapse";

@@ -43,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.xnec2c.org/";
     description = "Graphical antenna simulation";
     mainProgram = "xnec2c";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [ mvs ];
     platforms = lib.platforms.unix;
 

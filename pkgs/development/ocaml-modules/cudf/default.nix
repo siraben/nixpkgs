@@ -33,7 +33,10 @@ buildDunePackage (finalAttrs: {
     description = "Library for CUDF format";
     homepage = "https://www.mancoosi.org/cudf/";
     downloadPage = "https://gforge.inria.fr/projects/cudf/";
-    license = lib.licenses.lgpl3;
+    license = with lib.licenses; [
+      lgpl3Plus
+      ocamlLgplLinkingException
+    ];
     maintainers = [ ];
   };
 })
