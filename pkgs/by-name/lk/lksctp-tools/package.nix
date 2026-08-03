@@ -25,8 +25,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/sctp/lksctp-tools/wiki";
     license = with lib.licenses; [
       gpl2Plus
-      lgpl21
-    ]; # library is lgpl21
+      lgpl21Only
+    ]; # library is lgpl21Only
     platforms = lib.platforms.linux;
   };
 })

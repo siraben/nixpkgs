@@ -64,7 +64,7 @@ stdenv.mkDerivation (finalAttrs: {
     platforms = lib.platforms.linux;
     license = with lib.licenses; [
       gpl2Plus
-      lgpl21
+      lgpl21Plus
     ];
     downloadPage = "http://nilfs.sourceforge.net/en/download.html";
   };

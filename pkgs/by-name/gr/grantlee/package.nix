@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
 
     homepage = "https://github.com/steveire/grantlee";
     maintainers = [ ];
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     inherit (qt5.qtbase.meta) platforms;
   };
 }

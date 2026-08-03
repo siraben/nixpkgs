@@ -27,7 +27,7 @@ stdenv.mkDerivation {
     homepage = "http://leenissen.dk/fann/wp/";
     description = "Fast Artificial Neural Network Library";
     maintainers = with lib.maintainers; [ fpletz ];
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     platforms = lib.platforms.all;
   };
 }

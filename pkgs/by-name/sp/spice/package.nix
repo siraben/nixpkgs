@@ -117,7 +117,7 @@ stdenv.mkDerivation (finalAttrs: {
       utilized by a third-party component.
     '';
     homepage = "https://www.spice-space.org/";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
 
     maintainers = with lib.maintainers; [
       atemu

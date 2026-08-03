@@ -140,7 +140,7 @@ stdenv.mkDerivation (finalAttrs: {
       Linux.
     '';
     homepage = "https://github.com/deniskropp/DirectFB";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.bjornfor ];
   };

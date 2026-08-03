@@ -63,7 +63,7 @@ stdenv.mkDerivation (finalAttrs: {
       library's abilities.
     '';
     homepage = "https://noping.cc/";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     platforms = lib.platforms.unix;
     maintainers = [ lib.maintainers.bjornfor ];
   };

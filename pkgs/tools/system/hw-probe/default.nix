@@ -149,7 +149,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxhw/hw-probe";
     platforms = with lib.platforms; (linux ++ freebsd ++ netbsd ++ openbsd);
     license = with lib.licenses; [
-      lgpl21
+      lgpl21Plus
       bsdOriginal
     ];
     maintainers = with lib.maintainers; [ rehno-lindeque ];

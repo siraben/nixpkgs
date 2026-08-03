@@ -26,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "http://0pointer.de/lennart/projects/libasyncns/";
     description = "C library for Linux/Unix for executing name service queries asynchronously";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     platforms = lib.platforms.unix;
   };
 })

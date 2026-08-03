@@ -51,7 +51,7 @@ buildDunePackage (finalAttrs: {
   meta = {
     description = "OCaml Bindings to gettext";
     homepage = "https://github.com/gildor478/ocaml-gettext";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     maintainers = [ ];
     mainProgram = "ocaml-gettext";
   };

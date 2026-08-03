@@ -42,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Java Native Access";
     homepage = "https://github.com/java-native-access/jna";
     license = with lib.licenses; [
-      lgpl21
+      lgpl21Plus
       asl20
     ];
     maintainers = with lib.maintainers; [ nagy ];

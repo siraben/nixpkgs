@@ -80,7 +80,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     mainProgram = "flacon";
     homepage = "https://flacon.github.io/";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ snglth ];
   };

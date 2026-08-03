@@ -30,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Portable library for reading files that contain x-y data from powder diffraction, spectroscopy and other experimental methods";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Only;
     homepage = "https://xylib.sourceforge.net/";
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ pSub ];

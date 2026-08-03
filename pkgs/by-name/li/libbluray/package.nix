@@ -91,7 +91,7 @@ stdenv.mkDerivation rec {
     homepage = "http://www.videolan.org/developers/libbluray.html";
     description = "Library to access Blu-Ray disks for video playback";
     longDescription = "See <https://wiki.archlinux.org/title/Blu-ray> how to use";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     maintainers = [ lib.maintainers.amarshall ];
     platforms = lib.platforms.unix;
   };

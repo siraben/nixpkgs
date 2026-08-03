@@ -130,7 +130,7 @@ stdenv.mkDerivation (finalAttrs: {
     pkgConfigModules = [ "nice" ];
     platforms = lib.platforms.unix;
     license = with lib.licenses; [
-      lgpl21
+      lgpl21Plus
       mpl11
     ];
     maintainers = with lib.maintainers; [ tmarkus ];

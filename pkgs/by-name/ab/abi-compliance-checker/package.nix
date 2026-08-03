@@ -32,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://lvc.github.io/abi-compliance-checker";
     description = "Tool for checking backward API/ABI compatibility of a C/C++ library";
     mainProgram = "abi-compliance-checker";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     platforms = lib.platforms.all;
   };
 })

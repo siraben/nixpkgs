@@ -110,7 +110,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Input assistive technology intended for switch and pointer users";
     mainProgram = "caribou-preferences";
     homepage = "https://gitlab.gnome.org/Archive/caribou";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     maintainers = [ ];
     platforms = lib.platforms.linux;
     # checking for a Python interpreter with version >= 2.4... none

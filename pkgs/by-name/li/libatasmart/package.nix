@@ -30,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "http://0pointer.de/blog/projects/being-smart.html";
     description = "Library for querying ATA SMART status";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     platforms = lib.platforms.linux;
   };
 })

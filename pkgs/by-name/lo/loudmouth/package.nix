@@ -36,6 +36,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Lightweight C library for the Jabber protocol";
     platforms = lib.platforms.all;
     downloadPage = "http://mcabber.com/files/loudmouth/";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
   };
 })

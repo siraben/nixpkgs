@@ -109,7 +109,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Video processing framework with the future in mind";
     homepage = "http://www.vapoursynth.com/";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     platforms = lib.platforms.all;
     maintainers = with lib.maintainers; [
       rnhmjoj

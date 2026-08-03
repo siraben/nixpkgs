@@ -20,7 +20,7 @@ ocamlPackages.buildDunePackage rec {
   meta = {
     homepage = "https://github.com/ocsigen/ocsigen-i18n";
     description = "I18n made easy for web sites written with eliom";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     maintainers = [ lib.maintainers.gal_bolle ];
   };
 

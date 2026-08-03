@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Library for access to chipcards";
     homepage = "https://www.aquamaniac.de/rdm/projects/libchipcard";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     maintainers = with lib.maintainers; [ aszlig ];
     platforms = lib.platforms.linux;
   };

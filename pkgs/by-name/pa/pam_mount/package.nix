@@ -70,7 +70,7 @@ stdenv.mkDerivation (finalAttrs: {
     license = with lib.licenses; [
       gpl2Plus
       gpl3
-      lgpl21
+      lgpl21Plus
       lgpl3
     ];
     maintainers = with lib.maintainers; [

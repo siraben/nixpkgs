@@ -3,7 +3,7 @@ description: {
   homepage = "https://ceph.io/en/";
   inherit description;
   license = with lib.licenses; [
-    lgpl21
+    lgpl21Only
     gpl2Only
     bsd3
     mit

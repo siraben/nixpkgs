@@ -60,7 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Library to parse Matroska files";
     homepage = "https://matroska.org/";
     changelog = "https://github.com/Matroska-Org/libmatroska/blob/${finalAttrs.src.rev}/NEWS.md";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     maintainers = with lib.maintainers; [ getchoo ];
     platforms = lib.platforms.unix;
     pkgConfigModules = [ "libmatroska" ];

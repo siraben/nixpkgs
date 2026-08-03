@@ -91,7 +91,7 @@ buildPythonPackage rec {
     broken = stdenv.hostPlatform.isDarwin;
     description = "Scalable Python framework for cluster administration";
     homepage = "https://cea-hpc.github.io/clustershell";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     maintainers = [ lib.maintainers.alexvorobiev ];
   };
 }

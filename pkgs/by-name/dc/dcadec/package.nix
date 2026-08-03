@@ -23,7 +23,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "DTS Coherent Acoustics decoder with support for HD extensions";
     mainProgram = "dcadec";
     homepage = "https://github.com/foo86/dcadec";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     platforms = lib.platforms.linux;
   };
 })

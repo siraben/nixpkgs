@@ -81,6 +81,6 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = removeAttrs libsepol.meta [ "outputsToInstall" ] // {
     description = "Policy management tools for SELinux";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
   };
 })

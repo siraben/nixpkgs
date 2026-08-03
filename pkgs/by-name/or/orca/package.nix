@@ -186,7 +186,7 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
       Needs `services.gnome.at-spi2-core.enable = true;` in `configuration.nix`.
     '';
     teams = [ lib.teams.gnome ];
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     platforms = lib.platforms.linux;
   };
 })

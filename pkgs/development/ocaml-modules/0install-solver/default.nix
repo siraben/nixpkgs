@@ -23,7 +23,7 @@ buildDunePackage (finalAttrs: {
 
   meta = {
     description = "Package dependency solver";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     maintainers = [ lib.maintainers.stepbrobd ];
     homepage = "https://0install.net";
   };

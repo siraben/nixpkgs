@@ -23,7 +23,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
   meta = {
     description = "Utility to accurately report the in core memory usage for a program";
     homepage = "https://github.com/pixelb/ps_mem";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Only;
     maintainers = with lib.maintainers; [ sigmanificient ];
     platforms = lib.platforms.linux;
     mainProgram = "ps_mem";

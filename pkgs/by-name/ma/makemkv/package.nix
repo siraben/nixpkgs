@@ -129,7 +129,7 @@ stdenv.mkDerivation (
       sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
       license = [
         lib.licenses.unfree
-        lib.licenses.lgpl21
+        lib.licenses.lgpl21Plus
       ];
       homepage = "https://makemkv.com";
       platforms = [ "x86_64-linux" ];

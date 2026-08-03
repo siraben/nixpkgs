@@ -21,8 +21,8 @@ stdenv.mkDerivation (finalAttrs: {
       device tree.
     '';
     license = with lib.licenses; [
-      gpl2Plus
-      lgpl21
+      gpl2Only
+      lgpl21Plus
     ];
     platforms = lib.platforms.linux;
   };

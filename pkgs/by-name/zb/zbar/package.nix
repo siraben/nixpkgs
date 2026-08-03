@@ -176,7 +176,7 @@ stdenv.mkDerivation rec {
     '';
     maintainers = with lib.maintainers; [ raskin ];
     platforms = lib.platforms.unix;
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     homepage = "https://github.com/mchehab/zbar";
     mainProgram = "zbarimg";
   };

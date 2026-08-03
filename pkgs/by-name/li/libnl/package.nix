@@ -89,7 +89,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "http://www.infradead.org/~tgr/libnl/";
     description = "Linux Netlink interface library suite";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Only;
     maintainers = with lib.maintainers; [ fpletz ];
     platforms = lib.platforms.linux;
     identifiers.cpeParts = lib.meta.cpeFullVersionWithVendor "libnl_project" finalAttrs.version;

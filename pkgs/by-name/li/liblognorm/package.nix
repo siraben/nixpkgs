@@ -45,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/rsyslog/liblognorm/blob/${finalAttrs.src.tag}/ChangeLog";
     description = "Help to make sense out of syslog data, or, actually, any event data that is present in text form";
     homepage = "https://www.liblognorm.com/";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     mainProgram = "lognormalizer";
     platforms = lib.platforms.all;
   };

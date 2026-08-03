@@ -45,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "http://www.tntnet.org/tntnet.html";
     description = "Web server which allows users to develop web applications using C++";
     platforms = lib.platforms.linux;
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     maintainers = [ lib.maintainers.juliendehos ];
   };
 })

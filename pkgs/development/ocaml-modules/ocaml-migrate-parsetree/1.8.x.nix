@@ -25,7 +25,7 @@ buildDunePackage (finalAttrs: {
 
   meta = {
     description = "Convert OCaml parsetrees between different major versions";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Only;
     maintainers = [ lib.maintainers.vbgl ];
     inherit (finalAttrs.src.meta) homepage;
     broken = lib.versionOlder "4.13" ocaml.version;

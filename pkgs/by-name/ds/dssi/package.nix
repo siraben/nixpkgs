@@ -56,7 +56,7 @@ stdenv.mkDerivation (finalAttrs: {
       raskin
     ];
     platforms = lib.platforms.linux;
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     downloadPage = "https://sourceforge.net/projects/dssi/files/dssi/";
   };
 })

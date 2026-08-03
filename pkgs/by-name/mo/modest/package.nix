@@ -30,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Fast HTML renderer implemented as a pure C99 library with no outside dependencies";
     homepage = "https://github.com/lexborisov/Modest";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     maintainers = [ lib.maintainers.drupol ];
     platforms = lib.platforms.all;
   };

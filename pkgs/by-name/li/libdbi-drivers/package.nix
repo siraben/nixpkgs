@@ -89,7 +89,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://libdbi-drivers.sourceforge.net/";
     description = "Database drivers for libdbi";
     platforms = lib.platforms.all;
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     maintainers = [ ];
   };
 })

@@ -80,7 +80,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Script to install DLLs needed to work around problems in Wine";
     mainProgram = "winetricks";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     homepage = "https://github.com/Winetricks/winetricks";
     platforms = with lib.platforms; linux ++ darwin;
   };

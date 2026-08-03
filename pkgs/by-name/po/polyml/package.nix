@@ -60,7 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
       Poly/ML is a full implementation of Standard ML.
     '';
     homepage = "https://www.polyml.org/";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Only;
     platforms = with lib.platforms; (linux ++ darwin);
     # Broken as make target `polyimport.o` requires running code
     # compiled by the cross-compiler

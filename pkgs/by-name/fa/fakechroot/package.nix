@@ -95,7 +95,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "https://github.com/dex4er/fakechroot";
     description = "Give a fake chroot environment through LD_PRELOAD";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     maintainers = [ ];
     platforms = lib.platforms.linux;
   };

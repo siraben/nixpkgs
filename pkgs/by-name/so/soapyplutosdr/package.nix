@@ -51,7 +51,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/pothosware/SoapyPlutoSDR";
     changelog = "https://github.com/pothosware/SoapyPlutoSDR/blob/soapy-plutosdr-${finalAttrs.version}/Changelog.txt";
     description = "SoapySDR plugin for Pluto SDR devices";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Only;
     maintainers = with lib.maintainers; [ wucke13 ];
     platforms = lib.platforms.unix;
   };

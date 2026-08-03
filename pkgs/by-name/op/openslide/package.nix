@@ -61,7 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "https://openslide.org";
     description = "C library that provides a simple interface to read whole-slide images";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Only;
     changelog = "https://github.com/openslide/openslide/releases/tag/v${finalAttrs.version}";
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ lromor ];

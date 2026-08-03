@@ -59,7 +59,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Library for loading eBPF programs and reading and manipulating eBPF objects from user-space";
     homepage = "https://github.com/libbpf/libbpf";
     license = with lib.licenses; [
-      lgpl21 # or
+      lgpl21Only # or
       bsd2
     ];
     maintainers = with lib.maintainers; [

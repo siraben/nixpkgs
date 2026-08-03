@@ -24,7 +24,7 @@ buildPythonPackage rec {
   meta = {
     homepage = "https://github.com/3DLIRIOUS/MeshLabXML";
     description = "Create and run MeshLab XML scripts with Python";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     maintainers = with lib.maintainers; [ nh2 ];
   };
 }

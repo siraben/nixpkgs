@@ -40,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "ndptool";
     platforms = lib.platforms.linux;
     maintainers = [ ];
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
   };
 
 })

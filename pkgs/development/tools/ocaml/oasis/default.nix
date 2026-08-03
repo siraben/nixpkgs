@@ -51,7 +51,7 @@ stdenv.mkDerivation {
   meta = {
     description = "Configure, build and install system for OCaml projects";
     homepage = "https://github.com/ocaml/oasis";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     maintainers = with lib.maintainers; [ vbgl ];
     mainProgram = "oasis";
     broken = lib.versionAtLeast ocaml.version "5.0";

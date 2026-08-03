@@ -32,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     homepage = "http://www.cypherpunks.ca/otr/";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Only;
     description = "Library for Off-The-Record Messaging";
     platforms = lib.platforms.unix;
   };

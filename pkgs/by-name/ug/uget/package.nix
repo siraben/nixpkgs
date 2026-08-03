@@ -75,7 +75,7 @@ stdenv.mkDerivation (finalAttrs: {
       and lightweight power is uGet!
     '';
     homepage = "http://www.ugetdm.com";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ romildo ];
     mainProgram = "uget-gtk";

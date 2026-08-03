@@ -40,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Bidirectional console";
     homepage = "https://github.com/behdad/bicon";
     license = with lib.licenses; [
-      lgpl21
+      lgpl21Plus
       psfl
       bsd0
     ];

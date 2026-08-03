@@ -47,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/numactl/numactl";
     license = with lib.licenses; [
       gpl2Only
-      lgpl21
+      lgpl21Only
     ]; # libnuma is lgpl21
     platforms = lib.platforms.linux;
   };

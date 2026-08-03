@@ -24,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Touchscreen access library";
     homepage = "http://www.tslib.org/";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Only;
     platforms = lib.platforms.linux; # requires linux headers <linux/input.h>
     maintainers = with lib.maintainers; [ shogo ];
     teams = with lib.teams; [ ngi ];

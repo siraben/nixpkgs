@@ -47,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
       thoughtpolice
       raskin
     ];
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     platforms = lib.platforms.unix;
     homepage = "https://www.maxmind.com";
   };

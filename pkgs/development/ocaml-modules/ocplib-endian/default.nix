@@ -30,7 +30,7 @@ buildDunePackage (finalAttrs: {
   meta = {
     description = "Optimised functions to read and write int16/32/64";
     homepage = "https://github.com/OCamlPro/ocplib-endian";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     maintainers = with lib.maintainers; [ vbgl ];
   };
 })

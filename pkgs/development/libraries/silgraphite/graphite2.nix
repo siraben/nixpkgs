@@ -78,7 +78,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Advanced font engine";
     homepage = "https://graphite.sil.org/";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     maintainers = [ lib.maintainers.raskin ];
     pkgConfigModules = [ "graphite2" ];
     mainProgram = "gr2fonttest";

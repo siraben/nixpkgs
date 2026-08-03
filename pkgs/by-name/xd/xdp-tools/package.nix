@@ -103,7 +103,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Library and utilities for use with XDP";
     license = with lib.licenses; [
       gpl2Only
-      lgpl21
+      lgpl21Only
       bsd2
     ];
     maintainers = with lib.maintainers; [

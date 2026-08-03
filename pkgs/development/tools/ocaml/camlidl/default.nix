@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
     description = "Stub code generator and COM binding for Objective Caml";
     mainProgram = "camlidl";
     homepage = "https://xavierleroy.org/camlidl/";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Only;
     maintainers = [ lib.maintainers.roconnor ];
     broken = !(lib.versionAtLeast ocaml.version "4.03");
   };

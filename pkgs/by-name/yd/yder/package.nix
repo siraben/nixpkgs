@@ -46,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Logging library for C applications";
     homepage = "https://github.com/babelouest/yder";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Only;
     maintainers = with lib.maintainers; [ johnazoidberg ];
     platforms = lib.platforms.all;
   };

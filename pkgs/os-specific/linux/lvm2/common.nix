@@ -240,7 +240,7 @@ stdenv.mkDerivation rec {
     license = with lib.licenses; [
       gpl2Only
       bsd2
-      lgpl21
+      lgpl21Only
     ];
     maintainers = with lib.maintainers; [
       raskin

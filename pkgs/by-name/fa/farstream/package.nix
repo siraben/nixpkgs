@@ -59,6 +59,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.freedesktop.org/wiki/Software/Farstream";
     description = "Audio/Video Communications Framework formerly known as farsight";
     platforms = lib.platforms.unix;
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
   };
 })

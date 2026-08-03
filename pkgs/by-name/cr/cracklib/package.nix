@@ -75,7 +75,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/cracklib/cracklib";
     description = "Password checking library";
     changelog = "https://github.com/cracklib/cracklib/releases/tag/v${finalAttrs.version}";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     maintainers = [ ];
     platforms = lib.platforms.unix;
   };

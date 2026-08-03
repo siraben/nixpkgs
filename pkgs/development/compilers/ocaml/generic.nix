@@ -216,7 +216,7 @@ stdenv.mkDerivation (
     meta = {
       homepage = "https://ocaml.org/";
       branch = versionNoPatch;
-      license = lib.licenses.lgpl21;
+      license = lib.licenses.lgpl21Only;
       description = "OCaml is an industrial-strength programming language supporting functional, imperative and object-oriented styles";
 
       maintainers = [ lib.maintainers.georgyo ];

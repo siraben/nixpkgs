@@ -238,6 +238,6 @@ stdenv.mkDerivation (finalAttrs: {
       lib.maintainers.guitargeek
       lib.maintainers.veprbl
     ];
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
   };
 })

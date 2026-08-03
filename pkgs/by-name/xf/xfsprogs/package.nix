@@ -99,7 +99,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "SGI XFS utilities";
     license = with lib.licenses; [
       gpl2Only
-      lgpl21
+      lgpl21Only
       gpl3Plus
     ]; # see https://git.kernel.org/pub/scm/fs/xfs/xfsprogs-dev.git/tree/debian/copyright
     platforms = lib.platforms.linux;

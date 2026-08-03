@@ -37,6 +37,6 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Lightweight data-interchange format";
     homepage = "https://qjson.sourceforge.net/";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Only;
   };
 }

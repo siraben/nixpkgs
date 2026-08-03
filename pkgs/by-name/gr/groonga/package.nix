@@ -75,7 +75,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "https://groonga.org/";
     description = "Open-source fulltext search engine and column store";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     maintainers = [ ];
     platforms = lib.platforms.all;
     longDescription = ''

@@ -327,7 +327,7 @@ let
         machine-checked proofs.
       '';
       homepage = "https://coq.inria.fr";
-      license = lib.licenses.lgpl21;
+      license = lib.licenses.lgpl21Only;
       branch = coq-version;
       maintainers = with lib.maintainers; [
         roconnor

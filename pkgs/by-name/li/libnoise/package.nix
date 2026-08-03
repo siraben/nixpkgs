@@ -30,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Portable, open-source, coherent noise-generating library for C++";
     homepage = "https://github.com/qknight/libnoise";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     maintainers = with lib.maintainers; [ liberodark ];
   };
 })

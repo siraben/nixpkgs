@@ -54,7 +54,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://jackaudio.org";
     license = with lib.licenses; [
       gpl2Plus
-      lgpl21
+      lgpl21Plus
     ];
     pkgConfigModules = [ "jack" ];
     platforms = lib.platforms.unix;

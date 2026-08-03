@@ -42,7 +42,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
   meta = {
     description = "Control software for the LXA USB-SD-Mux";
     homepage = "https://github.com/linux-automation/usbsdmux";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     maintainers = with lib.maintainers; [ emantor ];
     platforms = with lib.platforms; linux;
   };

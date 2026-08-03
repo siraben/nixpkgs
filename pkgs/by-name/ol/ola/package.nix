@@ -68,7 +68,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.openlighting.org/ola/";
     maintainers = [ ];
     license = with lib.licenses; [
-      lgpl21
+      lgpl21Plus
       gpl2Plus
     ];
     platforms = lib.platforms.all;

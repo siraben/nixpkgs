@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
     description = "IBus framework for table-based input methods";
     mainProgram = "ibus-table-createdb";
     homepage = "https://github.com/kaio/ibus-table/wiki";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ mudri ];
   };

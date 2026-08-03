@@ -27,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Minimal mDNS resolver library, used by VLC";
     homepage = "https://github.com/videolabs/libmicrodns";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     platforms = lib.platforms.unix;
     maintainers = [ lib.maintainers.shazow ];
   };

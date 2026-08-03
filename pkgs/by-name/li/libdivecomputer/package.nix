@@ -20,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Cross-platform and open source library for communication with dive computers from various manufacturers";
     mainProgram = "dctool";
     maintainers = [ lib.maintainers.mguentner ];
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     platforms = lib.platforms.all;
   };
 })

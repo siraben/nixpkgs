@@ -87,7 +87,7 @@ stdenv.mkDerivation (finalAttrs: {
       systems. We implement MTP Basic, the stuff proposed for standardization.
     '';
     platforms = lib.platforms.unix;
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     maintainers = with lib.maintainers; [ lovesegfault ];
   };
 })

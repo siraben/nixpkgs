@@ -84,6 +84,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Library for managing accounts which can be used from GLib applications";
     homepage = "https://gitlab.com/accounts-sso/libaccounts-glib";
     platforms = lib.platforms.linux;
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Only;
   };
 })

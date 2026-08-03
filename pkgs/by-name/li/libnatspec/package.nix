@@ -33,6 +33,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Library intended to smooth national specificities in using of programs";
     mainProgram = "natspec";
     platforms = lib.platforms.unix;
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Only;
   };
 })

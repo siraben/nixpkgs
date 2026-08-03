@@ -102,7 +102,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.gnome.org/GNOME/gtksourceview";
     pkgConfigModules = [ "gtksourceview-3.0" ];
     platforms = with lib.platforms; linux ++ darwin;
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     teams = [ lib.teams.gnome ];
   };
 })

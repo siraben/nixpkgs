@@ -38,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Potluck with different functions for different purposes that can be shared among C programs";
     mainProgram = "base64url";
     homepage = "https://github.com/babelouest/orcania";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Only;
     maintainers = with lib.maintainers; [ johnazoidberg ];
   };
 })

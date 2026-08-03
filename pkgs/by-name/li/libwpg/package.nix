@@ -30,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://libwpg.sourceforge.net";
     description = "C++ library to parse WPG";
     license = with lib.licenses; [
-      lgpl21
+      lgpl21Plus
       mpl20
     ];
     platforms = lib.platforms.all;

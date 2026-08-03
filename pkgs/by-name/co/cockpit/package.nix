@@ -318,7 +318,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "cockpit-bridge";
     homepage = "https://cockpit-project.org/";
     changelog = "https://cockpit-project.org/blog/cockpit-${finalAttrs.version}.html";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     teams = [ lib.teams.cockpit ];
   };
 })

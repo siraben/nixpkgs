@@ -189,7 +189,7 @@ let
         semi-interactive development of machine-checked proofs.
       '';
       homepage = "https://rocq-prover.org";
-      license = lib.licenses.lgpl21;
+      license = lib.licenses.lgpl21Only;
       branch = rocq-version;
       maintainers = with lib.maintainers; [
         proux01

@@ -25,7 +25,7 @@ buildDunePackage (finalAttrs: {
   meta = {
     homepage = "https://github.com/aantron/lwt_ssl";
     description = "OpenSSL binding with concurrent I/O";
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     maintainers = [ lib.maintainers.vbgl ];
   };
 })

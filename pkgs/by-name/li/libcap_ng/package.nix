@@ -91,7 +91,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://people.redhat.com/sgrubb/libcap-ng/";
     pkgConfigModules = [ "libcap-ng" ];
     platforms = lib.platforms.linux;
-    license = lib.licenses.lgpl21;
+    license = lib.licenses.lgpl21Plus;
     maintainers = with lib.maintainers; [ grimmauld ];
     teams = [ lib.teams.security-review ];
     identifiers.cpeParts = lib.meta.cpeFullVersionWithVendor "libcap-ng_project" finalAttrs.version;
