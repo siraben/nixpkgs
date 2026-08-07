@@ -2,6 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  fetchpatch,
   cmake,
   enableVTK ? true,
   vtk,
@@ -27,6 +28,13 @@ stdenv.mkDerivation (finalAttrs: {
     tag = "v${finalAttrs.version}";
     hash = "sha256-j4n/IOLQiw+9j2hAS/fN2zWJI1xItFgm0BquPOZJr9E=";
   };
+
+  patches = [
+    (fetchpatch {
+      url = "https://github.com/malaterre/GDCM/commit/02ca985c8a1260a3ee3431fb367128aa94a69cec.patch";
+      hash = "sha256-jK0LjgLR4pkS2ytxwOPxZV0eW0M2h9xNHGuhtqB6638=";
+    })
+  ];
 
   cmakeFlags = [
     "-DGDCM_BUILD_APPLICATIONS=ON"
