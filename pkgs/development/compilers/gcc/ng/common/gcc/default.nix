@@ -37,6 +37,7 @@
   libbacktrace,
   autoreconfHook269,
   bintools,
+  runCommand,
   enableShared ? stdenv.hostPlatform.hasSharedLibraries,
   # Whether the driver's specs emit `-lgcc_s`. Derived as the monolithic build
   # derives it, Cygwin excluded: there they would also emit `-lgcc_eh`, which no
@@ -46,6 +47,14 @@
 let
   inherit (stdenv) targetPlatform hostPlatform;
   targetPrefix = lib.optionalString (targetPlatform != hostPlatform) "${targetPlatform.config}-";
+  fixCollect2Paths = getVersionFile "gcc/fix-collect2-paths.diff";
+  # The Darwin support patch adds the unprefixed classic linker to this context.
+  fixCollect2PathsDarwin = runCommand "fix-collect2-paths-darwin.diff" { } ''
+    substitute ${fixCollect2Paths} "$out" \
+      --replace-fail \
+        'i == USE_MOLD_LD' \
+        'i == USE_MOLD_LD || i == USE_CLASSIC_LD'
+  '';
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "${targetPrefix}${if langFortran then "gfortran" else "gcc"}";
@@ -128,7 +137,7 @@ stdenv.mkDerivation (finalAttrs: {
       hash = "sha256-Q5CJpJKD11kadIKselQdHgNe26GqojpyAAmlAyHnsB0=";
     })
 
-    (getVersionFile "gcc/fix-collect2-paths.diff")
+    (if hostPlatform.isDarwin then fixCollect2PathsDarwin else fixCollect2Paths)
 
     # From the posting to gcc-patches, which covers every component that links
     # libbacktrace. Take only this component's non-generated files: the
@@ -144,6 +153,16 @@ stdenv.mkDerivation (finalAttrs: {
       ];
       hash = "sha256-i+J4B5f+zrXERPqJxwjEm/JHZhDsV6Gmxx/n9+G0shM=";
     })
+  ]
+  # Keep the Darwin support stack in sync with the established GCC package.
+  ++ lib.optionals (hostPlatform.isDarwin && lib.versions.major release_version == "15") [
+    ../../../patches/15/libgcc-darwin-fix-reexport.patch
+    (fetchpatch {
+      name = "gcc-15-darwin-aarch64-support.patch";
+      url = "https://raw.githubusercontent.com/Homebrew/homebrew-core/70e2a9e1d072fa3bc34cf41d97f4b65bede2b01e/Patches/gcc/gcc-15.3.0.diff";
+      hash = "sha256-PeAloBdUu+zRJlv86Z4x/FI8I7LiR5CJ3JlAJKs1iKU=";
+    })
+    ../../../patches/15/libgcc-darwin-detection.patch
   ];
 
   enableParallelBuilding = true;
@@ -235,8 +254,8 @@ stdenv.mkDerivation (finalAttrs: {
   # This should kill all the stdinc frameworks that gcc and friends like to
   # insert into default search paths.
   + lib.optionalString hostPlatform.isDarwin ''
-    substituteInPlace gcc/config/darwin-c.c \
-      --replace 'if (stdinc)' 'if (0)'
+    substituteInPlace gcc/config/darwin-c.cc \
+      --replace-fail 'if (stdinc)' 'if (0)'
   '';
 
   preConfigure =
@@ -322,8 +341,8 @@ stdenv.mkDerivation (finalAttrs: {
     }"
     (lib.withFeature (isl != null) "isl")
     "--without-headers"
-    "--with-gnu-as"
-    "--with-gnu-ld"
+    (lib.withFeature (!hostPlatform.isDarwin) "gnu-as")
+    (lib.withFeature (!hostPlatform.isDarwin) "gnu-ld")
     # Deliberately no `--with-as` / `--with-ld`. Those bake
     # `DEFAULT_ASSEMBLER` and `DEFAULT_LINKER` -- absolute store paths -- into
     # the compiler, so the driver runs exactly those binaries and stops

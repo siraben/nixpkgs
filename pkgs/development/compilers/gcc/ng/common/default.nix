@@ -157,7 +157,7 @@ makeScopeWithSplicing' {
       stdenv = overrideCC stdenv gccPackages.gcc;
 
       gcc-unwrapped = callPackage ./gcc {
-        bintools = binutils;
+        bintools = if stdenv.hostPlatform.isDarwin then stdenv.cc.bintools else binutils;
       };
 
       libiberty = callPackage ./libiberty { };
