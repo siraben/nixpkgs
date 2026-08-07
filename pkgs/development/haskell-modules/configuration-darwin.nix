@@ -36,6 +36,15 @@ self: super:
 
     double-conversion = addExtraLibrary pkgs.libcxx super.double-conversion;
 
+    # The bundled FreeType predates Apple SDKs that no longer provide Byte.
+    freetype2 = overrideCabal (drv: {
+      postPatch = ''
+        substituteInPlace freetype2/src/gzip/ftzconf.h \
+          --replace-fail '#if !defined(MACOS) && !defined(TARGET_OS_MAC)' '#if !defined(MACOS)'
+      ''
+      + (drv.postPatch or "");
+    }) super.freetype2;
+
     # darwin doesn't have sub-second resolution
     # https://github.com/hspec/mockery/issues/11
     mockery = overrideCabal (drv: {
