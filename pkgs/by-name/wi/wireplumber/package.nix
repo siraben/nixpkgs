@@ -87,6 +87,13 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.mesonOption "sysconfdir" "/etc")
   ];
 
+  # Sphinx replaces copyright ranges ending in the current year with the
+  # SOURCE_DATE_EPOCH year. An en dash keeps the explicit year intact.
+  postPatch = ''
+    substituteInPlace docs/conf.py.in \
+      --replace-fail "copyright = '2020-" "copyright = '2020–"
+  '';
+
   passthru.updateScript = nix-update-script { };
 
   meta = {
