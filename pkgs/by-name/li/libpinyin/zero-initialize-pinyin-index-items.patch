@@ -1,0 +1,23 @@
+From: Nixpkgs developers
+Subject: [PATCH] Make serialized pinyin index padding explicit
+
+PinyinIndexItem2 is written to the index databases using its object
+representation.  For odd phrase lengths the structure has two bytes of tail
+padding, which were previously left uninitialized. Round the key array length
+up to an even number, as suggested in upstream issue #102, so those bytes are
+an explicit member that can be initialized without clearing the whole object.
+
+diff --git a/src/storage/pinyin_phrase3.h b/src/storage/pinyin_phrase3.h
+index 7a842f3..094467c 100644
+--- a/src/storage/pinyin_phrase3.h
++++ b/src/storage/pinyin_phrase3.h
+@@ -183 +183,2 @@ struct PinyinIndexItem2{
+-    ChewingKey m_keys[phrase_length];
++    static constexpr size_t padded_phrase_length = (phrase_length + 1) >> 1 << 1;
++    ChewingKey m_keys[padded_phrase_length];
+@@ -187 +188 @@ public:
+-        /* memset(m_keys, 0, sizeof(ChewingKey) * phrase_length); */
++        memset(m_keys, 0, sizeof(m_keys));
+@@ -193 +194,2 @@ public:
++        memset(m_keys, 0, sizeof(m_keys));
+         memmove(m_keys, keys, sizeof(ChewingKey) * phrase_length);

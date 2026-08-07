@@ -31,6 +31,10 @@ stdenv.mkDerivation (finalAttrs: {
     tar -xzf ${modelData} -C $sourceRoot/data
   '';
 
+  patches = [
+    ./zero-initialize-pinyin-index-items.patch
+  ];
+
   strictDeps = true;
 
   nativeBuildInputs = [
