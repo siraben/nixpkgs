@@ -125,10 +125,13 @@ stdenv.mkDerivation (finalAttrs: {
   versionCheckProgramArg = "version";
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+    # Do not execute $out before fixupPhase; patchelf cannot patch a
+    # running binary (see #458071).
+    bcachefsBuild=target/${stdenv.hostPlatform.rust.rustcTargetSpec}/release/bcachefs
     installShellCompletion --cmd bcachefs \
-      --bash <($out/sbin/bcachefs completions bash) \
-      --zsh  <($out/sbin/bcachefs completions zsh) \
-      --fish <($out/sbin/bcachefs completions fish)
+      --bash <("$bcachefsBuild" completions bash) \
+      --zsh  <("$bcachefsBuild" completions zsh) \
+      --fish <("$bcachefsBuild" completions fish)
   '';
 
   outputs = [
