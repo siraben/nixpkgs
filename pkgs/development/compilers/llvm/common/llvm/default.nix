@@ -303,6 +303,12 @@ stdenv.mkDerivation (
             substituteInPlace unittests/TargetParser/Host.cpp \
               --replace-fail '/usr/bin/sw_vers' "${(toString darwin.DarwinTools) + "/bin/sw_vers"}"
           ''
+        + lib.optionalString (lib.versionAtLeast release_version "23") ''
+          # This test requires Apple's codesign, which is unavailable in the sandbox.
+          # The nixpkgs replacement cannot verify signatures as the test requires.
+          # https://github.com/llvm/llvm-project/blob/main/llvm/test/tools/dsymutil/codesign.test
+          rm test/tools/dsymutil/codesign.test
+        ''
         +
           # This test tries to call the intrinsics `@llvm.roundeven.f32` and
           # `@llvm.roundeven.f64` which seem to (incorrectly?) lower to `roundevenf`
