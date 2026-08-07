@@ -2,6 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  fetchpatch,
   cmake,
   gfortran,
   flex,
@@ -83,6 +84,11 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   patches = [
+    (fetchpatch {
+      url = "https://github.com/casacore/casacore/commit/14b62e2e44680fb2ac9a933b3bea55cc8e0fd947.patch";
+      hash = "sha256-HsnqopIJYVGPMA7ht+WAaNGipV+6VHW5CjY9Lr8AEJk=";
+    })
+
     # Fix the generated .pc file: set Requires from a variable instead of
     # leaving it empty, and remove hardcoded absolute cmake build paths from
     # Cflags (which would embed /nix/store paths from the build environment).
