@@ -21,6 +21,16 @@ let
     dontRecurseIntoAttrs
     makeOverridable
     ;
+
+  # Parallel GHC builds produce nondeterministic profiling objects for OneTuple.
+  # https://github.com/NixOS/nixpkgs/issues/151347
+  disableParallelOneTuple =
+    haskellLib: packageSet:
+    packageSet.extend (
+      self: super: {
+        OneTuple = haskellLib.disableParallelBuilding super.OneTuple;
+      }
+    );
 in
 
 pkgs:
@@ -3632,9 +3642,9 @@ with pkgs;
       haskell.packages.native-bignum.ghc912
     # JS backend can't use gmp
     else if stdenv.hostPlatform.isGhcjs then
-      haskell.packages.native-bignum.ghc910
+      disableParallelOneTuple haskell.lib.compose haskell.packages.native-bignum.ghc910
     else
-      haskell.packages.ghc910
+      disableParallelOneTuple haskell.lib.compose haskell.packages.ghc910
   );
 
   # haskellPackages.ghc is build->host (it exposes the compiler used to build the
