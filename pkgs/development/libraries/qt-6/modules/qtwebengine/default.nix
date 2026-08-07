@@ -117,6 +117,9 @@ qtModule {
 
     # Reproducibility QTBUG-136068
     ./gn-object-sorted.patch
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    ./darwin-relative-sysroot.patch
   ];
 
   postPatch = ''
@@ -190,6 +193,8 @@ qtModule {
   ]
   ++ lib.optionals stdenv.hostPlatform.isDarwin [
     "-DCMAKE_OSX_DEPLOYMENT_TARGET=11.0" # Per Qt 6’s deployment target (why doesn’t the hook work?)
+    # Chromium invokes Clang directly and needs the wrapper's libc++ paths.
+    "-DQWELibClang_BASE_PATH=${stdenv.cc}"
   ];
 
   propagatedBuildInputs = [

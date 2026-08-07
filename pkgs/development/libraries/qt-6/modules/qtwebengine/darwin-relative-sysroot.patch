@@ -1,0 +1,25 @@
+diff --git a/src/core/configure/BUILD.root.gn.in b/src/core/configure/BUILD.root.gn.in
+index c1a21f13d..6f86582ed 100644
+--- a/src/core/configure/BUILD.root.gn.in
++++ b/src/core/configure/BUILD.root.gn.in
+@@ -108,6 +108,6 @@
+ shared_library("QtWebEngineCore") {
+   rsp_types = [ "objects", "archives", "libs", "ldir", "lflags" ]
+-  lflags_remove = "(--sysroot=)(\\.\\./.*\\S*?)" # ignore sysroot with realative path
++  lflags_remove = "((--sysroot=)|(-isysroot\\s+))(\\.\\./\\S*)" # ignore relative sysroot paths
+   configs += [
+     ":cpp20_config",
+     ":QtWebEngineCore_config",
+diff --git a/src/pdf/configure/BUILD.root.gn.in b/src/pdf/configure/BUILD.root.gn.in
+index 34f464663..53985d641 100644
+--- a/src/pdf/configure/BUILD.root.gn.in
++++ b/src/pdf/configure/BUILD.root.gn.in
+@@ -51,7 +51,7 @@ config("cpp20_config") {
+ static_library("QtPdf") {
+   complete_static_lib = true
+   rsp_types = [ "objects", "archives", "libs", "ldir", "lflags" ]
+-  lflags_remove = "(--sysroot=)(\\.\\./.*\\S*?)" # ignore sysroot with realative path
++  lflags_remove = "((--sysroot=)|(-isysroot\\s+))(\\.\\./\\S*)" # ignore relative sysroot paths
+   configs += [
+     ":cpp20_config",
+     ":QtPdf_config"
