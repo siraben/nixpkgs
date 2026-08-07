@@ -1,0 +1,13 @@
+diff --git a/ssg/build_remediations.py b/ssg/build_remediations.py
+index e5c7fe733..6e5c5e9b1 100644
+--- a/ssg/build_remediations.py
++++ b/ssg/build_remediations.py
+@@ -705,7 +705,7 @@ def load_compiled_remediations(fixes_dir):
+         raise RuntimeError(
+             "Directory with compiled fixes '%s' does not exist" % fixes_dir)
+     all_remediations = defaultdict(dict)
+-    for language in os.listdir(fixes_dir):
++    for language in sorted(os.listdir(fixes_dir)):
+         language_dir = os.path.join(fixes_dir, language)
+         if not os.path.isdir(language_dir):
+             raise RuntimeError(

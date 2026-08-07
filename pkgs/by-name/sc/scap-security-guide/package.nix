@@ -26,6 +26,8 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-7avUwROLJeuS2FY3WIbtYL2tyh4DRMVwL7XL4D1gJGo=";
   };
 
+  patches = [ ./sort-remediation-languages.patch ];
+
   postPatch = ''
     substituteInPlace build-scripts/generate_guides.py \
       --replace-fail "XCCDF_GUIDE_XSL = None" "XCCDF_GUIDE_XSL = \"${openscap}/share/openscap/xsl/xccdf-guide.xsl\""
