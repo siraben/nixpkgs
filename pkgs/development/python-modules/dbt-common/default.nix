@@ -26,6 +26,7 @@
   pytestCheckHook,
   pytest-mock,
   pytest-xdist,
+  pythonAtLeast,
 }:
 
 buildPythonPackage rec {
@@ -47,6 +48,7 @@ buildPythonPackage rec {
     # 0.6.x -> 0.7.2 doesn't seem too risky at a glance
     # https://pypi.org/project/isodate/0.7.2/
     "isodate"
+    "pathspec"
     "protobuf"
   ];
 
@@ -76,6 +78,11 @@ buildPythonPackage rec {
   disabledTests = [
     # flaky test: https://github.com/dbt-labs/dbt-common/issues/280
     "TestFindMatching"
+  ]
+  ++ lib.optionals (pythonAtLeast "3.14") [
+    # Recorder does not handle additional arguments on Python 3.14
+    "test_recorded_function_with_override_and_additional_fields"
+    "test_recorded_function_with_override_and_additional_optional_fields"
   ];
 
   pythonImportsCheck = [ "dbt_common" ];
