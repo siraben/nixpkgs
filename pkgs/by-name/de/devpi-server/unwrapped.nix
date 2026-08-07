@@ -1,11 +1,12 @@
 {
   lib,
   fetchFromGitHub,
+  fetchpatch,
   buildPythonPackage,
   versionCheckHook,
 
   # build-system
-  setuptools,
+  setuptools_80,
 
   # dependencies
   aiohttp,
@@ -52,6 +53,14 @@ buildPythonPackage (finalAttrs: {
     hash = "sha256-rAku3oHcmzFNA/MP/64382gCTgqopwjjy4S4HTEFZiY=";
   };
 
+  patches = [
+    (fetchpatch {
+      url = "https://github.com/devpi/devpi/commit/5377ed7c307db77ca062f064b2c7bedc64056c3e.patch";
+      hash = "sha256-f9y+5a8KvAILv/uxEQpeoY2HRrWZAfnQi8RtRW6SeSo=";
+      stripLen = 1;
+    })
+  ];
+
   postPatch = ''
     substituteInPlace pyproject.toml \
       --replace-fail '"setuptools_changelog_shortener",' ""
@@ -60,7 +69,7 @@ buildPythonPackage (finalAttrs: {
   sourceRoot = "${finalAttrs.src.name}/server";
 
   build-system = [
-    setuptools
+    setuptools_80
   ];
 
   dependencies = [
@@ -79,7 +88,7 @@ buildPythonPackage (finalAttrs: {
     py
     pyramid
     repoze-lru
-    setuptools
+    setuptools_80
     strictyaml
     waitress
   ]
