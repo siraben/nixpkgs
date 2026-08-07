@@ -45,6 +45,9 @@ index 21267e50f..873b5c664 100755
              > "$build_dir/$saturation/OpenMoji-$saturation-$method.ttx"
  
          # Add version to XML
+@@ -84 +82 @@ EOF
+-        ttx -m "$build_dir/$saturation/OpenMoji-$saturation-$method.ttf" \
++        ttx --recalc-timestamp -m "$build_dir/$saturation/OpenMoji-$saturation-$method.ttf" \
 @@ -89,25 +87,21 @@ EOF
  
          # Compress with WOFF2

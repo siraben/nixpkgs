@@ -63,6 +63,10 @@ stdenvNoCC.mkDerivation rec {
     xmlstarlet
   ];
 
+  # fontTools otherwise records the current time in the OpenType head table.
+  # Use the earliest timestamp accepted by ZIP-based font tooling.
+  env.SOURCE_DATE_EPOCH = 315532802; # 1980-01-01T00:00:02Z
+
   methods_black = builtins.filter (m: builtins.elem m fontFormats) methods.black;
   methods_color = builtins.filter (m: builtins.elem m fontFormats) methods.color;
   saturations =
