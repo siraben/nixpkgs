@@ -42,6 +42,9 @@ let
 
     let
       mvnSkipTests = lib.optionalString (!doCheck) "-DskipTests";
+      # Maven archive plugins use this property for timestamps and entry ordering.
+      # Keep this before mvnParameters so packages can override the default.
+      mvnReproducibilityParameters = "-Dproject.build.outputTimestamp=1980-01-01T00:00:02Z";
 
       writeProxySettings = writers.writePython3 "write-proxy-settings" { } ./maven-proxy.py;
 
@@ -106,7 +109,7 @@ let
             done
           ''
           + lib.optionalString (!buildOffline) ''
-            mvn $MAVEN_EXTRA_ARGS package -Dmaven.repo.local=$out/.m2 ${mvnSkipTests} ${mvnParameters}
+            mvn $MAVEN_EXTRA_ARGS package -Dmaven.repo.local=$out/.m2 ${mvnSkipTests} ${mvnReproducibilityParameters} ${mvnParameters}
           ''
           + ''
             runHook postBuild
@@ -156,7 +159,7 @@ let
           runHook afterDepsSetup
           mvn ${mvnGoal} ${
             if mvnOffline then "-o" else ""
-          } -nsu "-Dmaven.repo.local=$mvnDeps/.m2" ${mvnSkipTests} ${mvnParameters}
+          } -nsu "-Dmaven.repo.local=$mvnDeps/.m2" ${mvnSkipTests} ${mvnReproducibilityParameters} ${mvnParameters}
 
           runHook postBuild
         '';

@@ -68,6 +68,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       buildMavenPackage = mkBuildMavenPackage finalAttrs.finalPackage;
 
       tests = {
+        reproducible-archives = callPackage ./tests/reproducible-archives.nix {
+          maven = finalAttrs.finalPackage;
+        };
+
         version = testers.testVersion {
           package = finalAttrs.finalPackage;
           command = ''

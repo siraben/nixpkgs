@@ -55,6 +55,8 @@ maven.buildMavenPackage (finalAttrs: {
 
 This package calls `maven.buildMavenPackage` to do its work. The primary difference from `stdenv.mkDerivation` is the `mvnHash` variable, which is a hash of all of the Maven dependencies.
 
+`buildMavenPackage` also sets Maven's `project.build.outputTimestamp` property to a fixed ZIP-compatible timestamp. Maven archive plugins that support this property will therefore use stable timestamps and entry ordering in JARs and other archives, including in multi-module builds. A package can override the default by passing its own value later in `mvnParameters`.
+
 ::: {.tip}
 After setting `maven.buildMavenPackage`, we then do standard Java `.jar` installation by saving the `.jar` to `$out/share/java` and then making a wrapper which allows executing that file; see [](#sec-language-java) for additional generic information about packaging Java applications.
 :::
