@@ -21,6 +21,18 @@ let
     dontRecurseIntoAttrs
     makeOverridable
     ;
+
+  # Parallel GHC builds produce nondeterministic interfaces, archives, and shared libraries.
+  # https://github.com/NixOS/nixpkgs/issues/151347
+  # Apply this after package-set construction so reverse dependencies of hspec-meta
+  # do not alter the GHC/Hadrian derivations.
+  disableParallelHspecMeta =
+    haskellLib: packageSet:
+    packageSet.extend (
+      self: super: {
+        hspec-meta = haskellLib.disableParallelBuilding super.hspec-meta;
+      }
+    );
 in
 
 pkgs:
@@ -3623,18 +3635,31 @@ with pkgs;
 
   # Haskell and GHC
 
-  haskell = recurseIntoAttrs (callPackage ./haskell-packages.nix { });
+  haskell =
+    let
+      haskellPackageSets = callPackage ./haskell-packages.nix { };
+    in
+    recurseIntoAttrs (
+      haskellPackageSets
+      // {
+        packages = haskellPackageSets.packages // {
+          ghc912 = disableParallelHspecMeta (haskellPackageSets.lib.compose) haskellPackageSets.packages.ghc912;
+        };
+      }
+    );
 
   haskellPackages = recurseIntoAttrs (
-    # Prefer native-bignum to avoid linking issues with gmp;
-    # GHC 9.10 doesn't work too well with iserv-proxy.
-    if stdenv.hostPlatform.isStatic then
-      haskell.packages.native-bignum.ghc912
-    # JS backend can't use gmp
-    else if stdenv.hostPlatform.isGhcjs then
-      haskell.packages.native-bignum.ghc910
-    else
-      haskell.packages.ghc910
+    disableParallelHspecMeta haskell.lib.compose (
+      # Prefer native-bignum to avoid linking issues with gmp;
+      # GHC 9.10 doesn't work too well with iserv-proxy.
+      if stdenv.hostPlatform.isStatic then
+        haskell.packages.native-bignum.ghc912
+      # JS backend can't use gmp
+      else if stdenv.hostPlatform.isGhcjs then
+        haskell.packages.native-bignum.ghc910
+      else
+        haskell.packages.ghc910
+    )
   );
 
   # haskellPackages.ghc is build->host (it exposes the compiler used to build the
