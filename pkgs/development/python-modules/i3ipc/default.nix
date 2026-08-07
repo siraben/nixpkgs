@@ -1,7 +1,9 @@
 {
   lib,
+  stdenv,
   buildPythonPackage,
   fetchFromGitHub,
+  fetchpatch,
   coreutils,
   setuptools,
   python-xlib,
@@ -29,6 +31,11 @@ buildPythonPackage rec {
   };
 
   patches = [
+    (fetchpatch {
+      url = "https://github.com/altdesktop/i3ipc-python/commit/d14e7a681f0a3e5b55007b4e6b0d46c3c55ef86d.patch";
+      hash = "sha256-GiKewxwGfDXvkHUtoTkubYwyQAhBEqs37HjwFD2NOHg=";
+    })
+
     # Upstream expects a very old version of pytest-asyncio. This patch correctly
     # decorates async fixtures using pytest-asyncio and configures `loop_scope`
     # where needed.
@@ -64,6 +71,10 @@ buildPythonPackage rec {
     # Flaky
     "test/test_window.py::TestWindow::test_detailed_window_event"
     "test/aio/test_workspace.py::TestWorkspace::test_workspace"
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    # Times out during async fixture setup with Darwin's kqueue event loop
+    "test/aio/test_event_exceptions.py::TestEventExceptions::test_event_exceptions"
   ];
 
   pythonImportsCheck = [ "i3ipc" ];
