@@ -3665,7 +3665,11 @@ with pkgs;
 
   happy = haskell.lib.compose.justStaticExecutables haskellPackages.happy;
 
-  hscolour = haskell.lib.compose.justStaticExecutables haskellPackages.hscolour;
+  # Parallel GHC builds produce a nondeterministic executable.
+  # https://github.com/NixOS/nixpkgs/issues/437140
+  hscolour = haskell.lib.compose.justStaticExecutables (
+    haskell.lib.compose.disableParallelBuilding haskellPackages.hscolour
+  );
 
   cabal-install = haskell.lib.compose.justStaticExecutables haskellPackages.cabal-install;
 
