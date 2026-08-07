@@ -409,11 +409,10 @@ stdenv.mkDerivation (
         patchShebangs test/BugPoint/compile-custom.ll.py
       '';
 
-    # Workaround for configure flags that need to have spaces
-    preConfigure = ''
-      cmakeFlagsArray+=(
-        -DLLVM_LIT_ARGS="--verbose -j''${NIX_BUILD_CORES}"
-      )
+    # Keep the machine-specific core count out of the installed LLVMConfig.cmake.
+    # lit uses this environment variable when no -j argument is specified.
+    preCheck = ''
+      export LIT_MAX_WORKERS="$NIX_BUILD_CORES"
     '';
 
     # Defensive check: some paths (that we make symlinks to) depend on the release
@@ -496,6 +495,7 @@ stdenv.mkDerivation (
         (lib.cmakeBool "LLVM_ENABLE_DUMP" true)
         (lib.cmakeBool "LLVM_ENABLE_TERMINFO" enableTerminfo)
         (lib.cmakeBool "LLVM_INCLUDE_TESTS" finalAttrs.finalPackage.doCheck)
+        (lib.cmakeFeature "LLVM_LIT_ARGS" "--verbose")
       ]
       ++ optionals stdenv.hostPlatform.isStatic [
         # Disables building of shared libs, -fPIC is still injected by cc-wrapper
