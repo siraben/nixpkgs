@@ -58,6 +58,9 @@ self: super:
     # issues finding libcharset.h without libiconv in buildInputs on darwin.
     with-utf8 = addExtraLibrary pkgs.libiconv super.with-utf8;
 
+    # termbox defines _XOPEN_SOURCE, which hides SIGWINCH on Darwin.
+    termbox-bindings-c = appendConfigureFlag "--ghc-option=-optc=-D_DARWIN_C_SOURCE" super.termbox-bindings-c;
+
     git-annex = overrideCabal (drv: {
       # We can't use testFlags since git-annex side steps the Cabal test mechanism
       preCheck = drv.preCheck or "" + ''
