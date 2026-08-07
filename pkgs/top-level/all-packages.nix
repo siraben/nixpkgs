@@ -21,6 +21,26 @@ let
     dontRecurseIntoAttrs
     makeOverridable
     ;
+
+  # GHC 9.10 and Haddock produce nondeterministic syb outputs when run in parallel.
+  # https://github.com/NixOS/nixpkgs/issues/151347
+  disableParallelSyb =
+    haskellLib: packageSet:
+    packageSet.extend (
+      self: super: {
+        syb = haskellLib.disableParallelBuilding super.syb;
+      }
+    );
+
+  disableParallelSybHaddock =
+    haskellLib: packageSet:
+    packageSet.extend (
+      self: super: {
+        syb = haskellLib.overrideCabal (drv: {
+          haddockFlags = (drv.haddockFlags or [ ]) ++ [ "--haddock-option=-j1" ];
+        }) super.syb;
+      }
+    );
 in
 
 pkgs:
@@ -3623,18 +3643,29 @@ with pkgs;
 
   # Haskell and GHC
 
-  haskell = recurseIntoAttrs (callPackage ./haskell-packages.nix { });
+  haskell =
+    let
+      haskellPackageSets = callPackage ./haskell-packages.nix { };
+    in
+    recurseIntoAttrs (
+      haskellPackageSets
+      // {
+        packages = haskellPackageSets.packages // {
+          ghc912 = disableParallelSybHaddock (haskellPackageSets.lib.compose) haskellPackageSets.packages.ghc912;
+        };
+      }
+    );
 
   haskellPackages = recurseIntoAttrs (
     # Prefer native-bignum to avoid linking issues with gmp;
     # GHC 9.10 doesn't work too well with iserv-proxy.
     if stdenv.hostPlatform.isStatic then
-      haskell.packages.native-bignum.ghc912
+      disableParallelSybHaddock haskell.lib.compose haskell.packages.native-bignum.ghc912
     # JS backend can't use gmp
     else if stdenv.hostPlatform.isGhcjs then
-      haskell.packages.native-bignum.ghc910
+      disableParallelSyb haskell.lib.compose haskell.packages.native-bignum.ghc910
     else
-      haskell.packages.ghc910
+      disableParallelSyb haskell.lib.compose haskell.packages.ghc910
   );
 
   # haskellPackages.ghc is build->host (it exposes the compiler used to build the
