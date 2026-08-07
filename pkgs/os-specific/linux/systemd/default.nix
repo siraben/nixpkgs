@@ -247,6 +247,13 @@ stdenv.mkDerivation (finalAttrs: {
       url = "https://github.com/systemd/systemd/commit/266b3e50218e2b27cd67d2371c165bf53ad3bf00.patch";
       hash = "sha256-dEEzZUqicnmgDuXVBV1y0BxzgKbb6Q47Dmxj+O71bFE=";
     })
+    # Hotfix nondeterministic directory traversal in systemd-repart VFAT images.
+    # Included in systemd 262; remove when updating.
+    (fetchpatch {
+      name = "systemd-repart-reproducible-vfat.patch";
+      url = "https://github.com/systemd/systemd/commit/d5d3fbce100bbbf33f1334c861643428be2b3461.patch";
+      hash = "sha256-zFZSZpB+HekOsqZCNpJbZ5O5BN0QHoQ6ev+HIdJGvGs=";
+    })
   ]
   ++ lib.optionals (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isGnu) [
     ./0006-timesyncd-disable-NSCD-when-DNSSEC-validation-is-dis.patch
