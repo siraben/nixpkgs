@@ -36,7 +36,9 @@ stdenv.mkDerivation (finalAttrs: {
         cp -r ${monorepoSrc}/clang "$out"
         cp -r ${monorepoSrc}/mlir "$out"
         cp -r ${monorepoSrc}/third-party "$out"
-        cp -r ${monorepoSrc}/flang-rt "$out"
+        ${lib.optionalString (lib.versionAtLeast release_version "21") ''
+          cp -r ${monorepoSrc}/flang-rt "$out"
+        ''}
         chmod -R +w $out/llvm
       '';
 
