@@ -26,6 +26,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-+yPpoIgyXL/Qp2C4ykSlUg2BheWjzTEi6wID6yCsP/s=";
   };
 
+  postPatch = ''
+    substituteInPlace camlibs/Makefile.am \
+      --replace-fail \
+        'camlib_libadd += $(top_builddir)/libgphoto2_port/libgphoto2_port/libgphoto2_port.la' \
+        'camlib_libadd += $(top_builddir)/libgphoto2_port/libgphoto2_port/libgphoto2_port.la $(LTLIBINTL)'
+  '';
+
   depsBuildBuild = [ pkg-config ];
 
   nativeBuildInputs = [
