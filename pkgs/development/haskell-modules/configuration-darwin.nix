@@ -58,6 +58,23 @@ self: super:
     # issues finding libcharset.h without libiconv in buildInputs on darwin.
     with-utf8 = addExtraLibrary pkgs.libiconv super.with-utf8;
 
+    # Darwin reports EAFNOSUPPORT when connecting to the unspecified IPv4 address.
+    socket = overrideCabal (drv: {
+      # This test reuses the suite's fixed TCP port, which remains busy on Darwin.
+      # https://github.com/lpeterse/haskell-socket/blob/v0.8.3.0/test/test.hs#L435-L447
+      testFlags = drv.testFlags or [ ] ++ [
+        "-p"
+        "!/getAddress after bind/"
+      ];
+      postPatch = (drv.postPatch or "") + ''
+        substituteInPlace test/test.hs \
+          --replace-fail \
+            '| e == eAddressNotAvailable -> return ()' \
+            '| e == eAddressNotAvailable -> return ()
+                         | e == eAddressFamilyNotSupported -> return ()'
+      '';
+    }) super.socket;
+
     git-annex = overrideCabal (drv: {
       # We can't use testFlags since git-annex side steps the Cabal test mechanism
       preCheck = drv.preCheck or "" + ''
