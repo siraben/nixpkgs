@@ -471,7 +471,7 @@ in
         }
 
         mkdir -p "$out"
-        for theme in ${keycloakBuild}/themes/*; do
+        for theme in ${cfg.package}/themes/*; do
           if [ -d "$theme" ]; then
             linkTheme "$theme" "$(basename "$theme")"
           fi
@@ -510,16 +510,31 @@ in
         ]
       )) cfg.settings;
       confFile = pkgs.writeText "keycloak.conf" (keycloakConfig filteredConfig);
-      keycloakBuild = cfg.package.override {
-        inherit confFile;
-        plugins =
-          cfg.package.enabledPlugins
-          ++ cfg.plugins
-          ++ (with cfg.package.plugins; [
-            quarkus-systemd-notify
-            quarkus-systemd-notify-deployment
-          ]);
-      };
+      providers =
+        pkgs.runCommand "keycloak-providers"
+          {
+            plugins = cfg.plugins ++ [
+              cfg.package.plugins.quarkus-systemd-notify
+              cfg.package.plugins.quarkus-systemd-notify-deployment
+            ];
+          }
+          ''
+            mkdir "$out"
+            for plugin in $plugins; do
+              if [ -d "$plugin" ]; then
+                while IFS= read -r -d $'\0' provider; do
+                  ln -s "$provider" "$out/$(basename "$provider")"
+                done < <(${lib.getExe' pkgs.findutils "find"} "$plugin" -type f \( -iname '*.ear' -o -iname '*.jar' \) -print0)
+              else
+                ln -s "$plugin" "$out/"
+              fi
+            done
+          '';
+      buildInputsFile = pkgs.writeText "keycloak-build-inputs" ''
+        ${cfg.package}
+        ${providers}
+        ${confFile}
+      '';
     in
     mkIf cfg.enable {
       assertions = [
@@ -572,7 +587,7 @@ in
         }
       ];
 
-      environment.systemPackages = [ keycloakBuild ];
+      environment.systemPackages = [ cfg.package ];
 
       services.keycloak.settings =
         let
@@ -740,7 +755,7 @@ in
           bindsTo = databaseServices;
           wantedBy = [ "multi-user.target" ];
           path = with pkgs; [
-            keycloakBuild
+            cfg.package
             openssl
             replace-secret
           ];
@@ -764,9 +779,13 @@ in
             DynamicUser = true;
             RuntimeDirectory = "keycloak";
             RuntimeDirectoryMode = "0700";
+            StateDirectory = "keycloak";
+            StateDirectoryMode = "0700";
             AmbientCapabilities = "CAP_NET_BIND_SERVICE";
             Type = "notify"; # Requires quarkus-systemd-notify plugin
             NotifyAccess = "all";
+            # Initial Quarkus augmentation can be slow on small systems.
+            TimeoutStartSec = "15min";
           };
           script = ''
             set -o errexit -o pipefail -o nounset -o errtrace
@@ -775,8 +794,6 @@ in
             umask u=rwx,g=,o=
 
             ln -s ${themesBundle} /run/keycloak/themes
-            ln -s ${keycloakBuild}/providers /run/keycloak/
-            ln -s ${keycloakBuild}/lib /run/keycloak/
 
             install -D -m 0600 ${confFile} /run/keycloak/conf/keycloak.conf
 
@@ -787,13 +804,29 @@ in
             # sequences.
             sed -i '/db-/ s|\\|\\\\|g' /run/keycloak/conf/keycloak.conf
 
+            # Keycloak's build command mutates its Quarkus JARs. Keep the
+            # generated files in persistent state instead of the Nix store.
+            mkdir -p "$STATE_DIRECTORY/lib"
+            if [ "$(readlink "$STATE_DIRECTORY/.build-inputs" || true)" != ${buildInputsFile} ]; then
+              rm -rf "$STATE_DIRECTORY"/lib/quarkus*
+              cp --no-preserve=all -r ${cfg.package}/lib/quarkus* "$STATE_DIRECTORY/lib/"
+              ln -sfn ${buildInputsFile} "$STATE_DIRECTORY/.build-inputs"
+            fi
+            ln -sf ${cfg.package}/lib/{app,lib} "$STATE_DIRECTORY/lib/"
+
+            # Providers and the mutable Quarkus directory must be visible
+            # from both the runtime and persistent Keycloak home directories.
+            ln -sf ${providers} /run/keycloak/providers
+            ln -snf ${providers} "$STATE_DIRECTORY/providers"
+            ln -snf "$STATE_DIRECTORY/lib" /run/keycloak/lib
+
           ''
           + optionalString (cfg.sslCertificate != null && cfg.sslCertificateKey != null) ''
             mkdir -p /run/keycloak/ssl
             cp "$CREDENTIALS_DIRECTORY"/ssl_{cert,key} /run/keycloak/ssl/
           ''
           + ''
-            kc.sh --verbose start --optimized ${lib.optionalString (cfg.realmFiles != [ ]) "--import-realm"}
+            kc.sh --verbose start ${lib.optionalString (cfg.realmFiles != [ ]) "--import-realm"}
           '';
           enableStrictShellChecks = true;
         };

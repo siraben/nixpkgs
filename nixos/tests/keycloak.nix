@@ -13,6 +13,12 @@ let
       let
         initialAdminPassword = "h4Iho\"JFn't2>iQIR9";
         adminPasswordFile = pkgs.writeText "admin-password" "${initialAdminPassword}";
+        nestedPlugin = pkgs.runCommand "nested-keycloak-plugin" { } ''
+          mkdir -p "$out/share/java"
+          for jar in ${pkgs.keycloak.plugins.keycloak-discord}/*.jar; do
+            cp "$jar" "$out/share/java/"
+          done
+        '';
       in
       {
         name = "keycloak";
@@ -22,7 +28,7 @@ let
 
         nodes = {
           keycloak =
-            { config, ... }:
+            { ... }:
             {
               virtualisation.memorySize = 2047;
 
@@ -49,9 +55,8 @@ let
                   name = "also bogus";
                   passwordFile = "${pkgs.writeText "dbPassword" ''wzf6\"vO"Cb\nP>p#6;c&o?eu=q'THE'''H''''E''}";
                 };
-                plugins = with config.services.keycloak.package.plugins; [
-                  keycloak-discord
-                ];
+                # Directory-valued plugins may keep their JARs in nested paths.
+                plugins = [ nestedPlugin ];
               };
               environment.systemPackages = with pkgs; [
                 htmlq
@@ -116,6 +121,11 @@ let
           ''
             keycloak.start()
             keycloak.wait_for_unit("keycloak.service")
+            keycloak.wait_for_open_port(443)
+            keycloak.wait_until_succeeds("curl -sSf ${frontendUrl}")
+            keycloak.succeed("compgen -G '/run/keycloak/providers/*.jar'")
+            keycloak.fail("test -e /run/keycloak/providers/share")
+            keycloak.systemctl("restart keycloak.service")
             keycloak.wait_for_open_port(443)
             keycloak.wait_until_succeeds("curl -sSf ${frontendUrl}")
 
