@@ -133,6 +133,15 @@ in
   #
   # Test suite issues
   #
+  # GHC 9.10's CPP leaves the function-like macro parameter unexpanded.
+  exinst-base = overrideCabal (drv: {
+    postPatch = drv.postPatch or "" + ''
+      substituteInPlace tests/Main.hs \
+        --replace-fail '#define INSTANCETRON(c)' '#define INSTANCETRON' \
+        --replace-fail '  instance c' '  instance Hashable' \
+        --replace-fail 'INSTANCETRON(Hashable)' 'INSTANCETRON'
+    '';
+  }) super.exinst-base;
   monad-dijkstra = dontCheck super.monad-dijkstra; # needs hlint 3.10
 
   # Workaround https://github.com/haskell/haskell-language-server/issues/4674
