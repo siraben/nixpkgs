@@ -315,11 +315,16 @@ makeScopeWithSplicing' {
 
       clangWithLibcAndBasicRtAndLibcxx = wrapCCWith rec {
         cc = self.clang-unwrapped;
-        # This is used to build compiler-rt. Make sure to use the system libc++ on Darwin.
+        # This is used to build compiler-rt. Use the system libc++ on Darwin when the
+        # compiler is new enough for its headers; older Clang needs its matching libc++.
         #
         # FIXME: This should almost certainly use
         # `stdenv.targetPlatform` and `targetPackages.darwin.libcxx`.
-        libcxx = if stdenv.hostPlatform.isDarwin then darwin.libcxx else targetLlvmPackages.libcxx;
+        libcxx =
+          if stdenv.hostPlatform.isDarwin && lib.versionAtLeast metadata.release_version "19" then
+            darwin.libcxx
+          else
+            targetLlvmPackages.libcxx;
         bintools = bintools';
         extraPackages = [
           targetLlvmPackages.compiler-rt-no-libc
