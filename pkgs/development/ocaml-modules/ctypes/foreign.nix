@@ -27,6 +27,15 @@ buildDunePackage {
     lwt
   ];
 
+  # These closure lifetime tests are killed by SIGBUS on aarch64-darwin.
+  postPatch = lib.optionalString (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) ''
+    substituteInPlace tests/test-callback_lifetime/dune \
+      --replace-fail '(libraries' \
+        '(action
+           (run %{test} -only-test "Callback lifetime tests:0" -only-test "Callback lifetime tests:1"))
+         (libraries'
+  '';
+
   # Fix build with gcc 14
   env.NIX_CFLAGS_COMPILE = "-Wno-error=incompatible-pointer-types";
 
