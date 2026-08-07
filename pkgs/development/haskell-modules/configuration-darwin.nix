@@ -28,6 +28,17 @@ self: super:
       __darwinAllowLocalNetworking = true;
     }) super.streaming-commons;
 
+    store = overrideCabal (drv: {
+      # GHC's parallel code generation exceeds the aarch64-darwin builder's memory limit.
+      enableParallelBuilding = !pkgs.stdenv.hostPlatform.isAarch64;
+      # CTimer is not provided by Foreign.C.Types on Darwin.
+      postPatch = ''
+        substituteInPlace test/Data/StoreSpec.hs \
+          --replace-fail ', [t| CTimer |]' ""
+      ''
+      + (drv.postPatch or "");
+    }) super.store;
+
     # Hakyll's tests are broken on Darwin (3 failures); and they require util-linux
     hakyll = overrideCabal {
       testToolDepends = [ ];
