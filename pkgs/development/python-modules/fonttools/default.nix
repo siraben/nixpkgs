@@ -37,6 +37,14 @@ buildPythonPackage (finalAttrs: {
     hash = "sha256-XTE18TKpIa4MpbJ5tcHwCyLk3Q6CV/ElzMtddG86HJA=";
   };
 
+  # Snippets/fontTools only makes in-tree snippets import the local sources.
+  # setuptools follows it while discovering package data and can then skip the
+  # canonical Lib/fontTools tree depending on directory traversal order,
+  # omitting non-Python files such as otlLib/builder.py.sketch.
+  postPatch = ''
+    rm Snippets/fontTools
+  '';
+
   build-system = [
     setuptools
     setuptools-scm
