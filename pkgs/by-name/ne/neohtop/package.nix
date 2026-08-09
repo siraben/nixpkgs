@@ -39,6 +39,13 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
   cargoHash = "sha256-fl/slVYr5RExI9ab8YeX2Q8mF+cnR1R1rUg5i11ao4M=";
 
+  postPatch = ''
+    # SvelteKit otherwise defaults the version to the current timestamp.
+    substituteInPlace svelte.config.js \
+      --replace-fail "kit: {" 'kit: {
+        version: { name: "${finalAttrs.version}" },'
+  '';
+
   cargoRoot = "src-tauri";
 
   buildAndTestSubdir = "src-tauri";
