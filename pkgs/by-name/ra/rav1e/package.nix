@@ -27,6 +27,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
     nasm
   ];
 
+  # Incremental compilation adds random suffixes to objects retained in librav1e.a.
+  env.CARGO_PROFILE_RELEASE_INCREMENTAL = "false";
+
   postPatch = ''
     # remove feature that requires libgit2 and is only used to print a version string
     substituteInPlace Cargo.toml --replace-fail '"git_version",' ""
