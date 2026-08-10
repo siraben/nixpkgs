@@ -2,6 +2,7 @@
   lib,
   attrs,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   pytestCheckHook,
   pythonAtLeast,
@@ -12,7 +13,9 @@
 buildPythonPackage rec {
   pname = "jsons";
   version = "1.6.3";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "ramonhagenaars";

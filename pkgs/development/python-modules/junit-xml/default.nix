@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   six,
   pytestCheckHook,
@@ -9,7 +10,9 @@
 buildPythonPackage {
   pname = "junit-xml";
   version = "1.9";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   # Only a wheel on PyPI
   src = fetchFromGitHub {

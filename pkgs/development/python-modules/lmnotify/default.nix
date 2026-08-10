@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   oauthlib,
   requests,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "lmnotify";
   version = "0.0.6";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

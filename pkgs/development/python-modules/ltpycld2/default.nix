@@ -2,6 +2,7 @@
   stdenv,
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
 }:
 
@@ -9,7 +10,9 @@ buildPythonPackage rec {
   pname = "ltpycld2";
   version = "0.42";
 
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     pname = "LTpycld2";

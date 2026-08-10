@@ -1,5 +1,6 @@
 {
   buildPythonPackage,
+  setuptools,
   lib,
   stdenv,
   libsixel,
@@ -7,7 +8,9 @@
 
 buildPythonPackage rec {
   version = libsixel.version;
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
   pname = "libsixel";
 
   src = libsixel.src;

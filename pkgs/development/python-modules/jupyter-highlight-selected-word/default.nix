@@ -1,13 +1,16 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
 }:
 
 buildPythonPackage rec {
   pname = "jupyter-highlight-selected-word";
   version = "0.2.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "jcb91";

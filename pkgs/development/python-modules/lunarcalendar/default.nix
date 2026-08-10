@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
 
   python-dateutil,
@@ -13,7 +14,14 @@
 buildPythonPackage {
   pname = "lunarcalendar";
   version = "0.0.9";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [
+    ephem
+    python-dateutil
+    pytz
+    setuptools
+  ];
 
   src = fetchFromGitHub {
     owner = "wolfhong";

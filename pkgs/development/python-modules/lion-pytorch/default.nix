@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   torch,
 }:
@@ -8,7 +9,9 @@
 buildPythonPackage rec {
   pname = "lion-pytorch";
   version = "0.2.3";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "lucidrains";

@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   pytestCheckHook,
   six,
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "langdetect";
   version = "1.0.9";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

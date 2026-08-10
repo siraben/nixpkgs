@@ -2,6 +2,7 @@
   lib,
   stdenv,
   buildPythonPackage,
+  setuptools,
   fetchurl,
   libasyncns,
   pkg-config,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "libasyncns-python";
   version = "0.7.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchurl {
     url = "https://launchpad.net/libasyncns-python/trunk/${version}/+download/libasyncns-python-${version}.tar.bz2";

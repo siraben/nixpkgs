@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   pandas,
   typing-extensions,
@@ -8,12 +9,18 @@
   pytest-cov-stub,
   pytest-mock,
   scikit-learn,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {
   pname = "kotsu";
   version = "0.4.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [
+    setuptools
+    setuptools-scm
+  ];
 
   src = fetchFromGitHub {
     owner = "datavaluepeople";

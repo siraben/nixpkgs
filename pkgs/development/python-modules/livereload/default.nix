@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   django,
   pytestCheckHook,
@@ -11,7 +12,9 @@
 buildPythonPackage rec {
   pname = "livereload";
   version = "2.7.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "lepture";

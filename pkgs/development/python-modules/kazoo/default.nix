@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
 
   # optional dependencies
@@ -12,7 +13,9 @@
 buildPythonPackage rec {
   pname = "kazoo";
   version = "2.10.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

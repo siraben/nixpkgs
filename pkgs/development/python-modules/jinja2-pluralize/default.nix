@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   jinja2,
   inflect,
@@ -10,7 +11,9 @@
 buildPythonPackage (finalAttrs: {
   pname = "jinja2-pluralize";
   version = "0.3.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     pname = "jinja2_pluralize";

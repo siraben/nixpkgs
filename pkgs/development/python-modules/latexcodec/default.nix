@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   six,
   pytest,
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "latexcodec";
   version = "3.0.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

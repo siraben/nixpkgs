@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   karton-core,
   mwdblib,
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "karton-mwdb-reporter";
   version = "1.3.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "CERT-Polska";

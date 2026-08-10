@@ -1,5 +1,6 @@
 {
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   lib,
   pythonAtLeast,
@@ -16,7 +17,9 @@
 buildPythonPackage rec {
   pname = "lomond";
   version = "0.3.3";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "wildfoundry";

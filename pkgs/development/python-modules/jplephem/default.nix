@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   numpy,
 }:
@@ -8,7 +9,9 @@
 buildPythonPackage rec {
   pname = "jplephem";
   version = "2.24";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   isPy3k,
   ipython,
@@ -12,7 +13,9 @@
 buildPythonPackage rec {
   pname = "lightparam";
   version = "0.4.6";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
   disabled = !isPy3k;
 
   src = fetchFromGitHub {

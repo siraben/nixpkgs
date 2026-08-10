@@ -2,6 +2,7 @@
   lib,
   fetchPypi,
   buildPythonPackage,
+  setuptools,
   six,
   cssselect,
   lxml,
@@ -11,7 +12,9 @@
 buildPythonPackage rec {
   pname = "leather";
   version = "0.4.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

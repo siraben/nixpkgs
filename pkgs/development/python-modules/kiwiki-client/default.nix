@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   python-dateutil,
   requests,
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "kiwiki-client";
   version = "0.1.2";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "c7h";

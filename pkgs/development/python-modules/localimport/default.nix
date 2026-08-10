@@ -1,13 +1,16 @@
 {
   lib,
   buildPythonPackage,
+  poetry-core,
   fetchPypi,
 }:
 
 buildPythonPackage (finalAttrs: {
   pname = "localimport";
   version = "1.7.6";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ poetry-core ];
 
   src = fetchPypi {
     inherit (finalAttrs) pname version;

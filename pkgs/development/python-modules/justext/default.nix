@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   pytestCheckHook,
   pytest-cov-stub,
@@ -11,7 +12,9 @@
 buildPythonPackage rec {
   pname = "justext";
   version = "3.0.2";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "miso-belica";

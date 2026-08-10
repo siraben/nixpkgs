@@ -3,14 +3,20 @@
   lammps,
   stdenv,
   buildPythonPackage,
+  setuptools,
 }:
 
 let
   LAMMPS_SHARED_LIB = "${lib.getLib lammps}/lib/liblammps${stdenv.hostPlatform.extensions.library}";
 in
 buildPythonPackage {
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
   inherit (lammps) pname version src;
+
+  # The LAMMPS version is not PEP 440 compatible.
+  dontCheckPythonMetadata = true;
 
   env = {
     # Needed for tests

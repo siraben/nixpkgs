@@ -1,13 +1,16 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   lzfse,
 }:
 buildPythonPackage rec {
   pname = "pyliblzfse";
   version = "0.4.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

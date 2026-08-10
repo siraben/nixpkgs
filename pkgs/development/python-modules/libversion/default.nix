@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   libversion,
   pkg-config,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "libversion";
   version = "1.2.4";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "repology";

@@ -1,5 +1,6 @@
 {
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   lib,
   pytz,
@@ -9,7 +10,9 @@
 buildPythonPackage (finalAttrs: {
   pname = "l18n";
   version = "2021.3";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit (finalAttrs) pname version;

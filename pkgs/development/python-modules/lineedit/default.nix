@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   pygments,
   six,
@@ -14,7 +15,9 @@
 buildPythonPackage rec {
   pname = "lineedit";
   version = "0.1.6";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "randy3k";

@@ -2,12 +2,15 @@
   lib,
   fetchFromGitHub,
   buildPythonPackage,
+  setuptools,
   six,
 }:
 
 buildPythonPackage rec {
   version = "0.1.3";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
   pname = "jsondate";
 
   src = fetchFromGitHub {

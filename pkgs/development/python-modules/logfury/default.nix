@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   setuptools-scm,
   pytestCheckHook,
@@ -10,14 +11,17 @@
 buildPythonPackage rec {
   pname = "logfury";
   version = "1.0.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [
+    setuptools
+    setuptools-scm
+  ];
 
   src = fetchPypi {
     inherit pname version;
     hash = "sha256-EwpdrOq5rVNJJCUt33BIKqLJZmKzo4JafTCYHQO3aiY=";
   };
-
-  nativeBuildInputs = [ setuptools-scm ];
 
   nativeCheckInputs = [
     pytestCheckHook

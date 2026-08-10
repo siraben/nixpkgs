@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   pytestCheckHook,
 }:
@@ -8,7 +9,9 @@
 buildPythonPackage rec {
   pname = "luhn";
   version = "0.2.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "mmcloughlin";

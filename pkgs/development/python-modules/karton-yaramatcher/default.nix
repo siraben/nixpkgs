@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   karton-core,
   unittestCheckHook,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "karton-yaramatcher";
   version = "1.3.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "CERT-Polska";

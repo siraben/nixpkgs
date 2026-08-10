@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   jupyter-core,
   notebook,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "jupyter-contrib-core";
   version = "0.4.2";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "jupyter-contrib";

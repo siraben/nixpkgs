@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   pytestCheckHook,
 }:
@@ -8,7 +9,9 @@
 buildPythonPackage rec {
   pname = "jsmin";
   version = "3.0.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

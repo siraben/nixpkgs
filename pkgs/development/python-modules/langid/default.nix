@@ -10,7 +10,9 @@
 buildPythonPackage rec {
   pname = "langid";
   version = "1.1.6";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     # use PyPi as source, github repository does not contain tags or release branches

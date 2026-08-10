@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   nix-update-script,
   pybind11,
@@ -12,7 +13,13 @@ let
 in
 buildPythonPackage {
   inherit pname version;
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [
+    numpy
+    pybind11
+    setuptools
+  ];
 
   src = fetchFromGitHub {
     owner = "gen-ko";

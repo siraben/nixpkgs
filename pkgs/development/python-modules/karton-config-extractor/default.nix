@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   karton-core,
   malduck,
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "karton-config-extractor";
   version = "2.3.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "CERT-Polska";

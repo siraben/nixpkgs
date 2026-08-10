@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   pytestCheckHook,
 }:
@@ -8,7 +9,9 @@
 buildPythonPackage (finalAttrs: {
   pname = "language-tags";
   version = "1.2.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "OnroerendErfgoed";

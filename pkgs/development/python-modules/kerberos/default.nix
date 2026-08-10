@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   libkrb5,
 }:
@@ -8,7 +9,9 @@
 buildPythonPackage rec {
   pname = "kerberos";
   version = "1.3.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

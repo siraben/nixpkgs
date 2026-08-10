@@ -1,13 +1,16 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
 }:
 
 buildPythonPackage rec {
   pname = "kitchen";
   version = "1.2.6";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

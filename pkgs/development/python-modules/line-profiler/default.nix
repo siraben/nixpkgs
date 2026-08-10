@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   cython,
   isPyPy,
@@ -14,7 +15,12 @@
 buildPythonPackage rec {
   pname = "line-profiler";
   version = "5.0.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [
+    cython
+    setuptools
+  ];
 
   disabled = isPyPy;
 
@@ -25,7 +31,6 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs = [
-    cython
     cmake
     scikit-build
   ];

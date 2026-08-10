@@ -2,6 +2,7 @@
   lib,
   fetchFromGitHub,
   buildPythonPackage,
+  setuptools,
   ecdsa,
   hidapi,
   libusb1,
@@ -13,7 +14,9 @@
 buildPythonPackage rec {
   pname = "keepkey";
   version = "7.2.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "keepkey";

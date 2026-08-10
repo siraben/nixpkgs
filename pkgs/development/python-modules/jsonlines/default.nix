@@ -3,13 +3,16 @@
   attrs,
   fetchFromGitHub,
   buildPythonPackage,
+  setuptools,
   pytestCheckHook,
 }:
 
 buildPythonPackage rec {
   pname = "jsonlines";
   version = "4.0.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "wbolster";

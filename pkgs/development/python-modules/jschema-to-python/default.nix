@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   attrs,
   jsonpickle,
@@ -11,7 +12,12 @@
 buildPythonPackage rec {
   pname = "jschema-to-python";
   version = "1.2.3";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [
+    pbr
+    setuptools
+  ];
 
   src = fetchPypi {
     pname = "jschema_to_python";

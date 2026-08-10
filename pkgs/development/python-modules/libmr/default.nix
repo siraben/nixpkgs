@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   numpy,
   cython,
@@ -9,7 +10,13 @@
 buildPythonPackage rec {
   pname = "libmr";
   version = "0.1.9";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [
+    cython
+    numpy
+    setuptools
+  ];
 
   src = fetchPypi {
     inherit pname version;

@@ -11,9 +11,7 @@
 buildPythonPackage rec {
   pname = "jsonpath-ng";
   version = "1.8.0";
-  format = "setuptools";
-  # TODO: typo; change to pyproject = true;
-  pypropject = true;
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "h2non";

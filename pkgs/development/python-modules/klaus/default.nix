@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   fetchpatch,
   isPy3k,
@@ -18,7 +19,9 @@
 buildPythonPackage rec {
   pname = "klaus";
   version = "3.0.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "jonashaag";

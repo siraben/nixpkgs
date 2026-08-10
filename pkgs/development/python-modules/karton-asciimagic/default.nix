@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   karton-core,
   unittestCheckHook,
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "karton-asciimagic";
   version = "1.2.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "CERT-Polska";

@@ -1,13 +1,16 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
 }:
 
 buildPythonPackage rec {
   pname = "lightwave";
   version = "0.24";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

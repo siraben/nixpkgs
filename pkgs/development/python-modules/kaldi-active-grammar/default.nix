@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   scikit-build,
   cmake,
@@ -25,7 +26,12 @@ in
 buildPythonPackage rec {
   pname = "kaldi-active-grammar";
   version = "3.2.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [
+    scikit-build
+    setuptools
+  ];
 
   src = fetchFromGitHub {
     owner = "daanzu";
@@ -60,7 +66,6 @@ buildPythonPackage rec {
     kaldi
   ];
   nativeBuildInputs = [
-    scikit-build
     cmake
   ];
   propagatedBuildInputs = [

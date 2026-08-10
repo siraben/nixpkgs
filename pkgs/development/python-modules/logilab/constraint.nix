@@ -13,7 +13,9 @@
 buildPythonPackage rec {
   pname = "logilab-constraint";
   version = "1.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

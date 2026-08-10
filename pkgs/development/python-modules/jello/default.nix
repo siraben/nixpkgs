@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   installShellFiles,
   pygments,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "jello";
   version = "1.6.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "kellyjonbrazil";

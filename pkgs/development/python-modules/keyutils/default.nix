@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   cython,
   fetchFromGitHub,
   keyutils,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "keyutils";
   version = "0.6";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   # github version comes bundled with tests
   src = fetchFromGitHub {

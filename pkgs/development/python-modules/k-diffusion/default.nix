@@ -2,6 +2,7 @@
   lib,
   accelerate,
   buildPythonPackage,
+  setuptools,
   clean-fid,
   clip-anytorch,
   dctorch,
@@ -25,7 +26,9 @@
 buildPythonPackage rec {
   pname = "k-diffusion";
   version = "0.1.1.post1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "crowsonkb";

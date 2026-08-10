@@ -2,6 +2,7 @@
   lib,
   fetchFromGitHub,
   buildPythonPackage,
+  setuptools,
   pytest7CheckHook,
   numpy,
   pandas,
@@ -11,7 +12,9 @@
 buildPythonPackage rec {
   pname = "json-tricks";
   version = "3.17.3";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "mverleg";

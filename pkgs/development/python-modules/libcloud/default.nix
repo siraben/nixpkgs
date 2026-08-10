@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   pycrypto,
   requests,
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "apache-libcloud";
   version = "3.8.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;
@@ -28,6 +31,9 @@ buildPythonPackage rec {
   postPatch = ''
     substituteInPlace setup.py \
       --replace "setup_requires=pytest_runner," "setup_requires=[],"
+    substituteInPlace pyproject.toml \
+      --replace-fail 'setuptools~=66.1' 'setuptools' \
+      --replace-fail 'wheel~=0.37.1' 'wheel'
   '';
 
   # requires a certificates file

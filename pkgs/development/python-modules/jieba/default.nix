@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   python,
   isPy3k,
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "jieba";
   version = "0.42.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   # no tests in PyPI tarball
   src = fetchFromGitHub {

@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   protobuf,
   pycryptodome,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "lakeside";
   version = "0.13";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "nkgilley";

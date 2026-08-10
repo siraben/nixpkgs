@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   cython,
   fetchFromGitHub,
   jq,
@@ -11,7 +12,12 @@
 buildPythonPackage rec {
   pname = "jq";
   version = "1.12.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [
+    cython
+    setuptools
+  ];
 
   src = fetchFromGitHub {
     owner = "mwilliamson";
@@ -20,9 +26,12 @@ buildPythonPackage rec {
     hash = "sha256-glWEqoS+QaoIiBJu9DXd+VvhPnWOgRT4VaYfMpjbR5g=";
   };
 
-  env.JQPY_USE_SYSTEM_LIBS = 1;
+  postPatch = ''
+    substituteInPlace pyproject.toml \
+      --replace-fail 'cython==3.2.3' 'cython'
+  '';
 
-  nativeBuildInputs = [ cython ];
+  env.JQPY_USE_SYSTEM_LIBS = 1;
 
   buildInputs = [
     jq

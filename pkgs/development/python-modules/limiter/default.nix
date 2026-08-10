@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   strenum,
   token-bucket,
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "limiter";
   version = "0.3.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "alexdelorenzo";

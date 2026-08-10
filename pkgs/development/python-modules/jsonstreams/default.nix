@@ -2,6 +2,7 @@
   stdenv,
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   pytestCheckHook,
   six,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "jsonstreams";
   version = "0.6.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "dcbaker";

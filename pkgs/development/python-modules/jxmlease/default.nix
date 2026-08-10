@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   lxml,
   unittestCheckHook,
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "jxmlease";
   version = "1.0.3";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

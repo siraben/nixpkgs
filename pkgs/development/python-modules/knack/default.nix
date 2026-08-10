@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   argcomplete,
   colorama,
@@ -17,7 +18,9 @@
 buildPythonPackage rec {
   pname = "knack";
   version = "0.14.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

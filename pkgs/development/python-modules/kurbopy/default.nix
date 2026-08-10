@@ -10,7 +10,12 @@
 buildPythonPackage rec {
   pname = "kurbopy";
   version = "0.13.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [
+    rustPlatform.cargoSetupHook
+    rustPlatform.maturinBuildHook
+  ];
 
   src = fetchPypi {
     inherit pname version;
@@ -18,11 +23,6 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [ fonttools ];
-  nativeBuildInputs = [
-    rustPlatform.cargoSetupHook
-    rustPlatform.maturinBuildHook
-  ];
-
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit pname version src;
     hash = "sha256-dWYOQk6kSGRL8nl3f89FWzdB17hgBALvsQkjeT9oKNc=";

@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   justbases,
   unittestCheckHook,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "justbytes";
   version = "0.15.2";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "mulkieran";

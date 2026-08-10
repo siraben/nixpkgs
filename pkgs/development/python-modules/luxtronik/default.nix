@@ -1,13 +1,16 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
 }:
 
 buildPythonPackage rec {
   pname = "luxtronik";
   version = "0.3.14";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "Bouni";

@@ -2,6 +2,7 @@
   lib,
   fetchPypi,
   buildPythonPackage,
+  setuptools,
   cython,
   pkg-config,
   lrcalc,
@@ -10,7 +11,15 @@
 buildPythonPackage rec {
   pname = "lrcalc-python";
   version = "2.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [
+    cython
+    setuptools
+  ];
+
+  # The distribution is named `lrcalc`.
+  dontCheckPythonMetadata = true;
 
   src = fetchPypi {
     inherit version;
@@ -19,7 +28,6 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs = [
-    cython
     pkg-config
   ];
 
