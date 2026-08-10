@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   enaml,
   pyqtgraph,
@@ -11,7 +12,9 @@
 buildPythonPackage rec {
   pname = "enamlx";
   version = "0.6.4";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "frmdstryr";

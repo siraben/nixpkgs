@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   appdirs,
   asn1crypto,
@@ -27,7 +28,9 @@
 buildPythonPackage rec {
   pname = "etesync";
   version = "0.12.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

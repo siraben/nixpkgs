@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   python,
   pygobject3,
   pyatspi,
@@ -19,7 +20,9 @@
 buildPythonPackage {
   pname = "dogtail";
   version = "0.9.11";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   outputs = [
     "out"

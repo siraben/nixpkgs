@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   urllib3,
 }:
@@ -8,7 +9,9 @@
 buildPythonPackage rec {
   pname = "downloader-cli";
   version = "0.3.4";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "deepjyoti30";

@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
 
   # dependencies
@@ -13,7 +14,9 @@
 buildPythonPackage rec {
   pname = "encodec";
   version = "0.1.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "facebookresearch";

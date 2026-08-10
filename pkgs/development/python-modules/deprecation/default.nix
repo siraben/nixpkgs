@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   fetchpatch,
   packaging,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "deprecation";
   version = "2.1.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   dnspython,
   fetchPypi,
   idna,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "email-validator";
   version = "2.3.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     pname = "email_validator";

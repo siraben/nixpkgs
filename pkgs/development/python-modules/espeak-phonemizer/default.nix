@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   replaceVars,
   espeak-ng,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "espeak-phonemizer";
   version = "1.3.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "rhasspy";

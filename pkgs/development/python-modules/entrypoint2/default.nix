@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   easyprocess,
   path,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "entrypoint2";
   version = "1.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

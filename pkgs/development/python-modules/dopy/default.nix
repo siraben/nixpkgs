@@ -2,6 +2,7 @@
   lib,
   pkgs,
   buildPythonPackage,
+  setuptools,
   requests,
   six,
 }:
@@ -9,7 +10,9 @@
 buildPythonPackage {
   pname = "dopy";
   version = "2016-01-04";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = pkgs.fetchFromGitHub {
     owner = "Wiredcraft";

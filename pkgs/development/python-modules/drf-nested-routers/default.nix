@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   django,
   djangorestframework,
@@ -12,7 +13,9 @@
 buildPythonPackage rec {
   pname = "drf-nested-routers";
   version = "0.95.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "alanjds";

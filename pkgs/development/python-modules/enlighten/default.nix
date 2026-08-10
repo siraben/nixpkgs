@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
 
   # dependencies
@@ -14,7 +15,9 @@
 buildPythonPackage rec {
   pname = "enlighten";
   version = "1.14.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

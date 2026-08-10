@@ -2,6 +2,7 @@
   stdenv,
   lib,
   buildPythonPackage,
+  setuptools,
   django,
   netaddr,
   six,
@@ -18,7 +19,9 @@
 buildPythonPackage rec {
   pname = "django-postgresql-netfields";
   version = "1.4.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "jimfunk";

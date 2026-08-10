@@ -2,6 +2,7 @@
   lib,
   autopep8,
   buildPythonPackage,
+  setuptools,
   django,
   factory-boy,
   fetchFromGitHub,
@@ -28,7 +29,12 @@
 buildPythonPackage rec {
   pname = "django-silk";
   version = "5.5.2";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [
+    setuptools
+    setuptools-scm
+  ];
 
   src = fetchFromGitHub {
     owner = "jazzband";
@@ -46,8 +52,6 @@ buildPythonPackage rec {
     substituteInPlace setup.py \
       --replace 'use_scm_version=True' 'version="${version}"'
   '';
-
-  nativeBuildInputs = [ setuptools-scm ];
 
   buildInputs = [ mock ];
 

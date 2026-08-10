@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   glibcLocales,
   celery,
@@ -11,7 +12,9 @@
 buildPythonPackage rec {
   pname = "djmail";
   version = "2.0.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   meta = {
     description = "Simple, powerful and nonobstructive django email middleware";

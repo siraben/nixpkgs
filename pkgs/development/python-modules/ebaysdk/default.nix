@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   lxml,
   requests,
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "ebaysdk";
   version = "2.2.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

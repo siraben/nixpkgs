@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   toml,
   pyyaml,
@@ -11,7 +12,9 @@
 buildPythonPackage rec {
   pname = "dparse2";
   version = "0.7.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "nexB";

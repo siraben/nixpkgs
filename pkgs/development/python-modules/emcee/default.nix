@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   numpy,
   pytestCheckHook,
@@ -10,7 +11,12 @@
 buildPythonPackage rec {
   pname = "emcee";
   version = "3.1.6";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [
+    setuptools
+    setuptools-scm
+  ];
 
   src = fetchFromGitHub {
     owner = "dfm";
@@ -18,8 +24,6 @@ buildPythonPackage rec {
     tag = "v${version}";
     hash = "sha256-JVZK3kvDwWENho0OxZ9OxATcm3XpGmX+e7alPclRsHY=";
   };
-
-  nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [ numpy ];
 

@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   pytest8_3CheckHook,
 }:
@@ -8,7 +9,9 @@
 buildPythonPackage rec {
   pname = "esprima";
   version = "4.0.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "Kronuz";

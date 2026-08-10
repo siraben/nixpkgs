@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   isPy3k,
   numpy,
@@ -16,7 +17,9 @@
 
 buildPythonPackage rec {
   version = "0.8.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
   pname = "django-raster";
 
   disabled = !isPy3k;

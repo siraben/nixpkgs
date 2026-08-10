@@ -2,6 +2,7 @@
   lib,
   fetchPypi,
   buildPythonPackage,
+  setuptools,
   django-classy-tags,
   pytestCheckHook,
   pytest-django,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "django-sekizai";
   version = "4.1.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

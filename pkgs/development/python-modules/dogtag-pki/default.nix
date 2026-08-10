@@ -2,6 +2,7 @@
   lib,
   fetchPypi,
   buildPythonPackage,
+  setuptools,
   cryptography,
   python-ldap,
   requests,
@@ -11,7 +12,9 @@
 buildPythonPackage rec {
   pname = "dogtag-pki";
   version = "11.2.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

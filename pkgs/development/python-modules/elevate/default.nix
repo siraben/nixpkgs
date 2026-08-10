@@ -2,6 +2,7 @@
   lib,
   fetchPypi,
   buildPythonPackage,
+  setuptools,
   fetchpatch,
   setuptools-scm,
 }:
@@ -9,7 +10,12 @@
 buildPythonPackage rec {
   pname = "elevate";
   version = "0.1.3";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [
+    setuptools
+    setuptools-scm
+  ];
 
   src = fetchPypi {
     inherit pname version;
@@ -23,8 +29,6 @@ buildPythonPackage rec {
       sha256 = "1ky3z1jxl1g28wbwbx8qq8jgx8sa8pr8s3fdcpdhdx1blw28cv61";
     })
   ];
-
-  nativeBuildInputs = [ setuptools-scm ];
 
   # No tests included
   doCheck = false;

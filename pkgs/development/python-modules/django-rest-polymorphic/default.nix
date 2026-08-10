@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   django,
   django-polymorphic,
@@ -14,7 +15,9 @@
 buildPythonPackage {
   pname = "django-rest-polymorphic";
   version = "0.1.10";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "apirobot";

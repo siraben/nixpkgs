@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   cryptography,
   django,
   djangorestframework,
@@ -13,15 +14,18 @@
 buildPythonPackage rec {
   pname = "djangorestframework-simplejwt";
   version = "5.5.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [
+    setuptools
+    setuptools-scm
+  ];
 
   src = fetchPypi {
     pname = "djangorestframework_simplejwt";
     inherit version;
     hash = "sha256-5yxVcvUdeAMCEojiBXr8vQPxf+EdSECW9ApGCrx26H8=";
   };
-
-  nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [
     django

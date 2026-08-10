@@ -2,13 +2,16 @@
   lib,
   fetchFromGitHub,
   buildPythonPackage,
+  setuptools,
   django,
 }:
 
 buildPythonPackage rec {
   pname = "django-vite";
   version = "3.1.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "MrBin99";

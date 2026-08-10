@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   django,
   static3,
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "dj-static";
   version = "0.0.6";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "heroku-python";

@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   requests,
   oauthlib,
@@ -11,7 +12,9 @@
 buildPythonPackage rec {
   pname = "discogs-client";
   version = "2.9";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "joalla";

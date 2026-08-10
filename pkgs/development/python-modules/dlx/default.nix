@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   python,
 }:
@@ -8,7 +9,9 @@
 buildPythonPackage {
   pname = "dlx";
   version = "1.0.4";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   # untagged releases
   src = fetchFromGitHub {

@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   django,
 }:
@@ -8,7 +9,9 @@
 buildPythonPackage rec {
   pname = "django-tagging";
   version = "0.5.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

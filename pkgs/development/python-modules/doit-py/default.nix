@@ -2,6 +2,7 @@
   lib,
   fetchFromGitHub,
   buildPythonPackage,
+  setuptools,
   doit,
   configclass,
   mergedict,
@@ -13,7 +14,9 @@
 buildPythonPackage rec {
   pname = "doit-py";
   version = "0.5.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "pydoit";

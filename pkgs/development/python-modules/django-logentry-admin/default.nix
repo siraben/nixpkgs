@@ -2,6 +2,7 @@
   lib,
   fetchFromGitHub,
   buildPythonPackage,
+  setuptools,
   django,
   pytest,
   pytest-django,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "django-logentry-admin";
   version = "1.1.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "yprez";

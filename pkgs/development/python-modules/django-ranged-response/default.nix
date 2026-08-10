@@ -2,13 +2,16 @@
   lib,
   fetchPypi,
   buildPythonPackage,
+  setuptools,
   django,
 }:
 
 buildPythonPackage rec {
   pname = "django-ranged-response";
   version = "0.2.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

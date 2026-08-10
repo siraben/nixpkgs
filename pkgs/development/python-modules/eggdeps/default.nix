@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   zope-interface,
   zope-testing,
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "tl-eggdeps";
   version = "1.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit version;

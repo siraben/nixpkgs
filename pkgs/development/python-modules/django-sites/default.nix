@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   django,
   django-jinja,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "django-sites";
   version = "0.11";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "niwinz";

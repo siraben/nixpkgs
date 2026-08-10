@@ -2,6 +2,7 @@
   lib,
   stdenv,
   buildPythonPackage,
+  setuptools,
   fetchFromSourcehut,
   pytestCheckHook,
   sqlparse,
@@ -11,7 +12,9 @@
 buildPythonPackage rec {
   pname = "embrace";
   version = "4.2.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromSourcehut {
     vc = "hg";

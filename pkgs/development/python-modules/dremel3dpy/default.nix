@@ -2,6 +2,7 @@
   lib,
   async-timeout,
   buildPythonPackage,
+  setuptools,
   decorator,
   fetchPypi,
   imageio,
@@ -16,7 +17,9 @@
 buildPythonPackage (finalAttrs: {
   pname = "dremel3dpy";
   version = "2.1.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit (finalAttrs) pname version;

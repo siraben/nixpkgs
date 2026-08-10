@@ -1,5 +1,6 @@
 {
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   lib,
   pytest,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "dissononce";
   version = "0.34.3";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "tgalal";

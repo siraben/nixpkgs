@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
 
   # dependencies
@@ -15,7 +16,9 @@
 buildPythonPackage rec {
   pname = "django-libsass";
   version = "0.9";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "torchbox";

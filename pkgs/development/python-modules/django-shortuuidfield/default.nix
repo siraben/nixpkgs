@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   django,
   fetchPypi,
   shortuuid,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "django-shortuuidfield";
   version = "0.1.3";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

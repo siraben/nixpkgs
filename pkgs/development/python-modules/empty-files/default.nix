@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   requests,
 }:
@@ -8,7 +9,9 @@
 buildPythonPackage rec {
   pname = "empty-files";
   version = "0.0.9";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "approvals";

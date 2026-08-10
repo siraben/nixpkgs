@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   lxml,
   six,
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "ebooklib";
   version = "0.20";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "aerkalov";

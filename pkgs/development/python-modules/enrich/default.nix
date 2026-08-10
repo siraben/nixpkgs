@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   pytestCheckHook,
   setuptools-scm,
@@ -11,14 +12,25 @@
 buildPythonPackage rec {
   pname = "enrich";
   version = "1.2.7";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [
+    setuptools
+    setuptools-scm
+  ];
 
   src = fetchPypi {
     inherit pname version;
     sha256 = "0a2ab0d2931dff8947012602d1234d2a3ee002d9a355b5d70be6bf5466008893";
   };
 
-  buildInputs = [ setuptools-scm ];
+  postPatch = ''
+    sed -i \
+      -e '/"pip >=/d' \
+      -e '/setuptools_scm_git_archive/d' \
+      -e '/"wheel >=/d' \
+      pyproject.toml
+  '';
 
   propagatedBuildInputs = [ rich ];
 

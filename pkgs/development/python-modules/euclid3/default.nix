@@ -1,12 +1,15 @@
 {
   buildPythonPackage,
+  setuptools,
   lib,
   fetchPypi,
 }:
 buildPythonPackage rec {
   pname = "euclid3";
   version = "0.01";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

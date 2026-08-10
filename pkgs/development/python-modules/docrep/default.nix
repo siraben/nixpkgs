@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   pytest,
   six,
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "docrep";
   version = "0.3.2";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

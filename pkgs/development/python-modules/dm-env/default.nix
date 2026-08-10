@@ -2,6 +2,7 @@
   lib,
   fetchPypi,
   buildPythonPackage,
+  setuptools,
   dm-tree,
   numpy,
   absl-py,
@@ -11,7 +12,9 @@
 buildPythonPackage rec {
   pname = "dm-env";
   version = "1.6";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

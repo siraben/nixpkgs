@@ -1,5 +1,6 @@
 {
   buildPythonPackage,
+  setuptools,
   lib,
   fetchPypi,
   dmenu,
@@ -8,7 +9,9 @@
 buildPythonPackage rec {
   pname = "dmenu-python";
   version = "0.2.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit version;

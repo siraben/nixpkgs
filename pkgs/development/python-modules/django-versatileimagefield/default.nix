@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   django,
   pillow,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "django-versatileimagefield";
   version = "3.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

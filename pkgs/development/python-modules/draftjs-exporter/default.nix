@@ -1,6 +1,7 @@
 {
   beautifulsoup4,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   html5lib,
   lib,
@@ -11,7 +12,9 @@
 buildPythonPackage rec {
   pname = "draftjs-exporter";
   version = "5.1.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     repo = "draftjs_exporter";

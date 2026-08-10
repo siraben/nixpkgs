@@ -6,7 +6,7 @@
   six,
 }:
 buildPythonPackage rec {
-  format = "setuptools";
+  pyproject = true;
   inherit (doxygen) version src;
   pname = "doxmlparser";
 

@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
 
   # tests
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "defusedcsv";
   version = "3.0.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "raphaelm";
