@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   pythonAtLeast,
   fetchPypi,
   bwa,
@@ -11,7 +12,9 @@
 buildPythonPackage rec {
   pname = "bwapy";
   version = "0.1.4";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   # uses the removed imp module
   disabled = pythonAtLeast "3.12";

@@ -2,6 +2,7 @@
   lib,
   async-timeout,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   psycopg2,
 }:
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "aiopg";
   version = "1.4.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "aio-libs";

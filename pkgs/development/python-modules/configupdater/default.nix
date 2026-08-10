@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   pytestCheckHook,
   pytest-cov-stub,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "configupdater";
   version = "3.2";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit version;

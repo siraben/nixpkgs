@@ -12,7 +12,7 @@
 buildPythonPackage rec {
   pname = "configargparse";
   version = "1.7.5";
-  format = "setuptools";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "bw2";

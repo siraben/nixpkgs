@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   libusb1,
   rsa,
@@ -11,7 +12,9 @@
 buildPythonPackage {
   pname = "adb-homeassistant";
   version = "1.3.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   # pypi does not contain tests, using github sources instead
   src = fetchFromGitHub {

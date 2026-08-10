@@ -2,6 +2,7 @@
   lib,
   fetchPypi,
   buildPythonPackage,
+  setuptools,
   mergedict,
   pytestCheckHook,
 }:
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "configclass";
   version = "0.2.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

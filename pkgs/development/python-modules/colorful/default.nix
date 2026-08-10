@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   gitUpdater,
   pytestCheckHook,
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "colorful";
   version = "0.5.8";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "timofurrer";

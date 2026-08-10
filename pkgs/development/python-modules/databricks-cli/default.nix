@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   click,
   configparser,
   decorator,
@@ -18,7 +19,9 @@
 buildPythonPackage rec {
   pname = "databricks-cli";
   version = "0.18.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "databricks";

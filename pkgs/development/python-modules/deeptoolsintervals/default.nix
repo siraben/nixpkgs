@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   pytest,
   zlib,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "deeptoolsintervals";
   version = "0.1.9";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

@@ -3,13 +3,16 @@
   bleak,
   bleak-retry-connector,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
 }:
 
 buildPythonPackage rec {
   pname = "cometblue-lite";
   version = "0.7.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "neffs";

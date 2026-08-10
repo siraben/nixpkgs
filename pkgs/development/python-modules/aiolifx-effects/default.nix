@@ -2,13 +2,16 @@
   lib,
   fetchPypi,
   buildPythonPackage,
+  setuptools,
   aiolifx,
 }:
 
 buildPythonPackage rec {
   pname = "aiolifx-effects";
   version = "0.3.2";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit version;

@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   msrest,
   azure-common,
@@ -11,7 +12,9 @@ buildPythonPackage rec {
   pname = "azure-mgmt-msi";
   version = "7.1.0";
 
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     pname = "azure_mgmt_msi";

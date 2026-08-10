@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   msrest,
   msrestazure,
@@ -11,7 +12,9 @@
 buildPythonPackage rec {
   pname = "azure-mgmt-media";
   version = "10.2.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

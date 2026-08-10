@@ -2,13 +2,16 @@
   lib,
   aiohttp,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
 }:
 
 buildPythonPackage rec {
   pname = "aionanoleaf";
   version = "0.2.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "milanmeu";

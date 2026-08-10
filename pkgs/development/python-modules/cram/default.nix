@@ -2,6 +2,7 @@
   stdenv,
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   bash,
   which,
@@ -9,7 +10,9 @@
 
 buildPythonPackage rec {
   version = "0.7";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
   pname = "cram";
 
   nativeCheckInputs = [ which ];

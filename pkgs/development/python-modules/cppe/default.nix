@@ -1,5 +1,6 @@
 {
   buildPythonPackage,
+  setuptools,
   lib,
   stdenv,
   cmake,
@@ -38,7 +39,9 @@ buildPythonPackage {
 
   dontUseCmakeConfigure = true;
 
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   buildInputs = [ pybind11 ] ++ lib.optional stdenv.cc.isClang llvmPackages.openmp;
 

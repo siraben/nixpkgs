@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   pythonAtLeast,
   fetchFromGitHub,
   anyio,
@@ -16,7 +17,9 @@ buildPythonPackage rec {
   pname = "asks";
   version = "3.0.0";
 
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "theelous3";

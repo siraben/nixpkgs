@@ -2,6 +2,7 @@
   lib,
   bluepy,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   pycryptodomex,
 }:
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "csrmesh";
   version = "0.10.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

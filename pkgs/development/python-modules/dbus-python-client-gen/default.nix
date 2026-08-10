@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   into-dbus-python,
   dbus-python,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "dbus-python-client-gen";
   version = "0.8.4";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "stratis-storage";

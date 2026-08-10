@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   pytz,
   zope-interface,
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "datetime";
   version = "6.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "zopefoundation";

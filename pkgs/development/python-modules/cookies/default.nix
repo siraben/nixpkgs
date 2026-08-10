@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchpatch,
   fetchPypi,
   pytestCheckHook,
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "cookies";
   version = "2.2.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

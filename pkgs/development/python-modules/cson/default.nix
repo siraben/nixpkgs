@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   speg,
 }:
@@ -8,7 +9,9 @@
 buildPythonPackage rec {
   pname = "cson";
   version = "0.8";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

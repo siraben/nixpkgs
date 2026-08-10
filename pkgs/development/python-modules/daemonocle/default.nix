@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   click,
   psutil,
@@ -11,7 +12,9 @@
 buildPythonPackage rec {
   pname = "daemonocle";
   version = "1.2.3";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "jnrbsn";

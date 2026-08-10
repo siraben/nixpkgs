@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   python,
   pythonAtLeast,
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "asynctest";
   version = "0.13.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   # Unmaintained and incompatible python 3.11
   disabled = pythonAtLeast "3.11";

@@ -2,6 +2,7 @@
   stdenv,
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   pytestCheckHook,
   pytest-rerunfailures,
@@ -11,7 +12,9 @@
 buildPythonPackage rec {
   pname = "amqp";
   version = "5.3.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

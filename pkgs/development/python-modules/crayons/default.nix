@@ -2,13 +2,16 @@
   lib,
   fetchPypi,
   buildPythonPackage,
+  setuptools,
   colorama,
 }:
 
 buildPythonPackage rec {
   pname = "crayons";
   version = "0.4.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

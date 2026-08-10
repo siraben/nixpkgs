@@ -1,5 +1,6 @@
 {
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   lib,
 
@@ -11,7 +12,9 @@
 buildPythonPackage rec {
   pname = "aioextensions";
   version = "21.7.2261349";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

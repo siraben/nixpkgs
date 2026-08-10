@@ -2,6 +2,7 @@
   lib,
   aiohttp,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   pytestCheckHook,
 }:
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "aiohttp-wsgi";
   version = "0.10.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "etianen";

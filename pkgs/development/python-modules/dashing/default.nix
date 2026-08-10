@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   blessed,
 }:
@@ -8,7 +9,9 @@
 buildPythonPackage rec {
   pname = "dashing";
   version = "0.1.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

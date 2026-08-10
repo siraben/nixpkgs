@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   serialio,
   sockio,
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "connio";
   version = "0.2.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "tiagocoutinho";

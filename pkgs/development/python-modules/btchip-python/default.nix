@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   hidapi,
   pyscard,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "btchip-python";
   version = "0.1.32";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

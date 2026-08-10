@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   msrestazure,
   azure-common,
@@ -11,7 +12,9 @@
 buildPythonPackage rec {
   pname = "azure-mgmt-datalake-store";
   version = "1.0.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   pytestCheckHook,
   # build_requires
@@ -25,7 +26,9 @@ buildPythonPackage rec {
   pname = "clickhouse-connect";
   version = "0.10.0";
 
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     repo = "clickhouse-connect";

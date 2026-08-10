@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   aiohttp,
   pytestCheckHook,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "aiohttp-basicauth";
   version = "1.1.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "romis2012";

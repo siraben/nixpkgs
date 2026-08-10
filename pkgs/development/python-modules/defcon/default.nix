@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   setuptools-scm,
   fonttools,
@@ -11,7 +12,9 @@
 buildPythonPackage rec {
   pname = "defcon";
   version = "0.12.2";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   click,
   ecdsa,
   hidapi,
@@ -11,7 +12,9 @@
 buildPythonPackage rec {
   pname = "ckcc-protocol";
   version = "1.5.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

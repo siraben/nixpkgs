@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   pythonAtLeast,
   nose2,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "dataclass-factory";
   version = "2.16";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   # upstream 2.x branch abandoned since 2022; v3 was renamed to adaptix
   disabled = pythonAtLeast "3.14";

@@ -9,7 +9,9 @@
 buildPythonPackage (finalAttrs: {
   pname = "eval-type-backport";
   version = "0.4.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "alexmojaki";

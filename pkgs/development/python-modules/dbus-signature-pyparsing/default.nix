@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   pyparsing,
   pytestCheckHook,
@@ -11,7 +12,9 @@
 buildPythonPackage rec {
   pname = "dbus-signature-pyparsing";
   version = "0.4.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "stratis-storage";

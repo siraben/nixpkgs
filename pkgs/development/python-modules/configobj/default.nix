@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   mock,
   pytestCheckHook,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "configobj";
   version = "5.0.9";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "DiffSK";

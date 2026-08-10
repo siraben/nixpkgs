@@ -2,6 +2,7 @@
   lib,
   crownstone-core,
   buildPythonPackage,
+  setuptools,
   pyserial,
   fetchFromGitHub,
 }:
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "crownstone-uart";
   version = "2.7.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "crownstone";

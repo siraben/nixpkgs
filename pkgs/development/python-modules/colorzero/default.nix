@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   pkginfo,
   pytestCheckHook,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "colorzero";
   version = "2.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "waveform80";

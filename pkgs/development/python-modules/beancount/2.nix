@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   isPy3k,
   beautifulsoup4,
@@ -19,7 +20,9 @@
 
 buildPythonPackage rec {
   version = "2.3.6";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
   pname = "beancount";
 
   disabled = !isPy3k;

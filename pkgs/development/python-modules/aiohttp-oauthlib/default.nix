@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   oauthlib,
   aiohttp,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "aiohttp-oauthlib";
   version = "0.1.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

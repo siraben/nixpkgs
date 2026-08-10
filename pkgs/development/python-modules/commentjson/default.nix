@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   six,
   lark,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "commentjson";
   version = "0.9.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "vaidik";

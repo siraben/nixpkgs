@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   numpy,
 }:
@@ -8,7 +9,9 @@
 buildPythonPackage rec {
   pname = "airtouch4pyapi";
   version = "1.0.8";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "LonePurpleWolf";

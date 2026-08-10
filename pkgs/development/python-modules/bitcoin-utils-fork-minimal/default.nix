@@ -2,6 +2,7 @@
   lib,
   base58,
   buildPythonPackage,
+  setuptools,
   ecdsa,
   fetchPypi,
   sympy,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "bitcoin-utils-fork-minimal";
   version = "0.4.11.6";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

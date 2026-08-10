@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   requests,
 }:
@@ -8,7 +9,9 @@
 buildPythonPackage {
   pname = "curlify";
   version = "2.2.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "ofw";

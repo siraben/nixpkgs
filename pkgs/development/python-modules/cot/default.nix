@@ -20,7 +20,7 @@
 buildPythonPackage rec {
   pname = "cot";
   version = "2.2.1";
-  format = "setuptools";
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;

@@ -2,13 +2,16 @@
   lib,
   fetchPypi,
   buildPythonPackage,
+  setuptools,
   aiolifx,
 }:
 
 buildPythonPackage rec {
   pname = "aiolifx-connection";
   version = "1.0.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     pname = "aiolifx_connection";

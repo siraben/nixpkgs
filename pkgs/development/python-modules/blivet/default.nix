@@ -3,6 +3,7 @@
   pkgs,
   python,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   pygobject3,
   libblockdev,
@@ -36,7 +37,9 @@ in
 buildPythonPackage rec {
   pname = "blivet";
   version = "3.13.2";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "storaged-project";

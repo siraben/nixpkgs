@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   requests,
 }:
@@ -8,7 +9,9 @@
 buildPythonPackage rec {
   pname = "deezer-py";
   version = "1.3.7";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   spotipy,
   click,
@@ -13,7 +14,9 @@
 buildPythonPackage rec {
   pname = "deemix";
   version = "3.6.6";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

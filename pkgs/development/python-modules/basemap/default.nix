@@ -17,7 +17,9 @@
 buildPythonPackage rec {
   pname = "basemap";
   version = "2.0.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "matplotlib";

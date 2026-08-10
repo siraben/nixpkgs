@@ -1,5 +1,6 @@
 {
   buildPythonPackage,
+  setuptools,
   acme,
   certbot,
   dnspython,
@@ -8,7 +9,9 @@
 
 buildPythonPackage rec {
   pname = "certbot-dns-rfc2136";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   inherit (certbot) src version;
 

@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   pytestCheckHook,
 }:
@@ -8,7 +9,9 @@
 buildPythonPackage rec {
   pname = "commandlines";
   version = "0.4.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   # PyPI source tarballs omit tests, fetch from Github instead
   src = fetchFromGitHub {

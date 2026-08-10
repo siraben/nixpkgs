@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   requests,
   requests-toolbelt,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "cloudscraper";
   version = "1.2.71";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   wheel,
   pytestCheckHook,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "bacpypes";
   version = "0.18.6";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   # uses the removed asyncore module
   disabled = pythonAtLeast "3.12";

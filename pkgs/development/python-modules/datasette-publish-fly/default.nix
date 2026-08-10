@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   cogapp,
   datasette,
   fetchFromGitHub,
@@ -11,7 +12,9 @@
 buildPythonPackage rec {
   pname = "datasette-publish-fly";
   version = "1.3.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "simonw";

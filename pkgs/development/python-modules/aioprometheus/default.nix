@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   orjson,
   quantile-python,
@@ -17,7 +18,9 @@
 buildPythonPackage rec {
   pname = "aioprometheus";
   version = "unstable-2023-03-14";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "claws";

@@ -1,12 +1,15 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
 }:
 buildPythonPackage rec {
   pname = "anel-pwrctrl-homeassistant";
   version = "0.0.1.dev2";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit version;

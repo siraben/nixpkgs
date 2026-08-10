@@ -2,6 +2,7 @@
   lib,
   fetchFromGitHub,
   buildPythonPackage,
+  setuptools,
   jinja2,
   pytest,
 }:
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "coreschema";
   version = "0.0.4";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     repo = "python-coreschema";

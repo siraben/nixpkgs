@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   grandalf,
   matplotlib,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "crysp";
   version = "1.2";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "bdcht";
