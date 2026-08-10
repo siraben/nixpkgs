@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   python,
   six,
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "iniparse";
   version = "0.5";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

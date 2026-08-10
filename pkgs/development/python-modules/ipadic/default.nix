@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   mecab,
   setuptools-scm,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "ipadic";
   version = "1.0.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "polm";

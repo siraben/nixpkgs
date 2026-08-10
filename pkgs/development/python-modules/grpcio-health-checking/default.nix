@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   grpcio,
   protobuf,
@@ -12,7 +13,9 @@
 buildPythonPackage rec {
   pname = "grpcio-health-checking";
   version = "1.83.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     pname = "grpcio_health_checking";

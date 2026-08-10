@@ -2,6 +2,7 @@
   lib,
   beautifulsoup4,
   buildPythonPackage,
+  setuptools,
   chardet,
   fetchFromGitHub,
   lxml,
@@ -13,7 +14,9 @@
 buildPythonPackage rec {
   pname = "html5-parser";
   version = "0.4.12";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "kovidgoyal";

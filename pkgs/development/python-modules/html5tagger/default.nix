@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   setuptools-scm,
 }:
@@ -8,7 +9,9 @@
 buildPythonPackage rec {
   pname = "html5tagger";
   version = "1.3.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "sanic-org";

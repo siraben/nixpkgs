@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   jpype1,
 }:
@@ -8,7 +9,9 @@
 buildPythonPackage rec {
   pname = "jaydebeapi";
   version = "1.2.3";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     pname = "JayDeBeApi";

@@ -2,13 +2,16 @@
   lib,
   fetchFromGitHub,
   buildPythonPackage,
+  setuptools,
   pytestCheckHook,
 }:
 
 buildPythonPackage rec {
   pname = "iso3166";
   version = "2.1.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "deactivated";

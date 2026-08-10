@@ -1,5 +1,6 @@
 {
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   lib,
   pyyaml,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "ipyxact";
   version = "0.3.2";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   propagatedBuildInputs = [ pyyaml ];
   checkInputs = [

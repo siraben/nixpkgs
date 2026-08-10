@@ -1,5 +1,6 @@
 {
   buildPythonPackage,
+  setuptools,
   lib,
   fetchFromGitLab,
   writeTextFile,
@@ -75,7 +76,9 @@ in
 buildPythonPackage rec {
   pname = "gpaw";
   version = "25.1.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitLab {
     owner = "gpaw";

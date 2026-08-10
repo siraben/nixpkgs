@@ -2,6 +2,7 @@
   lib,
   stdenv,
   buildPythonPackage,
+  setuptools,
   fetchpatch,
   python,
   numba,
@@ -14,7 +15,9 @@
 
 buildPythonPackage {
   pname = "gumath";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
   inherit (libgumath) src version meta;
 
   patches = [

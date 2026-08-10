@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   six,
   mock,
@@ -8,7 +9,9 @@
 buildPythonPackage rec {
   pname = "hiro";
   version = "1.1.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
   src = fetchPypi {
     inherit pname version;
 

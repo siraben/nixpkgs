@@ -2,6 +2,7 @@
   lib,
   fetchPypi,
   buildPythonPackage,
+  setuptools,
   numpy,
   scikit-learn,
   pybind11,
@@ -13,18 +14,20 @@
 buildPythonPackage rec {
   pname = "hmmlearn";
   version = "0.3.3";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [
+    setuptools
+    setuptools-scm
+    pybind11
+  ];
 
   src = fetchPypi {
     inherit pname version;
     hash = "sha256-HTxdxMUlfgwjjcH+U4dwC4y5h+q4CO2z4Mc4KfHMROw=";
   };
 
-  buildInputs = [
-    setuptools-scm
-    cython
-    pybind11
-  ];
+  nativeBuildInputs = [ cython ];
 
   propagatedBuildInputs = [
     numpy

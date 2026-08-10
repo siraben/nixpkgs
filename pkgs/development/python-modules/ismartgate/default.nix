@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   click,
   defusedxml,
   dicttoxml,
@@ -17,7 +18,9 @@
 buildPythonPackage rec {
   pname = "ismartgate";
   version = "5.0.2";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "bdraco";

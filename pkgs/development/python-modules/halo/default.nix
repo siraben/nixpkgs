@@ -1,5 +1,6 @@
 {
   buildPythonPackage,
+  setuptools,
   colorama,
   fetchPypi,
   lib,
@@ -12,7 +13,9 @@
 buildPythonPackage (finalAttrs: {
   pname = "halo";
   version = "0.0.31";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit (finalAttrs) pname version;

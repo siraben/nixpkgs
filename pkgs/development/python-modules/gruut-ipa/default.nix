@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   espeak,
   numpy,
@@ -11,7 +12,9 @@
 buildPythonPackage rec {
   pname = "gruut-ipa";
   version = "0.13.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "rhasspy";

@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   pytestCheckHook,
   nbval,
@@ -16,16 +17,24 @@ buildPythonPackage rec {
 
   pname = "ipydatawidgets";
   version = "4.3.5";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [
+    setuptools
+    jupyter-packaging
+  ];
 
   src = fetchPypi {
     inherit pname version;
     hash = "sha256-OU8kiVdlh8/XVTd6CaBn9GytIggZZQkgIf0avL54Uqg=";
   };
 
-  nativeBuildInputs = [ jupyter-packaging ];
+  postPatch = ''
+    substituteInPlace pyproject.toml \
+      --replace-fail '"jupyterlab==3.*", ' ""
+  '';
 
-  setupPyBuildFlags = [ "--skip-npm" ];
+  env.JUPYTER_PACKAGING_SKIP_NPM = "1";
 
   propagatedBuildInputs = [
     ipywidgets

@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   pillow,
   click,
@@ -11,7 +12,9 @@
 buildPythonPackage rec {
   pname = "image-diff";
   version = "0.2.2";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "simonw";

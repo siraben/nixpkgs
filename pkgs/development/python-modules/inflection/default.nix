@@ -2,13 +2,16 @@
   lib,
   fetchPypi,
   buildPythonPackage,
+  setuptools,
   pytest,
 }:
 
 buildPythonPackage rec {
   pname = "inflection";
   version = "0.5.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

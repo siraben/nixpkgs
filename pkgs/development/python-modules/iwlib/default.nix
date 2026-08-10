@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   wirelesstools,
   cffi,
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "iwlib";
   version = "1.7.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

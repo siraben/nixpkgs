@@ -2,6 +2,7 @@
   lib,
   fetchFromGitHub,
   buildPythonPackage,
+  setuptools,
   python,
   graphviz,
 }:
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "gprof2dot";
   version = "2025.04.14";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "jrfonseca";

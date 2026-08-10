@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   smbus-cffi,
 }:
@@ -8,7 +9,9 @@
 buildPythonPackage rec {
   pname = "i2csense";
   version = "0.0.4";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

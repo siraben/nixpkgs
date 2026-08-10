@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   python,
   pillow,
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "icnsutil";
   version = "1.1.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "relikd";

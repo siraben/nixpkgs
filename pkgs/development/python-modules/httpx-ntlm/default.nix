@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   httpx,
   pyspnego,
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "httpx-ntlm";
   version = "1.4.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     pname = "httpx_ntlm";

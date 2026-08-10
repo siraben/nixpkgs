@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   cachetools,
   numpy,
@@ -12,7 +13,9 @@
 buildPythonPackage rec {
   pname = "gptcache";
   version = "0.1.44";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "zilliztech";

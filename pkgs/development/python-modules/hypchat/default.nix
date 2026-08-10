@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   pythonAtLeast,
   fetchPypi,
   requests,
@@ -11,7 +12,9 @@
 buildPythonPackage rec {
   pname = "hypchat";
   version = "0.21";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   disabled = pythonAtLeast "3.12";
 

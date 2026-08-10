@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   pygments,
 }:
@@ -8,7 +9,9 @@
 buildPythonPackage rec {
   pname = "insegel";
   version = "1.3.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   scipy,
 }:
@@ -8,7 +9,9 @@
 buildPythonPackage rec {
   pname = "iapws";
   version = "1.5.5";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

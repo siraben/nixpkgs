@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   intervaltree,
 }:
@@ -8,7 +9,9 @@
 buildPythonPackage rec {
   pname = "ipymarkup";
   version = "0.9.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   httpie,
   requests-ntlm,
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "httpie-ntlm";
   version = "1.0.2";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

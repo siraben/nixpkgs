@@ -2,6 +2,7 @@
   lib,
   blessed,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   mockito,
   nvidia-ml-py,
@@ -13,7 +14,12 @@
 buildPythonPackage rec {
   pname = "gpustat";
   version = "1.1.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [
+    setuptools
+    setuptools-scm
+  ];
 
   src = fetchPypi {
     inherit pname version;
@@ -21,10 +27,6 @@ buildPythonPackage rec {
   };
 
   pythonRelaxDeps = [ "nvidia-ml-py" ];
-
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
 
   propagatedBuildInputs = [
     blessed

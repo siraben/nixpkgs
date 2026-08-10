@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   pytestCheckHook,
   hypothesis,
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "hs-dbus-signature";
   version = "0.7";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

@@ -1,5 +1,6 @@
 {
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   lib,
   numpy,
@@ -8,7 +9,9 @@
 buildPythonPackage rec {
   pname = "javaobj-py3";
   version = "0.4.4";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

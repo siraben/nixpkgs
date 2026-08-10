@@ -8,7 +8,9 @@
 buildPythonPackage rec {
   pname = "iso-639";
   version = "0.4.5";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

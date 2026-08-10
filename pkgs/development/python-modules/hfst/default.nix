@@ -3,6 +3,7 @@
   pkgs,
   stdenv,
   buildPythonPackage,
+  setuptools,
   foma,
   icu,
   swig,
@@ -10,7 +11,9 @@
 
 buildPythonPackage rec {
   pname = "hfst";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
   inherit (pkgs.hfst) version src;
 
   sourceRoot = "${src.name}/python";

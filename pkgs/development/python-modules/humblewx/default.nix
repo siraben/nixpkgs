@@ -2,6 +2,7 @@
   lib,
   fetchFromGitHub,
   buildPythonPackage,
+  setuptools,
   wxpython,
   python,
 }:
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "humblewx";
   version = "0.2.2";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "thetimelineproj";

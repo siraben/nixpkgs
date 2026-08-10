@@ -3,6 +3,7 @@
   stdenv,
   buildPackages,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   installShellFiles,
   ruamel-yaml,
@@ -14,7 +15,9 @@
 buildPythonPackage rec {
   pname = "jc";
   version = "1.25.7";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "kellyjonbrazil";

@@ -2,6 +2,7 @@
   stdenv,
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
 
   graphene,
@@ -22,7 +23,9 @@
 buildPythonPackage rec {
   pname = "graphene-django";
   version = "3.2.3";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "graphql-python";

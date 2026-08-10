@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   isPy3k,
 }:
@@ -8,7 +9,9 @@
 buildPythonPackage rec {
   pname = "hsaudiotag3k";
   version = "1.1.3.post1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
   disabled = !isPy3k;
 
   src = fetchPypi {

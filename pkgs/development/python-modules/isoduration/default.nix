@@ -2,6 +2,7 @@
   lib,
   arrow,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   hypothesis,
   isodate,
@@ -11,7 +12,9 @@
 buildPythonPackage rec {
   pname = "isoduration";
   version = "20.11.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "bolsote";

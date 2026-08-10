@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   pillow,
   mock,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "imgdiff";
   version = "1.8.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "mgedmin";

@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   cloudpickle,
   fetchPypi,
   future,
@@ -17,7 +18,9 @@
 buildPythonPackage rec {
   pname = "hyperopt";
   version = "0.2.7";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

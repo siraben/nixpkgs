@@ -2,13 +2,16 @@
   lib,
   fetchFromGitHub,
   buildPythonPackage,
+  setuptools,
   pytest,
 }:
 
 buildPythonPackage rec {
   pname = "itypes";
   version = "1.2.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     repo = "itypes";

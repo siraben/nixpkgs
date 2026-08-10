@@ -2,6 +2,7 @@
   lib,
   fetchPypi,
   buildPythonPackage,
+  setuptools,
   pytest,
   numpy,
   cython,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "imagecodecs-lite";
   version = "2019.12.3";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

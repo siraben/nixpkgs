@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   certifi,
   chardet,
   datadog,
@@ -14,7 +15,9 @@
 buildPythonPackage rec {
   pname = "gradient-statsd";
   version = "1.0.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     pname = "gradient_statsd";

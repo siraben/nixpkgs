@@ -2,6 +2,7 @@
   lib,
   bash,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   stdenv,
 }:
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "invoke";
   version = "2.2.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

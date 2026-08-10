@@ -9,7 +9,9 @@
 buildPythonPackage rec {
   pname = "graphql-subscription-manager";
   version = "0.7.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "Danielhiversen";

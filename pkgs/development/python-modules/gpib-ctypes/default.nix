@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   pytestCheckHook,
   linux-gpib,
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "gpib-ctypes";
   version = "0.3.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     pname = "gpib_ctypes";

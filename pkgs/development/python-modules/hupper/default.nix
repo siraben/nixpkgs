@@ -2,6 +2,7 @@
   lib,
   stdenv,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   pytestCheckHook,
   watchdog,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "hupper";
   version = "1.12.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

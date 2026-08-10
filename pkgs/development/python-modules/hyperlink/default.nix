@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   idna,
 }:
@@ -8,7 +9,9 @@
 buildPythonPackage rec {
   pname = "hyperlink";
   version = "21.0.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

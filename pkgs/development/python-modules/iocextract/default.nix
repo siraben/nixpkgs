@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   pytestCheckHook,
   regex,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "iocextract";
   version = "1.16.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "pedramamini";
