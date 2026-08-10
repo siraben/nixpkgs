@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   six,
   pytest,
@@ -8,7 +9,9 @@
 
 buildPythonPackage rec {
   version = "3.1.2";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
   pname = "python-gflags";
 
   src = fetchPypi {

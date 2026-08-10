@@ -4,6 +4,7 @@
   blinker,
   pytestCheckHook,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   flask,
 }:
@@ -11,7 +12,9 @@
 buildPythonPackage rec {
   pname = "flask-testing";
   version = "0.8.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     pname = "Flask-Testing";

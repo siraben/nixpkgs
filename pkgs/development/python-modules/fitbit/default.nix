@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   freezegun,
   mock,
@@ -13,7 +14,9 @@
 buildPythonPackage rec {
   pname = "fitbit";
   version = "0.3.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "orcasgit";

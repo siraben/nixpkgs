@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   cached-property,
   chevron,
   fetchPypi,
@@ -12,7 +13,9 @@
 buildPythonPackage rec {
   pname = "genanki";
   version = "0.13.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

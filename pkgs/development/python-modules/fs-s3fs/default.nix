@@ -1,5 +1,6 @@
 {
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   lib,
   fs,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "fs-s3fs";
   version = "1.1.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

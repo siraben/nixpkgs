@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   celery,
   humanize,
@@ -13,7 +14,9 @@
 buildPythonPackage rec {
   pname = "flower";
   version = "2.0.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

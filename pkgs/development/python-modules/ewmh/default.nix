@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   python-xlib,
 }:
@@ -8,7 +9,9 @@
 buildPythonPackage rec {
   pname = "ewmh";
   version = "0.1.6";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

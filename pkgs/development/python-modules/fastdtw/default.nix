@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   fetchpatch,
   cython,
@@ -13,7 +14,9 @@
 buildPythonPackage rec {
   pname = "fastdtw";
   version = "0.3.4";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "slaypni";

@@ -1,13 +1,16 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   flatbuffers,
 }:
 
 buildPythonPackage rec {
   inherit (flatbuffers) pname version src;
 
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   sourceRoot = "${src.name}/python";
 

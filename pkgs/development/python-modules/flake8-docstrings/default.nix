@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   flake8,
   pydocstyle,
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "flake8-docstrings";
   version = "1.7.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "PyCQA";

@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   google-api-core,
   grpc-google-iam-v1,
@@ -15,7 +16,9 @@
 buildPythonPackage rec {
   pname = "google-cloud-iot";
   version = "2.9.2";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

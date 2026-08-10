@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   flask,
   bcrypt,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "flask-bcrypt";
   version = "1.0.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "maxcountryman";

@@ -2,6 +2,7 @@
   stdenv,
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   wasmer,
   wasmer-compiler-cranelift,
@@ -13,7 +14,9 @@
 buildPythonPackage rec {
   pname = "fastdiff";
   version = "0.3.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   cmake,
   pkg-config,
@@ -14,7 +15,9 @@
 buildPythonPackage rec {
   pname = "gfal2-python";
   version = "1.13.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
   src = fetchFromGitHub {
     owner = "cern-fts";
     repo = "gfal2-python";

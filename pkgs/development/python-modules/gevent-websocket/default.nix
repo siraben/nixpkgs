@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   gevent,
   gunicorn,
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "gevent-websocket";
   version = "0.10.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   gobject-introspection,
   goocanvas_2,
@@ -12,7 +13,9 @@
 buildPythonPackage rec {
   pname = "goocalendar";
   version = "0.8.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     pname = "GooCalendar";

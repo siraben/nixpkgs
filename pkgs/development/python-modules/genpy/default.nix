@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   pytools,
   numpy,
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "genpy";
   version = "2022.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   oyaml,
   packaging,
@@ -13,7 +14,9 @@
 buildPythonPackage rec {
   pname = "fortiosapi";
   version = "1.0.5";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "fortinet-solutions-cse";

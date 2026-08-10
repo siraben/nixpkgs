@@ -3,6 +3,7 @@
   boto3,
   botocore,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   parquet,
   pytestCheckHook,
@@ -12,7 +13,9 @@
 buildPythonPackage rec {
   pname = "flowlogs-reader";
   version = "5.0.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "obsrvbl";

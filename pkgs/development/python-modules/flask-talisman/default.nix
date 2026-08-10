@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   flask,
   six,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "flask-talisman";
   version = "1.1.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

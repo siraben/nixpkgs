@@ -1,5 +1,6 @@
 {
   buildPythonPackage,
+  setuptools,
   lib,
   fetchFromGitHub,
   networkx,
@@ -12,7 +13,9 @@
 buildPythonPackage rec {
   pname = "geometric";
   version = "1.1.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "leeping";

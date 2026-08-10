@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   fixtures,
   jsonpatch,
@@ -17,7 +18,9 @@
 buildPythonPackage rec {
   pname = "fiblary3-fork";
   version = "0.1.12";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

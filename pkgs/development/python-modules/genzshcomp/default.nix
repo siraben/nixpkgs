@@ -8,7 +8,9 @@
 buildPythonPackage (finalAttrs: {
   pname = "genzshcomp";
   version = "0.6.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit (finalAttrs) pname version;

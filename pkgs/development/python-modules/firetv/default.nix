@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   adb-homeassistant,
   flask,
@@ -12,7 +13,9 @@
 buildPythonPackage rec {
   pname = "firetv";
   version = "1.0.9";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

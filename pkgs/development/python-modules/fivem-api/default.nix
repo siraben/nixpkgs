@@ -2,6 +2,7 @@
   lib,
   aiohttp,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   setuptools-scm,
 }:
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "fivem-api";
   version = "0.1.2";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

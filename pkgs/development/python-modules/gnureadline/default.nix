@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   isPyPy,
   pkgs,
@@ -8,7 +9,9 @@
 
 buildPythonPackage rec {
   version = "8.3.3";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
   pname = "gnureadline";
   disabled = isPyPy;
 

@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   ffmpeg-headless,
 }:
@@ -8,7 +9,9 @@
 buildPythonPackage {
   pname = "get-video-properties";
   version = "0.1.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "mvasilkov";

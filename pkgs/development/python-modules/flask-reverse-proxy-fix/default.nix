@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   flask,
   werkzeug,
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "flask-reverse-proxy-fix";
   version = "0.2.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   # master fixes flask import syntax and has no major changes
   # new release requested: https://github.com/sublee/flask-silk/pull/6

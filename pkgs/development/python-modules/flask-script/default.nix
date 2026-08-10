@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   flask,
   pytest,
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "flask-script";
   version = "2.0.6";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     pname = "Flask-Script";

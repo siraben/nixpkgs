@@ -3,6 +3,7 @@
   aiohttp,
   bidict,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   humanize,
   lxml,
@@ -15,7 +16,9 @@
 buildPythonPackage rec {
   pname = "gekitchen";
   version = "0.2.19";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "ajmarks";

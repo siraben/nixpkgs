@@ -2,6 +2,7 @@
   lib,
   stdenv,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   cachelib,
   flask,
@@ -14,7 +15,9 @@
 buildPythonPackage rec {
   pname = "flask-caching";
   version = "2.3.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     pname = "flask_caching";

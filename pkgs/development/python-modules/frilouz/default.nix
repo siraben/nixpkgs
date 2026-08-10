@@ -2,6 +2,7 @@
   lib,
   astunparse,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   isPy3k,
 }:
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "frilouz";
   version = "0.0.2";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
   disabled = !isPy3k;
 
   src = fetchFromGitHub {

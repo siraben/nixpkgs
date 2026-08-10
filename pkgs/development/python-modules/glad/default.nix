@@ -1,5 +1,6 @@
 {
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   lib,
 }:
@@ -7,7 +8,9 @@
 buildPythonPackage rec {
   pname = "glad";
   version = "0.1.36";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

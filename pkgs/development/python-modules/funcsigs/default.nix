@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   isPyPy,
   isPy3k,
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "funcsigs";
   version = "1.0.2";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

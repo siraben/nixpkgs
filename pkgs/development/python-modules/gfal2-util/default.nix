@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   callPackage,
   fetchFromGitHub,
   runCommandLocal,
@@ -12,7 +13,9 @@
 (buildPythonPackage rec {
   pname = "gfal2-util";
   version = "1.9.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
   src = fetchFromGitHub {
     owner = "cern-fts";
     repo = "gfal2-util";

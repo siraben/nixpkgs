@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   dbus-python,
   pygobject3,
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "gatt";
   version = "0.2.6";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "getsenic";

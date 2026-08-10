@@ -9,7 +9,7 @@
 buildPythonPackage (finalAttrs: {
   pname = "falcon-cors";
   version = "1.1.7";
-  format = "setuptools";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "lwcolton";

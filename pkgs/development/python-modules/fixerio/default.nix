@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   requests,
   pytestCheckHook,
@@ -11,7 +12,9 @@
 buildPythonPackage rec {
   pname = "fixerio";
   version = "1.0.0-alpha";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "amatellanes";

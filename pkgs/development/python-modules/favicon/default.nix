@@ -2,6 +2,7 @@
   lib,
   beautifulsoup4,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   pytest7CheckHook,
   requests,
@@ -11,7 +12,9 @@
 buildPythonPackage rec {
   pname = "favicon";
   version = "0.7.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

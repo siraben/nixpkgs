@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  poetry-core,
   fetchPypi,
   flake8,
   pycodestyle,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "flake8-debugger";
   version = "4.1.2";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ poetry-core ];
 
   src = fetchPypi {
     inherit pname version;

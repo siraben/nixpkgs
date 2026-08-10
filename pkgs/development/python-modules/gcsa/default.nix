@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   pytestCheckHook,
   pyfakefs,
@@ -15,7 +16,9 @@
 buildPythonPackage rec {
   pname = "gcsa";
   version = "2.7.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "kuzmoyev";

@@ -1,5 +1,6 @@
 {
   buildPythonPackage,
+  setuptools,
   lib,
   foundationdb,
 }:
@@ -7,7 +8,9 @@
 buildPythonPackage {
   pname = "foundationdb";
   version = foundationdb.version;
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = foundationdb.pythonsrc;
   unpackCmd = "tar xf $curSrc";

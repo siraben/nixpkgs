@@ -2,6 +2,7 @@
   lib,
   fetchFromGitHub,
   buildPythonPackage,
+  setuptools,
   openssl,
   pytest,
   cffi,
@@ -11,7 +12,9 @@
 buildPythonPackage rec {
   pname = "fastpbkdf2";
   version = "0.2";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   # Fetching from GitHub as tests are missing in PyPI
   src = fetchFromGitHub {

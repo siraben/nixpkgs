@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   numpy,
   pkgs,
   pybind11,
@@ -9,9 +10,12 @@
 buildPythonPackage {
   inherit (pkgs.fasttext) pname version src;
 
-  format = "setuptools";
+  pyproject = true;
 
-  buildInputs = [ pybind11 ];
+  build-system = [
+    setuptools
+    pybind11
+  ];
 
   pythonImportsCheck = [ "fasttext" ];
 

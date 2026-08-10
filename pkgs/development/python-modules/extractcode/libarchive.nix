@@ -2,6 +2,7 @@
   lib,
   fetchFromGitHub,
   buildPythonPackage,
+  setuptools,
   libarchive,
   libb2,
   bzip2,
@@ -16,7 +17,9 @@
 buildPythonPackage rec {
   pname = "extractcode-libarchive";
   version = "21.5.31";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "aboutcode-org";

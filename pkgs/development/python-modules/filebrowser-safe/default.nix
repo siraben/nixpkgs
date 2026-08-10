@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   django,
 }:
@@ -8,7 +9,9 @@
 buildPythonPackage rec {
   pname = "filebrowser-safe";
   version = "1.1.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     pname = "filebrowser_safe";

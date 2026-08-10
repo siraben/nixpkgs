@@ -2,6 +2,7 @@
   lib,
   fetchFromGitHub,
   buildPythonPackage,
+  setuptools,
   plugincode,
   p7zip,
 }:
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "extractcode-7z";
   version = "21.5.31";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "aboutcode-org";

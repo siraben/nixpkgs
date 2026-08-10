@@ -2,6 +2,7 @@
   lib,
   aiohttp,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   pytestCheckHook,
 }:
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "geniushub-client";
   version = "0.7.4";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "manzanotti";

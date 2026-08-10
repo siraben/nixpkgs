@@ -3,6 +3,7 @@
   aniso8601,
   blinker,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   flask,
   fetchpatch2,
@@ -16,7 +17,9 @@
 buildPythonPackage rec {
   pname = "flask-restful";
   version = "0.3.10";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     pname = "Flask-RESTful";

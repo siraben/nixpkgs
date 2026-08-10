@@ -1,5 +1,6 @@
 {
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   lib,
   isPy3k,
@@ -12,7 +13,12 @@
 buildPythonPackage rec {
   pname = "finalfusion";
   version = "0.7.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [
+    setuptools
+    cython
+  ];
 
   disabled = !isPy3k;
 
@@ -22,8 +28,6 @@ buildPythonPackage rec {
     rev = version;
     sha256 = "0pwzflamxqvpl1wcz0zbhhd6aa4xn18rmza6rggaic3ckidhyrh4";
   };
-
-  nativeBuildInputs = [ cython ];
 
   propagatedBuildInputs = [
     numpy
