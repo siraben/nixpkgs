@@ -6,13 +6,13 @@
   findlib,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ocaml${ocaml.version}-ocamlscript";
   version = "3.0.0";
   src = fetchFromGitHub {
     owner = "mjambon";
     repo = "ocamlscript";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "sha256:10xz8jknlmcgnf233nahd04q98ijnxpijhpvb8hl7sv94dgkvpql";
   };
 
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
   createFindlibDestdir = true;
 
   meta = {
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = lib.licenses.boost;
     inherit (ocaml.meta) platforms;
     description = "Natively-compiled OCaml scripts";
@@ -38,4 +38,4 @@ stdenv.mkDerivation rec {
     mainProgram = "ocamlscript";
     broken = !(lib.versionAtLeast ocaml.version "4.08");
   };
-}
+})

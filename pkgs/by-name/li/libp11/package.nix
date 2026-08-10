@@ -11,14 +11,14 @@
   libp11,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "libp11";
   version = "0.4.18";
 
   src = fetchFromGitHub {
     owner = "OpenSC";
     repo = "libp11";
-    rev = "${pname}-${version}";
+    rev = "libp11-${finalAttrs.version}";
     sha256 = "sha256-bvVUiv8y5c0P9fHAFs1JX3V7xsorbKUmm0qt3l2SoQQ=";
   };
 
@@ -79,4 +79,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.lgpl21Plus;
     platforms = lib.platforms.all;
   };
-}
+})

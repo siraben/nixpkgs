@@ -44,7 +44,7 @@ let
   };
   dirName = "WolframEngine";
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "wolfram-engine";
 
   inherit (l10n) version src;
@@ -94,9 +94,9 @@ stdenv.mkDerivation rec {
   autoPatchelfIgnoreMissingDeps = true;
 
   ldpath =
-    lib.makeLibraryPath buildInputs
+    lib.makeLibraryPath finalAttrs.buildInputs
     + lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux") (
-      ":" + lib.makeSearchPathOutput "lib" "lib64" buildInputs
+      ":" + lib.makeSearchPathOutput "lib" "lib64" finalAttrs.buildInputs
     );
 
   unpackPhase = ''
@@ -165,4 +165,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ fbeffa ];
     platforms = [ "x86_64-linux" ];
   };
-}
+})

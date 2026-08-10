@@ -10,19 +10,19 @@
 let
   generic =
     version: sha256:
-    stdenv.mkDerivation rec {
+    stdenv.mkDerivation (finalAttrs: {
       pname = "physfs";
       inherit version;
 
       src = fetchFromGitHub {
         owner = "icculus";
         repo = "physfs";
-        rev = "release-${version}";
+        rev = "release-${finalAttrs.version}";
         inherit sha256;
       };
 
       patches = [
-        (./. + "/dont-set-cmake-skip-rpath-${version}.patch")
+        (./. + "/dont-set-cmake-skip-rpath-${finalAttrs.version}.patch")
       ];
 
       # https://github.com/icculus/physfs/commit/f7d24ce8486d9229207cca1ff98858fe60ffe583
@@ -49,11 +49,11 @@ let
         homepage = "https://icculus.org/physfs/";
         description = "Library to provide abstract access to various archives";
         mainProgram = "test_physfs";
-        changelog = "https://github.com/icculus/physfs/releases/tag/release-${version}";
+        changelog = "https://github.com/icculus/physfs/releases/tag/release-${finalAttrs.version}";
         license = lib.licenses.zlib;
         platforms = lib.platforms.all;
       };
-    };
+    });
 
 in
 {

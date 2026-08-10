@@ -7,14 +7,14 @@
   testers,
   yx,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "yx";
   version = "1.0.2";
 
   src = fetchFromGitLab {
     owner = "tomalok";
     repo = "yx";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-uuso+hsmdsB7VpIRKob8rfMaWvRMCBHvCFnYrHPC6iw=";
   };
 
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
 
   passthru.tests.version = testers.testVersion {
     package = yx;
-    command = "${meta.mainProgram} -v";
+    command = "${finalAttrs.meta.mainProgram} -v";
     version = "v${yx.version}";
   };
 
@@ -52,4 +52,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ twz123 ];
     mainProgram = "yx";
   };
-}
+})

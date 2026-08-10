@@ -28,7 +28,7 @@ let
   DBversion = "1.0.0";
 in
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   inherit pname version;
 
   impulseDB = fetchFromGitHub {
@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     mkdir -p $out/share/HybridReverb2/
-    cp  -r ${impulseDB}/* $out/share/HybridReverb2/
+    cp  -r ${finalAttrs.impulseDB}/* $out/share/HybridReverb2/
   '';
 
   meta = {
@@ -87,4 +87,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     mainProgram = "HybridReverb2";
   };
-}
+})

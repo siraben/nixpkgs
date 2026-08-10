@@ -13,14 +13,14 @@
   util-linux ? null,
 }:
 assert syslogSupport -> util-linux != null;
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   version = "2.1.1";
   pname = "btrfs-auto-snapshot";
 
   src = fetchFromGitHub {
     owner = "hunleyd";
     repo = "btrfs-auto-snapshot";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-QpXD0u593BYONjscXSc7oZGUydygs/Hfk3A7MOpn8jQ=";
   };
 
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
 
   postFixup = ''
     wrapProgram $out/bin/btrfs-auto-snapshot \
-      --prefix PATH : "${wrapperPath}"
+      --prefix PATH : "${finalAttrs.wrapperPath}"
   '';
 
   meta = {
@@ -70,4 +70,4 @@ stdenv.mkDerivation rec {
       filesystem being snapped and are read-only by default.
     '';
   };
-}
+})

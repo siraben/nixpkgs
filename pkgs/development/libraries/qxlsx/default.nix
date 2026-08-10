@@ -7,14 +7,14 @@
   qtbase,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "qxlsx";
   version = "1.5.0";
 
   src = fetchFromGitHub {
     owner = "QtExcel";
     repo = "QXlsx";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-twOlAiLE0v7+9nWo/Gd+oiKT1umL3UnG1Xa0zDG7u7s=";
   };
 
@@ -41,4 +41,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ nickcao ];
   };
-}
+})

@@ -5,15 +5,15 @@
   fetchFromGitHub,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "icingaweb2-theme-unicorn";
   version = "1.0.2";
 
   srcs = [
     (fetchFromGitHub {
       owner = "Mikesch-mp";
-      repo = pname;
-      rev = "v${version}";
+      repo = "icingaweb2-theme-unicorn";
+      rev = "v${finalAttrs.version}";
       sha256 = "1qmcajdf0g70vp2avqa50lfrfigq22k91kggbgn5ablwyg9dki05";
     })
     (fetchurl {
@@ -49,4 +49,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.all;
     maintainers = [ ];
   };
-}
+})

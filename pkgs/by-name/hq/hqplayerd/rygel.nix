@@ -28,7 +28,7 @@
   gnome,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "rygel";
   version = "0.40.4";
 
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/rygel/${lib.versions.majorMinor finalAttrs.version}/rygel-${finalAttrs.version}.tar.xz";
     sha256 = "c22K2+hhX2y8j8//mEXcmF/RDhZinaI2tLUtvt8KNIs=";
   };
 
@@ -98,8 +98,8 @@ stdenv.mkDerivation rec {
 
   passthru = {
     updateScript = gnome.updateScript {
-      packageName = pname;
-      attrPath = "gnome.${pname}";
+      packageName = "rygel";
+      attrPath = "gnome.rygel";
       versionPolicy = "odd-unstable";
     };
   };
@@ -116,4 +116,4 @@ stdenv.mkDerivation rec {
     teams = [ lib.teams.gnome ];
     platforms = lib.platforms.linux;
   };
-}
+})

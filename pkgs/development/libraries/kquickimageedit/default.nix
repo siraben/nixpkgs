@@ -9,7 +9,7 @@
   opencv,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "kquickimageeditor";
   version = "0.6.1";
 
@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     domain = "invent.kde.org";
     owner = "libraries";
     repo = "kquickimageeditor";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "sha256-MluY8nkMtg1uLAStDZFDxyJoeDrcp3smZ4U5IG5sXMk=";
   };
 
@@ -47,4 +47,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.unix;
     badPlatforms = lib.platforms.darwin;
   };
-}
+})

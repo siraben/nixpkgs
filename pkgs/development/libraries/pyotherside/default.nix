@@ -14,14 +14,14 @@
 let
   withQt6 = lib.strings.versionAtLeast qtbase.version "6";
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "pyotherside";
   version = "1.6.2";
 
   src = fetchFromGitHub {
     owner = "thp";
     repo = "pyotherside";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-2OYVULNW9EzssqodiVtL2EmhTSbefXpLkub3zFvNwNo=";
   };
 
@@ -85,4 +85,4 @@ stdenv.mkDerivation rec {
     maintainers = [ lib.maintainers.mic92 ];
     platforms = lib.platforms.unix ++ lib.platforms.windows;
   };
-}
+})

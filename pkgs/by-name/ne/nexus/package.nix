@@ -8,18 +8,18 @@
   nixosTests,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "nexus";
   version = "3.70.1-02";
 
   src = fetchurl {
-    url = "https://download.sonatype.com/nexus/3/nexus-${version}-unix.tar.gz";
+    url = "https://download.sonatype.com/nexus/3/nexus-${finalAttrs.version}-unix.tar.gz";
     hash = "sha256-oBappm8WRcgyD5HWqJKPbMHjlwCUo9y5+FtB2Kq1PCE=";
   };
 
   preferLocalBuild = true;
 
-  sourceRoot = "${pname}-${version}";
+  sourceRoot = "nexus-${finalAttrs.version}";
 
   nativeBuildInputs = [ makeWrapper ];
 
@@ -71,4 +71,4 @@ stdenv.mkDerivation rec {
     ];
     maintainers = [ ];
   };
-}
+})

@@ -8,12 +8,12 @@
 
 { version, src, ... }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "handy-window";
   inherit version src;
-  inherit (src) passthru;
+  inherit (finalAttrs.src) passthru;
 
-  setupHook = writeScript "${pname}-setup-hook" ''
+  setupHook = writeScript "handy-window-setup-hook" ''
     handyWindowConfigureHook() {
       export CFLAGS="$CFLAGS -isystem ${lib.getDev fribidi}/include/fribidi -isystem ${lib.getDev cairo}/include"
     }
@@ -25,8 +25,8 @@ stdenv.mkDerivation rec {
     runHook preInstall
 
     mkdir -p "$out"
-    ln -s '${src}'/* "$out"
+    ln -s '${finalAttrs.src}'/* "$out"
 
     runHook postInstall
   '';
-}
+})

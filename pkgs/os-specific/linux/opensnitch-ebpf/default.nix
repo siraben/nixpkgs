@@ -13,7 +13,7 @@
   fetchpatch2,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "opensnitch_ebpf";
   version = "${opensnitch.version}-${kernel.version}";
 
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  sourceRoot = "${src.name}/ebpf_prog";
+  sourceRoot = "${finalAttrs.src.name}/ebpf_prog";
 
   nativeBuildInputs = with llvmPackages; [
     bc
@@ -90,4 +90,4 @@ stdenv.mkDerivation rec {
     ];
     platforms = lib.platforms.linux;
   };
-}
+})

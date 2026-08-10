@@ -4,13 +4,13 @@
   xorg-server,
   pkg-config,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "xf86-video-scfb";
   version = "0.0.7";
   src = fetchFromGitHub {
     owner = "rayddteam";
-    repo = pname;
-    rev = version;
+    repo = "xf86-video-scfb";
+    rev = finalAttrs.version;
     hash = "sha256-hYBGnk/lpVOrl05tN6kXxEft6QktU5432wgZ8a+WdZc=";
   };
 
@@ -20,4 +20,4 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ xorg-server ];
   nativeBuildInputs = [ pkg-config ];
-}
+})

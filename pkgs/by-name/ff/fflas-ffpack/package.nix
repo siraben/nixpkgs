@@ -13,14 +13,14 @@
 
 assert (!blas.isILP64) && (!lapack.isILP64);
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "fflas-ffpack";
   version = "2.5.0";
 
   src = fetchFromGitHub {
     owner = "linbox-team";
     repo = "fflas-ffpack";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "sha256-Eztc2jUyKRVUiZkYEh+IFHkDuPIy+Gx3ZW/MsuOVaMc=";
   };
 
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     autoreconfHook
     pkg-config
   ]
-  ++ lib.optionals doCheck nativeCheckInputs;
+  ++ lib.optionals finalAttrs.doCheck finalAttrs.nativeCheckInputs;
 
   buildInputs = [
     givaro
@@ -71,4 +71,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.unix;
     homepage = "https://linbox-team.github.io/fflas-ffpack/";
   };
-}
+})

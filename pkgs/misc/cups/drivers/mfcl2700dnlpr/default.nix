@@ -12,12 +12,12 @@
   which,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "mfcl2700dnlpr";
   version = "3.2.0-1";
 
   src = fetchurl {
-    url = "https://download.brother.com/welcome/dlf102085/${pname}-${version}.i386.deb";
+    url = "https://download.brother.com/welcome/dlf102085/mfcl2700dnlpr-${finalAttrs.version}.i386.deb";
     sha256 = "170qdzxlqikzvv2wphvfb37m19mn13az4aj88md87ka3rl5knk4m";
   };
 
@@ -63,4 +63,4 @@ stdenv.mkDerivation rec {
     maintainers = [ lib.maintainers.tv ];
     platforms = [ "i686-linux" ];
   };
-}
+})

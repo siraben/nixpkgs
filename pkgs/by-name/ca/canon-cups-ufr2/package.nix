@@ -101,7 +101,7 @@ let
     '';
   };
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "canon-cups-ufr2";
   inherit version;
   src = src_canon;
@@ -113,7 +113,7 @@ stdenv.mkDerivation rec {
     export sourceRoot=$PWD/$sourceRoot
     (
       cd $sourceRoot
-      tar -xf Sources/cnrdrvcups-lb-${version}-1.${suffix2}.tar.xz
+      tar -xf Sources/cnrdrvcups-lb-${finalAttrs.version}-1.${suffix2}.tar.xz
     )
   '';
 
@@ -122,18 +122,18 @@ stdenv.mkDerivation rec {
   ];
 
   postPatch = ''
-    substituteInPlace $(find cnrdrvcups-lb-${version}/cngplp -name Makefile.am) \
+    substituteInPlace $(find cnrdrvcups-lb-${finalAttrs.version}/cngplp -name Makefile.am) \
       --replace-quiet /usr/include/libxml2/ ${libxml2_13.dev}/include/libxml2/
 
     substituteInPlace \
-      cnrdrvcups-common-${version}/{{backend,cngplp/src,rasterfilter}/Makefile.am,rasterfilter/cnrasterproc.h} \
-      cnrdrvcups-lb-${version}/{cngplp/files,pdftocpca}/Makefile.am \
+      cnrdrvcups-common-${finalAttrs.version}/{{backend,cngplp/src,rasterfilter}/Makefile.am,rasterfilter/cnrasterproc.h} \
+      cnrdrvcups-lb-${finalAttrs.version}/{cngplp/files,pdftocpca}/Makefile.am \
       --replace-fail /usr "$out"
 
-    substituteInPlace cnrdrvcups-common-${version}/cngplp/Makefile.am \
+    substituteInPlace cnrdrvcups-common-${finalAttrs.version}/cngplp/Makefile.am \
       --replace-fail etc/cngplp "$out/etc/cngplp"
 
-    patchShebangs cnrdrvcups-common-${version} cnrdrvcups-lb-${version}
+    patchShebangs cnrdrvcups-common-${finalAttrs.version} cnrdrvcups-lb-${finalAttrs.version}
   '';
 
   nativeBuildInputs = [
@@ -151,8 +151,8 @@ stdenv.mkDerivation rec {
     set -eu
     # Update old automake files
     for dir in \
-      cnrdrvcups-common-${version}/{backend,buftool,cngplp,cnjbig,rasterfilter} \
-      cnrdrvcups-lb-${version}/{cngplp/files,cngplp,cpca,pdftocpca}
+      cnrdrvcups-common-${finalAttrs.version}/{backend,buftool,cngplp,cnjbig,rasterfilter} \
+      cnrdrvcups-lb-${finalAttrs.version}/{cngplp/files,cngplp,cpca,pdftocpca}
     do
       echo autoreconf $dir
       pushd "$dir"
@@ -187,8 +187,8 @@ stdenv.mkDerivation rec {
 
     (
       cd $out/bin
-      patchelf --set-interpreter "$(cat ${ld64})" --set-rpath "${lib.makeLibraryPath buildInputs}:${lib.getLib stdenv.cc.cc}/lib:${stdenv.cc.libc}/lib" cnsetuputil2 cnpdfdrv
-      patchelf --set-interpreter "$(cat ${ld64})" --set-rpath "${lib.makeLibraryPath buildInputs}:${lib.getLib stdenv.cc.cc}/lib:${stdenv.cc.libc}/lib:$out/lib" cnpkbidir cnrsdrvufr2 cnpkmoduleufr2r cnjbigufr2
+      patchelf --set-interpreter "$(cat ${ld64})" --set-rpath "${lib.makeLibraryPath finalAttrs.buildInputs}:${lib.getLib stdenv.cc.cc}/lib:${stdenv.cc.libc}/lib" cnsetuputil2 cnpdfdrv
+      patchelf --set-interpreter "$(cat ${ld64})" --set-rpath "${lib.makeLibraryPath finalAttrs.buildInputs}:${lib.getLib stdenv.cc.cc}/lib:${stdenv.cc.libc}/lib:$out/lib" cnpkbidir cnrsdrvufr2 cnpkmoduleufr2r cnjbigufr2
 
       wrapProgram $out/bin/cnrsdrvufr2 \
         --prefix LD_LIBRARY_PATH ":" "$out/lib" \
@@ -214,4 +214,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.unfree;
     maintainers = with lib.maintainers; [ lluchs ];
   };
-}
+})

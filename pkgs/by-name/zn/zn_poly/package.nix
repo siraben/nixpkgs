@@ -7,7 +7,7 @@
   tune ? false, # tune to hardware, impure
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   version = "0.9.2";
   pname = "zn_poly";
 
@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitLab {
     owner = "sagemath";
     repo = "zn_poly";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-QBItcrrpOGj22/ShTDdfZjm63bGW2xY4c71R1q8abPE=";
   };
 
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
   # It seems buggy anyways (see homepage).
   buildFlags = [
     "all"
-    "${libbasename}${libext}"
+    "${finalAttrs.libbasename}${finalAttrs.libext}"
   ];
 
   configureFlags = lib.optionals (!tune) [
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
   installPhase = ''
     mkdir -p "$out/include/zn_poly"
     mkdir -p "$out/lib"
-    cp "${libbasename}"*"${libext}" "$out/lib"
+    cp "${finalAttrs.libbasename}"*"${finalAttrs.libext}" "$out/lib"
     cp include/*.h "$out/include/zn_poly"
   '';
 
@@ -64,4 +64,4 @@ stdenv.mkDerivation rec {
     teams = [ lib.teams.sage ];
     platforms = lib.platforms.unix;
   };
-}
+})

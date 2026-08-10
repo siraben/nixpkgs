@@ -21,14 +21,14 @@
   qt6, # this
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "emilua-qt6";
   version = "1.2.2";
 
   src = fetchFromGitLab {
     owner = "emilua";
     repo = "qt6";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-Ch99ntLreiOjACxyJVR4174sHJT8EYXzDGPdysqmBXM=";
   };
 
@@ -88,4 +88,4 @@ stdenv.mkDerivation rec {
     ];
     platforms = lib.platforms.linux;
   };
-}
+})

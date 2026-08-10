@@ -12,14 +12,14 @@
   curl,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "obs-backgroundremoval";
   version = "1.4.1";
 
   src = fetchFromGitHub {
     owner = "occ-ai";
     repo = "obs-backgroundremoval";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-ND4owZCJvJmpuyYY5svGezVvid+Pi9hgU2W8EUv597s=";
   };
 
@@ -56,4 +56,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.mit;
     inherit (obs-studio.meta) platforms;
   };
-}
+})

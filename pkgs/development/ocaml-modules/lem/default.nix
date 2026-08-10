@@ -10,14 +10,14 @@
   zarith,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ocaml${ocaml.version}-lem";
   version = "2025-03-13";
 
   src = fetchFromGitHub {
     owner = "rems-project";
     repo = "lem";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-ZV2OiFonMlNzqtsumMQ8jzY9/ATaZxiNHZ7JzOfGluY=";
   };
 
@@ -52,4 +52,4 @@ stdenv.mkDerivation rec {
     platforms = ocaml.meta.platforms;
     broken = !(lib.versionAtLeast ocaml.version "4.07");
   };
-}
+})

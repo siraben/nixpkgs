@@ -7,15 +7,15 @@
   libevdev,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "dual-function-keys";
   version = "1.5.0";
 
   src = fetchFromGitLab {
     group = "interception";
     owner = "linux/plugins";
-    repo = pname;
-    rev = version;
+    repo = "dual-function-keys";
+    rev = finalAttrs.version;
     hash = "sha256-m/oEczUNKqj0gs/zMOIBxoQaffNg+YyPINMXArkATJ4=";
   };
 
@@ -45,4 +45,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     mainProgram = "dual-function-keys";
   };
-}
+})

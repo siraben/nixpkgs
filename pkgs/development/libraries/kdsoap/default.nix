@@ -11,12 +11,12 @@ let
   isQt6 = lib.versions.major qtbase.version == "6";
   cmakeName = if isQt6 then "KDSoap-qt6" else "KDSoap";
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "kdsoap";
   version = "2.2.0";
 
   src = fetchurl {
-    url = "https://github.com/KDAB/KDSoap/releases/download/kdsoap-${version}/kdsoap-${version}.tar.gz";
+    url = "https://github.com/KDAB/KDSoap/releases/download/kdsoap-${finalAttrs.version}/kdsoap-${finalAttrs.version}.tar.gz";
     sha256 = "sha256-2e8RlIRCGXyfpEvW+63IQrcoCmDfxAV3r2b97WN681Y=";
   };
 
@@ -56,4 +56,4 @@ stdenv.mkDerivation rec {
     ];
     maintainers = [ ];
   };
-}
+})

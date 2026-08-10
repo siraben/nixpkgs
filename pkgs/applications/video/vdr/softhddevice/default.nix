@@ -14,7 +14,7 @@
   libGL,
   libGLU,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "vdr-softhddevice";
   version = "2.5.0";
 
@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     owner = "ua0lnj";
     repo = "vdr-plugin-softhddevice";
     sha256 = "sha256-vicHneEZZHTraffUek77QDZdv/xZGzN102nbr1Bkfzo=";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
   };
 
   buildInputs = [
@@ -46,11 +46,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     description = "VDR SoftHDDevice Plug-in";
     maintainers = [ lib.maintainers.ck3d ];
     license = lib.licenses.gpl2;
     inherit (vdr.meta) platforms;
   };
 
-}
+})

@@ -12,13 +12,13 @@
   glib-networking,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "holochain-launcher";
   version = "0.11.5";
   prerelease = "beta-2";
 
   src = fetchurl {
-    url = "https://github.com/holochain/launcher/releases/download/v${version}/holochain-launcher-${prerelease}_${version}_amd64.deb";
+    url = "https://github.com/holochain/launcher/releases/download/v${finalAttrs.version}/holochain-launcher-${finalAttrs.prerelease}_${finalAttrs.version}_amd64.deb";
     sha256 = "sha256-MRFQJRfvJ+dLmPDfPQX9wErIwEr07EAUqxic8kbKVdo=";
   };
 
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mv usr $out
-    mv $out/bin/holochain-launcher-${prerelease} $out/bin/holochain-launcher
+    mv $out/bin/holochain-launcher-${finalAttrs.prerelease} $out/bin/holochain-launcher
   '';
 
   preFixup = ''
@@ -61,4 +61,4 @@ stdenv.mkDerivation rec {
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     platforms = lib.platforms.linux;
   };
-}
+})

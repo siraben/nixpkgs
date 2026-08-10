@@ -30,14 +30,14 @@ let
   edf = flag: feature: [ ("-D" + feature + (if flag then "=ON" else "=OFF")) ];
 
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "quassel${tag}";
   version = "0.14.0";
 
   src = fetchFromGitHub {
     owner = "quassel";
     repo = "quassel";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-eulhNcyCmy9ryietOhT2yVJeJH+MMZRbTUo2XuTy9qU=";
   };
 
@@ -105,4 +105,4 @@ stdenv.mkDerivation rec {
         "quasselcore";
     inherit (libsForQt5.qtbase.meta) platforms;
   };
-}
+})

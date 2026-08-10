@@ -8,7 +8,7 @@
   kernelModuleMakeFlags,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "mstflint_access";
   inherit (mstflint) version src;
 
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     "INSTALL_MOD_PATH=${placeholder "out"}"
     "M=$(PWD)"
   ]
-  ++ makeFlags;
+  ++ finalAttrs.makeFlags;
 
   meta = {
     description = "Kernel module for Nvidia NIC firmware update";
@@ -39,4 +39,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ thillux ];
     platforms = lib.platforms.linux;
   };
-}
+})

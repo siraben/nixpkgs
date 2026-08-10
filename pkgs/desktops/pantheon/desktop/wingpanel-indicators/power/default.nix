@@ -20,14 +20,14 @@
   libgee,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "wingpanel-indicator-power";
   version = "8.0.2";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "wingpanel-indicator-power";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-AeeL/OcQ7V3HT3IWhTQHx/dcCSqL/0s/fShPq96V3xE=";
   };
 
@@ -67,4 +67,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     teams = [ lib.teams.pantheon ];
   };
-}
+})

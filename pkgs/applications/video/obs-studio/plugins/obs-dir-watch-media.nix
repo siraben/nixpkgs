@@ -6,14 +6,14 @@
   obs-studio,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "obs-dir-watch-media";
   version = "0.7.0";
 
   src = fetchFromGitHub {
     owner = "exeldro";
     repo = "obs-dir-watch-media";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-zvg8Bu5wlcQe91ggteEj7G9Kx+mY1R6EN64T13vp7pc=";
   };
 
@@ -31,4 +31,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2Only;
     inherit (obs-studio.meta) platforms;
   };
-}
+})

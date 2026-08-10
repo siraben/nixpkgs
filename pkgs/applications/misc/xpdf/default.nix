@@ -20,14 +20,14 @@ assert enableGUI -> qtbase != null && qtsvg != null && freetype != null;
 assert enablePDFtoPPM -> freetype != null;
 assert enablePrinting -> cups != null;
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "xpdf";
   version = "4.06";
 
   src = fetchzip {
     urls = [
-      "https://dl.xpdfreader.com/xpdf-${version}.tar.gz"
-      "https://dl.xpdfreader.com/old/xpdf-${version}.tar.gz"
+      "https://dl.xpdfreader.com/xpdf-${finalAttrs.version}.tar.gz"
+      "https://dl.xpdfreader.com/old/xpdf-${finalAttrs.version}.tar.gz"
     ];
     hash = "sha256-n8Qeb1OKELzkjK+wqWlKbjt2XVX/+6hfbbFvw3EzS1w=";
   };
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
   };
 
   postInstall = lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
-    install -Dm644 ${desktopItem}/share/applications/xpdf.desktop -t $out/share/applications
+    install -Dm644 ${finalAttrs.desktopItem}/share/applications/xpdf.desktop -t $out/share/applications
     install -Dm644 $src/xpdf-qt/xpdf-icon.svg $out/share/pixmaps/xpdf.svg
   '';
 
@@ -97,4 +97,4 @@ stdenv.mkDerivation rec {
       "CVE-2023-26930"
     ];
   };
-}
+})

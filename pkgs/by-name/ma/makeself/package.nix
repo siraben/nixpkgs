@@ -8,14 +8,14 @@
   installShellFiles,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "makeself";
   version = "2.7.1";
 
   src = fetchFromGitHub {
     owner = "megastep";
     repo = "makeself";
-    tag = "release-${version}";
+    tag = "release-${finalAttrs.version}";
     fetchSubmodules = true;
     hash = "sha256-X35vdzsfAQWAHMvlQSxCeu7IgUNVvnOQaakS27SXlFA=";
   };
@@ -35,18 +35,18 @@ stdenv.mkDerivation rec {
     pbzip2
   ];
 
-  sharePath = "$out/share/${pname}";
+  sharePath = "$out/share/makeself";
 
   installPhase = ''
     runHook preInstall
     installManPage makeself.1
     install -Dm555 makeself.sh $out/bin/makeself
-    install -Dm444 -t ${sharePath}/ README.md makeself-header.sh
+    install -Dm444 -t ${finalAttrs.sharePath}/ README.md makeself-header.sh
     runHook postInstall
   '';
 
   fixupPhase = ''
-    sed -e "s|^HEADER=.*|HEADER=${sharePath}/makeself-header.sh|" -i $out/bin/makeself
+    sed -e "s|^HEADER=.*|HEADER=${finalAttrs.sharePath}/makeself-header.sh|" -i $out/bin/makeself
   '';
 
   meta = {
@@ -57,4 +57,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.all;
     mainProgram = "makeself";
   };
-}
+})

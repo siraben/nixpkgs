@@ -8,7 +8,7 @@
   src,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "glm";
   inherit version src;
 
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     (lib.cmakeBool "BUILD_SHARED_LIBS" false)
     (lib.cmakeBool "BUILD_STATIC_LIBS" false)
-    (lib.cmakeBool "GLM_TEST_ENABLE" doCheck)
+    (lib.cmakeBool "GLM_TEST_ENABLE" finalAttrs.doCheck)
   ];
 
   doCheck = true;
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    changelog = "https://github.com/g-truc/glm/releases/tag/${src.tag}";
+    changelog = "https://github.com/g-truc/glm/releases/tag/${finalAttrs.src.tag}";
     description = "OpenGL Mathematics library for C++";
     longDescription = ''
       OpenGL Mathematics (GLM) is a header only C++ mathematics library for
@@ -70,4 +70,4 @@ stdenv.mkDerivation rec {
     broken = !stdenv.hostPlatform.isLittleEndian && !stdenv.hostPlatform.isLinux;
     maintainers = with lib.maintainers; [ smancill ];
   };
-}
+})

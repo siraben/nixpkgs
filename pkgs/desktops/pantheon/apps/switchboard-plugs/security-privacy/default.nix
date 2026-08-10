@@ -20,14 +20,14 @@
   switchboard,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "switchboard-plug-security-privacy";
   version = "8.0.2";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "settings-security-privacy";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-OlLeeS0b4IMCvOMyHlIRaQl11ivn4Y2+vYdXOzIlvaw=";
   };
 
@@ -64,4 +64,4 @@ stdenv.mkDerivation rec {
     teams = [ lib.teams.pantheon ];
   };
 
-}
+})

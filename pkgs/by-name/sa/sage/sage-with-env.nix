@@ -92,8 +92,8 @@ let
   # spkg names (this_is_a_package-version) of all transitive deps
   input_names = map (dep: pkg_to_spkg_name dep patch_names) transitiveDeps;
 in
-stdenv.mkDerivation rec {
-  version = src.version;
+stdenv.mkDerivation (finalAttrs: {
+  version = finalAttrs.src.version;
   pname = "sage-with-env";
   src = sage-env.lib.src;
 
@@ -141,4 +141,4 @@ stdenv.mkDerivation rec {
   passthru = {
     env = sage-env;
   };
-}
+})

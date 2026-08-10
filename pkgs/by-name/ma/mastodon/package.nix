@@ -27,24 +27,26 @@ let
   yarn-berry = yarn-berry_4.override { nodejs = nodejs-slim; };
 in
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   inherit pname version;
 
   src = srcOverride;
 
   mastodonGems = bundlerEnv {
-    name = "${pname}-gems-${version}";
-    inherit version gemset ruby;
-    gemdir = src;
+    name = "${finalAttrs.pname}-gems-${finalAttrs.version}";
+    inherit gemset ruby;
+    inherit (finalAttrs) version;
+    gemdir = finalAttrs.src;
   };
 
-  mastodonModules = stdenv.mkDerivation (finalAttrs: {
-    pname = "${pname}-modules";
-    inherit src version;
+  mastodonModules = stdenv.mkDerivation (finalAttrs': {
+    pname = "${finalAttrs.pname}-modules";
+    inherit (finalAttrs) src;
+    inherit (finalAttrs) version;
 
     missingHashes = yarnMissingHashes;
     yarnOfflineCache = yarn-berry.fetchYarnBerryDeps {
-      inherit src;
+      inherit (finalAttrs) src;
       hash = yarnHash;
       missingHashes = yarnMissingHashes;
     };
@@ -53,8 +55,8 @@ stdenv.mkDerivation rec {
       nodejs-slim
       yarn-berry
       yarn-berry.yarnBerryConfigHook
-      mastodonGems
-      mastodonGems.wrappedRuby
+      finalAttrs.mastodonGems
+      finalAttrs.mastodonGems.wrappedRuby
       brotli
       python3
     ];
@@ -106,10 +108,10 @@ stdenv.mkDerivation rec {
     '';
   });
 
-  propagatedBuildInputs = [ mastodonGems.wrappedRuby ];
+  propagatedBuildInputs = [ finalAttrs.mastodonGems.wrappedRuby ];
   nativeBuildInputs = [ brotli ];
   buildInputs = [
-    mastodonGems
+    finalAttrs.mastodonGems
     nodejs-slim
   ];
 
@@ -192,4 +194,4 @@ stdenv.mkDerivation rec {
       izorkin
     ];
   };
-}
+})

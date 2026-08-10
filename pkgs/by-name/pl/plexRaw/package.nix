@@ -13,7 +13,7 @@
 # and version of this derivation if you want to use a Plex Pass version of the
 # server, and the FHS userenv and corresponding NixOS module should
 # automatically pick up the changes.
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   version = "1.43.3.10861-07dfddaeb";
   pname = "plexmediaserver";
 
@@ -21,12 +21,12 @@ stdenv.mkDerivation rec {
   src =
     if stdenv.hostPlatform.system == "aarch64-linux" then
       fetchurl {
-        url = "https://downloads.plex.tv/plex-media-server-new/${version}/debian/plexmediaserver_${version}_arm64.deb";
+        url = "https://downloads.plex.tv/plex-media-server-new/${finalAttrs.version}/debian/plexmediaserver_${finalAttrs.version}_arm64.deb";
         sha256 = "1bhm5y803ggzhss4va9hfkal7f91vf1yr2idr0h3kkam1q8hch1d";
       }
     else
       fetchurl {
-        url = "https://downloads.plex.tv/plex-media-server-new/${version}/debian/plexmediaserver_${version}_amd64.deb";
+        url = "https://downloads.plex.tv/plex-media-server-new/${finalAttrs.version}/debian/plexmediaserver_${finalAttrs.version}_amd64.deb";
         sha256 = "0cnk5zqiyq59z5xc8p0hj33ikfzagc56n6c4f6kxhzfbnh8akhxk";
       };
   outputs = [
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
   dontPatchELF = true;
   dontAutoPatchelf = true;
 
-  passthru.updateScript = writeScript "${pname}-updater" ''
+  passthru.updateScript = writeScript "plexmediaserver-updater" ''
     #!${stdenv.shell}
     set -eu -o pipefail
     PATH=${
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
     plexApiJson=$(curl -sS https://plex.tv/api/downloads/5.json)
     latestVersion="$(echo $plexApiJson | jq .computer.Linux.version | tr -d '"\n')"
 
-    for platform in ${lib.concatStringsSep " " meta.platforms}; do
+    for platform in ${lib.concatStringsSep " " finalAttrs.meta.platforms}; do
       arch=$(echo $platform | cut -d '-' -f1)
       dlUrl="$(echo $plexApiJson | jq --arg arch "$arch" -c '.computer.Linux.releases[] | select(.distro == "debian") | select(.build | contains($arch)) .url' | tr -d '"\n')"
 
@@ -105,4 +105,4 @@ stdenv.mkDerivation rec {
       back across many different devices.
     '';
   };
-}
+})

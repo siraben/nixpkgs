@@ -38,12 +38,12 @@ let
     else
       throw "Unsupported system ${stdenv.hostPlatform.system} ";
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "googleearth-pro";
   version = "7.3.7.1155";
 
   src = fetchurl {
-    url = "https://dl.google.com/linux/earth/deb/pool/main/g/google-earth-pro-stable/google-earth-pro-stable_${version}-r0_${arch}.deb";
+    url = "https://dl.google.com/linux/earth/deb/pool/main/g/google-earth-pro-stable/google-earth-pro-stable_${finalAttrs.version}-r0_${arch}.deb";
     sha256 = "sha256-lWFGpO4fCywxK/najHzFQoftfCEFiYX/31nloJSzCyM=";
   };
 
@@ -142,4 +142,4 @@ stdenv.mkDerivation rec {
       "Includes vulnerable versions of bundled libraries: openssl, ffmpeg, gdal, and proj."
     ];
   };
-}
+})

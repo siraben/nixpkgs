@@ -4,13 +4,13 @@
   fetchFromGitHub,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "shc";
   version = "4.0.3";
-  rev = version;
+  rev = finalAttrs.version;
 
   src = fetchFromGitHub {
-    inherit rev;
+    inherit (finalAttrs) rev;
     owner = "neurobin";
     repo = "shc";
     sha256 = "0bfn404plsssa14q89k9l3s5lxq3df0sny5lis4j2w75qrkqx694";
@@ -23,4 +23,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.all;
     license = lib.licenses.gpl3;
   };
-}
+})

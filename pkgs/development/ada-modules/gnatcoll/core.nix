@@ -18,14 +18,14 @@
 # gnatcoll-projects depends on gnatcoll-core
 assert enableGnatcollProjects -> enableGnatcollCore;
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "gnatcoll-core";
   version = "25.0.0";
 
   src = fetchFromGitHub {
     owner = "AdaCore";
     repo = "gnatcoll-core";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "1srnh7vhs46c2zy4hcy4pg0a0prghfzlpv7c82k0jan384yz1g6g";
   };
 
@@ -85,4 +85,4 @@ stdenv.mkDerivation rec {
     maintainers = [ lib.maintainers.sternenseemann ];
     platforms = lib.platforms.all;
   };
-}
+})

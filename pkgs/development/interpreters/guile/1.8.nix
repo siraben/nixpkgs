@@ -12,12 +12,12 @@
   readline,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "guile";
   version = "1.8.8";
 
   src = fetchurl {
-    url = "mirror://gnu/${pname}/${pname}-${version}.tar.gz";
+    url = "mirror://gnu/guile/guile-${finalAttrs.version}.tar.gz";
     sha256 = "0l200a0v7h8bh0cwz6v7hc13ds39cgqsmfrks55b1rbj5vniyiy3";
   };
 
@@ -89,12 +89,12 @@ stdenv.mkDerivation rec {
   # This is fixed here:
   # <https://git.savannah.gnu.org/cgit/guile.git/commit/?h=branch_release-1-8&id=a0aa1e5b69d6ef0311aeea8e4b9a94eae18a1aaf>.
   doCheck = false;
-  doInstallCheck = doCheck;
+  doInstallCheck = finalAttrs.doCheck;
 
   setupHook = ./setup-hook-1.8.sh;
 
   passthru = {
-    effectiveVersion = lib.versions.majorMinor version;
+    effectiveVersion = lib.versions.majorMinor finalAttrs.version;
     siteCcacheDir = "lib/guile/site-ccache";
     siteDir = "share/guile/site";
   };
@@ -114,4 +114,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ ludo ];
     platforms = lib.platforms.all;
   };
-}
+})

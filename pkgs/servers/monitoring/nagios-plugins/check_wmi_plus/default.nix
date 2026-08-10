@@ -9,7 +9,7 @@
   wmic-bin ? null,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "check-wmi-plus";
   version = "1.65";
 
@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "speartail";
     repo = "checkwmiplus";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     sha256 = "1as0iyhy4flpm37mb7lvah7rnd6ax88appjm1icwhy7iq03wi8pl";
   };
 
@@ -79,7 +79,7 @@ stdenv.mkDerivation rec {
     runHook preInstall
 
     install -Dm755 -t $out/bin *.pl
-    install -Dm644 -t $out/share/doc/${pname} *.txt
+    install -Dm644 -t $out/share/doc/check-wmi-plus *.txt
     cp -r etc $out/
 
     runHook postInstall
@@ -89,10 +89,10 @@ stdenv.mkDerivation rec {
   # 2. txt2man returns exit code 3 even if it works, so we add the || true bit
   postFixup = ''
     wrapProgram $out/bin/check_wmi_plus.pl \
-      --set PERL5LIB "${perlPackages.makePerlPath propagatedBuildInputs}"
+      --set PERL5LIB "${perlPackages.makePerlPath finalAttrs.propagatedBuildInputs}"
 
     mkdir -p $out/share/man/man1
-    $out/bin/check_wmi_plus.pl --help | txt2man -d 1970-01-01 -s 1 -t check_wmi_plus -r "Check WMI Plus ${version}" > $out/share/man/man1/check_wmi_plus.1 || true
+    $out/bin/check_wmi_plus.pl --help | txt2man -d 1970-01-01 -s 1 -t check_wmi_plus -r "Check WMI Plus ${finalAttrs.version}" > $out/share/man/man1/check_wmi_plus.1 || true
     gzip $out/share/man/man1/check_wmi_plus.1
   '';
 
@@ -103,4 +103,4 @@ stdenv.mkDerivation rec {
     mainProgram = "check_wmi_plus";
     maintainers = with lib.maintainers; [ peterhoeg ];
   };
-}
+})

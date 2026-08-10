@@ -9,14 +9,14 @@
   extlib,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ocaml${ocaml.version}-javalib";
   version = "3.2.2";
 
   src = fetchFromGitHub {
     owner = "javalib-team";
     repo = "javalib";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-XaI7GTU/O5UEWuYX4yqaIRmEoH7FuvCg/+gtKbE/P1s=";
   };
 
@@ -53,4 +53,4 @@ stdenv.mkDerivation rec {
     inherit (ocaml.meta) platforms;
     broken = !(lib.versionAtLeast ocaml.version "4.08");
   };
-}
+})

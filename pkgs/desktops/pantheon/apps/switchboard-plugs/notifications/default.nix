@@ -17,14 +17,14 @@
   elementary-notifications,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "switchboard-plug-notifications";
   version = "8.0.1";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "settings-notifications";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-MYvSru/78jMhc1Rk8YuztajEdmRRssCFN7IMUHWzW78=";
   };
 
@@ -57,4 +57,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     teams = [ lib.teams.pantheon ];
   };
-}
+})

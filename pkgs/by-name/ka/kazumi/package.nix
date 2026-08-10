@@ -41,10 +41,10 @@ flutter.buildFlutterApplication {
     # unofficial media_kit_libs_linux
     media_kit_libs_linux =
       { version, src, ... }:
-      stdenv.mkDerivation rec {
+      stdenv.mkDerivation (finalAttrs: {
         pname = "media_kit_libs_linux";
         inherit version src;
-        inherit (src) passthru;
+        inherit (finalAttrs.src) passthru;
 
         postPatch = ''
           sed -i '/set(MIMALLOC "mimalloc-/,/add_custom_target/d' libs/linux/media_kit_libs_linux/linux/CMakeLists.txt
@@ -58,14 +58,14 @@ flutter.buildFlutterApplication {
 
           runHook postInstall
         '';
-      };
+      });
     # unofficial media_kit_video
     media_kit_video =
       { version, src, ... }:
-      stdenv.mkDerivation rec {
+      stdenv.mkDerivation (finalAttrs: {
         pname = "media_kit_video";
         inherit version src;
-        inherit (src) passthru;
+        inherit (finalAttrs.src) passthru;
 
         postPatch = ''
           sed -i '/if(ARCH_NAME STREQUAL "x86_64")/,/if(MEDIA_KIT_LIBS_AVAILABLE)/{ /if(MEDIA_KIT_LIBS_AVAILABLE)/!d; /set(LIBMPV_ZIP_URL/d }' media_kit_video/linux/CMakeLists.txt
@@ -82,7 +82,7 @@ flutter.buildFlutterApplication {
 
           runHook postInstall
         '';
-      };
+      });
   };
 
   nativeBuildInputs = [ autoPatchelfHook ];

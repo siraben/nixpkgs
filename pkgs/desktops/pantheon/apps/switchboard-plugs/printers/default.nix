@@ -16,14 +16,14 @@
   switchboard,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "switchboard-plug-printers";
   version = "8.0.2";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "settings-printers";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-oqdmARZamTbMwpKKmyVZflYLCd0Qf5iE5lHSMfdPGA8=";
   };
 
@@ -56,4 +56,4 @@ stdenv.mkDerivation rec {
     teams = [ lib.teams.pantheon ];
   };
 
-}
+})

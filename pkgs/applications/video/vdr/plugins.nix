@@ -42,7 +42,7 @@ in
     buildInputs = oldAttr.buildInputs ++ [ ncurses ];
   });
 
-  vnsiserver = stdenv.mkDerivation rec {
+  vnsiserver = stdenv.mkDerivation (finalAttrs: {
     pname = "vdr-vnsiserver";
     version = "1.8.4";
 
@@ -53,21 +53,21 @@ in
     src = fetchFromGitHub {
       repo = "vdr-plugin-vnsiserver";
       owner = "vdr-projects";
-      rev = version;
+      rev = finalAttrs.version;
       sha256 = "sha256-EFPY1Pt79reL05Tdu14HYE9E+CnT9mdUYifGzTsNpMA=";
     };
 
     meta = {
-      inherit (src.meta) homepage;
+      inherit (finalAttrs.src.meta) homepage;
       description = "VDR plugin to handle KODI clients";
       maintainers = [ lib.maintainers.ck3d ];
       license = lib.licenses.gpl2;
       inherit (vdr.meta) platforms;
     };
 
-  };
+  });
 
-  text2skin = stdenv.mkDerivation rec {
+  text2skin = stdenv.mkDerivation (finalAttrs: {
     pname = "vdr-text2skin";
     version = "1.3.4-20170702";
 
@@ -98,22 +98,22 @@ in
     dontInstall = true;
 
     meta = {
-      inherit (src.meta) homepage;
+      inherit (finalAttrs.src.meta) homepage;
       description = "VDR Text2Skin Plugin";
       maintainers = [ lib.maintainers.ck3d ];
       license = lib.licenses.gpl2;
       inherit (vdr.meta) platforms;
     };
-  };
+  });
 
-  fritzbox = stdenv.mkDerivation rec {
+  fritzbox = stdenv.mkDerivation (finalAttrs: {
     pname = "vdr-fritzbox";
     version = "1.5.8";
 
     src = fetchFromGitHub {
       owner = "jowi24";
       repo = "vdr-fritz";
-      rev = version;
+      rev = finalAttrs.version;
       hash = "sha256-o+wJJCAOTg6pPScZ0iIiEWZyT2/++pLtuOppNeaXzmQ=";
       fetchSubmodules = true;
     };
@@ -127,13 +127,13 @@ in
     installFlags = [ "DESTDIR=$(out)" ];
 
     meta = {
-      inherit (src.meta) homepage;
+      inherit (finalAttrs.src.meta) homepage;
       description = "Plugin for VDR to access AVMs Fritz Box routers";
       maintainers = [ lib.maintainers.ck3d ];
       license = lib.licenses.gpl2;
       inherit (vdr.meta) platforms;
     };
-  };
+  });
 }
 // (lib.genAttrs [
   "epgtableid0"

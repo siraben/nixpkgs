@@ -16,7 +16,7 @@ let
     inherit mysqlSupport postgresSupport;
   };
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "libgdamm";
   version = "4.99.11";
 
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/libgdamm/${lib.versions.majorMinor version}/libgdamm-${version}.tar.xz";
+    url = "mirror://gnome/sources/libgdamm/${lib.versions.majorMinor finalAttrs.version}/libgdamm-${finalAttrs.version}.tar.xz";
     sha256 = "1fyh15b3f8hmwbswalxk1g4l04yvvybksn5nm7gznn5jl5q010p9";
   };
 
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
 
   passthru = {
     updateScript = gnome.updateScript {
-      packageName = pname;
+      packageName = "libgdamm";
       versionPolicy = "none"; # Should be odd-unstable but stable version has not been released yet.
     };
   };
@@ -53,4 +53,4 @@ stdenv.mkDerivation rec {
     maintainers = [ lib.maintainers.bot-wxt1221 ];
     platforms = lib.platforms.linux;
   };
-}
+})

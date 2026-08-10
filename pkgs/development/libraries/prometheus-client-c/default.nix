@@ -14,14 +14,14 @@ let
       buildInputs ? [ ],
       description,
     }:
-    stdenv.mkDerivation rec {
+    stdenv.mkDerivation (finalAttrs: {
       inherit pname;
       version = "0.1.1";
 
       src = fetchFromGitHub {
         owner = "digitalocean";
         repo = "prometheus-client-c";
-        rev = "v${version}";
+        rev = "v${finalAttrs.version}";
         sha256 = "0g69s24xwrv5974acshrhnp6i8rpby8c6bhz15m3d8kpgjw3cm8f";
       };
 
@@ -60,7 +60,7 @@ let
         license = lib.licenses.asl20;
         maintainers = [ lib.maintainers.cfsmp3 ];
       };
-    };
+    });
 in
 {
   libprom = build {

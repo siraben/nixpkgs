@@ -43,14 +43,14 @@ let
     hash = "sha256-xEpdeEeSXuqeTS0EdI1ELNKN2SmaC1cu99kerE9abOs=";
   };
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "fcitx5";
   version = "5.1.21";
 
   src = fetchFromGitHub {
     owner = "fcitx";
-    repo = pname;
-    rev = version;
+    repo = "fcitx5";
+    rev = finalAttrs.version;
     hash = "sha256-IR5mKOsVJ/GPL2czdztLVXGJTNk1JXnWpzmqC/UIwuw=";
     fetchSubmodules = true;
   };
@@ -117,4 +117,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ poscat ];
     platforms = lib.platforms.linux;
   };
-}
+})

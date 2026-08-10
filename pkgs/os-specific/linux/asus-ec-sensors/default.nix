@@ -6,8 +6,8 @@
   kernelModuleMakeFlags,
 }:
 
-stdenv.mkDerivation rec {
-  name = "${pname}-${version}-${kernel.version}";
+stdenv.mkDerivation (finalAttrs: {
+  name = "asus-ec-sensors-${finalAttrs.version}-${kernel.version}";
   pname = "asus-ec-sensors";
   version = "0.1.0-unstable-2025-12-11";
 
@@ -42,4 +42,4 @@ stdenv.mkDerivation rec {
     ];
     broken = kernel.kernelOlder "5.11";
   };
-}
+})

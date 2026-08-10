@@ -10,22 +10,22 @@
 let
   generic =
     { version, sha256 }:
-    stdenv.mkDerivation rec {
-      pname = "alloy${lib.versions.major version}";
+    stdenv.mkDerivation (finalAttrs: {
+      pname = "alloy${lib.versions.major finalAttrs.version}";
       inherit version;
 
       src = fetchurl {
         inherit sha256;
-        url = "https://github.com/AlloyTools/org.alloytools.alloy/releases/download/v${version}/org.alloytools.alloy.dist.jar";
+        url = "https://github.com/AlloyTools/org.alloytools.alloy/releases/download/v${finalAttrs.version}/org.alloytools.alloy.dist.jar";
       };
 
       desktopItem = makeDesktopItem rec {
-        name = pname;
+        name = finalAttrs.pname;
         exec = name;
         icon = name;
-        desktopName = "Alloy ${lib.versions.major version}";
+        desktopName = "Alloy ${lib.versions.major finalAttrs.version}";
         genericName = "Relational modelling tool";
-        comment = meta.description;
+        comment = finalAttrs.meta.description;
         categories = [
           "Development"
           "IDE"
@@ -36,15 +36,15 @@ let
       nativeBuildInputs = [ makeWrapper ];
 
       buildCommand = ''
-        jar=$out/share/alloy/${pname}.jar
+        jar=$out/share/alloy/${finalAttrs.pname}.jar
         install -Dm644 $src $jar
 
         mkdir -p $out/bin
-        makeWrapper ${jre}/bin/java $out/bin/${pname} --add-flags \
+        makeWrapper ${jre}/bin/java $out/bin/${finalAttrs.pname} --add-flags \
           "-jar $jar"
 
-        install -Dm644 ${./icon.png} $out/share/pixmaps/${pname}.png
-        cp -r ${desktopItem}/share/applications $out/share
+        install -Dm644 ${./icon.png} $out/share/pixmaps/${finalAttrs.pname}.png
+        cp -r ${finalAttrs.desktopItem}/share/applications $out/share
       '';
 
       meta = {
@@ -65,7 +65,7 @@ let
         platforms = lib.platforms.unix;
         maintainers = with lib.maintainers; [ notbandali ];
       };
-    };
+    });
 
 in
 rec {

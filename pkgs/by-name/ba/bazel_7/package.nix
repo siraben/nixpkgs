@@ -104,7 +104,7 @@ let
     ];
 
   # Bootstrap an existing Bazel so we can vendor deps with vendor mode
-  bazelBootstrap = stdenv.mkDerivation rec {
+  bazelBootstrap = stdenv.mkDerivation (finalAttrs: {
     name = "bazelBootstrap";
 
     src =
@@ -151,11 +151,11 @@ let
 
     postFixup = ''
       wrapProgram $out/bin/bazel \
-        --prefix PATH : ${lib.makeBinPath nativeBuildInputs}
+        --prefix PATH : ${lib.makeBinPath finalAttrs.nativeBuildInputs}
     '';
 
     meta.sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-  };
+  });
 
   bazelFhs = buildFHSEnv {
     pname = "bazel";
@@ -308,7 +308,7 @@ let
   };
 
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "bazel";
   inherit version src;
   inherit sourceRoot;
@@ -597,7 +597,7 @@ stdenv.mkDerivation rec {
     # on branch/tag information which we don't have with tarball releases.
     # Note that .bazelversion is always correct and is based on bazel-*
     # executable name, version checks should work fine
-    export EMBED_LABEL="${version}- (@non-git)"
+    export EMBED_LABEL="${finalAttrs.version}- (@non-git)"
 
     echo "Stage 1 - Running bazel bootstrap script"
     ${bash}/bin/bash ./bazel_src/compile.sh
@@ -627,7 +627,7 @@ stdenv.mkDerivation rec {
     # $out/bin/bazel-{version}-{os_arch} The binary _must_ exist with this
     # naming if your project contains a .bazelversion file.
     cp ./bazel_src/scripts/packages/bazel.sh $out/bin/bazel
-    versionned_bazel="$out/bin/bazel-${version}-${system}-${arch}"
+    versionned_bazel="$out/bin/bazel-${finalAttrs.version}-${system}-${arch}"
     mv ./bazel_src/output/bazel "$versionned_bazel"
     wrapProgram "$versionned_bazel" --suffix PATH : ${defaultShellPath}
 
@@ -738,4 +738,4 @@ stdenv.mkDerivation rec {
     # For ease of debugging
     inherit bazelDeps bazelFhs bazelBootstrap;
   };
-}
+})

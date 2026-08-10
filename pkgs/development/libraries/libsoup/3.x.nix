@@ -22,7 +22,7 @@
   libnghttp2,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "libsoup";
   version = "3.6.6";
 
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
   ++ lib.optional withIntrospection "devdoc";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/libsoup/${lib.versions.majorMinor finalAttrs.version}/libsoup-${finalAttrs.version}.tar.xz";
     hash = "sha256-Ue0K4G+dWkD0Af9Fni5fZS+aUQt3MOE1nuZtFNSHJ0A=";
   };
 
@@ -112,7 +112,7 @@ stdenv.mkDerivation rec {
     description = "HTTP client/server library for GNOME";
     homepage = "https://gitlab.gnome.org/GNOME/libsoup";
     license = lib.licenses.lgpl2Plus;
-    changelog = "https://gitlab.gnome.org/GNOME/libsoup/-/blob/${version}/NEWS";
+    changelog = "https://gitlab.gnome.org/GNOME/libsoup/-/blob/${finalAttrs.version}/NEWS";
     inherit (glib.meta) maintainers platforms teams;
   };
-}
+})

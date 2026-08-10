@@ -89,12 +89,12 @@ let
   };
 
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "moodle";
   inherit version;
 
   src = fetchurl {
-    url = "https://download.moodle.org/download.php/direct/stable${stableVersion}/${pname}-${version}.tgz";
+    url = "https://download.moodle.org/download.php/direct/stable${stableVersion}/moodle-${finalAttrs.version}.tgz";
     hash = "sha256-7N2aPfPdZu4WXmZeetup7hL/8XdCcH+5NwTdHxvG0qk=";
   };
 
@@ -109,7 +109,7 @@ stdenv.mkDerivation rec {
 
     mkdir -p $out/share/moodle
     cp -r . $out/share/moodle
-    cp ${phpConfig} $out/share/moodle/config.php
+    cp ${finalAttrs.phpConfig} $out/share/moodle/config.php
 
     ${lib.concatStringsSep "\n" (
       map (
@@ -143,4 +143,4 @@ stdenv.mkDerivation rec {
     maintainers = [ ];
     platforms = lib.platforms.all;
   };
-}
+})

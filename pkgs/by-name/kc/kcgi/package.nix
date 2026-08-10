@@ -6,15 +6,15 @@
   libbsd,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "kcgi";
   version = "0.10.8";
-  underscoreVersion = lib.replaceStrings [ "." ] [ "_" ] version;
+  underscoreVersion = lib.replaceStrings [ "." ] [ "_" ] finalAttrs.version;
 
   src = fetchFromGitHub {
     owner = "kristapsdz";
     repo = "kcgi";
-    rev = "VERSION_${underscoreVersion}";
+    rev = "VERSION_${finalAttrs.underscoreVersion}";
     sha256 = "0ha6r7bcgf6pcn5gbd2sl7835givhda1jql49c232f1iair1yqyp";
   };
   patchPhase = ''
@@ -37,4 +37,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.all;
     mainProgram = "kfcgi";
   };
-}
+})

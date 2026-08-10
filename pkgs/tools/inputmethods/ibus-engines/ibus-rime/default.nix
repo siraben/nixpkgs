@@ -14,14 +14,14 @@
   rimeDataPkgs ? [ rime-data ],
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ibus-rime";
   version = "1.6.1";
 
   src = fetchFromGitHub {
     owner = "rime";
     repo = "ibus-rime";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-7RyCJpgGMqq5s4ijTDA2aq2CtpnQ1HOwO9aPrizSaSo=";
   };
 
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
   };
 
   postInstall = ''
-    cp -r "${rimeDataDrv}/share/rime-data/." $out/share/rime-data/
+    cp -r "${finalAttrs.rimeDataDrv}/share/rime-data/." $out/share/rime-data/
   '';
 
   meta = {
@@ -62,4 +62,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ pmy ];
   };
-}
+})

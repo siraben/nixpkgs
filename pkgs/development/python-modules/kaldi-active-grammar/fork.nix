@@ -30,14 +30,14 @@ in
 
 assert blas.implementation == "openblas" && lapack.implementation == "openblas";
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "kaldi";
   version = "kag-v2.1.0";
 
   src = fetchFromGitHub {
     owner = "daanzu";
     repo = "kaldi-fork-active-grammar";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "+kT2xJRwDj/ECv/v/J1FpsINWOK8XkP9ZvZ9moFRl70=";
   };
 
@@ -98,7 +98,7 @@ stdenv.mkDerivation rec {
     mkdir -p $out/{bin,lib}
     cp lib/* $out/lib/
     patchelf \
-      --set-rpath "${lib.makeLibraryPath buildInputs}:$out/lib" \
+      --set-rpath "${lib.makeLibraryPath finalAttrs.buildInputs}:$out/lib" \
       $out/lib/*
   '';
 
@@ -109,4 +109,4 @@ stdenv.mkDerivation rec {
     maintainers = [ ];
     platforms = lib.platforms.linux;
   };
-}
+})

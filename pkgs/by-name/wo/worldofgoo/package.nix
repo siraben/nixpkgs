@@ -24,25 +24,25 @@ let
 
 in
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "WorldOfGoo";
   version = "1.53";
 
   helpMsg = ''
     We cannot download the full version automatically, as you require a license.
     Once you have bought a license, you need to add your downloaded version to the nix store.
-    You can do this by using "nix-prefetch-url file://$PWD/${pname}.Linux.${version}.sh"
+    You can do this by using "nix-prefetch-url file://$PWD/WorldOfGoo.Linux.${finalAttrs.version}.sh"
     in the directory where you saved it.
   '';
 
   src = requireFile {
-    message = helpMsg;
+    message = finalAttrs.helpMsg;
     name = "WorldOfGoo.Linux.1.53.sh";
     sha256 = "175e4b0499a765f1564942da4bd65029f8aae1de8231749c56bec672187d53ee";
   };
 
   nativeBuildInputs = [ unzip ];
-  sourceRoot = pname;
+  sourceRoot = "WorldOfGoo";
 
   libPath = lib.makeLibraryPath [
     stdenv.cc.cc
@@ -57,8 +57,8 @@ stdenv.mkDerivation rec {
     # The game is distributed as a shell script, with a tar of mojosetup, and a
     # zip archive attached to the end. Therefore a simple unzip does the job.
     # However, to avoid unzip errors, we need to strip those out first.
-    tail -c +421887 ${src} > ${src}.zip
-    unzip -q ${src}.zip -d ${pname}
+    tail -c +421887 ${finalAttrs.src} > ${finalAttrs.src}.zip
+    unzip -q ${finalAttrs.src}.zip -d WorldOfGoo
   '';
 
   installPhase = ''
@@ -91,4 +91,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ jcumming ];
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
   };
-}
+})

@@ -7,10 +7,10 @@
 
 { version, src, ... }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "printing";
   inherit version src;
-  inherit (src) passthru;
+  inherit (finalAttrs.src) passthru;
 
   prePatch = ''
     if [ -d printing ]; then pushd printing; fi
@@ -36,4 +36,4 @@ stdenv.mkDerivation rec {
 
     runHook postInstall
   '';
-}
+})

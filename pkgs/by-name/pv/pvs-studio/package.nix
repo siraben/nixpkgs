@@ -13,7 +13,7 @@
 }:
 
 # nixpkgs-update: no auto update
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "pvs-studio";
   version = "7.40.101088.713";
 
@@ -24,8 +24,8 @@ stdenv.mkDerivation rec {
     in
     fetchzip {
       url = selectSystem {
-        aarch64-darwin = "https://web.archive.org/web/20260131193428/https://files.pvs-studio.com/pvs-studio-${version}-macos-arm64.zip";
-        x86_64-linux = "https://web.archive.org/web/20260131192910/https://files.pvs-studio.com/pvs-studio-${version}-x86_64.tgz";
+        aarch64-darwin = "https://web.archive.org/web/20260131193428/https://files.pvs-studio.com/pvs-studio-${finalAttrs.version}-macos-arm64.zip";
+        x86_64-linux = "https://web.archive.org/web/20260131192910/https://files.pvs-studio.com/pvs-studio-${finalAttrs.version}-x86_64.tgz";
       };
       hash = selectSystem {
         aarch64-darwin = "sha256-ExJldpqwD9dqGtY/QQ2i3qiNXSyR6exhYKIrwgdQrtQ=";
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
 
   postFixup = ''
     wrapProgram "$out/bin/pvs-studio-analyzer" \
-      --prefix PATH ":" ${nativeRuntimeInputs}
+      --prefix PATH ":" ${finalAttrs.nativeRuntimeInputs}
   '';
 
   passthru = {
@@ -76,4 +76,4 @@ stdenv.mkDerivation rec {
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     maintainers = with lib.maintainers; [ sikmir ];
   };
-}
+})

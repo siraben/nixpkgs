@@ -8,12 +8,12 @@
 # This cannot be built from source due to the problematic nature of XCode - so
 # this is what it's like when doves cry?
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "MonitorControl";
   version = "4.3.3";
 
   src = fetchurl {
-    url = "https://github.com/MonitorControl/${pname}/releases/download/v${version}/MonitorControl.${version}.dmg";
+    url = "https://github.com/MonitorControl/MonitorControl/releases/download/v${finalAttrs.version}/MonitorControl.${finalAttrs.version}.dmg";
     hash = "sha256-myx3adoU3FYYrs6LFRSiXtwSsoaujjQ/PYgAF/Xuk2g=";
   };
 
@@ -43,4 +43,4 @@ stdenv.mkDerivation rec {
     ];
     platforms = lib.platforms.darwin;
   };
-}
+})

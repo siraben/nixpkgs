@@ -6,14 +6,14 @@
   wrapQtAppsHook,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "qtdbusextended";
   version = "0.0.3";
 
   src = fetchFromGitHub {
     owner = "nemomobile";
     repo = "qtdbusextended";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-tUp7OhNBXwomR2tO4UOaR0vJQ3GTirMk/hRl1cMk61o=";
   };
 
@@ -36,4 +36,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ wineee ];
   };
-}
+})

@@ -19,12 +19,12 @@
   makeWrapper,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "rivet";
   version = "4.1.3";
 
   src = fetchurl {
-    url = "https://www.hepforge.org/archive/rivet/Rivet-${version}.tar.bz2";
+    url = "https://www.hepforge.org/archive/rivet/Rivet-${finalAttrs.version}.tar.bz2";
     hash = "sha256-t63JsIdAISFd8CbuFv5B5EgodMjNWx9a8zzWlnRZnZk=";
   };
 
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     hepmc3
     highfive
     python3
-    latex
+    finalAttrs.latex
     python3.pkgs.yoda
   ];
   propagatedBuildInputs = [
@@ -116,4 +116,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ veprbl ];
   };
-}
+})

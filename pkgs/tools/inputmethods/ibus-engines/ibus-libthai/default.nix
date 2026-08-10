@@ -8,12 +8,12 @@
   libthai,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ibus-libthai";
   version = "0.1.6";
 
   src = fetchurl {
-    url = "https://linux.thai.net/pub/ThaiLinux/software/libthai/ibus-libthai-${version}.tar.xz";
+    url = "https://linux.thai.net/pub/ThaiLinux/software/libthai/ibus-libthai-${finalAttrs.version}.tar.xz";
     sha256 = "sha256-fhCs2tBftyH8PljcwGDIZPTIwWvWPA7EapUaWU1sBuM=";
   };
 
@@ -33,4 +33,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.unix;
     maintainers = [ ];
   };
-}
+})

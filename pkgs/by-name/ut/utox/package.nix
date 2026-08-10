@@ -21,7 +21,7 @@
   libopus,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "utox";
 
   version = "0.18.1";
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "uTox";
     repo = "uTox";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-DxnolxUTn+CL6TbZHKLHOUMTHhtTSWufzzOTRpKjOwc=";
     fetchSubmodules = true;
   };
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DENABLE_AUTOUPDATE=OFF"
-    "-DENABLE_TESTS=${if doCheck then "ON" else "OFF"}"
+    "-DENABLE_TESTS=${if finalAttrs.doCheck then "ON" else "OFF"}"
   ];
 
   postPatch = ''
@@ -77,4 +77,4 @@ stdenv.mkDerivation rec {
     maintainers = [ ];
     platforms = lib.platforms.all;
   };
-}
+})

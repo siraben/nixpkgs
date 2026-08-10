@@ -7,7 +7,7 @@
   qmake,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "qtinstaller";
 
   propagatedBuildInputs = [
@@ -18,9 +18,9 @@ stdenv.mkDerivation rec {
 
   version = "2.0.3";
   src = fetchurl {
-    url = "http://download.qt.io/official_releases/qt-installer-framework/${version}/qt-installer-framework-opensource-${version}-src.tar.gz";
+    url = "http://download.qt.io/official_releases/qt-installer-framework/${finalAttrs.version}/qt-installer-framework-opensource-${finalAttrs.version}-src.tar.gz";
     sha256 = "003gwjg02isw8qjyka377g1ahlisfyi44l6xfa4hvvdgqqq0hy2f";
-    name = "qt-installer-framework-opensource-src-${version}.tar.gz";
+    name = "qt-installer-framework-opensource-src-${finalAttrs.version}.tar.gz";
   };
 
   outputs = [
@@ -57,4 +57,4 @@ stdenv.mkDerivation rec {
     description = "Qt installer framework";
     inherit (qtbase.meta) platforms license homepage;
   };
-}
+})

@@ -5,14 +5,14 @@
   nix-update-script,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "elementary-redacted-script";
   version = "5.1.0";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "fonts";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-YiE7yaH0ZrF1/Cp+3bcJYm2cExQjFcat6JLMJPjhops=";
   };
 
@@ -34,4 +34,4 @@ stdenv.mkDerivation rec {
     teams = [ lib.teams.pantheon ];
     platforms = lib.platforms.linux;
   };
-}
+})

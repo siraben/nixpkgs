@@ -54,7 +54,7 @@
   libxshmfence,
   libxkbfile,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   inherit
     pname
     version
@@ -140,7 +140,7 @@ stdenv.mkDerivation rec {
 
     for file in $(find $out -type f \( -perm /0111 -o -name \*.so\* \) ); do
       patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" "$file" || true
-      patchelf --set-rpath ${rpath}:$out/lib/slack $file || true
+      patchelf --set-rpath ${finalAttrs.rpath}:$out/lib/slack $file || true
     done
 
     # Replace the broken bin/slack symlink with a startup wrapper.
@@ -167,4 +167,4 @@ stdenv.mkDerivation rec {
 
     runHook postInstall
   '';
-}
+})

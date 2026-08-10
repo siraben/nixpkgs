@@ -10,12 +10,12 @@
   nix-update-script,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ckan";
   version = "1.36.4";
 
   src = fetchurl {
-    url = "https://github.com/KSP-CKAN/CKAN/releases/download/v${version}/ckan.exe";
+    url = "https://github.com/KSP-CKAN/CKAN/releases/download/v${finalAttrs.version}/ckan.exe";
     hash = "sha256-d0gILN/PLbtfUCJhsYr8hQAxk4lMYEJ9BLCseo3+994=";
   };
 
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     runHook preInstall
     for size in 16 24 48 64 96 128 256; do
       mkdir -p $out/share/icons/hicolor/"$size"x"$size"/apps
-      magick -background none ${icon} -resize "$size"x"$size" $out/share/icons/hicolor/"$size"x"$size"/apps/${pname}.png
+      magick -background none ${finalAttrs.icon} -resize "$size"x"$size" $out/share/icons/hicolor/"$size"x"$size"/apps/ckan.png
     done
     install -m 644 -D $src $out/bin/ckan.exe
     makeWrapper ${mono}/bin/mono $out/bin/ckan \
@@ -81,4 +81,4 @@ stdenv.mkDerivation rec {
     ];
     platforms = lib.platforms.all;
   };
-}
+})

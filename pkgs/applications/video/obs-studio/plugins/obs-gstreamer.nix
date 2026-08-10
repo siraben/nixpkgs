@@ -9,20 +9,20 @@
   obs-studio,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "obs-gstreamer";
   version = "0.4.1";
 
   src = fetchFromGitHub {
     owner = "fzwoch";
     repo = "obs-gstreamer";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-23LyxN1Vgol9uA7rDdfZXcmfhG4l0RfMYGbofbhObBE=";
   };
 
   postPatch = ''
     substituteInPlace meson.build \
-      --replace-fail "'git', 'rev-parse', '--short', 'HEAD'" "'echo', '${version}'"
+      --replace-fail "'git', 'rev-parse', '--short', 'HEAD'" "'echo', '${finalAttrs.version}'"
   '';
 
   nativeBuildInputs = [
@@ -70,4 +70,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
   };
-}
+})

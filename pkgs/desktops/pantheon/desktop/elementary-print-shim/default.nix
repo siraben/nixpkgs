@@ -10,14 +10,14 @@
   gtk3,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "elementary-print-shim";
   version = "0.1.3";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "print";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-l2IUu9Mj22lZ5yajPcsGrJcJDakNu4srCV0Qea5ybPA=";
   };
 
@@ -42,4 +42,4 @@ stdenv.mkDerivation rec {
     teams = [ lib.teams.pantheon ];
     mainProgram = "io.elementary.print";
   };
-}
+})

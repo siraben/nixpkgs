@@ -28,7 +28,7 @@ let
       desktopName,
     }:
 
-    stdenv.mkDerivation rec {
+    stdenv.mkDerivation (finalAttrs: {
       application = sweethome3dApp;
       inherit
         pname
@@ -37,11 +37,12 @@ let
         src
         description
         ;
-      exec = sweetExec module;
+      exec = sweetExec finalAttrs.module;
       editorItem = makeDesktopItem {
-        inherit exec desktopName;
-        name = pname;
-        comment = description;
+        inherit desktopName;
+        inherit (finalAttrs) exec;
+        name = finalAttrs.pname;
+        comment = finalAttrs.description;
         genericName = "Computer Aided (Interior) Design";
         categories = [
           "Graphics"
@@ -80,25 +81,25 @@ let
       installPhase = ''
         mkdir -p $out/bin
         mkdir -p $out/share/{java,applications}
-        cp ${module}-${version}.jar $out/share/java/.
-        cp "${editorItem}/share/applications/"* $out/share/applications
+        cp ${finalAttrs.module}-${finalAttrs.version}.jar $out/share/java/.
+        cp "${finalAttrs.editorItem}/share/applications/"* $out/share/applications
         makeWrapper ${jdk}/bin/java $out/bin/$exec \
           --prefix XDG_DATA_DIRS : "$XDG_ICON_DIRS:${gtk3.out}/share:${gsettings-desktop-schemas}/share:$out/share:$GSETTINGS_SCHEMAS_PATH" \
-          --add-flags "-jar $out/share/java/${module}-${version}.jar -d${toString stdenv.hostPlatform.parsed.cpu.bits}"
+          --add-flags "-jar $out/share/java/${finalAttrs.module}-${finalAttrs.version}.jar -d${toString stdenv.hostPlatform.parsed.cpu.bits}"
       '';
 
       dontStrip = true;
 
       meta = {
         homepage = "http://www.sweethome3d.com/index.jsp";
-        inherit description;
+        inherit (finalAttrs) description;
         inherit license;
         maintainers = [ lib.maintainers.edwtjo ];
         platforms = lib.platforms.linux;
-        mainProgram = exec;
+        mainProgram = finalAttrs.exec;
       };
 
-    };
+    });
 
   d2u = lib.replaceStrings [ "." ] [ "_" ];
 

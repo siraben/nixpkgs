@@ -4,14 +4,14 @@
   fetchFromGitHub,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "icingaweb2-theme-spring";
   version = "1.0.0";
 
   src = fetchFromGitHub {
     owner = "Mikesch-mp";
-    repo = pname;
-    rev = "v${version}";
+    repo = "icingaweb2-theme-spring";
+    rev = "v${finalAttrs.version}";
     sha256 = "09v4871pndarhm2spxm9fdab58l5wj8m40kh53wvk1xc3g7pqki9";
   };
 
@@ -27,4 +27,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.all;
     maintainers = [ ];
   };
-}
+})

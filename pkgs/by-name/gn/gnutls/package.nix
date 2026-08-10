@@ -165,7 +165,7 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
     texinfo
   ]
-  ++ lib.optionals doCheck [
+  ++ lib.optionals finalAttrs.doCheck [
     which
     net-tools
     util-linux

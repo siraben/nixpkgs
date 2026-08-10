@@ -7,14 +7,14 @@
   python3,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "include-what-you-use";
   # Make sure to bump `llvmPackages` in "pkgs/top-level/all-packages.nix" to the supported version:
   # https://github.com/include-what-you-use/include-what-you-use?tab=readme-ov-file#clang-compatibility
   version = "0.26";
 
   src = fetchurl {
-    url = "${meta.homepage}/downloads/${pname}-${version}.src.tar.gz";
+    url = "${finalAttrs.meta.homepage}/downloads/include-what-you-use-${finalAttrs.version}.src.tar.gz";
     hash = "sha256-UkfAyaWd+dFOiqdAj/7EE0xqSu8S9ZCSkRH7/qyTCgg=";
   };
 
@@ -68,4 +68,4 @@ stdenv.mkDerivation rec {
     ];
     platforms = lib.platforms.unix;
   };
-}
+})

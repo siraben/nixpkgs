@@ -32,14 +32,14 @@ let
   };
 in
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "craftos-pc";
   inherit version;
 
   src = fetchFromGitHub {
     owner = "MCJack123";
     repo = "craftos2";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-DbxAsXxpsa42dF6DaLmgIa+Hs/PPqJ4dE97PoKxG2Ig=";
   };
 
@@ -132,4 +132,4 @@ stdenv.mkDerivation rec {
     ];
     mainProgram = "craftos";
   };
-}
+})

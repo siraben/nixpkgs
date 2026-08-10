@@ -8,7 +8,7 @@
   perl,
   pcre2,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "vdr-epgsearch";
   version = "2.4.6";
 
@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     repo = "vdr-plugin-epgsearch";
     owner = "vdr-projects";
     sha256 = "sha256-+csxlLBSIKiYIjgEPj0IUP8wZX9zuOM26cgA99uZ3EA=";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
   };
 
   postPatch = ''
@@ -50,11 +50,11 @@ stdenv.mkDerivation rec {
   ];
 
   meta = {
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     description = "Searchtimer and replacement of the VDR program menu";
     mainProgram = "createcats";
     maintainers = [ lib.maintainers.ck3d ];
     license = lib.licenses.gpl2;
     inherit (vdr.meta) platforms;
   };
-}
+})

@@ -47,18 +47,18 @@ let
   runtimeBins = lib.makeBinPath [ streamlink ];
 
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "${basename}-bin";
   version = "2.5.3";
 
   src =
     {
       x86_64-linux = fetchurl {
-        url = "https://github.com/streamlink/${basename}/releases/download/v${version}/${basename}-v${version}-linux64.tar.gz";
+        url = "https://github.com/streamlink/${basename}/releases/download/v${finalAttrs.version}/${basename}-v${finalAttrs.version}-linux64.tar.gz";
         hash = "sha256-ue5Ehj/dLOIJNJVq0Pd6EbA1hkVPz5m+3chVvEXaH6U=";
       };
       i686-linux = fetchurl {
-        url = "https://github.com/streamlink/${basename}/releases/download/v${version}/${basename}-v${version}-linux32.tar.gz";
+        url = "https://github.com/streamlink/${basename}/releases/download/v${finalAttrs.version}/${basename}-v${finalAttrs.version}-linux32.tar.gz";
         hash = "sha256-y252QhVsRakngdApOHgegMMhs61KTxL9gfPjBjaSKOI=";
       };
     }
@@ -134,7 +134,7 @@ stdenv.mkDerivation rec {
       exec = basename;
       icon = basename;
       desktopName = "Streamlink Twitch GUI";
-      genericName = meta.description;
+      genericName = finalAttrs.meta.description;
       categories = [
         "AudioVideo"
         "Network"
@@ -156,4 +156,4 @@ stdenv.mkDerivation rec {
       "i686-linux"
     ];
   };
-}
+})

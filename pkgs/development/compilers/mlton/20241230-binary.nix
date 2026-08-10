@@ -9,24 +9,24 @@
 let
   dynamic-linker = stdenv.cc.bintools.dynamicLinker;
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "mlton";
   version = "20241230";
 
   src =
     if stdenv.hostPlatform.system == "x86_64-linux" then
       (fetchurl {
-        url = "https://github.com/MLton/mlton/releases/download/on-${version}-release/${pname}-${version}-1.amd64-linux.ubuntu-24.04_glibc2.39.tgz";
+        url = "https://github.com/MLton/mlton/releases/download/on-${finalAttrs.version}-release/mlton-${finalAttrs.version}-1.amd64-linux.ubuntu-24.04_glibc2.39.tgz";
         hash = "sha256-ldXnjHcWGu77LP9WL6vTC6FngzhxPFAUflAA+bpIFZM=";
       })
     else if stdenv.hostPlatform.system == "aarch64-linux" then
       (fetchurl {
-        url = "https://github.com/MLton/mlton/releases/download/on-${version}-release/${pname}-${version}-1.arm64-linux.ubuntu-24.04-arm_glibc2.39.tgz";
+        url = "https://github.com/MLton/mlton/releases/download/on-${finalAttrs.version}-release/mlton-${finalAttrs.version}-1.arm64-linux.ubuntu-24.04-arm_glibc2.39.tgz";
         hash = "sha256-rn65t253SfUShAM3kXiLQJHT7JS7EO3fAPB23LWIwfc=";
       })
     else if stdenv.hostPlatform.system == "aarch64-darwin" then
       (fetchurl {
-        url = "https://github.com/MLton/mlton/releases/download/on-${version}-release/${pname}-${version}-1.arm64-darwin.macos-15_gmp-static.tgz";
+        url = "https://github.com/MLton/mlton/releases/download/on-${finalAttrs.version}-release/mlton-${finalAttrs.version}-1.arm64-darwin.macos-15_gmp-static.tgz";
         hash = "sha256-xhFP2plFjP/mbLz1CNtlZzkm0Kx6twfD/Dmn79Vj908=";
       })
     else
@@ -75,4 +75,4 @@ stdenv.mkDerivation rec {
     '';
 
   meta = import ./meta.nix { inherit lib; };
-}
+})

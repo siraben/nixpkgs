@@ -28,10 +28,10 @@ let
         v4_5_6 = "sha256-evZl3JUeyAfW0fGJ0EfFQs64Z/yRCZGeOeDGgXrFHFU=";
       };
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "sqlcipher_flutter_libs";
   inherit version src;
-  inherit (src) passthru;
+  inherit (finalAttrs.src) passthru;
 
   installPhase = ''
     runHook preInstall
@@ -53,4 +53,4 @@ stdenv.mkDerivation rec {
   '';
 
   meta.sourceProvenance = [ lib.sourceTypes.binaryBytecode ];
-}
+})

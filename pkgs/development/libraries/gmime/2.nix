@@ -10,12 +10,12 @@
   gobject-introspection,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   version = "2.6.23";
   pname = "gmime";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gmime/2.6/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/gmime/2.6/gmime-${finalAttrs.version}.tar.xz";
     sha256 = "0slzlzcr3h8jikpz5a5amqd0csqh2m40gdk910ws2hnaf5m6hjbi";
   };
 
@@ -64,4 +64,4 @@ stdenv.mkDerivation rec {
     maintainers = [ ];
     platforms = lib.platforms.unix;
   };
-}
+})

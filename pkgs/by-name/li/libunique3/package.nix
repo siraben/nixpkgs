@@ -14,16 +14,16 @@
   libxml2,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
 
   majorVer = "3.0";
   minorVer = "2";
-  version = "${majorVer}.${minorVer}";
+  version = "${finalAttrs.majorVer}.${finalAttrs.minorVer}";
   pname = "libunique3";
-  srcName = "libunique-${version}";
+  srcName = "libunique-${finalAttrs.version}";
 
   src = fetchurl {
-    url = "https://ftp.gnome.org/pub/GNOME/sources/libunique/${majorVer}/${srcName}.tar.xz";
+    url = "https://ftp.gnome.org/pub/GNOME/sources/libunique/${finalAttrs.majorVer}/${finalAttrs.srcName}.tar.xz";
     sha256 = "0f70lkw66v9cj72q0iw1s2546r6bwwcd8idcm3621fg2fgh2rw58";
   };
 
@@ -49,4 +49,4 @@ stdenv.mkDerivation rec {
     maintainers = [ ];
     platforms = lib.platforms.linux;
   };
-}
+})

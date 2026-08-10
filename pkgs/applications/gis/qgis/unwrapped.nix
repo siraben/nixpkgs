@@ -87,7 +87,7 @@ let
   ];
 
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "qgis-unwrapped";
   version = "4.0.3";
   outputs = [ "out" ] ++ lib.optional (!stdenv.hostPlatform.isDarwin) "man";
@@ -95,7 +95,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "qgis";
     repo = "QGIS";
-    rev = "final-${lib.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "final-${lib.replaceStrings [ "." ] [ "_" ] finalAttrs.version}";
     hash = "sha256-vHKDc+OeIVfi+7Gp1ROUDYon+wKb24Nr5nCVfmhknvc=";
   };
 
@@ -225,7 +225,7 @@ stdenv.mkDerivation rec {
             mv $out/Contents $out/Applications/QGIS.app/
             ln -s $out/Applications/QGIS.app/Contents/MacOS/qgis $out/bin/qgis
 
-            SHORT_VERSION=$(echo "${version}" | cut -d. -f1,2)
+            SHORT_VERSION=$(echo "${finalAttrs.version}" | cut -d. -f1,2)
             BUNDLE="$out/Applications/QGIS.app"
             FRAMEWORKS="$BUNDLE/Contents/Frameworks"
 
@@ -244,15 +244,15 @@ stdenv.mkDerivation rec {
               local qgis_libs=(core gui analysis 3d native app)
               for lib in "''${qgis_libs[@]}"; do
                 install_name_tool \
-                  -change "$out/lib/libqgis_$lib.${version}.dylib" \
-                          "$FRAMEWORKS/libqgis_$lib.${version}.dylib" \
+                  -change "$out/lib/libqgis_$lib.${finalAttrs.version}.dylib" \
+                          "$FRAMEWORKS/libqgis_$lib.${finalAttrs.version}.dylib" \
                   "$f" 2>/dev/null || true
               done
 
               # libqgispython (no underscore, unlike the other qgis libs)
               install_name_tool \
-                -change "$out/lib/libqgispython.${version}.dylib" \
-                        "$FRAMEWORKS/libqgispython.${version}.dylib" \
+                -change "$out/lib/libqgispython.${finalAttrs.version}.dylib" \
+                        "$FRAMEWORKS/libqgispython.${finalAttrs.version}.dylib" \
                 "$f" 2>/dev/null || true
 
               # QGIS frameworks
@@ -357,7 +357,7 @@ stdenv.mkDerivation rec {
             ''}
 
             ${lib.optionalString withServer ''
-              fix_binary "$BUNDLE/Contents/MacOS/lib/libqgis_server.${version}.dylib"
+              fix_binary "$BUNDLE/Contents/MacOS/lib/libqgis_server.${finalAttrs.version}.dylib"
             ''}
 
             QGIS_PYTHON="$BUNDLE/Contents/Resources/python"
@@ -392,4 +392,4 @@ stdenv.mkDerivation rec {
     teams = [ lib.teams.geospatial ];
     platforms = lib.platforms.unix;
   };
-}
+})

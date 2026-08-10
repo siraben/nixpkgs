@@ -6,16 +6,16 @@
   makeWrapper,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "trino-cli";
   version = "476";
 
-  jarfilename = "${pname}-${version}-executable.jar";
+  jarfilename = "trino-cli-${finalAttrs.version}-executable.jar";
 
   nativeBuildInputs = [ makeWrapper ];
 
   src = fetchurl {
-    url = "mirror://maven/io/trino/${pname}/${version}/${jarfilename}";
+    url = "mirror://maven/io/trino/trino-cli/${finalAttrs.version}/${finalAttrs.jarfilename}";
     sha256 = "sha256-/k6cf7VpzWdnOvoWIpRfYwjh5ZvbglQZNSuAiHZhdXs=";
   };
 
@@ -24,10 +24,10 @@ stdenv.mkDerivation rec {
   installPhase = ''
     runHook preInstall
 
-    install -D "$src" "$out/share/java/${jarfilename}"
+    install -D "$src" "$out/share/java/${finalAttrs.jarfilename}"
 
     makeWrapper ${jre_headless}/bin/java $out/bin/trino \
-      --add-flags "-jar $out/share/java/${jarfilename}"
+      --add-flags "-jar $out/share/java/${finalAttrs.jarfilename}"
 
     runHook postInstall
   '';
@@ -42,4 +42,4 @@ stdenv.mkDerivation rec {
       cpcloud
     ];
   };
-}
+})

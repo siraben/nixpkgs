@@ -23,12 +23,12 @@ let
   };
 in
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   version = "3.2.2";
   pname = "fpc";
 
   src = fetchurl {
-    url = "mirror://sourceforge/freepascal/fpcbuild-${version}.tar.gz";
+    url = "mirror://sourceforge/freepascal/fpcbuild-${finalAttrs.version}.tar.gz";
     sha256 = "85ef993043bb83f999e2212f1bca766eb71f6f973d362e2290475dbaaf50161f";
   };
 
@@ -53,8 +53,8 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     # substitute the markers set by the mark-paths patch
-    substituteInPlace fpcsrc/compiler/systems/t_linux.pas --subst-var-by dynlinker-prefix "${glibc}"
-    substituteInPlace fpcsrc/compiler/systems/t_linux.pas --subst-var-by syslibpath "${glibc}/lib"
+    substituteInPlace fpcsrc/compiler/systems/t_linux.pas --subst-var-by dynlinker-prefix "${finalAttrs.glibc}"
+    substituteInPlace fpcsrc/compiler/systems/t_linux.pas --subst-var-by syslibpath "${finalAttrs.glibc}/lib"
 
     substituteInPlace fpcsrc/compiler/systems/t_darwin.pas \
       --replace-fail "LibrarySearchPath.AddLibraryPath(sysrootpath,'=/usr/lib',true)" "LibrarySearchPath.AddLibraryPath(sysrootpath,'$SDKROOT/usr/lib',true)"
@@ -87,12 +87,12 @@ stdenv.mkDerivation rec {
       ln -fs $i $out/bin/$(basename $i)
     done
     mkdir -p $out/lib/fpc/etc/
-    $out/lib/fpc/*/samplecfg $out/lib/fpc/${version} $out/lib/fpc/etc/
+    $out/lib/fpc/*/samplecfg $out/lib/fpc/${finalAttrs.version} $out/lib/fpc/etc/
 
     # Generate config files in /etc since on darwin, ppc* does not follow symlinks
     # to resolve the location of /etc
     mkdir -p $out/etc
-    $out/lib/fpc/*/samplecfg $out/lib/fpc/${version} $out/etc
+    $out/lib/fpc/*/samplecfg $out/lib/fpc/${finalAttrs.version} $out/etc
   '';
 
   passthru = {
@@ -113,4 +113,4 @@ stdenv.mkDerivation rec {
     # * <https://gitlab.com/freepascal.org/fpc/source/-/merge_requests/887>
     broken = stdenv.cc.isClang && stdenv.hostPlatform.isx86_64;
   };
-}
+})

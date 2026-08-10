@@ -14,7 +14,7 @@
   libglvnd,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ysfx";
   version = "0-unstable-2026-03-13";
 
@@ -44,9 +44,9 @@ stdenv.mkDerivation rec {
 
   prePatch = ''
     rmdir thirdparty/dr_libs
-    ln -s ${dr_libs} thirdparty/dr_libs
+    ln -s ${finalAttrs.dr_libs} thirdparty/dr_libs
     rmdir thirdparty/clap-juce-extensions
-    ln -s ${clap-juce-extensions} thirdparty/clap-juce-extensions
+    ln -s ${finalAttrs.clap-juce-extensions} thirdparty/clap-juce-extensions
   '';
 
   nativeBuildInputs = [
@@ -87,4 +87,4 @@ stdenv.mkDerivation rec {
     maintainers = [ lib.maintainers.bitbloxhub ];
     platforms = lib.platforms.linux;
   };
-}
+})

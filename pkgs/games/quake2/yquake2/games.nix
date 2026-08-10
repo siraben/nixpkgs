@@ -30,7 +30,7 @@ let
 
   toDrv =
     title: data:
-    stdenv.mkDerivation rec {
+    stdenv.mkDerivation (finalAttrs: {
       inherit (data)
         id
         version
@@ -39,13 +39,13 @@ let
         ;
       inherit title;
 
-      pname = "yquake2-${title}";
+      pname = "yquake2-${finalAttrs.title}";
 
       src = fetchFromGitHub {
-        inherit sha256;
+        inherit (finalAttrs) sha256;
         owner = "yquake2";
         repo = data.id;
-        rev = "${lib.toUpper id}_${builtins.replaceStrings [ "." ] [ "_" ] version}";
+        rev = "${lib.toUpper finalAttrs.id}_${builtins.replaceStrings [ "." ] [ "_" ] finalAttrs.version}";
       };
 
       env =
@@ -56,8 +56,8 @@ let
 
       installPhase = ''
         runHook preInstall
-        mkdir -p $out/lib/yquake2/${id}
-        cp release/* $out/lib/yquake2/${id}
+        mkdir -p $out/lib/yquake2/${finalAttrs.id}
+        cp release/* $out/lib/yquake2/${finalAttrs.id}
         runHook postInstall
       '';
 
@@ -68,7 +68,7 @@ let
         platforms = lib.platforms.unix;
         maintainers = with lib.maintainers; [ tadfisher ];
       };
-    };
+    });
 
 in
 lib.mapAttrs toDrv games

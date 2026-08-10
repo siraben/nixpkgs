@@ -33,7 +33,7 @@
   wrapGAppsHook3,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "gnome-photos";
   version = "44.0";
 
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-photos/${lib.versions.major version}/gnome-photos-${version}.tar.xz";
+    url = "mirror://gnome/sources/gnome-photos/${lib.versions.major finalAttrs.version}/gnome-photos-${finalAttrs.version}.tar.xz";
     sha256 = "544hA5fTxigJxs1VIdpuzLShHd6lvyr4YypH9Npcgp4=";
   };
 
@@ -109,7 +109,7 @@ stdenv.mkDerivation rec {
 
   passthru = {
     updateScript = gnome.updateScript {
-      packageName = pname;
+      packageName = "gnome-photos";
     };
 
     tests = {
@@ -125,4 +125,4 @@ stdenv.mkDerivation rec {
     teams = [ lib.teams.gnome ];
     platforms = lib.platforms.linux;
   };
-}
+})

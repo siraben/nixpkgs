@@ -7,12 +7,12 @@
   camlp4,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ocaml-config-file";
   version = "1.2";
 
   src = fetchurl {
-    url = "https://forge.ocamlcore.org/frs/download.php/1387/config-file-${version}.tar.gz";
+    url = "https://forge.ocamlcore.org/frs/download.php/1387/config-file-${finalAttrs.version}.tar.gz";
     sha256 = "1b02yxcnsjhr05ssh2br2ka4hxsjpdw34ldl3nk33wfnkwk7g67q";
   };
 
@@ -34,4 +34,4 @@ stdenv.mkDerivation rec {
     broken = lib.versionAtLeast ocaml.version "5.0";
     maintainers = with lib.maintainers; [ vbgl ];
   };
-}
+})

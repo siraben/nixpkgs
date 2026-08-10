@@ -5,7 +5,7 @@
   fetchFromGitHub,
   ffmpeg,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "vdr-markad";
   version = "4.2.22";
 
@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     repo = "vdr-plugin-markad";
     owner = "kfb77";
     hash = "sha256-Sp9saT/w3QwLEz9mo4kMUrXMXc5S/DOxm4nN1FPEgtk=";
-    tag = "V${version}";
+    tag = "V${finalAttrs.version}";
   };
 
   buildInputs = [
@@ -37,13 +37,13 @@ stdenv.mkDerivation rec {
     "VDRDIR=${vdr.dev}/lib/pkgconfig"
   ];
 
-  installFlags = buildFlags;
+  installFlags = finalAttrs.buildFlags;
 
   meta = {
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     description = "Plugin for VDR that marks advertisements";
     mainProgram = "markad";
     maintainers = [ lib.maintainers.ck3d ];
     inherit (vdr.meta) platforms license;
   };
-}
+})

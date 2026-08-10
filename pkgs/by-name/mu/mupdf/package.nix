@@ -61,12 +61,12 @@ let
     '';
   });
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   version = "1.27.2";
   pname = "mupdf";
 
   src = fetchurl {
-    url = "https://mupdf.com/downloads/archive/${pname}-${version}-source.tar.gz";
+    url = "https://mupdf.com/downloads/archive/mupdf-${finalAttrs.version}-source.tar.gz";
     hash = "sha256-VThnsTUwPcTCWrZ8XyNNjpAKDjbmboSE2ZrcBf4ehzc=";
   };
 
@@ -174,11 +174,11 @@ stdenv.mkDerivation rec {
 
   desktopItems = lib.optionals (enableGL || enableX11) [
     (makeDesktopItem {
-      name = pname;
-      desktopName = pname;
-      comment = meta.description;
+      name = "mupdf";
+      desktopName = "mupdf";
+      comment = finalAttrs.meta.description;
       icon = "mupdf";
-      exec = "${pname} %f";
+      exec = "mupdf %f";
       terminal = false;
       mimeTypes = [
         "application/epub+zip"
@@ -216,7 +216,7 @@ stdenv.mkDerivation rec {
 
     Name: mupdf
     Description: Library for rendering PDF documents
-    Version: ${version}
+    Version: ${finalAttrs.version}
     Libs: -L\''${libdir} -lmupdf
     Cflags: -I\''${includedir}
     EOF
@@ -283,10 +283,10 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://mupdf.com";
     description = "Lightweight PDF, XPS, and E-book viewer and toolkit written in portable C";
-    changelog = "https://cgit.ghostscript.com/cgi-bin/cgit.cgi/mupdf.git/plain/CHANGES?h=refs/tags/${version}";
+    changelog = "https://cgit.ghostscript.com/cgi-bin/cgit.cgi/mupdf.git/plain/CHANGES?h=refs/tags/${finalAttrs.version}";
     license = lib.licenses.agpl3Plus;
     maintainers = with lib.maintainers; [ fpletz ];
     platforms = lib.platforms.unix;
     mainProgram = "mupdf";
   };
-}
+})

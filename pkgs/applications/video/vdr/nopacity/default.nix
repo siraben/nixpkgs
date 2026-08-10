@@ -5,7 +5,7 @@
   vdr,
   graphicsmagick,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "vdr-skin-nopacity";
   version = "1.1.20";
 
@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     repo = "SkinNopacity";
     owner = "kamel5";
     hash = "sha256-50oCb9xixPQEwv3Ni1UUmmWVzky/MTvZaqSUczhsHWc=";
-    tag = version;
+    tag = finalAttrs.version;
   };
 
   buildInputs = [
@@ -24,10 +24,10 @@ stdenv.mkDerivation rec {
   installFlags = [ "DESTDIR=$(out)" ];
 
   meta = {
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     description = "Highly customizable native true color skin for the Video Disc Recorder";
     maintainers = [ lib.maintainers.ck3d ];
     license = lib.licenses.gpl2;
     inherit (vdr.meta) platforms;
   };
-}
+})

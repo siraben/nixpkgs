@@ -7,14 +7,14 @@
   chez-mit,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "chez-scmutils";
   version = "0.2";
 
   src = fetchFromGitHub {
     owner = "fedeinthemix";
     repo = "chez-scmutils";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "sha256-y2ug7GfmkJC6jddgB8YllsumjmGxFJxTGTpPf1Vcs/s=";
   };
 
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
   makeFlags = [
     "CHEZ=${lib.getExe chez}"
     "PREFIX=$(out)"
-    "CHEZSCHEMELIBDIRS=${chez-srfi}/${lib-path}:${chez-mit}/${lib-path}"
+    "CHEZSCHEMELIBDIRS=${chez-srfi}/${finalAttrs.lib-path}:${chez-mit}/${finalAttrs.lib-path}"
   ];
 
   doCheck = false;
@@ -41,4 +41,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl3;
   };
 
-}
+})

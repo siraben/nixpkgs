@@ -11,7 +11,7 @@
   zip,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "duckmarines";
   version = "1.0c";
 
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
   desktopItem = makeDesktopItem {
     name = "duckmarines";
     exec = "duckmarines";
-    icon = icon;
+    icon = finalAttrs.icon;
     comment = "Duck-themed action puzzle video game";
     desktopName = "Duck Marines";
     genericName = "duckmarines";
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "SimonLarsen";
     repo = "duckmarines";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-0WzqYbK18IL8VY7NsVONwJCI5+me5SPulfkkLCifLvY=";
   };
 
@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
 
     chmod +x $out/bin/duckmarines
     mkdir -p $out/share/applications
-    ln -s ${desktopItem}/share/applications/* $out/share/applications/
+    ln -s ${finalAttrs.desktopItem}/share/applications/* $out/share/applications/
   '';
 
   meta = {
@@ -94,4 +94,4 @@ stdenv.mkDerivation rec {
     downloadPage = "http://tangramgames.dk/games/duckmarines";
   };
 
-}
+})

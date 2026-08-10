@@ -33,14 +33,14 @@ let
     hash = "sha256-Xd8bX3z9PZWU17N9R95HXdj6qo9at5FBL/+PTVaJgkw=";
   };
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "emilua-tdlib";
   version = "1.0.4";
 
   src = fetchFromGitLab {
     owner = "emilua";
     repo = "tdlib";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-dqbSECQLM664l2QrkEAfT65/NBI0ghj286dt7eaxcks=";
     fetchSubmodules = true;
   };
@@ -86,4 +86,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ manipuladordedados ];
     platforms = lib.platforms.linux;
   };
-}
+})

@@ -7,7 +7,7 @@
   buildNativeImage ? true,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "dapl" + lib.optionalString buildNativeImage "-native";
   version = "0.2.0+date=2021-10-16";
 
@@ -55,11 +55,11 @@ stdenv.mkDerivation rec {
       ''
     else
       ''
-        mkdir -p $out/share/${pname}
-        mv APL.jar $out/share/${pname}/
+        mkdir -p $out/share/${finalAttrs.pname}
+        mv APL.jar $out/share/${finalAttrs.pname}/
 
         makeWrapper "${lib.getBin jdk}/bin/java" "$out/bin/dapl" \
-          --add-flags "-jar $out/share/${pname}/APL.jar"
+          --add-flags "-jar $out/share/${finalAttrs.pname}/APL.jar"
       ''
   )
   + ''
@@ -77,6 +77,6 @@ stdenv.mkDerivation rec {
     inherit (jdk.meta) platforms;
     broken = stdenv.hostPlatform.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/dapl-native.x86_64-darwin
   };
-}
+})
 # TODO: Processing app
 # TODO: minimalistic JDK

@@ -34,16 +34,16 @@ let
       throw "Unsupported platform ${stdenv.hostPlatform.system}";
 in
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "unigine-valley";
   inherit version;
 
   src = fetchurl {
-    url = "https://assets.unigine.com/d/Unigine_Valley-${version}.run";
+    url = "https://assets.unigine.com/d/Unigine_Valley-${finalAttrs.version}.run";
     hash = "sha256-L7R6nEXQbLTEi76VUoUyhS2LFeTdgdaTaIQVWGn/1+8=";
   };
 
-  sourceRoot = "Unigine_Valley-${version}";
+  sourceRoot = "Unigine_Valley-${finalAttrs.version}";
   instPath = "lib/unigine/valley";
 
   nativeBuildInputs = [
@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
   installPhase = ''
     runHook preInstall
 
-    instdir=$out/${instPath}
+    instdir=$out/${finalAttrs.instPath}
     mkdir -p $out/share/icons/hicolor $out/share/applications $out/bin $instdir/bin
 
     # Install executables and libraries
@@ -129,7 +129,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  stripDebugList = [ "${instPath}/bin" ];
+  stripDebugList = [ "${finalAttrs.instPath}/bin" ];
 
   meta = {
     description = "Unigine Valley GPU benchmarking tool";
@@ -143,4 +143,4 @@ stdenv.mkDerivation rec {
     ];
     mainProgram = "valley";
   };
-}
+})

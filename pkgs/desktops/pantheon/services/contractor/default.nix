@@ -15,14 +15,14 @@
   wrapGAppsHook3,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "contractor";
   version = "0.3.5";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "contractor";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "1sqww7zlzl086pjww3d21ah1g78lfrc9aagrqhmsnnbji9gwb8ab";
   };
 
@@ -56,4 +56,4 @@ stdenv.mkDerivation rec {
     teams = [ lib.teams.pantheon ];
     mainProgram = "contractor";
   };
-}
+})

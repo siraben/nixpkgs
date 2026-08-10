@@ -6,8 +6,8 @@
   kernelModuleMakeFlags,
 }:
 
-stdenv.mkDerivation rec {
-  name = "${pname}-${version}-${kernel.version}";
+stdenv.mkDerivation (finalAttrs: {
+  name = "facetimehd-${finalAttrs.version}-${kernel.version}";
   pname = "facetimehd";
   version = "0.7.0.2";
 
@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "patjak";
     repo = "facetimehd";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-6Z0mOmp+/IXx2pkcan85rvm5grxq+kGNayj9YDChdp4=";
   };
 
@@ -53,4 +53,4 @@ stdenv.mkDerivation rec {
       "x86_64-linux"
     ];
   };
-}
+})

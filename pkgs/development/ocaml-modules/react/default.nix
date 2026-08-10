@@ -8,12 +8,12 @@
   ocamlbuild,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ocaml-react";
   version = "1.2.2";
 
   src = fetchurl {
-    url = "https://erratique.ch/software/react/releases/react-${version}.tbz";
+    url = "https://erratique.ch/software/react/releases/react-${finalAttrs.version}.tbz";
     sha256 = "sha256-xK3TFdbx8VPRFe58qN1gwSZf9NQIwmYSX8tRJP0ij5k=";
   };
 
@@ -37,4 +37,4 @@ stdenv.mkDerivation rec {
       gal_bolle
     ];
   };
-}
+})

@@ -10,11 +10,11 @@
   which,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "tlaps";
   version = "1.4.5";
   src = fetchurl {
-    url = "https://tla.msr-inria.inria.fr/tlaps/dist/${version}/tlaps-${version}.tar.gz";
+    url = "https://tla.msr-inria.inria.fr/tlaps/dist/${finalAttrs.version}/tlaps-${finalAttrs.version}.tar.gz";
     sha256 = "c296998acd14d5b93a8d5be7ee178007ef179957465966576bda26944b1b7fca";
   };
 
@@ -70,4 +70,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ florentc ];
   };
 
-}
+})

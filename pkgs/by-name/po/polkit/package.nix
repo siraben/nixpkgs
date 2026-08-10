@@ -142,7 +142,7 @@ stdenv.mkDerivation (finalAttrs: {
     "-Dpolkitd_user=polkituser" # TODO? <nixos> config.ids.uids.polkituser
     "-Dos_type=redhat" # affects PAM includes and privileged group name (wheel)
     "-Dintrospection=${lib.boolToString withIntrospection}"
-    "-Dtests=${lib.boolToString doCheck}"
+    "-Dtests=${lib.boolToString finalAttrs.doCheck}"
     "-Dgtk_doc=${lib.boolToString withIntrospection}"
     "-Dman=true"
     "-Dsystemdsystemunitdir=${placeholder "out"}/lib/systemd/system"

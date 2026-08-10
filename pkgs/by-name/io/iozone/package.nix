@@ -19,12 +19,14 @@ let
       throw "Platform ${stdenv.hostPlatform.system} not yet supported.";
 in
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "iozone";
   version = "3.507";
 
   src = fetchurl {
-    url = "https://www.iozone.org/src/current/iozone${lib.replaceStrings [ "." ] [ "_" ] version}.tar";
+    url = "https://www.iozone.org/src/current/iozone${
+      lib.replaceStrings [ "." ] [ "_" ] finalAttrs.version
+    }.tar";
     hash = "sha256-HoCHraBW9dgBjuC8dmhtQW/CJR7QMDgFXb0K940eXOM=";
   };
 
@@ -51,7 +53,7 @@ stdenv.mkDerivation rec {
     install src/current/{gnu3d.dem,Generate_Graphs,gengnuplot.sh} $out/libexec/
     ln -s $out/libexec/Generate_Graphs $out/bin/iozone_generate_graphs
     # License copy is mandated by the license, but it's not in the tarball.
-    install ${license} $out/share/doc/Iozone_License.txt
+    install ${finalAttrs.license} $out/share/doc/Iozone_License.txt
   '';
 
   preFixup = ''
@@ -76,4 +78,4 @@ stdenv.mkDerivation rec {
       makefu
     ];
   };
-}
+})

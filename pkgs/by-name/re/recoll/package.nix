@@ -71,12 +71,12 @@ let
   useInotify = if stdenv.hostPlatform.isLinux then "true" else "false";
 in
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "recoll";
   version = "1.43.9";
 
   src = fetchurl {
-    url = "https://www.recoll.org/${pname}-${version}.tar.gz";
+    url = "https://www.recoll.org/recoll-${finalAttrs.version}.tar.gz";
     hash = "sha256-irloDtMO9CBvtI+oEicUOy2myrGskieWoqNk5eapzU8=";
   };
 
@@ -213,4 +213,4 @@ stdenv.mkDerivation rec {
     # `Makefile.am` assumes the ability to run the hostPlatform's python binary at build time
     broken = withPython && (with stdenv; !buildPlatform.canExecute hostPlatform);
   };
-}
+})

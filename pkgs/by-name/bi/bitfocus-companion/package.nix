@@ -39,7 +39,7 @@ let
   };
 in
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "bitfocus-companion";
   version = "4.3.4";
 
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "bitfocus";
     repo = "companion";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-ojSXiWaRKFCjHmAMs/RtzNhgSNUy7RKTZ4CE/wCxEaI=";
   };
 
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     # patch out git calls to generate version strings.
-    substituteInPlace tools/lib.mts --replace-fail "return await fcn()" "return \"v${version}\" as unknown as T"
+    substituteInPlace tools/lib.mts --replace-fail "return await fcn()" "return \"v${finalAttrs.version}\" as unknown as T"
 
     # remove unsupported yarn config options (npmMinimalAgeGate, npmPreapprovedPackages removed in newer yarn)
     # approvedGitRepositories and compressionLevel required by yarn >= 4.14 for lockfile version < 9
@@ -99,7 +99,8 @@ stdenv.mkDerivation rec {
   missingHashes = ./missing-hashes.json;
 
   offlineCache = yarn-berry.fetchYarnBerryDeps {
-    inherit src missingHashes;
+    inherit (finalAttrs) src;
+    inherit (finalAttrs) missingHashes;
     hash = "sha256-XDXxv+LSr9fYhVhwkcvmd56fAL6gY9FK6kiQlXxTWXo=";
   };
 
@@ -177,4 +178,4 @@ stdenv.mkDerivation rec {
     mainProgram = "bitfocus-companion";
     platforms = lib.platforms.linux;
   };
-}
+})

@@ -8,7 +8,7 @@
   libiconv,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
 
   pname = "libdatrie";
   version = "2019-12-20";
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     in
     ''
       sed -i -e "/AC_INIT/,+3d" configure.ac
-      sed -i "5iAC_INIT(${pname},${version},[${reports}])" configure.ac
+      sed -i "5iAC_INIT(libdatrie,${finalAttrs.version},[${reports}])" configure.ac
     '';
 
   postInstall = ''
@@ -56,4 +56,4 @@ stdenv.mkDerivation rec {
     maintainers = [ ];
     pkgConfigModules = [ "datrie-0.2" ];
   };
-}
+})

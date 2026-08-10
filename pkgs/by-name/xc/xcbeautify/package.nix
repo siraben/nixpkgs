@@ -5,12 +5,12 @@
   unzip,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "xcbeautify";
   version = "3.2.1";
 
   src = fetchurl {
-    url = "https://github.com/cpisciotta/xcbeautify/releases/download/${version}/xcbeautify-${version}-${stdenv.hostPlatform.darwinArch}-apple-macosx.zip";
+    url = "https://github.com/cpisciotta/xcbeautify/releases/download/${finalAttrs.version}/xcbeautify-${finalAttrs.version}-${stdenv.hostPlatform.darwinArch}-apple-macosx.zip";
     hash = lib.getAttr stdenv.hostPlatform.darwinArch {
       arm64 = "sha256-7TKXLkG8OqGViPiw9KAgnvcMZjrWC79K2Eot5zNV1jc=";
       x86_64 = "sha256-umXo78Lr6MbxM5Oq64ig/4SSeNlIDuFJav+qPbeBrG4=";
@@ -40,4 +40,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ siddarthkay ];
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
   };
-}
+})

@@ -7,15 +7,15 @@
   opaline,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "afl-persistent";
   version = "1.3";
-  name = "ocaml${ocaml.version}-${pname}-${version}";
+  name = "ocaml${ocaml.version}-afl-persistent-${finalAttrs.version}";
 
   src = fetchFromGitHub {
     owner = "stedolan";
-    repo = "ocaml-${pname}";
-    rev = "v${version}";
+    repo = "ocaml-afl-persistent";
+    rev = "v${finalAttrs.version}";
     sha256 = "06yyds2vcwlfr2nd3gvyrazlijjcrd1abnvkfpkaadgwdw3qam1i";
   };
 
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
 
   buildPhase = "./build.sh";
   installPhase = ''
-    ${opaline}/bin/opaline -prefix $out -libdir $out/lib/ocaml/${ocaml.version}/site-lib/ ${pname}.install
+    ${opaline}/bin/opaline -prefix $out -libdir $out/lib/ocaml/${ocaml.version}/site-lib/ afl-persistent.install
   '';
 
   doCheck = true;
@@ -48,4 +48,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sternenseemann ];
   };
-}
+})

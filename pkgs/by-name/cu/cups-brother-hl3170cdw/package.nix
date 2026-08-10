@@ -16,8 +16,8 @@
   pkgsi686Linux,
 }:
 
-stdenv.mkDerivation rec {
-  pname = "cups-brother-${model}";
+stdenv.mkDerivation (finalAttrs: {
+  pname = "cups-brother-${finalAttrs.model}";
   version = "1.1.4-0";
   lprVersion = "1.1.2-1";
 
@@ -26,12 +26,12 @@ stdenv.mkDerivation rec {
   lprFileNo = "007056";
 
   src = fetchurl {
-    url = "https://download.brother.com/welcome/dlf${cupsFileNo}/${model}_cupswrapper_GPL_source_${version}.tar.gz";
+    url = "https://download.brother.com/welcome/dlf${finalAttrs.cupsFileNo}/${finalAttrs.model}_cupswrapper_GPL_source_${finalAttrs.version}.tar.gz";
     hash = "sha256-E3GSwiMRkuiCIJYkDozoYUPfOqvopPqPPQt1uaMDEAU=";
   };
 
   lprdeb = fetchurl {
-    url = "https://download.brother.com/welcome/dlf${lprFileNo}/${model}lpr-${lprVersion}.i386.deb";
+    url = "https://download.brother.com/welcome/dlf${finalAttrs.lprFileNo}/${finalAttrs.model}lpr-${finalAttrs.lprVersion}.i386.deb";
     hash = "sha256-N1GjQHth5k4qhbfWLInzub9DcNsee4gKc3EW2WIfrko=";
   };
 
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
   ];
 
   preUnpack = ''
-    dpkg-deb -x ${lprdeb} $out
+    dpkg-deb -x ${finalAttrs.lprdeb} $out
   '';
 
   prePatch = ''
@@ -58,19 +58,19 @@ stdenv.mkDerivation rec {
     runHook preInstall
 
     # cups install
-    dir=$out/opt/brother/Printers/${model}
+    dir=$out/opt/brother/Printers/${finalAttrs.model}
 
     # Extract the true brother_lpdwrapper_MODEL filter embedded in cupswrapperMODEL by
     # slicing out the relevant parts for the writing the embedded file, then running that.
     sed -n -e '/tmp_filter=/c\tmp_filter=lpdwrapper'  -e ' 1,/device_model=/p ; /<<!ENDOFWFILTER/,/!ENDOFWFILTER/p ; ' \
-      cupswrapper/cupswrapper${model} > lpdwrapperbuilder
+      cupswrapper/cupswrapper${finalAttrs.model} > lpdwrapperbuilder
     sh lpdwrapperbuilder
     chmod +x lpdwrapper
     mkdir -p $out/lib/cups/filter
-    cp lpdwrapper $out/lib/cups/filter/brother_lpdwrapper_${model}
+    cp lpdwrapper $out/lib/cups/filter/brother_lpdwrapper_${finalAttrs.model}
 
     mkdir -p $out/share/cups/model/Brother
-    cp PPD/brother_${model}_printer_en.ppd $out/share/cups/model/Brother/brother_${model}_printer_en.ppd
+    cp PPD/brother_${finalAttrs.model}_printer_en.ppd $out/share/cups/model/Brother/brother_${finalAttrs.model}_printer_en.ppd
 
     mkdir -p $dir/cupswrapper/
     cp brcupsconfig/brcupsconfpt1 $dir/cupswrapper/
@@ -82,13 +82,13 @@ stdenv.mkDerivation rec {
     # lpr fixup
     interpreter=${pkgsi686Linux.glibc.out}/lib/ld-linux.so.2
 
-    substituteInPlace $dir/lpd/filter${model} \
+    substituteInPlace $dir/lpd/filter${finalAttrs.model} \
       --replace-fail /opt "$out/opt"
     substituteInPlace $dir/inf/setupPrintcapij \
       --replace-fail /opt "$out/opt" \
       --replace-fail printcap.local printcap
 
-    wrapProgram $dir/lpd/filter${model} \
+    wrapProgram $dir/lpd/filter${finalAttrs.model} \
       --prefix PATH ":" ${
         lib.makeBinPath [
           ghostscript
@@ -118,24 +118,24 @@ stdenv.mkDerivation rec {
         ]
       }
 
-    patchelf --set-interpreter "$interpreter" "$dir/lpd/br${model}filter"
-    patchelf --set-interpreter "$interpreter" "$out/usr/bin/brprintconf_${model}"
+    patchelf --set-interpreter "$interpreter" "$dir/lpd/br${finalAttrs.model}filter"
+    patchelf --set-interpreter "$interpreter" "$out/usr/bin/brprintconf_${finalAttrs.model}"
 
-    wrapProgram $dir/lpd/br${model}filter \
+    wrapProgram $dir/lpd/br${finalAttrs.model}filter \
       --set LD_PRELOAD "${pkgsi686Linux.libredirect}/lib/libredirect.so" \
       --set NIX_REDIRECTS "/opt=$out/opt"
 
-    wrapProgram $out/usr/bin/brprintconf_${model} \
+    wrapProgram $out/usr/bin/brprintconf_${finalAttrs.model} \
       --set LD_PRELOAD "${pkgsi686Linux.libredirect}/lib/libredirect.so" \
       --set NIX_REDIRECTS "/opt=$out/opt"
 
     # cups fixup
-    substituteInPlace $out/lib/cups/filter/brother_lpdwrapper_${model} \
-      --replace-fail /opt/brother/Printers/${model} "$dir" \
+    substituteInPlace $out/lib/cups/filter/brother_lpdwrapper_${finalAttrs.model} \
+      --replace-fail /opt/brother/Printers/${finalAttrs.model} "$dir" \
       --replace-fail /usr/bin/psnup "${psutils}/bin/psnup" \
       --replace-fail /usr/share/cups/model/Brother "$out/share/cups/model/Brother"
 
-    wrapProgram $out/lib/cups/filter/brother_lpdwrapper_${model} \
+    wrapProgram $out/lib/cups/filter/brother_lpdwrapper_${finalAttrs.model} \
       --prefix PATH ":" ${
         lib.makeBinPath [
           coreutils
@@ -148,7 +148,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "https://www.brother.com/";
-    description = "Brother ${model} printer driver";
+    description = "Brother ${finalAttrs.model} printer driver";
     sourceProvenance = with lib.sourceTypes; [
       binaryNativeCode
       fromSource
@@ -161,7 +161,7 @@ stdenv.mkDerivation rec {
       "x86_64-linux"
       "i686-linux"
     ];
-    downloadPage = "https://support.brother.com/g/b/downloadlist.aspx?c=us&lang=en&prod=${model}_all&os=128";
+    downloadPage = "https://support.brother.com/g/b/downloadlist.aspx?c=us&lang=en&prod=${finalAttrs.model}_all&os=128";
     maintainers = with lib.maintainers; [ luna_1024 ];
   };
-}
+})

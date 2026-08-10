@@ -9,14 +9,14 @@
   libsecret,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "qtkeychain";
   version = "0.17.0";
 
   src = fetchFromGitHub {
     owner = "frankosterfeld";
     repo = "qtkeychain";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-6Aw+hy3WCTr3iEiZns7aH82nkVSG/KMqEA2LE0XZ7Zo=";
   };
 
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
   installCheckPhase = ''
     runHook preInstallCheck
 
-    grep --quiet -R 'set(PACKAGE_VERSION "${version}"' .
+    grep --quiet -R 'set(PACKAGE_VERSION "${finalAttrs.version}"' .
 
     runHook postInstallCheck
   '';
@@ -54,4 +54,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.bsd3;
     platforms = lib.platforms.unix;
   };
-}
+})

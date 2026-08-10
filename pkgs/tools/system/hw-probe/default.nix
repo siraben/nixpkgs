@@ -58,14 +58,14 @@
   # , pnputils # pnputils (lspnp) isn't currently in nixpkgs and appears to be poorly maintained
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "hw-probe";
   version = "1.6.6";
 
   src = fetchFromGitHub {
     owner = "linuxhw";
-    repo = pname;
-    rev = version;
+    repo = "hw-probe";
+    rev = finalAttrs.version;
     sha256 = "sha256-8dLfk2k7xG2CXMHfMPrpgq43j3ttj5a0bgNPEahl2rQ=";
   };
 
@@ -155,4 +155,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ rehno-lindeque ];
     mainProgram = "hw-probe";
   };
-}
+})

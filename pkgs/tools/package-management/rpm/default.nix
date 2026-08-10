@@ -34,12 +34,12 @@
   disableUnshare ? true,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "rpm";
   version = "4.20.1";
 
   src = fetchurl {
-    url = "https://ftp.osuosl.org/pub/rpm/releases/rpm-${lib.versions.majorMinor version}.x/rpm-${version}.tar.bz2";
+    url = "https://ftp.osuosl.org/pub/rpm/releases/rpm-${lib.versions.majorMinor finalAttrs.version}.x/rpm-${finalAttrs.version}.tar.bz2";
     hash = "sha256-UmR+EmODZFM6tnHLyOSFyW+fCIidk/4O0QSmYyZhEk8=";
   };
 
@@ -139,4 +139,4 @@ stdenv.mkDerivation rec {
     maintainers = [ ];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
-}
+})

@@ -19,13 +19,13 @@
   udev,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "tk-safe";
   version = "26.2.6";
   revision = "29";
 
   src = fetchurl {
-    url = "https://api.snapcraft.io/api/v1/snaps/download/rLNeIGEaag0TKFQLO0TxF3ARXg3rcTNx_${revision}.snap";
+    url = "https://api.snapcraft.io/api/v1/snaps/download/rLNeIGEaag0TKFQLO0TxF3ARXg3rcTNx_${finalAttrs.revision}.snap";
     hash = "sha512-XvVXLmzopmzyIavLHcOItIe+wI9ACDTe/YOBYN7z8kAwA8Wlwf3Sz9eFQ2NZ6t25Am022uTI1WP8yi3Lt5fa7g==";
   };
 
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
       icon = "tk-safe";
       exec = "tk-safe";
       desktopName = "TK-Safe";
-      comment = meta.description;
+      comment = finalAttrs.meta.description;
       genericName = "Eletronic medical record (ePA)";
       categories = [ "Utility" ];
     })
@@ -123,4 +123,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ felschr ];
     mainProgram = "tk-safe";
   };
-}
+})

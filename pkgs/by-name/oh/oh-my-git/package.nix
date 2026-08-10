@@ -26,14 +26,14 @@
   udev, # for libudev
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "oh-my-git";
   version = "0.6.5";
 
   src = fetchFromGitHub {
     owner = "git-learning-game";
     repo = "oh-my-git";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-XqxliMVU55D5JSt7Yo5btvZnnTlagSukyhXv6Akgklo=";
   };
 
@@ -110,7 +110,7 @@ stdenv.mkDerivation rec {
     interpreter=$(cat $NIX_CC/nix-support/dynamic-linker)
     patchelf \
       --set-interpreter $interpreter \
-      --set-rpath ${lib.makeLibraryPath buildInputs} \
+      --set-rpath ${lib.makeLibraryPath finalAttrs.buildInputs} \
       $out/share/oh-my-git/oh-my-git
 
     mkdir -p $out/share/pixmaps
@@ -133,4 +133,4 @@ stdenv.mkDerivation rec {
     platforms = [ "x86_64-linux" ];
     maintainers = with lib.maintainers; [ jojosch ];
   };
-}
+})

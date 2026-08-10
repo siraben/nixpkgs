@@ -6,7 +6,7 @@
   kernelModuleMakeFlags,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ch9344";
   version = "2.3";
 
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     ./fix-linux-6-16-build.patch
   ];
 
-  sourceRoot = "${src.name}/driver";
+  sourceRoot = "${finalAttrs.src.name}/driver";
   hardeningDisable = [ "pic" ];
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
@@ -52,4 +52,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ RadxaYuntian ];
   };
-}
+})

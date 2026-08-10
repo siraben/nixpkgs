@@ -9,12 +9,12 @@
   extraLibs ? pkgs: [ ],
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "unityhub";
   version = "3.19.5";
 
   src = fetchurl {
-    url = "https://hub-dist.unity3d.com/artifactory/hub-debian-prod-local/pool/main/u/unity/unityhub_amd64/UnityHubSetup-${version}-amd64.deb";
+    url = "https://hub-dist.unity3d.com/artifactory/hub-debian-prod-local/pool/main/u/unity/unityhub_amd64/UnityHubSetup-${finalAttrs.version}-amd64.deb";
     hash = "sha256-WltXrcnOIJMcQVTFf/3tCPP/onQyhv3xTJ563WshJUA=";
   };
 
@@ -24,8 +24,8 @@ stdenv.mkDerivation rec {
   ];
 
   fhsEnv = buildFHSEnv {
-    pname = "${pname}-fhs-env";
-    inherit version;
+    pname = "unityhub-fhs-env";
+    inherit (finalAttrs) version;
     runScript = "";
 
     targetPkgs =
@@ -130,7 +130,7 @@ stdenv.mkDerivation rec {
 
     # `/opt/unityhub/unityhub` is a shell wrapper that runs `/opt/unityhub/unityhub-bin`
     # which we don't need and overwrite with our own wrapper that uses the fhs env.
-    makeWrapper ${fhsEnv}/bin/${pname}-fhs-env $out/opt/unityhub/unityhub \
+    makeWrapper ${finalAttrs.fhsEnv}/bin/unityhub-fhs-env $out/opt/unityhub/unityhub \
       --add-flags $out/opt/unityhub/unityhub-bin \
       --argv0 unityhub
 
@@ -155,10 +155,10 @@ stdenv.mkDerivation rec {
     description = "Official Unity3D app to download and manage Unity Projects and installations";
     homepage = "https://unity.com/";
     downloadPage = "https://unity.com/unity-hub";
-    changelog = "https://unity.com/unity-hub/release-notes#${version}";
+    changelog = "https://unity.com/unity-hub/release-notes#${finalAttrs.version}";
     license = lib.licenses.unfree;
     maintainers = with lib.maintainers; [ huantian ];
     platforms = [ "x86_64-linux" ];
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
   };
-}
+})

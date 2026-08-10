@@ -8,14 +8,14 @@
   gcc,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "mkcl";
   version = "1.1.11";
 
   src = fetchFromGitHub {
     owner = "jcbeaudoin";
     repo = "mkcl";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "0i2bfkda20lfypis6i4m7srfz6miyf66d8knp693d6sms73m2l26";
   };
 
@@ -77,4 +77,4 @@ stdenv.mkDerivation rec {
     teams = [ lib.teams.lisp ];
     platforms = lib.platforms.linux;
   };
-}
+})

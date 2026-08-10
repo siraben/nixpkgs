@@ -25,7 +25,7 @@
   systemd,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "elementary-files";
   version = "7.3.2";
 
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "files";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-DFW2C9Uoa9RIqP7DoskEK0X0RQxb0nYe85xsgogOaKs=";
   };
 
@@ -79,4 +79,4 @@ stdenv.mkDerivation rec {
     teams = [ lib.teams.pantheon ];
     mainProgram = "io.elementary.files";
   };
-}
+})

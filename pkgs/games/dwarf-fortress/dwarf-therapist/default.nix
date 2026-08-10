@@ -14,7 +14,7 @@
   hash ? dfVersions.therapist.git.outputHash,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "dwarf-therapist";
 
   inherit version;
@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "Dwarf-Therapist";
     repo = "Dwarf-Therapist";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     inherit hash;
   };
 
@@ -65,4 +65,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.x86;
     homepage = "https://github.com/Dwarf-Therapist/Dwarf-Therapist";
   };
-}
+})

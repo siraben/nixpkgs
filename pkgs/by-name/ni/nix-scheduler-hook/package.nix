@@ -32,14 +32,14 @@ let
   };
   nix = nixVersions.nix_2_34;
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "nix-scheduler-hook";
   version = "0.8.0";
 
   src = fetchFromCodeberg {
     owner = "lisanna";
     repo = "nix-scheduler-hook";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-QMenfkNvn6bBGdu+d6i533/CkHNS7Tmr40cgl/ks5dk=";
   };
 
@@ -90,4 +90,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ lisanna-dettwyler ];
     inherit (nix.meta) platforms;
   };
-}
+})

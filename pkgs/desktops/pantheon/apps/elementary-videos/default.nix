@@ -16,14 +16,14 @@
   libgee,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "elementary-videos";
   version = "8.0.2";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "videos";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-lvIsLjsb4HqwXDsH2krBlxmy7kJdadpjDcw+svaWV+Q=";
   };
 
@@ -63,4 +63,4 @@ stdenv.mkDerivation rec {
     teams = [ lib.teams.pantheon ];
     mainProgram = "io.elementary.videos";
   };
-}
+})

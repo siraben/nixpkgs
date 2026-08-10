@@ -8,7 +8,7 @@
   llvmPackages,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "source-highlight";
   version = "3.1.9";
 
@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "mirror://gnu/src-highlite/source-highlight-${version}.tar.gz";
+    url = "mirror://gnu/src-highlite/source-highlight-${finalAttrs.version}.tar.gz";
     sha256 = "148w47k3zswbxvhg83z38ifi85f9dqcpg7icvvw1cm6bg21x4zrs";
   };
 
@@ -96,7 +96,7 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ SuperSandro2000 ];
   };
-}
+})
 // lib.optionalAttrs (stdenv.targetPlatform.useLLVM or false) {
   # Force linking to "libgcc" so tests pass
   NIX_CFLAGS_COMPILE = "-lgcc";

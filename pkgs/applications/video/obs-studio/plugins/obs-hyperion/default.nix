@@ -10,14 +10,14 @@
   flatbuffers,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "obs-hyperion";
   version = "1.0.2";
 
   src = fetchFromGitHub {
     owner = "hyperion-project";
     repo = "hyperion-obs-plugin";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-UAfjafoZhhhHRSo+eUBLhHaCmn2GYFcYyRb9wHIp/9I=";
   };
 
@@ -56,4 +56,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ algram ];
     inherit (obs-studio.meta) platforms;
   };
-}
+})

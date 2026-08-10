@@ -11,14 +11,14 @@
   libpng,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "pdfhummus";
   version = "4.9.0";
 
   src = fetchFromGitHub {
     owner = "galkahana";
     repo = "PDF-Writer";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-CUxgJsY9/KzshrMyRPP2SFwQUtjBThW9qg/IkQkjcwk=";
   };
 
@@ -53,4 +53,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ wineee ];
   };
-}
+})

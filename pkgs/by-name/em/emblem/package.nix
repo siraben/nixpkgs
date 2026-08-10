@@ -16,7 +16,7 @@
   nix-update-script,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "emblem";
   version = "1.6.0";
 
@@ -25,14 +25,16 @@ stdenv.mkDerivation rec {
     group = "World";
     owner = "design";
     repo = "emblem";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-OqP6KLaDix4hR/AA+lfaMu4nZPqpAKfYzZu7tr+RUJI=";
     # Temporary workaround for https://github.com/NixOS/nixpkgs/issues/485701
     forceFetchGit = true;
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
-    inherit pname version src;
+    pname = "emblem";
+    inherit (finalAttrs) version;
+    inherit (finalAttrs) src;
     hash = "sha256-J00zw8jOeMLjGyn2Gj4TA5vHjIWOw+x/XEIXMyBFMdw=";
   };
 
@@ -72,4 +74,4 @@ stdenv.mkDerivation rec {
     maintainers = [ ];
     teams = [ lib.teams.gnome-circle ];
   };
-}
+})

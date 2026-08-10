@@ -24,14 +24,14 @@
   ctags,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "elementary-code";
   version = "8.3.2";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "code";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-qN21zTE++yQi8kQ7gY+FIpkSdHUlsP/aldinZADjh8Y=";
   };
 
@@ -81,4 +81,4 @@ stdenv.mkDerivation rec {
     teams = [ lib.teams.pantheon ];
     mainProgram = "io.elementary.code";
   };
-}
+})

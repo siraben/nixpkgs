@@ -12,12 +12,12 @@
   readline,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "mercury";
   version = "22.01.8";
 
   src = fetchurl {
-    url = "https://dl.mercurylang.org/release/mercury-srcdist-${version}.tar.gz";
+    url = "https://dl.mercurylang.org/release/mercury-srcdist-${finalAttrs.version}.tar.gz";
     sha256 = "sha256-oJfozI7KAVLtlSfByvc+XJyD9q2h0xOiW4D+eQcvutg=";
   };
 
@@ -74,9 +74,9 @@ stdenv.mkDerivation rec {
       trade-offs.
     '';
     homepage = "https://mercurylang.org/";
-    changelog = "https://dl.mercurylang.org/release/release-notes-${version}.html";
+    changelog = "https://dl.mercurylang.org/release/release-notes-${finalAttrs.version}.html";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.all;
     maintainers = with lib.maintainers; [ vieta ];
   };
-}
+})

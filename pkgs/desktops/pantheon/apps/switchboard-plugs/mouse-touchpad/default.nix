@@ -20,14 +20,14 @@
   touchegg,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "switchboard-plug-mouse-touchpad";
   version = "8.1.0";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "settings-mouse-touchpad";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-KfaC1yfsL3GowcjqqwPpYQ6DJIoO7ejl0y3IQ4Gtdj8=";
   };
 
@@ -68,4 +68,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     teams = [ lib.teams.pantheon ];
   };
-}
+})

@@ -63,13 +63,13 @@ let
 
 in
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "saleae-logic";
   version = "1.2.18";
 
   src = fetchurl {
-    name = "saleae-logic-${version}-64bit.zip";
-    url = "https://downloads.saleae.com/logic/${version}/Logic%20${version}%20(64-bit).zip";
+    name = "saleae-logic-${finalAttrs.version}-64bit.zip";
+    url = "https://downloads.saleae.com/logic/${finalAttrs.version}/Logic%20${finalAttrs.version}%20(64-bit).zip";
     sha256 = "0lhair2vsg8sjvzicvfcjfmvy30q7i01xj4z02iqh7pgzpb025h8";
   };
 
@@ -134,4 +134,4 @@ stdenv.mkDerivation rec {
     platforms = lib.intersectLists lib.platforms.x86_64 lib.platforms.linux;
     maintainers = [ lib.maintainers.bjornfor ];
   };
-}
+})

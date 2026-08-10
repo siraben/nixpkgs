@@ -7,14 +7,14 @@
   nix-update-script,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "elixir-ls";
   version = "0.31.1";
 
   src = fetchFromGitHub {
     owner = "elixir-lsp";
     repo = "elixir-ls";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-H7u2rcH0qSiswC6aHdaFdM8IyEpXS74RQrVFuJx35Lo=";
   };
 
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "https://github.com/elixir-lsp/elixir-ls";
-    changelog = "https://github.com/elixir-lsp/elixir-ls/releases/tag/v${version}";
+    changelog = "https://github.com/elixir-lsp/elixir-ls/releases/tag/v${finalAttrs.version}";
     description = ''
       A frontend-independent IDE "smartness" server for Elixir.
       Implements the "Language Server Protocol" standard and provides debugger support via the "Debug Adapter Protocol"
@@ -68,4 +68,4 @@ stdenv.mkDerivation rec {
     teams = [ lib.teams.beam ];
   };
   passthru.updateScript = nix-update-script { };
-}
+})

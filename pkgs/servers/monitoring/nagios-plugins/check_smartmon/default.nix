@@ -6,14 +6,14 @@
   stdenv,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "check-smartmon";
   version = "1.0.1";
 
   src = fetchFromGitHub {
     owner = "driehuis";
     repo = "Nagios_check_smartmon";
-    tag = version;
+    tag = finalAttrs.version;
     sha256 = "tiIeFiHdDgqoeznk9XdCE7owIMnnsQ0fmtj8foFoUD8=";
   };
 
@@ -41,4 +41,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [ mariaa144 ];
   };
-}
+})

@@ -8,14 +8,14 @@
   cryptsetup,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "luksmeta";
   version = "10";
 
   src = fetchFromGitHub {
     owner = "latchset";
     repo = "luksmeta";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-oasodAfUOgq2s0l+MIfCBTMo0ouXy73prVDnjLfMJA8=";
   };
 
@@ -33,4 +33,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ fpletz ];
     license = lib.licenses.lgpl21Plus;
   };
-}
+})

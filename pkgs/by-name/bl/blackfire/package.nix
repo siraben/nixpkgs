@@ -9,12 +9,12 @@
   common-updater-scripts,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "blackfire";
   version = "2026.8.0";
 
   src =
-    passthru.sources.${stdenv.hostPlatform.system}
+    finalAttrs.passthru.sources.${stdenv.hostPlatform.system}
       or (throw "Unsupported platform for blackfire: ${stdenv.hostPlatform.system}");
 
   nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [
@@ -59,19 +59,19 @@ stdenv.mkDerivation rec {
   passthru = {
     sources = {
       "x86_64-linux" = fetchurl {
-        url = "https://packages.blackfire.io/debian/pool/any/main/b/blackfire/blackfire_${version}_amd64.deb";
+        url = "https://packages.blackfire.io/debian/pool/any/main/b/blackfire/blackfire_${finalAttrs.version}_amd64.deb";
         hash = "sha256-9hBHQvR4w7AnJGL5FdzfYyxoAOnoFtsOC8Fd+7A+Y0M=";
       };
       "i686-linux" = fetchurl {
-        url = "https://packages.blackfire.io/debian/pool/any/main/b/blackfire/blackfire_${version}_i386.deb";
+        url = "https://packages.blackfire.io/debian/pool/any/main/b/blackfire/blackfire_${finalAttrs.version}_i386.deb";
         hash = "sha256-HnNgdGVhzX+WIXzgfukPZAKB7jr9PwxOUJ8iMOaMOI8=";
       };
       "aarch64-linux" = fetchurl {
-        url = "https://packages.blackfire.io/debian/pool/any/main/b/blackfire/blackfire_${version}_arm64.deb";
+        url = "https://packages.blackfire.io/debian/pool/any/main/b/blackfire/blackfire_${finalAttrs.version}_arm64.deb";
         hash = "sha256-Q89i59KSA2oN8PEVScmnf56i6MJZgDbpTNW8Eojd8To=";
       };
       "aarch64-darwin" = fetchurl {
-        url = "https://packages.blackfire.io/blackfire/${version}/blackfire-darwin_arm64.pkg.tar.gz";
+        url = "https://packages.blackfire.io/blackfire/${finalAttrs.version}/blackfire-darwin_arm64.pkg.tar.gz";
         hash = "sha256-h3vTwK8/wZLoAsAnFSSiDe6CvZNtPG0TAAt4Vts4GBE=";
       };
     };
@@ -87,12 +87,12 @@ stdenv.mkDerivation rec {
       }"
       NEW_VERSION=$(curl -s https://blackfire.io/api/v1/releases | jq .cli --raw-output)
 
-      if [[ "${version}" = "$NEW_VERSION" ]]; then
+      if [[ "${finalAttrs.version}" = "$NEW_VERSION" ]]; then
           echo "The new version same as the old version."
           exit 0
       fi
 
-      for platform in ${lib.escapeShellArgs meta.platforms}; do
+      for platform in ${lib.escapeShellArgs finalAttrs.meta.platforms}; do
         update-source-version "blackfire" "$NEW_VERSION" --ignore-same-version --source-key="sources.$platform"
       done
     '';
@@ -111,4 +111,4 @@ stdenv.mkDerivation rec {
       "aarch64-darwin"
     ];
   };
-}
+})

@@ -28,7 +28,7 @@ let
   outputDir = "output-${rustcVersion}";
 in
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "mrustc-bootstrap";
   version = "${mrustc.version}_${rustcVersion}";
 
@@ -85,7 +85,7 @@ stdenv.mkDerivation rec {
 
     local flagsArray=(
       PARLEVEL=$NIX_BUILD_CORES
-      ${toString makeFlags}
+      ${toString finalAttrs.makeFlags}
     )
 
     touch ${rustcDir}/dl-version
@@ -137,7 +137,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     description = "Minimal build of Rust";
     longDescription = ''
       A minimal build of Rust, built from source using mrustc.
@@ -154,4 +154,4 @@ stdenv.mkDerivation rec {
     ];
     platforms = [ "x86_64-linux" ];
   };
-}
+})

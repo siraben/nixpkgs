@@ -8,7 +8,7 @@
   testers,
   papertrail,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "papertrail";
   version = (import ./gemset.nix).papertrail.version;
 
@@ -21,11 +21,11 @@ stdenv.mkDerivation rec {
 
   dontUnpack = true;
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ gems ];
+  buildInputs = [ finalAttrs.gems ];
 
   installPhase = ''
     mkdir -p $out/bin
-    makeWrapper ${gems}/bin/papertrail $out/bin/papertrail
+    makeWrapper ${finalAttrs.gems}/bin/papertrail $out/bin/papertrail
   '';
 
   passthru.updateScript = bundlerUpdateScript "papertrail";
@@ -38,4 +38,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ nicknovitski ];
     platforms = ruby.meta.platforms;
   };
-}
+})

@@ -49,12 +49,12 @@ let
   ];
 in
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "libreswan";
   version = "5.3.2";
 
   src = fetchurl {
-    url = "https://download.libreswan.org/libreswan-${version}.tar.gz";
+    url = "https://download.libreswan.org/libreswan-${finalAttrs.version}.tar.gz";
     hash = "sha256-+5GK+gu5K9BDDB2oYe+AaIZNJdchMN8MYweh+dp2EIg=";
   };
 
@@ -141,4 +141,4 @@ stdenv.mkDerivation rec {
     ];
     mainProgram = "ipsec";
   };
-}
+})

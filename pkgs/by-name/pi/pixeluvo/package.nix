@@ -8,12 +8,12 @@
   gtk3-x11,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "pixeluvo";
   version = "1.6.0-2";
 
   src = fetchurl {
-    url = "http://www.pixeluvo.com/downloads/${pname}_${version}_amd64.deb";
+    url = "http://www.pixeluvo.com/downloads/pixeluvo_${finalAttrs.version}_amd64.deb";
     sha256 = "sha256-QYSuD6o3kHg0DrFihYEcf9e3b8U1bu4Zf78+Akmm8yo=";
   };
 
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     stdenv.cc.cc
   ];
 
-  libPath = lib.makeLibraryPath buildInputs;
+  libPath = lib.makeLibraryPath finalAttrs.buildInputs;
 
   dontBuild = true;
   dontConfigure = true;
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
       --replace '/opt/pixeluvo/pixeluvo.png' pixeluvo
 
     makeWrapper $out/opt/pixeluvo/bin/Pixeluvo64 $out/bin/pixeluvo \
-      --prefix LD_LIBRARY_PATH : ${libPath}
+      --prefix LD_LIBRARY_PATH : ${finalAttrs.libPath}
 
     runHook postInstall
   '';
@@ -58,4 +58,4 @@ stdenv.mkDerivation rec {
     maintainers = [ ];
     mainProgram = "pixeluvo";
   };
-}
+})

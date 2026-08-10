@@ -31,7 +31,7 @@ let
         sha256 = "09ng0yal66d533vzfv27k9l2va03rqbqmsni43qi3hgx7w9wx5ii";
       };
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   # https://www.rescuetime.com/updates/linux_release_notes.html
   inherit version;
   pname = "rescuetime";
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
       $out/bin/rescuetime
   '';
 
-  passthru.updateScript = writeScript "${pname}-updater" ''
+  passthru.updateScript = writeScript "rescuetime-updater" ''
     #!${stdenv.shell}
     set -eu -o pipefail
     PATH=${
@@ -73,8 +73,8 @@ stdenv.mkDerivation rec {
     }:$PATH
     latestVersion="$(curl -sS https://www.rescuetime.com/release-notes/linux | pup '.release:first-of-type h2 strong text{}' | tr -d '\n')"
 
-    for platform in ${lib.concatStringsSep " " meta.platforms}; do
-      update-source-version ${pname} "$latestVersion" --system=$platform --ignore-same-version
+    for platform in ${lib.concatStringsSep " " finalAttrs.meta.platforms}; do
+      update-source-version rescuetime "$latestVersion" --system=$platform --ignore-same-version
     done
   '';
 
@@ -89,4 +89,4 @@ stdenv.mkDerivation rec {
       "x86_64-linux"
     ];
   };
-}
+})

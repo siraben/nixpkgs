@@ -5,18 +5,18 @@
   python3,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "elliptic_curves";
   version = "0.8.1";
 
   src = fetchurl {
-    url = "mirror://sageupstream/${pname}/${pname}-${version}.tar.bz2";
+    url = "mirror://sageupstream/elliptic_curves/elliptic_curves-${finalAttrs.version}.tar.bz2";
     sha256 = "0l7xh4abw5sb4d37r0ylr3vwb88fpx2zrvfm5ql0c7yrv5q59fjz";
   };
 
   # Script that creates the sqlite database from the allcurves textfile
   spkg-install = fetchurl {
-    url = "https://raw.githubusercontent.com/sagemath/sage/07d6c37d18811e2b377a9689790a7c5e24da16ba/build/pkgs/${pname}/spkg-install.py";
+    url = "https://raw.githubusercontent.com/sagemath/sage/07d6c37d18811e2b377a9689790a7c5e24da16ba/build/pkgs/elliptic_curves/spkg-install.py";
     sha256 = "116g684i6mvs11fvb6fzfsr4fn903axn31vigdyb8bgpf8l4hvc5";
   };
 
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     export SAGE_SHARE="$out/share"
     export PYTHONPATH=$PWD
 
-    ${python3.interpreter} ${spkg-install}
+    ${python3.interpreter} ${finalAttrs.spkg-install}
   '';
 
   meta = {
@@ -48,4 +48,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.all;
     teams = [ lib.teams.sage ];
   };
-}
+})

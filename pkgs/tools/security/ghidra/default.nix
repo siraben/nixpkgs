@@ -26,12 +26,12 @@ let
   };
 
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ghidra";
   version = "12.1.2";
   versiondate = "20260605";
   src = fetchzip {
-    url = "https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_${version}_build/ghidra_${version}_PUBLIC_${versiondate}.zip";
+    url = "https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_${finalAttrs.version}_build/ghidra_${finalAttrs.version}_PUBLIC_${finalAttrs.versiondate}.zip";
     hash = "sha256-ulIBecjWAnrM8iJmqQZAZRerUCKpIBcXyv6KIB7I/ZA=";
   };
 
@@ -91,4 +91,4 @@ stdenv.mkDerivation rec {
     ];
   };
 
-}
+})

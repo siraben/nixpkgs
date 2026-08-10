@@ -7,18 +7,18 @@
   makeWrapper,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "firrtl";
   version = "1.5.3";
   scalaVersion = "2.13"; # pin, for determinism
 
   deps = stdenv.mkDerivation {
-    pname = "${pname}-deps";
-    inherit version;
+    pname = "firrtl-deps";
+    inherit (finalAttrs) version;
     nativeBuildInputs = [ coursier ];
     buildCommand = ''
       export COURSIER_CACHE=$(pwd)
-      cs fetch edu.berkeley.cs:${pname}_${scalaVersion}:${version} > deps
+      cs fetch edu.berkeley.cs:firrtl_${finalAttrs.scalaVersion}:${finalAttrs.version} > deps
       mkdir -p $out/share/java
       cp $(< deps) $out/share/java
     '';
@@ -30,14 +30,14 @@ stdenv.mkDerivation rec {
     makeWrapper
     setJavaClassPath
   ];
-  buildInputs = [ deps ];
+  buildInputs = [ finalAttrs.deps ];
 
   dontUnpack = true;
 
   installPhase = ''
     runHook preInstall
 
-    makeWrapper ${jre}/bin/java $out/bin/${pname} \
+    makeWrapper ${jre}/bin/java $out/bin/firrtl \
       --add-flags "-cp $CLASSPATH firrtl.stage.FirrtlMain"
 
     runHook postInstall
@@ -68,4 +68,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.asl20;
     maintainers = [ ];
   };
-}
+})

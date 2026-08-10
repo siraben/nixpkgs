@@ -14,12 +14,12 @@
   rimeDataPkgs ? [ rime-data ],
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "fcitx5-rime";
   version = "5.1.14";
 
   src = fetchurl {
-    url = "https://download.fcitx-im.org/fcitx5/${pname}/${pname}-${version}.tar.zst";
+    url = "https://download.fcitx-im.org/fcitx5/fcitx5-rime/fcitx5-rime-${finalAttrs.version}.tar.zst";
     hash = "sha256-dHiBH74dTnzabm23TrDAXV/oHSGMqdyBtrf0uyuwjWI=";
   };
 
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
   };
 
   postInstall = ''
-    cp -r "${rimeDataDrv}/share/rime-data/." $out/share/rime-data/
+    cp -r "${finalAttrs.rimeDataDrv}/share/rime-data/." $out/share/rime-data/
   '';
 
   meta = {
@@ -62,4 +62,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ poscat ];
     platforms = lib.platforms.linux;
   };
-}
+})

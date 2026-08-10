@@ -8,14 +8,14 @@
 let
   dynamic-linker = stdenv.cc.bintools.dynamicLinker;
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "mlton";
   version = "20180207";
 
   src =
     if stdenv.hostPlatform.system == "x86_64-linux" then
       (fetchurl {
-        url = "https://github.com/MLton/mlton/releases/download/on-${version}-release/${pname}-${version}-1.amd64-linux.tgz";
+        url = "https://github.com/MLton/mlton/releases/download/on-${finalAttrs.version}-release/mlton-${finalAttrs.version}-1.amd64-linux.tgz";
         hash = "sha256-jkq9ufPvgcAbmJpmc03KKn9BicVWc6HIu61U58spmDg=";
       })
     else
@@ -46,4 +46,4 @@ stdenv.mkDerivation rec {
   '';
 
   meta = import ./meta.nix { inherit lib; };
-}
+})

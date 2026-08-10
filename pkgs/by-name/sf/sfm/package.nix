@@ -6,20 +6,20 @@
   conf ? null,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "sfm";
   version = "0.4";
 
   src = fetchFromGitHub {
     owner = "afify";
     repo = "sfm";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-VwPux6n+azpR4qDkzZJia95pJJOaFDBBoz6/VwlC0zw=";
   };
 
   configFile = lib.optionalString (conf != null) (writeText "config.def.h" conf);
 
-  postPatch = lib.optionalString (conf != null) "cp ${configFile} config.def.h";
+  postPatch = lib.optionalString (conf != null) "cp ${finalAttrs.configFile} config.def.h";
 
   makeFlags = [ "CC:=$(CC)" ];
 
@@ -33,4 +33,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ sikmir ];
     mainProgram = "sfm";
   };
-}
+})

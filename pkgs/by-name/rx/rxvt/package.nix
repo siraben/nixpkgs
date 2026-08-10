@@ -9,12 +9,12 @@
   libxpm,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "rxvt";
   version = "2.7.10";
 
   src = fetchurl {
-    url = "mirror://sourceforge/rxvt/${pname}-${version}.tar.gz";
+    url = "mirror://sourceforge/rxvt/rxvt-${finalAttrs.version}.tar.gz";
     sha256 = "0jfl71gz3k7zh3kxdb8lxi06kajjnx7bq1rxjgk680l209jxask1";
   };
 
@@ -51,4 +51,4 @@ stdenv.mkDerivation rec {
       "Usage of ANSI escape sequences causes unexpected newline-termination, leading to unexpected command execution (https://www.openwall.com/lists/oss-security/2021/05/17/1)"
     ];
   };
-}
+})

@@ -21,7 +21,7 @@ let
   metaocamlPatch = "153";
 in
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ber-metaocaml";
   version = metaocamlPatch;
 
@@ -39,8 +39,8 @@ stdenv.mkDerivation rec {
     name = "x11env";
     paths = x11deps;
   };
-  x11lib = "${x11env}/lib";
-  x11inc = "${x11env}/include";
+  x11lib = "${finalAttrs.x11env}/lib";
+  x11inc = "${finalAttrs.x11env}/include";
 
   prefixKey = "-prefix ";
   configureFlags = optionals useX11 [ "--enable-flambda" ];
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
 
   postConfigure = ''
     tar -xvzf $metaocaml
-    cd ${pname}-${version}
+    cd ber-metaocaml-${finalAttrs.version}
     make patch
     cd ..
   '';
@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
     make installopt
     mkdir -p $out/include
     ln -sv $out/lib/ocaml/caml $out/include/caml
-    cd ${pname}-${version}
+    cd ber-metaocaml-${finalAttrs.version}
     make all
   '';
 
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
   '';
 
   checkPhase = ''
-    cd ${pname}-${version}
+    cd ber-metaocaml-${finalAttrs.version}
     make test
     make test-compile
     make test-native
@@ -104,4 +104,4 @@ stdenv.mkDerivation rec {
       three basic multi-stage expression forms: Brackets, Escape, and Run.
     '';
   };
-}
+})

@@ -15,12 +15,12 @@
   maintainers,
   license,
 }:
-stdenv.mkDerivation rec {
-  pname = "graylog_${lib.versions.majorMinor version}";
+stdenv.mkDerivation (finalAttrs: {
+  pname = "graylog_${lib.versions.majorMinor finalAttrs.version}";
   inherit version;
 
   src = fetchurl {
-    url = "https://packages.graylog2.org/releases/graylog/graylog-${version}.tgz";
+    url = "https://packages.graylog2.org/releases/graylog/graylog-${finalAttrs.version}.tgz";
     inherit hash;
   };
 
@@ -30,7 +30,9 @@ stdenv.mkDerivation rec {
   makeWrapperArgs = [
     "--set-default"
     "JAVA_HOME"
-    "${if (lib.versionAtLeast version "5.0") then openjdk17_headless else openjdk11_headless}"
+    "${
+      if (lib.versionAtLeast finalAttrs.version "5.0") then openjdk17_headless else openjdk11_headless
+    }"
     "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ systemd ]}"
   ];
 
@@ -40,7 +42,7 @@ stdenv.mkDerivation rec {
     mkdir -p $out
     cp -r {graylog.jar,bin,plugin} $out
   ''
-  + lib.optionalString (lib.versionOlder version "4.3") ''
+  + lib.optionalString (lib.versionOlder finalAttrs.version "4.3") ''
     cp -r lib $out
   ''
   + ''
@@ -56,4 +58,4 @@ stdenv.mkDerivation rec {
     mainProgram = "graylogctl";
     platforms = lib.platforms.unix;
   };
-}
+})

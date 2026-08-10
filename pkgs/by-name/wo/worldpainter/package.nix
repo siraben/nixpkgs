@@ -8,12 +8,12 @@
   copyDesktopItems,
   gnused,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "worldpainter";
   version = "2.27.0";
 
   src = fetchurl {
-    url = "https://www.worldpainter.net/files/worldpainter_${version}.tar.gz";
+    url = "https://www.worldpainter.net/files/worldpainter_${finalAttrs.version}.tar.gz";
     hash = "sha256-UY2KB6IUlv35wEG9PNU5gWvV5L6KsEiUvJEpqWXSBSA=";
   };
 
@@ -51,13 +51,13 @@ stdenv.mkDerivation rec {
 
   desktopItems = [
     (makeDesktopItem {
-      name = pname;
-      desktopName = pname;
-      exec = pname;
-      icon = pname;
+      name = "worldpainter";
+      desktopName = "worldpainter";
+      exec = "worldpainter";
+      icon = "worldpainter";
       terminal = false;
       type = "Application";
-      startupWMClass = pname;
+      startupWMClass = "worldpainter";
       comment = "Paint your own Minecraft worlds";
       categories = [ "Game" ];
     })
@@ -72,4 +72,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     sourceProvenance = [ lib.sourceTypes.binaryBytecode ];
   };
-}
+})

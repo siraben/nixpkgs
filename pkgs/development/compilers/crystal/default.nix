@@ -66,23 +66,23 @@ let
       sha256s,
       rel ? 1,
     }:
-    stdenv.mkDerivation rec {
+    stdenv.mkDerivation (finalAttrs: {
       pname = "crystal-binary";
       inherit version;
 
       src = fetchurl {
-        url = binaryUrl version rel;
+        url = binaryUrl finalAttrs.version rel;
         sha256 = sha256s.${stdenv.system};
       };
 
       buildCommand = ''
         mkdir -p $out
-        tar --strip-components=1 -C $out -xf ${src}
+        tar --strip-components=1 -C $out -xf ${finalAttrs.src}
         patchShebangs $out/bin/crystal
       '';
 
       meta.platforms = lib.attrNames sha256s;
-    };
+    });
 
   generic =
     {

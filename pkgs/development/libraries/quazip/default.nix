@@ -9,14 +9,14 @@
   fixDarwinDylibNames,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "quazip";
   version = "1.5";
 
   src = fetchFromGitHub {
     owner = "stachenov";
     repo = "quazip";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "sha256-AOamvy2UgN8n7EZ8EidWkVzRICzEXMmvZsB18UwxIVo=";
   };
 
@@ -40,4 +40,4 @@ stdenv.mkDerivation rec {
     homepage = "https://stachenov.github.io/quazip/"; # Migrated from http://quazip.sourceforge.net/
     platforms = with lib.platforms; linux ++ darwin;
   };
-}
+})

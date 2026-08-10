@@ -6,13 +6,13 @@
   fetchDebianPatch,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "chntpw";
 
   version = "140201";
 
   src = fetchurl {
-    url = "https://pogostick.net/~pnh/ntpasswd/chntpw-source-${version}.zip";
+    url = "https://pogostick.net/~pnh/ntpasswd/chntpw-source-${finalAttrs.version}.zip";
     sha256 = "1k1cxsj0221dpsqi5yibq2hr7n8xywnicl8yyaicn91y8h2hkqln";
   };
 
@@ -26,9 +26,9 @@ stdenv.mkDerivation rec {
           inherit
             hash
             patch
-            pname
-            version
             ;
+          pname = "chntpw";
+          inherit (finalAttrs) version;
           debianRevision = "1.2";
         };
     in
@@ -89,4 +89,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.unix;
   };
-}
+})

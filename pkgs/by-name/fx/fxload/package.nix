@@ -4,7 +4,7 @@
   libusb1,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "fxload";
   version = libusb1.version;
   dontUnpack = true;
@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
   # fxload binary exist inside the `examples/bin` directory of `libusb1`
   postFixup = ''
     mkdir -p $out/bin
-    ln -s ${passthru.libusb}/examples/bin/fxload $out/bin/fxload
+    ln -s ${finalAttrs.passthru.libusb}/examples/bin/fxload $out/bin/fxload
   '';
 
   passthru.libusb = libusb1.override { withExamples = true; };
@@ -30,4 +30,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ logger ];
   };
-}
+})

@@ -39,15 +39,15 @@ rustPlatform.buildRustPackage rec {
   ];
   cargoTestFlags = cargoBuildFlags;
 
-  dashboard = stdenv.mkDerivation rec {
+  dashboard = stdenv.mkDerivation (finalAttrs: {
     pname = "ratman-dashboard";
     inherit version src;
-    sourceRoot = "${src.name}/ratman/dashboard";
+    sourceRoot = "${finalAttrs.src.name}/ratman/dashboard";
 
     npmDeps = fetchNpmDeps {
-      pname = "npm-deps-${pname}";
-      inherit version;
-      src = "${src}/ratman/dashboard";
+      pname = "npm-deps-ratman-dashboard";
+      inherit (finalAttrs) version;
+      src = "${finalAttrs.src}/ratman/dashboard";
       hash = "sha256-47L4V/Vf8DK3q63MYw3x22+rzIN3UPD0N/REmXh5h3w=";
     };
 
@@ -63,7 +63,7 @@ rustPlatform.buildRustPackage rec {
       mkdir $out
       cp -r dist/* $out/
     '';
-  };
+  });
 
   prePatch = ''
     cp -r ${dashboard} ratman/dashboard/dist

@@ -5,10 +5,10 @@
 
 { version, src, ... }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "fvp";
   inherit version src;
-  inherit (src) passthru;
+  inherit (finalAttrs.src) passthru;
 
   postPatch = ''
     sed -i 's|.*libc++.so.1.*|${mdk-sdk}/lib/libc++.so.1|' ./linux/CMakeLists.txt
@@ -23,4 +23,4 @@ stdenv.mkDerivation rec {
 
     runHook postInstall
   '';
-}
+})

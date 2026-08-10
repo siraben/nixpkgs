@@ -15,14 +15,14 @@
   switchboard,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "switchboard-plug-onlineaccounts";
   version = "8.0.2";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "settings-onlineaccounts";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-0dt4E2g1nX78s2WK2HO6P/fKjXcsR61KJSpulgsZHPI=";
   };
 
@@ -55,4 +55,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     teams = [ lib.teams.pantheon ];
   };
-}
+})

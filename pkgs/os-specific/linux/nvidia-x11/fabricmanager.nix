@@ -17,13 +17,13 @@ let
   ldd = (lib.getBin glibc) + "/bin/ldd";
 in
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "fabricmanager";
   version = fmver;
   src = fetchurl {
     url =
       "https://developer.download.nvidia.com/compute/nvidia-driver/redist/fabricmanager/"
-      + "${sys}/${pname}-${sys}-${fmver}-archive.tar.xz";
+      + "${sys}/fabricmanager-${sys}-${fmver}-archive.tar.xz";
     inherit sha256;
   };
 
@@ -82,4 +82,4 @@ stdenv.mkDerivation rec {
     mainProgram = "nv-fabricmanager";
     maintainers = with lib.maintainers; [ edwtjo ];
   };
-}
+})

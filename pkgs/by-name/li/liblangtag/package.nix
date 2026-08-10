@@ -14,13 +14,13 @@
   unzip,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "liblangtag";
   version = "0.6.8";
 
   # Artifact tarball contains lt-localealias.h needed for darwin
   src = fetchurl {
-    url = "https://gitlab.com/tagoh/liblangtag/-/releases/${version}/downloads/liblangtag-${version}.tar.bz2";
+    url = "https://gitlab.com/tagoh/liblangtag/-/releases/${finalAttrs.version}/downloads/liblangtag-${finalAttrs.version}.tar.bz2";
     hash = "sha256-qWl1t53dj+9tkpXAg/4/GvoaiJilcjXUBpJVreROXPI=";
   };
 
@@ -37,9 +37,9 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     gtkdocize
-    cp "${core_zip}" data/core.zip
+    cp "${finalAttrs.core_zip}" data/core.zip
     touch data/stamp-core-zip
-    cp "${language_subtag_registry}" data/language-subtag-registry
+    cp "${finalAttrs.language_subtag_registry}" data/language-subtag-registry
   '';
 
   configureFlags = [
@@ -66,11 +66,11 @@ stdenv.mkDerivation rec {
   ];
 
   meta = {
-    changelog = "https://gitlab.com/tagoh/liblangtag/-/blob/${version}/NEWS";
+    changelog = "https://gitlab.com/tagoh/liblangtag/-/blob/${finalAttrs.version}/NEWS";
     description = "Interface library to access tags for identifying languages";
     license = lib.licenses.mpl20;
     maintainers = [ lib.maintainers.raskin ];
     platforms = lib.platforms.unix;
     homepage = "https://gitlab.com/tagoh/liblangtag";
   };
-}
+})

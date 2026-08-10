@@ -15,12 +15,12 @@ let
       jdk ? jdk11_headless,
       tests,
     }:
-    stdenv.mkDerivation rec {
+    stdenv.mkDerivation (finalAttrs: {
       pname = "hbase";
       inherit version;
 
       src = fetchurl {
-        url = "mirror://apache/hbase/${version}/hbase-${version}-bin.tar.gz";
+        url = "mirror://apache/hbase/${finalAttrs.version}/hbase-${finalAttrs.version}-bin.tar.gz";
         inherit hash;
       };
 
@@ -42,7 +42,7 @@ let
         maintainers = with lib.maintainers; [ illustris ];
         platforms = lib.platforms.linux;
       };
-    };
+    });
 in
 {
   hbase_2_4 = common {

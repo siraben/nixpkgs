@@ -7,14 +7,14 @@
   ocamlbuild,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ocaml${ocaml.version}-process";
   version = "0.2.1";
 
   src = fetchFromGitHub {
     owner = "dsheets";
     repo = "ocaml-process";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "0m1ldah5r9gcq09d9jh8lhvr77910dygx5m309k1jm60ah9mdcab";
   };
 
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     description = "Easy process control in OCaml";
     license = lib.licenses.isc;
     maintainers = [ lib.maintainers.vbgl ];
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     inherit (ocaml.meta) platforms;
   };
-}
+})

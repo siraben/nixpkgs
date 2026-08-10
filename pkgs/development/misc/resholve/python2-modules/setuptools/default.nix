@@ -14,7 +14,7 @@ let
   version = "44.0.0";
 
   # Create an sdist of setuptools
-  sdist = stdenv.mkDerivation rec {
+  sdist = stdenv.mkDerivation (finalAttrs: {
     name = "${pname}-${version}-sdist.tar.gz";
 
     src = fetchFromGitHub {
@@ -36,14 +36,14 @@ let
       # Here we untar the sdist and retar it in order to control the timestamps
       # of all the files included
       tar -xzf dist/${pname}-${version}.post0.tar.gz -C dist/
-      tar -czf dist/${name} -C dist/ --mtime="@$SOURCE_DATE_EPOCH" ${pname}-${version}.post0
+      tar -czf dist/${finalAttrs.name} -C dist/ --mtime="@$SOURCE_DATE_EPOCH" ${pname}-${version}.post0
     '';
 
     installPhase = ''
       echo "Moving sdist..."
-      mv dist/${name} $out
+      mv dist/${finalAttrs.name} $out
     '';
-  };
+  });
 in
 buildPythonPackage {
   inherit pname version;

@@ -51,7 +51,7 @@ let
     '';
 in
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "libinput";
   version = "1.31.3";
 
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
     domain = "gitlab.freedesktop.org";
     owner = "libinput";
     repo = "libinput";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-2l+YGD1AFTwJRouMg0d3nQX+2me6A4yOB4g2WE2H//g=";
   };
 
@@ -165,10 +165,10 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux ++ lib.platforms.freebsd;
     maintainers = [ ];
     teams = [ lib.teams.freedesktop ];
-    changelog = "https://gitlab.freedesktop.org/libinput/libinput/-/releases/${version}";
+    changelog = "https://gitlab.freedesktop.org/libinput/libinput/-/releases/${finalAttrs.version}";
     badPlatforms = [
       # Mandatory shared library.
       lib.systems.inspect.platformPatterns.isStatic
     ];
   };
-}
+})

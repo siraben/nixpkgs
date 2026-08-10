@@ -10,12 +10,12 @@
   nss,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "pidgin-sipe";
   version = "1.25.0";
 
   src = fetchurl {
-    url = "mirror://sourceforge/sipe/${pname}-${version}.tar.gz";
+    url = "mirror://sourceforge/sipe/pidgin-sipe-${finalAttrs.version}.tar.gz";
     sha256 = "0262sz00iqxylx0xfyr48xikhiqzr8pg7b4b7vwj5iv4qxpxv939";
   };
 
@@ -56,4 +56,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2;
     platforms = lib.platforms.linux;
   };
-}
+})

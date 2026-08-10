@@ -7,14 +7,14 @@
   qtbase,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "obs-shaderfilter";
   version = "2.6.0";
 
   src = fetchFromGitHub {
     owner = "exeldro";
     repo = "obs-shaderfilter";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-QMN2zMhT125sQ2bFAZ5oMcqfYaRo/wwyerCqGKNCszM=";
   };
 
@@ -42,4 +42,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2Plus;
     inherit (obs-studio.meta) platforms;
   };
-}
+})

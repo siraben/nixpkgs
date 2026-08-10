@@ -34,14 +34,14 @@ let
   };
 in
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "gnatcoll-${component}";
   version = "25.0.0";
 
   src = fetchFromGitHub {
     owner = "AdaCore";
     repo = "gnatcoll-bindings";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "0ayc7zvv8w90v0xzhrjk2x88zrsk62xxcm27ya9crlp6affn5idk";
   };
 
@@ -85,4 +85,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.all;
     maintainers = [ lib.maintainers.sternenseemann ];
   };
-}
+})

@@ -61,7 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
   ++ lib.optionals interactive [
     removeReferencesTo
   ]
-  ++ lib.optionals (doCheck && stdenv.hostPlatform.isLinux) [
+  ++ lib.optionals (finalAttrs.doCheck && stdenv.hostPlatform.isLinux) [
     glibcLocales
   ];
 

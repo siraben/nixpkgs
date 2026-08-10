@@ -8,14 +8,14 @@
   gnome-menus,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "gnome-shell-extension-arcmenu";
   version = "69.2";
 
   src = fetchFromGitLab {
     owner = "arcmenu";
     repo = "ArcMenu";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-BdvFeoXwGxFlBH1JqcSDAKMzN+wBEmZdsz+gXWxQF6Y=";
   };
 
@@ -43,4 +43,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ dkabot ];
     homepage = "https://gitlab.com/arcmenu/ArcMenu";
   };
-}
+})

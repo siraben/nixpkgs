@@ -5,14 +5,14 @@
   kernel,
   kernelModuleMakeFlags,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "nullfsvfs";
   version = "0.27";
 
   src = fetchFromGitHub {
     owner = "abbbi";
     repo = "nullfsvfs";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "sha256-BvixSZN9GqFS4llaiKHfkLb21+qG74YtyNb8bUP0jdU=";
   };
 
@@ -45,4 +45,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ callumio ];
   };
-}
+})

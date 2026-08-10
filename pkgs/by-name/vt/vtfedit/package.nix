@@ -13,12 +13,14 @@
 let
   wine = wineWow64Packages.staging;
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "vtfedit";
   version = "1.3.3";
 
   src = fetchzip {
-    url = "https://nemstools.github.io/files/vtfedit${lib.replaceStrings [ "." ] [ "" ] version}.zip";
+    url = "https://nemstools.github.io/files/vtfedit${
+      lib.replaceStrings [ "." ] [ "" ] finalAttrs.version
+    }.zip";
     hash = "sha256-6a8YuxgYm7FB+2pFcZAMtE1db4hqpEk0z5gv2wHl9bI=";
     stripRoot = false;
   };
@@ -48,10 +50,10 @@ stdenv.mkDerivation rec {
 
     substitute ${./vtfedit.bash} $out/bin/vtfedit \
       --replace-fail "@out@" "${placeholder "out"}" \
-      --replace-fail "@path@" "${nativeRuntimeInputs}"
+      --replace-fail "@path@" "${finalAttrs.nativeRuntimeInputs}"
     chmod +x $out/bin/vtfedit
 
-    cp ${icon} $out/share/icons/hicolor/256x256/apps/vtfedit.png
+    cp ${finalAttrs.icon} $out/share/icons/hicolor/256x256/apps/vtfedit.png
     cp -r ${if builtins.elem "i686-linux" wine.meta.platforms then "x86" else "x64"}/* $out/share/lib
     cp ${./mimetype.xml} $out/share/mime/packages/vtfedit.xml
 
@@ -60,13 +62,13 @@ stdenv.mkDerivation rec {
 
   desktopItems = [
     (makeDesktopItem {
-      name = pname;
+      name = "vtfedit";
       desktopName = "VTFEdit";
       exec = "vtfedit %f";
       icon = "vtfedit";
       terminal = false;
       categories = [ "Graphics" ];
-      comment = meta.description;
+      comment = finalAttrs.meta.description;
       mimeTypes = [ "application/x-vtfedit" ];
     })
   ];
@@ -79,4 +81,4 @@ stdenv.mkDerivation rec {
     inherit (wine.meta) platforms;
     maintainers = [ ];
   };
-}
+})

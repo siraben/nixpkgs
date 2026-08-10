@@ -9,7 +9,7 @@
 
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "kerf";
   version = "unstable-2022-08-05";
 
@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-0sU2zOk5I69lQyrn1g0qsae7S/IBT6eA/911qp0GNkk=";
   };
 
-  sourceRoot = "${src.name}/src";
+  sourceRoot = "${finalAttrs.src.name}/src";
   buildInputs = [
     libedit
     zlib
@@ -99,4 +99,4 @@ stdenv.mkDerivation rec {
     # generated?
     broken = (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64);
   };
-}
+})

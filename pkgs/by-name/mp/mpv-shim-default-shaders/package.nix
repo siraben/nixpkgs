@@ -4,20 +4,20 @@
   fetchFromGitHub,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "mpv-shim-default-shaders";
   version = "2.1.0";
 
   src = fetchFromGitHub {
     owner = "iwalton3";
     repo = "default-shader-pack";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "sha256-BM2GvmUoWQUUMH464YIIqu5A1t1B+otbJxAGFbySuq8=";
   };
 
   installPhase = ''
-    mkdir -p $out/share/${pname}
-    cp -r shaders *.json $out/share/${pname}
+    mkdir -p $out/share/mpv-shim-default-shaders
+    cp -r shaders *.json $out/share/mpv-shim-default-shaders
   '';
 
   meta = {
@@ -30,4 +30,4 @@ stdenv.mkDerivation rec {
     ];
     maintainers = with lib.maintainers; [ devusb ];
   };
-}
+})

@@ -49,7 +49,7 @@ let
   ]
   ++ lib.optional withQt (if supportWayland then qt5.qtwayland else qt5.qtbase);
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "zxtune";
   version = "5101";
 
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
   src = fetchFromBitbucket {
     owner = "zxtune";
     repo = "zxtune";
-    rev = "r${version}";
+    rev = "r${finalAttrs.version}";
     hash = "sha256-C+1tmQ8cKGpigWDh5p0mqv9B7/Tv8iJ4JVc835Q4y40=";
   };
 
@@ -109,10 +109,12 @@ stdenv.mkDerivation rec {
       setOptionalSupport = name: var: "support_${name}=" + (if var then "1" else "");
       makeOptsCommon = [
         "-j$NIX_BUILD_CORES"
-        "root.version=${src.rev}"
+        "root.version=${finalAttrs.src.rev}"
         "system.zlib=1"
         "platform=${platformName}"
-        ''includes.dirs.${platformName}="${lib.makeSearchPathOutput "dev" "include" buildInputs}"''
+        ''includes.dirs.${platformName}="${
+          lib.makeSearchPathOutput "dev" "include" finalAttrs.buildInputs
+        }"''
         ''libraries.dirs.${platformName}="${lib.makeLibraryPath staticBuildInputs}"''
         ''ld_flags="-Wl,-rpath=\"${lib.makeLibraryPath dlopenBuildInputs}\""''
         (setOptionalSupport "mp3" withMp3)
@@ -173,7 +175,7 @@ stdenv.mkDerivation rec {
       icon = "zxtune";
       desktopName = "ZXTune";
       genericName = "ZXTune";
-      comment = meta.description;
+      comment = finalAttrs.meta.description;
       categories = [ "Audio" ];
       type = "Application";
     })
@@ -199,4 +201,4 @@ stdenv.mkDerivation rec {
     ];
     mainProgram = if withQt then "zxtune-qt" else "zxtune123";
   };
-}
+})

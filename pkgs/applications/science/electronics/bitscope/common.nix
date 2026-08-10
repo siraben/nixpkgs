@@ -24,10 +24,10 @@ let
     wrapProgram "$out/bin/${binaryName}" \
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath libPaths}"
   '';
-  pkg = stdenv.mkDerivation rec {
+  pkg = stdenv.mkDerivation (finalAttrs: {
     inherit (attrs) version src;
 
-    name = "${toolName}-${version}";
+    name = "${toolName}-${finalAttrs.version}";
 
     meta =
 
@@ -66,9 +66,9 @@ let
       attrs.installPhase or ''
         mkdir -p "$out/bin"
         cp -a usr/* "$out/"
-        ${(wrapBinary libs) attrs.toolName}
+        ${(wrapBinary finalAttrs.libs) attrs.toolName}
       '';
-  };
+  });
 in
 buildFHSEnv {
   pname = attrs.toolName;

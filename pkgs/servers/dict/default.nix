@@ -11,12 +11,12 @@
   nixosTests,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "dictd";
   version = "1.13.3";
 
   src = fetchurl {
-    url = "mirror://sourceforge/dict/dictd-${version}.tar.gz";
+    url = "mirror://sourceforge/dict/dictd-${finalAttrs.version}.tar.gz";
     hash = "sha256-GSEp37OPpyP0ipWGx5xRmPxJBP7BdXF2kXMU3Qc/EXE=";
   };
 
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
   ];
 
   postInstall = ''
-    install -Dm444 -t $out/share/doc/${pname} NEWS README
+    install -Dm444 -t $out/share/doc/dictd NEWS README
   '';
 
   passthru.tests.nixos = nixosTests.dictd;
@@ -57,4 +57,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ sikmir ];
     platforms = lib.platforms.unix;
   };
-}
+})

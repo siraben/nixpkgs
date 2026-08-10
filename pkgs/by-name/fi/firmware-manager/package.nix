@@ -12,19 +12,21 @@
   wrapGAppsHook3,
   xz, # for liblzma
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "firmware-manager";
   version = "0.1.5";
 
   src = fetchFromGitHub {
     owner = "pop-os";
     repo = "firmware-manager";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-Q+LJJ4xK583fAcwuOFykt6GKT0rVJgmTt+zUX4o4Tm4=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
-    inherit pname version src;
+    pname = "firmware-manager";
+    inherit (finalAttrs) version;
+    inherit (finalAttrs) src;
     hash = "sha256-LooE5jU4G1QHYTa/sB95W6VJs7lY7sjHI9scUaZRmq4=";
   };
 
@@ -60,4 +62,4 @@ stdenv.mkDerivation rec {
     maintainers = [ lib.maintainers.shlevy ];
     platforms = lib.platforms.linux;
   };
-}
+})

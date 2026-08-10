@@ -18,14 +18,14 @@
   libxml2,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "wingpanel-indicator-sound";
   version = "8.0.3";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "wingpanel-indicator-sound";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-3naN6qVsAjImFDU4DPR5c/leT8ecGUbbOppmSox4QTk=";
   };
 
@@ -59,4 +59,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     teams = [ lib.teams.pantheon ];
   };
-}
+})

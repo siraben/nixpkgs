@@ -57,7 +57,7 @@ let
     sndio
   ];
 
-  lightworks = stdenv.mkDerivation rec {
+  lightworks = stdenv.mkDerivation (finalAttrs: {
     version = "2025.2";
     rev = "56356";
     pname = "lightworks";
@@ -65,11 +65,11 @@ let
     src =
       if stdenv.hostPlatform.system == "x86_64-linux" then
         fetchurl {
-          url = "https://cdn.lwks.com/releases/${version}/Lightworks-${version}-${rev}.deb";
+          url = "https://cdn.lwks.com/releases/${finalAttrs.version}/Lightworks-${finalAttrs.version}-${finalAttrs.rev}.deb";
           sha256 = "sha256-MQsXl10I85qHiOosBEpdrLPq3iIiFlzumQv2R2sXNn8=";
         }
       else
-        throw "${pname}-${version} is not supported on ${stdenv.hostPlatform.system}";
+        throw "lightworks-${finalAttrs.version} is not supported on ${stdenv.hostPlatform.system}";
 
     nativeBuildInputs = [
       dpkg
@@ -106,7 +106,7 @@ let
     '';
 
     dontPatchELF = true;
-  };
+  });
 
 in
 # Lightworks expects some files in /usr/share/lightworks

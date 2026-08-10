@@ -11,12 +11,12 @@
 let
   inherit ((import ./sources.nix).libchipcard) hash releaseId version;
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "libchipcard";
   inherit version;
 
   src = fetchurl {
-    url = "https://www.aquamaniac.de/rdm/attachments/download/${releaseId}/libchipcard-${version}.tar.gz";
+    url = "https://www.aquamaniac.de/rdm/attachments/download/${releaseId}/libchipcard-${finalAttrs.version}.tar.gz";
     inherit hash;
   };
 
@@ -37,4 +37,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ aszlig ];
     platforms = lib.platforms.linux;
   };
-}
+})

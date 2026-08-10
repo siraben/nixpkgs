@@ -30,14 +30,14 @@
 let
   underscoreVersion = lib.replaceStrings [ "." ] [ "_" ] version;
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "nss";
   inherit version;
 
   src = fetchFromGitHub {
     owner = "mozilla";
     repo = "nss";
-    rev = "NSS_${lib.replaceStrings [ "." ] [ "_" ] version}_RTM";
+    rev = "NSS_${lib.replaceStrings [ "." ] [ "_" ] finalAttrs.version}_RTM";
     inherit hash;
   };
 
@@ -250,10 +250,10 @@ stdenv.mkDerivation rec {
   };
 
   passthru.tests =
-    lib.optionalAttrs (lib.versionOlder version nss_latest.version) {
+    lib.optionalAttrs (lib.versionOlder finalAttrs.version nss_latest.version) {
       inherit (nixosTests) firefox-esr;
     }
-    // lib.optionalAttrs (lib.versionAtLeast version nss_latest.version) {
+    // lib.optionalAttrs (lib.versionAtLeast finalAttrs.version nss_latest.version) {
       inherit (nixosTests) firefox;
     };
 
@@ -268,4 +268,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.mpl20;
     platforms = lib.platforms.all;
   };
-}
+})

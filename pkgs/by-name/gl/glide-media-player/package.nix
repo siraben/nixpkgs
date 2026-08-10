@@ -16,19 +16,21 @@
   glib-networking,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "glide-media-player";
   version = "0.6.5";
 
   src = fetchFromGitHub {
     owner = "philn";
     repo = "glide";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-gmBXUj6LxC7VDH/ni8neYivysagqcbI/UCUq9Ly3D24=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
-    inherit pname version src;
+    pname = "glide-media-player";
+    inherit (finalAttrs) version;
+    inherit (finalAttrs) src;
     hash = "sha256-5cohhm8/QP+vYzVf8iz3hLtu0ej7lQiHpDAC9I52+ME=";
   };
 
@@ -72,4 +74,4 @@ stdenv.mkDerivation rec {
     # Required gdk4-{wayland,x11} and gstreamer-gl not available on darwin
     platforms = lib.subtractLists lib.platforms.darwin lib.platforms.unix;
   };
-}
+})

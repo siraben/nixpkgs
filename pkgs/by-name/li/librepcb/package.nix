@@ -11,14 +11,14 @@
   rustc,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "librepcb";
   version = "2.1.1";
 
   src = fetchFromGitHub {
     owner = "librepcb";
     repo = "librepcb";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-UcX4r2TxinL2S3tPIiYRsPpYmKzdAx3Al0irkbXf5/g=";
     fetchSubmodules = true;
   };
@@ -36,13 +36,13 @@ stdenv.mkDerivation rec {
   buildInputs = [ qt6.qtbase ];
 
   cargoDeps1 = rustPlatform.fetchCargoVendor {
-    inherit src;
+    inherit (finalAttrs) src;
     cargoRoot = "libs/librepcb/rust-core";
     hash = "sha256-1wHk8ynP3VnkypwY/C7nikfMSF0qU0L+CbBKoVxjlEc=";
   };
 
   cargoDeps2 = rustPlatform.fetchCargoVendor {
-    inherit src;
+    inherit (finalAttrs) src;
     cargoRoot = "libs/slint";
     hash = "sha256-UX/7a0hzFBmPZKufcDKcICrXEM+rKcvqEq2pg1riBxo=";
   };
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     [source.crates-io]
     replace-with = "vendored-sources"
     [source.vendored-sources]
-    directory = "${cargoDeps1}/source-registry-0"
+    directory = "${finalAttrs.cargoDeps1}/source-registry-0"
     EOF
 
     # Set up cargo config for the second Rust library
@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
     [source.crates-io]
     replace-with = "vendored-sources"
     [source.vendored-sources]
-    directory = "${cargoDeps2}/source-registry-0"
+    directory = "${finalAttrs.cargoDeps2}/source-registry-0"
     EOF
   '';
 
@@ -77,4 +77,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
   };
-}
+})

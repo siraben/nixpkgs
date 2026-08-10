@@ -34,14 +34,14 @@ let
 in
 with versionMap.${majorVersion};
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   inherit version;
 
   pname = "scala";
 
   src = fetchurl {
     inherit hash;
-    url = "https://www.scala-lang.org/files/archive/scala-${version}.tgz";
+    url = "https://www.scala-lang.org/files/archive/scala-${finalAttrs.version}.tgz";
   };
 
   propagatedBuildInputs = [ jre ];
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     mv * $out
     # put docs in correct subdirectory
     mkdir -p $out/share/doc
-    mv $out/doc $out/share/doc/${pname}-${version}
+    mv $out/doc $out/share/doc/scala-${finalAttrs.version}
     mv $out/man $out/share/man
     for p in $(ls $out/bin/) ; do
         wrapProgram $out/bin/$p \
@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
 
   doInstallCheck = true;
   installCheckPhase = ''
-    $out/bin/scalac -version 2>&1 | grep '^Scala compiler version ${version}'
+    $out/bin/scalac -version 2>&1 | grep '^Scala compiler version ${finalAttrs.version}'
 
     echo 'println("foo"*3)' | $out/bin/scala 2>/dev/null | grep "foofoofoo"
   '';
@@ -87,13 +87,13 @@ stdenv.mkDerivation rec {
           nix
         ]
       }
-      versionSelect='v${lib.versions.major version}.${lib.versions.minor version}.*'
-      oldVersion="$(nix-instantiate --eval -E "with import ./. {}; lib.getVersion ${pname}" | tr -d '"')"
+      versionSelect='v${lib.versions.major finalAttrs.version}.${lib.versions.minor finalAttrs.version}.*'
+      oldVersion="$(nix-instantiate --eval -E "with import ./. {}; lib.getVersion scala" | tr -d '"')"
       latestTag="$(git -c 'versionsort.suffix=-' ls-remote --exit-code --refs --sort='version:refname' --tags ${repo} "$versionSelect" | tail --lines=1 | cut --delimiter='/' --fields=3 | sed 's|^v||g')"
       if [ "$oldVersion" != "$latestTag" ]; then
-        update-source-version ${pname} "$latestTag" --version-key=version --print-changes
+        update-source-version scala "$latestTag" --version-key=version --print-changes
       else
-        echo "${pname} is already up-to-date"
+        echo "scala is already up-to-date"
       fi
     '';
   };
@@ -111,9 +111,9 @@ stdenv.mkDerivation rec {
     homepage = "https://www.scala-lang.org/";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.all;
-    branch = lib.versions.majorMinor version;
+    branch = lib.versions.majorMinor finalAttrs.version;
     maintainers = with lib.maintainers; [
       kashw2
     ];
   };
-}
+})

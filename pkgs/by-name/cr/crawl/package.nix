@@ -25,21 +25,21 @@
   buildPackages,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "crawl${lib.optionalString tileMode "-tiles"}";
   version = "0.34.1";
 
   src = fetchFromGitHub {
     owner = "crawl";
     repo = "crawl";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-exntfZbGEDBwFA8AHhOoBPIXw/MDrHx5oxrxPDixpCc=";
   };
 
   # Patch hard-coded paths and remove force library builds
   postPatch = ''
     substituteInPlace crawl-ref/source/util/find_font \
-      --replace '/usr/share/fonts /usr/local/share/fonts /usr/*/lib/X11/fonts' '${fontsPath}/share/fonts'
+      --replace '/usr/share/fonts /usr/local/share/fonts /usr/*/lib/X11/fonts' '${finalAttrs.fontsPath}/share/fonts'
     substituteInPlace crawl-ref/source/windowmanager-sdl.cc \
       --replace 'SDL_image.h' 'SDL2/SDL_image.h'
   '';
@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
 
   preBuild = ''
     cd crawl-ref/source
-    echo "${version}" > util/release_ver
+    echo "${finalAttrs.version}" > util/release_ver
     patchShebangs 'util'
     patchShebangs util/gen-mi-enum
     rm -rf contrib
@@ -134,4 +134,4 @@ stdenv.mkDerivation rec {
     ];
     maintainers = [ ];
   };
-}
+})

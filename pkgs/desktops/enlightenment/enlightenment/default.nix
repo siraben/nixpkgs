@@ -25,12 +25,12 @@
   directoryListingUpdater,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "enlightenment";
   version = "0.27.1";
 
   src = fetchurl {
-    url = "https://download.enlightenment.org/rel/apps/${pname}/${pname}-${version}.tar.xz";
+    url = "https://download.enlightenment.org/rel/apps/enlightenment/enlightenment-${finalAttrs.version}.tar.xz";
     sha256 = "sha256-tB34dx9g47lqGXOuVm10JcU6gznxjlTjEjAhh4HaL6k=";
   };
 
@@ -91,4 +91,4 @@ stdenv.mkDerivation rec {
     ];
     teams = [ lib.teams.enlightenment ];
   };
-}
+})

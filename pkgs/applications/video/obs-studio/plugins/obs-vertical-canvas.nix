@@ -8,14 +8,14 @@
   qtbase,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "obs-vertical-canvas";
   version = "1.6.4";
 
   src = fetchFromGitHub {
     owner = "Aitum";
     repo = "obs-vertical-canvas";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-cWiC4e+ZojTuNAaNwuBQ1pPlchdiuTsVhWMHvcyxx2A=";
   };
 
@@ -49,4 +49,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2Plus;
     inherit (obs-studio.meta) platforms;
   };
-}
+})

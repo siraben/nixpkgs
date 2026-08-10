@@ -103,12 +103,12 @@ in
 
 assert lib.all (p: p.enabled -> !(builtins.elem null p.buildInputs)) plugins;
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "weechat";
   version = "4.10.0";
 
   src = fetchurl {
-    url = "https://weechat.org/files/src/weechat-${version}.tar.xz";
+    url = "https://weechat.org/files/src/weechat-${finalAttrs.version}.tar.xz";
     hash = "sha256-w6fnxqVAHd6aRtAmT6RKowMsqYqoZBDEVNPeXGlQXFQ=";
   };
 
@@ -191,7 +191,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "https://weechat.org/";
-    changelog = "https://github.com/weechat/weechat/releases/tag/v${version}";
+    changelog = "https://github.com/weechat/weechat/releases/tag/v${finalAttrs.version}";
     description = "Fast, light and extensible chat client";
     longDescription = ''
       You can find more documentation as to how to customize this package
@@ -203,4 +203,4 @@ stdenv.mkDerivation rec {
     mainProgram = "weechat";
     platforms = lib.platforms.unix;
   };
-}
+})

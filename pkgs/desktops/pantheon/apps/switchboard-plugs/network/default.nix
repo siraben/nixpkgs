@@ -19,14 +19,14 @@
   switchboard,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "switchboard-plug-network";
   version = "8.2.0";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "switchboard-plug-network";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-H43mRPEujs6A4Bk2uC3mP91Hp5I8gojaagoXUT/5eW8=";
   };
 
@@ -67,4 +67,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     teams = [ lib.teams.pantheon ];
   };
-}
+})

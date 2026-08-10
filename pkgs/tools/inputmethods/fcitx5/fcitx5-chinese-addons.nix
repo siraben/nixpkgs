@@ -34,14 +34,14 @@ let
   };
 in
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "fcitx5-chinese-addons";
   version = "5.1.12";
 
   src = fetchFromGitHub {
     owner = "fcitx";
-    repo = pname;
-    rev = version;
+    repo = "fcitx5-chinese-addons";
+    rev = finalAttrs.version;
     hash = "sha256-bAx5m+tU8hT1WdaLChpQV3J0l+QJzDLzMEPTgjEGCuw=";
   };
 
@@ -84,4 +84,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ poscat ];
     platforms = lib.platforms.linux;
   };
-}
+})

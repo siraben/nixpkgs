@@ -6,14 +6,14 @@
   obs-studio,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "obs-scale-to-sound";
   version = "1.2.5";
 
   src = fetchFromGitHub {
     owner = "dimtpap";
     repo = "obs-scale-to-sound";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-El5lwQfc33H9KvjttJyjakzRizjLoGz2MbkiRm4zm8E=";
   };
 
@@ -32,4 +32,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2Plus;
     inherit (obs-studio.meta) platforms;
   };
-}
+})

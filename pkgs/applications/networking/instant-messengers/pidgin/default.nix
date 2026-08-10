@@ -44,12 +44,12 @@
 # FIXME: clean the mess around choosing the SSL library (nss by default)
 
 let
-  unwrapped = stdenv.mkDerivation rec {
+  unwrapped = stdenv.mkDerivation (finalAttrs: {
     pname = "pidgin";
     version = "2.14.14";
 
     src = fetchurl {
-      url = "mirror://sourceforge/pidgin/pidgin-${version}.tar.bz2";
+      url = "mirror://sourceforge/pidgin/pidgin-${finalAttrs.version}.tar.bz2";
       sha256 = "sha256-D/yZlN7xAmD5ilXNEy3u+o3EqYNUUcwOmCdHvUWOI1Y=";
     };
 
@@ -148,7 +148,7 @@ let
         # TODO: python is a script, so it doesn't work as interpreter on darwin
         binsToTest = lib.optionalString stdenv.hostPlatform.isLinux "purple-remote," + "pidgin,finch";
       in
-      lib.optionalString doInstallCheck ''
+      lib.optionalString finalAttrs.doInstallCheck ''
         for f in "''${!outputBin}"/bin/{${binsToTest}}; do
           echo "Testing: $f --help"
           "$f" --help
@@ -156,7 +156,7 @@ let
       '';
 
     passthru = {
-      makePluginPath = lib.makeSearchPathOutput "lib" "lib/purple-${lib.versions.major version}";
+      makePluginPath = lib.makeSearchPathOutput "lib" "lib/purple-${lib.versions.major finalAttrs.version}";
       withPlugins =
         pluginfn:
         callPackage ./wrapper.nix {
@@ -173,7 +173,7 @@ let
       platforms = lib.platforms.unix;
       maintainers = [ ];
     };
-  };
+  });
 
 in
 if plugins == [ ] then unwrapped else unwrapped.withPlugins (_: plugins)

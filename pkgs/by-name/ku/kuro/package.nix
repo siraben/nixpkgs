@@ -13,19 +13,19 @@
   imagemagick,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "kuro";
   version = "9.0.0";
 
   src = fetchFromGitHub {
     owner = "davidsmorais";
     repo = "kuro";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-9Z/r5T5ZI5aBghHmwiJcft/x/wTRzDlbIupujN2RFfU=";
   };
 
   offlineCache = fetchYarnDeps {
-    yarnLock = "${src}/yarn.lock";
+    yarnLock = "${finalAttrs.src}/yarn.lock";
     hash = "sha256-GTiNv7u1QK/wjQgpka7REuoLn2wjZG59kYJQaZZPycI=";
   };
 
@@ -74,14 +74,14 @@ stdenv.mkDerivation rec {
       icon = "kuro";
       desktopName = "Kuro";
       genericName = "Microsoft To-Do Client";
-      comment = meta.description;
+      comment = finalAttrs.meta.description;
       categories = [ "Office" ];
       startupWMClass = "kuro";
     })
   ];
 
   meta = {
-    changelog = "https://github.com/davidsmorais/kuro/releases/tag/${src.rev}";
+    changelog = "https://github.com/davidsmorais/kuro/releases/tag/${finalAttrs.src.rev}";
     description = "Unofficial, featureful, open source, community-driven, free Microsoft To-Do app";
     homepage = "https://github.com/davidsmorais/kuro";
     license = lib.licenses.mit;
@@ -89,4 +89,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ ChaosAttractor ];
     inherit (electron.meta) platforms;
   };
-}
+})

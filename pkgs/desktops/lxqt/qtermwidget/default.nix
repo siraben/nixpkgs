@@ -11,20 +11,20 @@
   version ? "2.4.0",
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "qtermwidget";
   inherit version;
 
   src = fetchFromGitHub {
     owner = "lxqt";
     repo = "qtermwidget";
-    rev = version;
+    rev = finalAttrs.version;
     hash =
       {
         "1.4.0" = "sha256-wYUOqAiBjnupX1ITbFMw7sAk42V37yDz9SrjVhE4FgU=";
         "2.4.0" = "sha256-fTE39goab0md0koS28gRiQgnEumtR5/vTKgpM/wuCrk=";
       }
-      ."${version}";
+      ."${finalAttrs.version}";
   };
 
   nativeBuildInputs = [
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
 
   passthru.updateScript = gitUpdater { };
 
-  postPatch = lib.optionalString (version == "1.4.0") ''
+  postPatch = lib.optionalString (finalAttrs.version == "1.4.0") ''
     substituteInPlace CMakeLists.txt \
       --replace-fail "cmake_minimum_required(VERSION 3.1.0 FATAL_ERROR)" "cmake_minimum_required(VERSION 3.10)"
   '';
@@ -53,4 +53,4 @@ stdenv.mkDerivation rec {
     platforms = with lib.platforms; unix;
     teams = [ lib.teams.lxqt ];
   };
-}
+})

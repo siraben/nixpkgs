@@ -19,12 +19,12 @@
   libxmu,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "gcl";
   version = "2.6.14";
 
   src = fetchurl {
-    url = "mirror://gnu/gcl/gcl-${version}.tar.gz";
+    url = "mirror://gnu/gcl/gcl-${finalAttrs.version}.tar.gz";
     hash = "sha256-CfNBfFEqoXM6Y4gJ06Y6wpDuuUSL6CeV9bZoG9MHNFo=";
   };
 
@@ -58,4 +58,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     broken = true; # 2025-01-21; to check after 2.7.0 is tagged
   };
-}
+})

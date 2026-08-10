@@ -13,12 +13,12 @@ let
     hash = "sha256-tcSZeBkaRo+K6i/tUYjhgQdEAuMhstvWsyVydIevAU4=";
   };
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "v4l-compat";
   version = "5.8";
 
   src = fetchurl {
-    url = "mirror://kernel/linux/kernel/v${lib.versions.major version}.x/linux-${version}.tar.xz";
+    url = "mirror://kernel/linux/kernel/v${lib.versions.major finalAttrs.version}.x/linux-${finalAttrs.version}.tar.xz";
     hash = "sha256-5/dRhqoGQhFK+PGdmVWZNzAMonrK90UbNtT5sPhc8fU=";
   };
   allFiles = [
@@ -61,4 +61,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.freebsd;
     license = lib.licenses.gpl2Only;
   };
-}
+})

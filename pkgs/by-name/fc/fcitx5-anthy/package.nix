@@ -11,12 +11,12 @@
   zstd,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "fcitx5-anthy";
   version = "5.1.10";
 
   src = fetchurl {
-    url = "https://download.fcitx-im.org/fcitx5/fcitx5-anthy/${pname}-${version}.tar.zst";
+    url = "https://download.fcitx-im.org/fcitx5/fcitx5-anthy/fcitx5-anthy-${finalAttrs.version}.tar.zst";
     hash = "sha256-t4ZdPAPvUbd2iQvfUlFlpUTjC+RG4nYuDFPIfpBZB4Y=";
   };
 
@@ -39,4 +39,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ elnudev ];
     platforms = lib.platforms.linux;
   };
-}
+})

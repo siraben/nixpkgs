@@ -14,12 +14,12 @@
   gpr2kbdir ? null,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "gpr2";
   version = "25.0.0";
 
   src = fetchurl {
-    url = "https://github.com/AdaCore/gpr/releases/download/v${version}/gpr2-with-gprconfig_kb-${lib.versions.majorMinor version}.tgz";
+    url = "https://github.com/AdaCore/gpr/releases/download/v${finalAttrs.version}/gpr2-with-gprconfig_kb-${lib.versions.majorMinor finalAttrs.version}.tgz";
     sha512 = "70fe0fcf541f6d3d90a34cab1638bbc0283dcd765c000406e0cfb73bae1817b30ddfe73f3672247a97c6b6bfc41900bc96a4440ca0c660f9c2f7b9d3cc8f8dcf";
   };
 
@@ -69,4 +69,4 @@ stdenv.mkDerivation rec {
     # TODO(@sternenseemann): investigate failure with gnat 13
     broken = lib.versionOlder gnat.version "14";
   };
-}
+})

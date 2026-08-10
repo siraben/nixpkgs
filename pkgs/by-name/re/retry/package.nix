@@ -7,14 +7,14 @@
   which,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "retry";
   version = "1.0.6";
 
   src = fetchFromGitHub {
     owner = "minfrin";
     repo = "retry";
-    rev = "${pname}-${version}";
+    rev = "retry-${finalAttrs.version}";
     hash = "sha256-26sSjz4UE7TVP66foVhDFTNNzdh/6OY6CaFS/544RQU=";
   };
 
@@ -32,4 +32,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.all;
     mainProgram = "retry";
   };
-}
+})

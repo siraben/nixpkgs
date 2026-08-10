@@ -16,14 +16,14 @@
   libxml2,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "wingpanel-indicator-bluetooth";
   version = "8.0.0";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "wingpanel-indicator-bluetooth";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-N0ehiK8sYAZ/3Lu2u7dut7ZflroFptALFCxjbI0++BA=";
   };
 
@@ -57,4 +57,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     teams = [ lib.teams.pantheon ];
   };
-}
+})

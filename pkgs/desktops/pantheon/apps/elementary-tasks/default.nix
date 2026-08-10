@@ -21,14 +21,14 @@
   libportal-gtk3,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "elementary-tasks";
   version = "6.3.3";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "tasks";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-xOMS4Zwfl7TLHvm8Zn6wQ4ZoMg+Yuci+cTpUVG+liss=";
   };
 
@@ -66,4 +66,4 @@ stdenv.mkDerivation rec {
     teams = [ lib.teams.pantheon ];
     mainProgram = "io.elementary.tasks";
   };
-}
+})

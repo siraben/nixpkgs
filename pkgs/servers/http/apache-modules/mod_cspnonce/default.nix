@@ -5,14 +5,14 @@
   apacheHttpd,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "mod_cspnonce";
   version = "1.4";
 
   src = fetchFromGitHub {
     owner = "wyattoday";
     repo = "mod_cspnonce";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-uUWRKUjS2LvHgT5xrK+LZLQRHc6wMaxGca2OsVxVlRs=";
   };
 
@@ -36,4 +36,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ dasj19 ];
   };
-}
+})

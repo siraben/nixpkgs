@@ -27,14 +27,14 @@ let
   };
 
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "openloco";
   version = "26.04";
 
   src = fetchFromGitHub {
     owner = "OpenLoco";
     repo = "OpenLoco";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-tOvqDJfF6iG05EatUdWGp4wv8UDXdDs1frQ9FMF5myU=";
   };
 
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     # and commit hash from git; since we are not using a git checkout,
     # we patch it manually
     sed -i '/#define OPENLOCO_NAME "OpenLoco"/a\
-    #define OPENLOCO_VERSION_TAG "${version}"\
+    #define OPENLOCO_VERSION_TAG "${finalAttrs.version}"\
     #define OPENLOCO_BRANCH "master"\
     #define OPENLOCO_COMMIT_SHA1_SHORT "b79ace0"'\
       src/Version/include/OpenLoco/Version.hpp
@@ -85,4 +85,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ icewind1991 ];
     mainProgram = "OpenLoco";
   };
-}
+})

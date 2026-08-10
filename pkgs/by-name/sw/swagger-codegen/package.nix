@@ -6,28 +6,28 @@
   makeWrapper,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   version = "2.4.52";
   pname = "swagger-codegen";
 
-  jarfilename = "${pname}-cli-${version}.jar";
+  jarfilename = "swagger-codegen-cli-${finalAttrs.version}.jar";
 
   nativeBuildInputs = [
     makeWrapper
   ];
 
   src = fetchurl {
-    url = "mirror://maven/io/swagger/${pname}-cli/${version}/${jarfilename}";
+    url = "mirror://maven/io/swagger/swagger-codegen-cli/${finalAttrs.version}/${finalAttrs.jarfilename}";
     sha256 = "sha256-8MwqDGP6A2V2B0kGOTVpf66yOGzUCe1bFOO/l+GBrmY=";
   };
 
   dontUnpack = true;
 
   installPhase = ''
-    install -D $src $out/share/java/${jarfilename}
+    install -D $src $out/share/java/${finalAttrs.jarfilename}
 
-    makeWrapper ${jre}/bin/java $out/bin/${pname} \
-      --add-flags "-jar $out/share/java/${jarfilename}"
+    makeWrapper ${jre}/bin/java $out/bin/swagger-codegen \
+      --add-flags "-jar $out/share/java/${finalAttrs.jarfilename}"
   '';
 
   meta = {
@@ -38,4 +38,4 @@ stdenv.mkDerivation rec {
     maintainers = [ lib.maintainers.jraygauthier ];
     mainProgram = "swagger-codegen";
   };
-}
+})

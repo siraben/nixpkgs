@@ -7,7 +7,7 @@
   qtbase,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "nemo-qml-plugin-dbus";
   version = "2.1.24";
 
@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     domain = "git.sailfishos.org";
     owner = "mer-core";
     repo = "nemo-qml-plugin-dbus";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "1ilg929456d3k0xkvxa5r4k7i4kkw9i8kgah5xx1yq0d9wka0l77";
   };
 
@@ -40,4 +40,4 @@ stdenv.mkDerivation rec {
     maintainers = [ lib.maintainers.Thra11 ];
     platforms = lib.platforms.linux;
   };
-}
+})

@@ -6,7 +6,7 @@
   cmake,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ilbc-rfc3951";
   version = "0-unstable-2004-12-03";
 
@@ -20,9 +20,9 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
   unpackPhase = ''
-    mkdir -v ${pname}
-    cd ${pname}
-    ${lib.getExe gawk} -f ${script} $src
+    mkdir -v ilbc-rfc3951
+    cd ilbc-rfc3951
+    ${lib.getExe gawk} -f ${finalAttrs.script} $src
     cp -v ${./CMakeLists.txt} CMakeLists.txt
   '';
 
@@ -35,4 +35,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.unix;
     license = lib.licenses.free;
   };
-}
+})

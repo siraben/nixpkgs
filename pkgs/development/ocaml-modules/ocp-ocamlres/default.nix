@@ -8,13 +8,13 @@
   pprint,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ocaml${ocaml.version}-ocp-ocamlres";
   version = "0.4";
   src = fetchFromGitHub {
     owner = "OCamlPro";
     repo = "ocp-ocamlres";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "0smfwrj8qhzknhzawygxi0vgl2af4vyi652fkma59rzjpvscqrnn";
   };
 
@@ -43,4 +43,4 @@ stdenv.mkDerivation rec {
     inherit (ocaml.meta) platforms;
     broken = lib.versionOlder ocaml.version "4.02";
   };
-}
+})

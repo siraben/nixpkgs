@@ -12,7 +12,7 @@
   makeDesktopItem,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ivan";
   version = "059-unstable-2025-02-20";
 
@@ -50,17 +50,17 @@ stdenv.mkDerivation rec {
 
   # Create "ivan.desktop" file
   ivanDesktop = makeDesktopItem {
-    name = pname;
-    exec = pname;
+    name = "ivan";
+    exec = "ivan";
     icon = "ivan.png";
     desktopName = "IVAN";
-    genericName = pname;
+    genericName = "ivan";
     categories = [
       "Game"
       "AdventureGame"
       "RolePlaying"
     ];
-    comment = meta.description;
+    comment = finalAttrs.meta.description;
   };
 
   # Create appropriate directories. Copy icons and desktop item to these directories.
@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
     cp $src/Graphics/icons/shadowless.iconset/icon_128x128.png $out/share/icons/hicolor/128x128/apps/ivan.png
     cp $src/Graphics/icons/shadowless.iconset/icon_256x256.png $out/share/icons/hicolor/256x256/apps/ivan.png
     cp $src/Graphics/icons/shadowless.iconset/icon_512x512.png $out/share/icons/hicolor/512x512/apps/ivan.png
-    cp ${ivanDesktop}/share/applications/* $out/share/applications
+    cp ${finalAttrs.ivanDesktop}/share/applications/* $out/share/applications
   '';
 
   meta = {
@@ -94,4 +94,4 @@ stdenv.mkDerivation rec {
     maintainers = [ ];
     mainProgram = "ivan";
   };
-}
+})

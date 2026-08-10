@@ -8,7 +8,7 @@
   fftwFloat,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "waveform";
   version = "1.8.1";
 
@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
     owner = "phandasm";
     repo = "waveform";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-Bg1n1yV4JzNFEXFNayNa1exsSZhmRJ0RLHDjLWmqGZE=";
   };
 
@@ -34,9 +34,9 @@ stdenv.mkDerivation rec {
 
   postFixup = ''
     mkdir -p $out/lib $out/share/obs/obs-plugins
-    mv $out/${pname}/bin/64bit $out/lib/obs-plugins
-    mv $out/${pname}/data $out/share/obs/obs-plugins/${pname}
-    rm -rf $out/${pname}
+    mv $out/waveform/bin/64bit $out/lib/obs-plugins
+    mv $out/waveform/data $out/share/obs/obs-plugins/waveform
+    rm -rf $out/waveform
   '';
 
   buildInputs = [
@@ -52,4 +52,4 @@ stdenv.mkDerivation rec {
     # Hard coded x86_64 support
     platforms = [ "x86_64-linux" ];
   };
-}
+})

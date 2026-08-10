@@ -11,13 +11,13 @@
   makeWrapper,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   version = "202507";
   build_nr = "0";
   pname = "mcrl2";
 
   src = fetchurl {
-    url = "https://www.mcrl2.org/download/release/mcrl2-${version}.${build_nr}.tar.gz";
+    url = "https://www.mcrl2.org/download/release/mcrl2-${finalAttrs.version}.${finalAttrs.build_nr}.tar.gz";
     hash = "sha256-Ur7GGXbYvVmrEUq/CTRyuVNLDHKfFrYHJibo0JvYhyM=";
   };
 
@@ -72,4 +72,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ moretea ];
     platforms = lib.platforms.unix;
   };
-}
+})

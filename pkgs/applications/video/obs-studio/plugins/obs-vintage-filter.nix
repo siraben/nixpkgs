@@ -6,14 +6,14 @@
   obs-studio,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "obs-vintage-filter";
   version = "1.0.0";
 
   src = fetchFromGitHub {
     owner = "cg2121";
     repo = "obs-vintage-filter";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-K7AxvwVLe4G+75aY430lygSRB7rMtsGi17pGzdygEac=";
   };
 
@@ -34,4 +34,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2Plus;
     inherit (obs-studio.meta) platforms;
   };
-}
+})

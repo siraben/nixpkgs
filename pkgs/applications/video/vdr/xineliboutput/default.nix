@@ -23,12 +23,12 @@
 let
   makeXinePluginPath = l: lib.concatStringsSep ":" (map (p: "${p}/lib/xine/plugins") l);
 
-  self = stdenv.mkDerivation rec {
+  self = stdenv.mkDerivation (finalAttrs: {
     pname = "vdr-xineliboutput";
     version = "2.3.0";
 
     src = fetchurl {
-      url = "mirror://sourceforge/project/xineliboutput/xineliboutput/${pname}-${version}/${pname}-${version}.tgz";
+      url = "mirror://sourceforge/project/xineliboutput/xineliboutput/vdr-xineliboutput-${finalAttrs.version}/vdr-xineliboutput-${finalAttrs.version}.tgz";
       sha256 = "sha256-GnTaGaIbBufZP2npa9mAbrO1ccMf1RzhbvjrWhKBTjg=";
     };
 
@@ -93,6 +93,6 @@ let
       license = lib.licenses.gpl2;
       inherit (vdr.meta) platforms;
     };
-  };
+  });
 in
 self

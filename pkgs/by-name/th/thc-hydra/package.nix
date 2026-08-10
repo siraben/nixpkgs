@@ -13,14 +13,14 @@
   samba,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "thc-hydra";
   version = "9.7";
 
   src = fetchFromGitHub {
     owner = "vanhauser-thc";
     repo = "thc-hydra";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "sha256-6YNHy9k/NJkZYj0TjciPMOXMq/McGQnmj7HWk6KbgI4=";
   };
 
@@ -28,7 +28,9 @@ stdenv.mkDerivation rec {
     let
       makeDirs =
         output: subDir:
-        lib.concatStringsSep " " (map (path: lib.getOutput output path + "/" + subDir) buildInputs);
+        lib.concatStringsSep " " (
+          map (path: lib.getOutput output path + "/" + subDir) finalAttrs.buildInputs
+        );
     in
     ''
       substituteInPlace configure \
@@ -53,14 +55,14 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  env.DATADIR = "/share/${pname}";
+  env.DATADIR = "/share/thc-hydra";
 
   meta = {
     description = "Very fast network logon cracker which support many different services";
     homepage = "https://github.com/vanhauser-thc/thc-hydra"; # https://www.thc.org/
-    changelog = "https://github.com/vanhauser-thc/thc-hydra/raw/v${version}/CHANGES";
+    changelog = "https://github.com/vanhauser-thc/thc-hydra/raw/v${finalAttrs.version}/CHANGES";
     license = lib.licenses.agpl3Plus;
     maintainers = [ ];
     platforms = lib.platforms.unix;
   };
-}
+})

@@ -11,14 +11,14 @@
   pkgsCross,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "openexr";
   version = "3.4.13";
 
   src = fetchFromGitHub {
     owner = "AcademySoftwareFoundation";
     repo = "openexr";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-uzeppRB8vpTjAuqlpvoTehdGL/ng1rTm7kbYdaQHKUw=";
   };
 
@@ -100,4 +100,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ paperdigits ];
     platforms = lib.platforms.all;
   };
-}
+})

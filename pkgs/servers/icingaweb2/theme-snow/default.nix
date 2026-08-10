@@ -4,14 +4,14 @@
   fetchFromGitHub,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "icingaweb2-theme-snow";
   version = "1.0.0";
 
   src = fetchFromGitHub {
     owner = "Mikesch-mp";
-    repo = pname;
-    rev = "v${version}";
+    repo = "icingaweb2-theme-snow";
+    rev = "v${finalAttrs.version}";
     sha256 = "1c974v85mbsis52y2knwzh33996q8sza7pqrcs6ydx033s0rxjrp";
   };
 
@@ -33,4 +33,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.all;
     maintainers = [ ];
   };
-}
+})

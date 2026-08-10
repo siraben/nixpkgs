@@ -8,12 +8,12 @@
   libfaketime,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "dict-db-wiktionary";
   version = "20240901";
 
   src = fetchurl {
-    url = "https://dumps.wikimedia.org/enwiktionary/${version}/enwiktionary-${version}-pages-articles.xml.bz2";
+    url = "https://dumps.wikimedia.org/enwiktionary/${finalAttrs.version}/enwiktionary-${finalAttrs.version}-pages-articles.xml.bz2";
     sha256 = "f37e899a9091a1b01137c7b0f3d58813edf3039e9e94ae656694c88859bbe756";
   };
 
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     cd $out/share/dictd
 
     source_date=$(date --utc --date=@$SOURCE_DATE_EPOCH "+%F %T")
-    faketime -f "$source_date" ${python3.interpreter} -O ${./wiktionary2dict.py} "${src}"
+    faketime -f "$source_date" ${python3.interpreter} -O ${./wiktionary2dict.py} "${finalAttrs.src}"
     faketime -f "$source_date" dictzip wiktionary-en.dict
     echo en_US.UTF-8 > locale
   '';
@@ -48,4 +48,4 @@ stdenv.mkDerivation rec {
       fdl11Plus
     ];
   };
-}
+})

@@ -24,20 +24,21 @@
   alsa-lib,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ripcord";
   version = "0.4.29";
 
   src =
     let
       appimage = fetchurl {
-        url = "https://cancel.fm/dl/Ripcord-${version}-x86_64.AppImage";
+        url = "https://cancel.fm/dl/Ripcord-${finalAttrs.version}-x86_64.AppImage";
         sha256 = "sha256-4yDLPEBDsPKWtLwdpmSyl3b5XCwLAr2/EVtNRrFmmJk=";
-        name = "${pname}-${version}.AppImage";
+        name = "ripcord-${finalAttrs.version}.AppImage";
       };
     in
     appimageTools.extract {
-      inherit pname version;
+      pname = "ripcord";
+      inherit (finalAttrs) version;
       src = appimage;
     };
 
@@ -71,25 +72,25 @@ stdenv.mkDerivation rec {
     runHook preInstall
 
     mkdir -p $out
-    cp -r ${src}/{qt.conf,translations,twemoji.ripdb} $out
+    cp -r ${finalAttrs.src}/{qt.conf,translations,twemoji.ripdb} $out
 
     for size in 16 32 48 64 72 96 128 192 256 512 1024; do
       mkdir -p $out/share/icons/hicolor/"$size"x"$size"/apps
-      convert -resize "$size"x"$size" ${src}/Ripcord_Icon.png $out/share/icons/hicolor/"$size"x"$size"/apps/ripcord.png
+      convert -resize "$size"x"$size" ${finalAttrs.src}/Ripcord_Icon.png $out/share/icons/hicolor/"$size"x"$size"/apps/ripcord.png
     done
 
     desktop-file-install --dir $out/share/applications \
       --set-key Exec --set-value ripcord \
       --set-key Icon --set-value ripcord \
-      --set-key Comment --set-value "${meta.description}" \
-      ${src}/Ripcord.desktop
+      --set-key Comment --set-value "${finalAttrs.meta.description}" \
+      ${finalAttrs.src}/Ripcord.desktop
     mv $out/share/applications/Ripcord.desktop $out/share/applications/ripcord.desktop
 
-    install -Dm755 ${src}/Ripcord $out/Ripcord
+    install -Dm755 ${finalAttrs.src}/Ripcord $out/Ripcord
     patchelf --replace-needed libsodium.so.18 libsodium.so $out/Ripcord
     makeQtWrapper $out/Ripcord $out/bin/ripcord \
       --chdir "$out" \
-      --set FONTCONFIG_FILE "${fontsConf}" \
+      --set FONTCONFIG_FILE "${finalAttrs.fontsConf}" \
       --prefix LD_LIBRARY_PATH ":" "${libxcursor}/lib" \
       --prefix QT_XKB_CONFIG_ROOT ":" "${xkeyboard-config}/share/X11/xkb" \
       --set RIPCORD_ALLOW_UPDATES 0
@@ -106,4 +107,4 @@ stdenv.mkDerivation rec {
     maintainers = [ ];
     platforms = [ "x86_64-linux" ];
   };
-}
+})

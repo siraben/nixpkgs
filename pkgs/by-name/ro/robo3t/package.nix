@@ -21,25 +21,25 @@
   makeWrapper,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "robo3t";
   version = "1.4.3";
   rev = "48f7dfd";
 
   src = fetchurl {
-    url = "https://github.com/Studio3T/robomongo/releases/download/v${version}/robo3t-${version}-linux-x86_64-${rev}.tar.gz";
+    url = "https://github.com/Studio3T/robomongo/releases/download/v${finalAttrs.version}/robo3t-${finalAttrs.version}-linux-x86_64-${finalAttrs.rev}.tar.gz";
     sha256 = "sha256-pH4q/O3bq45ZZn+s/12iScd0WbfkcLjK4MBdVCMXK00=";
   };
 
   icon = fetchurl {
-    url = "https://github.com/Studio3T/robomongo/raw/${rev}/install/macosx/robomongo.iconset/icon_128x128.png";
+    url = "https://github.com/Studio3T/robomongo/raw/${finalAttrs.rev}/install/macosx/robomongo.iconset/icon_128x128.png";
     sha256 = "sha256-2PkUxBq2ow0wl09k8B6LJJUQ+y4GpnmoAeumKN1u5xg=";
   };
 
   desktopItem = makeDesktopItem {
     name = "robo3t";
     exec = "robo3t";
-    icon = icon;
+    icon = finalAttrs.icon;
     comment = "Query GUI for mongodb";
     desktopName = "Robo3T";
     genericName = "MongoDB management tool";
@@ -84,14 +84,14 @@ stdenv.mkDerivation rec {
     cp $desktopItem/share/applications/* $out/share/applications
 
     mkdir -p $out/share/icons
-    cp ${icon} $out/share/icons/robomongo.png
+    cp ${finalAttrs.icon} $out/share/icons/robomongo.png
 
     patchelf --set-interpreter ${stdenv.cc.libc}/lib/ld-linux-x86-64.so.2 $BASEDIR/bin/robo3t
 
     mkdir $out/bin
 
     makeWrapper $BASEDIR/bin/robo3t $out/bin/robo3t \
-      --suffix LD_LIBRARY_PATH : ${ldLibraryPath} \
+      --suffix LD_LIBRARY_PATH : ${finalAttrs.ldLibraryPath} \
       --suffix QT_XKB_CONFIG_ROOT : ${xkeyboard_config}/share/X11/xkb
 
     runHook postInstall
@@ -106,4 +106,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ eperuffo ];
     mainProgram = "robo3t";
   };
-}
+})

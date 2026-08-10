@@ -7,14 +7,14 @@
   fetchFromGitHub,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "libhwy";
   version = "1.4.0";
 
   src = fetchFromGitHub {
     owner = "google";
     repo = "highway";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-YUYZO9KLffczjwIz3mBBceD6oM1giLCFLDHgDCevdRA=";
   };
 
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
       "-DCMAKE_INSTALL_LIBDIR=lib"
       "-DCMAKE_INSTALL_INCLUDEDIR=include"
     ]
-    ++ lib.optionals doCheck [
+    ++ lib.optionals finalAttrs.doCheck [
       "-DHWY_SYSTEM_GTEST:BOOL=ON"
       "-DGTEST_INCLUDE_DIR=${lib.getDev gtest}/include"
       "-DGTEST_LIBRARY=${lib.getLib gtest}/lib/libgtest${libExt}"
@@ -79,4 +79,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ zhaofengli ];
   };
-}
+})

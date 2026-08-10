@@ -16,7 +16,7 @@
   enableThreading ? true, # Threading can be disabled to increase security https://tls.mbed.org/kb/development/thread-safety-and-multi-threading
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "mbedtls";
   inherit version;
   __structuredAttrs = true;
@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "Mbed-TLS";
     repo = "mbedtls";
-    rev = "${pname}-${version}";
+    rev = "mbedtls-${finalAttrs.version}";
     inherit hash;
     # mbedtls >= 3.6.0 uses git submodules
     fetchSubmodules = true;
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     perl
     python3
   ]
-  ++ lib.optionals (lib.versionAtLeast version "4.0") [
+  ++ lib.optionals (lib.versionAtLeast finalAttrs.version "4.0") [
     python3Packages.jinja2
     python3Packages.jsonschema
   ];
@@ -49,11 +49,11 @@ stdenv.mkDerivation rec {
   hardeningDisable = lib.optional stdenv.cc.isClang "trivialautovarinit";
 
   postConfigure =
-    lib.optionalString (enableThreading && lib.versionOlder version "4.0") ''
+    lib.optionalString (enableThreading && lib.versionOlder finalAttrs.version "4.0") ''
       perl scripts/config.pl set MBEDTLS_THREADING_C    # Threading abstraction layer
       perl scripts/config.pl set MBEDTLS_THREADING_PTHREAD    # POSIX thread wrapper layer for the threading layer.
     ''
-    + lib.optionalString (enableThreading && lib.versionAtLeast version "4.0") ''
+    + lib.optionalString (enableThreading && lib.versionAtLeast finalAttrs.version "4.0") ''
       python scripts/config.py set MBEDTLS_THREADING_C    # Threading abstraction layer
       python scripts/config.py set MBEDTLS_THREADING_PTHREAD    # POSIX thread wrapper layer for the threading layer.
     '';
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DUSE_SHARED_MBEDTLS_LIBRARY=${if stdenv.hostPlatform.isStatic then "off" else "on"}"
   ]
-  ++ lib.optionals (lib.versionOlder version "4.0") [
+  ++ lib.optionals (lib.versionOlder finalAttrs.version "4.0") [
     # Avoid a dependency on jsonschema and jinja2 by not generating source code
     # using python. In releases, these generated files are already present in
     # the repository and do not need to be regenerated. See:
@@ -101,7 +101,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "https://www.trustedfirmware.org/projects/mbed-tls/";
-    changelog = "https://github.com/Mbed-TLS/mbedtls/blob/${pname}-${version}/ChangeLog";
+    changelog = "https://github.com/Mbed-TLS/mbedtls/blob/mbedtls-${finalAttrs.version}/ChangeLog";
     description = "Portable cryptographic and TLS library, formerly known as PolarSSL";
     license = [
       lib.licenses.asl20 # or
@@ -110,4 +110,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.all;
     maintainers = with lib.maintainers; [ raphaelr ];
   };
-}
+})

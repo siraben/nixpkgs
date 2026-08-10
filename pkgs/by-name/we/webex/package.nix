@@ -56,7 +56,7 @@
   libxscrnsaver,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "webex";
   version = "46.8.0.35631";
 
@@ -122,7 +122,7 @@ stdenv.mkDerivation rec {
     wayland
   ];
 
-  libPath = "$out/opt/Webex/lib:$out/opt/Webex/bin:${lib.makeLibraryPath buildInputs}";
+  libPath = "$out/opt/Webex/lib:$out/opt/Webex/bin:${lib.makeLibraryPath finalAttrs.buildInputs}";
 
   unpackPhase = ''
     7z x $src
@@ -138,14 +138,14 @@ stdenv.mkDerivation rec {
   buildPhase = ''
     patchelf \
       --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-      --set-rpath "${libPath}" \
+      --set-rpath "${finalAttrs.libPath}" \
       opt/Webex/bin/CiscoCollabHost \
       opt/Webex/bin/CiscoCollabHostCef \
       opt/Webex/bin/CiscoCollabHostCefWM \
       opt/Webex/bin/WebexFileSelector \
       opt/Webex/bin/pxgsettings
     for each in $(find opt/Webex -type f | grep \\.so); do
-      patchelf --set-rpath "${libPath}" "$each"
+      patchelf --set-rpath "${finalAttrs.libPath}" "$each"
     done
   '';
 
@@ -171,7 +171,7 @@ stdenv.mkDerivation rec {
     version=$(jq -r '.version' <<< "$manifest")
     hash=$(jq -r '.checksum' <<< "$manifest")
 
-    update-source-version ${pname} "$version" "$hash" "$url" --file=./pkgs/by-name/we/webex/package.nix
+    update-source-version webex "$version" "$hash" "$url" --file=./pkgs/by-name/we/webex/package.nix
   '';
 
   meta = {
@@ -182,4 +182,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ uvnikita ];
     platforms = [ "x86_64-linux" ];
   };
-}
+})

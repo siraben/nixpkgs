@@ -20,17 +20,17 @@ let
   system = stdenv.hostPlatform.system;
 
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "brscan5";
   version = "1.3.1-0";
   src =
     {
       "i686-linux" = fetchurl {
-        url = "https://download.brother.com/welcome/dlf104034/${pname}-${version}.i386.deb";
+        url = "https://download.brother.com/welcome/dlf104034/brscan5-${finalAttrs.version}.i386.deb";
         hash = "sha256-BgS64vwsKESJBDz9H2MDwcGiresROSNFP1b+7+zlE5c=";
       };
       "x86_64-linux" = fetchurl {
-        url = "https://download.brother.com/welcome/dlf104033/${pname}-${version}.amd64.deb";
+        url = "https://download.brother.com/welcome/dlf104033/brscan5-${finalAttrs.version}.amd64.deb";
         hash = "sha256-0UMbXMBlyiZI90WG5FWEP2mIZEBsxXd11dtgtyuSDnY=";
       };
     }
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
 
       for file in opt/brother/scanner/brscan5/*.so.* opt/brother/scanner/brscan5/brscan_[cg]netconfig; do
         if ! test -L $file; then
-          patchelf --set-rpath ${lib.makeLibraryPath buildInputs} $file
+          patchelf --set-rpath ${lib.makeLibraryPath finalAttrs.buildInputs} $file
         fi
       done
 
@@ -144,4 +144,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.unfree;
     maintainers = with lib.maintainers; [ mattchrist ];
   };
-}
+})

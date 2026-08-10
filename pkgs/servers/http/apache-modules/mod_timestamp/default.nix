@@ -9,12 +9,12 @@
   stdenv,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "mod_timestamp";
   version = "0.2.3";
 
   src = fetchurl {
-    url = "https://redwax.eu/dist/rs/${pname}-${version}.tar.gz";
+    url = "https://redwax.eu/dist/rs/mod_timestamp-${finalAttrs.version}.tar.gz";
     hash = "sha256-X49gJ1wQtwQT3GOZkluxdMIY2ZRpM9Y7DZln6Ag9DvM=";
   };
 
@@ -50,4 +50,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ dirkx ];
   };
-}
+})

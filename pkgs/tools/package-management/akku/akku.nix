@@ -21,7 +21,7 @@ let
     };
   };
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "akku";
   version = "1.1.0-unstable-2026-07-08";
 
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://akkuscm.org/";
     description = "Language package manager for Scheme";
-    changelog = "https://gitlab.com/akkuscm/akku/-/raw/v${version}/NEWS.md";
+    changelog = "https://gitlab.com/akkuscm/akku/-/raw/v${finalAttrs.version}/NEWS.md";
     platforms = lib.platforms.all;
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [
@@ -67,4 +67,4 @@ stdenv.mkDerivation rec {
     ];
     mainProgram = "akku";
   };
-}
+})

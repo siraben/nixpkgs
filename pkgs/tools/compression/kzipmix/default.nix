@@ -4,12 +4,12 @@
   fetchurl,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "kzipmix";
   version = "20200115";
 
   src = fetchurl {
-    url = "https://www.jonof.id.au/files/kenutils/kzipmix-${version}-linux.tar.gz";
+    url = "https://www.jonof.id.au/files/kenutils/kzipmix-${finalAttrs.version}-linux.tar.gz";
     hash = "sha256-ePgye0D6/ED53zx6xffLnYhkjed7SPU4BLOZQr9E3yA=";
   };
 
@@ -27,4 +27,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.unfree;
     homepage = "http://advsys.net/ken/utils.htm";
   };
-}
+})

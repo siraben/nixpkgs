@@ -16,14 +16,14 @@
   switchboard,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "switchboard-plug-display";
   version = "8.0.3";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "settings-display";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-5erlD+w9KN1/mbajdnQyevFm+uYavLYx7NsIbf85BVc=";
   };
 
@@ -55,4 +55,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     teams = [ lib.teams.pantheon ];
   };
-}
+})

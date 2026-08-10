@@ -6,13 +6,13 @@
   kmod,
 }:
 
-stdenv.mkDerivation rec {
-  name = "${pname}-${version}-${kernel.version}";
+stdenv.mkDerivation (finalAttrs: {
+  name = "ixgbevf-${finalAttrs.version}-${kernel.version}";
   pname = "ixgbevf";
   version = "4.6.1";
 
   src = fetchurl {
-    url = "mirror://sourceforge/e1000/ixgbevf-${version}.tar.gz";
+    url = "mirror://sourceforge/e1000/ixgbevf-${finalAttrs.version}.tar.gz";
     sha256 = "0h8a2g4hm38wmr13gvi2188r7nlv2c5rx6cal9gkf1nh6sla181c";
   };
 
@@ -38,4 +38,4 @@ stdenv.mkDerivation rec {
     # kernels ship ixgbevf driver for a long time already, maybe switch to a newest kernel?
     broken = lib.versionAtLeast kernel.version "5.2";
   };
-}
+})

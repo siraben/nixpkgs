@@ -15,7 +15,7 @@
   lib,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "smuxi";
   version = "unstable-2023-07-01";
 
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
   postInstall = ''
     makeWrapper "${mono}/bin/mono" "$out/bin/smuxi-message-buffer" \
       --add-flags "$out/lib/smuxi/smuxi-message-buffer.exe" \
-      --prefix ${runtimeLoaderEnvVariableName} : ${
+      --prefix ${finalAttrs.runtimeLoaderEnvVariableName} : ${
         lib.makeLibraryPath [
           gettext
           sqlite
@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
 
     makeWrapper "${mono}/bin/mono" "$out/bin/smuxi-server" \
       --add-flags "$out/lib/smuxi/smuxi-server.exe" \
-      --prefix ${runtimeLoaderEnvVariableName} : ${
+      --prefix ${finalAttrs.runtimeLoaderEnvVariableName} : ${
         lib.makeLibraryPath [
           gettext
           sqlite
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
 
     makeWrapper "${mono}/bin/mono" "$out/bin/smuxi-frontend-stfl" \
       --add-flags "$out/lib/smuxi/smuxi-frontend-stfl.exe" \
-      --prefix ${runtimeLoaderEnvVariableName} : ${
+      --prefix ${finalAttrs.runtimeLoaderEnvVariableName} : ${
         lib.makeLibraryPath [
           gettext
           sqlite
@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
 
     makeWrapper "${mono}/bin/mono" "$out/bin/smuxi-frontend-gnome" \
       --add-flags "$out/lib/smuxi/smuxi-frontend-gnome.exe" \
-      --prefix ${runtimeLoaderEnvVariableName} : ${
+      --prefix ${finalAttrs.runtimeLoaderEnvVariableName} : ${
         lib.makeLibraryPath [
           gettext
           glib
@@ -101,7 +101,7 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://smuxi.im/";
     downloadPage = "https://smuxi.im/download/";
-    changelog = "https://github.com/meebey/smuxi/releases/tag/v${version}";
+    changelog = "https://github.com/meebey/smuxi/releases/tag/v${finalAttrs.version}";
     description = "irssi-inspired, detachable, cross-platform, multi-protocol (IRC, XMPP/Jabber) chat client for the GNOME desktop";
     platforms = lib.platforms.unix;
     license = lib.licenses.gpl2Plus;
@@ -109,4 +109,4 @@ stdenv.mkDerivation rec {
       meebey
     ];
   };
-}
+})

@@ -13,16 +13,16 @@
   imagemagick,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "fish-fillets-ng";
   version = "1.0.1";
 
   src = fetchurl {
-    url = "mirror://sourceforge/fillets/fillets-ng-${version}.tar.gz";
+    url = "mirror://sourceforge/fillets/fillets-ng-${finalAttrs.version}.tar.gz";
     sha256 = "1nljp75aqqb35qq3x7abhs2kp69vjcj0h1vxcpdyn2yn2nalv6ij";
   };
   data = fetchurl {
-    url = "mirror://sourceforge/fillets/fillets-ng-data-${version}.tar.gz";
+    url = "mirror://sourceforge/fillets/fillets-ng-data-${finalAttrs.version}.tar.gz";
     sha256 = "169p0yqh2gxvhdilvjc2ld8aap7lv2nhkhkg4i1hlmgc6pxpkjgh";
   };
 
@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     mkdir -p $out/share/games/fillets-ng
-    tar -xf ${data} -C $out/share/games/fillets-ng --strip-components=1
+    tar -xf ${finalAttrs.data} -C $out/share/games/fillets-ng --strip-components=1
     mkdir -p $out/share/icons/hicolor/32x32/apps
     magick ${./icon.xpm} $out/share/icons/hicolor/32x32/apps/fish-fillets-ng.png
   '';
@@ -76,4 +76,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     homepage = "https://fillets.sourceforge.net/";
   };
-}
+})

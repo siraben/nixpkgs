@@ -47,14 +47,14 @@ let
     propagatedBuildInputs = [ pycrypto ];
   });
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "weechat-otr";
   version = "1.9.2";
 
   src = fetchFromGitHub {
     repo = "weechat-otr";
     owner = "mmb";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "1lngv98y6883vk8z2628cl4d5y8jxy39w8245gjdvshl8g18k5s2";
   };
 
@@ -89,4 +89,4 @@ stdenv.mkDerivation rec {
       "Utilizes deprecated and vulnerable pycrypto library with Debian patches from 2020-04."
     ];
   };
-}
+})

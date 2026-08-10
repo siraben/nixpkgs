@@ -5,10 +5,10 @@
 
 { version, src, ... }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "xdg_directories";
   inherit version src;
-  inherit (src) passthru;
+  inherit (finalAttrs.src) passthru;
 
   postPatch = ''
     substituteInPlace ./lib/xdg_directories.dart \
@@ -22,4 +22,4 @@ stdenv.mkDerivation rec {
 
     runHook postInstall
   '';
-}
+})

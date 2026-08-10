@@ -28,14 +28,14 @@ let
     hash = "sha256-oQ+mUDB8YJULcSploz+0bprJbqclhc+p/Pmsn1AsAes=";
   };
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ja2-stracciatella";
   version = "0.21.0";
 
   src = fetchFromGitHub {
     owner = "ja2-stracciatella";
     repo = "ja2-stracciatella";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-zMCFDMSKcsYz5LjW8UJbBlSmuJX6ibr9zIS3BgZMgAg=";
   };
 
@@ -74,12 +74,13 @@ stdenv.mkDerivation rec {
   cargoRoot = "rust";
 
   cargoDeps = rustPlatform.fetchCargoVendor {
-    inherit
-      pname
-      version
-      src
-      cargoRoot
-      ;
+
+    pname = "ja2-stracciatella"
+
+    ;
+    inherit (finalAttrs) version;
+    inherit (finalAttrs) src;
+    inherit (finalAttrs) cargoRoot;
     hash = "sha256-5KZa5ocn6Q4qUeRmm7Tymgg09dr6aZoAuJvtF32CXNg=";
   };
 
@@ -112,4 +113,4 @@ stdenv.mkDerivation rec {
     homepage = "https://ja2-stracciatella.github.io/";
     maintainers = [ ];
   };
-}
+})

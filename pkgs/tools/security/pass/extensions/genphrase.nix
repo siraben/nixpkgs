@@ -5,14 +5,14 @@
   python3,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "pass-genphrase";
   version = "0.3";
 
   src = fetchFromGitHub {
     owner = "congma";
     repo = "pass-genphrase";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "01dff2jlp111y7vlmp1wbgijzphhlzc19m02fs8nzmn5vxyffanx";
   };
 
@@ -36,4 +36,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ seqizz ];
     platforms = lib.platforms.unix;
   };
-}
+})

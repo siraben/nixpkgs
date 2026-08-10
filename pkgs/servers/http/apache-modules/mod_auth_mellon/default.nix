@@ -17,7 +17,7 @@
   xmlsec,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
 
   pname = "mod_auth_mellon";
   version = "0.19.1";
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "latchset";
     repo = "mod_auth_mellon";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "sha256-VcR+HZ5S7fLrGqT1SHCQLQw6v516G0x+wf8Wb5Sy4Gk=";
   };
 
@@ -68,4 +68,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ womfoo ];
   };
 
-}
+})

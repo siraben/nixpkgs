@@ -8,14 +8,14 @@
   qtbase,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "obs-aitum-multistream";
   version = "1.0.7";
 
   src = fetchFromGitHub {
     owner = "Aitum";
     repo = "obs-aitum-multistream";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-TqddyTBRWLyfwYi9I0nQE8Z19YL2RwkZqUwi7F9XpwQ=";
   };
 
@@ -48,4 +48,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2Plus;
     inherit (obs-studio.meta) platforms;
   };
-}
+})

@@ -13,14 +13,14 @@
   accountsservice,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "elementary-default-settings";
   version = "8.1.1";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "default-settings";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-eH8bnfncyBMD7qPkdBy3zSBb79s1ALDLM58wae9hzPg=";
   };
 
@@ -62,4 +62,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     teams = [ lib.teams.pantheon ];
   };
-}
+})

@@ -10,8 +10,8 @@ let
   modDestDir = "$out/lib/modules/${kernel.modDirVersion}/kernel/drivers/net/wireless/realtek/r8168";
 
 in
-stdenv.mkDerivation rec {
-  name = "${pname}-${version}-${kernel.version}";
+stdenv.mkDerivation (finalAttrs: {
+  name = "r8168-${finalAttrs.version}-${kernel.version}";
   pname = "r8168";
   # on update please verify that the source matches the realtek version
   version = "8.056.02";
@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "mtorromeo";
     repo = "r8168";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-KKfI03RrD+34+KSxwTwDkeB4sGFNY/tU/YbfrfVkTp8=";
   };
 
@@ -65,4 +65,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     maintainers = [ ];
   };
-}
+})

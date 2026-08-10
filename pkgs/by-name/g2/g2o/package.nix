@@ -12,14 +12,14 @@
   spdlog,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "g2o";
   version = "20241228";
 
   src = fetchFromGitHub {
     owner = "RainerKuemmerle";
     repo = "g2o";
-    rev = "${version}_git";
+    rev = "${finalAttrs.version}_git";
     hash = "sha256-MW1IO1P2e3KgurOW5ZfHlxK0m5sF0JhdLmvQNEHWEtI=";
   };
 
@@ -75,4 +75,4 @@ stdenv.mkDerivation rec {
     # fatal error: 'qglviewer.h' file not found
     broken = stdenv.hostPlatform.isDarwin;
   };
-}
+})

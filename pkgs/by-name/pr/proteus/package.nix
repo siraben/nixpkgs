@@ -16,14 +16,14 @@
   libxrender,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "proteus";
   version = "1.2";
 
   src = fetchFromGitHub {
     owner = "GuitarML";
     repo = "Proteus";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     fetchSubmodules = true;
     hash = "sha256-WhJh+Sx64JYxQQ1LXpDUwXeodFU1EZ0TmMhn+6w0hQg=";
   };
@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
   '';
 
   # JUCE loads most dependencies at runtime:
-  runtimeDependencies = map lib.getLib buildInputs;
+  runtimeDependencies = map lib.getLib finalAttrs.buildInputs;
 
   env.NIX_CFLAGS_COMPILE = toString [
     # Support JACK output in the standalone application:
@@ -88,4 +88,4 @@ stdenv.mkDerivation rec {
     maintainers = [ ];
     mainProgram = "Proteus";
   };
-}
+})

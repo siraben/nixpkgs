@@ -14,14 +14,14 @@
   gawk,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "dasht";
   version = "2.4.0";
 
   src = fetchFromGitHub {
     owner = "sunaku";
     repo = "dasht";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "08wssmifxi7pnvn9gqrvpzpkc2qpkfbzbhxh0dk1gff2y2211qqk";
   };
 
@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
 
     for i in $out/bin/*; do
       echo "Wrapping $i"
-      wrapProgram $i --prefix PATH : ${deps};
+      wrapProgram $i --prefix PATH : ${finalAttrs.deps};
     done;
 
     runHook postInstall
@@ -66,4 +66,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.unix; # cannot test other
     maintainers = with lib.maintainers; [ matthiasbeyer ];
   };
-}
+})

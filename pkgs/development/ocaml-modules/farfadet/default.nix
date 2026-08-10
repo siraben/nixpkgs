@@ -9,12 +9,12 @@
   faraday,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ocaml${ocaml.version}-farfadet";
   version = "0.3";
 
   src = fetchurl {
-    url = "https://github.com/oklm-wsh/Farfadet/releases/download/v${version}/farfadet-${version}.tbz";
+    url = "https://github.com/oklm-wsh/Farfadet/releases/download/v${finalAttrs.version}/farfadet-${finalAttrs.version}.tbz";
     sha256 = "0nlafnp0pwx0n4aszpsk6nvcvqi9im306p4jhx70si7k3xprlr2j";
   };
 
@@ -40,4 +40,4 @@ stdenv.mkDerivation rec {
     inherit (ocaml.meta) platforms;
     broken = lib.versionOlder ocaml.version "4.3";
   };
-}
+})

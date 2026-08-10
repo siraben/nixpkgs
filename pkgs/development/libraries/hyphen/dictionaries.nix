@@ -20,7 +20,7 @@ let
       filenameAliases ? "",
       readmeFilePath ? "",
     }:
-    stdenv.mkDerivation rec {
+    stdenv.mkDerivation (finalAttrs: {
       version = "24.8";
       pname = "hyphen-dict-${shortName}-libreoffice";
       src = fetchgit {
@@ -48,11 +48,11 @@ let
         # docs
         if [ -n "${readmeFilePath}" ]; then
           install -dm755 "$out/share/doc/"
-          install -m644 "${readmeFilePath}" "$out/share/doc/${pname}.txt"
+          install -m644 "${readmeFilePath}" "$out/share/doc/${finalAttrs.pname}.txt"
         fi
         runHook postInstall
       '';
-    };
+    });
 
   # wrapper for backwards compatibility
   mkDictFromLibreofficeGit =

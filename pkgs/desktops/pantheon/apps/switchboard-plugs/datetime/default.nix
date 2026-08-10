@@ -19,14 +19,14 @@
   tzdata,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "switchboard-plug-datetime";
   version = "8.1.0";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "switchboard-plug-datetime";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-VOL0F0obuXVz0G5hMI/hpUf2T3H8XUw64wu4MxRi57g=";
   };
 
@@ -65,4 +65,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     teams = [ lib.teams.pantheon ];
   };
-}
+})

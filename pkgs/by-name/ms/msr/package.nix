@@ -5,13 +5,14 @@
   installShellFiles,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "msr";
   version = "20060208";
 
   src = fetchzip {
-    inherit pname version;
-    url = "https://www.etallen.com/msr/msr-${version}.src.tar.gz";
+    pname = "msr";
+    inherit (finalAttrs) version;
+    url = "https://www.etallen.com/msr/msr-${finalAttrs.version}.src.tar.gz";
     hash = "sha256-e01qYWbOALkXp5NpexuVodMxA3EBySejJ6ZBpZjyT+E=";
   };
 
@@ -42,4 +43,4 @@ stdenv.mkDerivation rec {
       "x86_64-linux"
     ];
   };
-}
+})

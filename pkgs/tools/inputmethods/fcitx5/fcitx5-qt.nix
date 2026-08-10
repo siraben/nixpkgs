@@ -14,14 +14,14 @@
 let
   majorVersion = lib.versions.major qtbase.version;
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "fcitx5-qt${majorVersion}";
   version = "5.1.14";
 
   src = fetchFromGitHub {
     owner = "fcitx";
     repo = "fcitx5-qt";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-fyqejCb6c6VuPb44UPQDLrdZ93mHTxlX29jCN6KcZ5I=";
   };
 
@@ -61,4 +61,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ poscat ];
     platforms = lib.platforms.linux;
   };
-}
+})

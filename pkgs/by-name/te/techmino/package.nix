@@ -32,12 +32,12 @@ let
   };
 in
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   inherit pname;
   version = "0.17.21";
 
   src = fetchurl {
-    url = "https://github.com/26F-Studio/Techmino/releases/download/v${version}/Techmino_Bare.love";
+    url = "https://github.com/26F-Studio/Techmino/releases/download/v${finalAttrs.version}/Techmino_Bare.love";
     hash = "sha256-8gMIyNP1FS52LnbpQ+G9XNtK3rQruzkMDRz7Gk9LZcQ=";
   };
 
@@ -80,4 +80,4 @@ stdenv.mkDerivation rec {
     mainProgram = "techmino";
     maintainers = with lib.maintainers; [ chayleaf ];
   };
-}
+})

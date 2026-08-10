@@ -24,12 +24,12 @@
 let
   cc = if stdenv.cc.isClang then clang else gcc;
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ecl";
   version = "26.5.5";
 
   src = fetchurl {
-    url = "https://common-lisp.net/project/ecl/static/files/release/ecl-${version}.tgz";
+    url = "https://common-lisp.net/project/ecl/static/files/release/ecl-${finalAttrs.version}.tgz";
     hash = "sha256-oBpbzajFtz5Z3aNJT9E+X+xdtqodrXgsPMO7V/FjNDU=";
   };
 
@@ -96,6 +96,6 @@ stdenv.mkDerivation rec {
     mainProgram = "ecl";
     teams = [ lib.teams.lisp ];
     platforms = lib.platforms.unix;
-    changelog = "https://gitlab.com/embeddable-common-lisp/ecl/-/raw/${version}/CHANGELOG";
+    changelog = "https://gitlab.com/embeddable-common-lisp/ecl/-/raw/${finalAttrs.version}/CHANGELOG";
   };
-}
+})

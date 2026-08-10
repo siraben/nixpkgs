@@ -16,14 +16,14 @@
   wrapGAppsHook4,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "elementary-capnet-assist";
   version = "8.0.2";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "capnet-assist";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-HowrCYOVSYSOCRpTIXFfw4lLUulXY6j5QcxJOBMo984=";
   };
 
@@ -56,4 +56,4 @@ stdenv.mkDerivation rec {
     teams = [ lib.teams.pantheon ];
     mainProgram = "io.elementary.capnet-assist";
   };
-}
+})

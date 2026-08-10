@@ -28,7 +28,7 @@
 let
   pythonEnv = python3.withPackages (ps: [ ps.tkinter ]);
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "fido2-manage";
   version = "0-unstable-2025-06-06";
 
@@ -85,7 +85,7 @@ stdenv.mkDerivation rec {
   postInstall =
     lib.optionalString stdenv.hostPlatform.isLinux ''
       install $src/fido2-manage.sh $out/bin/fido2-manage
-      magick ${icon} -background none -gravity center -extent 512x512 token2.png
+      magick ${finalAttrs.icon} -background none -gravity center -extent 512x512 token2.png
       install -Dm444 token2.png $out/share/icons/hicolor/512x512/apps/token2.png
       install $src/gui.py $out/bin/fido2-manage-gui
     ''
@@ -99,7 +99,7 @@ stdenv.mkDerivation rec {
       name = "fido2-manage";
       exec = "fido2-manage-gui";
       icon = "token2";
-      comment = meta.description;
+      comment = finalAttrs.meta.description;
       categories = [
         "Utility"
       ];
@@ -137,4 +137,4 @@ stdenv.mkDerivation rec {
     mainProgram = "fido2-manage";
     maintainers = with lib.maintainers; [ Srylax ];
   };
-}
+})

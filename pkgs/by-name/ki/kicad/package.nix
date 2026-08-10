@@ -175,7 +175,7 @@ let
     optionals
     ;
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
 
   # Common libraries, referenced during runtime, via the wrapper.
   passthru.libraries = callPackages ./libraries.nix { inherit libSrc compressStep; };
@@ -189,9 +189,9 @@ stdenv.mkDerivation rec {
   };
 
   inherit pname;
-  version = if stable then kicadVersion else builtins.substring 0 10 src.src.rev;
+  version = if stable then kicadVersion else builtins.substring 0 10 finalAttrs.src.src.rev;
 
-  src = base;
+  src = finalAttrs.base;
   dontUnpack = true;
   dontConfigure = true;
   dontBuild = true;
@@ -214,7 +214,7 @@ stdenv.mkDerivation rec {
   # https://gitlab.com/kicad/code/kicad/-/issues/14792
   template_dir = symlinkJoin {
     name = "KiCad_template_dir";
-    paths = with passthru.libraries; [
+    paths = with finalAttrs.passthru.libraries; [
       "${templates}/share/kicad/template"
       "${footprints}/share/kicad/template"
       "${symbols}/share/kicad/template"
@@ -231,30 +231,30 @@ stdenv.mkDerivation rec {
   # toggling overrides like compressStep doesn't force a base rebuild.
   baseWithTemplate = runCommand "kicad-stock-data" { } ''
     mkdir -p $out
-    for d in ${base}/share/kicad/*; do
+    for d in ${finalAttrs.base}/share/kicad/*; do
       name=$(basename "$d")
       [ "$name" = template ] || ln -s "$d" "$out/$name"
     done
-    ln -s ${template_dir} $out/template
+    ln -s ${finalAttrs.template_dir} $out/template
   '';
 
   stockDataPath =
     if addons == [ ] then
-      baseWithTemplate
+      finalAttrs.baseWithTemplate
     else
       symlinkJoin {
         name = "kicad_stock_data_path";
         paths = [
-          baseWithTemplate
+          finalAttrs.baseWithTemplate
           "${addonsJoined}/share/kicad"
         ];
       };
 
   # We are emulating wrapGAppsHook3, along with other variables to the wrapper
   makeWrapperArgs =
-    with passthru.libraries;
+    with finalAttrs.passthru.libraries;
     [
-      "--prefix XDG_DATA_DIRS : ${base}/share"
+      "--prefix XDG_DATA_DIRS : ${finalAttrs.base}/share"
       "--prefix XDG_DATA_DIRS : ${hicolor-icon-theme}/share"
       "--prefix XDG_DATA_DIRS : ${adwaita-icon-theme}/share"
       "--prefix XDG_DATA_DIRS : ${gtk3}/share/gsettings-schemas/${gtk3.name}"
@@ -266,8 +266,8 @@ stdenv.mkDerivation rec {
       "--set-default MOZ_DBUS_REMOTE 1"
       "--set-default KICAD10_FOOTPRINT_DIR ${footprints}/share/kicad/footprints"
       "--set-default KICAD10_SYMBOL_DIR ${symbols}/share/kicad/symbols"
-      "--set-default KICAD10_TEMPLATE_DIR ${template_dir}"
-      "--set-default NIX_KICAD10_STOCK_DATA_PATH ${stockDataPath}"
+      "--set-default KICAD10_TEMPLATE_DIR ${finalAttrs.template_dir}"
+      "--set-default NIX_KICAD10_STOCK_DATA_PATH ${finalAttrs.stockDataPath}"
     ]
     ++ optionals with3d [
       "--set-default KICAD10_3DMODEL_DIR ${packages3d}/share/kicad/3dmodels"
@@ -302,34 +302,34 @@ stdenv.mkDerivation rec {
     (concatStringsSep "\n" (flatten [
       "runHook preInstall"
 
-      (optionalString withScripting ''buildPythonPath "${base} ''${pythonPath[*]}"'')
+      (optionalString withScripting ''buildPythonPath "${finalAttrs.base} ''${pythonPath[*]}"'')
 
       # wrap each of the directly usable tools
       (map (
         tool:
-        "makeWrapper ${base}/${bin}/${tool} $out/bin/${tool} $makeWrapperArgs"
+        "makeWrapper ${finalAttrs.base}/${bin}/${tool} $out/bin/${tool} $makeWrapperArgs"
         + optionalString withScripting " --set PYTHONPATH \"$program_PYTHONPATH\""
         + optionalString withJava " --set JAVA_HOME \"${jre}\""
       ) tools)
 
       # link in the CLI utils
-      (map (util: "ln -s ${base}/${bin}/${util} $out/bin/${util}") utils)
+      (map (util: "ln -s ${finalAttrs.base}/${bin}/${util} $out/bin/${util}") utils)
 
       "runHook postInstall"
     ]));
 
   postInstall = ''
     mkdir -p $out/share
-    ln -s ${base}/share/applications $out/share/applications
-    ln -s ${base}/share/icons $out/share/icons
-    ln -s ${base}/share/mime $out/share/mime
-    ln -s ${base}/share/metainfo $out/share/metainfo
+    ln -s ${finalAttrs.base}/share/applications $out/share/applications
+    ln -s ${finalAttrs.base}/share/icons $out/share/icons
+    ln -s ${finalAttrs.base}/share/mime $out/share/mime
+    ln -s ${finalAttrs.base}/share/metainfo $out/share/metainfo
   '';
 
   passthru.updateScript = {
     command = [
       ./update.sh
-      "${pname}"
+      "${finalAttrs.pname}"
     ];
     supportedFeatures = [ "commit" ];
   };
@@ -359,4 +359,4 @@ stdenv.mkDerivation rec {
     broken = stdenv.hostPlatform.isDarwin;
     mainProgram = "kicad";
   };
-}
+})

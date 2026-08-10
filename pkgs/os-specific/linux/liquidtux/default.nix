@@ -7,8 +7,8 @@
   python3,
 }:
 
-stdenv.mkDerivation rec {
-  name = "${pname}-${version}-${kernel.version}";
+stdenv.mkDerivation (finalAttrs: {
+  name = "liquidtux-${finalAttrs.version}-${kernel.version}";
   pname = "liquidtux";
   version = "0.1.0-unstable-2025-01-16";
 
@@ -47,4 +47,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ nickhu ];
     broken = lib.versionOlder kernel.version "5.10";
   };
-}
+})

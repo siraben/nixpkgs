@@ -27,19 +27,21 @@
   libmpeg2,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "footage";
   version = "1.3.2";
 
   src = fetchFromGitLab {
     owner = "adhami3310";
     repo = "Footage";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-VEL96JrJ5eJEoX2miiB4dqGUXizNlYWCUZkkYkh09B8=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
-    inherit pname version src;
+    pname = "footage";
+    inherit (finalAttrs) version;
+    inherit (finalAttrs) src;
     hash = "sha256-H8sv7faI/qbmcP7ir++/vIpN+cvRQ254rXmAvGyjdsY=";
   };
 
@@ -96,4 +98,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ onny ];
     broken = stdenv.hostPlatform.isDarwin;
   };
-}
+})

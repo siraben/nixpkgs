@@ -10,14 +10,14 @@
 let
   version = "2.6.0";
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "nikto";
   inherit version;
 
   src = fetchFromGitHub {
     owner = "sullo";
     repo = "nikto";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-iHOdMlfcKhvQCsCjWge6K+0h8kkgXa0Uii9o3YRQP5w=";
   };
 
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     install -Dm 755 "program/nikto.pl" "$out/bin/nikto"
     install -Dm 644 program/nikto.conf.default "$out/etc/nikto.conf"
     installManPage documentation/nikto.1
-    install -Dm 644 README.md "$out/share/doc/${pname}/README"
+    install -Dm 644 README.md "$out/share/doc/nikto/README"
     runHook postInstall
   '';
 
@@ -69,8 +69,8 @@ stdenv.mkDerivation rec {
     mainProgram = "nikto";
     license = lib.licenses.gpl2Plus;
     homepage = "https://cirt.net/Nikto2";
-    changelog = "https://github.com/sullo/nikto/releases/tag/${version}";
+    changelog = "https://github.com/sullo/nikto/releases/tag/${finalAttrs.version}";
     maintainers = with lib.maintainers; [ tbutter ];
     platforms = lib.platforms.unix;
   };
-}
+})

@@ -6,12 +6,12 @@
   perl,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ekrhyper";
   version = "1_4_21022014";
 
   src = fetchurl {
-    url = "http://userpages.uni-koblenz.de/~bpelzer/ekrhyper/ekrh_${version}.tar.gz";
+    url = "http://userpages.uni-koblenz.de/~bpelzer/ekrhyper/ekrh_${finalAttrs.version}.tar.gz";
     sha256 = "sha256-fEe0DIMGj7wO+79/BZf45kykgyTXpbZJsyFSt31XqpM=";
   };
 
@@ -30,4 +30,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ raskin ];
     platforms = lib.platforms.linux;
   };
-}
+})

@@ -5,14 +5,14 @@
   nix-update-script,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "m-cli";
   version = "2.0.9";
 
   src = fetchFromGitHub {
     owner = "rgcr";
     repo = "m-cli";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     sha256 = "sha256-Esq7ECkl34L+hk5jGS3pTmUu9vnI9hfn0Q+w0/AbvgY=";
   };
 
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
       gsub(/^\[ -L.*|^\s+\|\| pushd.*|^popd.*/, "");
       gsub(/MPATH=.*/, "MPATH='$MPATH'");
       gsub(/(update|uninstall)_mcli \&\&.*/, "echo NOOP \\&\\& exit 0");
-      gsub(/get_version \&\&.*/, "echo m-cli version: ${version} \\&\\& exit 0");
+      gsub(/get_version \&\&.*/, "echo m-cli version: ${finalAttrs.version} \\&\\& exit 0");
       print
     }' m
 
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Swiss Army Knife for macOS";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
 
     license = lib.licenses.mit;
 
@@ -50,4 +50,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ anish ];
     mainProgram = "m";
   };
-}
+})

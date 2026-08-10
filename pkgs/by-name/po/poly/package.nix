@@ -5,7 +5,7 @@
   unzip,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   name = "poly";
 
   regular = fetchurl {
@@ -28,8 +28,8 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out/share/fonts/opentype
-    cp ${regular} $out/share/fonts/opentype/Poly-Regular.otf
-    cp ${italic} $out/share/fonts/opentype/Poly-Italic.otf
+    cp ${finalAttrs.regular} $out/share/fonts/opentype/Poly-Regular.otf
+    cp ${finalAttrs.italic} $out/share/fonts/opentype/Poly-Italic.otf
   '';
 
   outputHashAlgo = "sha256";
@@ -52,4 +52,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.ofl;
     maintainers = with lib.maintainers; [ relrod ];
   };
-}
+})

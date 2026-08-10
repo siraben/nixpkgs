@@ -29,14 +29,14 @@
   libx11,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "widelands";
   version = "1.3.1";
 
   src = fetchFromGitHub {
     owner = "widelands";
     repo = "widelands";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "sha256-nNciOfE9fqd1CfljrELy2/I7+o1BLcpdngE3XGPQaSk=";
   };
 
@@ -104,7 +104,7 @@ stdenv.mkDerivation rec {
       Settlers II". It has a single player campaign mode, as well as a networked
       multiplayer mode.
     '';
-    changelog = "https://github.com/widelands/widelands/releases/tag/v${version}";
+    changelog = "https://github.com/widelands/widelands/releases/tag/v${finalAttrs.version}";
     mainProgram = "widelands";
     license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [
@@ -114,4 +114,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
     hydraPlatforms = [ ];
   };
-}
+})

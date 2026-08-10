@@ -11,7 +11,7 @@ let
   rev = "b6754f574f8846eb842feba4ccbeeecb10bdfacc";
 in
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "mrustc";
   inherit version;
 
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
       Capable of building a fully-working copy of rustc,
       but not yet suitable for everyday use.
     '';
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [
       progval
@@ -57,4 +57,4 @@ stdenv.mkDerivation rec {
     ];
     platforms = [ "x86_64-linux" ];
   };
-}
+})

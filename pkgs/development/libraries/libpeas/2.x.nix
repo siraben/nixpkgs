@@ -22,7 +22,7 @@
 let
   luaEnv = lua5_1.withPackages (ps: with ps; [ lgi ]);
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "libpeas";
   version = "2.2.1";
 
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/libpeas/${lib.versions.majorMinor finalAttrs.version}/libpeas-${finalAttrs.version}.tar.xz";
     hash = "sha256-WJ7KibQ3AG7fN1VHjfA3x0CiqEz6XSAtutYJXoKOJIg=";
   };
 
@@ -118,4 +118,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.unix;
     teams = [ lib.teams.gnome ];
   };
-}
+})

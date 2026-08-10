@@ -12,20 +12,20 @@
   version ? "2.4.0",
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "lxqt-build-tools";
   inherit version;
 
   src = fetchFromGitHub {
     owner = "lxqt";
     repo = "lxqt-build-tools";
-    rev = version;
+    rev = finalAttrs.version;
     hash =
       {
         "0.13.0" = "sha256-4/hVlEdqqqd6CNitCRkIzsS1R941vPJdirIklp4acXA=";
         "2.4.0" = "sha256-PvDXL4hHaHeHt7CXeNCj8L2bv3YYY78ZDTxsctc73fo=";
       }
-      ."${version}";
+      ."${finalAttrs.version}";
   };
 
   postPatch = ''
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     substituteInPlace cmake/modules/LXQtCompilerSettings.cmake \
       --replace-fail AppleClang Clang
   ''
-  + lib.optionalString (lib.versionOlder version "2.4.0") ''
+  + lib.optionalString (lib.versionOlder finalAttrs.version "2.4.0") ''
     substituteInPlace CMakeLists.txt \
       --replace-fail "cmake_minimum_required(VERSION 3.1.0 FATAL_ERROR)" "cmake_minimum_required(VERSION 3.10)"
   '';
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     cmake
     pkg-config
-    setupHook
+    finalAttrs.setupHook
     wrapQtAppsHook
   ];
 
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
   # We're dependent on this macro doing add_definitions in most places
   # But we have the setup-hook to set the values.
   postInstall = ''
-    cp ${./LXQtConfigVars.cmake} $out/share/cmake/lxqt${lib.optionalString (lib.versionAtLeast version "2.0.0") "2"}-build-tools/modules/LXQtConfigVars.cmake
+    cp ${./LXQtConfigVars.cmake} $out/share/cmake/lxqt${lib.optionalString (lib.versionAtLeast finalAttrs.version "2.0.0") "2"}-build-tools/modules/LXQtConfigVars.cmake
   '';
 
   passthru.updateScript = gitUpdater { };
@@ -73,4 +73,4 @@ stdenv.mkDerivation rec {
     platforms = with lib.platforms; unix;
     teams = [ lib.teams.lxqt ];
   };
-}
+})

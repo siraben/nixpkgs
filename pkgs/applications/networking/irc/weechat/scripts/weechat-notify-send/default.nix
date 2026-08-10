@@ -5,14 +5,14 @@
   libnotify,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "weechat-notify-send";
   version = "0.10";
 
   src = fetchFromGitHub {
     owner = "s3rvac";
     repo = "weechat-notify-send";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "sha256-7uw0IdRSxhPrLqdgECKB9eOrtFj+2HTILBhakKiRuNQ=";
   };
 
@@ -33,4 +33,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ tobim ];
   };
-}
+})

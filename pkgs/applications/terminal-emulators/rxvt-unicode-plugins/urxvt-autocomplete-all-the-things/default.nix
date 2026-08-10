@@ -4,14 +4,14 @@
   fetchFromGitHub,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "urxvt-autocomplete-all-the-things";
   version = "1.6.0";
 
   src = fetchFromGitHub {
     owner = "Vifon";
     repo = "autocomplete-ALL-the-things";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "06xd59c6gd9rglwq4km93n2p078k7v4x300lqrg1f32vvnjvs7sr";
   };
 
@@ -27,4 +27,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ nickhu ];
     platforms = with lib.platforms; unix;
   };
-}
+})

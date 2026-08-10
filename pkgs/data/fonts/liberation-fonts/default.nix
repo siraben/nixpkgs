@@ -23,13 +23,13 @@ let
       nativeBuildInputs,
       postPatch ? null,
     }:
-    stdenv.mkDerivation rec {
+    stdenv.mkDerivation (finalAttrs: {
       pname = "liberation-fonts";
       inherit version;
 
       src = fetchFromGitHub {
         owner = "liberationfonts";
-        rev = version;
+        rev = finalAttrs.version;
         inherit repo sha256;
       };
 
@@ -40,7 +40,7 @@ let
 
         for i in ${toString docsToInstall}; do
           # not all docs exist in all versions
-          install -m444 -Dt $out/share/doc/${pname}-${version} $i || true
+          install -m444 -Dt $out/share/doc/liberation-fonts-${finalAttrs.version} $i || true
         done
 
         runHook postInstall
@@ -64,7 +64,7 @@ let
         homepage = "https://github.com/liberationfonts";
         maintainers = with lib.maintainers; [ raskin ];
       };
-    };
+    });
 in
 {
   liberation_ttf_v1 = common {

@@ -13,13 +13,13 @@
   zstd,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "mtd-utils";
   version = "2.3.1";
 
   src = fetchgit {
     url = "git://git.infradead.org/mtd-utils.git";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-+2wHGgwWzjj3DRbU82MLvrwB7AtgMg+7m+0MwPE4V1o=";
   };
 
@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     autoreconfHook
     pkg-config
   ]
-  ++ lib.optional doCheck cmocka;
+  ++ lib.optional finalAttrs.doCheck cmocka;
   buildInputs = [
     acl
     libuuid
@@ -45,8 +45,8 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   configureFlags = [
-    (lib.enableFeature doCheck "unit-tests")
-    (lib.enableFeature doCheck "tests")
+    (lib.enableFeature finalAttrs.doCheck "unit-tests")
+    (lib.enableFeature finalAttrs.doCheck "tests")
   ];
 
   makeFlags = [ "AR:=$(AR)" ];
@@ -72,4 +72,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ skeuchel ];
     platforms = with lib.platforms; linux;
   };
-}
+})

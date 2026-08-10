@@ -43,14 +43,14 @@ let
     };
   };
 
-  owrx_connector = stdenv.mkDerivation rec {
+  owrx_connector = stdenv.mkDerivation (finalAttrs: {
     pname = "owrx_connector";
     version = "0.6.0";
 
     src = fetchFromGitHub {
       owner = "jketterl";
       repo = "owrx_connector";
-      tag = version;
+      tag = finalAttrs.version;
       hash = "sha256-1H0TJ8QN3b6Lof5TWvyokhCeN+dN7ITwzRvEo2X8OWc=";
     };
 
@@ -83,7 +83,7 @@ let
       license = lib.licenses.gpl3Only;
       platforms = lib.platforms.unix;
     };
-  };
+  });
 
 in
 python3Packages.buildPythonApplication rec {

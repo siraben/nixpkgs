@@ -6,15 +6,15 @@
   gpm,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "jupp";
   version = "41";
-  srcName = "joe-3.1${pname}${version}";
+  srcName = "joe-3.1jupp${finalAttrs.version}";
 
   src = fetchurl {
     urls = [
-      "https://www.mirbsd.org/MirOS/dist/jupp/${srcName}.tgz"
-      "https://mbsd.evolvis.org/MirOS/dist/jupp/${srcName}.tgz"
+      "https://www.mirbsd.org/MirOS/dist/jupp/${finalAttrs.srcName}.tgz"
+      "https://mbsd.evolvis.org/MirOS/dist/jupp/${finalAttrs.srcName}.tgz"
     ];
     hash = "sha256-e7jqivUZvv7/+T7DyeMhCNfyuDIWybx7Aa71CYhhyC8=";
   };
@@ -52,4 +52,4 @@ stdenv.mkDerivation rec {
     maintainers = [ ];
     platforms = with lib.platforms; unix;
   };
-}
+})

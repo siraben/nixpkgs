@@ -10,14 +10,14 @@
   libusb-compat-0_1,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "novacomd";
   version = "127";
 
   src = fetchFromGitHub {
     owner = "openwebos";
     repo = "novacomd";
-    rev = "submissions/${version}";
+    rev = "submissions/${finalAttrs.version}";
     sha256 = "1gahc8bvvvs4d6svrsw24iw5r0mhy4a2ars3j2gz6mp6sh42bznl";
   };
 
@@ -67,4 +67,4 @@ stdenv.mkDerivation rec {
     maintainers = [ ];
     platforms = lib.platforms.linux;
   };
-}
+})

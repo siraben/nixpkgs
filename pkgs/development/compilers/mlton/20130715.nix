@@ -14,35 +14,35 @@ let
   dynamic_linker = stdenv.cc.bintools.dynamicLinker;
 in
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "mlton";
   inherit version;
 
   binSrc =
     if stdenv.hostPlatform.system == "i686-linux" then
       (fetchurl {
-        url = "mirror://sourceforge/project/mlton/mlton/${version}/${pname}-${version}-1.x86-linux.tgz";
+        url = "mirror://sourceforge/project/mlton/mlton/${finalAttrs.version}/mlton-${finalAttrs.version}-1.x86-linux.tgz";
         hash = "sha256-ktiWJ892DFbQ6XJ/MosAY0G/W+KD/H1hamJ2wm2Vss8=";
       })
     else if stdenv.hostPlatform.system == "x86_64-linux" then
       (fetchurl {
-        url = "mirror://sourceforge/project/mlton/mlton/${version}/${pname}-${version}-1.amd64-linux.tgz";
+        url = "mirror://sourceforge/project/mlton/mlton/${finalAttrs.version}/mlton-${finalAttrs.version}-1.amd64-linux.tgz";
         hash = "sha256-9vkSAJsJRrc6+I/18+cTtr5juHFpbiaXzPFWS1bn0Ds=";
       })
     else
       throw "Architecture not supported";
 
   codeSrc = fetchurl {
-    url = "mirror://sourceforge/project/mlton/mlton/${version}/${pname}-${version}.src.tgz";
+    url = "mirror://sourceforge/project/mlton/mlton/${finalAttrs.version}/mlton-${finalAttrs.version}.src.tgz";
     hash = "sha256-IVhXrRHUT42Uwn9150AXqkSyyXAzBLzsnjjCBDMUPWw=";
   };
 
   srcs = [
-    binSrc
-    codeSrc
+    finalAttrs.binSrc
+    finalAttrs.codeSrc
   ];
 
-  sourceRoot = "${pname}-${version}";
+  sourceRoot = "mlton-${finalAttrs.version}";
 
   buildInputs = [ gmp ];
   nativeBuildInputs = lib.optional stdenv.hostPlatform.isLinux patchelf;
@@ -116,4 +116,4 @@ stdenv.mkDerivation rec {
   '';
 
   meta = import ./meta.nix { inherit lib; };
-}
+})

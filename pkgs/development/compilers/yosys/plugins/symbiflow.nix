@@ -45,8 +45,8 @@ let
 in
 lib.genAttrs plugins (
   plugin:
-  stdenv.mkDerivation rec {
-    pname = "yosys-symbiflow-${plugin}-plugin";
+  stdenv.mkDerivation (finalAttrs: {
+    pname = "yosys-symbiflow-${finalAttrs.plugin}-plugin";
     inherit src version plugin;
     enableParallelBuilding = true;
 
@@ -61,7 +61,7 @@ lib.genAttrs plugins (
     ];
 
     # xdc has an incorrect path to a test which has yet to be patched
-    doCheck = plugin != "xdc";
+    doCheck = finalAttrs.plugin != "xdc";
     nativeCheckInputs = [ static_gtest ];
 
     # A Makefile rule tries to wget-fetch a yosys script from github.
@@ -78,7 +78,7 @@ lib.genAttrs plugins (
     '';
 
     makeFlags = [
-      "PLUGIN_LIST=${plugin}"
+      "PLUGIN_LIST=${finalAttrs.plugin}"
     ];
 
     buildFlags = [
@@ -89,18 +89,18 @@ lib.genAttrs plugins (
     checkTarget = "test";
     checkFlags = [
       (
-        "NIX_YOSYS_PLUGIN_DIRS=\${NIX_BUILD_TOP}/source/${plugin}-plugin/build"
+        "NIX_YOSYS_PLUGIN_DIRS=\${NIX_BUILD_TOP}/source/${finalAttrs.plugin}-plugin/build"
         # sdc and xdc plugins use design introspection for their tests
         + (lib.optionalString (
-          plugin == "sdc" || plugin == "xdc"
+          finalAttrs.plugin == "sdc" || finalAttrs.plugin == "xdc"
         ) ":${yosys-symbiflow.design_introspection}/share/yosys/plugins/")
       )
     ];
 
-    installFlags = buildFlags;
+    installFlags = finalAttrs.buildFlags;
 
     meta = {
-      description = "Symbiflow ${plugin} plugin for Yosys";
+      description = "Symbiflow ${finalAttrs.plugin} plugin for Yosys";
       license = lib.licenses.isc;
       platforms = lib.platforms.all;
       # incompatible with yosys >= 0.67
@@ -110,5 +110,5 @@ lib.genAttrs plugins (
         thoughtpolice
       ];
     };
-  }
+  })
 )

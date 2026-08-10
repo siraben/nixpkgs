@@ -10,12 +10,12 @@
   jre,
   drivers ? [ ],
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "squirrel-sql";
   version = "5.1.0";
 
   src = fetchurl {
-    url = "mirror://sourceforge/project/squirrel-sql/1-stable/${version}-plainzip/squirrelsql-${version}-standard.zip";
+    url = "mirror://sourceforge/project/squirrel-sql/1-stable/${finalAttrs.version}-plainzip/squirrelsql-${finalAttrs.version}-standard.zip";
     sha256 = "sha256-aYwA2TRXI74s1BXfhlatBqPzC1xCfEqTe/yK8DCMo4E=";
   };
 
@@ -27,13 +27,13 @@ stdenv.mkDerivation rec {
 
   unpackPhase = ''
     runHook preUnpack
-    unzip ${src}
+    unzip ${finalAttrs.src}
     runHook postUnpack
   '';
 
   buildPhase = ''
     runHook preBuild
-    cd squirrelsql-${version}-standard
+    cd squirrelsql-${finalAttrs.version}-standard
     chmod +x squirrel-sql.sh
     runHook postBuild
   '';
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     mkdir -p $out/share/icons/hicolor/32x32/apps
     ln -s $out/share/squirrel-sql/icons/acorn.png \
       $out/share/icons/hicolor/32x32/apps/squirrel-sql.png
-    ln -s ${desktopItem}/share/applications $out/share
+    ln -s ${finalAttrs.desktopItem}/share/applications $out/share
 
     runHook postInstall
   '';
@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
   desktopItem = makeDesktopItem {
     name = "squirrel-sql";
     exec = "squirrel-sql";
-    comment = meta.description;
+    comment = finalAttrs.meta.description;
     desktopName = "SQuirreL SQL";
     genericName = "SQL Client";
     categories = [ "Development" ];
@@ -84,4 +84,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.lgpl21Plus;
     platforms = lib.platforms.linux;
   };
-}
+})

@@ -12,11 +12,11 @@
   rresult,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ocaml${ocaml.version}-webbrowser";
   version = "0.6.2";
   src = fetchurl {
-    url = "https://erratique.ch/software/webbrowser/releases/webbrowser-${version}.tbz";
+    url = "https://erratique.ch/software/webbrowser/releases/webbrowser-${finalAttrs.version}.tbz";
     sha256 = "sha256-4SYAf1Qo7aUiCp5587wO1VvjcQHP3NBXeFfAaHE/s+A=";
   };
 
@@ -46,4 +46,4 @@ stdenv.mkDerivation rec {
     mainProgram = "browse";
     inherit (ocaml.meta) platforms;
   };
-}
+})

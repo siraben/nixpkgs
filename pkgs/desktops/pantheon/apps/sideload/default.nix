@@ -17,14 +17,14 @@
   wrapGAppsHook4,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "sideload";
   version = "6.3.1";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "sideload";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-mFaMKY4SdnSdRsHy5vIbJFdMx2FGxYCWmSAWkb99yUI=";
   };
 
@@ -58,4 +58,4 @@ stdenv.mkDerivation rec {
     teams = [ lib.teams.pantheon ];
     mainProgram = "io.elementary.sideload";
   };
-}
+})

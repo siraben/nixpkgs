@@ -8,12 +8,12 @@
   copyDesktopItems,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "sienna";
   version = "1.0d";
 
   src = fetchurl {
-    url = "https://github.com/SimonLarsen/sienna/releases/download/v${version}/sienna-${version}.love";
+    url = "https://github.com/SimonLarsen/sienna/releases/download/v${finalAttrs.version}/sienna-${finalAttrs.version}.love";
     hash = "sha256-1bFjhN7jL/PMYMJH1ete6uyHTYsTGgoP60sf/sJTLlU=";
   };
 
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     (makeDesktopItem {
       name = "sienna";
       exec = "sienna";
-      icon = icon;
+      icon = finalAttrs.icon;
       comment = "Fast-paced one button platformer";
       desktopName = "Sienna";
       genericName = "sienna";
@@ -61,4 +61,4 @@ stdenv.mkDerivation rec {
     maintainers = [ ];
   };
 
-}
+})

@@ -14,15 +14,15 @@
   static ? stdenv.hostPlatform.isStatic,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "raptor2";
   version = "2.0.16";
-  underscoredVersion = lib.strings.replaceStrings [ "." ] [ "_" ] version;
+  underscoredVersion = lib.strings.replaceStrings [ "." ] [ "_" ] finalAttrs.version;
 
   src = fetchFromGitHub {
     owner = "dajobe";
     repo = "raptor";
-    rev = "${pname}_${underscoredVersion}";
+    rev = "raptor2_${finalAttrs.underscoredVersion}";
     sha256 = "sha256-Eic63pV2p154YkSmkqWr86fGTr+XmVGy5l5/6q14LQM=";
   };
 
@@ -75,4 +75,4 @@ stdenv.mkDerivation rec {
     maintainers = [ ];
     platforms = lib.platforms.unix;
   };
-}
+})

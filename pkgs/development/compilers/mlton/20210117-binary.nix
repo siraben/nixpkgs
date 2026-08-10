@@ -10,19 +10,19 @@
 let
   dynamic-linker = stdenv.cc.bintools.dynamicLinker;
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "mlton";
   version = "20210117";
 
   src =
     if stdenv.hostPlatform.system == "x86_64-linux" then
       (fetchurl {
-        url = "https://github.com/MLton/mlton/releases/download/on-${version}-release/${pname}-${version}-1.amd64-linux-glibc2.31.tgz";
+        url = "https://github.com/MLton/mlton/releases/download/on-${finalAttrs.version}-release/mlton-${finalAttrs.version}-1.amd64-linux-glibc2.31.tgz";
         hash = "sha256-dJy1nWuszWRBQ3Cb6GYQUijSttzUDFB6kLicm14PRdI=";
       })
     else if stdenv.hostPlatform.system == "aarch64-darwin" then
       (fetchurl {
-        url = "https://projects.laas.fr/tina/software/mlton-${version}-1.arm64-darwin-21.6-gmp-static.tgz";
+        url = "https://projects.laas.fr/tina/software/mlton-${finalAttrs.version}-1.arm64-darwin-21.6-gmp-static.tgz";
         hash = "sha256-XYzEBG9QLKfZhnDVORXjoZc+wIJuTEwj4l1IP6ZXweg=";
       })
     else
@@ -80,4 +80,4 @@ stdenv.mkDerivation rec {
     '';
 
   meta = import ./meta.nix { inherit lib; };
-}
+})

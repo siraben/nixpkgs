@@ -35,12 +35,12 @@
 # Result:
 # The user can run brprintconf_mfcj6510dw in the shell.
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "mfcj6510dwlpr";
   version = "3.0.0-1";
 
   src = fetchurl {
-    url = "https://download.brother.com/welcome/dlf006614/mfcj6510dwlpr-${version}.i386.deb";
+    url = "https://download.brother.com/welcome/dlf006614/mfcj6510dwlpr-${finalAttrs.version}.i386.deb";
     sha256 = "1ccvx393pqavsgzd8igrzlin5jrsf01d3acyvwqd1d0yz5jgqy6d";
   };
 
@@ -122,4 +122,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ ramkromberg ];
     platforms = with lib.platforms; linux;
   };
-}
+})

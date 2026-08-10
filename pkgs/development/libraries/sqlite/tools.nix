@@ -17,15 +17,15 @@ let
       homepage,
       mainProgram,
     }:
-    stdenv.mkDerivation rec {
+    stdenv.mkDerivation (finalAttrs: {
       inherit pname;
       version = "3.53.3";
 
       # nixpkgs-update: no auto update
       src =
-        assert version == sqlite.version;
+        assert finalAttrs.version == sqlite.version;
         fetchurl {
-          url = "https://sqlite.org/2026/sqlite-src-${archiveVersion version}.zip";
+          url = "https://sqlite.org/2026/sqlite-src-${archiveVersion finalAttrs.version}.zip";
           hash = "sha256-u4C/ijv/wZJBzoq6WkvHTpw5gAE8sLXw8JdqmVFpQq8=";
         };
 
@@ -43,7 +43,7 @@ let
         maintainers = with lib.maintainers; [ johnazoidberg ];
         platforms = lib.platforms.unix;
       };
-    };
+    });
 in
 {
   sqldiff = mkTool {

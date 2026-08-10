@@ -9,12 +9,12 @@
   stdenv,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "mod_spkac";
   version = "0.2.3";
 
   src = fetchurl {
-    url = "https://redwax.eu/dist/rs/${pname}-${version}.tar.gz";
+    url = "https://redwax.eu/dist/rs/mod_spkac-${finalAttrs.version}.tar.gz";
     hash = "sha256-J1pGz+/AD0IPwRPBA+wt9PgV9qnZEHX66VCBGqhf0b8=";
   };
 
@@ -40,4 +40,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ dirkx ];
   };
-}
+})

@@ -28,12 +28,12 @@
 }:
 
 let
-  rizin = stdenv.mkDerivation rec {
+  rizin = stdenv.mkDerivation (finalAttrs: {
     pname = "rizin";
     version = "0.9.1";
 
     src = fetchurl {
-      url = "https://github.com/rizinorg/rizin/releases/download/v${version}/rizin-src-v${version}.tar.xz";
+      url = "https://github.com/rizinorg/rizin/releases/download/v${finalAttrs.version}/rizin-src-v${finalAttrs.version}.tar.xz";
       hash = "sha256-esHNfaynr92nQuFUeLH3R/wfgT5Jb+5xg50eEJ5UPco=";
     };
 
@@ -79,7 +79,7 @@ let
     # is either true/false... We work around by also providing LIBRARY_PATH
     preConfigure = ''
       LIBRARY_PATH=""
-      for b in ${toString (map lib.getLib buildInputs)}; do
+      for b in ${toString (map lib.getLib finalAttrs.buildInputs)}; do
         if [[ -d "$b/lib" ]]; then
           LIBRARY_PATH="$b/lib''${LIBRARY_PATH:+:}$LIBRARY_PATH"
         fi
@@ -157,6 +157,6 @@ let
       ];
       platforms = with lib.platforms; unix;
     };
-  };
+  });
 in
 rizin

@@ -15,12 +15,12 @@
 let
   openjdk = openjdk17;
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "starsector";
   version = "0.98a-RC8";
 
   src = fetchzip {
-    url = "https://f005.backblazeb2.com/file/fractalsoftworks/release/starsector_linux-${version}.zip";
+    url = "https://f005.backblazeb2.com/file/fractalsoftworks/release/starsector_linux-${finalAttrs.version}.zip";
     sha256 = "sha256-W/6QpgKbUJC+jWOlAOEEGStee5KJuLi020kRtPQXK3U=";
   };
 
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       name = "starsector";
       exec = "starsector";
       icon = "starsector";
-      comment = meta.description;
+      comment = finalAttrs.meta.description;
       genericName = "starsector";
       desktopName = "Starsector";
       categories = [ "Game" ];
@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
           xrandr
         ]
       } \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath buildInputs} \
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath finalAttrs.buildInputs} \
       --run 'mkdir -p ''${XDG_DATA_HOME:-~/.local/share}/starsector' \
       --chdir "$out/share/starsector"
     ln -s $out/share/starsector/starsector.sh $out/bin/starsector
@@ -96,7 +96,7 @@ stdenv.mkDerivation rec {
     #!nix-shell -i bash -p curl gnugrep common-updater-scripts
     set -eou pipefail;
     version=$(curl -s https://fractalsoftworks.com/preorder/ | grep -oP "https://f005.backblazeb2.com/file/fractalsoftworks/release/starsector_linux-\K.*?(?=\.zip)" | head -1)
-    update-source-version ${pname} "$version" --file=./pkgs/by-name/st/starsector/package.nix
+    update-source-version starsector "$version" --file=./pkgs/by-name/st/starsector/package.nix
   '';
 
   meta = {
@@ -110,4 +110,4 @@ stdenv.mkDerivation rec {
       sigmasquadron
     ];
   };
-}
+})

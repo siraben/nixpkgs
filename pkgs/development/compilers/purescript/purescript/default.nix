@@ -22,14 +22,14 @@ let
     '';
 
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "purescript";
   version = "0.15.15";
 
   # These hashes can be updated automatically by running the ./update.sh script.
   src =
     let
-      url = "https://github.com/${pname}/${pname}/releases/download/v${version}/";
+      url = "https://github.com/purescript/purescript/releases/download/v${finalAttrs.version}/";
       sources = {
         "x86_64-linux" = fetchurl {
           url = url + "linux64.tar.gz";
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     zlib
     gmp
   ];
-  libPath = lib.makeLibraryPath buildInputs;
+  libPath = lib.makeLibraryPath finalAttrs.buildInputs;
   dontStrip = true;
 
   installPhase = ''
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
     PURS="$out/bin/purs"
 
     install -D -m555 -T purs $PURS
-    ${patchelf libPath}
+    ${patchelf finalAttrs.libPath}
   ''
   + lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     mkdir -p $out/share/bash-completion/completions
@@ -89,6 +89,6 @@ stdenv.mkDerivation rec {
       "aarch64-darwin"
     ];
     mainProgram = "purs";
-    changelog = "https://github.com/purescript/purescript/releases/tag/v${version}";
+    changelog = "https://github.com/purescript/purescript/releases/tag/v${finalAttrs.version}";
   };
-}
+})

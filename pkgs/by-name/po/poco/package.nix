@@ -17,7 +17,7 @@
   writableTmpDirAsHomeHook,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "poco";
 
   version = "1.15.3";
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     owner = "pocoproject";
     repo = "poco";
     hash = "sha256-mUONqjbKHvdsTM6zk9/QLEr1lVV6f9I/shLW2B8iqMk=";
-    tag = "poco-${version}-release";
+    tag = "poco-${finalAttrs.version}-release";
   };
 
   nativeBuildInputs = [
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
 
   env = {
     MYSQL_DIR = libmysqlclient;
-    MYSQL_INCLUDE_DIR = "${env.MYSQL_DIR}/include/mysql";
+    MYSQL_INCLUDE_DIR = "${finalAttrs.env.MYSQL_DIR}/include/mysql";
   };
 
   cmakeFlags =
@@ -115,4 +115,4 @@ stdenv.mkDerivation rec {
     ];
     platforms = lib.platforms.unix;
   };
-}
+})

@@ -15,15 +15,15 @@
   writableTmpDirAsHomeHook,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ddrescueview";
   version = "0.4.5";
 
   src = fetchurl {
-    url = "mirror://sourceforge/ddrescueview/ddrescueview-source-${version}.tar.xz";
+    url = "mirror://sourceforge/ddrescueview/ddrescueview-source-${finalAttrs.version}.tar.xz";
     sha256 = "sha256-Vzg8OU5iYSzip5lDiwDG48Rlwx+bqUDgd/Yk4ucChGU=";
   };
-  sourceRoot = "ddrescueview-source-${version}/source";
+  sourceRoot = "ddrescueview-source-${finalAttrs.version}/source";
 
   nativeBuildInputs = [
     fpc
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
   env.NIX_LDFLAGS = toString [
     "--as-needed"
     "-rpath"
-    (lib.makeLibraryPath buildInputs)
+    (lib.makeLibraryPath finalAttrs.buildInputs)
   ];
 
   buildPhase = ''
@@ -67,4 +67,4 @@ stdenv.mkDerivation rec {
     maintainers = [ ];
     mainProgram = "ddrescueview";
   };
-}
+})

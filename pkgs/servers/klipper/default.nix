@@ -12,7 +12,7 @@
 let
   isCross = (stdenv.hostPlatform != stdenv.buildPlatform);
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "klipper";
   version = "0.13.0-unstable-2026-08-18";
 
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-qs60qBwlD7A0xneNzeNcKfWc8II5rG2oj+tvuhn/aWw=";
   };
 
-  sourceRoot = "${src.name}/klippy";
+  sourceRoot = "${finalAttrs.src.name}/klippy";
 
   # NB: This is needed for the postBuild step
   nativeBuildInputs = [
@@ -94,8 +94,8 @@ stdenv.mkDerivation rec {
       ]
     )).interpreter;
 
-  pythonScriptWrapper = writeShellScript pname ''
-    ${pythonInterpreter} "@out@/lib/scripts/@script@" "$@"
+  pythonScriptWrapper = writeShellScript "klipper" ''
+    ${finalAttrs.pythonInterpreter} "@out@/lib/scripts/@script@" "$@"
   '';
 
   # NB: We don't move the main entry point into `/bin`, or even symlink it,
@@ -116,8 +116,8 @@ stdenv.mkDerivation rec {
     cp $src/lib/katapult/flashtool.py $out/lib/scripts/flash_can.py
 
     # Add version information. For the normal procedure see https://www.klipper3d.org/Packaging.html#versioning
-    # This is done like this because scripts/make_version.py is not available when sourceRoot is set to "${src.name}/klippy"
-    echo "${version}-NixOS" > $out/lib/klipper/.version
+    # This is done like this because scripts/make_version.py is not available when sourceRoot is set to "${finalAttrs.src.name}/klippy"
+    echo "${finalAttrs.version}-NixOS" > $out/lib/klipper/.version
 
     mkdir -p $out/bin
     chmod 755 $out/lib/klipper/klippy.py
@@ -137,7 +137,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru.updateScript = unstableGitUpdater {
-    url = meta.homepage;
+    url = finalAttrs.meta.homepage;
     tagPrefix = "v";
   };
 
@@ -153,4 +153,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     license = lib.licenses.gpl3Only;
   };
-}
+})

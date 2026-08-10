@@ -23,14 +23,14 @@
   nix-update-script,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "mod_tile";
   version = "0.8.1";
 
   src = fetchFromGitHub {
     owner = "openstreetmap";
     repo = "mod_tile";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-zDe+pFzK16K+8I0v1Z7p83PIgQlVDbjcnD4vzwdB1Oo=";
   };
 
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     (lib.cmakeFeature "CMAKE_INSTALL_MANDIR" "share/man")
     (lib.cmakeFeature "CMAKE_INSTALL_MODULESDIR" "modules")
     (lib.cmakeFeature "CMAKE_INSTALL_PREFIX" "")
-    (lib.cmakeBool "ENABLE_TESTS" doCheck)
+    (lib.cmakeBool "ENABLE_TESTS" finalAttrs.doCheck)
   ];
 
   # And use DESTDIR to define the install destination
@@ -90,4 +90,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ jglukasik ];
     platforms = lib.platforms.linux;
   };
-}
+})

@@ -9,7 +9,7 @@
   fixDarwinDylibNames,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "qwt";
   version = "6.3.0";
 
@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "mirror://sourceforge/qwt/qwt-${version}.tar.bz2";
+    url = "mirror://sourceforge/qwt/qwt-${finalAttrs.version}.tar.bz2";
     sha256 = "sha256-3LCFiWwoquxVGMvAjA7itOYK2nrJKdgmOfYYmFGmEpo=";
   };
 
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     sed -e "s|QWT_INSTALL_PREFIX.*=.*|QWT_INSTALL_PREFIX = $out|g" -i qwtconfig.pri
   '';
 
-  qmakeFlags = [ "-after doc.path=$out/share/doc/qwt-${version}" ];
+  qmakeFlags = [ "-after doc.path=$out/share/doc/qwt-${finalAttrs.version}" ];
 
   dontWrapQtApps = true;
 
@@ -62,4 +62,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.unix;
     maintainers = [ lib.maintainers.bjornfor ];
   };
-}
+})

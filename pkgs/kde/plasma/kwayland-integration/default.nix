@@ -13,11 +13,11 @@
   wayland-protocols,
 }:
 # not mkKdeDerivation because this is Qt5 land
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "kwayland-integration";
-  inherit (sources.${pname}) version;
+  inherit (sources.${"kwayland-integration"}) version;
 
-  src = sources.${pname};
+  src = sources.${"kwayland-integration"};
 
   nativeBuildInputs = [
     cmake
@@ -39,4 +39,4 @@ stdenv.mkDerivation rec {
   ];
 
   dontWrapQtApps = true;
-}
+})

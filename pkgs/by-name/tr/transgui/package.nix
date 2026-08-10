@@ -18,7 +18,7 @@
   unstableGitUpdater,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "transgui";
   version = "5.18.0-unstable-2026-02-24";
 
@@ -74,11 +74,11 @@ stdenv.mkDerivation rec {
   env.LCL_PLATFORM = "gtk2";
 
   desktopItem = makeDesktopItem {
-    name = pname;
-    exec = "${pname} %U";
-    icon = pname;
+    name = "transgui";
+    exec = "transgui %U";
+    icon = "transgui";
     type = "Application";
-    comment = meta.description;
+    comment = finalAttrs.meta.description;
     desktopName = "Transmission Remote GUI";
     genericName = "BitTorrent Client";
     categories = [
@@ -117,4 +117,4 @@ stdenv.mkDerivation rec {
       "x86_64-linux"
     ];
   };
-}
+})

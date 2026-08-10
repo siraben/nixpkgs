@@ -4,14 +4,14 @@
   fetchFromGitHub,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "icingaweb2-theme-lsd";
   version = "1.0.3";
 
   src = fetchFromGitHub {
     owner = "Mikesch-mp";
-    repo = pname;
-    rev = "v${version}";
+    repo = "icingaweb2-theme-lsd";
+    rev = "v${finalAttrs.version}";
     sha256 = "172y08sar4nbyv5pfq5chw8xa3b7fg1dacmsg778zky5zf49qz2w";
   };
 
@@ -27,4 +27,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.all;
     maintainers = [ ];
   };
-}
+})

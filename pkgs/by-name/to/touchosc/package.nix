@@ -44,7 +44,7 @@ let
   ];
 in
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "touchosc";
   version = "1.4.9.248";
 
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
     .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   src = fetchurl {
-    url = "https://hexler.net/pub/${pname}/${pname}-${version}-${suffix}.deb";
+    url = "https://hexler.net/pub/touchosc/touchosc-${finalAttrs.version}-${finalAttrs.suffix}.deb";
     hash =
       {
         aarch64-linux = "sha256-IKk688XFTx1rHEF03uHZ3cN60GwwIlf/FK4mJ0c/PqM=";
@@ -114,4 +114,4 @@ stdenv.mkDerivation rec {
     ];
     mainProgram = "TouchOSC";
   };
-}
+})

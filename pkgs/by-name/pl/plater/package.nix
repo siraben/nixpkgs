@@ -9,7 +9,7 @@
   qt5,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "plater";
   version = "1.0.0-unstable-2025-03-24";
 
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
       exec = "plater";
       icon = "plater";
       desktopName = "Ideamaker";
-      genericName = meta.description;
+      genericName = finalAttrs.meta.description;
       categories = [
         "Utility"
         "Engineering"
@@ -55,4 +55,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     license = lib.licenses.cc-by-nc-30;
   };
-}
+})

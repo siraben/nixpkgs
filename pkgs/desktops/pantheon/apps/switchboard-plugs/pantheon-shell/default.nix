@@ -23,14 +23,14 @@
   gettext,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "switchboard-plug-pantheon-shell";
   version = "8.3.0";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "settings-desktop";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-qczv+G0v47SiMsLlWjDPK0ZY4J+V/CXe/l7b6pWG+WY=";
   };
 
@@ -69,4 +69,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     teams = [ lib.teams.pantheon ];
   };
-}
+})

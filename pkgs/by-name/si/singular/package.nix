@@ -29,7 +29,7 @@
   enableDocs ? true,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "singular";
   version = "4.4.1";
 
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
 
     # if a release is tagged (which sometimes does not happen), it will
     # be in the format below.
-    tag = "Release-${lib.replaceStrings [ "." ] [ "-" ] version}";
+    tag = "Release-${lib.replaceStrings [ "." ] [ "-" ] finalAttrs.version}";
     hash = "sha256-vrRIirWQLbbe1l07AqqHK/StWo0egKuivdKT5R8Rx58=";
 
     # the repository's .gitattributes file contains the lines "/Tst/
@@ -183,7 +183,7 @@ stdenv.mkDerivation rec {
     cd Tst
     perl ./regress.cmd \
       -s "$out/bin/Singular" \
-      ${lib.concatStringsSep " " (map lib.escapeShellArg testsToRun)} \
+      ${lib.concatStringsSep " " (map lib.escapeShellArg finalAttrs.testsToRun)} \
       2>"$TMPDIR/out-err.log"
 
     # unfortunately regress.cmd always returns exit code 0, so check stderr
@@ -210,4 +210,4 @@ stdenv.mkDerivation rec {
     downloadPage = "http://www.mathematik.uni-kl.de/ftp/pub/Math/Singular/SOURCES/";
     mainProgram = "Singular";
   };
-}
+})

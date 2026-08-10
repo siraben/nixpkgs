@@ -6,14 +6,14 @@
   kernelModuleMakeFlags,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ddcci-driver";
   version = "0.4.5-unstable-2025-09-27";
-  name = "${pname}-${kernel.version}-${version}";
+  name = "ddcci-driver-${kernel.version}-${finalAttrs.version}";
 
   src = fetchFromGitLab {
-    owner = "${pname}-linux";
-    repo = "${pname}-linux";
+    owner = "ddcci-driver-linux";
+    repo = "ddcci-driver-linux";
     rev = "bbb7553373f815d78e93a4a9f071ce968563694a";
     hash = "sha256-fQjsDjbtFKhs0bUCFfKRgCg516TXdwIkhKEbIISjgs0=";
   };
@@ -46,4 +46,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     broken = kernel.kernelOlder "5.1";
   };
-}
+})

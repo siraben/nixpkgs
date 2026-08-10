@@ -48,12 +48,12 @@ let
   ];
   libPath = lib.makeLibraryPath packages;
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "genymotion";
   version = "3.8.0";
   src = fetchurl {
-    url = "https://dl.genymotion.com/releases/genymotion-${version}/genymotion-${version}-linux_x64.bin";
-    name = "genymotion-${version}-linux_x64.bin";
+    url = "https://dl.genymotion.com/releases/genymotion-${finalAttrs.version}/genymotion-${finalAttrs.version}-linux_x64.bin";
+    name = "genymotion-${finalAttrs.version}-linux_x64.bin";
     sha256 = "sha256-Tgp9ud/Tq0K9ADf/POr+luuFm+QBWMucjKTbELbIveo=";
   };
 
@@ -67,12 +67,12 @@ stdenv.mkDerivation rec {
     mkdir -p phony-home $out/share/applications
     export HOME=$TMP/phony-home
 
-    mkdir ${pname}
-    echo "y" | sh $src -d ${pname}
-    sourceRoot=${pname}
+    mkdir genymotion
+    echo "y" | sh $src -d genymotion
+    sourceRoot=genymotion
 
     substitute phony-home/.local/share/applications/genymobile-genymotion.desktop \
-      $out/share/applications/genymobile-genymotion.desktop --replace "$TMP/${pname}" "$out/libexec"
+      $out/share/applications/genymobile-genymotion.desktop --replace "$TMP/genymotion" "$out/libexec"
   '';
 
   installPhase = ''
@@ -126,4 +126,4 @@ stdenv.mkDerivation rec {
     platforms = [ "x86_64-linux" ];
     maintainers = [ lib.maintainers.puffnfresh ];
   };
-}
+})

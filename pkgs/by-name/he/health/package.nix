@@ -16,7 +16,7 @@
   nix-update-script,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "health";
   version = "0.95.0";
 
@@ -24,12 +24,14 @@ stdenv.mkDerivation rec {
     domain = "gitlab.gnome.org";
     owner = "World";
     repo = "health";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-PrNPprSS98yN8b8yw2G6hzTSaoE65VbsM3q7FVB4mds=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
-    inherit pname version src;
+    pname = "health";
+    inherit (finalAttrs) version;
+    inherit (finalAttrs) src;
     hash = "sha256-eR1ZGtTZQNhofFUEjI7IX16sMKPJmAl7aIFfPJukecg=";
   };
 
@@ -68,4 +70,4 @@ stdenv.mkDerivation rec {
     teams = [ lib.teams.gnome-circle ];
     platforms = lib.platforms.unix;
   };
-}
+})

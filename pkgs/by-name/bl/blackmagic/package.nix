@@ -28,16 +28,16 @@ let
     hash = "sha256-IWLIJu2XuwsnP8/2C9uj09EBU2VtwTke3XXbc3NyZt4=";
   };
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "blackmagic";
   version = "2.0.0";
   # `git describe --always`
-  firmwareVersion = "v${version}";
+  firmwareVersion = "v${finalAttrs.version}";
 
   src = fetchFromGitHub {
     owner = "blackmagic-debug";
     repo = "blackmagic";
-    rev = firmwareVersion;
+    rev = finalAttrs.firmwareVersion;
     hash = "sha256-JbPeN0seSkxV2uZ8BvsvjDUBMOyJu2BxqMgNkhLOiFI=";
   };
 
@@ -140,4 +140,4 @@ stdenv.mkDerivation rec {
     ];
     platforms = lib.platforms.unix;
   };
-}
+})

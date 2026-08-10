@@ -17,7 +17,7 @@
 # since the resulting `node_modules` directories don't have the same structure
 # as if they were installed directly. Hence why we opted to use a
 # `stdenv.mkDerivation` instead.
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   # NOTE official app name is `MQTT-Explorer` but to suffice nixpkgs conventions
   # we opted to use `mqtt-explorer` instead.
   pname = "mqtt-explorer";
@@ -26,22 +26,22 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "thomasnordquist";
     repo = "MQTT-Explorer";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-oFS4RnuWQoicPemZbPBAp8yQjRbhAyo/jiaw8V0MBAo=";
   };
 
   offlineCache = fetchYarnDeps {
-    yarnLock = "${src}/yarn.lock";
+    yarnLock = "${finalAttrs.src}/yarn.lock";
     hash = "sha256-yEL6Vb1Yry3Vns2GF0aagGksRwsCgXR5ZfmrDPxeqos=";
   };
 
   offlineCacheApp = fetchYarnDeps {
-    yarnLock = "${src}/app/yarn.lock";
+    yarnLock = "${finalAttrs.src}/app/yarn.lock";
     hash = "sha256-4oGWBXZHdN+wSpn3fPzTdpaIcywAVdFVYmsOIhcgvUE=";
   };
 
   offlineCacheBackend = fetchYarnDeps {
-    yarnLock = "${src}/backend/yarn.lock";
+    yarnLock = "${finalAttrs.src}/backend/yarn.lock";
     hash = "sha256-gg6KrcQz7MdIgFdlbuGiDf/tVd7lSOjwXFIq56tpaTc=";
   };
 
@@ -150,12 +150,12 @@ stdenv.mkDerivation rec {
 
   desktopItems = [
     (makeDesktopItem {
-      name = pname;
-      exec = meta.mainProgram;
+      name = "mqtt-explorer";
+      exec = finalAttrs.meta.mainProgram;
       icon = "mqtt-explorer";
       desktopName = "MQTT Explorer";
       genericName = "MQTT Protocol Client";
-      comment = meta.description;
+      comment = finalAttrs.meta.description;
       type = "Application";
       categories = [
         "Development"
@@ -169,10 +169,10 @@ stdenv.mkDerivation rec {
   meta = {
     description = "All-round MQTT client that provides a structured topic overview";
     homepage = "https://github.com/thomasnordquist/MQTT-Explorer";
-    changelog = "https://github.com/thomasnordquist/MQTT-Explorer/releases/tag/v${version}";
+    changelog = "https://github.com/thomasnordquist/MQTT-Explorer/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.cc-by-nd-40;
     maintainers = with lib.maintainers; [ tsandrini ];
     platforms = electron.meta.platforms;
     mainProgram = "mqtt-explorer";
   };
-}
+})

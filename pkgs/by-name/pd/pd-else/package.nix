@@ -13,14 +13,14 @@
   zlib,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "pd-else";
   version = "1.0-rc13";
 
   src = fetchFromGitHub {
     owner = "porres";
     repo = "pd-else";
-    tag = "v.${version}";
+    tag = "v.${finalAttrs.version}";
     hash = "sha256-WebjdozcFup2xk3cS9LPTiA6m0l1sR6sj3hHlt6ScfU=";
   };
 
@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
 
   postFixup = ''
     interpreter=$(cat $NIX_CC/nix-support/dynamic-linker)
-    find $out -type f -executable -exec patchelf --set-interpreter "$interpreter" --set-rpath ${lib.makeLibraryPath buildInputs} {} \;
+    find $out -type f -executable -exec patchelf --set-interpreter "$interpreter" --set-rpath ${lib.makeLibraryPath finalAttrs.buildInputs} {} \;
   '';
 
   meta = {
@@ -79,4 +79,4 @@ stdenv.mkDerivation rec {
     broken = stdenv.hostPlatform.isDarwin;
     maintainers = [ lib.maintainers.kugland ];
   };
-}
+})

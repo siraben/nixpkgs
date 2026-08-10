@@ -17,14 +17,14 @@
   nix-update-script,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "elementary-camera";
   version = "8.0.2";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "camera";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-jJJhCFDo5Iw6zV6aE8JgG/sMFpUfra2j2zQ8+GjyQrk=";
   };
 
@@ -63,4 +63,4 @@ stdenv.mkDerivation rec {
     teams = [ lib.teams.pantheon ];
     mainProgram = "io.elementary.camera";
   };
-}
+})

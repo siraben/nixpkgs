@@ -13,13 +13,13 @@
   gitUpdater,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "moreutils";
   version = "0.70";
 
   src = fetchgit {
     url = "git://git.joeyh.name/moreutils";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-71ACHzzk258U4q2L7GJ59mrMZG99M7nQkcH4gHafGP0=";
   };
 
@@ -69,4 +69,4 @@ stdenv.mkDerivation rec {
     # its parallel executable instead of moreutils'.
     priority = (parallel.meta.priority or lib.meta.defaultPriority) + 1;
   };
-}
+})

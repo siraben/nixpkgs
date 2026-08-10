@@ -8,14 +8,14 @@
   pkg-config,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "libwbxml";
   version = "0.11.10";
 
   src = fetchFromGitHub {
     owner = "libwbxml";
     repo = "libwbxml";
-    rev = "${pname}-${version}";
+    rev = "libwbxml-${finalAttrs.version}";
     sha256 = "sha256-yy8+CyNKXuttCmxRxH/XptIloDklto4f5Zg0vnwnneY=";
   };
 
@@ -33,4 +33,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.unix;
     license = lib.licenses.lgpl21Plus;
   };
-}
+})

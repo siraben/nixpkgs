@@ -9,12 +9,12 @@
   bzip2,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "libwpd";
   version = "0.8.14";
 
   src = fetchurl {
-    url = "mirror://sourceforge/libwpd/libwpd-${version}.tar.gz";
+    url = "mirror://sourceforge/libwpd/libwpd-${finalAttrs.version}.tar.gz";
     sha256 = "1syli6i5ma10cwzpa61a18pyjmianjwsf6pvmvzsh5md6yk4yx01";
   };
 
@@ -40,4 +40,4 @@ stdenv.mkDerivation rec {
     ];
     platforms = lib.platforms.unix;
   };
-}
+})

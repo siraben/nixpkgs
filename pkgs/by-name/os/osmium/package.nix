@@ -29,12 +29,12 @@
   alsa-lib,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "osmium";
   version = "0.0.33-alpha";
 
   src = fetchurl {
-    url = "https://updater.osmium.chat/Osmium-${version}-x64.tar.gz";
+    url = "https://updater.osmium.chat/Osmium-${finalAttrs.version}-x64.tar.gz";
     hash = "sha256-ybv/CCaCqcNvoyTNKQbjSdNxOC81QDnnKjKcw8X9y2Y=";
   };
 
@@ -132,4 +132,4 @@ stdenv.mkDerivation rec {
     ];
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
   };
-}
+})

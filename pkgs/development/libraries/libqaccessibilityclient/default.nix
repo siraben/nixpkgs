@@ -7,12 +7,12 @@
   kdePackages,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "libqaccessibilityclient";
   version = "0.6.0";
 
   src = fetchurl {
-    url = "mirror://kde/stable/libqaccessibilityclient/libqaccessibilityclient-${version}.tar.xz";
+    url = "mirror://kde/stable/libqaccessibilityclient/libqaccessibilityclient-${finalAttrs.version}.tar.xz";
     hash = "sha256-TFDESGItycUEHtENp9h7Pk5xzLSdSDGoSSEdQjxfXTM=";
   };
 
@@ -40,4 +40,4 @@ stdenv.mkDerivation rec {
     ];
     platforms = lib.platforms.linux;
   };
-}
+})

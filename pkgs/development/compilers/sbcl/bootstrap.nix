@@ -6,12 +6,12 @@
   cfg,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "sbcl-bootstrap";
   inherit (cfg) version;
 
   src = fetchurl {
-    url = "mirror://sourceforge/project/sbcl/sbcl/${version}/sbcl-${version}-${cfg.system}-binary.tar.bz2";
+    url = "mirror://sourceforge/project/sbcl/sbcl/${finalAttrs.version}/sbcl-${finalAttrs.version}-${cfg.system}-binary.tar.bz2";
     inherit (cfg) sha256;
   };
 
@@ -34,4 +34,4 @@ stdenv.mkDerivation rec {
   '';
 
   meta.sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
-}
+})

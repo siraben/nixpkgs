@@ -19,12 +19,12 @@
   libnma-gtk4,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "NetworkManager-vpnc";
   version = "1.4.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/NetworkManager-vpnc/${lib.versions.majorMinor version}/NetworkManager-vpnc-${version}.tar.xz";
+    url = "mirror://gnome/sources/NetworkManager-vpnc/${lib.versions.majorMinor finalAttrs.version}/NetworkManager-vpnc-${finalAttrs.version}.tar.xz";
     sha256 = "47KpiIAnWht1FUvDF6eGQ8/fnqfnDfTu2WSPKeolNzA=";
   };
 
@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
 
   passthru = {
     updateScript = gnome.updateScript {
-      packageName = pname;
+      packageName = "NetworkManager-vpnc";
       attrPath = "networkmanager-vpnc";
       versionPolicy = "odd-unstable";
     };
@@ -76,4 +76,4 @@ stdenv.mkDerivation rec {
     inherit (networkmanager.meta) maintainers teams platforms;
     license = lib.licenses.gpl2Plus;
   };
-}
+})

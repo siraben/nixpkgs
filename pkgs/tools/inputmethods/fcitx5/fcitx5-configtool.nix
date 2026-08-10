@@ -25,14 +25,14 @@
   kcmSupport ? true,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "fcitx5-configtool";
   version = "5.1.14";
 
   src = fetchFromGitHub {
     owner = "fcitx";
-    repo = pname;
-    rev = version;
+    repo = "fcitx5-configtool";
+    rev = finalAttrs.version;
     hash = "sha256-+lpJlGaVGTcZpoGvcHAsb5N5M4Y3McV4GSZpSwZxX3Y=";
   };
 
@@ -77,4 +77,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     mainProgram = "fcitx5-config-qt";
   };
-}
+})

@@ -211,7 +211,7 @@ let
     optionalString
     ;
 
-  self = stdenv.mkDerivation rec {
+  self = stdenv.mkDerivation (finalAttrs: {
     pname = "handbrake";
     inherit version src;
 
@@ -222,7 +222,7 @@ let
       patchShebangs gtk/data/
 
       substituteInPlace libhb/hb.c \
-        --replace-fail 'return hb_version;' 'return "${version}";'
+        --replace-fail 'return hb_version;' 'return "${finalAttrs.version}";'
 
       # Force using nixpkgs dependencies
       sed -i '/MODULES += contrib/d' make/include/main.defs
@@ -354,7 +354,7 @@ let
             hash = "sha256-CZajCf8glZELnTDVJTsETWNxVCl9330L2n863t9a3cE=";
           };
         in
-        runCommand "${pname}-${version}-basic-conversion" { nativeBuildInputs = [ self ]; } ''
+        runCommand "handbrake-${finalAttrs.version}-basic-conversion" { nativeBuildInputs = [ self ]; } ''
           mkdir -p $out
           cd $out
           HandBrakeCLI -i ${testMkv} -o test.mp4 -e x264 -q 20 -B 160
@@ -389,6 +389,6 @@ let
       platforms = with lib.platforms; unix;
       broken = stdenv.hostPlatform.isDarwin; # https://github.com/NixOS/nixpkgs/pull/297984#issuecomment-2016503434
     };
-  };
+  });
 in
 self

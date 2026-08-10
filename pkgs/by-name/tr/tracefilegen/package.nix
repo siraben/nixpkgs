@@ -5,7 +5,7 @@
   cmake,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
 
   pname = "tracefilegen";
   version = "0-unstable-2017-05-13";
@@ -23,8 +23,8 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     install -Dm755 TraceFileGen $out/bin/TraceFileGen
-    mkdir -p $out/share/doc/${pname}-${version}/
-    cp -ar $src/Documentation/html $out/share/doc/${pname}-${version}/.
+    mkdir -p $out/share/doc/tracefilegen-${finalAttrs.version}/
+    cp -ar $src/Documentation/html $out/share/doc/tracefilegen-${finalAttrs.version}/.
   '';
 
   postPatch = ''
@@ -41,4 +41,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
   };
 
-}
+})

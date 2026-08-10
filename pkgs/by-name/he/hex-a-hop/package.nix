@@ -8,12 +8,12 @@
   SDL_ttf,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "hex-a-hop";
   version = "1.1.0";
 
   src = fetchzip {
-    url = "mirror://sourceforge/project/hexahop/${version}/hex-a-hop-${version}.tar.gz";
+    url = "mirror://sourceforge/project/hexahop/${finalAttrs.version}/hex-a-hop-${finalAttrs.version}.tar.gz";
     sha256 = "sha256-fBSvNtgNR0aNofbvoYpM1e8ww4ARlXIvrQUvJqVGLlY=";
   };
 
@@ -38,8 +38,8 @@ stdenv.mkDerivation rec {
   makeFlags = [ "PREFIX=$(out)" ];
 
   postFixup = ''
-    install -Dm644 ${icon} $out/share/icons/${pname}.png
-    install -Dm644 ${desktop} $out/share/applications/${pname}.desktop
+    install -Dm644 ${finalAttrs.icon} $out/share/icons/hex-a-hop.png
+    install -Dm644 ${finalAttrs.desktop} $out/share/applications/hex-a-hop.desktop
   '';
 
   meta = {
@@ -55,4 +55,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ rampoina ];
   };
-}
+})

@@ -88,12 +88,12 @@ let
   };
 
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "bumblebee";
   version = "3.2.1";
 
   src = fetchurl {
-    url = "https://www.bumblebee-project.org/${pname}-${version}.tar.gz";
+    url = "https://www.bumblebee-project.org/bumblebee-${finalAttrs.version}.tar.gz";
     sha256 = "03p3gvx99lwlavznrpg9l7jnl1yfg2adcj8jcjj0gxp20wxp060h";
   };
 
@@ -185,4 +185,4 @@ stdenv.mkDerivation rec {
     maintainers = [ ];
     platforms = lib.platforms.linux;
   };
-}
+})

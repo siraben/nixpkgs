@@ -6,15 +6,15 @@
   cmake,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "caps2esc";
   version = "0.3.2";
 
   src = fetchFromGitLab {
     group = "interception";
     owner = "linux/plugins";
-    repo = pname;
-    rev = "v${version}";
+    repo = "caps2esc";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-gPFElAixiDTTwcl2XKM7MbTkpRrg8ToO5K7H8kz3DHk=";
   };
   patches = [
@@ -33,4 +33,4 @@ stdenv.mkDerivation rec {
     maintainers = [ ];
     platforms = lib.platforms.linux;
   };
-}
+})

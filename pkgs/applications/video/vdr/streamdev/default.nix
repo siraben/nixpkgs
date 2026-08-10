@@ -4,14 +4,14 @@
   lib,
   vdr,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "vdr-streamdev";
   version = "0.6.5";
 
   src = fetchFromGitHub {
     owner = "vdr-projects";
     repo = "vdr-plugin-streamdev";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-l+0JHjzuCx/UDbrDz+PSarG6IIwlUcPTgXUDypM4tds=";
   };
 
@@ -31,10 +31,10 @@ stdenv.mkDerivation rec {
   ];
 
   meta = {
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     description = "This PlugIn is a VDR implementation of the VTP (Video Transfer Protocol) Version 0.0.3 (see file PROTOCOL) and a basic HTTP Streaming Protocol";
     maintainers = [ lib.maintainers.ck3d ];
     license = lib.licenses.gpl2;
     inherit (vdr.meta) platforms;
   };
-}
+})

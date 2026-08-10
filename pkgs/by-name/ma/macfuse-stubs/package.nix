@@ -9,12 +9,12 @@
   isFuse3 ? false,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "macfuse-stubs";
   version = "5.1.3";
 
   src = fetchurl {
-    url = "https://github.com/osxfuse/osxfuse/releases/download/macfuse-${version}/macfuse-${version}.dmg";
+    url = "https://github.com/osxfuse/osxfuse/releases/download/macfuse-${finalAttrs.version}/macfuse-${finalAttrs.version}.dmg";
     hash = "sha256-5fgP+MPfgm6Zf7eGs1EloMamcvS7oncLDe9rpjyk74E=";
   };
 
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     cp -R usr/local/include/fuse{,.h} $out/include
   '';
 
-  passthru.warning = meta.description;
+  passthru.warning = finalAttrs.meta.description;
 
   meta = {
     homepage = "https://osxfuse.github.io";
@@ -77,4 +77,4 @@ stdenv.mkDerivation rec {
       lgpl2Plus # libfuse
     ];
   };
-}
+})

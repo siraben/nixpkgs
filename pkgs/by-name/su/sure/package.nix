@@ -42,7 +42,7 @@ let
     gemset = ./rubyEnv/gemset.nix;
   };
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "sure";
   inherit src version;
 
@@ -94,7 +94,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = {
-    changelog = "https://github.com/we-promise/sure/releases/tag/v${version}";
+    changelog = "https://github.com/we-promise/sure/releases/tag/v${finalAttrs.version}";
     description = "Personal finance app for everyone";
     homepage = "https://sure.am/";
     license = lib.licenses.agpl3Only;
@@ -104,4 +104,4 @@ stdenv.mkDerivation rec {
     ];
     platforms = lib.platforms.linux;
   };
-}
+})

@@ -29,19 +29,21 @@
   buildClient ? true,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ddnet";
   version = "19.8.3";
 
   src = fetchFromGitHub {
     owner = "ddnet";
     repo = "ddnet";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-/SfUDliB6fdc/yf2yVXHiqYlH+cIIoxz3RkP8SxsgA4=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
-    inherit pname version src;
+    pname = "ddnet";
+    inherit (finalAttrs) version;
+    inherit (finalAttrs) src;
     hash = "sha256-VKGc4LQjt2FHbELLBKtV8rKpxjGBrzlA3m9BSdZ/6Z0=";
   };
 
@@ -133,4 +135,4 @@ stdenv.mkDerivation rec {
     ];
     mainProgram = "DDNet${lib.optionalString (!buildClient) "-Server"}";
   };
-}
+})

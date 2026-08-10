@@ -7,7 +7,7 @@
   libpulseaudio,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "libcardiacarrest";
   version = "12.2.8"; # <PA API version>.<version>
 
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
 
   meta =
 
-    src.meta // {
+    finalAttrs.src.meta // {
       description = "Trivial implementation of libpulse PulseAudio library API";
       longDescription = ''
         libcardiacarrest is a trivial implementation of libpulse
@@ -55,4 +55,4 @@ stdenv.mkDerivation rec {
       maintainers = [ lib.maintainers.oxij ]; # also the author
     };
 
-}
+})

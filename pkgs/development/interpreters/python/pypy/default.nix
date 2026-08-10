@@ -79,11 +79,11 @@ let
 
 in
 with passthru;
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   inherit pname version;
 
   src = fetchurl {
-    url = "https://downloads.python.org/pypy/pypy${pythonVersion}-v${version}-src.tar.bz2";
+    url = "https://downloads.python.org/pypy/pypy${pythonVersion}-v${finalAttrs.version}-src.tar.bz2";
     inherit hash;
   };
 
@@ -136,10 +136,10 @@ stdenv.mkDerivation rec {
       NIX_CFLAGS_COMPILE = "-Wno-error=incompatible-function-pointer-types";
     }
     // {
-      C_INCLUDE_PATH = lib.makeSearchPathOutput "dev" "include" buildInputs;
-      LIBRARY_PATH = lib.makeLibraryPath buildInputs;
+      C_INCLUDE_PATH = lib.makeSearchPathOutput "dev" "include" finalAttrs.buildInputs;
+      LIBRARY_PATH = lib.makeLibraryPath finalAttrs.buildInputs;
       LD_LIBRARY_PATH = lib.makeLibraryPath (
-        builtins.filter (x: x.outPath != stdenv.cc.libc.outPath or "") buildInputs
+        builtins.filter (x: x.outPath != stdenv.cc.libc.outPath or "") finalAttrs.buildInputs
       );
     };
 
@@ -390,7 +390,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "https://www.pypy.org/";
-    changelog = "https://doc.pypy.org/release-v${version}.html";
+    changelog = "https://doc.pypy.org/release-v${finalAttrs.version}.html";
     description = "Fast, compliant alternative implementation of the Python language (${pythonVersion})";
     mainProgram = executable;
     license = lib.licenses.mit;
@@ -405,4 +405,4 @@ stdenv.mkDerivation rec {
       fliegendewurst
     ];
   };
-}
+})

@@ -8,14 +8,14 @@
   pipewire,
   pkg-config,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "obs-pipewire-audio-capture";
   version = "1.2.1";
 
   src = fetchFromGitHub {
     owner = "dimtpap";
     repo = "obs-pipewire-audio-capture";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-GrfogPsqpQ976Gcc4JVdslAAWTj49PdspwVp/JXYXSQ=";
   };
 
@@ -44,4 +44,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2Plus;
     inherit (obs-studio.meta) platforms;
   };
-}
+})

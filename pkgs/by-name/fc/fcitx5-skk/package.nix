@@ -14,14 +14,14 @@
   enableQt ? false,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "fcitx5-skk";
   version = "5.1.10";
 
   src = fetchFromGitHub {
     owner = "fcitx";
-    repo = pname;
-    rev = version;
+    repo = "fcitx5-skk";
+    rev = finalAttrs.version;
     hash = "sha256-4ApXom3SDwlT55lj0q3u5wBmKRGAzJCvpx1H30z3Ubo=";
   };
 
@@ -55,4 +55,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ wattmto ];
     platforms = lib.platforms.linux;
   };
-}
+})

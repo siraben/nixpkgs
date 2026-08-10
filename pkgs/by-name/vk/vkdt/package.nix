@@ -28,20 +28,22 @@
   rustPlatform,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "vkdt";
   version = "1.0.0";
 
   src = fetchurl {
-    url = "https://github.com/hanatos/vkdt/releases/download/${version}/vkdt-${version}.tar.xz";
+    url = "https://github.com/hanatos/vkdt/releases/download/${finalAttrs.version}/vkdt-${finalAttrs.version}.tar.xz";
     hash = "sha256-oLJ5IlWOJoe2vUBaI9nyAhfjuw/lF63ZCdhMSF5D0pE=";
   };
 
   cargoRoot = "src/pipe/modules/i-raw/rawloader-c";
 
   cargoDeps = rustPlatform.fetchCargoVendor {
-    inherit pname version;
-    inherit src cargoRoot;
+    pname = "vkdt";
+    inherit (finalAttrs) version;
+    inherit (finalAttrs) src;
+    inherit (finalAttrs) cargoRoot;
     hash = "sha256-8+gJVe9A1w9VlQpKjVnO/ZX44GKvh4yXKlGf4HqyW2M=";
   };
 
@@ -96,4 +98,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ paperdigits ];
     platforms = lib.platforms.linux;
   };
-}
+})

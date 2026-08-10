@@ -35,13 +35,13 @@ let
     }
     ."${arch}-${os}-hash";
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "whisparr";
   version = "2.0.0.2151";
 
   src = fetchurl {
-    name = "${pname}-${arch}-${os}-${version}.tar.gz";
-    url = "https://whisparr.servarr.com/v1/update/nightly/updatefile?runtime=netcore&version=${version}&arch=${arch}&os=${os}";
+    name = "whisparr-${arch}-${os}-${finalAttrs.version}.tar.gz";
+    url = "https://whisparr.servarr.com/v1/update/nightly/updatefile?runtime=netcore&version=${finalAttrs.version}&arch=${arch}&os=${os}";
     inherit hash;
   };
 
@@ -62,12 +62,12 @@ stdenv.mkDerivation rec {
 
     rm -rf "Whisparr.Update"
 
-    mkdir -p $out/{bin,share/${pname}-${version}}
-    cp -r * $out/share/${pname}-${version}/
+    mkdir -p $out/{bin,share/whisparr-${finalAttrs.version}}
+    cp -r * $out/share/whisparr-${finalAttrs.version}/
 
     makeWrapper "${dotnet-runtime}/bin/dotnet" $out/bin/Whisparr \
-      --add-flags "$out/share/${pname}-${version}/Whisparr.dll" \
-      --prefix LD_LIBRARY_PATH : ${runtimeLibs}
+      --add-flags "$out/share/whisparr-${finalAttrs.version}/Whisparr.dll" \
+      --prefix LD_LIBRARY_PATH : ${finalAttrs.runtimeLibs}
 
     runHook postInstall
   '';
@@ -91,4 +91,4 @@ stdenv.mkDerivation rec {
     mainProgram = "Whisparr";
     maintainers = [ ];
   };
-}
+})

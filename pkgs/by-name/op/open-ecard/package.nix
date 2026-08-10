@@ -25,7 +25,7 @@ let
     };
   };
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "open-ecard";
   inherit version;
 
@@ -36,12 +36,12 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ makeWrapper ];
 
   desktopItem = makeDesktopItem {
-    name = pname;
+    name = "open-ecard";
     desktopName = "Open eCard App";
     genericName = "eCard App";
     comment = "Client side implementation of the eCard-API-Framework";
     icon = "oec_logo_bg-transparent.svg";
-    exec = pname;
+    exec = "open-ecard";
     categories = [
       "Utility"
       "Security"
@@ -50,17 +50,17 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out/share/java
-    cp ${srcs.richclient} $out/share/java/richclient-${version}.jar
-    cp ${srcs.cifs} $out/share/java/cifs-${version}.jar
+    cp ${srcs.richclient} $out/share/java/richclient-${finalAttrs.version}.jar
+    cp ${srcs.cifs} $out/share/java/cifs-${finalAttrs.version}.jar
 
     mkdir -p $out/share/applications $out/share/pixmaps
     cp $desktopItem/share/applications/* $out/share/applications
     cp ${srcs.logo} $out/share/pixmaps/oec_logo_bg-transparent.svg
 
     mkdir -p $out/bin
-    makeWrapper ${jre}/bin/java $out/bin/${pname} \
-      --add-flags "-cp $out/share/java/cifs-${version}.jar" \
-      --add-flags "-jar $out/share/java/richclient-${version}.jar" \
+    makeWrapper ${jre}/bin/java $out/bin/open-ecard \
+      --add-flags "-cp $out/share/java/cifs-${finalAttrs.version}.jar" \
+      --add-flags "-jar $out/share/java/richclient-${finalAttrs.version}.jar" \
       --suffix LD_LIBRARY_PATH ':' ${lib.getLib pcsclite}/lib
   '';
 
@@ -74,4 +74,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ sephalon ];
     platforms = lib.platforms.linux;
   };
-}
+})

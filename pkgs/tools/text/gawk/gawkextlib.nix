@@ -40,7 +40,7 @@ let
     let
       is_extension = gawkextlib != null;
     in
-    stdenv.mkDerivation rec {
+    stdenv.mkDerivation (finalAttrs: {
       pname = "gawkextlib-${name}";
       version = "unstable-2022-10-20";
 
@@ -67,7 +67,7 @@ let
         gettext
       ];
 
-      buildInputs = [ gawk ] ++ extraBuildInputs;
+      buildInputs = [ finalAttrs.gawk ] ++ extraBuildInputs;
       propagatedBuildInputs = lib.optional is_extension gawkextlib;
 
       setupHook = if is_extension then ./setup-hook.sh else null;
@@ -95,7 +95,7 @@ let
         maintainers = with lib.maintainers; [ tomberek ];
       }
       // lib.optionalAttrs (broken != null) { inherit broken; };
-    }
+    })
   );
   gawkextlib = buildExtension {
     gawkextlib = null;

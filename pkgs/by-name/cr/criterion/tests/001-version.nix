@@ -3,7 +3,7 @@
   pkg-config,
   criterion,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   name = "version-tester";
   inherit (criterion) version;
   src = ./test_dummy.c;
@@ -13,13 +13,13 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkg-config ];
 
   buildPhase = ''
-    cc -o ${name} $src `pkg-config --libs criterion`
+    cc -o version-tester $src `pkg-config --libs criterion`
   '';
 
   installPhase = ''
     mkdir -p $out/bin
-    cp ${name} $out/bin/${name}
+    cp version-tester $out/bin/version-tester
   '';
 
-  meta.mainProgram = name;
-}
+  meta.mainProgram = "version-tester";
+})

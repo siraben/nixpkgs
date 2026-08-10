@@ -11,10 +11,10 @@
   setuptools,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "pip";
   inherit (pip) version;
-  name = "${python.libPrefix}-bootstrapped-${pname}-${version}";
+  name = "${python.libPrefix}-bootstrapped-pip-${finalAttrs.version}";
 
   srcs = [
     wheel.src
@@ -89,4 +89,4 @@ stdenv.mkDerivation rec {
     );
     homepage = pip.meta.homepage;
   };
-}
+})

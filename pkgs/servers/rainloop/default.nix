@@ -10,7 +10,7 @@
 let
   common =
     { edition, sha256 }:
-    stdenv.mkDerivation rec {
+    stdenv.mkDerivation (finalAttrs: {
       pname = "rainloop${lib.optionalString (edition != "") "-${edition}"}";
       version = "1.16.0";
 
@@ -25,9 +25,9 @@ let
       '';
 
       src = fetchurl {
-        url = "https://github.com/RainLoop/rainloop-webmail/releases/download/v${version}/rainloop-${edition}${
+        url = "https://github.com/RainLoop/rainloop-webmail/releases/download/v${finalAttrs.version}/rainloop-${edition}${
           lib.optionalString (edition != "") "-"
-        }${version}.zip";
+        }${finalAttrs.version}.zip";
         sha256 = sha256;
       };
 
@@ -60,7 +60,7 @@ let
         mkdir $out
         cp -r rainloop/* $out
         rm -rf $out/data
-        cp ${includeScript} $out/include.php
+        cp ${finalAttrs.includeScript} $out/include.php
         mkdir $out/data
         chmod 700 $out/data
       '';
@@ -73,7 +73,7 @@ let
         platforms = lib.platforms.all;
         maintainers = [ ];
       };
-    };
+    });
 in
 {
   rainloop-community = common {

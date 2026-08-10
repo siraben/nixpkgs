@@ -11,7 +11,7 @@
   libxt,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "xedit";
   version = "1.2.5";
 
@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     domain = "gitlab.freedesktop.org";
     owner = "xorg/app";
     repo = "xedit";
-    rev = "${pname}-${version}";
+    rev = "xedit-${finalAttrs.version}";
     sha256 = "sha256-+nWtoqm+5ie2U5nFJRioftMkxJFNtws09kTelmWhqgA=";
   };
 
@@ -56,4 +56,4 @@ stdenv.mkDerivation rec {
     broken = stdenv.hostPlatform.isDarwin;
     mainProgram = "xedit";
   };
-}
+})

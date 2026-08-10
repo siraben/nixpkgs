@@ -24,7 +24,7 @@ let
     kill $socat_pid
   '';
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   inherit version;
 
   pname = "bisq2-webcam-app";
@@ -47,10 +47,10 @@ stdenv.mkDerivation rec {
     runHook preInstall
 
     mkdir -p $out/lib/app $out/bin
-    cp webcam-app-${version}-all.jar $out/lib/app/
+    cp webcam-app-${finalAttrs.version}-all.jar $out/lib/app/
     install -D -m 777 ${launcher} $out/bin/bisq2-webcam-app
     substituteAllInPlace $out/bin/bisq2-webcam-app
 
     runHook postInstall
   '';
-}
+})

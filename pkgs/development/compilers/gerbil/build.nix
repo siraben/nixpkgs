@@ -20,7 +20,7 @@ let
   stdenv = gccStdenv;
 in
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "gerbil";
   inherit version;
   inherit src;
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
   # or give up and delete all tentative support for static libraries.
   #buildInputs_staticLibraries = map makeStaticLibraries buildInputs_libraries;
 
-  buildInputs = buildInputs_libraries;
+  buildInputs = finalAttrs.buildInputs_libraries;
 
   postPatch = ''
     patchShebangs . ;
@@ -86,7 +86,7 @@ stdenv.mkDerivation rec {
            LD=${gccStdenv.cc}/bin/${gccStdenv.cc.targetPrefix}ld \
            XMKMF=${coreutils}/bin/false
     unset CFLAGS LDFLAGS LIBS CPPFLAGS CXXFLAGS
-    ./configure ${builtins.concatStringsSep " " configureFlags}
+    ./configure ${builtins.concatStringsSep " " finalAttrs.configureFlags}
   '';
 
   extraLdOptions = [
@@ -113,7 +113,7 @@ stdenv.mkDerivation rec {
 
     f=build/lib/libgerbil.so.ldd ; [ -f $f ] && :
     substituteInPlace "$f" --replace '(' \
-      '(${lib.strings.concatStrings (map (x: "\"${x}\" ") extraLdOptions)}'
+      '(${lib.strings.concatStrings (map (x: "\"${x}\" ") finalAttrs.extraLdOptions)}'
 
     runHook postBuild
   '';
@@ -143,4 +143,4 @@ stdenv.mkDerivation rec {
   };
 
   outputsToInstall = [ "out" ];
-}
+})

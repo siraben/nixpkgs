@@ -20,7 +20,7 @@
   cups,
 }:
 let
-  thisPackage = stdenv.mkDerivation rec {
+  thisPackage = stdenv.mkDerivation (finalAttrs: {
     inherit pname src version;
     strictDeps = true;
 
@@ -37,11 +37,11 @@ let
 
     desktopItems = [
       (makeDesktopItem {
-        name = "${pname}";
+        name = "${finalAttrs.pname}";
         desktopName = desktopName;
         genericName = "View and edit PDF files";
-        exec = "${pname} %f";
-        icon = "${pname}";
+        exec = "${finalAttrs.pname} %f";
+        icon = "${finalAttrs.pname}";
         comment = "Views and edits PDF files";
         mimeTypes = [ "application/pdf" ];
         categories = [ "Office" ];
@@ -61,12 +61,12 @@ let
       mkdir -p $out/{bin,share/pixmaps}
       rm -rf opt/${program}${year}/jre
       cp -r opt/${program}${year} $out/share/
-      ln -s $out/share/${program}${year}/.install4j/${program}${year}.png  $out/share/pixmaps/${pname}.png
+      ln -s $out/share/${program}${year}/.install4j/${program}${year}.png  $out/share/pixmaps/${finalAttrs.pname}.png
       ln -s $out/share/${program}${year}/${program}${year} $out/bin/
 
       runHook postInstall
     '';
-  };
+  });
 
 in
 # Package with cups in FHS sandbox, because JAVA bin expects "/usr/bin/lpr" for printing.

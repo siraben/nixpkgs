@@ -4,14 +4,14 @@
   fetchFromGitHub,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "pass-update";
   version = "2.2.1";
 
   src = fetchFromGitHub {
     owner = "roddhjav";
     repo = "pass-update";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "sha256-NFdPnGMs8myiHufeHAQUNDUuvDzYeoWYZllI9+4HL+s=";
   };
 
@@ -34,4 +34,4 @@ stdenv.mkDerivation rec {
     ];
     platforms = lib.platforms.unix;
   };
-}
+})

@@ -7,14 +7,14 @@
   nix-update-script,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "limesurvey";
   version = "6.15.14+250924";
 
   src = fetchFromGitHub {
     owner = "LimeSurvey";
     repo = "LimeSurvey";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-xxK6JEgeBVIj8CGb0qSzwfO1Se9+jMtGB9V3rsc9bBU=";
   };
 
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
 
     mkdir -p $out/share/limesurvey
     cp -r . $out/share/limesurvey
-    cp ${phpConfig} $out/share/limesurvey/application/config/config.php
+    cp ${finalAttrs.phpConfig} $out/share/limesurvey/application/config/config.php
 
     runHook postInstall
   '';
@@ -46,4 +46,4 @@ stdenv.mkDerivation rec {
     maintainers = [ ];
     platforms = with lib.platforms; unix;
   };
-}
+})

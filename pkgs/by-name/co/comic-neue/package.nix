@@ -4,17 +4,17 @@
   fetchzip,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "comic-neue";
   version = "2.51";
 
   src = fetchzip {
-    url = "https://github.com/crozynski/comicneue/releases/download/${version}/comicneue-master.zip";
+    url = "https://github.com/crozynski/comicneue/releases/download/${finalAttrs.version}/comicneue-master.zip";
     hash = "sha256-Xkw+Yd36ffptKsS8RSEP9BPX6eQI7TZn2NgU49rdo80=";
   };
 
   installPhase = ''
-    mkdir -pv $out/share/{doc/${pname}-${version},fonts/{opentype,truetype,WOFF,WOFF2}}
+    mkdir -pv $out/share/{doc/comic-neue-${finalAttrs.version},fonts/{opentype,truetype,WOFF,WOFF2}}
     cp -v {FONTLOG,OFL-FAQ,OFL}.txt $out/share/doc/
     cp -v Booklet-ComicNeue.pdf $out/share/doc/
     cp -v Fonts/OTF/ComicNeue-Angular/*.otf $out/share/fonts/opentype
@@ -39,4 +39,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.all;
     maintainers = [ ];
   };
-}
+})

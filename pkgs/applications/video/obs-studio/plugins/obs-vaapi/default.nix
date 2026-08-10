@@ -10,14 +10,14 @@
   obs-studio,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "obs-vaapi";
   version = "0.4.2";
 
   src = fetchFromGitHub {
     owner = "fzwoch";
     repo = "obs-vaapi";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-ykiLsHL3hoe0ibxMxp4zrqeSeQfgnJfNg7Yb5i9HDJQ=";
   };
 
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "OBS Studio VAAPI support via GStreamer";
     homepage = "https://github.com/fzwoch/obs-vaapi";
-    changelog = "https://github.com/fzwoch/obs-vaapi/releases/tag/${version}";
+    changelog = "https://github.com/fzwoch/obs-vaapi/releases/tag/${finalAttrs.version}";
     maintainers = with lib.maintainers; [
       ahuzik
       pedrohlc
@@ -66,4 +66,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2Plus;
     inherit (obs-studio.meta) platforms;
   };
-}
+})

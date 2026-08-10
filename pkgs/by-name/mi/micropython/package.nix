@@ -10,14 +10,14 @@
   buildPackages,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "micropython";
   version = "1.27.0";
 
   src = fetchFromGitHub {
     owner = "micropython";
     repo = "micropython";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-q1lpWEZbguH9EbDKa121C1Rro2Rjn6duVKcwj8RZtdQ=";
     fetchSubmodules = true;
 
@@ -129,7 +129,7 @@ stdenv.mkDerivation rec {
   checkPhase = ''
     runHook preCheck
     pushd tests
-    ${python3.interpreter} ./run-tests.py ${skippedTests}
+    ${python3.interpreter} ./run-tests.py ${finalAttrs.skippedTests}
     popd
     runHook postCheck
   '';
@@ -152,4 +152,4 @@ stdenv.mkDerivation rec {
     ];
     mainProgram = "micropython";
   };
-}
+})

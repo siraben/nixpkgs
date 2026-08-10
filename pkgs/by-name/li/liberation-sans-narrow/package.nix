@@ -7,14 +7,14 @@
   python3,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "liberation-sans-narrow";
   version = "1.07.6";
 
   src = fetchFromGitHub {
     owner = "liberationfonts";
     repo = "liberation-sans-narrow";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "1qw554jbdnqkg6pjjl4cqkgsalq3398kzvww2naw30vykcz752bm";
   };
 
@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
   installPhase = ''
     runHook preInstall
     find . -name '*Narrow*.ttf' -exec install -m444 -Dt $out/share/fonts/truetype {} \;
-    install -m444 -Dt $out/doc/${pname}-${version} AUTHORS ChangeLog COPYING License.txt README.rst
+    install -m444 -Dt $out/doc/liberation-sans-narrow-${finalAttrs.version} AUTHORS ChangeLog COPYING License.txt README.rst
     runHook postInstall
   '';
 
@@ -45,4 +45,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2;
     homepage = "https://github.com/liberationfonts";
   };
-}
+})

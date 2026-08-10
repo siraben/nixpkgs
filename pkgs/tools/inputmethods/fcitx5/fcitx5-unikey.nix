@@ -11,14 +11,14 @@
   qtbase,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "fcitx5-unikey";
   version = "5.1.11";
 
   src = fetchFromGitHub {
     owner = "fcitx";
     repo = "fcitx5-unikey";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-ekGZreXoc/8yM2+PNsSLcMIsSxbRmkCQcknAZtNC3kM=";
   };
 
@@ -44,4 +44,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ berberman ];
     platforms = lib.platforms.linux;
   };
-}
+})

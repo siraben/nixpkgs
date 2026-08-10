@@ -9,12 +9,12 @@
   help2man,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "mt-utils";
   version = "0.0.1alpha3";
 
   src = fetchurl {
-    url = "mirror://sourceforge/multitran/mt-utils-${version}.tar.bz2";
+    url = "mirror://sourceforge/multitran/mt-utils-${finalAttrs.version}.tar.bz2";
     sha256 = "e407702c90c5272882386914e1eeca5f6c5039393af9a44538536b94867b0a0e";
   };
 
@@ -47,4 +47,4 @@ stdenv.mkDerivation rec {
     maintainers = [ ];
     platforms = with lib.platforms; linux;
   };
-}
+})

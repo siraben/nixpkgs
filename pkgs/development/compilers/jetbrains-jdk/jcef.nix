@@ -90,7 +90,7 @@ let
   });
 
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "jcef-jetbrains";
   rev = "fa677024a129747bd8cb05447af8918c494e4af7";
   # This is the commit number
@@ -125,7 +125,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "jetbrains";
     repo = "jcef";
-    inherit rev;
+    inherit (finalAttrs) rev;
     hash = "sha256-eYn1T4cRrHeVDSye6FKBv8X3zZPDGFurk6HJG+jPypY=";
   };
 
@@ -145,12 +145,12 @@ stdenv.mkDerivation rec {
 
     sed \
       -e 's|os.path.isdir(os.path.join(path, \x27.git\x27))|True|' \
-      -e 's|"%s rev-parse %s" % (git_exe, branch)|"echo '${rev}'"|' \
+      -e 's|"%s rev-parse %s" % (git_exe, branch)|"echo '${finalAttrs.rev}'"|' \
       -e 's|"%s config --get remote.origin.url" % git_exe|"echo 'https://github.com/jetbrains/jcef'"|' \
-      -e 's|"%s rev-list --count %s" % (git_exe, branch)|"echo '${version}'"|' \
+      -e 's|"%s rev-list --count %s" % (git_exe, branch)|"echo '${finalAttrs.version}'"|' \
       -i tools/git_util.py
 
-    cp ${clang-fmt} tools/buildtools/linux64/clang-format
+    cp ${finalAttrs.clang-fmt} tools/buildtools/linux64/clang-format
     chmod +w tools/buildtools/linux64/clang-format
 
     sed \
@@ -230,4 +230,4 @@ stdenv.mkDerivation rec {
       aoli-al
     ];
   };
-}
+})

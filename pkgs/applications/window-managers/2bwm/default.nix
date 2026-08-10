@@ -11,14 +11,14 @@
   xcbutilxrm,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   version = "0.3";
   pname = "2bwm";
 
   src = fetchFromGitHub {
     owner = "venam";
     repo = "2bwm";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "1xwib612ahv4rg9yl5injck89dlpyp5475xqgag0ydfd0r4sfld7";
   };
 
@@ -45,4 +45,4 @@ stdenv.mkDerivation rec {
     maintainers = [ lib.maintainers.sternenseemann ];
     platforms = lib.platforms.unix;
   };
-}
+})

@@ -9,12 +9,12 @@
   uutf,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ocaml${ocaml.version}-jsonm";
   version = "1.0.2";
 
   src = fetchurl {
-    url = "https://erratique.ch/software/jsonm/releases/jsonm-${version}.tbz";
+    url = "https://erratique.ch/software/jsonm/releases/jsonm-${finalAttrs.version}.tbz";
     hash = "sha256-6ikjn+tAUyAd8+Hm0nws4SOIKsRljhyL6plYvhGKe9Y=";
   };
 
@@ -39,4 +39,4 @@ stdenv.mkDerivation rec {
     mainProgram = "jsontrip";
     inherit (ocaml.meta) platforms;
   };
-}
+})

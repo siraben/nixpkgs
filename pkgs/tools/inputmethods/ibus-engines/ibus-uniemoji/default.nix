@@ -18,14 +18,14 @@ let
     ]
   );
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ibus-uniemoji";
   version = "0.7.0";
 
   src = fetchFromGitHub {
     owner = "salty-horse";
     repo = "ibus-uniemoji";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-iP72lExXnLFeWNJQfaDI/T4tRlXjHbRy+1X8+cAT+Zo=";
   };
 
@@ -68,4 +68,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ aske ];
   };
-}
+})

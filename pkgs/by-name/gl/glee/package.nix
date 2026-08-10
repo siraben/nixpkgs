@@ -8,13 +8,13 @@
   libx11,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "glee";
   rev = "f727ec7463d514b6279981d12833f2e11d62b33d";
-  version = "20170205-${lib.strings.substring 0 7 rev}";
+  version = "20170205-${lib.strings.substring 0 7 finalAttrs.rev}";
 
   src = fetchgit {
-    inherit rev;
+    inherit (finalAttrs) rev;
     url = "https://git.code.sf.net/p/glee/glee";
     sha256 = "13mf3s7nvmj26vr2wbcg08l4xxqsc1ha41sx3bfghvq8c5qpk2ph";
   };
@@ -48,4 +48,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     license = lib.licenses.gpl3;
   };
-}
+})

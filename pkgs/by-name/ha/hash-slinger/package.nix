@@ -8,14 +8,14 @@
   openssl,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "hash-slinger";
   version = "3.4";
 
   src = fetchFromGitHub {
     owner = "letoams";
     repo = "hash-slinger";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-IN+jo2EuGx+3bnANKz+d/3opFBUCSmkBS/sCU3lT7Zs=";
   };
 
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     unbound
     libreswan
   ]
-  ++ pythonPath;
+  ++ finalAttrs.pythonPath;
 
   propagatedUserEnvPkgs = [
     unbound
@@ -63,4 +63,4 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/letoams/hash-slinger";
     license = lib.licenses.gpl2Plus;
   };
-}
+})

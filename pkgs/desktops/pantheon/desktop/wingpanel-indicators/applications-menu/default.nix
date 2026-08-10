@@ -20,14 +20,14 @@
   libhandy,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "wingpanel-applications-menu";
   version = "8.0.4";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "applications-menu";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-wHPdZnHDa9DirjGEfKyAa1jKjYD6aj8QwMZ9KxqLPkM=";
   };
 
@@ -80,4 +80,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     teams = [ lib.teams.pantheon ];
   };
-}
+})

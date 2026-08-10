@@ -8,12 +8,12 @@
   multitrandata,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "libmtquery";
   version = "0.0.1alpha3";
 
   src = fetchurl {
-    url = "mirror://sourceforge/multitran/libmtquery-${version}.tar.bz2";
+    url = "mirror://sourceforge/multitran/libmtquery-${finalAttrs.version}.tar.bz2";
     sha256 = "e24c7c15772445f1b14871928d84dd03cf93bd88f9d2b2ed1bf0257c2cf2b15e";
   };
 
@@ -41,4 +41,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.linux;
   };
-}
+})

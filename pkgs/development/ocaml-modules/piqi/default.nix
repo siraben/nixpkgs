@@ -11,15 +11,15 @@
   base64,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   version = "0.6.16";
   pname = "piqi";
-  name = "ocaml${ocaml.version}-${pname}-${version}";
+  name = "ocaml${ocaml.version}-piqi-${finalAttrs.version}";
 
   src = fetchFromGitHub {
     owner = "alavrik";
-    repo = pname;
-    rev = "v${version}";
+    repo = "piqi";
+    rev = "v${finalAttrs.version}";
     sha256 = "sha256-qE+yybTn+kzbY0h8udhZYO+GwQPI/J/6p3LMmF12cFU=";
   };
 
@@ -58,4 +58,4 @@ stdenv.mkDerivation rec {
     maintainers = [ lib.maintainers.maurer ];
     broken = lib.versionAtLeast ocaml.version "5.0";
   };
-}
+})

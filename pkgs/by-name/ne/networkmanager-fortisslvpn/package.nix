@@ -20,13 +20,13 @@
   libnma-gtk4,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "NetworkManager-fortisslvpn";
   version = "1.4.0";
-  name = "${pname}${lib.optionalString withGnome "-gnome"}-${version}";
+  name = "NetworkManager-fortisslvpn${lib.optionalString withGnome "-gnome"}-${finalAttrs.version}";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/NetworkManager-fortisslvpn/${lib.versions.majorMinor finalAttrs.version}/NetworkManager-fortisslvpn-${finalAttrs.version}.tar.xz";
     sha256 = "sFXiY0m1FrI1hXmKs+9XtDawFIAOkqiscyz8jnbF2vo=";
   };
 
@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
 
   passthru = {
     updateScript = gnome.updateScript {
-      packageName = pname;
+      packageName = "NetworkManager-fortisslvpn";
       attrPath = "networkmanager-fortisslvpn";
       versionPolicy = "odd-unstable";
     };
@@ -92,4 +92,4 @@ stdenv.mkDerivation rec {
     inherit (networkmanager.meta) maintainers teams platforms;
     license = lib.licenses.gpl2Plus;
   };
-}
+})

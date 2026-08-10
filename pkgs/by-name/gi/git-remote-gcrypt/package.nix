@@ -13,13 +13,13 @@
   gnugrep,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "git-remote-gcrypt";
   version = "1.5";
-  rev = version;
+  rev = finalAttrs.version;
 
   src = fetchFromGitHub {
-    inherit rev;
+    inherit (finalAttrs) rev;
     owner = "spwhitton";
     repo = "git-remote-gcrypt";
     sha256 = "sha256-uy6s3YQwY/aZmQoW/qe1YrSlfNHyDTXBFxB6fPGiPNQ=";
@@ -62,4 +62,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.unix;
     mainProgram = "git-remote-gcrypt";
   };
-}
+})

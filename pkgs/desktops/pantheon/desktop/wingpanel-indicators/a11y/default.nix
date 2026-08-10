@@ -14,14 +14,14 @@
   wingpanel,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "wingpanel-indicator-a11y";
   version = "1.0.2";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "wingpanel-indicator-a11y";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-HECK+IEUAKJ4F1TotTHF84j4BYS6EZdAtLBoM401+mw=";
   };
 
@@ -56,4 +56,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     teams = [ lib.teams.pantheon ];
   };
-}
+})

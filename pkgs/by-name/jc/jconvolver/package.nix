@@ -12,12 +12,12 @@
   zita-convolver,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "jconvolver";
   version = "1.1.0";
 
   src = fetchurl {
-    url = "https://kokkinizita.linuxaudio.org/linuxaudio/downloads/jconvolver-${version}.tar.bz2";
+    url = "https://kokkinizita.linuxaudio.org/linuxaudio/downloads/jconvolver-${finalAttrs.version}.tar.bz2";
     sha256 = "03fq1rk5wyn32w0aaa9vqijnw9x9i0i7sv4nhsf949bk5lvi2nmc";
   };
 
@@ -101,19 +101,19 @@ stdenv.mkDerivation rec {
       fi
     done
     substituteInPlace config-files/xtalk-cancel/EYCv2-44.conf --replace /cd "#/cd"
-    ln -s ${weird} config-files/weird.wav
+    ln -s ${finalAttrs.weird} config-files/weird.wav
 
-    tar xf ${reverbs}
+    tar xf ${finalAttrs.reverbs}
     cd reverbs
-    unzip -d porihall ${porihall-sf} s1_r4_sf.wav
-    unzip -d porihall ${porihall-bd} s1_r3_bd.wav
-    unzip -d porihall ${porihall-c} s1_r3_c.wav
+    unzip -d porihall ${finalAttrs.porihall-sf} s1_r4_sf.wav
+    unzip -d porihall ${finalAttrs.porihall-bd} s1_r3_bd.wav
+    unzip -d porihall ${finalAttrs.porihall-c} s1_r3_c.wav
 
     mkdir spacenet
-    ln -s ${spacenet-hm2} spacenet/HM2_000_WXYZ_48k.amb
-    ln -s ${spacenet-lyd3} spacenet/Lyd3_000_WXYZ_48k.amb
-    ln -s ${spacenet-mh3} spacenet/MH3_000_WXYZ_48k.amb
-    ln -s ${spacenet-minster1} spacenet/Minster1_000_WXYZ_48k.amb
+    ln -s ${finalAttrs.spacenet-hm2} spacenet/HM2_000_WXYZ_48k.amb
+    ln -s ${finalAttrs.spacenet-lyd3} spacenet/Lyd3_000_WXYZ_48k.amb
+    ln -s ${finalAttrs.spacenet-mh3} spacenet/MH3_000_WXYZ_48k.amb
+    ln -s ${finalAttrs.spacenet-minster1} spacenet/Minster1_000_WXYZ_48k.amb
 
     mkdir -p hybridreverb-database/large_concert_hall/music/8m
     for flac in ${hybridreverb2}/share/HybridReverb2/RIR_Database/large_concert_hall/music/8m/*.flac; do
@@ -130,4 +130,4 @@ stdenv.mkDerivation rec {
     maintainers = [ ];
     platforms = lib.platforms.linux;
   };
-}
+})

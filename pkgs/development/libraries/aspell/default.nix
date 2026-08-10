@@ -26,12 +26,12 @@ let
 
 in
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "aspell";
   version = "0.60.8.2";
 
   src = fetchurl {
-    url = "mirror://gnu/aspell/aspell-${version}.tar.gz";
+    url = "mirror://gnu/aspell/aspell-${finalAttrs.version}.tar.gz";
     hash = "sha256-V/5IY+rmBI9yJFqFdbRLcY+4XKFLn4wK/EGyVN/XaRk=";
   };
 
@@ -86,4 +86,4 @@ stdenv.mkDerivation rec {
     maintainers = [ ];
     platforms = with lib.platforms; all;
   };
-}
+})

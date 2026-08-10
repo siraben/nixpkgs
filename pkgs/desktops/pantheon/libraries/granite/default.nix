@@ -16,7 +16,7 @@
   wrapGAppsHook3,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "granite";
   version = "6.2.0"; # nixpkgs-update: no auto update
 
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "granite";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-WM0Wo9giVP5pkMFaPCHsMfnAP6xD71zg6QLCYV6lmkY=";
   };
 
@@ -67,4 +67,4 @@ stdenv.mkDerivation rec {
     teams = [ lib.teams.pantheon ];
     mainProgram = "granite-demo";
   };
-}
+})

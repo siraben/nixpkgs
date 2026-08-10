@@ -22,12 +22,12 @@ let
   pythonEnv = python3.withPackages (ps: [ ps.protobuf ]);
 in
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "android-tools";
   version = "37.0.0";
 
   src = fetchurl {
-    url = "https://github.com/nmeum/android-tools/releases/download/${version}/android-tools-${version}.tar.xz";
+    url = "https://github.com/nmeum/android-tools/releases/download/${finalAttrs.version}/android-tools-${finalAttrs.version}.tar.xz";
     hash = "sha256-JyXQn4kqOjjlNEKfR6Mh9Y7PajFpyqQskV+yy31Gvg4=";
   };
 
@@ -78,4 +78,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.unix;
     teams = [ lib.teams.android ];
   };
-}
+})

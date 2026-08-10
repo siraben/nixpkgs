@@ -18,14 +18,14 @@
   secp256k1,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "emilua-secp256k1";
   version = "0.5.1";
 
   src = fetchFromGitLab {
     owner = "emilua";
     repo = "secp256k1";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-u3o6kE1HykxH2KbrJmNTDz9IbT+e26Vxze5RzvfCfVA=";
   };
 
@@ -59,4 +59,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ manipuladordedados ];
     platforms = lib.platforms.linux;
   };
-}
+})

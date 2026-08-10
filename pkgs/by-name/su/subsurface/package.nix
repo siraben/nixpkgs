@@ -66,14 +66,14 @@ let
     };
   };
 
-  googlemaps = stdenv.mkDerivation rec {
+  googlemaps = stdenv.mkDerivation (finalAttrs: {
     pname = "googlemaps";
     version = "0.0.0.2";
 
     src = fetchFromGitHub {
       owner = "vladest";
       repo = "googlemaps";
-      rev = "v.${version}";
+      rev = "v.${finalAttrs.version}";
       hash = "sha256-PfSLFQeCeVNcCVDCZehxyNLQGT6gff5jNxMW8lAaP8c=";
     };
 
@@ -90,20 +90,20 @@ let
     pluginsSubdir = "lib/qt-${libsForQt5.qtbase.qtCompatVersion}/plugins";
 
     installPhase = ''
-      mkdir -p $out $(dirname ${pluginsSubdir}/geoservices)
-      mkdir -p ${pluginsSubdir}/geoservices
-      mv *.so ${pluginsSubdir}/geoservices
+      mkdir -p $out $(dirname ${finalAttrs.pluginsSubdir}/geoservices)
+      mkdir -p ${finalAttrs.pluginsSubdir}/geoservices
+      mv *.so ${finalAttrs.pluginsSubdir}/geoservices
       mv lib $out/
     '';
 
     meta = {
-      inherit (src.meta) homepage;
+      inherit (finalAttrs.src.meta) homepage;
       description = "QtLocation plugin for Google maps tile API";
       maintainers = [ ];
       license = lib.licenses.mit;
       platforms = lib.platforms.all;
     };
-  };
+  });
 
   get-version = writeShellScriptBin "get-version" ''
     echo -n ${version}

@@ -43,7 +43,7 @@ let
       src,
       meta,
     }:
-    stdenv.mkDerivation rec {
+    stdenv.mkDerivation (finalAttrs: {
       inherit
         pname
         version
@@ -67,7 +67,7 @@ let
         gobject-introspection
         python
       ]
-      ++ lib.optionals (pname == "gammastep") [ wayland-scanner ];
+      ++ lib.optionals (finalAttrs.pname == "gammastep") [ wayland-scanner ];
 
       configureFlags = [
         "--enable-randr=${lib.boolToYesNo withRandr}"
@@ -77,7 +77,7 @@ let
         "--enable-quartz=${lib.boolToYesNo withQuartz}"
         "--enable-corelocation=${lib.boolToYesNo withCoreLocation}"
       ]
-      ++ lib.optionals (pname == "gammastep") [
+      ++ lib.optionals (finalAttrs.pname == "gammastep") [
         "--with-systemduserunitdir=${placeholder "out"}/lib/systemd/user/"
         "--enable-apparmor"
       ];
@@ -90,7 +90,7 @@ let
       ++ lib.optional withDrm libdrm
       ++ lib.optional withVidmode libxxf86vm
       ++ lib.optional withAppIndicator (
-        if (pname != "gammastep") then libappindicator else libayatana-appindicator
+        if (finalAttrs.pname != "gammastep") then libappindicator else libayatana-appindicator
       );
 
       pythonPath = [
@@ -108,13 +108,13 @@ let
 
       postFixup = ''
         wrapPythonPrograms
-        wrapGApp $out/bin/${pname}
+        wrapGApp $out/bin/${finalAttrs.pname}
       '';
 
       # the geoclue agent may inspect these paths and expect them to be
       # valid without having the correct $PATH set
       postInstall =
-        if (pname == "gammastep") then
+        if (finalAttrs.pname == "gammastep") then
           ''
             substituteInPlace $out/share/applications/gammastep.desktop \
               --replace 'Exec=gammastep' "Exec=$out/bin/gammastep"
@@ -130,7 +130,7 @@ let
           '';
 
       enableParallelBuilding = true;
-    };
+    });
 in
 rec {
   redshift = mkRedshift rec {

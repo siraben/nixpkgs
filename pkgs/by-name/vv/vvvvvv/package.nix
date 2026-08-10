@@ -15,14 +15,14 @@
   makeAndPlay ? false,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "vvvvvv";
   version = "2.4.3";
 
   src = fetchFromGitHub {
     owner = "TerryCavanagh";
     repo = "VVVVVV";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-IEspPNsKGWgukqmnb6nDORRetQp9jvUzJ/mSOTLGdmQ=";
     fetchSubmodules = true;
   };
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
       type = "Application";
       name = "VVVVVV";
       desktopName = "VVVVVV";
-      comment = meta.description;
+      comment = finalAttrs.meta.description;
       exec = "vvvvvv";
       icon = "VVVVVV";
       terminal = false;
@@ -78,7 +78,7 @@ stdenv.mkDerivation rec {
     cp -r "$src/desktop_version/lang/" "$out/share/"
 
     wrapProgram $out/bin/vvvvvv \
-      --add-flags "-assets ${dataZip}" \
+      --add-flags "-assets ${finalAttrs.dataZip}" \
       --add-flags "-langdir $out/share/lang" \
       --add-flags "-fontsdir $out/share/fonts"
 
@@ -97,9 +97,9 @@ stdenv.mkDerivation rec {
       (Redistributable version, doesn't include the original levels.)
     '';
     homepage = "https://thelettervsixtim.es";
-    changelog = "https://github.com/TerryCavanagh/VVVVVV/releases/tag/${src.rev}";
+    changelog = "https://github.com/TerryCavanagh/VVVVVV/releases/tag/${finalAttrs.src.rev}";
     license = lib.licenses.unfree;
     maintainers = [ ];
     platforms = lib.platforms.unix;
   };
-}
+})

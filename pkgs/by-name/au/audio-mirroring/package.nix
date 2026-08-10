@@ -16,19 +16,21 @@
   wrapGAppsHook4,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "audio-mirroring";
   version = "0.1.3";
 
   src = fetchFromGitHub {
     owner = "mkg20001";
     repo = "audio-mirroring";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-Idu15ZfY8JYVZhub0LRXYtWdiVCMVRyC3MVTX4JcbzY=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
-    inherit pname version src;
+    pname = "audio-mirroring";
+    inherit (finalAttrs) version;
+    inherit (finalAttrs) src;
     hash = "sha256-kiDGCl3De5dhDwwCf1F38gnGtfNpAVot0G0+Gxmyyp0=";
   };
 
@@ -59,4 +61,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     mainProgram = "audio-mirroring";
   };
-}
+})

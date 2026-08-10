@@ -8,8 +8,8 @@
   nukeReferences,
 }:
 
-stdenv.mkDerivation rec {
-  name = "${pname}-${version}-${kernel.version}";
+stdenv.mkDerivation (finalAttrs: {
+  name = "rtl8189es-${finalAttrs.version}-${kernel.version}";
   pname = "rtl8189es";
   version = "2025-09-26";
 
@@ -61,4 +61,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ danielfullmer ];
   };
-}
+})

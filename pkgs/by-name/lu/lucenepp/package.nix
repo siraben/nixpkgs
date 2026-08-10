@@ -8,7 +8,7 @@
   zlib,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "lucene++";
   version = "3.0.9-unstable-2026-01-25";
 
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     (lib.cmakeFeature "CMAKE_INSTALL_LIBDIR" "lib")
-    (lib.cmakeBool "ENABLE_TEST" doCheck)
+    (lib.cmakeBool "ENABLE_TEST" finalAttrs.doCheck)
   ];
 
   # FIXME: 7 tests fail, https://github.com/luceneplusplus/LucenePlusPlus/issues/212
@@ -51,4 +51,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ wineee ];
   };
-}
+})

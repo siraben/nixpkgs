@@ -20,12 +20,12 @@
   octave,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "librsb";
   version = "1.3.0.2";
 
   src = fetchurl {
-    url = "mirror://sourceforge/${pname}/${pname}-${version}.tar.gz";
+    url = "mirror://sourceforge/librsb/librsb-${finalAttrs.version}.tar.gz";
     sha256 = "sha256-GMb8RD+hz9KoEQ99S4jVu8tJO56Fs6YgFLi7V6hI4E8=";
   };
 
@@ -102,4 +102,4 @@ stdenv.mkDerivation rec {
     # linking errors such as 'undefined reference to `gzungetc'
     broken = true;
   };
-}
+})

@@ -25,14 +25,14 @@
   wrapGAppsHook3,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "elementary-settings-daemon";
   version = "8.5.0";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "settings-daemon";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-npHSj+Zq0fqWVjr5kl/C96gfziLMNOeXxCUgxFGht/s=";
   };
 
@@ -74,4 +74,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     mainProgram = "io.elementary.settings-daemon";
   };
-}
+})

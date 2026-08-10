@@ -19,14 +19,14 @@
   pantheon-wayland,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "elementary-onboarding";
   version = "8.1.0";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "onboarding";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-y5qMZoVqFpE3d6PRKDO1ldMULCaH3S4phJgAMhY2dSg=";
   };
 
@@ -62,4 +62,4 @@ stdenv.mkDerivation rec {
     teams = [ lib.teams.pantheon ];
     mainProgram = "io.elementary.onboarding";
   };
-}
+})

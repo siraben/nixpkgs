@@ -27,12 +27,12 @@ let
     zlib
   ];
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "wasabiwallet";
   version = "2.7.1";
 
   src = fetchurl {
-    url = "https://github.com/WalletWasabi/WalletWasabi/releases/download/v${version}/Wasabi-${version}-linux-x64.tar.gz";
+    url = "https://github.com/WalletWasabi/WalletWasabi/releases/download/v${finalAttrs.version}/Wasabi-${finalAttrs.version}-linux-x64.tar.gz";
     sha256 = "sha256-o2e2NDG2aMrEYc/7x5iFex9oRlrQXeKIINuW80ZwWcI=";
   };
 
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     exec = "wasabiwallet-desktop";
     desktopName = "Wasabi";
     genericName = "Bitcoin wallet";
-    comment = meta.description;
+    comment = finalAttrs.meta.description;
     categories = [
       "Network"
       "Utility"
@@ -59,14 +59,14 @@ stdenv.mkDerivation rec {
   ];
 
   installPhase = ''
-    mkdir -p $out/opt/${pname} $out/bin $out/share/applications
+    mkdir -p $out/opt/wasabiwallet $out/bin $out/share/applications
 
     # The weird path is an upstream packaging error and could be fixed in the upcoming release
-    cp -Rv ./runner/work/WalletWasabi/WalletWasabi/build/linux-x64/* $out/opt/${pname}
+    cp -Rv ./runner/work/WalletWasabi/WalletWasabi/build/linux-x64/* $out/opt/wasabiwallet
 
     for nameMap in "wassabee:desktop" "wassabeed:daemon" "wcoordinator:coordinator" "wbackend:backend"; do
       IFS=":" read -r filename wrappedname <<< "$nameMap"
-      makeWrapper "$out/opt/${pname}/$filename" "$out/bin/${pname}-$wrappedname" \
+      makeWrapper "$out/opt/wasabiwallet/$filename" "$out/bin/wasabiwallet-$wrappedname" \
         --suffix "LD_LIBRARY_PATH" : "${lib.makeLibraryPath runtimeLibs}"
     done
 
@@ -81,4 +81,4 @@ stdenv.mkDerivation rec {
     platforms = [ "x86_64-linux" ];
     maintainers = with lib.maintainers; [ mmahut ];
   };
-}
+})

@@ -7,12 +7,12 @@
   unzip,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "slib";
   version = "3c1";
 
   src = fetchurl {
-    url = "https://groups.csail.mit.edu/mac/ftpdir/scm/${pname}-${version}.zip";
+    url = "https://groups.csail.mit.edu/mac/ftpdir/scm/slib-${finalAttrs.version}.zip";
     hash = "sha256-wvjrmOYFMN9TIRmF1LQDtul6epaYM8Gm0b+DVh2gx4E=";
   };
 
@@ -73,4 +73,4 @@ stdenv.mkDerivation rec {
     maintainers = [ ];
     platforms = lib.platforms.unix;
   };
-}
+})

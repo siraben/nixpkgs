@@ -12,11 +12,11 @@
   apron,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   version = "1.1";
   pname = "ocaml${ocaml.version}-elina";
   src = fetchurl {
-    url = "https://files.sri.inf.ethz.ch/elina-${version}.tar.gz";
+    url = "https://files.sri.inf.ethz.ch/elina-${finalAttrs.version}.tar.gz";
     sha256 = "1nymykskq1yx87y4xl6hl9i4q6kv0qaq25rniqgl1bfn883p1ysc";
   };
 
@@ -55,4 +55,4 @@ stdenv.mkDerivation rec {
     maintainers = [ lib.maintainers.vbgl ];
     platforms = lib.intersectLists ocaml.meta.platforms lib.platforms.x86;
   };
-}
+})

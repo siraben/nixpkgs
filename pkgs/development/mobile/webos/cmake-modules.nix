@@ -5,14 +5,14 @@
   cmake,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "cmake-modules-webos";
   version = "19";
 
   src = fetchFromGitHub {
     owner = "openwebos";
     repo = "cmake-modules-webos";
-    rev = "submissions/${version}";
+    rev = "submissions/${finalAttrs.version}";
     sha256 = "1l4hpcmgc98kp9g1642sy111ki5qyk3q7j10xzkgmnvz8lqffnxp";
   };
 
@@ -42,4 +42,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.asl20;
     maintainers = [ ];
   };
-}
+})

@@ -35,12 +35,12 @@ let
     availableBinaries.${system} or (throw "cypress: No binaries available for system ${system}");
   inherit (binary) platform hash;
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "cypress";
   version = "15.19.0";
 
   src = fetchzip {
-    url = "https://cdn.cypress.io/desktop/${version}/${platform}/cypress.zip";
+    url = "https://cdn.cypress.io/desktop/${finalAttrs.version}/${platform}/cypress.zip";
     inherit hash;
     stripRoot = !stdenv.hostPlatform.isDarwin;
   };
@@ -128,4 +128,4 @@ stdenv.mkDerivation rec {
       jonhermansen
     ];
   };
-}
+})

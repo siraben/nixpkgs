@@ -15,16 +15,16 @@
   pam ? null,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "bitlbee";
   version = "3.6";
 
   src = fetchurl {
-    url = "mirror://bitlbee/src/bitlbee-${version}.tar.gz";
+    url = "mirror://bitlbee/src/bitlbee-${finalAttrs.version}.tar.gz";
     sha256 = "0zhhcbcr59sx9h4maf8zamzv2waya7sbsl7w74gbyilvy93dw5cz";
   };
 
-  nativeBuildInputs = [ pkg-config ] ++ lib.optional doCheck check;
+  nativeBuildInputs = [ pkg-config ] ++ lib.optional finalAttrs.doCheck check;
 
   buildInputs = [
     gnutls
@@ -89,4 +89,4 @@ stdenv.mkDerivation rec {
     ];
     platforms = lib.platforms.gnu ++ lib.platforms.linux; # arbitrary choice
   };
-}
+})

@@ -7,8 +7,8 @@
   buildPackages,
 }:
 
-stdenv.mkDerivation rec {
-  name = "${passthru.pname}-${passthru.version}";
+stdenv.mkDerivation (finalAttrs: {
+  name = "${finalAttrs.passthru.pname}-${finalAttrs.passthru.version}";
 
   passthru = {
     pname = "hspell";
@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
   env.PERL_USE_UNSAFE_INC = "1";
 
   src = fetchurl {
-    url = "${meta.homepage}${name}.tar.gz";
+    url = "${finalAttrs.meta.homepage}${finalAttrs.name}.tar.gz";
     hash = "sha256-cxD11YdA0h1tIVwReWWGAu99qXqBa8FJfIdkvpeqvqM=";
   };
 
@@ -55,4 +55,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.all;
     license = lib.licenses.gpl2;
   };
-}
+})

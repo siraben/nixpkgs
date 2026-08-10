@@ -24,14 +24,14 @@ let
     hash = "sha256-3qy5ke0lCXFRYP/ceQfke0Fg6zDRVmIX6QR/1biFDK4=";
   };
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "scrcpy";
   inherit version;
 
   src = fetchFromGitHub {
     owner = "Genymobile";
     repo = "scrcpy";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-x7ICNxR1i3WCPmYLsE/kmQ7vkNL9Be1M4m5SJMiXob4=";
   };
 
@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Display and control Android devices over USB or TCP/IP";
     homepage = "https://github.com/Genymobile/scrcpy";
-    changelog = "https://github.com/Genymobile/scrcpy/releases/tag/v${version}";
+    changelog = "https://github.com/Genymobile/scrcpy/releases/tag/v${finalAttrs.version}";
     sourceProvenance = with lib.sourceTypes; [
       fromSource
       binaryBytecode # server
@@ -78,4 +78,4 @@ stdenv.mkDerivation rec {
     ];
     mainProgram = "scrcpy";
   };
-}
+})

@@ -6,14 +6,14 @@
   qtbase,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "qtpbfimageplugin";
   version = "5.2";
 
   src = fetchFromGitHub {
     owner = "tumic0";
     repo = "QtPBFImagePlugin";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-IU9sA8yipGsqD9HadGlQce4ud0RyfMMh83cdVuSTGjs=";
   };
 
@@ -45,4 +45,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ sikmir ];
     platforms = lib.platforms.unix;
   };
-}
+})

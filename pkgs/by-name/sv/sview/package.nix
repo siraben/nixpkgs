@@ -22,14 +22,14 @@
   zenity,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "sview";
   version = "26.07";
 
   src = fetchFromGitHub {
     owner = "gkv311";
     repo = "sview";
-    tag = lib.replaceString "." "_" version;
+    tag = lib.replaceString "." "_" finalAttrs.version;
     hash = "sha256-Kyz+FHYpBKKAyHMEM0DTKNNIAw4/tORxeCOFOLySspY=";
   };
 
@@ -77,8 +77,8 @@ stdenv.mkDerivation rec {
     runHook preInstall
     make & make install
     mkdir -p $out/share/sView/fonts
-    cp ${droidSansFallback} $out/share/sView/fonts/DroidSansFallbackFull.ttf
-    cp '${fontsConf}' $out/share/sView/fonts/fonts.conf
+    cp ${finalAttrs.droidSansFallback} $out/share/sView/fonts/DroidSansFallbackFull.ttf
+    cp '${finalAttrs.fontsConf}' $out/share/sView/fonts/fonts.conf
     runHook postInstall
   '';
 
@@ -102,4 +102,4 @@ stdenv.mkDerivation rec {
     mainProgram = "sView";
     platforms = lib.platforms.linux;
   };
-}
+})

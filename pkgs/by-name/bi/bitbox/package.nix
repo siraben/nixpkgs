@@ -19,14 +19,14 @@ let
     cp ${lib.getExe' qt5.qtbase.dev "rcc"} $out/bin
   '';
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "bitbox";
   version = "4.51.3";
 
   src = fetchFromGitHub {
     owner = "BitBoxSwiss";
     repo = "bitbox-wallet-app";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     fetchSubmodules = true;
     hash = "sha256-JdUoV4bp+pI8neyxHte1z7CULBwdNdLG/CaZFPmvDeg=";
   };
@@ -40,9 +40,9 @@ stdenv.mkDerivation rec {
 
   passthru.web = buildNpmPackage {
     pname = "bitbox-web";
-    inherit version;
-    inherit src;
-    sourceRoot = "${src.name}/frontends/web";
+    inherit (finalAttrs) version;
+    inherit (finalAttrs) src;
+    sourceRoot = "${finalAttrs.src.name}/frontends/web";
     npmDepsHash = "sha256-kIYyUeaTgj4dJXfAJ1+3WDIYSADFcs5ypRGTODlxwDI=";
     installPhase = "cp -r build $out";
   };
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
   buildPhase = ''
     runHook preBuild
 
-    ln -s ${passthru.web} frontends/web/build
+    ln -s ${finalAttrs.passthru.web} frontends/web/build
     export GOCACHE=$TMPDIR/go-cache
     cd frontends/qt
     make -C server linux
@@ -94,7 +94,7 @@ stdenv.mkDerivation rec {
     homepage = "https://bitbox.swiss/app/";
     downloadPage = "https://github.com/BitBoxSwiss/bitbox-wallet-app";
     changelog = "https://github.com/BitBoxSwiss/bitbox-wallet-app/blob/master/CHANGELOG.md#${
-      builtins.replaceStrings [ "." ] [ "" ] version
+      builtins.replaceStrings [ "." ] [ "" ] finalAttrs.version
     }";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.tensor5 ];
@@ -102,4 +102,4 @@ stdenv.mkDerivation rec {
     sourceProvenance = [ lib.sourceTypes.fromSource ];
     platforms = [ "x86_64-linux" ];
   };
-}
+})

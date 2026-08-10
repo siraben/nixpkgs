@@ -38,12 +38,12 @@
   python311,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "snapmaker-luban";
   version = "4.15.0";
 
   src = fetchurl {
-    url = "https://github.com/Snapmaker/Luban/releases/download/v${version}/snapmaker-luban-${version}-linux-x64.tar.gz";
+    url = "https://github.com/Snapmaker/Luban/releases/download/v${finalAttrs.version}/snapmaker-luban-${finalAttrs.version}-linux-x64.tar.gz";
     hash = "sha256-X4XNzkl5ky3C8fj92J9OQxj12zmIQ+xS02wYLWo94oU=";
   };
 
@@ -123,7 +123,7 @@ stdenv.mkDerivation rec {
     wrapProgram $out/opt/snapmaker-luban \
       "''${gappsWrapperArgs[@]}" \
       --prefix XDG_DATA_DIRS : "${gtk3}/share/gsettings-schemas/${gtk3.name}/" \
-      --prefix LD_LIBRARY_PATH : ${libPath}:$out/snapmaker-luban
+      --prefix LD_LIBRARY_PATH : ${finalAttrs.libPath}:$out/snapmaker-luban
 
     ln -s $out/opt/snapmaker-luban $out/bin/snapmaker-luban
     ln -s $out/opt/resources/app/src/app/resources/images/snapmaker-logo.png $out/share/pixmaps/snapmaker-luban.png
@@ -133,11 +133,11 @@ stdenv.mkDerivation rec {
 
   desktopItems = [
     (makeDesktopItem {
-      name = pname;
+      name = "snapmaker-luban";
       exec = "snapmaker-luban";
       icon = "snapmaker-luban";
       desktopName = "Snapmaker Luban";
-      genericName = meta.description;
+      genericName = finalAttrs.meta.description;
       categories = [
         "Office"
         "Printing"
@@ -154,4 +154,4 @@ stdenv.mkDerivation rec {
     platforms = [ "x86_64-linux" ];
     knownVulnerabilities = [ "CVE-2023-5217" ];
   };
-}
+})

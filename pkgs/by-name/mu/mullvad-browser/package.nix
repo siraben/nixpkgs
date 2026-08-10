@@ -124,7 +124,7 @@ let
     }
   );
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "mullvad-browser";
   inherit version;
 
@@ -159,7 +159,7 @@ stdenv.mkDerivation rec {
       icon = "mullvad-browser";
       desktopName = "Mullvad Browser";
       genericName = "Web Browser";
-      comment = meta.description;
+      comment = finalAttrs.meta.description;
       categories = [
         "Network"
         "WebBrowser"
@@ -283,7 +283,9 @@ stdenv.mkDerivation rec {
   passthru = {
     inherit sources;
     updateScript = callPackage ./update.nix {
-      inherit pname version meta;
+      pname = "mullvad-browser";
+      inherit (finalAttrs) version;
+      inherit (finalAttrs) meta;
       baseUrl = "https://dist.torproject.org/mullvadbrowser/";
       name = "mullvad-browser";
     };
@@ -311,4 +313,4 @@ stdenv.mkDerivation rec {
     ];
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
   };
-}
+})

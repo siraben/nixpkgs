@@ -5,7 +5,7 @@
   libsForQt5,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   version = "unstable-20-06-26";
   pname = "herqq";
 
@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  sourceRoot = "${src.name}/herqq";
+  sourceRoot = "${finalAttrs.src.name}/herqq";
   src = fetchFromGitHub {
     owner = "ThomArmax";
     repo = "HUPnP";
@@ -38,4 +38,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     maintainers = [ ];
   };
-}
+})

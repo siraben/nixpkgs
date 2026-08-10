@@ -22,14 +22,14 @@
   libportal-gtk3,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "elementary-calendar";
   version = "8.0.2";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "calendar";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-YFO+tMJsidp5Tq8mAobdc1VBHR2DuMJlEnwSg+mVScM=";
   };
 
@@ -68,4 +68,4 @@ stdenv.mkDerivation rec {
     teams = [ lib.teams.pantheon ];
     mainProgram = "io.elementary.calendar";
   };
-}
+})

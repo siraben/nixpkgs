@@ -9,15 +9,15 @@
   num,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   version = "0.7.8";
   pname = "piqi-ocaml";
-  name = "ocaml${ocaml.version}-${pname}-${version}";
+  name = "ocaml${ocaml.version}-piqi-ocaml-${finalAttrs.version}";
 
   src = fetchFromGitHub {
     owner = "alavrik";
-    repo = pname;
-    rev = "v${version}";
+    repo = "piqi-ocaml";
+    rev = "v${finalAttrs.version}";
     sha256 = "sha256-6Luq49sbo+AqLSq57mc6fLhrRx0K6G5LCUIzkGPfqYo=";
   };
 
@@ -49,4 +49,4 @@ stdenv.mkDerivation rec {
     maintainers = [ lib.maintainers.maurer ];
     mainProgram = "piqic-ocaml";
   };
-}
+})

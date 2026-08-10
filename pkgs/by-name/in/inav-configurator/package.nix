@@ -10,12 +10,12 @@
   gtk3,
   unzip,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "inav-configurator";
   version = "9.0.0";
 
   src = fetchurl {
-    url = "https://github.com/iNavFlight/inav-configurator/releases/download/${version}/INAV-Configurator_linux_x64_${version}.zip";
+    url = "https://github.com/iNavFlight/inav-configurator/releases/download/${finalAttrs.version}/INAV-Configurator_linux_x64_${finalAttrs.version}.zip";
     sha256 = "sha256-n56QE0ZJ2slL0WZbnBl2pEgAUoDMuh467gWt+eRwa9c=";
   };
 
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
              $out/opt/inav-configurator
 
     cp -r "." $out/opt/inav-configurator/
-    install -m 444 -D $icon $out/share/icons/hicolor/128x128/apps/${pname}.png
+    install -m 444 -D $icon $out/share/icons/hicolor/128x128/apps/inav-configurator.png
 
     chmod +x $out/opt/inav-configurator/inav-configurator
     makeWrapper ${electron}/bin/electron $out/bin/inav-configurator --add-flags $out/opt/inav-configurator/resources/app
@@ -54,9 +54,9 @@ stdenv.mkDerivation rec {
 
   desktopItems = [
     (makeDesktopItem {
-      name = pname;
-      exec = pname;
-      icon = pname;
+      name = "inav-configurator";
+      exec = "inav-configurator";
+      icon = "inav-configurator";
       comment = "iNavFlight configuration tool";
       desktopName = "iNav Configurator";
       genericName = "Flight controller configuration tool";
@@ -80,4 +80,4 @@ stdenv.mkDerivation rec {
     ];
     platforms = lib.platforms.linux;
   };
-}
+})

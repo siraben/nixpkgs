@@ -5,8 +5,8 @@
   kernel,
 }:
 
-stdenv.mkDerivation rec {
-  name = "${pname}-${version}-${kernel.version}";
+stdenv.mkDerivation (finalAttrs: {
+  name = "nvidiabl-${finalAttrs.version}-${kernel.version}";
   pname = "nvidiabl";
   version = "2020-10-01";
 
@@ -43,4 +43,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ yorickvp ];
     broken = kernel.kernelAtLeast "5.18";
   };
-}
+})

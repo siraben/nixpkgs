@@ -37,18 +37,18 @@ let
     latestVersionForNc.${ncVersion}
       or (throw "recognize currently does not support nextcloud version ${ncVersion}");
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "nextcloud-app-recognize";
   inherit (currentVersionInfo) version;
 
   srcs = [
     (fetchurl {
-      url = "https://github.com/nextcloud/recognize/releases/download/v${version}/recognize-${version}.tar.gz";
+      url = "https://github.com/nextcloud/recognize/releases/download/v${finalAttrs.version}/recognize-${finalAttrs.version}.tar.gz";
       hash = currentVersionInfo.appHash;
     })
 
     (fetchurl {
-      url = "https://github.com/nextcloud/recognize/archive/refs/tags/v${version}.tar.gz";
+      url = "https://github.com/nextcloud/recognize/archive/refs/tags/v${finalAttrs.version}.tar.gz";
       hash = currentVersionInfo.modelHash;
     })
   ]
@@ -62,12 +62,12 @@ stdenv.mkDerivation rec {
 
   unpackPhase = ''
     # Merge the app and the models from github
-    tar -xzpf "${builtins.elemAt srcs 0}" recognize
-    tar -xzpf "${builtins.elemAt srcs 1}" -C recognize --strip-components=1 recognize-${version}/models
+    tar -xzpf "${builtins.elemAt finalAttrs.srcs 0}" recognize
+    tar -xzpf "${builtins.elemAt finalAttrs.srcs 1}" -C recognize --strip-components=1 recognize-${finalAttrs.version}/models
   ''
   + lib.optionalString useLibTensorflow ''
     # Place the tensorflow lib at the right place for building
-    tar -xzpf "${builtins.elemAt srcs 2}" -C recognize/node_modules/@tensorflow/tfjs-node/deps
+    tar -xzpf "${builtins.elemAt finalAttrs.srcs 2}" -C recognize/node_modules/@tensorflow/tfjs-node/deps
   '';
 
   postPatch = ''
@@ -143,6 +143,6 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://apps.nextcloud.com/apps/recognize";
     description = "Smart media tagging for Nextcloud: recognizes faces, objects, landscapes, music genres";
-    changelog = "https://github.com/nextcloud/recognize/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/nextcloud/recognize/blob/v${finalAttrs.version}/CHANGELOG.md";
   };
-}
+})

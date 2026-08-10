@@ -42,14 +42,14 @@
     withLibiodbc = false;
   };
 
-  mariadb = stdenv.mkDerivation rec {
+  mariadb = stdenv.mkDerivation (finalAttrs: {
     pname = "mariadb-connector-odbc";
     version = "3.2.6";
 
     src = fetchFromGitHub {
       owner = "mariadb-corporation";
       repo = "mariadb-connector-odbc";
-      rev = version;
+      rev = finalAttrs.version;
       hash = "sha256-FdnA3/xDxnk2910LCMPWQTcUUSYfUsnnZ3Hqj0uey5s=";
       # this driver only seems to build correctly when built against the mariadb-connect-c subrepo
       # (see https://github.com/NixOS/nixpkgs/issues/73258)
@@ -109,14 +109,14 @@
       license = lib.licenses.gpl2;
       platforms = lib.platforms.linux ++ lib.platforms.darwin;
     };
-  };
+  });
 
-  sqlite = stdenv.mkDerivation rec {
+  sqlite = stdenv.mkDerivation (finalAttrs: {
     pname = "sqlite-connector-odbc";
     version = "0.99991";
 
     src = fetchurl {
-      url = "http://www.ch-werner.de/sqliteodbc/sqliteodbc-${version}.tar.gz";
+      url = "http://www.ch-werner.de/sqliteodbc/sqliteodbc-${finalAttrs.version}.tar.gz";
       hash = "sha256-TZStuNPN4fqUoorrDfzHvnMUW8383z1eIlQ02zHcilw=";
     };
 
@@ -163,18 +163,18 @@
       platforms = lib.platforms.unix;
       maintainers = [ ];
     };
-  };
+  });
 
-  msodbcsql17 = stdenv.mkDerivation rec {
+  msodbcsql17 = stdenv.mkDerivation (finalAttrs: {
     pname = "msodbcsql17";
-    version = "${versionMajor}.${versionMinor}.${versionAdditional}-1";
+    version = "${finalAttrs.versionMajor}.${finalAttrs.versionMinor}.${finalAttrs.versionAdditional}-1";
 
     versionMajor = "17";
     versionMinor = "7";
     versionAdditional = "1.1";
 
     src = fetchurl {
-      url = "https://packages.microsoft.com/debian/10/prod/pool/main/m/msodbcsql17/msodbcsql${versionMajor}_${version}_amd64.deb";
+      url = "https://packages.microsoft.com/debian/10/prod/pool/main/m/msodbcsql17/msodbcsql${finalAttrs.versionMajor}_${finalAttrs.version}_amd64.deb";
       sha256 = "0vwirnp56jibm3qf0kmi4jnz1w7xfhnsfr8imr0c9hg6av4sk3a6";
     };
 
@@ -189,7 +189,7 @@
     installPhase = ''
       mkdir -p $out
       mkdir -p $out/lib
-      cp -r opt/microsoft/msodbcsql${versionMajor}/lib64 opt/microsoft/msodbcsql${versionMajor}/share $out/
+      cp -r opt/microsoft/msodbcsql${finalAttrs.versionMajor}/lib64 opt/microsoft/msodbcsql${finalAttrs.versionMajor}/share $out/
     '';
 
     postFixup = ''
@@ -202,25 +202,25 @@
           stdenv.cc.cc
         ]
       } \
-        $out/lib/libmsodbcsql-${versionMajor}.${versionMinor}.so.${versionAdditional}
+        $out/lib/libmsodbcsql-${finalAttrs.versionMajor}.${finalAttrs.versionMinor}.so.${finalAttrs.versionAdditional}
     '';
 
     # see the top of the file for an explanation
     passthru = {
-      fancyName = "ODBC Driver ${versionMajor} for SQL Server";
-      driver = "lib/libmsodbcsql-${versionMajor}.${versionMinor}.so.${versionAdditional}";
+      fancyName = "ODBC Driver ${finalAttrs.versionMajor} for SQL Server";
+      driver = "lib/libmsodbcsql-${finalAttrs.versionMajor}.${finalAttrs.versionMinor}.so.${finalAttrs.versionAdditional}";
     };
 
     meta = {
       broken = stdenv.hostPlatform.isDarwin;
-      description = "ODBC Driver ${versionMajor} for SQL Server";
+      description = "ODBC Driver ${finalAttrs.versionMajor} for SQL Server";
       homepage = "https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-2017";
       sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
       license = lib.licenses.unfree;
       platforms = lib.platforms.linux;
       maintainers = with lib.maintainers; [ spencerjanssen ];
     };
-  };
+  });
 
   msodbcsql18 = stdenv.mkDerivation (finalAttrs: {
     pname = "msodbcsql${finalAttrs.versionMajor}";
@@ -319,12 +319,12 @@
     };
   });
 
-  redshift = stdenv.mkDerivation rec {
+  redshift = stdenv.mkDerivation (finalAttrs: {
     pname = "redshift-odbc";
     version = "1.4.49.1000";
 
     src = fetchurl {
-      url = "https://s3.amazonaws.com/redshift-downloads/drivers/odbc/${version}/AmazonRedshiftODBC-64-bit-${version}-1.x86_64.deb";
+      url = "https://s3.amazonaws.com/redshift-downloads/drivers/odbc/${finalAttrs.version}/AmazonRedshiftODBC-64-bit-${finalAttrs.version}-1.x86_64.deb";
       sha256 = "sha256-r5HvsZjB7+x+ClxtWoONkE1/NAbz90NbHfzxC6tf7jA=";
     };
 
@@ -363,7 +363,7 @@
       platforms = lib.platforms.linux;
       maintainers = with lib.maintainers; [ sir4ur0n ];
     };
-  };
+  });
 }
 // lib.optionalAttrs config.allowAliases {
   mysql = throw "unixodbcDrivers.mysql has been removed because it has been marked as broken since 2016."; # Added 2025-10-11

@@ -17,12 +17,12 @@
   zita-convolver,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "x42-plugins";
   version = "20260420";
 
   src = fetchurl {
-    url = "https://gareus.org/misc/x42-plugins/${pname}-${version}.tar.xz";
+    url = "https://gareus.org/misc/x42-plugins/x42-plugins-${finalAttrs.version}.tar.xz";
     hash = "sha256-wBl+lp2ZcVohlukjuOwhAaoYnEx/D9FktMW9kjmwflE=";
   };
 
@@ -75,4 +75,4 @@ stdenv.mkDerivation rec {
       "x86_64-linux"
     ];
   };
-}
+})

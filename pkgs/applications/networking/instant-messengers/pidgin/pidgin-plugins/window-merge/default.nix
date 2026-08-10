@@ -5,12 +5,12 @@
   pidgin,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "pidgin-window-merge";
   version = "0.3";
 
   src = fetchurl {
-    url = "https://github.com/downloads/dm0-/window_merge/window_merge-${version}.tar.gz";
+    url = "https://github.com/downloads/dm0-/window_merge/window_merge-${finalAttrs.version}.tar.gz";
     sha256 = "0cb5rvi7jqvm345g9mlm4wpq0240kcybv81jpw5wlx7hz0lwi478";
   };
 
@@ -23,4 +23,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     maintainers = [ ];
   };
-}
+})

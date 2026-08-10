@@ -10,14 +10,14 @@
   libchewing,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "fcitx5-chewing";
   version = "5.1.12";
 
   src = fetchFromGitHub {
     owner = "fcitx";
-    repo = pname;
-    rev = version;
+    repo = "fcitx5-chewing";
+    rev = finalAttrs.version;
     hash = "sha256-WBCaknT1woPRmnxQP8WhJUodM5jTXYg3QP6trFw37gg=";
   };
 
@@ -40,4 +40,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ xrelkd ];
     platforms = lib.platforms.linux;
   };
-}
+})

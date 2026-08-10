@@ -7,15 +7,15 @@
   qca-qt5,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "qoauth";
   version = "2.0.0";
 
   src = fetchFromGitHub {
     owner = "ayoy";
     repo = "qoauth";
-    rev = "v${version}";
-    name = "qoauth-${version}.tar.gz";
+    rev = "v${finalAttrs.version}";
+    name = "qoauth-${finalAttrs.version}.tar.gz";
     sha256 = "1b2jdqs526ac635yb2whm049spcsk7almnnr6r5b4yqhq922anw3";
   };
 
@@ -44,4 +44,4 @@ stdenv.mkDerivation rec {
     inherit (qtbase.meta) platforms;
     license = lib.licenses.lgpl21;
   };
-}
+})

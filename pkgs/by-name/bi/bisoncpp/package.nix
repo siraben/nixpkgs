@@ -8,7 +8,7 @@
   flexcpp,
   bobcat,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "bisonc++";
   version = "6.04.00";
 
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     substituteInPlace INSTALL.im --replace /usr $out
     patchShebangs .
     for file in $(find documentation -type f); do
-      substituteInPlace "$file" --replace /usr/share/common-licenses/GPL ${gpl}
+      substituteInPlace "$file" --replace /usr/share/common-licenses/GPL ${finalAttrs.gpl}
       substituteInPlace "$file" --replace /usr $out
     done
   '';
@@ -63,4 +63,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     homepage = "https://fbb-git.gitlab.io/bisoncpp/";
   };
-}
+})

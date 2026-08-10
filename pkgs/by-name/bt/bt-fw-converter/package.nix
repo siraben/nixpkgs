@@ -8,13 +8,13 @@
   bluez,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "bt-fw-converter";
   version = "2017-02-19";
   rev = "2d8b34402df01c6f7f4b8622de9e8b82fadf4153";
 
   src = fetchurl {
-    url = "https://raw.githubusercontent.com/winterheart/broadcom-bt-firmware/${rev}/tools/bt-fw-converter.pl";
+    url = "https://raw.githubusercontent.com/winterheart/broadcom-bt-firmware/${finalAttrs.rev}/tools/bt-fw-converter.pl";
     sha256 = "c259b414a4a273c89a0fa7159b3ef73d1ea62b6de91c3a7c2fcc832868e39f4b";
   };
 
@@ -27,8 +27,8 @@ stdenv.mkDerivation rec {
   ];
 
   unpackCmd = ''
-    mkdir -p ${pname}-${version}
-    cp $src ${pname}-${version}/bt-fw-converter.pl
+    mkdir -p bt-fw-converter-${finalAttrs.version}
+    cp $src bt-fw-converter-${finalAttrs.version}/bt-fw-converter.pl
   '';
 
   installPhase = ''
@@ -45,4 +45,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ zraexy ];
   };
-}
+})

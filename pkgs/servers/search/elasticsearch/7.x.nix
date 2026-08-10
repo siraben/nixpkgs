@@ -22,12 +22,12 @@ let
     aarch64-darwin = "sha512-uq5VVwvbOX4Rv32iLFw+RalFPBxQqA+1hBjFw3svzOaD1caOOrGHD4lJVHFxsFw0xl//AZuSG7S3r7Eh9AmWvQ==";
   };
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "elasticsearch";
   version = elk7Version;
 
   src = fetchurl {
-    url = "https://artifacts.elastic.co/downloads/elasticsearch/${pname}-${version}-${plat}-${arch}.tar.gz";
+    url = "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-${finalAttrs.version}-${plat}-${arch}.tar.gz";
     hash = hashes.${stdenv.hostPlatform.system} or (throw "Unknown architecture");
   };
 
@@ -103,4 +103,4 @@ stdenv.mkDerivation rec {
       "CVE-2026-63136"
     ];
   };
-}
+})

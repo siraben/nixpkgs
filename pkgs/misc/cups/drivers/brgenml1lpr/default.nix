@@ -43,12 +43,12 @@ let
       ${file}
   '';
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "brgenml1lpr";
   version = "3.1.0-1";
 
   src = fetchurl {
-    url = "https://download.brother.com/welcome/dlf101123/brgenml1lpr-${version}.i386.deb";
+    url = "https://download.brother.com/welcome/dlf101123/brgenml1lpr-${finalAttrs.version}.i386.deb";
     sha256 = "0zdvjnrjrz9sba0k525linxp55lr4cyivfhqbkq1c11br2nvy09f";
   };
 
@@ -106,4 +106,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.unfreeRedistributable;
     maintainers = with lib.maintainers; [ jraygauthier ];
   };
-}
+})

@@ -10,15 +10,15 @@
   llvmPackages,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "crypto++";
   version = "8.9.0";
-  underscoredVersion = lib.strings.replaceStrings [ "." ] [ "_" ] version;
+  underscoredVersion = lib.strings.replaceStrings [ "." ] [ "_" ] finalAttrs.version;
 
   src = fetchFromGitHub {
     owner = "weidai11";
     repo = "cryptopp";
-    rev = "CRYPTOPP_${underscoredVersion}";
+    rev = "CRYPTOPP_${finalAttrs.underscoredVersion}";
     hash = "sha256-HV+afSFkiXdy840JbHBTR8lLL0GMwsN3QdwaoQmicpQ=";
   };
 
@@ -59,8 +59,8 @@ stdenv.mkDerivation rec {
     description = "Free C++ class library of cryptographic schemes";
     homepage = "https://cryptopp.com/";
     changelog = [
-      "https://raw.githubusercontent.com/weidai11/cryptopp/CRYPTOPP_${underscoredVersion}/History.txt"
-      "https://github.com/weidai11/cryptopp/releases/tag/CRYPTOPP_${underscoredVersion}"
+      "https://raw.githubusercontent.com/weidai11/cryptopp/CRYPTOPP_${finalAttrs.underscoredVersion}/History.txt"
+      "https://github.com/weidai11/cryptopp/releases/tag/CRYPTOPP_${finalAttrs.underscoredVersion}"
     ];
     license = with lib.licenses; [
       boost
@@ -69,4 +69,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.all;
     maintainers = [ ];
   };
-}
+})

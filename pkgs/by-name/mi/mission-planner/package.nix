@@ -20,12 +20,12 @@ let
     genericName = "Ground Control Station";
   };
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   inherit pname;
   version = "1.3.83";
 
   src = fetchurl {
-    url = "https://firmware.ardupilot.org/Tools/MissionPlanner/MissionPlanner-${version}.zip";
+    url = "https://firmware.ardupilot.org/Tools/MissionPlanner/MissionPlanner-${finalAttrs.version}.zip";
     sha256 = "sha256-/zaU96kDjK91ZUUEndeu9049DY/jWG6HqogQRXBN1vk=";
   };
 
@@ -85,4 +85,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ wucke13 ];
     platforms = lib.platforms.all;
   };
-}
+})

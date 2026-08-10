@@ -20,14 +20,14 @@
   wingpanel-indicator-power,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "switchboard-plug-power";
   version = "8.1.0";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "settings-power";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-JfOLGDS2/Qa6RmEfiDBZfeT+dM4NN4N2NoXRNJ4Q+Es=";
   };
 
@@ -63,4 +63,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     teams = [ lib.teams.pantheon ];
   };
-}
+})

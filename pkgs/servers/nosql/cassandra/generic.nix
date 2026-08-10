@@ -31,20 +31,20 @@ let
   ];
 in
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "cassandra";
   inherit version;
 
   src = fetchurl {
     inherit sha256;
-    url = "mirror://apache/cassandra/${version}/apache-cassandra-${version}-bin.tar.gz";
+    url = "mirror://apache/cassandra/${finalAttrs.version}/apache-cassandra-${finalAttrs.version}-bin.tar.gz";
   };
 
   pythonPath = with python3Packages; [ cassandra-driver ];
 
   nativeBuildInputs = [ python3Packages.wrapPython ];
 
-  buildInputs = [ python3Packages.python ] ++ pythonPath;
+  buildInputs = [ python3Packages.python ] ++ finalAttrs.pythonPath;
 
   installPhase = ''
     runHook preInstall
@@ -53,15 +53,15 @@ stdenv.mkDerivation rec {
     mv * $out
 
     # Clean up documentation.
-    mkdir -p $out/share/doc/${pname}-${version}
+    mkdir -p $out/share/doc/cassandra-${finalAttrs.version}
     mv $out/CHANGES.txt \
        $out/LICENSE.txt \
        $out/NEWS.txt \
        $out/NOTICE.txt \
-       $out/share/doc/${pname}-${version}
+       $out/share/doc/cassandra-${finalAttrs.version}
 
     if [[ -d $out/doc ]]; then
-      mv "$out/doc/"* $out/share/doc/${pname}-${version}
+      mv "$out/doc/"* $out/share/doc/cassandra-${finalAttrs.version}
       rmdir $out/doc
     fi
 
@@ -123,7 +123,7 @@ stdenv.mkDerivation rec {
       in
       {
         nixos =
-          assert test.testPackage.version == version;
+          assert test.testPackage.version == finalAttrs.version;
           test;
       };
 
@@ -144,4 +144,4 @@ stdenv.mkDerivation rec {
       maintainers = [ lib.maintainers.roberth ];
     }
     // extraMeta;
-}
+})

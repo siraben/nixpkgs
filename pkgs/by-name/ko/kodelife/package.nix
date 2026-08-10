@@ -43,7 +43,7 @@ let
   ];
 in
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "kodelife";
   version = "1.1.0.173";
 
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   src = fetchurl {
-    url = "https://hexler.net/pub/${pname}/${pname}-${version}-${suffix}.deb";
+    url = "https://hexler.net/pub/kodelife/kodelife-${finalAttrs.version}-${finalAttrs.suffix}.deb";
     hash =
       {
         aarch64-linux = "sha256-WPUWvgVZR+2Dg4zpk+iUemMBGlGBDtaGkUGrWuF5LBs=";
@@ -112,4 +112,4 @@ stdenv.mkDerivation rec {
     ];
     mainProgram = "KodeLife";
   };
-}
+})

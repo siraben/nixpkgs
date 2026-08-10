@@ -5,12 +5,12 @@
   makeWrapper,
   jre,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "jreleaser-cli";
   version = "1.25.0";
 
   src = fetchurl {
-    url = "https://github.com/jreleaser/jreleaser/releases/download/v${version}/jreleaser-tool-provider-${version}.jar";
+    url = "https://github.com/jreleaser/jreleaser/releases/download/v${finalAttrs.version}/jreleaser-tool-provider-${finalAttrs.version}.jar";
     hash = "sha256-ixcHrzCX+b1iEkmk2rWZidFBtT2Ar58pRSGLzwaDYSM=";
   };
 
@@ -20,9 +20,9 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out/share/java/ $out/bin/
-    cp $src $out/share/java/${pname}.jar
-    makeWrapper ${jre}/bin/java $out/bin/${pname} \
-      --add-flags "-jar $out/share/java/${pname}.jar"
+    cp $src $out/share/java/jreleaser-cli.jar
+    makeWrapper ${jre}/bin/java $out/bin/jreleaser-cli \
+      --add-flags "-jar $out/share/java/jreleaser-cli.jar"
   '';
 
   meta = {
@@ -33,4 +33,4 @@ stdenv.mkDerivation rec {
     maintainers = [ lib.maintainers.i-al-istannen ];
     mainProgram = "jreleaser-cli";
   };
-}
+})

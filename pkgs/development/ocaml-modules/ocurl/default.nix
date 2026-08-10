@@ -10,12 +10,12 @@
   lwt_ppx,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ocurl";
   version = "0.9.2";
 
   src = fetchurl {
-    url = "https://github.com/ygrek/ocurl/releases/download/${version}/ocurl-${version}.tar.gz";
+    url = "https://github.com/ygrek/ocurl/releases/download/${finalAttrs.version}/ocurl-${finalAttrs.version}.tar.gz";
     sha256 = "sha256-4DWXGMh02s1VwLWW5d7h0jtMOUubWmBPGm1hghfWd2M=";
   };
 
@@ -44,4 +44,4 @@ stdenv.mkDerivation rec {
     platforms = ocaml.meta.platforms or [ ];
     broken = lib.versionOlder ocaml.version "4.04";
   };
-}
+})

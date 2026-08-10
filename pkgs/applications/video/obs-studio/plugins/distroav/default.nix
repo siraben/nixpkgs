@@ -9,7 +9,7 @@
   curl,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "distroav";
   version = "6.1.1";
 
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "DistroAV";
     repo = "DistroAV";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-nbXh6bjpiKbvuntZSnuTWWpmhfAcep7Krjjq8FvbENk=";
   };
 
@@ -58,4 +58,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ globule655 ];
     platforms = lib.platforms.linux;
   };
-}
+})

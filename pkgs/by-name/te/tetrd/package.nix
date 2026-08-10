@@ -23,7 +23,7 @@
   libGL,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "tetrd";
   version = "1.3.1-1";
 
@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
     cp -r $sourceRoot/usr/share $out
 
     wrapProgram $out/opt/Tetrd/tetrd \
-      --prefix LD_LIBRARY_PATH ":" ${lib.makeLibraryPath buildInputs}
+      --prefix LD_LIBRARY_PATH ":" ${lib.makeLibraryPath finalAttrs.buildInputs}
 
     mkdir $out/bin
     ln -s $out/opt/Tetrd/tetrd $out/bin/tetrd
@@ -89,4 +89,4 @@ stdenv.mkDerivation rec {
     platforms = [ "x86_64-linux" ];
     mainProgram = "tetrd";
   };
-}
+})

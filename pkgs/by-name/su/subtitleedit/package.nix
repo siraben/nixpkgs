@@ -17,13 +17,13 @@
   tesseract4,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "subtitleedit";
   version = "4.0.16";
 
   src = fetchzip {
-    url = "https://github.com/SubtitleEdit/subtitleedit/releases/download/${version}/SE${
-      lib.replaceStrings [ "." ] [ "" ] version
+    url = "https://github.com/SubtitleEdit/subtitleedit/releases/download/${finalAttrs.version}/SE${
+      lib.replaceStrings [ "." ] [ "" ] finalAttrs.version
     }.zip";
     hash = "sha256-SXM5aMBNXI/ClrhvoXDeo86KUntU2Ad3fxx8O3dr+j0=";
     stripRoot = false;
@@ -58,8 +58,8 @@ stdenv.mkDerivation rec {
     ln -s ${hunspell.out}/lib/libhunspell*.so $out/bin/libhunspell.so
     makeWrapper "${mono}/bin/mono" $out/bin/subtitleedit \
       --add-flags "$out/bin/SubtitleEdit.exe" \
-      --prefix LD_LIBRARY_PATH : ${runtimeLibs} \
-      --prefix PATH : ${runtimeBins}
+      --prefix LD_LIBRARY_PATH : ${finalAttrs.runtimeLibs} \
+      --prefix PATH : ${finalAttrs.runtimeBins}
 
     wrestool -x -t 14 SubtitleEdit.exe > subtitleedit.ico
     icotool -x -i 3 -o $out/share/icons/hicolor/16x16/apps/subtitleedit.png subtitleedit.ico
@@ -72,11 +72,11 @@ stdenv.mkDerivation rec {
 
   desktopItems = [
     (makeDesktopItem {
-      name = pname;
+      name = "subtitleedit";
       desktopName = "Subtitle Edit";
       exec = "subtitleedit";
       icon = "subtitleedit";
-      comment = meta.description;
+      comment = finalAttrs.meta.description;
       categories = [ "AudioVideo" ];
     })
   ];
@@ -97,4 +97,4 @@ stdenv.mkDerivation rec {
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     maintainers = [ ];
   };
-}
+})

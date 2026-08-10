@@ -19,20 +19,20 @@ let
     else
       throw "unsupported platform for NDI SDK";
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ndi-6";
   version = versionJSON.version;
-  majorVersion = lib.versions.major version;
-  installerName = "Install_NDI_SDK_v${majorVersion}_Linux";
+  majorVersion = lib.versions.major finalAttrs.version;
+  installerName = "Install_NDI_SDK_v${finalAttrs.majorVersion}_Linux";
 
   src = fetchurl {
-    url = "https://downloads.ndi.tv/SDK/NDI_SDK_Linux/${installerName}.tar.gz";
+    url = "https://downloads.ndi.tv/SDK/NDI_SDK_Linux/${finalAttrs.installerName}.tar.gz";
     hash = versionJSON.hash;
   };
 
   unpackPhase = ''
     unpackFile $src
-    echo y | ./${installerName}.sh
+    echo y | ./${finalAttrs.installerName}.sh
     sourceRoot="NDI SDK for Linux";
   '';
 
@@ -86,4 +86,4 @@ stdenv.mkDerivation rec {
       ChaosAttractor
     ];
   };
-}
+})

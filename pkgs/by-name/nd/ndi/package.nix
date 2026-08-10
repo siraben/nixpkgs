@@ -21,31 +21,31 @@ let
     else
       throw "unsupported platform for NDI SDK";
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ndi";
   version = versionJSON.version;
-  majorVersion = builtins.head (builtins.splitVersion version);
-  installerName = "Install_NDI_SDK_v${majorVersion}_Linux";
+  majorVersion = builtins.head (builtins.splitVersion finalAttrs.version);
+  installerName = "Install_NDI_SDK_v${finalAttrs.majorVersion}_Linux";
 
   src = fetchurl {
-    name = "${pname}-${version}.tar.gz";
-    url = "https://downloads.ndi.tv/SDK/NDI_SDK_Linux/${installerName}.tar.gz";
+    name = "ndi-${finalAttrs.version}.tar.gz";
+    url = "https://downloads.ndi.tv/SDK/NDI_SDK_Linux/${finalAttrs.installerName}.tar.gz";
     hash = versionJSON.hash;
   };
 
   unpackPhase = ''
     unpackFile $src
-    echo y | ./${installerName}.sh
+    echo y | ./${finalAttrs.installerName}.sh
     sourceRoot="NDI SDK for Linux";
   '';
 
   installPhase = ''
-    mkdir -p $out $out/share/doc/${pname}-${version}
+    mkdir -p $out $out/share/doc/ndi-${finalAttrs.version}
     mv bin/${ndiPlatform} $out/bin
     mv lib/${ndiPlatform} $out/lib
     mv include examples $out/
-    mv licenses $out/share/doc/${pname}-${version}/licenses
-    mv documentation/* $out/share/doc/${pname}-${version}/
+    mv licenses $out/share/doc/ndi-${finalAttrs.version}/licenses
+    mv documentation/* $out/share/doc/ndi-${finalAttrs.version}/
   '';
 
   dontPatchELF = true;
@@ -84,4 +84,4 @@ stdenv.mkDerivation rec {
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     license = lib.licenses.unfree;
   };
-}
+})

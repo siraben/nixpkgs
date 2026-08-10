@@ -16,12 +16,12 @@
   copyDesktopItems,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "popcorntime";
   version = "0.5.1";
 
   src = fetchurl {
-    url = "https://github.com/popcorn-official/popcorn-desktop/releases/download/v${version}/Popcorn-Time-${version}-linux64.zip";
+    url = "https://github.com/popcorn-official/popcorn-desktop/releases/download/v${finalAttrs.version}/Popcorn-Time-${finalAttrs.version}-linux64.zip";
     hash = "sha256-lCsIioR252GWP/+wNwkTw5PLSal/M9x6mlR/EKOd/hs=";
   };
 
@@ -59,11 +59,11 @@ stdenv.mkDerivation rec {
   ];
 
   desktopItem = makeDesktopItem {
-    name = pname;
-    exec = pname;
-    icon = pname;
-    comment = meta.description;
-    genericName = meta.description;
+    name = "popcorntime";
+    exec = "popcorntime";
+    icon = "popcorntime";
+    comment = finalAttrs.meta.description;
+    genericName = finalAttrs.meta.description;
     type = "Application";
     desktopName = "Popcorn-Time";
     categories = [
@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
 
     ln -s $out/opt/popcorntime/src/app/images/icon.png $out/share/icons/hicolor/scalable/apps/popcorntime.png
 
-    ln -s ${desktopItem}/share/applications/popcorntime.desktop $out/share/applications/popcorntime.desktop
+    ln -s ${finalAttrs.desktopItem}/share/applications/popcorntime.desktop $out/share/applications/popcorntime.desktop
   '';
 
   # GSETTINGS_SCHEMAS_PATH is not set in installPhase
@@ -103,4 +103,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ onny ];
     mainProgram = "popcorntime";
   };
-}
+})

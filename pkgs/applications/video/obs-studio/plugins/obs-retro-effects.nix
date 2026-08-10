@@ -6,14 +6,14 @@
   obs-studio,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "obs-retro-effects";
   version = "1.0.2";
 
   src = fetchFromGitHub {
     owner = "FiniteSingularity";
     repo = "obs-retro-effects";
-    rev = "${version}";
+    rev = "${finalAttrs.version}";
     sha256 = "sha256-oQGXBd/KGPGTK+CoomMjjgrnxTqVIefEKqKH11SPHSY=";
   };
 
@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ obs-studio ];
 
   postFixup = ''
-    mv $out/data/obs-plugins/${pname}/shaders $out/share/obs/obs-plugins/${pname}/
+    mv $out/data/obs-plugins/obs-retro-effects/shaders $out/share/obs/obs-plugins/obs-retro-effects/
     rm -rf $out/obs-plugins
     rm -rf $out/data
   '';
@@ -33,4 +33,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2Plus;
     inherit (obs-studio.meta) platforms;
   };
-}
+})

@@ -15,14 +15,14 @@
   switchboard,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "switchboard-plug-sharing";
   version = "8.0.3";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "settings-sharing";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-TNLnSFvjJFUfDkhYSKgqgpmpZggIw3LcBqmkXIzZ3nk=";
   };
 
@@ -53,4 +53,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     teams = [ lib.teams.pantheon ];
   };
-}
+})

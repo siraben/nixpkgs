@@ -10,14 +10,14 @@
   net-tools,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "jumpapp";
   version = "1.2";
 
   src = fetchFromGitHub {
     owner = "mkropat";
     repo = "jumpapp";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "sha256-9sh0+zpDxwqRGC1jUgGTDdSDRdAFsL12mQ/Opwh/UBc=";
   };
 
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
   ];
   postFixup =
     let
-      runtimePath = lib.makeBinPath buildInputs;
+      runtimePath = lib.makeBinPath finalAttrs.buildInputs;
     in
     ''
       sed -i "2 i export PATH=${runtimePath}:\$PATH" $out/bin/jumpapp
@@ -48,4 +48,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.matklad ];
   };
-}
+})

@@ -14,19 +14,19 @@ let
   versionBuild_x86_64 = "2";
   versionBuild_i686 = "2";
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "nomachine-client";
   version = "${versionMajor}.${versionMinor}";
 
   src =
     if stdenv.hostPlatform.system == "x86_64-linux" then
       fetchurl {
-        url = "https://download.nomachine.com/download/${versionMajor}/Linux/nomachine_${version}_${versionBuild_x86_64}_x86_64.tar.gz";
+        url = "https://download.nomachine.com/download/${versionMajor}/Linux/nomachine_${finalAttrs.version}_${versionBuild_x86_64}_x86_64.tar.gz";
         sha256 = "sha256-8f4ZL3Ko5VunojXLvTS9P3oB+ZVCSYIA0GIjM8VpUO4=";
       }
     else if stdenv.hostPlatform.system == "i686-linux" then
       fetchurl {
-        url = "https://download.nomachine.com/download/${versionMajor}/Linux/nomachine_${version}_${versionBuild_i686}_i686.tar.gz";
+        url = "https://download.nomachine.com/download/${versionMajor}/Linux/nomachine_${finalAttrs.version}_${versionBuild_i686}_i686.tar.gz";
         sha256 = "sha256-Yr0bw7PW34Nga8vj3TxdFFyDiVVnHJ6lBdNskOyQ8m8=";
       }
     else
@@ -109,4 +109,4 @@ stdenv.mkDerivation rec {
       "i686-linux"
     ];
   };
-}
+})

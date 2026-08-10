@@ -8,7 +8,7 @@
   ffmpeg,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "crossfire-jxclient";
   version = "2025-01";
 
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     runHook prePatch
 
     rm -rf sounds
-    ln -s ${sounds} sounds
+    ln -s ${finalAttrs.sounds} sounds
 
     runHook postPatch
   '';
@@ -70,4 +70,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     maintainers = [ ];
   };
-}
+})

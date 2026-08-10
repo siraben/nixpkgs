@@ -8,14 +8,14 @@
   ounit,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ocaml${ocaml.version}-expat";
   version = "1.3.0";
 
   src = fetchFromGitHub {
     owner = "whitequark";
     repo = "ocaml-expat";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-eDA6MUcztaI+fpunWBdanNnPo9Y5gvbj/ViVcxYYEBg=";
   };
 
@@ -41,8 +41,8 @@ stdenv.mkDerivation rec {
     description = "OCaml wrapper for the Expat XML parsing library";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.vbgl ];
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     inherit (ocaml.meta) platforms;
     broken = !(lib.versionAtLeast ocaml.version "4.02");
   };
-}
+})

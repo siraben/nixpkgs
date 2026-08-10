@@ -17,12 +17,12 @@ let
       broken ? false,
       license,
     }:
-    stdenv.mkDerivation rec {
+    stdenv.mkDerivation (finalAttrs: {
       pname = "ragel";
       inherit version;
 
       src = fetchurl {
-        url = "https://www.colm.net/files/ragel/${pname}-${version}.tar.gz";
+        url = "https://www.colm.net/files/ragel/ragel-${finalAttrs.version}.tar.gz";
         inherit sha256;
       };
 
@@ -52,7 +52,7 @@ let
         platforms = lib.platforms.unix;
         maintainers = with lib.maintainers; [ pSub ];
       };
-    };
+    });
 
 in
 

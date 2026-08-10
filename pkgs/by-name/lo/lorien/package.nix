@@ -35,14 +35,14 @@ let
     else
       throw "unsupported platform";
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "lorien";
   version = "0.6.0";
 
   src = fetchFromGitHub {
     owner = "mbrlabs";
     repo = "Lorien";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "sha256-mPv/3hyLGF3IUy6cKfGoABidIsyw4UfmhfhS4AD72K8=";
   };
 
@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
       icon = "lorien";
       desktopName = "Lorien";
       genericName = "Whiteboard";
-      comment = meta.description;
+      comment = finalAttrs.meta.description;
       categories = [
         "Graphics"
         "Office"
@@ -112,7 +112,7 @@ stdenv.mkDerivation rec {
     interpreter=$(cat $NIX_CC/nix-support/dynamic-linker)
     patchelf \
       --set-interpreter $interpreter \
-      --set-rpath ${lib.makeLibraryPath buildInputs} \
+      --set-rpath ${lib.makeLibraryPath finalAttrs.buildInputs} \
       $out/share/lorien/lorien
 
     install -Dm644 images/lorien.png -t $out/share/icons/hicolor/64x64/apps
@@ -138,4 +138,4 @@ stdenv.mkDerivation rec {
     maintainers = [ ];
     mainProgram = "lorien";
   };
-}
+})

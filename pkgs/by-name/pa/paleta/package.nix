@@ -16,19 +16,21 @@
   libadwaita,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "paleta";
   version = "0.3.1";
 
   src = fetchFromGitHub {
     owner = "nate-xyz";
     repo = "paleta";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-c+X49bMywstRg7cSAbbpG/vd8OUB7RhdQVRumTIBDDk=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
-    inherit pname version src;
+    pname = "paleta";
+    inherit (finalAttrs) version;
+    inherit (finalAttrs) src;
     hash = "sha256-RuzqU06iyK+IN7aO+Lq/IaRLh2oFpWM1rz69Koiicgg=";
   };
 
@@ -58,4 +60,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ zendo ];
   };
-}
+})

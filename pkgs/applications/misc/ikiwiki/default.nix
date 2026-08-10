@@ -28,12 +28,12 @@
   extraUtils ? [ ],
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ikiwiki";
   version = "3.20200202.3";
 
   src = fetchurl {
-    url = "mirror://debian/pool/main/i/ikiwiki/ikiwiki_${version}.orig.tar.xz";
+    url = "mirror://debian/pool/main/i/ikiwiki/ikiwiki_${finalAttrs.version}.orig.tar.xz";
     sha256 = "0skrc8r4wh4mjfgw1c94awr5sacfb9nfsbm4frikanc9xsy16ksr";
   };
 
@@ -142,4 +142,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.wentasah ];
   };
-}
+})

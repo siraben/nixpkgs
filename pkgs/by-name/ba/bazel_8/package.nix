@@ -116,7 +116,7 @@ let
   ];
 
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "bazel";
   inherit version src;
 
@@ -159,7 +159,7 @@ stdenv.mkDerivation rec {
     ./patches/trim-last-argument-to-gcc-if-empty.patch
   ];
 
-  patches = lib.optionals isDarwin darwinPatches ++ [
+  patches = lib.optionals isDarwin finalAttrs.darwinPatches ++ [
     # patch that propagates rules_* patches below
     # patches need to be within source root and can't be absolute paths in Nix store
     # so rules_* patches are injected via addFilePatch
@@ -261,7 +261,7 @@ stdenv.mkDerivation rec {
     # on branch/tag information which we don't have with tarball releases.
     # Note that .bazelversion is always correct and is based on bazel-*
     # executable name, version checks should work fine
-    export EMBED_LABEL="${version}- (@non-git)"
+    export EMBED_LABEL="${finalAttrs.version}- (@non-git)"
 
     echo "Stage 1 - Running bazel bootstrap script"
     # Note: can't use lib.escapeShellArgs here because it will escape arguments
@@ -309,7 +309,7 @@ stdenv.mkDerivation rec {
     # $out/bin/bazel-{version}-{os_arch} The binary _must_ exist with this
     # naming if your project contains a .bazelversion file.
     cp ./scripts/packages/bazel.sh $out/bin/bazel
-    versioned_bazel="$out/bin/bazel-${version}-${bazelSystem}-${bazelArch}"
+    versioned_bazel="$out/bin/bazel-${finalAttrs.version}-${bazelSystem}-${bazelArch}"
     mv ./output/bazel "$versioned_bazel"
     wrapProgram "$versioned_bazel" --suffix PATH : ${defaultShell.defaultShellPath}
 
@@ -336,15 +336,15 @@ stdenv.mkDerivation rec {
   postFixup =
     # verify that bazel binary still works post-fixup
     ''
-      USE_BAZEL_VERSION=${version} $out/bin/bazel --batch info release
+      USE_BAZEL_VERSION=${finalAttrs.version} $out/bin/bazel --batch info release
     '';
 
   # Bazel binary includes zip archive at the end that `strip` would end up discarding
-  stripExclude = [ "bin/.bazel-${version}-*-wrapped" ];
+  stripExclude = [ "bin/.bazel-${finalAttrs.version}-*-wrapped" ];
 
   passthru = {
     tests = {
       inherit (callPackage ./examples.nix { }) cpp java rust;
     };
   };
-}
+})

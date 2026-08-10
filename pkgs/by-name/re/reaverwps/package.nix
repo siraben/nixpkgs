@@ -7,13 +7,13 @@
   makeWrapper,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   version = "1.4";
   pname = "reaver-wps";
-  confdir = "/var/db/${pname}-${version}"; # the sqlite database is at "${confdir}/reaver/reaver.db"
+  confdir = "/var/db/reaver-wps-${finalAttrs.version}"; # the sqlite database is at "${confdir}/reaver/reaver.db"
 
   src = fetchurl {
-    url = "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/reaver-wps/reaver-${version}.tar.gz";
+    url = "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/reaver-wps/reaver-${finalAttrs.version}.tar.gz";
     sha256 = "0bdjai4p8xbsw8zdkkk43rgsif79x0nyx4djpyv0mzh59850blxd";
   };
 
@@ -32,15 +32,15 @@ stdenv.mkDerivation rec {
     sourceRoot=$(echo */src)
   '';
 
-  configureFlags = [ "--sysconfdir=${confdir}" ];
+  configureFlags = [ "--sysconfdir=${finalAttrs.confdir}" ];
 
   installPhase = ''
     mkdir -p $out/{bin,etc}
     cp reaver.db $out/etc/
     cp reaver wash $out/bin/
 
-    wrapProgram $out/bin/reaver --run "[ -s ${confdir}/reaver/reaver.db ] || install -D $out/etc/reaver.db ${confdir}/reaver/reaver.db"
-    wrapProgram $out/bin/wash   --run "[ -s ${confdir}/reaver/reaver.db ] || install -D $out/etc/reaver.db ${confdir}/reaver/reaver.db"
+    wrapProgram $out/bin/reaver --run "[ -s ${finalAttrs.confdir}/reaver/reaver.db ] || install -D $out/etc/reaver.db ${finalAttrs.confdir}/reaver/reaver.db"
+    wrapProgram $out/bin/wash   --run "[ -s ${finalAttrs.confdir}/reaver/reaver.db ] || install -D $out/etc/reaver.db ${finalAttrs.confdir}/reaver/reaver.db"
   '';
 
   enableParallelBuilding = true;
@@ -54,4 +54,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ nico202 ];
   };
-}
+})

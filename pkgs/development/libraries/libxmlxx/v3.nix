@@ -23,12 +23,12 @@
   withExamples ? false,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "libxml++";
   version = "3.2.5";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/libxml++/${lib.versions.majorMinor version}/libxml++-${version}.tar.xz";
+    url = "mirror://gnome/sources/libxml++/${lib.versions.majorMinor finalAttrs.version}/libxml++-${finalAttrs.version}.tar.xz";
     hash = "sha256-DJs4G1qD1rOrSwuGXXJW2rJ9V1mBtjvi+Fnty5TaWcc=";
   };
 
@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
     (lib.mesonBool "build-manual" withManual)
     (lib.mesonBool "build-pdf" withPDF)
     (lib.mesonBool "build-examples" withExamples)
-    (lib.mesonBool "build-tests" doCheck)
+    (lib.mesonBool "build-tests" finalAttrs.doCheck)
   ];
 
   preBuild = lib.strings.optionalString withDocumentation ''
@@ -101,4 +101,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ willow ];
   };
-}
+})

@@ -24,12 +24,12 @@ let
       version,
       hash,
     }:
-    stdenv.mkDerivation rec {
+    stdenv.mkDerivation (finalAttrs: {
       pname = "varnish";
       inherit version;
 
       src = fetchurl {
-        url = "https://vinyl-cache.org/_downloads/${pname}-${version}.tgz";
+        url = "https://vinyl-cache.org/_downloads/varnish-${finalAttrs.version}.tgz";
         inherit hash;
       };
 
@@ -108,7 +108,9 @@ let
       passthru = {
         python = python3;
         tests =
-          nixosTests."varnish${builtins.replaceStrings [ "." ] [ "" ] (lib.versions.majorMinor version)}";
+          nixosTests."varnish${
+            builtins.replaceStrings [ "." ] [ "" ] (lib.versions.majorMinor finalAttrs.version)
+          }";
       };
 
       meta = {
@@ -120,9 +122,9 @@ let
           lib.maintainers.osnyx
         ];
         platforms = lib.platforms.unix;
-        broken = stdenv.hostPlatform.isDarwin && version == "8.0.1"; # https://github.com/NixOS/nixpkgs/issues/495368
+        broken = stdenv.hostPlatform.isDarwin && finalAttrs.version == "8.0.1"; # https://github.com/NixOS/nixpkgs/issues/495368
       };
-    };
+    });
 in
 {
   # EOL 2026-09-15

@@ -13,7 +13,7 @@
   openldap,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "outfox";
   version = "0.5.0-pre043";
 
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
   installPhase = ''
     mkdir -p $out/bin $out/share/OutFox $out/share/applications
     cp -r ./. $out/share/OutFox
-    ln -s ${desktop}/share/applications/project-outfox.desktop $out/share/applications/project-outfox.desktop
+    ln -s ${finalAttrs.desktop}/share/applications/project-outfox.desktop $out/share/applications/project-outfox.desktop
     makeWrapper $out/share/OutFox/OutFox $out/bin/OutFox --argv0
   '';
 
@@ -77,4 +77,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ maxwell-lt ];
     mainProgram = "OutFox";
   };
-}
+})

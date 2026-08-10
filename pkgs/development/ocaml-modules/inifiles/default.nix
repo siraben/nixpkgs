@@ -8,12 +8,12 @@
   ocaml_pcre,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ocaml${ocaml.version}-inifiles";
   version = "1.2";
 
   src = fetchurl {
-    url = "mirror://ubuntu/pool/universe/o/ocaml-inifiles/ocaml-inifiles_${version}.orig.tar.gz";
+    url = "mirror://ubuntu/pool/universe/o/ocaml-inifiles/ocaml-inifiles_${finalAttrs.version}.orig.tar.gz";
     sha256 = "0jhzgiypmh6hwsv1zpiq77fi0cvcmwbiy5x0yg7mz6p3dh1dmkns";
   };
 
@@ -48,4 +48,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.lgpl21Plus;
     inherit (ocaml.meta) platforms;
   };
-}
+})

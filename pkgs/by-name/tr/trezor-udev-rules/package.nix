@@ -6,7 +6,7 @@
   udevCheckHook,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "trezor-udev-rules";
   version = "unstable-2019-07-17";
 
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
   dontUnpack = true;
 
   installPhase = ''
-    cp ${udevRules} 51-trezor.rules
+    cp ${finalAttrs.udevRules} 51-trezor.rules
     mkdir -p $out/lib/udev/rules.d
     # we use trezord group, not plugdev
     # we don't need the udev-acl tag
@@ -44,4 +44,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     homepage = "https://github.com/trezor/trezor-firmware/tree/master/common/udev";
   };
-}
+})

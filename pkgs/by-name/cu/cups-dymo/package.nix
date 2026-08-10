@@ -5,7 +5,7 @@
   cups,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "cups-dymo";
   version = "1.4.0.5";
 
@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
   dl-name = "dymo-cups-drivers-1.4.0";
 
   src = fetchurl {
-    url = "https://download.dymo.com/dymo/Software/Download%20Drivers/Linux/Download/${dl-name}.tar.gz";
+    url = "https://download.dymo.com/dymo/Software/Download%20Drivers/Linux/Download/${finalAttrs.dl-name}.tar.gz";
     sha256 = "0wagsrz3q7yrkzb5ws0m5faq68rqnqfap9p98sgk5jl6x7krf1y6";
   };
 
@@ -33,4 +33,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [ makefu ];
   };
-}
+})

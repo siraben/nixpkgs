@@ -10,7 +10,7 @@
   libxext,
   withNethackLevels ? true,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "xsok";
   version = "1.02";
 
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
   makeFlags = [ "BINDIR=$(out)/bin" ];
 
   postInstall = lib.optionalString withNethackLevels ''
-    gzip < ${nethackLevels} > "$out/share/games/lib/xsok/Nethack.def.gz"
+    gzip < ${finalAttrs.nethackLevels} > "$out/share/games/lib/xsok/Nethack.def.gz"
     echo Nethack > "$out/share/games/lib/xsok/gametypes"
   '';
 
@@ -59,4 +59,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.unix;
     homepage = "https://tracker.debian.org/pkg/xsok";
   };
-}
+})

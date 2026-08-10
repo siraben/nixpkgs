@@ -4,7 +4,7 @@
   udevCheckHook,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "numworks-udev-rules";
   version = "unstable-2020-08-31";
 
@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
   doInstallCheck = true;
 
   installPhase = ''
-    install -Dm 644 "${udevRules}" "$out/lib/udev/rules.d/50-numworks-calculator.rules"
+    install -Dm 644 "${finalAttrs.udevRules}" "$out/lib/udev/rules.d/50-numworks-calculator.rules"
   '';
 
   meta = {
@@ -27,4 +27,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
   };
-}
+})

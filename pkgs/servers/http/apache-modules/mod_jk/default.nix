@@ -7,18 +7,18 @@
   jdk,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "mod_jk";
   version = "1.2.50";
 
   src = fetchFromGitHub {
     owner = "apache";
     repo = "tomcat-connectors";
-    tag = "JK_${lib.replaceStrings [ "." ] [ "_" ] version}";
+    tag = "JK_${lib.replaceStrings [ "." ] [ "_" ] finalAttrs.version}";
     hash = "sha256-hlwlx7Sb4oeZIzHQYOC3e9xEZK9u6ZG8Q2U/XdKMe3U=";
   };
 
-  sourceRoot = "${src.name}/native";
+  sourceRoot = "${finalAttrs.src.name}/native";
 
   nativeBuildInputs = [ autoreconfHook ];
 
@@ -49,4 +49,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ anthonyroussel ];
     platforms = lib.platforms.unix;
   };
-}
+})

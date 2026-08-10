@@ -6,7 +6,7 @@
   bootil,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "gmad";
   version = "unstable-2020-02-24";
 
@@ -45,6 +45,6 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out/bin
-    cp ${targetName} $out/bin/gmad
+    cp ${finalAttrs.targetName} $out/bin/gmad
   '';
-}
+})

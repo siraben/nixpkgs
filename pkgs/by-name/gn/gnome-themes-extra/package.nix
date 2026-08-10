@@ -15,18 +15,18 @@
   hicolor-icon-theme,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "gnome-themes-extra";
   version = "3.28";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-themes-extra/${lib.versions.majorMinor version}/gnome-themes-extra-${version}.tar.xz";
+    url = "mirror://gnome/sources/gnome-themes-extra/${lib.versions.majorMinor finalAttrs.version}/gnome-themes-extra-${finalAttrs.version}.tar.xz";
     hash = "sha256-fEugv/AB8G2Jg8/BBa2qxC3x0SZ6JZF5ingLrFV6WBk=";
   };
 
   passthru = {
     updateScript = gnome.updateScript {
-      packageName = pname;
+      packageName = "gnome-themes-extra";
     };
   };
 
@@ -58,4 +58,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.unix;
     teams = [ lib.teams.gnome ];
   };
-}
+})

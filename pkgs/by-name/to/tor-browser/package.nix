@@ -137,7 +137,7 @@ let
     }
   );
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "tor-browser";
   inherit version;
 
@@ -172,7 +172,7 @@ stdenv.mkDerivation rec {
       icon = "tor-browser";
       desktopName = "Tor Browser";
       genericName = "Web Browser";
-      comment = meta.description;
+      comment = finalAttrs.meta.description;
       categories = [
         "Network"
         "WebBrowser"
@@ -332,7 +332,9 @@ stdenv.mkDerivation rec {
   passthru = {
     inherit sources;
     updateScript = callPackage ./update.nix {
-      inherit pname version meta;
+      pname = "tor-browser";
+      inherit (finalAttrs) version;
+      inherit (finalAttrs) meta;
     };
   };
 
@@ -341,7 +343,7 @@ stdenv.mkDerivation rec {
     mainProgram = "tor-browser";
     homepage = "https://www.torproject.org/";
     donationPage = "https://donate.torproject.org/";
-    changelog = "https://gitlab.torproject.org/tpo/applications/tor-browser-build/-/raw/maint-${lib.versions.majorMinor version}/projects/browser/Bundle-Data/Docs-TBB/ChangeLog.txt";
+    changelog = "https://gitlab.torproject.org/tpo/applications/tor-browser-build/-/raw/maint-${lib.versions.majorMinor finalAttrs.version}/projects/browser/Bundle-Data/Docs-TBB/ChangeLog.txt";
     platforms = lib.attrNames sources;
     maintainers = with lib.maintainers; [
       c4patino
@@ -361,4 +363,4 @@ stdenv.mkDerivation rec {
     ];
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
   };
-}
+})

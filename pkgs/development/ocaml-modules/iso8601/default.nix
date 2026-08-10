@@ -7,14 +7,14 @@
   ocamlbuild,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ocaml-iso8601";
   version = "0.2.5";
 
   src = fetchFromGitHub {
     owner = "sagotch";
     repo = "ISO8601.ml";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-QWjZ+2AjvXnnRVenbyCG/hSjfW53bHiftQUtWpK/7I8=";
   };
 
@@ -35,4 +35,4 @@ stdenv.mkDerivation rec {
     platforms = ocaml.meta.platforms or [ ];
     maintainers = with lib.maintainers; [ vbgl ];
   };
-}
+})

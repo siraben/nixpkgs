@@ -9,11 +9,11 @@
   result,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ocaml${ocaml.version}-rresult";
   version = "0.7.0";
   src = fetchurl {
-    url = "https://erratique.ch/software/rresult/releases/rresult-${version}.tbz";
+    url = "https://erratique.ch/software/rresult/releases/rresult-${finalAttrs.version}.tbz";
     sha256 = "sha256-Eap/W4NGDmBDHjFU4+MsBx1G4VHqV2DPJDd4Bb+XVUA=";
   };
 
@@ -39,4 +39,4 @@ stdenv.mkDerivation rec {
     inherit (ocaml.meta) platforms;
     broken = !(lib.versionAtLeast ocaml.version "4.07");
   };
-}
+})

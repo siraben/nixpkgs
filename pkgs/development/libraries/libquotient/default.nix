@@ -11,7 +11,7 @@
   qtkeychain,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "libquotient";
   version = "0.9.6.1";
 
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "quotient-im";
     repo = "libQuotient";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-ea7vOxmc4S7KizbwYp21NryW3BGh+Jn0HOR4qsA1roE=";
   };
 
@@ -63,4 +63,4 @@ stdenv.mkDerivation rec {
       matthiasbeyer
     ];
   };
-}
+})

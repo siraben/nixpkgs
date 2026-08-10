@@ -10,12 +10,12 @@
   httpTwoLevelsUpdater,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "xfce4-icon-theme";
   version = "4.4.3";
 
   src = fetchurl {
-    url = "mirror://xfce/src/art/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.bz2";
+    url = "mirror://xfce/src/art/xfce4-icon-theme/${lib.versions.majorMinor finalAttrs.version}/xfce4-icon-theme-${finalAttrs.version}.tar.bz2";
     sha256 = "sha256-1HhmktVrilY/ZqXyYPHxOt4R6Gx4y8slqfml/EfPZvo=";
   };
 
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
   dontDropIconThemeCache = true;
 
   passthru.updateScript = httpTwoLevelsUpdater {
-    url = "https://archive.xfce.org/src/art/${pname}";
+    url = "https://archive.xfce.org/src/art/xfce4-icon-theme";
   };
 
   meta = {
@@ -44,4 +44,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     teams = [ lib.teams.xfce ];
   };
-}
+})

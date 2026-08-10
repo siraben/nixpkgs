@@ -6,14 +6,14 @@
   makeWrapper,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "jmx-prometheus-httpserver";
   version = "0.15.0";
 
-  jarName = "jmx_prometheus_httpserver-${version}-jar-with-dependencies.jar";
+  jarName = "jmx_prometheus_httpserver-${finalAttrs.version}-jar-with-dependencies.jar";
 
   src = fetchurl {
-    url = "mirror://maven/io/prometheus/jmx/jmx_prometheus_httpserver/${version}/${jarName}";
+    url = "mirror://maven/io/prometheus/jmx/jmx_prometheus_httpserver/${finalAttrs.version}/${finalAttrs.jarName}";
     sha256 = "0fr3svn8kjp7bq1wzbkvv5awylwn8b01bngj04zvk7fpzqpgs7mz";
   };
 
@@ -38,4 +38,4 @@ stdenv.mkDerivation rec {
     maintainers = [ ];
     platforms = lib.platforms.unix;
   };
-}
+})

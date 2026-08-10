@@ -10,13 +10,13 @@ let
   cfg = import ./version.nix;
 in
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "batctl";
   inherit (cfg) version;
 
   src = fetchurl {
-    url = "https://downloads.open-mesh.org/batman/releases/batman-adv-${version}/${pname}-${version}.tar.gz";
-    sha256 = cfg.sha256.${pname};
+    url = "https://downloads.open-mesh.org/batman/releases/batman-adv-${finalAttrs.version}/batctl-${finalAttrs.version}.tar.gz";
+    sha256 = cfg.sha256.${"batctl"};
   };
 
   nativeBuildInputs = [ pkg-config ];
@@ -34,4 +34,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ fpletz ];
     platforms = with lib.platforms; linux;
   };
-}
+})

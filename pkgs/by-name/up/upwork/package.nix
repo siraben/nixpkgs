@@ -43,12 +43,12 @@
   systemd,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "upwork";
   version = "5.8.0.35";
 
   src = requireFile {
-    name = "${pname}_${version}_amd64.deb";
+    name = "upwork_${finalAttrs.version}_amd64.deb";
     url = "https://www.upwork.com/ab/downloads/os/linux/";
     sha256 = "sha256-Suv23TL6l5HhkOSRT56LpFRZJxuSLYVc1uT6he8j7O0=";
   };
@@ -99,7 +99,7 @@ stdenv.mkDerivation rec {
     systemd
   ];
 
-  libPath = lib.makeLibraryPath buildInputs;
+  libPath = lib.makeLibraryPath finalAttrs.buildInputs;
 
   dontWrapGApps = true;
 
@@ -119,7 +119,7 @@ stdenv.mkDerivation rec {
     makeWrapper $out/opt/Upwork/upwork \
       $out/bin/upwork \
       --prefix XDG_DATA_DIRS : "${gtk3}/share/gsettings-schemas/${gtk3.name}/" \
-      --prefix LD_LIBRARY_PATH : ${libPath}
+      --prefix LD_LIBRARY_PATH : ${finalAttrs.libPath}
 
     runHook postInstall
   '';
@@ -132,4 +132,4 @@ stdenv.mkDerivation rec {
     platforms = [ "x86_64-linux" ];
     maintainers = with lib.maintainers; [ zakkor ];
   };
-}
+})

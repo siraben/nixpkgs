@@ -22,14 +22,14 @@
   moltenvk,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "vulkan-tools";
   version = "1.4.357.0";
 
   src = fetchFromGitHub {
     owner = "KhronosGroup";
     repo = "Vulkan-Tools";
-    rev = "vulkan-sdk-${version}";
+    rev = "vulkan-sdk-${finalAttrs.version}";
     hash = "sha256-kbySCu2c5nh6icnPQV6qplfg1gHFnGPEYOG6G6TG8EU=";
   };
 
@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
     # Don't build the mock ICD as it may get used instead of other drivers, if installed
     "-DBUILD_ICD=OFF"
     # vulkaninfo loads libvulkan using dlopen, so we have to add it manually to RPATH
-    "-DCMAKE_INSTALL_RPATH=${libraryPath}"
+    "-DCMAKE_INSTALL_RPATH=${finalAttrs.libraryPath}"
     "-DGLSLANG_INSTALL_DIR=${glslang}"
     # Hide dev warnings that are useless for packaging
     "-Wno-dev"
@@ -96,4 +96,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.ralith ];
   };
-}
+})

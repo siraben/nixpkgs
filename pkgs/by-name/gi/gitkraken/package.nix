@@ -90,7 +90,7 @@ let
 
   passthru.updateScript = ./update.sh;
 
-  linux = stdenv.mkDerivation rec {
+  linux = stdenv.mkDerivation (finalAttrs: {
     inherit
       pname
       version
@@ -178,8 +178,8 @@ let
     installPhase = ''
       runHook preInstall
 
-      mkdir -p $out/share/${pname}/
-      cp -R $src/* $out/share/${pname}
+      mkdir -p $out/share/${finalAttrs.pname}/
+      cp -R $src/* $out/share/${finalAttrs.pname}
 
       install -Dm444 gitkraken.png $out/share/icons/hicolor/512x512/apps/gitkraken.png
 
@@ -191,34 +191,34 @@ let
     '';
 
     postFixup = ''
-      pushd $out/share/${pname}
+      pushd $out/share/${finalAttrs.pname}
       for file in gitkraken chrome-sandbox chrome_crashpad_handler; do
         patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $file
       done
 
       for file in $(find . -type f \( -name \*.node -o -name gitkraken -o -name git -o -name git-\* -o -name scalar -o -name \*.so\* \) ); do
-        patchelf --set-rpath ${libPath}:$out/share/${pname} $file || true
+        patchelf --set-rpath ${finalAttrs.libPath}:$out/share/${finalAttrs.pname} $file || true
       done
       popd
 
       # SSL and permissions fix for bundled nodegit
-      pushd $out/share/${pname}/resources/app.asar.unpacked/node_modules/@axosoft/nodegit/build/Release
+      pushd $out/share/${finalAttrs.pname}/resources/app.asar.unpacked/node_modules/@axosoft/nodegit/build/Release
       mv nodegit-x64-ubuntu-20.node nodegit-x64-ubuntu-20-ssl-1.1.1.node
       mv nodegit-x64-ubuntu-20-ssl-static.node nodegit-x64-ubuntu-20.node
       chmod 755 nodegit-x64-ubuntu-20.node
       popd
 
       # Devendor bundled git
-      rm -rf $out/share/${pname}/resources/app.asar.unpacked/git
-      ln -s ${git} $out/share/${pname}/resources/app.asar.unpacked/git
+      rm -rf $out/share/${finalAttrs.pname}/resources/app.asar.unpacked/git
+      ln -s ${git} $out/share/${finalAttrs.pname}/resources/app.asar.unpacked/git
 
       # GitKraken expects the CA bundle to be located in the bundled git directory. Since we replace it with
       # the one from nixpkgs, which doesn't provide a CA bundle, we need to explicitly set its location at runtime
-      makeWrapper $out/share/${pname}/gitkraken $out/bin/gitkraken \
+      makeWrapper $out/share/${finalAttrs.pname}/gitkraken $out/bin/gitkraken \
         --set GIT_SSL_CAINFO "${cacert}/etc/ssl/certs/ca-bundle.crt" \
         "''${gappsWrapperArgs[@]}"
     '';
-  };
+  });
 
   darwin = stdenv.mkDerivation {
     inherit

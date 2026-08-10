@@ -16,14 +16,14 @@
   flatpak,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "switchboard-plug-applications";
   version = "8.3.0";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "settings-applications";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-2sa6D+vOQidFwBBiqFioOocN//3A3RLKX7w0U62K4oI=";
   };
 
@@ -55,4 +55,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     teams = [ lib.teams.pantheon ];
   };
-}
+})
