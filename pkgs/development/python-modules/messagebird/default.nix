@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   requests,
   pyjwt,
@@ -12,7 +13,9 @@
 buildPythonPackage rec {
   pname = "messagebird";
   version = "2.2.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "messagebird";

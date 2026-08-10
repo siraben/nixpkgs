@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   jinja2,
   six,
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "mplleaflet";
   version = "0.0.5";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   propagatedBuildInputs = [
     jinja2

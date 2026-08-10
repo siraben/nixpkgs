@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   fetchpatch,
   cffi,
@@ -9,7 +10,12 @@
 buildPythonPackage rec {
   pname = "milksnake";
   version = "0.1.5";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [
+    cffi
+    setuptools
+  ];
 
   src = fetchPypi {
     inherit pname version;

@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   numpy,
   pytestCheckHook,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "nagiosplugin";
   version = "1.4.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

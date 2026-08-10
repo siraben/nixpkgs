@@ -2,12 +2,18 @@
   lib,
   fetchPypi,
   buildPythonPackage,
+  setuptools,
   cffi,
 }:
 buildPythonPackage rec {
   pname = "misaka";
   version = "2.1.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [
+    cffi
+    setuptools
+  ];
 
   src = fetchPypi {
     inherit pname version;

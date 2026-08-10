@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   libmysqlclient,
   pkg-config,
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "mysqlclient";
   version = "2.2.7";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   nativeBuildInputs = [ pkg-config ];
 

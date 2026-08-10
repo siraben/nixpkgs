@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   pytest,
   requests,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "manhole";
   version = "1.8.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

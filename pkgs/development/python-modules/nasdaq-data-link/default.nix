@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   factory-boy,
   fetchFromGitHub,
   httpretty,
@@ -20,7 +21,9 @@
 buildPythonPackage rec {
   pname = "nasdaq-data-link";
   version = "1.0.4";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "Nasdaq";

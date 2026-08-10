@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   beniget,
   frilouz,
@@ -13,7 +14,9 @@
 buildPythonPackage rec {
   pname = "memestra";
   version = "0.2.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

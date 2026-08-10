@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   html5lib,
   unittestCheckHook,
@@ -9,7 +10,9 @@
 buildPythonPackage (finalAttrs: {
   pname = "microdata";
   version = "0.8.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "edsu";

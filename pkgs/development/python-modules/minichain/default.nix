@@ -1,5 +1,6 @@
 {
   buildPythonPackage,
+  setuptools,
   eliot,
   fetchPypi,
   google-search-results,
@@ -14,7 +15,9 @@
 buildPythonPackage rec {
   pname = "minichain";
   version = "0.3.3";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   # See https://github.com/NixOS/nixpkgs/pull/248195#issuecomment-1687398702.
   disabled = pythonAtLeast "3.11";

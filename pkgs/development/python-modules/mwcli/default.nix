@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   docopt,
   para,
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "mwcli";
   version = "0.0.3";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

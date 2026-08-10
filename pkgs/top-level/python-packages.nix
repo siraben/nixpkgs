@@ -10523,6 +10523,7 @@ self: super: with self; {
     inherit (self)
       pyface
       pygments
+      setuptools
       numpy
       packaging
       vtk

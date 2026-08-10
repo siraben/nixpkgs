@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   docopt,
   requests,
@@ -8,7 +9,9 @@
 
 buildPythonPackage rec {
   version = "2.0.10";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
   pname = "mailchimp";
 
   src = fetchPypi {

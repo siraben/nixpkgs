@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   fetchpatch,
   isPy3k,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "munkres";
   version = "1.1.4";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   disabled = !isPy3k;
 

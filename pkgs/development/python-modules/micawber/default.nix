@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   beautifulsoup4,
 }:
@@ -8,7 +9,9 @@
 buildPythonPackage rec {
   pname = "micawber";
   version = "0.6.2";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

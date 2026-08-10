@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   mkdocs,
 }:
@@ -8,7 +9,9 @@
 buildPythonPackage {
   pname = "mkdocs-exclude";
   version = "1.0.2";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   # Repository has only 3 commits and no tags. Each of these commits has
   # version of 1.0.0, 1.0.1 and 1.0.2 in setup.py, though.

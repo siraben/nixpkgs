@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   websockets,
   requests,
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "mattermostdriver";
   version = "7.3.2";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

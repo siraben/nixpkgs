@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   pymorphy2,
   razdel,
@@ -14,7 +15,9 @@
 buildPythonPackage rec {
   pname = "natasha";
   version = "1.6.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

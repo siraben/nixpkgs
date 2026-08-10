@@ -1,5 +1,6 @@
 {
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   pillow,
   pythonAtLeast,
@@ -14,7 +15,12 @@
 buildPythonPackage rec {
   pname = "mahotas";
   version = "1.4.18";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [
+    numpy
+    setuptools
+  ];
 
   src = fetchFromGitHub {
     owner = "luispedro";

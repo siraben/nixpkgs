@@ -1,6 +1,9 @@
 {
   lib,
   buildPythonPackage,
+  param,
+  pyct,
+  setuptools,
   fetchPypi,
   pytest,
   jupyter-client,
@@ -16,7 +19,13 @@
 buildPythonPackage rec {
   pname = "nbsmoke";
   version = "0.6.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [
+    param
+    pyct
+    setuptools
+  ];
 
   src = fetchPypi {
     inherit pname version;

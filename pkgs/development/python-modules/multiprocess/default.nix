@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   dill,
   fetchFromGitHub,
 }:
@@ -8,7 +9,9 @@
 buildPythonPackage rec {
   pname = "multiprocess";
   version = "0.70.19";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "uqfoundation";

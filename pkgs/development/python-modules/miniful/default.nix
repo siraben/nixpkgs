@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   numpy,
   scipy,
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "miniful";
   version = "0.0.6";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

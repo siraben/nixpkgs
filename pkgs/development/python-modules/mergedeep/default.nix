@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   pytest,
 }:
@@ -8,7 +9,9 @@
 buildPythonPackage rec {
   pname = "mergedeep";
   version = "1.3.4";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   # PyPI tarball doesn't include tests directory
   src = fetchFromGitHub {

@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   pkgs,
 }:
@@ -8,7 +9,9 @@
 buildPythonPackage (finalAttrs: {
   pname = "musicbrainzngs";
   version = "0.7.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit (finalAttrs) pname version;

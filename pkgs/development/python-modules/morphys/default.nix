@@ -1,12 +1,15 @@
 {
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   lib,
 }:
 buildPythonPackage {
   pname = "morphys";
   version = "1.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "mkalinski";

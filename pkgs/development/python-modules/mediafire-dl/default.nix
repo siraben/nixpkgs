@@ -2,6 +2,7 @@
   lib,
   fetchFromGitHub,
   buildPythonPackage,
+  setuptools,
   requests,
   six,
   tqdm,
@@ -10,7 +11,9 @@
 buildPythonPackage {
   pname = "mediafire-dl";
   version = "unstable-2023-09-07";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "Juvenal-Yescas";

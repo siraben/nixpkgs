@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   requests,
 }:
@@ -8,7 +9,9 @@
 buildPythonPackage rec {
   pname = "mullvad-api";
   version = "1.0.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     pname = "mullvad_api";

@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   mecab,
   swig,
@@ -10,7 +11,12 @@
 buildPythonPackage rec {
   pname = "mecab-python3";
   version = "1.0.12";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [
+    setuptools
+    setuptools-scm
+  ];
 
   src = fetchPypi {
     pname = "mecab_python3";
@@ -21,7 +27,6 @@ buildPythonPackage rec {
   nativeBuildInputs = [
     mecab # for mecab-config
     swig
-    setuptools-scm
   ];
 
   buildInputs = [ mecab ];

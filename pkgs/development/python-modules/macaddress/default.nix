@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   pytestCheckHook,
   hypothesis,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "macaddress";
   version = "2.0.2";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "mentalisttraceur";

@@ -3,6 +3,7 @@
   aiohttp,
   async-timeout,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   pytest-aiohttp,
   pytestCheckHook,
@@ -11,7 +12,9 @@
 buildPythonPackage rec {
   pname = "moonraker-api";
   version = "2.0.6";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "cmroche";

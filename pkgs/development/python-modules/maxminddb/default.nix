@@ -2,6 +2,8 @@
   lib,
   stdenv,
   buildPythonPackage,
+  setuptools,
+  setuptools-scm,
   fetchPypi,
   libmaxminddb,
   pytestCheckHook,
@@ -10,7 +12,12 @@
 buildPythonPackage rec {
   pname = "maxminddb";
   version = "3.0.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [
+    setuptools
+    setuptools-scm
+  ];
 
   src = fetchPypi {
     inherit pname version;

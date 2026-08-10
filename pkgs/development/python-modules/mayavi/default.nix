@@ -2,6 +2,7 @@
   lib,
   apptools,
   buildPythonPackage,
+  setuptools,
   envisage,
   fetchPypi,
   numpy,
@@ -17,7 +18,13 @@
 buildPythonPackage rec {
   pname = "mayavi";
   version = "4.8.3";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [
+    numpy
+    setuptools
+    vtk
+  ];
 
   src = fetchPypi {
     inherit pname version;

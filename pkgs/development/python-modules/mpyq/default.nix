@@ -1,5 +1,6 @@
 {
   buildPythonPackage,
+  setuptools,
   lib,
   fetchPypi,
 }:
@@ -7,7 +8,9 @@
 buildPythonPackage rec {
   pname = "mpyq";
   version = "0.2.5";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

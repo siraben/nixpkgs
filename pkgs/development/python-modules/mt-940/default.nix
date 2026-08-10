@@ -11,7 +11,9 @@
 buildPythonPackage rec {
   pname = "mt-940";
   version = "4.30.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "wolph";

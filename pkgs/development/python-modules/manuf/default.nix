@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   runCommand,
   wireshark-cli,
@@ -11,7 +12,9 @@
 buildPythonPackage rec {
   pname = "manuf";
   version = "1.1.5";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "coolbho3k";

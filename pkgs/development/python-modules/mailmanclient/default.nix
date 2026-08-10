@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   requests,
 }:
@@ -8,7 +9,9 @@
 buildPythonPackage rec {
   pname = "mailmanclient";
   version = "3.3.5";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

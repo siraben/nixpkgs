@@ -2,6 +2,7 @@
   lib,
   beautifulsoup4,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   pytestCheckHook,
   requests,
@@ -12,7 +13,9 @@
 buildPythonPackage rec {
   pname = "lyricwikia";
   version = "0.1.11";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "enricobacis";

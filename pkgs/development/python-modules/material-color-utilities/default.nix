@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  poetry-core,
   fetchPypi,
   pillow,
   regex,
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "material-color-utilities-python";
   version = "0.1.5";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ poetry-core ];
 
   src = fetchPypi {
     inherit pname version;

@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   fetchpatch,
   pytestCheckHook,
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "namedlist";
   version = "1.8";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

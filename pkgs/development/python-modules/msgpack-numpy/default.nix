@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   cython,
   msgpack,
@@ -11,7 +12,9 @@
 buildPythonPackage rec {
   pname = "msgpack-numpy";
   version = "0.4.8";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

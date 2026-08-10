@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   dnspython,
   fetchFromGitHub,
   protobuf,
@@ -12,7 +13,9 @@
 buildPythonPackage rec {
   pname = "mysql-connector-python";
   version = "26.7.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   setupPyBuildFlags = [
     "--with-mysql-capi=${mysql84}"

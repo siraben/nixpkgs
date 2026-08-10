@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   pymongo,
   pythonAtLeast,
@@ -10,7 +11,9 @@
 buildPythonPackage rec {
   pname = "mockupdb";
   version = "1.8.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   # use the removed ssl.wrap_socket function
   disabled = pythonAtLeast "3.12";

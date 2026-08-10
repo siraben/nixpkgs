@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   matplotlib,
 }:
@@ -8,7 +9,9 @@
 buildPythonPackage rec {
   pname = "mpldatacursor";
   version = "0.7.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "joferkington";

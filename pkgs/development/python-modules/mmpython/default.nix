@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchurl,
   isPyPy,
   isPy3k,
@@ -8,7 +9,9 @@
 
 buildPythonPackage rec {
   version = "0.4.10";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
   pname = "mmpython";
 
   src = fetchurl {

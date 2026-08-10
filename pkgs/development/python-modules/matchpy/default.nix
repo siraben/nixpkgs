@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   fetchpatch,
   hopcroftkarp,
@@ -13,7 +14,12 @@
 buildPythonPackage rec {
   pname = "matchpy";
   version = "0.5.5"; # Don't upgrade to 4.3.1, this tag is very old
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [
+    setuptools
+    setuptools-scm
+  ];
 
   src = fetchFromGitHub {
     owner = "HPAC";
@@ -37,8 +43,6 @@ buildPythonPackage rec {
     substituteInPlace setup.cfg \
       --replace "multiset>=2.0,<3.0" "multiset"
   '';
-
-  nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [
     hopcroftkarp

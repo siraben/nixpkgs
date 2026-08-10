@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   matplotlib,
   pandas,
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "mplfinance";
   version = "0.12.10b0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
   pymongo,
   six,
@@ -13,7 +14,9 @@
 buildPythonPackage rec {
   pname = "mongoengine";
   version = "0.29.1";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "MongoEngine";

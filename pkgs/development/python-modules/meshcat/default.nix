@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   ipython,
   u-msgpack-python,
@@ -14,7 +15,9 @@
 buildPythonPackage (finalAttrs: {
   pname = "meshcat";
   version = "0.3.2";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit (finalAttrs) pname version;

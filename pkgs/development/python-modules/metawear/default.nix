@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   cython,
   boost,
@@ -14,14 +15,17 @@
 buildPythonPackage rec {
   pname = "metawear";
   version = "1.0.8";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [
+    cython
+    setuptools
+  ];
 
   src = fetchPypi {
     inherit pname version;
     hash = "sha256-gNEI6P6GslNd1DzFwCFndVIfUvSTPYollGdqkZhQ4Y8=";
   };
-
-  nativeBuildInputs = [ cython ];
 
   buildInputs = [
     boost

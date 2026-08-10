@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchFromGitHub,
 
   # dependencies
@@ -17,7 +18,9 @@
 buildPythonPackage {
   pname = "misoc";
   version = "0.12-unstable-2025-10-03";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "m-labs";

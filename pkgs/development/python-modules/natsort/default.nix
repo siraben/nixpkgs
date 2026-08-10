@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fastnumbers,
   fetchPypi,
   glibcLocales,
@@ -13,7 +14,9 @@
 buildPythonPackage rec {
   pname = "natsort";
   version = "8.4.0";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

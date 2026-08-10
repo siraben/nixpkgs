@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   fetchPypi,
   requests,
   six,
@@ -9,7 +10,9 @@
 buildPythonPackage rec {
   pname = "minimal-snowplow-tracker";
   version = "0.0.2";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchPypi {
     inherit pname version;

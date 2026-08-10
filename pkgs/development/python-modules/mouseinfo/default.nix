@@ -1,6 +1,7 @@
 {
   lib,
   buildPythonPackage,
+  setuptools,
   pyperclip,
   fetchFromGitHub,
   python-xlib,
@@ -9,7 +10,9 @@
 buildPythonPackage {
   pname = "mouseinfo";
   version = "0.1.3";
-  format = "setuptools";
+  pyproject = true;
+
+  build-system = [ setuptools ];
 
   src = fetchFromGitHub {
     owner = "asweigart";

@@ -25,7 +25,7 @@
 buildPythonPackage rec {
   pname = "mezzanine";
   version = "6.1.1";
-  format = "setuptools";
+  pyproject = true;
 
   disabled = isPyPy;
 
