@@ -1998,7 +1998,6 @@ with pkgs;
     buildProduct = "daemon";
   };
 
-  fpm = callPackage ../tools/package-management/fpm { };
 
   ferdium = callPackage ../applications/networking/instant-messengers/ferdium {
     mkFranzDerivation = callPackage ../applications/networking/instant-messengers/franz/generic.nix { };
@@ -2010,7 +2009,6 @@ with pkgs;
 
   frostwire-bin = callPackage ../applications/networking/p2p/frostwire/frostwire-bin.nix { };
 
-  uniscribe = callPackage ../tools/text/uniscribe { };
 
   inherit (callPackages ../tools/filesystems/garage { })
     garage
@@ -2163,7 +2161,6 @@ with pkgs;
 
   hassil = with python3Packages; toPythonApplication hassil;
 
-  haste-client = callPackage ../tools/misc/haste-client { };
 
   hareThirdParty = recurseIntoAttrs (callPackage ./hare-third-party.nix { });
 
@@ -2198,7 +2195,6 @@ with pkgs;
 
   hpccm = with python3Packages; toPythonApplication hpccm;
 
-  html-proofer = callPackage ../tools/misc/html-proofer { };
 
   httpie = with python3Packages; toPythonApplication httpie;
 
@@ -2453,7 +2449,6 @@ with pkgs;
   libportal-qt5 = libportal.override { variant = "qt5"; };
   libportal-qt6 = libportal.override { variant = "qt6"; };
 
-  licensee = callPackage ../tools/package-management/licensee { };
 
   linux-gpib = callPackage ../applications/science/electronics/linux-gpib/user.nix { };
 
@@ -2662,7 +2657,6 @@ with pkgs;
 
   packagekit = callPackage ../tools/package-management/packagekit { };
 
-  pakcs = callPackage ../development/compilers/pakcs { };
 
   paperwork = callPackage ../applications/office/paperwork/paperwork-gtk.nix { };
 
@@ -3194,7 +3188,6 @@ with pkgs;
   };
   fasm-bin = callPackage ../development/compilers/fasm/bin.nix { };
 
-  fbc = callPackage ../development/compilers/fbc { };
 
   filecheck = with python3Packages; toPythonApplication filecheck;
 
@@ -4579,7 +4572,6 @@ with pkgs;
   bundlerApp = callPackage ../development/ruby-modules/bundler-app { };
   bundlerUpdateScript = callPackage ../development/ruby-modules/bundler-update-script { };
 
-  bundler-audit = callPackage ../tools/security/bundler-audit { };
 
   solargraph = rubyPackages.solargraph;
 
@@ -4708,10 +4700,6 @@ with pkgs;
   anybadge = with python3Packages; toPythonApplication anybadge;
 
   ansible = python3Packages.toPythonApplication python3Packages.ansible-core;
-
-  ansible-language-server =
-    callPackage ../development/tools/language-servers/ansible-language-server
-      { };
 
   ansible-builder = with python3Packages; toPythonApplication ansible-builder;
 
@@ -4911,11 +4899,6 @@ with pkgs;
 
   black-macchiato = with python3Packages; toPythonApplication black-macchiato;
 
-  buildkite-test-collector-rust =
-    callPackage ../development/tools/continuous-integration/buildkite-test-collector-rust
-      {
-      };
-
   libbpf = callPackage ../os-specific/linux/libbpf { };
   libbpf_0 = callPackage ../os-specific/linux/libbpf/0.x.nix { };
 
@@ -5077,8 +5060,6 @@ with pkgs;
   dot2tex = with python3.pkgs; toPythonApplication dot2tex;
 
   doxygen_gui = lowPrio (doxygen.override { withGui = true; });
-
-  drake = callPackage ../development/tools/build-managers/drake { };
 
   # NOTE: Override and set useIcon = false to use Awk instead of Icon.
   fffuu = haskell.lib.compose.justStaticExecutables (
@@ -5348,8 +5329,6 @@ with pkgs;
     vulkanSupport = true;
   };
 
-  watson-ruby = callPackage ../development/tools/misc/watson-ruby { };
-
   xcbuildHook = makeSetupHook {
     name = "xcbuild-hook";
     propagatedBuildInputs = [ xcbuild ];
@@ -5439,8 +5418,6 @@ with pkgs;
   niv = lib.getBin (haskell.lib.compose.justStaticExecutables haskellPackages.niv);
 
   ormolu = lib.getBin (haskell.lib.compose.justStaticExecutables haskellPackages.ormolu);
-
-  ceedling = callPackage ../development/tools/ceedling { };
 
   celt = callPackage ../development/libraries/celt { };
   celt_0_7 = callPackage ../development/libraries/celt/0.7.nix { };
@@ -8811,10 +8788,6 @@ with pkgs;
 
   kubectl-convert = kubectl.convert;
 
-  kubectl-view-allocations =
-    callPackage ../applications/networking/cluster/kubectl-view-allocations
-      { };
-
   linkerd = callPackage ../applications/networking/cluster/linkerd { };
   linkerd_edge = callPackage ../applications/networking/cluster/linkerd/edge.nix { };
   linkerd_stable = linkerd;
@@ -9896,8 +9869,6 @@ with pkgs;
   protonup-ng = with python3Packages; toPythonApplication protonup-ng;
 
   teeworlds-server = teeworlds.override { buildClient = false; };
-
-  ultrastar-creator = callPackage ../tools/misc/ultrastar-creator { };
 
   ultrastar-manager = libsForQt5.callPackage ../tools/misc/ultrastar-manager { };
 
