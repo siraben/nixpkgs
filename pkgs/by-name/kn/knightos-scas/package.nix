@@ -1,5 +1,6 @@
 {
   fetchFromGitHub,
+  fetchpatch,
   lib,
   stdenv,
   cmake,
@@ -23,8 +24,20 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-JGQE+orVDKKJsTt8sIjPX+3yhpZkujISroQ6g19+MzU=";
   };
 
+  patches = [
+    (fetchpatch {
+      url = "https://github.com/KnightOS/scas/commit/f3988ea3f6ca93d5373281fecc24acf97c457266.patch";
+      hash = "sha256-cDfl+InO+F28P6XRNRWy/duI7B0PRPD4GPgoG0p96qA=";
+      excludes = [ "common/instructions.c" ];
+    })
+  ];
+
   cmakeFlags = [ "-DSCAS_LIBRARY=1" ];
   postPatch = ''
+    substituteInPlace common/instructions.c \
+      --replace-fail '#include <string.h>' $'#include <string.h>\n#include <strings.h>'
+    substituteInPlace linker/linker.c \
+      --replace-fail '#include <stdio.h>' $'#include <stdio.h>\n#include <strings.h>'
     substituteInPlace CMakeLists.txt \
       --replace-fail "TARGETS scas scdump scwrap" "TARGETS scas scdump scwrap generate_tables" \
       --replace-fail "cmake_minimum_required(VERSION 2.8.5)" "cmake_minimum_required(VERSION 3.10)"
@@ -37,12 +50,6 @@ stdenv.mkDerivation (finalAttrs: {
     libxslt.bin
     cmake
   ];
-
-  env.NIX_CFLAGS_COMPILE = toString (
-    lib.optionals stdenv.cc.isClang [
-      "-Wno-error=implicit-function-declaration"
-    ]
-  );
 
   postInstall = ''
     cd ..
