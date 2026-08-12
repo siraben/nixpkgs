@@ -2606,7 +2606,6 @@ with pkgs;
   update-systemd-resolved = callPackage ../tools/networking/openvpn/update-systemd-resolved.nix { };
 
   opentelemetry-collector = opentelemetry-collector-releases.otelcol;
-  opentelemetry-collector-builder = callPackage ../tools/misc/opentelemetry-collector/builder.nix { };
   opentelemetry-collector-contrib = opentelemetry-collector-releases.otelcol-contrib;
   opentelemetry-collector-releases =
     callPackage ../tools/misc/opentelemetry-collector/releases.nix
@@ -4657,7 +4656,6 @@ with pkgs;
 
   inherit (callPackages ../development/tools/language-servers/nixd { }) nixf nixt nixd;
 
-  antlr2 = callPackage ../development/tools/parsing/antlr/2.7.7.nix { };
   antlr3 = antlr3_5;
 
   inherit (callPackages ../development/tools/parsing/antlr/4.nix { })
@@ -5281,7 +5279,6 @@ with pkgs;
 
   ### DEVELOPMENT / LIBRARIES
 
-  abseil-cpp_202103 = callPackage ../development/libraries/abseil-cpp/202103.nix { };
   acl = callPackage ../development/libraries/acl { };
 
   allegro = allegro4;
@@ -5290,7 +5287,6 @@ with pkgs;
 
   ansi2html = with python3.pkgs; toPythonApplication ansi2html;
 
-  appstream = callPackage ../development/libraries/appstream { };
 
   argparse-manpage = with python3Packages; toPythonApplication argparse-manpage;
 
@@ -5709,8 +5705,6 @@ with pkgs;
 
   gtksourceview = gtksourceview3;
 
-  gtksourceview3 = callPackage ../development/libraries/gtksourceview/3.x.nix { };
-
   gtksourceview4 = callPackage ../development/libraries/gtksourceview/4.x.nix { };
 
   gtksourceview5 = callPackage ../development/libraries/gtksourceview/5.x.nix { };
@@ -5939,7 +5933,6 @@ with pkgs;
 
   malcontent-ui = callPackage ../development/libraries/malcontent/ui.nix { };
 
-  libmicrohttpd_1_0 = callPackage ../development/libraries/libmicrohttpd/1.0.nix { };
   libmicrohttpd = libmicrohttpd_1_0;
 
   libpeas = callPackage ../development/libraries/libpeas { };
@@ -5967,8 +5960,6 @@ with pkgs;
 
   libunistring = callPackage ../development/libraries/libunistring { };
 
-  libusb-compat-0_1 = callPackage ../development/libraries/libusb-compat/0.1.nix { };
-
   libunwind =
     # Use the system unwinder in the SDK but provide a compatibility package to:
     # 1. avoid evaluation errors with setting `unwind` to `null`; and
@@ -5988,8 +5979,6 @@ with pkgs;
 
   libva-minimal = callPackage ../development/libraries/libva { minimal = true; };
   libva = libva-minimal.override { minimal = false; };
-
-  libwpd_08 = callPackage ../development/libraries/libwpd/0.8.nix { };
 
   libxcrypt = callPackage ../development/libraries/libxcrypt {
     fetchurl = stdenv.fetchurlBoot;
@@ -6032,8 +6021,6 @@ with pkgs;
     })
     mbedtls_4
     ;
-
-  simple-dftd3 = callPackage ../development/libraries/science/chemistry/simple-dftd3 { };
 
   tblite = callPackage ../development/libraries/science/chemistry/tblite { };
 
@@ -6550,8 +6537,6 @@ with pkgs;
   szurubooru = callPackage ../servers/web-apps/szurubooru { };
 
   tclap = tclap_1_2;
-
-  tinyxml = callPackage ../development/libraries/tinyxml/2.6.2.nix { };
 
   tk = tk-8_6;
 
@@ -7304,7 +7289,6 @@ with pkgs;
     boost = boost179.override { enableShared = false; };
   };
 
-  mssql_jdbc = callPackage ../servers/sql/mssql/jdbc { };
   jtds_jdbc = callPackage ../servers/sql/mssql/jdbc/jtds.nix { };
 
   inherit (callPackage ../servers/mir { })
@@ -10463,8 +10447,6 @@ with pkgs;
   mfcl3770cdwlpr = (callPackage ../misc/cups/drivers/brother/mfcl3770cdw { }).driver;
   mfcl3770cdwcupswrapper = (callPackage ../misc/cups/drivers/brother/mfcl3770cdw { }).cupswrapper;
 
-  samsung-unified-linux-driver_1_00_37 = callPackage ../misc/cups/drivers/samsung/1.00.37.nix { };
-  samsung-unified-linux-driver_4_01_17 = callPackage ../misc/cups/drivers/samsung/4.01.17.nix { };
   samsung-unified-linux-driver = samsung-unified-linux-driver_4_01_17;
 
   sane-backends = callPackage ../applications/graphics/sane/backends (config.sane or { });
