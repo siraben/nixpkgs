@@ -1628,8 +1628,6 @@ with pkgs;
 
   klipper-firmware = callPackage ../servers/klipper/klipper-firmware.nix { };
 
-  klipper-flash = callPackage ../servers/klipper/klipper-flash.nix { flashDevice = "/dev/null"; };
-
   klipper-genconf = callPackage ../servers/klipper/klipper-genconf.nix { };
 
   lexicon = with python3Packages; toPythonApplication dns-lexicon;
@@ -2163,11 +2161,6 @@ with pkgs;
 
 
   hareThirdParty = recurseIntoAttrs (callPackage ./hare-third-party.nix { });
-
-  hdf5 = callPackage ../tools/misc/hdf5 {
-    fortranSupport = false;
-    fortran = gfortran;
-  };
 
   hdf5_1_10 = callPackage ../tools/misc/hdf5/1.10.nix { };
 
