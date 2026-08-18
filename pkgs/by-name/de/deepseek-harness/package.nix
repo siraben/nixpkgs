@@ -97,7 +97,18 @@ stdenv.mkDerivation (finalAttrs: {
     mkdir -p $out/lib/deepseek-harness
     cp -a . $out/lib/deepseek-harness
 
+    # --expose-internals must come before the entry point so node treats it
+    # as its own flag. The cordis plugin loader resolves bare plugin
+    # specifiers (@deepseek-ai/cordis-plugin-timer, ...) against the profile
+    # directory via Node's internal ESM loader; it only obtains that loader
+    # with --expose-internals or through the node-addon-require-builtin
+    # native addon, whose 0.1.4 prebuilds fail their V8 probing on node
+    # 24.19 ("x64 sysv getter is not a recognized this->field accessor").
+    # Without internals the loader falls back to plain import() from
+    # vendor/loader, where no plugin package is resolvable, and every
+    # profile fails to boot.
     makeBinaryWrapper ${lib.getExe nodejs} $out/bin/dsh \
+      --add-flags "--expose-internals" \
       --add-flags "$out/lib/deepseek-harness/apps/cli/lib/bin.js" \
       --prefix PATH : ${lib.makeBinPath [ nodejs ]}
 
