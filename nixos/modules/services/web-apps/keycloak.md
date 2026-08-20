@@ -96,7 +96,7 @@ for more details.
 Keycloak has the capability to offer a separate URL for backchannel requests,
 enabling internal communication while maintaining the use of a public URL
 for frontchannel requests. Moreover, the backchannel is dynamically
-resolved based on incoming headers endpoint.
+resolved based on incoming headers.
 
 For more information on hostname configuration, see the [Hostname
 section of the Keycloak Server Installation and Configuration

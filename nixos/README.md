@@ -93,7 +93,7 @@ Reviewing process:
 - Ensure that module `meta` field is present
   - Maintainers should be declared in `meta.maintainers`.
   - Module documentation should be declared with `meta.doc`.
-- Ensure that the module respect other modules functionality.
+- Ensure that the module respects other modules' functionality.
   - For example, enabling a module should not open firewall ports by default.
 
 Sample template for a new module review is provided below.

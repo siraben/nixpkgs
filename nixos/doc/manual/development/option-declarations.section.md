@@ -191,7 +191,7 @@ be extended through multiple module files. This feature only works with a
 restricted set of types, namely `enum` and `submodules` and any composed
 forms of them.
 
-Extensible option types can be used for `enum` options that affects
+Extensible option types can be used for `enum` options that affect
 multiple modules, or as an alternative to related `enable` options.
 
 As an example, we will take the case of display managers. There is a

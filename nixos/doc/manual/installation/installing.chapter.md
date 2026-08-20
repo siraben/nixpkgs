@@ -76,7 +76,7 @@ through the installation.
      comfortable typing in.
 
 4.   On the "Users" screen, you have to type in your display name, login name
-     and password. You can also enable an option to automatically login to the
+     and password. You can also enable an option to automatically log in to the
      desktop.
 
 5.   Then you have the option to choose a desktop environment. If you want to

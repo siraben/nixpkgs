@@ -69,7 +69,7 @@ accessed. The `url` can be configured automatically when using nginx.
 
 Options that affect the surroundings of the sync server are `enableNginx`,
 `enableTLS` and `hostname`. If `enableNginx` is set the sync server module will
-automatically add an nginx virtual host to the system using `hostname` as the
+automatically add an Nginx virtual host to the system using `hostname` as the
 domain and set `url` accordingly. If `enableTLS` is set the module will also
 enable ACME certificates on the new virtual host and force all connections to
 be made via TLS.

@@ -5,7 +5,7 @@
 ## Basic usage {#module-services-prosody-basic-usage}
 
 A common struggle for most XMPP newcomers is to find the right set
-of XMPP Extensions (XEPs) to setup. Forget to activate a few of
+of XMPP Extensions (XEPs) to set up. Forget to activate a few of
 those and your XMPP experience might turn into a nightmare!
 
 The XMPP community tackles this problem by creating a meta-XEP

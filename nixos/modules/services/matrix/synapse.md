@@ -82,7 +82,7 @@ in
       # records for myhostname.example.org, you can easily move the /.well-known
       # virtualHost section of the code to the host that is serving example.org, while
       # the rest stays on myhostname.example.org with no other changes required.
-      # This pattern also allows to seamlessly move the homeserver from
+      # This pattern also allows seamlessly moving the homeserver from
       # myhostname.example.org to myotherhost.example.org by only changing the
       # /.well-known redirection target.
       "${config.networking.domain}" = {

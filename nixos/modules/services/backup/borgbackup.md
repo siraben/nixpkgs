@@ -8,7 +8,7 @@
 is a deduplicating backup program. Optionally, it supports compression and
 authenticated encryption.
 
-The main goal of Borg is to provide an efficient and secure way to backup
+The main goal of Borg is to provide an efficient and secure way to back up
 data. The data deduplication technique used makes Borg suitable for daily
 backups since only changes are stored. The authenticated encryption technique
 makes it suitable for backups to not fully trusted targets.
@@ -121,7 +121,7 @@ nixos-backupToLocalServer-2020-03-30T21:46:30 Mon, 2020-03-30 21:46:32 [e7732169
 Several companies offer [(paid) hosting services](https://www.borgbackup.org/support/commercial.html)
 for Borg repositories.
 
-To backup your home directory to borgbase you have to:
+To back up your home directory to borgbase you have to:
 
   - Generate an SSH key without a password to access the remote server. E.g.
 
