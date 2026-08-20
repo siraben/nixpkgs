@@ -30,15 +30,15 @@ The current K3s committers are marcusramberg and Mic92.
 
 @euank is often silent but still active and has always handled anything dreadful, internal parts of K3s/Kubernetes, or architectural issues. He initially packaged K3s for Nixpkgs; think of him as a last resort. When we fail to accomplish a fix, he comes to rescue us from ourselves.
 
-@mic92 stepped up when @superherointj stepped down a time ago, as Mic92 has a broad responsibility in nixpkgs (he is responsible for far too many things already, nixpkgs-reviews, sops-nix, release manager, bot-whatever), we avoid giving him chore work for `nixos-unstable`, only pick him as committer last. As Mic92 runs K3s in a `nixos-stable` setting, he might help in testing stable backports.
+@mic92 stepped up when @superherointj stepped down some time ago. As Mic92 has broad responsibilities in Nixpkgs (he is responsible for far too many things already: nixpkgs-review, sops-nix, release management, bot-whatever), we avoid giving him chore work for `nixos-unstable` and pick him as committer only as a last resort. As Mic92 runs K3s in a `nixos-stable` setting, he might help test stable backports.
 
-On how to handle requests, it's the usual basics, such as, when reviewing PRs, issues, be welcoming, helpful, provide hints whenever possible, try to move things forward, assume good will, ignore [as don't react to] any negativity [since it spirals badly], delay and sort any (severe) disagreement in private. Even on disagreements, be thankful to people for their dedicated time, no matter what happens. In essence, on any unfortunate event, **always put people over code**.
+When handling requests, follow the usual basics. When reviewing PRs and issues, be welcoming and helpful, provide hints whenever possible, try to move things forward, assume goodwill, ignore (do not react to) any negativity (since it spirals badly), and defer and resolve any severe disagreement in private. Even during disagreements, be thankful to people for their dedicated time, no matter what happens. In essence, when any unfortunate event occurs, **always put people over code**.
 
-Dumbshit happens, we make mistakes, the CI, reviews, fellow maintainers are there to nudge us on a better direction, no need to overthink interactions, if a problem happens, we'll handle it.
+Dumbshit happens, and we make mistakes. CI, reviews, and fellow maintainers are there to nudge us in a better direction. There is no need to overthink interactions; if a problem occurs, we'll handle it.
 
-We should optimize for maintainer satisfaction, because it is maintainers that make the service great. The best kind of win we have is when someone new steps up for being a maintainer. This multiplies our capabilities of doing meaningful work and increases our knowledge pool.
+We should optimize for maintainer satisfaction, because it is maintainers who make the service great. The best kind of win we have is when someone new steps up to become a maintainer. This increases our capacity for meaningful work and expands our knowledge pool.
 
-Know that your participation matters most for us. And we thank you for stepping up. It's good to have you here!
+Know that your participation matters most to us. We thank you for stepping up. It's good to have you here!
 
 We welcome you and wish you the best in this new journey!
 

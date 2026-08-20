@@ -3,7 +3,7 @@
 The structure of this directory maps almost directly to top-level package attributes.
 Add new top-level packages to Nixpkgs using this mechanism [whenever possible](#limitations).
 
-Packages found in the name-based structure are automatically included, without needing to be added to `all-packages.nix`. However if the implicit attribute defaults need to be changed for a package, this [must still be declared in `all-packages.nix`](#changing-implicit-attribute-defaults).
+Packages found in the name-based structure are automatically included, without needing to be added to `all-packages.nix`. However, if the implicit attribute defaults need to be changed for a package, this [must still be declared in `all-packages.nix`](#changing-implicit-attribute-defaults).
 
 ## Example
 
