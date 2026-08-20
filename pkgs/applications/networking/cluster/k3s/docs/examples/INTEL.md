@@ -33,7 +33,7 @@ For example, the output looks like this on a host with the Intel Arc A770:
 
 ## Install Intel Node Feature Discovery (NFD) in k3s
 
-Intel's device plugin for kubernetes provides Node Feature Discovery (NFD). NFD allows for GPU capabilities on a node to be automatically discovered if a discrete GPU is installed and the Intel drivers have been properly assigned.
+Intel's device plugin for Kubernetes provides Node Feature Discovery (NFD). NFD allows GPU capabilities on a node to be automatically discovered if a discrete GPU is installed and the Intel drivers have been properly assigned.
 
 > Documentation for Intel NFD installation is here for reference: [Install with NFD](https://intel.github.io/intel-device-plugins-for-kubernetes/cmd/gpu_plugin/README.html#install-with-nfd)
 
@@ -97,7 +97,7 @@ patches:
         - -shared-dev-num=10
 ```
 
-Or, manually edit the `intel-gpu-plugin` DaemonSet to run with `-shared-dev-num=10` (or however many max pods can access the GPU), like so:
+Or, manually edit the `intel-gpu-plugin` DaemonSet to run with `-shared-dev-num=10` (or the maximum number of pods that can access the GPU), like so:
 
 ```
 apiVersion: apps/v1
@@ -161,7 +161,7 @@ If the GPU is available, the output will look like the following:
 by-path  card1  renderD128
 ```
 
-Delete the pod so as to not count against the GPU limit:
+Delete the pod so that it does not count against the GPU limit:
 
 ```
 kubectl delete -n default pod/intel-gpu-test

@@ -83,8 +83,8 @@ be released slightly after the EOL date. Usually this is nothing to worry about.
 
 #### Handling EOL on unstable
 
-EOL packages are removed from unstable. The final patch version should not be released on unstable,
-if it has entered end-of-life already.
+EOL packages are removed from unstable. The final patch version should not be released on unstable
+if it has already reached end of life.
 
 In order to remove a versioned RKE2 package, create a PR achieving the following:
 
@@ -99,8 +99,8 @@ In order to remove a versioned RKE2 package, create a PR achieving the following
 
 #### Handling EOL on stable
 
-EOL packages should **not** be removed from a stable release branch. Instead we mark stable EOL
-packages as vulnerable due to EOL, like it is also done for EOL JDKs, browser engines, Node.js
+EOL packages should **not** be removed from a stable release branch. Instead, we mark stable EOL
+packages as vulnerable due to EOL, as is also done for EOL JDKs, browser engines, Node.js
 versions, etc.
 
 In order to mark a versioned RKE2 package as vulnerable, override `meta.knownVulnerabilities` on the
@@ -116,7 +116,7 @@ respective package block.
 
 > [!NOTE]
 > Remember to add "Not-cherry-picked-because: <reason>" in the commit message for commits on stable
-> that are not cherry picked.
+> that are not cherry-picked.
 
 #### Additional Resources
 

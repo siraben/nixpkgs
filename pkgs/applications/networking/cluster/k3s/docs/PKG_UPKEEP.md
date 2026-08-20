@@ -5,14 +5,14 @@ General documentation for the K3s maintainer and reviewer use for consistency in
 
 ## NixOS Release Maintenance
 
-This process split into two sections and adheres to the versioning policy outlined in [VERSIONING.md](VERSIONING.md).
+This process is split into two sections and adheres to the versioning policy outlined in [VERSIONING.md](VERSIONING.md).
 
 ### Pre-Release
 
 * Prior to the breaking change window of the next release being closed:
-  * `nixos-unstable`: Ensure k3s points to latest versioned release
-  * `nixos-unstable`: Ensure release notes are up to date
-  * `nixos-unstable`: Remove k3s releases which will be end of life upstream prior to end-of-life for the next NixOS stable release, with proper deprecation notice (process listed below)
+  * `nixos-unstable`: Ensure k3s points to the latest versioned release
+  * `nixos-unstable`: Ensure release notes are up-to-date
+  * `nixos-unstable`: Remove k3s releases which will reach end of life upstream prior to the end of life of the next NixOS stable release, with a proper deprecation notice (process listed below)
 
 ### Post-Release
 

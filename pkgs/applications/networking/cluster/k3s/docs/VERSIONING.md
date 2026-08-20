@@ -2,7 +2,7 @@
 
 K3s, Kubernetes, and other clustered software have the property of not being able to update atomically. Most software in Nixpkgs, like for example bash, can be updated as part of a "nixos-rebuild switch" without having to worry about the old and the new bash interacting in some way.
 
-K3s/Kubernetes, on the other hand, is typically run across several NixOS machines, and each NixOS machine is updated independently. As such, different versions of the package and NixOS module must maintain compatibility with each other through temporary version skew during updates.
+A K3s/Kubernetes cluster, on the other hand, is typically run across several NixOS machines, and each NixOS machine is updated independently. As such, different versions of the package and NixOS module must maintain compatibility with each other through temporary version skew during updates.
 
 The upstream Kubernetes project [documents this in their version-skew policy](https://kubernetes.io/releases/version-skew-policy/#supported-component-upgrade-order).
 
@@ -17,7 +17,7 @@ In short, a new Kubernetes version is released roughly every 4 months and each r
 
 ## Versioning in Nixpkgs
 
-There are two package types that are maintained within Nixpkgs when we are looking at the `nixos-unstable` branch. A standard `k3s` package and versioned releases such as `k3s_1_28`, `k3s_1_29`, and `k3s_1_30`.
+Two package types are maintained within Nixpkgs on the `nixos-unstable` branch: a standard `k3s` package and versioned releases such as `k3s_1_28`, `k3s_1_29`, and `k3s_1_30`.
 
 The standard `k3s` package will be updated as new versions of k3s are released upstream. Versioned releases, on the other hand, will follow the patch release support lifecycle as detailed in the previous section and be removed from `nixos-unstable` when they are either end-of-life upstream or older than the current `k3s` package in `nixos-stable`.
 

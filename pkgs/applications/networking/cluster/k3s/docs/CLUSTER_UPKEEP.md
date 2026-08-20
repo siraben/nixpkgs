@@ -43,7 +43,7 @@ Delete k3s data:
 ```
 When using Etcd, Reset Etcd:
 
-Ensure **all** K3s instances are stopped, because a single instance can re-seed etcd database with previous cryptographic key.
+Ensure **all** K3s instances are stopped, because a single instance can reseed the etcd database with the previous cryptographic key.
 
 Disable etcd database in NixOS configuration:
 ```
