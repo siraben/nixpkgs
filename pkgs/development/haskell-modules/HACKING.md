@@ -8,7 +8,7 @@ the Nixpkgs `master` branch.
 
 We do this by periodically merging an updated set of Haskell packages on the
 `haskell-updates` branch into the `staging` branch.  Each member of the team
-takes a two week period where they are in charge of merging the
+takes a two-week period where they are in charge of merging the
 `haskell-updates` branch into `staging`.  This is the documentation for this
 workflow.
 

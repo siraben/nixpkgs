@@ -27,7 +27,7 @@
 # Updating Chromium
 
 Simply run `./pkgs/applications/networking/browsers/chromium/update.py` to
-update `upstream-info.nix`. After updates it is important to test at least
+update `upstream-info.nix`. After updates, it is important to test at least
 `nixosTests.chromium` (or basic manual testing) and `google-chrome` (which
 reuses `upstream-info.nix`).
 

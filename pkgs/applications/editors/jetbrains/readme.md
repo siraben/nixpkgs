@@ -1,5 +1,5 @@
 This directory contains the build expressions needed to build any of the JetBrains IDEs.
-The jdk is in `pkgs/development/compilers/jetbrains-jdk`.
+The JDK is in `pkgs/development/compilers/jetbrains-jdk`.
 
 ## Tests:
 - To test the build process of every IDE (as well as the process for adding plugins), build `jetbrains.plugins.tests.empty`.
@@ -10,7 +10,7 @@ The jdk is in `pkgs/development/compilers/jetbrains-jdk`.
    E.g. `pkgs.jetbrains.plugins.addPlugins pkgs.jetbrains.idea [ ideavim ]`
  - The list has to contain drvs giving the directory contents of the plugin or a single `.jar` (executable).
 
-Nixpkgs does not package JetBrains plugins, however you can use third-party sources, such as
+Nixpkgs does not package JetBrains plugins; however, you can use third-party sources, such as
 [nix-jetbrains-plugins](https://github.com/nix-community/nix-jetbrains-plugins).
 Note that some plugins may not work without modification, if they are packaged in a way that is incompatible with NixOS.
 You can try installing such plugins from within the IDE instead.
@@ -38,7 +38,7 @@ fetchurl {
 ## How to update IDEs:
  - Run `./updater/main.py`.
    This will update binary and source IDEs.
-   After this you can commit them.
+   After this, you can commit them.
    - See `./updater/main.py --help` for additional flags.
    - The IDEs have `passthru.updateScript` set up to run `./updater/main.py`.
      The script then uses the `UPDATE_NIX_*` environment variables as documented.
@@ -58,7 +58,7 @@ Any comments or other manual changes between these markers will be removed when 
 ### TODO:
  - move PyCharm overrides to a common place outside of `default.nix`
  - package `patchSharedLibs` from `default.nix` as a hook
- - cleanup this TODO list, especially the following points, which have been here since 2023
+ - clean up this TODO list, especially the following points, which have been here since 2023
  - replace `libxcrypt-legacy` with `libxcrypt` when supported
  - make `jetbrains-remote-dev.patch` cleaner
  - is extraLdPath needed for IDEA?
@@ -66,7 +66,7 @@ Any comments or other manual changes between these markers will be removed when 
    - remove timestamps in output `.jar` of `jps-bootstrap`
    - automated update scripts
    - fetch `.jar`s from stuff built in nixpkgs when available
-     - what stuff built in nixpkgs provides `.jar`s we care about?
+     - which packages built in nixpkgs provide `.jar`s we care about?
        - kotlin
    - make `configurePhase` respect `$NIX_BUILD_CORES`
    - make the subdir of the resulting tar.gz always have a release number (2023.2.2) instead of a build number (232.9921.89)

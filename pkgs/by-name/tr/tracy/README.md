@@ -5,7 +5,7 @@ Upstream: [wolfpld/tracy](https://github.com/wolfpld/tracy)
 The Tracy profiler guarantees neither forward nor backward compatibility of its
 tracing protocol between releases of the Tracy UI, requiring the UI version to match
 the SDK version of the compiled target. Providing a single version of Tracy suffices
-for in-tree packages, however developers working on out-of-tree projects need a Tracy
+for in-tree packages; however, developers working on out-of-tree projects need a Tracy
 compatible with their build.
 
 To support both scenarios, this provides several versions of Tracy (`tracy_x_xx`)
@@ -17,11 +17,11 @@ Older releases of Tracy are provided as a convenience, not a guarantee. Maintain
 should balance relevance to nixpkgs, maintenance burden, and user need.
 
 - Dependants in nixpkgs use `tracy` rather than a pinned version;
-- No more than three pinned versions of Tracy are maintained, assuming annual release
-  cadence of upstream;
+- No more than three pinned versions of Tracy are maintained, assuming an annual upstream
+  release cadence;
 - Older versions which block or inconvenience an upgrade to nixpkgs as a whole will be
   dropped;
-- Exceptions or changes to guidelines are documented here.
+- Exceptions or changes to the guidelines are documented here.
 
 As with all packages, maintainers should use their best judgement on what to drop and
 what to retain.
@@ -29,9 +29,9 @@ what to retain.
 ## Tracy Dependencies
 
 Tracy uses [CPM.cmake](https://github.com/cpm-cmake/CPM.cmake) to manage its dependencies.
-CPM normally downloads dependencies during cmake configure, but that is incompatible with a
-nixpkg build. This package uses several [Devendoring Strategies](#devendoring-strategies)
-to provide dependencies to upstream's cmake build environment.
+CPM normally downloads dependencies during CMake configuration, but that is incompatible with a
+Nixpkgs build. This package uses several [Devendoring Strategies](#devendoring-strategies)
+to provide dependencies to the upstream CMake build environment.
 
 | Strategy                      | When to Use                                          |
 |-------------------------------|------------------------------------------------------|
@@ -102,7 +102,7 @@ A compatible nixpkgs package exists but either:
 
 ### Mechanism
 
-Find modules in `CMAKE_MODULE_PATH` are tried before config files. When `find_package(foo)` is called, cmake finds our `Findfoo.cmake` which can delegate to the real package and create any necessary aliases.
+Find modules in `CMAKE_MODULE_PATH` are tried before config files. When `find_package(foo)` is called, CMake finds our `Findfoo.cmake`, which can delegate to the real package and create any necessary aliases.
 
 ### Implementation
 
@@ -115,7 +115,7 @@ Package exists in nixpkgs with compatible source but upstream needs different bu
 
 ### Mechanism
 
-With a `CPM_<dep>_SOURCE` cmake option set, CPM finds the dependency sources in the provided directory.
+With a `CPM_<dep>_SOURCE` CMake option set, CPM finds the dependency sources in the provided directory.
 
 ### Implementation
 
@@ -128,10 +128,9 @@ Package is not available in nixpkgs or is incompatible.
 
 ### Mechanism
 
-Uses the same mechanism as a nixpkg src, except the source is downloaded with a fetcher such as
-`fetchFromGithub`.
+Uses the same mechanism as a Nixpkgs source, except the source is downloaded with a fetcher such as
+`fetchFromGitHub`.
 
 ### Implementation
 
 Add an appropriate fetcher to the `cpmSrcs` list, ensuring that the name matches what CPM expects (case-sensitive).
-

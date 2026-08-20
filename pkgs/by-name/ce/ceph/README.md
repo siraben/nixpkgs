@@ -64,12 +64,11 @@ globalFinal: globalPrev: {
 
 Ceph is very intertwined with Python due to the subinterpreters.
 The [*nixpkgs* Ceph PyO3 tracking issue](https://github.com/NixOS/nixpkgs/issues/380823) has some information on this and during the [*nixpkgs* Ceph 20.2.1 merge](https://github.com/NixOS/nixpkgs/pull/494583) several issues surfaced.
-When using Ceph packaged via *nixpkgs* you should not run into PyO3 issues, if you do, please file a bug report.
+When using Ceph packaged via *nixpkgs*, you should not run into PyO3 issues. If you do, please file a bug report.
 
 There are two MGR modules which do attempt to load libraries incompatible with PyO3; *cephadm* and *diskprediction_local*.
 *cephadm* conceptually does not work on NixOS since NixOS intentionally makes *systemd* configuration read-only.
-However the *cephadm* MGR module is enabled by default, and it is not been patched to be less prone to PyO3 issues.
-Similarly *diskprediction_local* will attempt to load Numpy/SciPy, leading to PyO3 errors.
-These errors are not fatal, however they do render the modules unusable.
+However, the *cephadm* MGR module is enabled by default, and it has not been patched to be less prone to PyO3 issues.
+Similarly, *diskprediction_local* will attempt to load Numpy/SciPy, leading to PyO3 errors.
+These errors are not fatal; however, they do render the modules unusable.
 You can disable the modules using `ceph mgr module disable` to silence the errors.
-

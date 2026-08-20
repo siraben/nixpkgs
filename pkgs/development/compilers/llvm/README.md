@@ -40,7 +40,7 @@
      Notice the `Hunk #1 Failed at 487` line.
      The lines above show us that the `purity.patch` failed on `lib/Driver/ToolChains/Gnu.cpp` when compiling `clang`.
 
- 3. The task now is to cross reference the hunks in the purity patch with
+ 3. The task now is to cross-reference the hunks in the purity patch with
     `lib/Driver/ToolChains/Gnu.cpp.orig` to see why the patch failed.
     The `.orig` file will be in the build directory referenced in the line `note: keeping build directory ...`;
     this message results from the `--keep-failed` flag.
@@ -72,7 +72,7 @@ Previously, LLVM just hard-coded `bin`, `include`, and `lib${LLVM_TARGET_PREFIX}
 We are making it use these variables.
 
 For the older LLVM versions, these patches live in https://github.com/Ericson2314/llvm-project branches `split-prefix`.
-Instead of applying the patches to the worktree per the above instructions, one can checkout those directly and rebase those instead.
+Instead of applying the patches to the worktree per the above instructions, one can check those out directly and rebase them instead.
 
 For newer LLVM versions, enough has been upstreamed,
 (see https://reviews.llvm.org/differential/query/5UAfpj_9zHwY/ for my progress upstreaming),
@@ -95,4 +95,3 @@ To add an LLVM patch in the Nixpkgs tree,
    - Modify the guard in `./common/clang/default.nix` as follows: `lib.optional (lib.versionAtLeast release_version "12" && lib.versionOlder release_version "15")`
    - Add `{ "clang/purity.patch" = [ { after = 12; before = 15; path = ../12; } ]; }` to `common/patches.nix`.
    You may have multiple different patches with the same name that would apply to different versions; in that case, add the necessary constraints to `common/patches.nix`.
-

@@ -51,8 +51,8 @@ in the `custom_components/` directory.
 **Example:**
 
 The project [mweinelt/ha-prometheus-sensor](https://github.com/mweinelt/ha-prometheus-sensor/blob/1.0.0/custom_components/prometheus_sensor/manifest.json#L2)
-would receive the attribute name `"prometheus_sensor"`, because both
-domain in the `manifest.json` as well as the module name are
+would receive the attribute name `"prometheus_sensor"`, because both the
+domain in the `manifest.json` and the module name are
 `prometheus_sensor`.
 
 ## Package name
@@ -78,7 +78,7 @@ There shouldn't be a need to disable this hook, but you can set
 
 Every once in a while a dependency constraint is more narrow than it
 needs to be. Instead of applying brittle substitutions the version constraint
-can be ignored on a per requirement basis.
+can be ignored on a per-requirement basis.
 
 ```nix
 {

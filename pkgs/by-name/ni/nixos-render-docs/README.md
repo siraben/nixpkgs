@@ -19,7 +19,7 @@ A detailed analysis can be found in a [table comparing documentation rendering f
 
 Moving contents around can cause links to break.
 
-Since we have our own markdown parser, we can hook into the rendering process to extract all of the metadata around each content identifier.
+Since we have our own Markdown parser, we can hook into the rendering process to extract all of the metadata around each content identifier.
 The [mechanism for checking correctness of redirects](./src/nixos_render_docs/redirects.py) takes the collection of identifiers and a mapping of the identified content to its historical locations in the output.
 It validates them against a set of rules, and creates a client-side redirect mapping for each output file, as well as a `_redirects` file for server-side redirects in [Netlify syntax](https://docs.netlify.com/routing/redirects/#syntax-for-the-redirects-file).
 

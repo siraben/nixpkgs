@@ -33,9 +33,9 @@ Kanidm versions are supported for 30 days after the release of new versions. Fol
 
 1. Update `pkgs/by-name/ka/kanidm/1_4.nix` by adding `unsupported = true;`
 1. Update `pkgs/top-level/release.nix` and add `kanidm_1_4-1.4.6` and `kanidmWithSecretProvisioning_1_4-1.4.6` to `permittedInsecurePackages`
-1. Create commit `kanidm_1_4: mark EOL`, this commit alone should be backported
+1. Create the commit `kanidm_1_4: mark EOL`; this commit alone should be backported
 
-1. Remove the third oldest release from `all-packages.nix`, e.g. 1.3.x continuing the example. Remove `kanidm_1_3` and `kanidmWithSecretProvisioning_1_3`
+1. Remove the third-oldest release from `all-packages.nix`, e.g. 1.3.x continuing the example. Remove `kanidm_1_3` and `kanidmWithSecretProvisioning_1_3`
 1. Update `pkgs/top-level/release.nix` and remove `kanidm_1_3*` from `permittedInsecurePackages`
 1. Update `pkgs/top-level/aliases.nix` and add `kanidm_1_4` and `kanidmWithSecretProvisioning_1_4`
 1. Remove `pkgs/by-name/ka/kanidm/1_3.nix`

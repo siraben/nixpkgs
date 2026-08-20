@@ -8,17 +8,17 @@ There are however Go packages depending on internal APIs of the toolchain/runtim
 These packages may break on toolchain minor version upgrades.
 
 **Definition (a "toolchain-latest" package):**
-Packages providing development support for the Go language (like `gopls`, `golangci-lint`,...) depend on the toolchain in another way: they must be compiled at least with the version they should be used for.
+Packages providing development support for the Go language (like `gopls`, `golangci-lint`, ...) depend on the toolchain in another way: they must be compiled with at least the version they should be used for.
 If `gopls` is compiled for Go 1.23, it won't work for projects that require Go 1.24.
 
-Go only ever has two supported toolchains. With a new minor release, the second last Go toolchain is automatically end of life, meaning it won't receive security updates anymore.
+Go only ever has two supported toolchains. With a new minor release, the second-to-last Go toolchain automatically reaches end of life, meaning it no longer receives security updates.
 
 Based on this, we align on the following policy for toolchain/builder upgrades for the unstable release:
 
 1. Default toolchain (the `go` package) and builder (`buildGoModule`) are upgraded to the latest minor release of Go as soon as it is released.
-  As it is a mass rebuild, this package will be made against the `staging` branch.
+  As it is a mass rebuild, this package will be submitted against the `staging` branch.
 
-2. The `go_latest` toolchain and the `buildGoLatestModule` are also bumped directly after release, but the update goes to the `master` branch.
+2. The `go_latest` toolchain and `buildGoLatestModule` are also bumped immediately after release, but the update goes to the `master` branch.
 
     Packages in `toolchain-latest` SHOULD use `go_latest`/`buildGoLatestModule`.
     Packages in nixpkgs MUST only use this toolchain/builder if they have a good reason to do so.
@@ -30,12 +30,12 @@ Based on this, we align on the following policy for toolchain/builder upgrades f
     Consumers outside of nixpkgs on the other hand MAY rely on this toolchain/builder if they prefer being upgraded earlier to the newest toolchain minor version.
 
 3. Packages in `toolchain-breaking` SHOULD pin a toolchain version by using a builder with a fixed Go version (`buildGo1xxModule`).
-  The use of `buildGo1xxModule` MUST be accompanied with a comment explaining why this has a dependency on a specific Go version.
+  The use of `buildGo1xxModule` MUST be accompanied by a comment explaining why the package depends on a specific Go version.
   The comment should target the Go team in nixpkgs and ease their work in case they have to touch the package (see 5.).
 
 4. The builder SHOULD be directly used as package input, not by overriding `buildGoModule` in all-packages.nix, to make this dependency explicit.
 
-5. Go toolchains MUST be removed soon after they reach end of life, latest with the next security update that won't target them anymore.
+5. Go toolchains MUST be removed soon after they reach end of life, no later than the next security update that no longer targets them.
 
     When an end-of-life toolchain is removed, builders that pin the EOL version (according to 3.) will automatically be bumped to the then oldest pinned builder (e.g. Go 1.22 is EOL, `buildGo122Module` is bumped to `buildGo123Module`).
 

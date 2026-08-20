@@ -44,7 +44,7 @@ being phased out, supporting it is out of scope.
 
 `nixos-init` consists of a few components split into separate entrypoints.
 However, these are not separate binaries but a single multicall binary. This
-allows us to re-use the libc of the main binary and thus reduce the size of the
+allows us to reuse the libc of the main binary and thus reduce the size of the
 closure. Currently nixos-init comes in at ~500 KiB.
 
 - `initrd-init`: Initializes the system on boot, setting up the tree for

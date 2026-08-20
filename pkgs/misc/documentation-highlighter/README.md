@@ -35,7 +35,7 @@ for details.
 
 The official site for the library is at <https://highlightjs.org/>.
 
-The Github project may be found at: <https://github.com/highlightjs/highlight.js>
+The GitHub project may be found at: <https://github.com/highlightjs/highlight.js>
 
 Further in-depth documentation for the API and other topics is at
 <http://highlightjs.readthedocs.io/>.

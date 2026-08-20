@@ -76,7 +76,7 @@ the point, otherwise, it would just be a newer driver).
 Nvidia's recommendation is to set `LD_LIBRARY_PATH` to point to `cuda_compat`'s
 driver. This is fine for a manual, one-shot usage, but in general setting
 `LD_LIBRARY_PATH` is a red flag. This is global state which short-circuits most
-of other dynamic library resolution mechanisms and can break things in
+other dynamic library resolution mechanisms and can break things in
 non-obvious ways, especially with other Nix-built software.
 
 #### CUDA Compat with Nix

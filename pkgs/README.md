@@ -203,7 +203,7 @@ More sophisticated prefixes are also possible:
 | `vim: 1.0.0 -> 2.0.0`                                                    | `vim`                                                      |
 | `vagrant: fix dependencies for version 2.0.2`                            | `vagrant`                                                  |
 | `python3Packages.requests: 1.0.0 -> 2.0.0`                               | `python3Packages.requests`                                 |
-| `python3Packagess.{numpy,scipy}: fix build`                              | `python3Packages.numpy` , `python3Packages.scipy`          |
+| `python3Packages.{numpy,scipy}: fix build`                               | `python3Packages.numpy` , `python3Packages.scipy`          |
 
 When opening a PR with multiple commits, CI creates a single build job for all detected packages.
 If `passthru.tests` attributes are available, these will be built as well.
@@ -701,11 +701,11 @@ We use jbidwatcher as an example for a discontinued project here.
 
     ```nix
     {
-      jbidwatcher = throw "jbidwatcher was discontinued in march 2021"; # added 2021-03-15
+      jbidwatcher = throw "jbidwatcher was discontinued in March 2021"; # added 2021-03-15
     }
     ```
 
-    The throw message should explain in short why the package was removed for users that still have it installed.
+    The throw message should briefly explain why the package was removed for users who still have it installed.
 
 1. Test if the changes introduced any issues by running `nix-env -qaP -f . --show-trace`.
    It should show the list of packages without errors.
@@ -723,7 +723,7 @@ We use jbidwatcher as an example for a discontinued project here.
     ```
     jbidwatcher: remove
 
-    project was discontinued in march 2021. the program does not work anymore because ebay changed the login.
+    Project was discontinued in March 2021. The program does not work anymore because eBay changed the login.
 
     https://web.archive.org/web/20210315205723/http://www.jbidwatcher.com/
     ```
@@ -1127,11 +1127,11 @@ TODO...
 ### How are update scripts executed?
 
 Update scripts are to be invoked by the [automatic package update script](../maintainers/scripts/update.nix).
-You can run `nix-shell maintainers/scripts/update.nix` in the root of Nixpkgs repository for information on how to use it.
+You can run `nix-shell maintainers/scripts/update.nix` in the root of the Nixpkgs repository for information on how to use it.
 `update.nix` offers several modes for selecting packages to update, and it will execute update scripts for all matched packages that have an `updateScript` attribute.
 
 Update scripts will be run inside the [Nixpkgs development shell](../shell.nix), providing access to some useful tools for CI.
-Furthermore each update script will be passed the following environment variables:
+Furthermore, each update script will be passed the following environment variables:
 
 - [`UPDATE_NIX_NAME`] – content of the `name` attribute of the updated package
 - [`UPDATE_NIX_PNAME`] – content of the `pname` attribute of the updated package
@@ -1168,7 +1168,7 @@ Reviewing process:
 - Verify any change of upstream.
   - If switching from e.g. PyPi to GitHub, verify that the repo is the official one.
   - If switching to a fork, check with external sources like other package repositories for community consensus.
-- Ensure any special packaging choices and required context are documented in i.e. the name of a patch or in a comment.
+- Ensure any special packaging choices and required context are documented in, for example, the name of a patch or a comment.
   - If a special version of a package is pinned, document why, so others know if/when it can be unpinned.
   - If any (especially opinionated) patch or `substituteInPlace` is applied, document why.
   - If any non-default build flags are set, document why.
@@ -1189,14 +1189,14 @@ Reviewing process:
     - The third command rebases the pull request changes to the nixos-unstable branch.
   - The [nixpkgs-review](https://github.com/Mic92/nixpkgs-review) tool can be used to review a pull request content in a single command.
     `PRNUMBER` should be replaced by the number at the end of the pull request title.
-    You can also provide the full github pull request url.
+    You can also provide the full GitHub pull request URL.
 
     ```ShellSession
     $ nix-shell -p nixpkgs-review --run "nixpkgs-review pr PRNUMBER"
     ```
 - Run every binary.
 
-Sample template for a package update review is provided below.
+A sample template for a package update review is provided below.
 
 ```markdown
 ##### Reviewed points
@@ -1205,9 +1205,9 @@ Sample template for a package update review is provided below.
 - [ ] package version fits guidelines
 - [ ] package builds on ARCHITECTURE
 - [ ] executables tested on ARCHITECTURE
-- [ ] any change of upstream are verified
+- [ ] any upstream changes are verified
 - [ ] the motives for any special packaging choices are documented
-- [ ] all depending packages build
+- [ ] all dependent packages build
 - [ ] patches have a comment describing either the upstream URL or a reason why the patch wasn't upstreamed
 - [ ] patches that are remotely available are fetched rather than vendored
 
@@ -1234,7 +1234,7 @@ Review process:
   - Maintainers must be set.
     This can be the package submitter or a community member that accepts taking up maintainership of the package.
   - The `meta.mainProgram` must be set if a main executable exists.
-- Ensure any special packaging choices and required context are documented in, i.e., the name of a patch or in a comment.
+- Ensure any special packaging choices and required context are documented in, for example, the name of a patch or a comment.
   - If a special version of a package is pinned, document why, so others know if/when it can be unpinned.
   - If any (especially opinionated) patch or `substituteInPlace` is applied, document why.
   - If any non-default build flags are set, document why.
@@ -1246,7 +1246,7 @@ Review process:
 - Build the package locally.
 - Run every binary.
 
-Sample template for a new package review is provided below.
+A sample template for a new package review is provided below.
 
 ```markdown
 ##### Reviewed points
@@ -1261,7 +1261,7 @@ Sample template for a new package review is provided below.
 - [ ] `meta.platforms` is set
 - [ ] `meta.maintainers` is set
 - [ ] `meta.mainProgram` is set, if applicable.
-- [ ] build time only dependencies are declared in `nativeBuildInputs`
+- [ ] build-time-only dependencies are declared in `nativeBuildInputs`
 - [ ] source is fetched from an official or trusted location
 - [ ] source is fetched using the appropriate function
 - [ ] the motives for any special packaging choices are documented
@@ -1284,7 +1284,7 @@ Security fixes are submitted in the same way as other changes and thus the same 
 
 - If a new version fixing the vulnerability has been released, update the package;
 - If the security fix comes in the form of a patch and a CVE is available, then add the patch to the Nixpkgs tree, and apply it to the package.
-  The name of the patch should be the CVE identifier, so e.g. `CVE-2019-13636.patch`; If a patch is fetched the name needs to be set as well, e.g.:
+  The name of the patch should be the CVE identifier, so e.g. `CVE-2019-13636.patch`. If a patch is fetched, the name needs to be set as well, e.g.:
 
   ```nix
   (fetchpatch {
