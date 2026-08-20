@@ -69,6 +69,6 @@ When using Ceph packaged via *nixpkgs*, you should not run into PyO3 issues. If 
 There are two MGR modules which do attempt to load libraries incompatible with PyO3; *cephadm* and *diskprediction_local*.
 *cephadm* conceptually does not work on NixOS since NixOS intentionally makes *systemd* configuration read-only.
 However, the *cephadm* MGR module is enabled by default, and it has not been patched to be less prone to PyO3 issues.
-Similarly, *diskprediction_local* will attempt to load Numpy/SciPy, leading to PyO3 errors.
+Similarly, *diskprediction_local* will attempt to load NumPy/SciPy, leading to PyO3 errors.
 These errors are not fatal; however, they do render the modules unusable.
 You can disable the modules using `ceph mgr module disable` to silence the errors.

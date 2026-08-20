@@ -203,8 +203,8 @@ The [VM tested `podman-runner`](https://github.com/NixOS/nixpkgs/blob/master/nix
 
     The `podman-daemon-container` is a single container of a `podmanDaemonImage` which runs
     `podman` as a daemon. Job containers can use this daemon to spawn nested containers as well (podman-in-podman).
-    **Keep in mind that `bind` mounts are local to the `podman-daemon-container`**
-    and can be worked around with a `podman volume create <vol>` and manual copy-to/copy-from this volume `<vol>`.
+    **Keep in mind that `bind` mounts are local to the `podman-daemon-container`.**
+    This limitation can be worked around by creating a volume with `podman volume create <vol>` and manually copying data to or from it.
 
     If you only need to build containers you don't need this feature (`podman-daemon-container`), see below point.
 

@@ -202,7 +202,7 @@ This is mostly useful for downstream consumers to run integration or end-to-end 
 
 ## Versioned toolchains and builders {#ssec-go-toolchain-versions}
 
-Besides `buildGoModule`, there are also versioned builders available that pin a specific Go version, like `buildGo124Module` for Go 1.24.
+In addition to `buildGoModule`, versioned builders are available that pin a specific Go version, like `buildGo124Module` for Go 1.24.
 Similarly, versioned toolchains are available, like `go_1_24` for Go 1.24.
 Both builder and toolchain of a certain version will be removed as soon as the Go version reaches its end of life.
 

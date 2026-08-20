@@ -1831,8 +1831,8 @@ While this approach is not very idiomatic from Nix perspective, it can still be
 useful when dealing with pre-existing projects or in situations where it's not
 feasible or desired to write derivations for all required dependencies.
 
-This is an example of a `default.nix` for a `nix-shell`, which allows consuming
-a virtual environment created by `venv`, and install Python modules through
+This is an example of a `default.nix` for a `nix-shell`, which allows you to consume
+a virtual environment created by `venv` and install Python modules through
 `pip` the traditional way.
 
 Create this `default.nix` file, together with a `requirements.txt` and

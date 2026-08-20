@@ -1,7 +1,7 @@
 # buildFHSEnv {#sec-fhs-environments}
 
-`buildFHSEnv` provides a way to build and run an FHS-compatible, lightweight sandbox. It creates an isolated root filesystem with the host's `/nix/store`, so its footprint in terms of disk space is quite small. This allows you to run software which is hard or unfeasible to patch for NixOS; examples include third-party source trees with FHS assumptions, games distributed as tarballs, software with integrity checking, and externally self-updated binaries.
-It uses Linux's namespaces feature to create temporary lightweight environments which are destroyed after all child processes exit, without requiring elevated privileges. It works similarly to containerisation technology such as Docker or FlatPak but provides no security-relevant separation from the host system.
+`buildFHSEnv` provides a way to build and run an FHS-compatible, lightweight sandbox. It creates an isolated root filesystem with the host's `/nix/store`, so its footprint in terms of disk space is quite small. This allows you to run software which is hard or unfeasible to patch for NixOS; examples include third-party source trees with FHS assumptions, games distributed as tarballs, software with integrity checks, and binaries that update themselves.
+It uses Linux namespaces to create temporary lightweight environments which are destroyed after all child processes exit, without requiring elevated privileges. It works similarly to containerisation technologies such as Docker or Flatpak but provides no security-relevant separation from the host system.
 
 Accepted arguments are:
 

@@ -11,7 +11,7 @@
 
 Cuelang schemas are similar to JSON; here is a quick cheat sheet:
 
-- Default types include: `null`, `string`, `bool`, `bytes`, `number`, `int`, `float`, and lists as `[...T]` where `T` is a type.
+- Default types include `null`, `string`, `bool`, `bytes`, `number`, `int`, `float`, and lists as `[...T]` where `T` is a type.
 - All structures defined by `myStructName: { <fields> }` are **open** -- they accept fields which are not specified.
 - Closed structures can be built by doing `myStructName: close({ <fields> })` -- they are strict in what they accept.
 - `#X` are **definitions**; referenced definitions are **recursively closed**, i.e. all their child structures are **closed**.

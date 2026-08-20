@@ -1165,7 +1165,7 @@ Reviewing process:
   - License can change with version updates, so it should be checked to match the upstream license.
   - If the package has no maintainer, a maintainer must be set.
     This can be the update submitter or a community member who agrees to maintain the package.
-- Verify any change of upstream.
+- Verify any changes to the upstream source.
   - If switching from e.g. PyPI to GitHub, verify that the repo is the official one.
   - If switching to a fork, check with external sources like other package repositories for community consensus.
 - Ensure any special packaging choices and required context are documented in, for example, the name of a patch or a comment.
@@ -1205,7 +1205,7 @@ A sample template for a package update review is provided below.
 - [ ] package version fits guidelines
 - [ ] package builds on ARCHITECTURE
 - [ ] executables tested on ARCHITECTURE
-- [ ] any upstream changes are verified
+- [ ] any changes to the upstream source are verified
 - [ ] the motives for any special packaging choices are documented
 - [ ] all dependent packages build
 - [ ] patches have a comment describing either the upstream URL or a reason why the patch wasn't upstreamed
