@@ -236,7 +236,7 @@ Similarly, if you encounter errors similar to `Error_Protocol ("certificate has 
 # Building a Docker image
 
 The following package builds a Docker image that runs the `redis-server` executable from the `redis` package.
-The Docker image will have name `redis` and tag `latest`.
+The Docker image will have the name `redis` and the tag `latest`.
 
 ```nix
 {
@@ -419,7 +419,7 @@ See [](#ex-dockerTools-buildLayeredImage-hello) to see how to do that.
 # Building a layered Docker image
 
 The following package builds a layered Docker image that runs the `hello` executable from the `hello` package.
-The Docker image will have name `hello` and tag `latest`.
+The Docker image will have the name `hello` and the tag `latest`.
 
 ```nix
 { dockerTools, hello }:
@@ -665,7 +665,7 @@ This allows the function to produce reproducible images.
 # Streaming a layered Docker image
 
 The following package builds a **script** which, when run, will stream a layered Docker image that runs the `hello` executable from the `hello` package.
-The Docker image will have name `hello` and tag `latest`.
+The Docker image will have the name `hello` and the tag `latest`.
 
 ```nix
 { dockerTools, hello }:

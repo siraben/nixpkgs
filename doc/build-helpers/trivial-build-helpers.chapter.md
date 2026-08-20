@@ -33,7 +33,7 @@ runCommandWith :: {
 :   The derivation's name, which Nix will append to the store path; see [`mkDerivation`](#sec-using-stdenv).
 
 `runLocal` (Boolean)
-:   If set to `true` this forces the derivation to be built locally, not using [substitutes] nor remote builds.
+:   If set to `true`, this forces the derivation to be built locally, without using [substitutes] or remote builds.
     This is intended for very cheap commands (<1s execution time) which can be sped up by avoiding the network round-trip(s).
     Its effect is to set [`preferLocalBuild = true`][preferLocalBuild] and [`allowSubstitutes = false`][allowSubstitutes].
 
@@ -748,7 +748,7 @@ Runtime environment variables can be set with the `runtimeEnv` argument.
 
 : Inputs to add to the shell script's `$PATH` at runtime.
 
-  Each elements can either be a normal derivation, or a string containing a path, in which case it will be suffixed with `/bin` to create a `PATH` expression (see [`lib.strings.makeBinPath`](#function-library-lib.strings.makeBinPath) for more information).
+  Each element can either be a normal derivation or a string containing a path, in which case it will be suffixed with `/bin` to create a `PATH` expression (see [`lib.strings.makeBinPath`](#function-library-lib.strings.makeBinPath) for more information).
 
 `runtimeEnv` (Attribute set, _optional_)
 

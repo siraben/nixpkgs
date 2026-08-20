@@ -53,7 +53,7 @@ by adding `ctestCheckHook` to `nativeCheckInputs`.
 
 #### `disabledTests` {#cmake-ctest-disabled-tests}
 
-Allows to disable running a list of tests. Note that regular expressions are not supported by `disabledTests`, but
+Allows disabling a list of tests. Note that regular expressions are not supported by `disabledTests`, but
 it can be combined with `--exclude-regex` option.
 
 #### `ctestFlags` {#cmake-ctest-flags}

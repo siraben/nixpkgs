@@ -1,6 +1,6 @@
 # pnpmBuildHook {#pnpm-build-hook}
 
-[pnpm](https://pnpm.io/) is a an NPM-compatible package manager focused on increasing managment speeds, and reducing disk space.
+[pnpm](https://pnpm.io/) is an NPM-compatible package manager focused on increasing package management speeds and reducing disk usage.
 
 The `pnpmBuildHook` in Nixpkgs overrides the default build phase for building packages that use pnpm.
 
@@ -80,7 +80,7 @@ stdenv.mkDerivation (finalAttrs: {
 
 #### `pnpmBuildScript` {#pnpm-build-hook-script}
 
-Controls the script ran to build the package, by default the script is `build`.
+Controls the script run to build the package; by default, the script is `build`.
 
 #### `pnpmFlags` {#pnpm-build-hook-flags}
 
@@ -88,7 +88,7 @@ Controls flags used for all invocations of pnpm across all hooks local to this d
 
 #### `pnpmBuildFlags` {#pnpm-build-hook-build-flags}
 
-Controls the flags pass only to the pnpm build script invocation.
+Controls the flags passed only to the pnpm build script invocation.
 
 #### `dontPnpmBuild` {#pnpm-build-hook-dont}
 

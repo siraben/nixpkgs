@@ -319,7 +319,7 @@ To install it into our environment, you can just run `nix-env -iA nixpkgs.myPack
 }
 ```
 
-`pathsToLink` tells Nixpkgs to only link the paths listed which gets rid of the extra stuff in the profile. `/bin` and `/share` are good defaults for a user environment, getting rid of the clutter. If you are running on Nix on macOS, you may want to add another path as well, `/Applications`, that makes GUI apps available.
+`pathsToLink` tells Nixpkgs to link only the paths listed, which gets rid of the extra stuff in the profile. `/bin` and `/share` are good defaults for a user environment, getting rid of the clutter. If you are running Nix on macOS, you may want to add another path as well, `/Applications`, which makes GUI apps available.
 
 ### Getting documentation {#sec-getting-documentation}
 
