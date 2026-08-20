@@ -101,7 +101,7 @@ modified using `usermod`. Unix groups can be managed using `groupadd`,
 This is experimental.
 
 Please consider using [Userborn](#sec-userborn) over systemd-sysusers as it's
-more feature complete.
+more feature-complete.
 :::
 
 Instead of using a custom perl script to create users and groups, you can use

@@ -18,7 +18,7 @@ command `nixos-container`, and declaratively, by specifying them in your
 `configuration.nix`. The declarative approach implies that containers
 get upgraded along with your host system when you run `nixos-rebuild`,
 which is often not what you want. By contrast, in the imperative
-approach, containers are configured and updated independently from the
+approach, containers are configured and updated independently of the
 host system.
 
 ```{=include=} sections

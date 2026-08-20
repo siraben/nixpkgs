@@ -15,7 +15,7 @@ referenced file does not exist during startup, unless disabled through
 [{option}`services.akkoma.initSecrets`](options.html#opt-services.akkoma.initSecrets).
 
 The following configuration binds Akkoma to the Unix socket `/run/akkoma/socket`, expecting to
-be run behind a HTTP proxy on `fediverse.example.com`.
+be run behind an HTTP proxy on `fediverse.example.com`.
 
 
 ```nix

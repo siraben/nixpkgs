@@ -1,6 +1,6 @@
 # Hatsu {#module-services-hatsu}
 
-[Hatsu](https://github.com/importantimport/hatsu) is an fully-automated ActivityPub bridge for static sites.
+[Hatsu](https://github.com/importantimport/hatsu) is a fully automated ActivityPub bridge for static sites.
 
 ## Quickstart {#module-services-hatsu-quickstart}
 

@@ -1,6 +1,6 @@
 # Samba {#module-services-samba}
 
-[Samba](https://www.samba.org/), a SMB/CIFS file, print, and login server for Unix.
+[Samba](https://www.samba.org/), an SMB/CIFS file, print, and login server for Unix.
 
 ## Basic Usage {#module-services-samba-basic-usage}
 

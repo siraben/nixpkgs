@@ -167,7 +167,7 @@ OK
 Note that these changes will be lost when wpa_supplicant is restarted.
 To make them persistent, the option
 [](#opt-networking.wireless.allowAuxiliaryImperativeNetworks) can be set, which
-allows to use the `save` command in `wpa_cli`, or even directly editing the
+allows the use of the `save` command in `wpa_cli`, or even direct editing of the
 file `/etc/wpa_supplicant/imperative.conf`.
 
 ::: {.note}

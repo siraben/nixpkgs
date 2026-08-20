@@ -54,7 +54,7 @@ The first steps to all these are the same:
     You'll need `nixos-generate-config` and `nixos-install`, but this
     also makes some man pages and `nixos-enter` available, just in case
     you want to chroot into your NixOS partition. NixOS installs these
-    by default, but you don't have NixOS yet..
+    by default, but you don't have NixOS yet.
 
     ```ShellSession
     $ nix-env -f '<nixpkgs>' -iA nixos-install-tools

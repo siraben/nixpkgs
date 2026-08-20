@@ -1,7 +1,7 @@
 # Options Types {#sec-option-types}
 
 Option types are a way to put constraints on the values a module option
-can take. Types are also responsible of how values are merged in case of
+can take. Types are also responsible for how values are merged in case of
 multiple value definitions.
 
 ## Basic types {#sec-option-types-basic}
@@ -381,7 +381,7 @@ If some values are instances of more than one of the types, it is not possible t
 A sum type can be thought of, conceptually, as a *`types.enum`* where each valid item is paired with at least a type, through some value syntax.
 Nix does not have a built-in syntax for this pairing of a label and a type or value, so sum types may be represented in multiple ways.
 
-If the you're interested in can be distinguished without a label, you may simplify your value syntax with a [union type](#sec-option-types-unions) instead.
+If the type you're interested in can be distinguished without a label, you may simplify your value syntax with a [union type](#sec-option-types-unions) instead.
 
 `types.attrTag` *`{ attr1 = option1; attr2 = option2; ... }`*
 

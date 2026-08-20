@@ -85,7 +85,7 @@ relationship for each dependency. See the [systemd
 bootup](https://www.freedesktop.org/software/systemd/man/latest/bootup.html)
 for more details on the bootup process.
 
-When restarting both a unit ordered before `sysinit.target` as well as one
+When restarting both a unit ordered before `sysinit.target` and one
 after, this presents a problem because they would be started at the same time
 as they do not explicitly declare their dependency relations.
 

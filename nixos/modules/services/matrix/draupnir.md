@@ -15,7 +15,7 @@ deactivation, room shutdown, and more. (This depends on homeserver configuration
 
 See the [README](https://github.com/the-draupnir-project/draupnir#readme)
 page and the [Moderator's guide](https://the-draupnir-project.github.io/draupnir-documentation/moderator/setting-up-and-configuring)
-for additional instructions on how to setup and use Draupnir.
+for additional instructions on how to set up and use Draupnir.
 
 For [additional settings](#opt-services.draupnir.settings)
 see [the default configuration](https://github.com/the-draupnir-project/Draupnir/blob/main/config/default.yaml).

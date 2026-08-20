@@ -86,7 +86,7 @@ Man pages are written in [`mdoc(7)` format](https://mandoc.bsd.lv/man/mdoc.7.htm
 
 For a preview, run `man --local-file path/to/file.8`.
 
-Being written in `mdoc`, these manpages use semantic markup. This following subsections provides a guideline on where to apply which semantic elements.
+Being written in `mdoc`, these manpages use semantic markup. The following subsections provide a guideline on where to apply which semantic elements.
 
 ### Command lines and arguments {#ssec-contributing-nixos-tools-cli-and-args}
 

@@ -17,7 +17,7 @@ Passwordless `sudo` is enabled too.
 [NetworkManager](#opt-networking.networkmanager.enable) is
 enabled and can be configured interactively with `nmtui`.
 
-It is explained how to login, start the ssh server, and if available,
+It is explained how to log in, start the SSH server, and, if available,
 how to start the display manager.
 
 Several settings are tweaked so that the installer has a better chance of

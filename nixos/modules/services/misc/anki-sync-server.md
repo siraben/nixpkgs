@@ -49,7 +49,7 @@ You can change the directory by using `services.anki-sync-server.baseDirectory`
 { services.anki-sync-server.baseDirectory = "/home/anki/data"; }
 ```
 
-By default, the server listen address {option}`services.anki-sync-server.host`
+By default, the server's listen address {option}`services.anki-sync-server.host`
 is set to localhost, listening on port
 {option}`services.anki-sync-server.port`, and does not open the firewall. This
 is suitable for purely local testing, or to be used behind a reverse proxy. If

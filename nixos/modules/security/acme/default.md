@@ -34,7 +34,7 @@ to a provider of your choosing, or just change the server for one cert with
 You will need an HTTP server or DNS server for verification. For HTTP,
 the server must have a webroot defined that can serve
 {file}`.well-known/acme-challenge`. This directory must be
-writeable by the user that will run the ACME client. For DNS, you must
+writable by the user that will run the ACME client. For DNS, you must
 set up credentials with your provider/server for use with lego.
 
 ## Using ACME certificates in Nginx {#module-security-acme-nginx}
@@ -383,4 +383,4 @@ Services that depend on ACME certificates and need to be reloaded can use one of
 
 1. **Using the `security.acme.certs.<name>.reloadServices` option**: This will cause `systemctl try-reload-or-restart` to be run for the listed services.
 
-2. **Using a separate reload unit**: if you need perform more complex actions you can implement a separate reload unit but need to ensure that it lists the `acme-renew-<name>.service` unit both as `wantedBy` AND `after`. See the nginx module implementation with its `nginx-config-reload` service.
+2. **Using a separate reload unit**: if you need to perform more complex actions you can implement a separate reload unit but need to ensure that it lists the `acme-renew-<name>.service` unit both as `wantedBy` AND `after`. See the nginx module implementation with its `nginx-config-reload` service.

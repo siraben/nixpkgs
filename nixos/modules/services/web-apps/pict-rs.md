@@ -1,6 +1,6 @@
 # Pict-rs {#module-services-pict-rs}
 
-pict-rs is a  a simple image hosting service.
+pict-rs is a simple image hosting service.
 
 ## Quickstart {#module-services-pict-rs-quickstart}
 

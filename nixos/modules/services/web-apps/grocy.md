@@ -19,7 +19,7 @@ This configures a simple vhost using [nginx](#opt-services.nginx.enable)
 which listens to `grocy.tld` with fully configured ACME/LE (this can be
 disabled by setting [services.grocy.nginx.enableSSL](#opt-services.grocy.nginx.enableSSL)
 to `false`). After the initial setup the credentials `admin:admin`
-can be used to login.
+can be used to log in.
 
 The application's state is persisted at `/var/lib/grocy/grocy.db` in a
 `sqlite3` database. The migration is applied when requesting the `/`-route

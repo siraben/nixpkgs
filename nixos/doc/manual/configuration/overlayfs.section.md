@@ -1,6 +1,6 @@
 # Overlayfs {#sec-overlayfs}
 
-NixOS offers a convenient abstraction to create both read-only as well writable
+NixOS offers a convenient abstraction to create both read-only and writable
 overlays.
 
 ```nix

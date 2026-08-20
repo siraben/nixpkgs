@@ -125,7 +125,7 @@ release notes when upgrading.
     and can cause unwanted side-effects!
     :::
   - **Multiple version upgrades.**
-    Nextcloud doesn't allow to move more than one major-version forward. E.g., if you're on
+    Nextcloud doesn't allow moving more than one major version forward. E.g., if you're on
     `v16`, you cannot upgrade to `v18`, you need to upgrade to
     `v17` first. This is ensured automatically as long as the
     [stateVersion](#opt-system.stateVersion) is declared properly. In that case

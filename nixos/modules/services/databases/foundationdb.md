@@ -185,7 +185,7 @@ the {command}`coordinators auto` command
 
 For example, assuming we have 3 nodes available, we can enable double
 redundancy mode, then auto-select coordinators. For double redundancy, 3
-coordinators is ideal: therefore FoundationDB will make
+coordinators are ideal: therefore FoundationDB will make
 *every* node a coordinator automatically:
 
 ```ShellSession

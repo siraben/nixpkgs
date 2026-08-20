@@ -133,15 +133,15 @@ Both can lead to unexpected errors either during initial database creation or re
 ## Authentication {#module-services-postgres-authentication}
 
 Local connections are made through unix sockets by default and support [peer authentication](https://www.postgresql.org/docs/current/auth-peer.html).
-This allows system users to login with database roles of the same name.
-For example, the `postgres` system user is allowed to login with the database role `postgres`.
+This allows system users to log in with database roles of the same name.
+For example, the `postgres` system user is allowed to log in with the database role `postgres`.
 
 System users and database roles might not always match.
 In this case, to allow access for a service, you can create a [user name map](https://www.postgresql.org/docs/current/auth-username-maps.html) between system roles and an existing database role.
 
 ### User Mapping {#module-services-postgres-authentication-user-mapping}
 
-Assume that your app creates a role `admin` and you want the `root` user to be able to login with it.
+Assume that your app creates a role `admin` and you want the `root` user to be able to log in with it.
 You can then use [](#opt-services.postgresql.identMap) to define the map and [](#opt-services.postgresql.authentication) to enable it:
 
 ```nix
@@ -227,7 +227,7 @@ The upgrade process is:
 
   1. Add the above to your {file}`configuration.nix` and rebuild. Alternatively, add that into a separate file and reference it in the `imports` list.
   2. Login as root (`sudo su -`).
-  3. Run `upgrade-pg-cluster`. This will stop the old postgresql cluster, initialize a new one and migrate the old one to the new one. You may supply arguments like `--jobs 4` and `--link` to speedup the migration process. See <https://www.postgresql.org/docs/current/pgupgrade.html> for details.
+  3. Run `upgrade-pg-cluster`. This will stop the old postgresql cluster, initialize a new one and migrate the old one to the new one. You may supply arguments like `--jobs 4` and `--link` to speed up the migration process. See <https://www.postgresql.org/docs/current/pgupgrade.html> for details.
   4. Change the postgresql package in NixOS configuration to the one you were upgrading to via [](#opt-services.postgresql.package). Rebuild NixOS. This should start the new postgres version using the upgraded data directory and all services you stopped during the upgrade.
   5. After the upgrade it's advisable to analyze the new cluster with the `vacuumdb` command printed by the upgrades script.
 

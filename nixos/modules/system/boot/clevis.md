@@ -43,7 +43,7 @@ In order to activate unattended decryption of a resource at boot, enable the `cl
 { boot.initrd.clevis.enable = true; }
 ```
 
-Then, specify the device you want to decrypt using a given clevis secret. Clevis will automatically try to decrypt the device at boot and will fallback to interactive unlocking if the decryption policy is not fulfilled.
+Then, specify the device you want to decrypt using a given clevis secret. Clevis will automatically try to decrypt the device at boot and will fall back to interactive unlocking if the decryption policy is not fulfilled.
 ```nix
 { boot.initrd.clevis.devices."/dev/nvme0n1p1".secretFile = ./nvme0n1p1.jwe; }
 ```

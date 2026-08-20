@@ -13,7 +13,7 @@ You can find this token in the log of the `youtrack` service. The log line looks
 
 ## Upgrade from 2022.3 to 2023.x {#module-services-youtrack-upgrade-2022_3-2023_1}
 
-Starting with YouTrack 2023.1, JetBrains no longer distributes it as as JAR.
+Starting with YouTrack 2023.1, JetBrains no longer distributes it as a JAR.
 The new distribution with the JetBrains Launcher as a ZIP changed the basic data structure and also some configuration parameters.
 Check out <https://www.jetbrains.com/help/youtrack/server/YouTrack-Java-Start-Parameters.html> for more information on the new configuration options.
 When upgrading to YouTrack 2023.1 or higher, a migration script will move the old state directory to `/var/lib/youtrack/2022_3` as a backup.

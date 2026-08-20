@@ -168,7 +168,7 @@ either `/home/nixos/.ssh/authorized_keys` or
 filesystem such as the sd-card installer image a key can be manually
 placed by mounting the image on a different machine). Alternatively you
 must set a password for either `root` or `nixos` with `passwd` to be
-able to login.
+able to log in.
 
 ### Partitioning and formatting {#sec-installation-manual-partitioning}
 []{#sec-installation-partitioning} <!-- legacy anchor -->
@@ -182,7 +182,7 @@ below use `parted`, but also provides `fdisk`, `gdisk`, `cfdisk`, and
 
 Use the command 'lsblk' to find the name of your 'disk' device.
 
-The recommended partition scheme differs depending if the computer uses
+The recommended partition scheme differs depending on whether the computer uses
 *Legacy Boot* or *UEFI*.
 
 #### UEFI (GPT) {#sec-installation-manual-partitioning-UEFI}
@@ -290,7 +290,7 @@ Use the following commands:
 -   For initialising Ext4 partitions: `mkfs.ext4`. It is recommended
     that you assign a unique symbolic label to the file system using the
     option `-L label`, since this makes the file system configuration
-    independent from device changes. For example:
+    independent of device changes. For example:
 
     ```ShellSession
     # mkfs.ext4 -L nixos /dev/sda1

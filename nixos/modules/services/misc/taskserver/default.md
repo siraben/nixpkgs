@@ -31,11 +31,11 @@ entity.
 
 With {command}`nixos-taskserver` the client certificate is created
 along with the UUID of the user, so it handles all of the credentials needed
-in order to setup the Taskwarrior 2 client to work with a Taskserver.
+in order to set up the Taskwarrior 2 client to work with a Taskserver.
 
 ## The nixos-taskserver tool {#module-services-taskserver-nixos-taskserver-tool}
 
-Because Taskserver by default only provides scripts to setup users
+Because Taskserver by default only provides scripts to set up users
 imperatively, the {command}`nixos-taskserver` tool is used for
 addition and deletion of organisations along with users and groups defined
 by [](#opt-services.taskserver.organisations) and as well for

@@ -123,7 +123,7 @@ for Borg repositories.
 
 To backup your home directory to borgbase you have to:
 
-  - Generate a SSH key without a password, to access the remote server. E.g.
+  - Generate an SSH key without a password to access the remote server. E.g.
 
         sudo ssh-keygen -N '' -t ed25519 -f /run/keys/id_ed25519_borgbase
 

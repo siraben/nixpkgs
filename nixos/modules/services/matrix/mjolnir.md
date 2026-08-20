@@ -15,7 +15,7 @@ deactivation, room shutdown, and more.
 
 See the [README](https://github.com/matrix-org/mjolnir#readme)
 page and the [Moderator's guide](https://github.com/matrix-org/mjolnir/blob/main/docs/moderators.md)
-for additional instructions on how to setup and use Mjolnir.
+for additional instructions on how to set up and use Mjolnir.
 
 For [additional settings](#opt-services.mjolnir.settings)
 see [the default configuration](https://github.com/matrix-org/mjolnir/blob/main/config/default.yaml).

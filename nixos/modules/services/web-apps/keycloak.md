@@ -115,7 +115,7 @@ Their paths should be set through
 [](#opt-services.keycloak.sslCertificateKey).
 
 ::: {.warning}
- The paths should be provided as a strings, not a Nix paths,
+ The paths should be provided as strings, not Nix paths,
 since Nix paths are copied into the world readable Nix store.
 :::
 

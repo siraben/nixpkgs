@@ -83,7 +83,7 @@ computer.
 
 This is especially helpful if you have disk encryption enabled. Since
 you already have to provide a password to decrypt your disk, entering a
-second password to login can be redundant.
+second password to log in can be redundant.
 
 To enable auto-login, you need to define your default window manager and
 desktop environment. If you wanted no desktop environment and i3 as your

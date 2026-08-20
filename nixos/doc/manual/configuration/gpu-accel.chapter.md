@@ -65,7 +65,7 @@ are supported by the Intel NEO OpenCL runtime that is provided by the `intel-com
 The previous generations (8,9 and 11), have been moved to the `intel-compute-runtime-legacy1` package.
 The proprietary Intel OpenCL runtime, in the `intel-ocl` package, is an alternative for Gen7 GPUs.
 
-Both `intel-compute-runtime` packages, as well as the `intel-ocl` package can be added to
+Both `intel-compute-runtime` packages and the `intel-ocl` package can be added to
 [](#opt-hardware.graphics.extraPackages)
 to enable OpenCL support. For example, for Gen12 and later GPUs, the following
 configuration can be used:
