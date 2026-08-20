@@ -3,7 +3,7 @@
 RKE2, Kubernetes, and other clustered software have the property of not being able to update
 atomically. Most software in Nixpkgs, like for example bash, can be updated as part of a
 `nixos-rebuild switch` without having to worry about the old and the new bash interacting in some
-way. RKE2/Kubernetes, on the other hand, is typically run across several machines, and each machine
+way. An RKE2/Kubernetes cluster, on the other hand, is typically run across several machines, and each machine
 is updated independently. As such, different versions of the package and NixOS module must maintain
 compatibility with each other through temporary version skew during updates. The upstream Kubernetes
 project documents this in their

@@ -70,7 +70,7 @@ Tip: Use Ansible to automate reset routine, like this.
 
 ### Raspberry Pi not working
 
-If the k3s.service/k3s server does not start and gives you the error FATA[0000] failed to find memory cgroup (v2) Here's the GitHub issue: https://github.com/k3s-io/k3s/issues/2067 .
+If the k3s.service/k3s server does not start and gives you the error `FATA[0000] failed to find memory cgroup (v2)`, see this GitHub issue: https://github.com/k3s-io/k3s/issues/2067.
 
 To fix the problem, you can add these things to your configuration.nix.
 ```

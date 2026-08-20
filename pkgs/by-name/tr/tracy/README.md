@@ -83,7 +83,7 @@ to provide dependencies to the upstream CMake build environment.
 
 ## Strategy: nixpkgs
 
-The CPM `NAME` matches the cmake package name and the package provides cmake config or pkg-config.
+The CPM `NAME` matches the CMake package name, and the package provides a CMake config or pkg-config.
 
 ### Mechanism
 
@@ -97,8 +97,8 @@ Add the nixpkgs dependency to `extrabuildInputs`.
 ## Strategy: nixpkgs FindPackage
 
 A compatible nixpkgs package exists but either:
-- CPM uses a different `NAME` than the cmake package name
-- cmake target names differ from what tracy expects
+- CPM uses a different `NAME` than the CMake package name
+- CMake target names differ from what Tracy expects
 
 ### Mechanism
 

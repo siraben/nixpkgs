@@ -73,13 +73,13 @@ Based on this, you can add an attribute to `extensions-manual.nix`:
 
 * The attribute name should be the same as `pname`.
 * Replace the version in `url` with `${version}`.
-* The json output `requirements` must be transformed into package `requirements`.
-* If `license` is `"MIT"`, it can be left out in the nix expression, as the builder defaults to that license.
-* Add yourself as maintainer in `meta.maintainers`.
+* The JSON output `requirements` must be transformed into package `requirements`.
+* If `license` is `"MIT"`, it can be left out of the Nix expression, as the builder defaults to that license.
+* Add yourself as a maintainer in `meta.maintainers`.
 
 ### Testing extensions
 
-You can build azure-cli with an extension on the command line by running the following command at the root of this repository:
+You can build Azure CLI with an extension on the command line by running the following command at the root of this repository:
 
 ```sh
 nix build --impure --expr 'with (import ./. {}); azure-cli.withExtensions [ azure-cli.extensions.azure-devops ]'

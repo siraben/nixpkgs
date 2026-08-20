@@ -215,7 +215,7 @@ Arguments:
 
   - `toSource { root = "/nix/store/...-source"; fileset = union "./foo" "./bar"; }`
 
-    Does not allow debug printing intermediate file set contents, since we don't know the paths contents before having a `root`.
+    Does not allow debug printing intermediate file set contents, since we don't know the paths' contents before having a `root`.
 
   - `let fs = lib.fileset.withRoot "/nix/store/...-source"; in fs.union "./foo" "./bar"`
 

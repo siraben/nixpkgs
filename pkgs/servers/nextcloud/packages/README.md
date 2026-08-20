@@ -1,29 +1,29 @@
 ## Updating apps
 
-To regenerate the nixpkgs nextcloudPackages set, run:
+To regenerate the Nixpkgs `nextcloudPackages` set, run:
 
 ```
 ./generate.sh
 ```
 
-After that you can commit and submit the changes in a pull request.
+After that, you can commit and submit the changes in a pull request.
 
 ## Adding apps
 
-**Before adding an app and making a pull request to nixpkgs, please first update as described above in a separate commit.**
+**Before adding an app and making a pull request to Nixpkgs, please first update as described above in a separate commit.**
 
-To extend the nextcloudPackages set, add a new line to the corresponding json
-file with the id of the app:
+To extend the `nextcloudPackages` set, add a new line to the corresponding JSON
+file with the ID of the app:
 
 - `nextcloud-apps.json` for apps
 
 The app must be available in the official
 [Nextcloud app store](https://apps.nextcloud.com).
-The id corresponds to the last part in the app url,
-for example `breezedark` for the app with the url
+The ID corresponds to the last part of the app URL,
+for example `breezedark` for the app with the URL
 `https://apps.nextcloud.com/apps/breezedark`.
 
-Then regenerate the nixpkgs nextcloudPackages set by running:
+Then regenerate the Nixpkgs `nextcloudPackages` set by running:
 
 ```
 ./generate.sh
@@ -31,12 +31,12 @@ Then regenerate the nixpkgs nextcloudPackages set by running:
 
 **Make sure that in this update, only the app added to `nextcloud-apps.json` gets updated.**
 
-After that you can commit and submit the changes in a pull request.
+After that, you can commit and submit the changes in a pull request.
 
 ## Usage with the Nextcloud module
 
 The apps will be available in the namespace `nextcloud31Packages.apps` (and for older versions of Nextcloud similarly).
-Using it together with the Nextcloud module could look like this:
+Using them together with the Nextcloud module could look like this:
 
 ```
 {

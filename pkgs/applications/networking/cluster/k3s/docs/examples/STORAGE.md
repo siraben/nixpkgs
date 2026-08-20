@@ -1,6 +1,6 @@
 # Storage Examples
 
-The following are some NixOS specific considerations for specific storage mechanisms with kubernetes/k3s.
+The following are some NixOS-specific considerations for storage mechanisms with Kubernetes/K3s.
 
 ## Longhorn
 

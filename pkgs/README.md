@@ -1164,9 +1164,9 @@ Reviewing process:
 - Ensure that the meta field information [fits the guidelines](#meta-attributes) and is correct:
   - License can change with version updates, so it should be checked to match the upstream license.
   - If the package has no maintainer, a maintainer must be set.
-    This can be the update submitter or a community member that accepts to take maintainership of the package.
+    This can be the update submitter or a community member who agrees to maintain the package.
 - Verify any change of upstream.
-  - If switching from e.g. PyPi to GitHub, verify that the repo is the official one.
+  - If switching from e.g. PyPI to GitHub, verify that the repo is the official one.
   - If switching to a fork, check with external sources like other package repositories for community consensus.
 - Ensure any special packaging choices and required context are documented in, for example, the name of a patch or a comment.
   - If a special version of a package is pinned, document why, so others know if/when it can be unpinned.
@@ -1187,7 +1187,7 @@ Reviewing process:
     - The first command fetches the nixos-unstable branch.
     - The second command fetches the pull request changes, `PRNUMBER` is the number at the end of the pull request title and `BASEBRANCH` the base branch of the pull request.
     - The third command rebases the pull request changes to the nixos-unstable branch.
-  - The [nixpkgs-review](https://github.com/Mic92/nixpkgs-review) tool can be used to review a pull request content in a single command.
+  - The [nixpkgs-review](https://github.com/Mic92/nixpkgs-review) tool can be used to review pull request contents with a single command.
     `PRNUMBER` should be replaced by the number at the end of the pull request title.
     You can also provide the full GitHub pull request URL.
 
@@ -1232,7 +1232,7 @@ Review process:
   - License must match the upstream license.
   - Platforms should be set (or the package will not get binary substitutes).
   - Maintainers must be set.
-    This can be the package submitter or a community member that accepts taking up maintainership of the package.
+    This can be the package submitter or a community member who agrees to maintain the package.
   - The `meta.mainProgram` must be set if a main executable exists.
 - Ensure any special packaging choices and required context are documented in, for example, the name of a patch or a comment.
   - If a special version of a package is pinned, document why, so others know if/when it can be unpinned.
