@@ -1198,7 +1198,7 @@ They cannot be overridden without rebuilding the package.
 
 If dependencies should be resolved at runtime, use `--suffix` to append fallback values to `PATH`.
 
-There’s many more kinds of arguments, they are documented in `nixpkgs/pkgs/build-support/setup-hooks/make-wrapper.sh` for the `makeWrapper` implementation and in `nixpkgs/pkgs/by-name/ma/makeBinaryWrapper/make-binary-wrapper.sh` for the `makeBinaryWrapper` implementation.
+There are many more kinds of arguments; they are documented in `nixpkgs/pkgs/build-support/setup-hooks/make-wrapper.sh` for the `makeWrapper` implementation and in `nixpkgs/pkgs/by-name/ma/makeBinaryWrapper/make-binary-wrapper.sh` for the `makeBinaryWrapper` implementation.
 
 `wrapProgram` is a convenience function you probably want to use most of the time, implemented by both `makeWrapper` and `makeBinaryWrapper`.
 
@@ -1314,7 +1314,7 @@ someVar=$(stripHash $name)
 
 Convenience function for `makeWrapper` that replaces `<executable>` with a wrapper that executes the original program. It takes all the same arguments as `makeWrapper`, except for `--inherit-argv0` (used by the `makeBinaryWrapper` implementation) and `--argv0` (used by both `makeWrapper` and `makeBinaryWrapper` wrapper implementations).
 
-If you will apply it multiple times, it will overwrite the wrapper file and you will end up with double wrapping, which should be avoided.
+If you apply it multiple times, it will overwrite the wrapper file and you will end up with double wrapping, which should be avoided.
 
 ### `prependToVar` \<variableName\> \<elements...\> {#fun-prependToVar}
 
@@ -1509,7 +1509,7 @@ packages that attempt to write to the home directory.
 
 The Bintools Wrapper wraps the binary utilities for a bunch of miscellaneous purposes. These are GNU Binutils when targeting Linux, and a mix of cctools and GNU binutils for Darwin. \[The “Bintools” name is supposed to be a compromise between “Binutils” and “cctools” not denoting any specific implementation.\] Specifically, the underlying bintools package, and a C standard library (glibc or Darwin’s libSystem, just for the dynamic loader) are all fed in, and dependency finding, hardening (see below), and purity checks for each are handled by the Bintools Wrapper. Packages typically depend on CC Wrapper, which in turn (at run time) depends on the Bintools Wrapper.
 
-The Bintools Wrapper was only just recently split off from CC Wrapper, so the division of labor is still being worked out. For example, it shouldn’t care about the C standard library, but just take a derivation with the dynamic loader (which happens to be the glibc on linux). Dependency finding however is a task both wrappers will continue to need to share, and probably the most important to understand. It is currently accomplished by collecting directories of host-platform dependencies (i.e. `buildInputs` and `nativeBuildInputs`) in environment variables. The Bintools Wrapper’s setup hook causes any `lib` and `lib64` subdirectories to be added to `NIX_LDFLAGS`. Since the CC Wrapper and the Bintools Wrapper use the same strategy, most of the Bintools Wrapper code is sparsely commented and refers to the CC Wrapper. But the CC Wrapper’s code, by contrast, has quite lengthy comments. The Bintools Wrapper merely cites those, rather than repeating them, to avoid falling out of sync.
+The Bintools Wrapper was only just recently split off from CC Wrapper, so the division of labor is still being worked out. For example, it shouldn’t care about the C standard library, but just take a derivation with the dynamic loader (which happens to be glibc on Linux). Dependency finding, however, is a task both wrappers will continue to need to share, and probably the most important to understand. It is currently accomplished by collecting directories of host-platform dependencies (i.e. `buildInputs` and `nativeBuildInputs`) in environment variables. The Bintools Wrapper’s setup hook causes any `lib` and `lib64` subdirectories to be added to `NIX_LDFLAGS`. Since the CC Wrapper and the Bintools Wrapper use the same strategy, most of the Bintools Wrapper code is sparsely commented and refers to the CC Wrapper. But the CC Wrapper’s code, by contrast, has quite lengthy comments. The Bintools Wrapper merely cites those, rather than repeating them, to avoid falling out of sync.
 
 A final task of the setup hook is defining a number of standard environment variables to tell build systems which executables fulfill which purpose. They are defined to just be the base name of the tools, under the assumption that the Bintools Wrapper’s binaries will be on the path. Firstly, this helps poorly-written packages, e.g. ones that look for just `gcc` when `CC` isn’t defined yet `clang` is to be used. Secondly, this helps packages not get confused when cross-compiling, in which case multiple Bintools Wrappers may simultaneously be in use. [^footnote-stdenv-per-platform-wrapper] `BUILD_`- and `TARGET_`-prefixed versions of the normal environment variable are defined for additional Bintools Wrappers, properly disambiguating them.
 
@@ -1615,7 +1615,7 @@ This flag can sometimes conflict with a build-system's own attempts at enabling 
 
 #### `pic` {#pic}
 
-Adds the `-fPIC` compiler options. This options adds support for position independent code in shared libraries and thus making ASLR possible.
+Adds the `-fPIC` compiler option. This option adds support for position-independent code in shared libraries and thus makes ASLR possible.
 
 Most notably, the Linux kernel, kernel modules and other code not running in an operating system environment like boot loaders won’t build with PIC enabled. The compiler will is most cases complain that PIC is not supported for a specific build.
 

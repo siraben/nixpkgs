@@ -96,6 +96,6 @@ is for info pages, typically residing in `share/info/`. They go to `info` or `$o
 
 - The outputs of a single derivation can retain references to each other, but note that circular references are not allowed. (And each strongly-connected component would act as a single output anyway.)
 
-- Most of split packages contain their core functionality in libraries. These libraries tend to refer to various kind of data that typically gets into `out`, e.g. locale strings, so there is often no advantage in separating the libraries into `lib`, as keeping them in `out` is easier.
+- Most split packages contain their core functionality in libraries. These libraries tend to refer to various kinds of data that typically get into `out`, e.g. locale strings, so there is often no advantage in separating the libraries into `lib`, as keeping them in `out` is easier.
 
 - Some packages have hidden assumptions on install paths, which complicates splitting.
