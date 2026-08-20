@@ -8,7 +8,7 @@ Nixpkgs provides its own fetchers, which work differently:
 
 - A built-in fetcher will download and cache files at evaluation time and produce a [store path](https://nixos.org/manual/nix/stable/glossary#gloss-store-path).
   A Nixpkgs fetcher will create a ([fixed-output](https://nixos.org/manual/nix/stable/glossary#gloss-fixed-output-derivation)) [derivation](https://nixos.org/manual/nix/stable/glossary#gloss-derivation), and files are downloaded at build time.
-- Built-in fetchers will invalidate their cache after [`tarball-ttl`](https://nixos.org/manual/nix/stable/command-ref/conf-file#conf-tarball-ttl) expires, and will require network activity to check if the cache entry is up to date.
+- Built-in fetchers will invalidate their cache after [`tarball-ttl`](https://nixos.org/manual/nix/stable/command-ref/conf-file#conf-tarball-ttl) expires, and will require network activity to check if the cache entry is up-to-date.
   Nixpkgs fetchers only re-download if the specified hash changes or the store object is not available.
 - Built-in fetchers do not use [substituters](https://nixos.org/manual/nix/stable/command-ref/conf-file#conf-substituters).
   Derivations produced by Nixpkgs fetchers will use any configured binary cache transparently.

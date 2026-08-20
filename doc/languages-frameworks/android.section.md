@@ -65,8 +65,8 @@ The following parameters are supported:
 * `cmdLineToolsVersion` specifies the version of the `cmdline-tools` package to use.
   It defaults to the latest.
 * `toolsVersion`, specifies the version of the `tools` package. Notice `tools` is
-  obsolete, and currently only `26.1.1` is available, so there's not a lot of
-  options here, however, you can set it as `null` if you don't want it. It defaults
+  obsolete, and currently only `26.1.1` is available, so there are not many
+  options here. However, you can set it to `null` if you don't want it. It defaults
   to the latest.
 * `platformToolsVersion` specifies the version of the `platform-tools` plugin.
   It defaults to the latest.

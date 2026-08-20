@@ -47,7 +47,7 @@ This won't build anything yet, because we haven't told it what files build. We c
 }
 ```
 
-Additionally you can override the default `crystal build` options (which are currently `--release --progress --no-debug --verbose`) with
+Additionally, you can override the default `crystal build` options (which are currently `--release --progress --no-debug --verbose`) with
 
 ```nix
 {

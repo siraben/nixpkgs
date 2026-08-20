@@ -121,7 +121,7 @@ The arguments passed to `extract` can also contain a `postExtract` attribute, wh
 
 :::{.warning}
 When specifying `postExtract`, you should use `appimageTools.wrapAppImage` instead of `appimageTools.wrapType2`.
-Otherwise `wrapType2` will extract the AppImage contents without respecting the `postExtract` instructions.
+Otherwise, `wrapType2` will extract the AppImage contents without respecting the `postExtract` instructions.
 :::
 
 :::{.example #ex-extracting-appimage-with-postextract}

@@ -79,7 +79,7 @@ The Nixpkgs systems for continuous integration [Hydra](https://hydra.nixos.org/)
 
 Besides tests provided by upstream, that you run in the [`checkPhase`](#ssec-check-phase), you may want to define tests derivations in the `passthru.tests` attribute, which won't change the build. `passthru.tests` have several advantages over running tests during any of the [standard phases](#sec-stdenv-phases):
 
-- They access the package as consumers would, independently from the environment in which it was built
+- They access the package as consumers would, independently of the environment in which it was built
 - They can be run and debugged without rebuilding the package, which is useful if that takes a long time
 - They don't add overhead to each build, as opposed checks added to the [`installCheckPhase`](#ssec-installCheck-phase), such as [`versionCheckHook`](#versioncheckhook).
 

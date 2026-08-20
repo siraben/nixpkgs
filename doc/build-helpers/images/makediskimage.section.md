@@ -10,7 +10,7 @@ This function can create images in two ways:
 When testing early-boot or lifecycle parts of NixOS such as a bootloader or multiple generations, it is necessary to opt for a full NixOS system installation.
 Whereas for many web servers and applications, it is possible to work with a Nix store only disk image, which is faster to build.
 
-NixOS tests also use this function when preparing the VM. The `cptofs` method is used when `virtualisation.useBootLoader` is false (the default). Otherwise the second method is used.
+NixOS tests also use this function when preparing the VM. The `cptofs` method is used when `virtualisation.useBootLoader` is false (the default). Otherwise, the second method is used.
 
 ## Features {#sec-make-disk-image-features}
 
@@ -45,7 +45,7 @@ Images are **NOT** deterministic. Please do not hesitate to try to fix this. Sou
 - SQLite Nix store database contains registration times
 - `/etc/shadow` is in a non-deterministic order
 
-A `deterministic` flag is available for best efforts determinism.
+A `deterministic` flag is available for best-effort determinism.
 
 ## Usage {#sec-make-disk-image-usage}
 

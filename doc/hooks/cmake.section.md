@@ -44,7 +44,7 @@ When set to true, don't use the predefined `cmakeConfigurePhase`.
 
 ## Controlling CTest invocation {#cmake-ctest}
 
-By default tests are run by make in [`checkPhase`](#ssec-check-phase) or by [ninja](#ninja) if `ninja` is
+By default, tests are run by make in [`checkPhase`](#ssec-check-phase) or by [ninja](#ninja) if `ninja` is
 available in `nativeBuildInputs`. Makefile and Ninja generators produce the `test` target, which invokes `ctest` under the hood.
 This makes passing additional arguments to `ctest` difficult, so it's possible to invoke it directly in `checkPhase`
 by adding `ctestCheckHook` to `nativeCheckInputs`.

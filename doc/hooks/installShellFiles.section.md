@@ -88,7 +88,7 @@ arguments.
 The `installShellCompletion` function takes one or more paths to shell
 completion files.
 
-By default it will autodetect the shell type from the completion file extension,
+By default, it will autodetect the shell type from the completion file extension,
 but you may also specify it by passing one of `--bash`, `--fish`, `--zsh`, or
 `--nushell`. These flags apply to all paths listed after them (up until another
 shell flag is given). Each path may also have a custom installation name

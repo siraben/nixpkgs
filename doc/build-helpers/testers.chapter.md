@@ -41,7 +41,7 @@ If the `moduleNames` argument is omitted, `hasPkgConfigModules` will use `meta.p
 ## `hasCmakeConfigModules` {#tester-hasCmakeConfigModules}
 
 Checks whether a package exposes a given list of `*config.cmake` modules.
-Note the moduleNames used in cmake find_package are case sensitive.
+Note that the `moduleNames` used in CMake's `find_package` are case-sensitive.
 
 :::{.example #ex-hascmakeconfigmodules}
 

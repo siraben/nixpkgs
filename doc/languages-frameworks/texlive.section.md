@@ -32,7 +32,7 @@ There is a TeX Live packaging that lives entirely under attribute `texlive`.
   )
   ```
 
-- Packages can be overridden by passing a new package with the same `pname` to `.withPackages`. For instance, the following replaces Asymptote with the version from Nixpkgs, which is usually more up to date:
+- Packages can be overridden by passing a new package with the same `pname` to `.withPackages`. For instance, the following replaces Asymptote with the version from Nixpkgs, which is usually more up-to-date:
   ```nix
   texliveMedium.withPackages (ps: [ asymptote ])
   ```

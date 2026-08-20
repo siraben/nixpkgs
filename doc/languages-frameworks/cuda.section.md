@@ -217,7 +217,7 @@ $ podman run --rm -it --device=nvidia.com/gpu=0 ubuntu:latest nvidia-smi -L
 GPU 0: NVIDIA GeForce RTX 4090 (UUID: <REDACTED>)
 ```
 
-You can repeat the `--device` argument as many times as necessary if you have multiple GPU's and you want to pick up which ones to expose to the container:
+You can repeat the `--device` argument as many times as necessary if you have multiple GPUs and you want to pick which ones to expose to the container:
 
 ```ShellSession
 $ podman run --rm -it --device=nvidia.com/gpu=0 --device=nvidia.com/gpu=1 ubuntu:latest nvidia-smi -L

@@ -105,7 +105,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 })
 ```
-The limitation of this method is that you cannot override the `pkg` derivations's arguments.
+The limitation of this method is that you cannot override the `pkg` derivation's arguments.
 
 In the former case, the update script will stay the same even if the derivation is called with different arguments. In the latter case, the update script will change depending on the derivation arguments. It's up to you to decide which one would work best for your derivation.
 

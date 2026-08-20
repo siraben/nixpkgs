@@ -4,7 +4,7 @@ The `nix-shell` command has popularized the concept of transient shell environme
 <!--
   We should try to document the product, not its development process in the Nixpkgs manual,
   but *something* needs to be said to provide context for this library.
-  This is the most future proof sentence I could come up with while Nix itself does not yet make use of this.
+  This is the most future-proof sentence I could come up with while Nix itself does not yet make use of this.
   Relevant is the current status of the devShell attribute "project": https://github.com/NixOS/nix/issues/7501
   -->
 However, `nix-shell` is not the only way to create such environments, and even `nix-shell` itself can indirectly benefit from this library.

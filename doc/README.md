@@ -4,7 +4,7 @@ This directory houses the source files for the Nixpkgs manual.
 
 > [!NOTE]
 >
-> We are actively restructuring our documentation to be more beginner friendly.
+> We are actively restructuring our documentation to be more beginner-friendly.
 >
 
 When writing new docs use **Progressive Disclosure**

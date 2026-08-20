@@ -95,7 +95,7 @@ The difference between a package being unsupported on some system and being brok
 All users of Nixpkgs are free software users, and many users (and developers) of Nixpkgs want to limit and tightly control their exposure to unfree software.
 At the same time, many users need (or want) to run some specific pieces of proprietary software.
 Nixpkgs includes some expressions for unfree software packages.
-By default unfree software cannot be installed and doesn’t show up in searches.
+By default, unfree software cannot be installed and doesn’t show up in searches.
 
 There are several ways to tweak how Nix handles a package which has been marked as unfree.
 

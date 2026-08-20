@@ -1358,9 +1358,9 @@ Packages adding a hook should not hard code a specific hook, but rather choose a
 addEnvHooks "$hostOffset" myBashFunction
 ```
 
-The *existence* of setups hooks has long been documented and packages inside Nixpkgs are free to use this mechanism. Other packages, however, should not rely on these mechanisms not changing between Nixpkgs versions. Because of the existing issues with this system, there’s little benefit from mandating it be stable for any period of time.
+The *existence* of setup hooks has long been documented and packages inside Nixpkgs are free to use this mechanism. Other packages, however, should not rely on these mechanisms not changing between Nixpkgs versions. Because of the existing issues with this system, there’s little benefit from mandating it be stable for any period of time.
 
-First, let’s cover some setup hooks that are part of Nixpkgs default `stdenv`. This means that they are run for every package built using `stdenv.mkDerivation`, even with custom builders. Some of these are platform specific, so they may run on Linux but not Darwin or vice-versa.
+First, let’s cover some setup hooks that are part of Nixpkgs default `stdenv`. This means that they are run for every package built using `stdenv.mkDerivation`, even with custom builders. Some of these are platform specific, so they may run on Linux but not Darwin or vice versa.
 
 ### `move-docs.sh` {#move-docs.sh}
 
@@ -1443,7 +1443,7 @@ If you need to run `patchShebangs` at build time, it must be called explicitly w
 
 ### `audit-tmpdir.sh` {#audit-tmpdir.sh}
 
-This verifies that no references are left from the install binaries to the directory used to build those binaries. This ensures that the binaries do not need things outside the Nix store. This is currently supported in Linux only.
+This verifies that no references are left from the install binaries to the directory used to build those binaries. This ensures that the binaries do not need things outside the Nix store. This is currently supported on Linux only.
 
 ### `multiple-outputs.sh` {#multiple-outputs.sh}
 
@@ -1470,7 +1470,7 @@ This setup hook checks for, reports, and (by default) fails builds when "broken"
 This hook can be disabled by setting `dontCheckForBrokenSymlinks`.
 
 ::: {.note}
-The hook only considers symlinks with targets inside the Nix store or $TMPDIR directory (typically /nix/store and /build in the builder environment, the later being where build is executed).
+The hook only considers symlinks with targets inside the Nix store or $TMPDIR directory (typically /nix/store and /build in the builder environment, the latter being where build is executed).
 :::
 
 ::: {.note}

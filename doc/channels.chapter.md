@@ -6,7 +6,7 @@ nixpkgs is distributed for users of Nix on non-NixOS distributions through the c
 `nixpkgs-unstable`. Users of NixOS generally use one of the `nixos-*` channels,
 e.g. `nixos-22.11`, which includes all packages and modules for the stable NixOS
 22.11. Stable NixOS releases are generally only given
-security updates. More up to date packages and modules are available via the
+security updates. More up-to-date packages and modules are available via the
 `nixos-unstable` channel.
 
 Both `nixos-unstable` and `nixpkgs-unstable` follow the `master` branch of the

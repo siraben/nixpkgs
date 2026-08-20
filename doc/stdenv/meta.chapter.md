@@ -365,7 +365,7 @@ For handling edge cases, consider using the list interface [`meta.identifiers.pu
 #### `meta.identifiers.purls` {#var-meta-identifiers-purls}
 
 An extendable list attribute which defaults to a single element equal to [`meta.identifiers.purl`](#var-meta-identifiers-purl).
-It provides an interface for additional identifiers of `mkDerivation.src` or for identifiers of vendored dependencies inside `mkDerivation.src`, which maintainers may carefully consider to specify as well.
+It provides an interface for additional identifiers of `mkDerivation.src` or for identifiers of vendored dependencies inside `mkDerivation.src`, which maintainers may carefully consider specifying as well.
 
 Additional identifiers are generally not recommended, as they might cause maintenance overhead or diverge.
 For example, a source distribution `pkg:github` may be hard to keep correctly aligned with the corresponding binary distribution `pkg:pypi`.
