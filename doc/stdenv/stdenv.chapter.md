@@ -1617,7 +1617,7 @@ This flag can sometimes conflict with a build-system's own attempts at enabling 
 
 Adds the `-fPIC` compiler option. This option adds support for position-independent code in shared libraries and thus makes ASLR possible.
 
-Most notably, the Linux kernel, kernel modules and other code not running in an operating system environment like boot loaders won’t build with PIC enabled. The compiler will is most cases complain that PIC is not supported for a specific build.
+Most notably, the Linux kernel, kernel modules and other code not running in an operating system environment like boot loaders won’t build with PIC enabled. The compiler will in most cases complain that PIC is not supported for a specific build.
 
 This needs to be turned off or fixed for assembler errors similar to:
 

@@ -12,7 +12,7 @@ depend on them.
 
 ## Rocq derivation: `rocq-core` {#rocq-derivation-rocq}
 
-The Rocq derivation is overridable through the `rocq-core.override overrides`, where overrides is an attribute set which contains the arguments to override. We recommend overriding either of the following:
+The Rocq derivation can be overridden through `rocq-core.override overrides`, where `overrides` is an attribute set which contains the arguments to override. We recommend overriding either of the following:
 
 * `version` (optional, defaults to the latest version of Rocq selected for nixpkgs, see `pkgs/top-level/rocq-packages` to witness this choice), which follows the conventions explained in the `rocqPackages` section below,
 * `customOCamlPackages` (optional, defaults to `null`, which lets Rocq choose a version automatically), which can be set to any of the ocaml packages attribute of `ocaml-ng` (such as `ocaml-ng.ocamlPackages_4_14` which is the default for Rocq 9.1 for example).

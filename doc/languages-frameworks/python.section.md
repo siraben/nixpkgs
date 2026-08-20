@@ -1559,7 +1559,7 @@ automatically add `pythonRelaxDepsHook` if either `pythonRelaxDeps` or
 
 The `sphinxHook` is a helpful tool to build documentation and manpages
 using the popular Sphinx documentation generator.
-It is setup to automatically find common documentation source paths and
+It is set up to automatically find common documentation source paths and
 render them using the default `html` style.
 
 ```nix
