@@ -10,12 +10,12 @@ In order to ensure that the needed packages are generally available without buil
 
 Run [`update-pinned.sh`](./update-pinned.sh) to update it.
 
-## GitHub specific code
+## GitHub-specific code
 
 Some of the code is specific to GitHub.
 This code is currently spread out over multiple places and written in both Bash and JavaScript.
-The goal is to eventually have all GitHub specific code in `ci/github-script` and written in JavaScript via `actions/github-script`.
-A lot of code has already been migrated, but some Bash code still remains.
+The goal is to eventually have all GitHub-specific code in `ci/github-script` and written in JavaScript via `actions/github-script`.
+A lot of code has already been migrated, but some Bash code remains.
 New CI features need to be introduced in JavaScript, not Bash.
 
 ## Nixpkgs merge bot

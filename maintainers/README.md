@@ -17,7 +17,7 @@ For most packages, we expect committers to wait at least a week before merging c
 This should leave enough time for the maintainers to provide feedback.
 
 For critical packages, this convention needs to be negotiated with the maintainer.
-A critical package is one that causes mass-rebuild, or where an author is listed in the [`OWNERS`](../ci/OWNERS) file.
+A critical package is one that causes a mass rebuild or has an author listed in the [`OWNERS`](../ci/OWNERS) file.
 
 In case of critical security updates, the [security team](https://nixos.org/community/teams/security) might override these heuristics in order to get the fixes in as fast as possible.
 
@@ -103,7 +103,7 @@ When adding users to [`maintainer-list.nix`](./maintainer-list.nix), the followi
       gpg: Total number processed: 1
       gpg:               imported: 1
 
-  Then check the commit is signed by that key:
+  Then check that the commit is signed by that key:
 
       $ git log --show-signature
       commit b87862a4f7d32319b1de428adb6cdbdd3a960153
@@ -183,13 +183,13 @@ Additionally, using tools like [nixpkgs-review](https://github.com/Mic92/nixpkgs
 
 ## Breaking changes
 
-In general breaking changes to `master` and `staging` branches are permitted, as long as they are documented in the release notes.
+In general, breaking changes to the `master` and `staging` branches are permitted, as long as they are documented in the release notes.
 Though restrictions might apply towards the end of a NixOS release cycle, due to our feature freeze mechanism.
 This is to avoid large-scale breakages shortly before and during a Zero Hydra Failures (ZHF) campaign.
 These restrictions also intend to decrease the likelihood of a delayed NixOS release.
 The feature freeze period is documented in the announcement of each release schedule.
 
-> These are some example changes and if they are considered a breaking change during a freeze period:
+> These are some example changes and whether they are considered breaking changes during a freeze period:
 >
 > - `foo: 1.2.3 -> 1.2.4`:
 >   Assuming this package follows semantic versioning and none of its dependent packages fail to build because of this change, it can be safely merged.
@@ -199,7 +199,7 @@ The feature freeze period is documented in the announcement of each release sche
 > - `cool-tool: rename from fancy-tool`:
 >   As long as this PR replaces all references to the old attribute name with the new name and adds an alias, it can be merged.
 > - `libpopular: 4.3.2 -> 5.0.0`:
->   If this PR would trigger many rebuilds and/or target `staging`, it should probably be delayed until after the freeze-period is over.
+>   If this PR would trigger many rebuilds and/or target `staging`, it should probably be delayed until after the freeze period is over.
 >   Alternatively, if this PR is for a popular package and doesn't cause many rebuilds, it should also be delayed to reduce risk of breakage.
 >   If a PR includes important changes, such as security fixes, it should be brought up to release managers.
 > - `nixos/transmission: refactor`:

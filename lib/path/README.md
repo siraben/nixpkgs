@@ -125,12 +125,12 @@ Decision: Paths are represented as strings.
 <summary>Arguments</summary>
 
 - (+) It's simpler for the users of the library.
-  One doesn't have to convert a path a string before it can be used.
+  One doesn't have to convert a path to a string before it can be used.
   - (+) Naively converting the list representation to a string with `concatStringsSep "/"` would break for `[]`, requiring library users to be more careful.
 - (+) It doesn't encourage people to do their own path processing and instead use the library.
   With a list representation it would seem easy to just use `lib.lists.init` to get the parent directory, but then it breaks for `.`, which would be represented as `[ ]`.
 - (+) `+` is convenient and doesn't work on lists and attribute sets.
-  - (-) Shouldn't use `+` anyways, we export safer functions for path manipulation.
+  - (-) Shouldn't use `+` anyway; we export safer functions for path manipulation.
 
 </details>
 

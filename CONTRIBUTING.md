@@ -20,7 +20,7 @@ More specific information about individual parts of Nixpkgs can be found here:
 - [`nixos`](./nixos/README.md): Implementation of [NixOS](https://nixos.org/manual/nixos/stable/)
 - [`pkgs`](./pkgs/README.md): Package and [builder](https://nixos.org/manual/nixpkgs/stable/#part-builders) definitions
 
-# How to's
+# How-tos
 
 ## How to create pull requests
 [pr-create]: #how-to-create-pull-requests
@@ -292,7 +292,7 @@ Controversial changes can lead to controversial opinions, but it is important to
 Always be nice and polite.
 
 GitHub provides reactions for quick feedback to pull requests or comments.
-The thumb-down reaction should be used with care and, if possible, accompanied with explanation for the submitter to improve their contribution.
+The thumb-down reaction should be used with care and, if possible, accompanied by an explanation for the submitter to improve their contribution.
 
 When doing a review:
 - Aim to drive the proposal to a timely conclusion.
@@ -684,7 +684,7 @@ If you have any problems with formatting, please ping the [formatting team](http
   ```
 
   As an exception, an explicit conditional expression with null can be used when fixing an important bug without triggering a mass rebuild.
-  If this is done a follow up pull request _should_ be created to change the code to `lib.optional(s)`.
+  If this is done, a follow-up pull request _should_ be created to change the code to `lib.optional(s)`.
 
 - Any style choices not covered here but that can be expressed as general rules should be left at the discretion of the authors of changes and _not_ commented in reviews.
   The purpose of this is:

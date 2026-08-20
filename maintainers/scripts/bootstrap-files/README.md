@@ -2,14 +2,14 @@
 
 Currently `nixpkgs` builds most of its packages using bootstrap seed binaries (without the reliance on external inputs):
 
-- `bootstrap-tools`: an archive with the compiler toolchain and other helper tools enough to build the rest of the `nixpkgs`.
+- `bootstrap-tools`: an archive with the compiler toolchain and enough other helper tools to build the rest of `nixpkgs`.
 - initial binaries needed to unpack `bootstrap-tools.*`.
   On `linux` it's just `busybox`, on `darwin` and `freebsd` it is `unpack.nar.xz` which contains the binaries and script needed to unpack the tools.
   These binaries can be executed directly from the store.
 
 These are called "bootstrap files".
 
-Bootstrap files should always be fetched from Hydra and uploaded to `tarballs.nixos.org` to guarantee that all the binaries were built from the code committed into `nixpkgs` repository.
+Bootstrap files should always be fetched from Hydra and uploaded to `tarballs.nixos.org` to guarantee that all the binaries were built from the code committed to the `nixpkgs` repository.
 
 The uploads to `tarballs.nixos.org` are done by `@NixOS/infra` team members who have S3 write access.
 
@@ -123,4 +123,4 @@ There are two types of bootstrap files:
   These are usually Tier 2 and lower targets.
 
 The `.build` job contains `/on-server/` subdirectory with binaries to be uploaded to `tarballs.nixos.org`.
-The files are uploaded to `tarballs.nixos.org` by writers to `S3` store.
+The files are uploaded to `tarballs.nixos.org` by users with write access to the S3 store.

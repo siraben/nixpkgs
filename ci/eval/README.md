@@ -2,7 +2,7 @@
 
 The code in this directory is used by the [eval.yml](../../.github/workflows/eval.yml) GitHub Actions workflow to evaluate the majority of Nixpkgs for all PRs, effectively making sure that when the development branches are processed by Hydra, no evaluation failures are encountered.
 
-Furthermore it also allows local evaluation using:
+Furthermore, it allows local evaluation using:
 
 ```
 nix-build ci -A eval.baseline
@@ -17,16 +17,16 @@ The two most important arguments are:
 
 The following arguments can be used to fine-tune performance:
 - `--max-jobs`: The maximum number of derivations to run at the same time.
-  Only each supported system gets a separate derivation, so it doesn't make sense to set this higher than that number.
+  Each supported system gets only one derivation, so it doesn't make sense to set this higher than the number of supported systems.
 - `--cores`: The number of cores to use for each job.
-  Recommended to set this to the number of cores on your system divided by `--max-jobs`.
+  We recommend setting this to the number of cores on your system divided by `--max-jobs`.
 - `--arg chunkSize`: The number of attributes that are evaluated simultaneously on a single core.
   Lowering this decreases memory usage at the cost of increased evaluation time.
-  If this is too high, there won't be enough chunks to process them in parallel, and will also increase evaluation time.
+  If this is too high, there won't be enough chunks to process in parallel, which will also increase evaluation time.
   The default is 5000.
   Example: `--arg chunkSize 10000`
 
-Note that 16GB memory is the recommended minimum, while with less than 8GB memory evaluation time suffers greatly.
+Note that 16 GB of memory is the recommended minimum, while evaluation time suffers greatly with less than 8 GB.
 
 ## Local eval with rebuilds / comparison
 

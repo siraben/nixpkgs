@@ -179,8 +179,8 @@ Directories on their own are not representable.
 
 Arguments:
 - (+) There does not seem to be a sensible set of combinators when directories can be represented on their own.
-  Here's some possibilities:
-  - `./.` represents the files in `./.` _and_ the directory itself including its subdirectories, meaning that even if there's no files, the entire structure of `./.` is preserved
+  Here are some possibilities:
+  - `./.` represents the files in `./.` _and_ the directory itself including its subdirectories, meaning that even if there are no files, the entire structure of `./.` is preserved
 
     In that case, what should `fileFilter (file: false) ./.` return?
     It could return the entire directory structure unchanged, but with all files removed, which would not be what one would expect.
