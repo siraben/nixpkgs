@@ -471,7 +471,7 @@ You need to use it with `java -jar $out/share/java/output.jar` and make sure to 
 
 The following explains how to use `makeWrapper` to make the derivation produce an executable that will run the JAR file you created.
 
-We will use the same repository we built above (either _double invocation_ or _buildMaven_) to setup a CLASSPATH for our JAR.
+We will use the same repository we built above (either _double invocation_ or _buildMaven_) to set up a CLASSPATH for our JAR.
 
 The following two methods are more suited to Nix then building an [UberJar](https://imagej.net/Uber-JAR) which may be the more traditional approach.
 

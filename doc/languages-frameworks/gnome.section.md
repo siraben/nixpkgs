@@ -212,7 +212,7 @@ stdenv.mkDerivation {
 
 ### I am packaging a project that cannot be wrapped, like a library or GNOME Shell extension. {#ssec-gnome-common-issues-unwrappable-package}
 
-You can rely on applications depending on the library setting the necessary environment variables but that is often easy to miss. Instead we recommend to patch the paths in the source code whenever possible. Here are some examples:
+You can rely on applications depending on the library setting the necessary environment variables but that is often easy to miss. Instead we recommend patching the paths in the source code whenever possible. Here are some examples:
 
 - []{#ssec-gnome-common-issues-unwrappable-package-gnome-shell-ext} [Replacing a `GI_TYPELIB_PATH` in GNOME Shell extension](https://github.com/NixOS/nixpkgs/blob/e981466fbb08e6231a1377539ff17fbba3270fda/pkgs/by-name/gn/gnome-shell-extensions/package.nix#L25-L32) – we are using `replaceVars` to include the path to a typelib into a patch.
 

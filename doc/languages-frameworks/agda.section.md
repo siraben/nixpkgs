@@ -228,7 +228,7 @@ mkDerivation {
 
 This library has a file called `.agda-lib`, and so we give an empty string to `libraryFile` as nothing precedes `.agda-lib` in the filename. This file contains `name: IAL-1.3`, and so we let `libraryName =  "IAL-1.3"`. This library does not use an `Everything.agda` file and instead has a Makefile, so there is no need to set `everythingFile` and we set a custom `buildPhase`.
 
-When writing an Agda package, it is essential to make sure that no `.agda-lib` file gets added to the store as a single file (for example by using `writeText`). This causes Agda to think that the nix store is a Agda library and it will attempt to write to it whenever it typechecks something. See [https://github.com/agda/agda/issues/4613](https://githcub.com/agda/agda/issues/4613).
+When writing an Agda package, it is essential to make sure that no `.agda-lib` file gets added to the store as a single file (for example by using `writeText`). This causes Agda to think that the nix store is an Agda library and it will attempt to write to it whenever it typechecks something. See [https://github.com/agda/agda/issues/4613](https://githcub.com/agda/agda/issues/4613).
 
 In the pull request adding this library,
 you can test whether it builds correctly by writing in a comment:

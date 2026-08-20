@@ -134,7 +134,7 @@ The annotations in the `nim-overrides.nix` set are functions that take two argum
 - lockAttrs: the attrset for this library from within a lockfile. This can be used to implement library version constraints, such as marking libraries as broken or insecure.
 - prevAttrs: the attrset produced by initial arguments to `buildNimPackage` and any preceding lockfile overlays.
 
-### Overriding an Nim library override {#nim-lock-overrides-overrides}
+### Overriding a Nim library override {#nim-lock-overrides-overrides}
 
 The `nimOverrides` attrset makes it possible to modify overrides in a few different ways.
 

@@ -9,12 +9,12 @@
 
 ## Cuelang schema quick start {#cuelang-quickstart}
 
-Cuelang schemas are similar to JSON, here is a quick cheatsheet:
+Cuelang schemas are similar to JSON; here is a quick cheat sheet:
 
-- Default types includes: `null`, `string`, `bool`, `bytes`, `number`, `int`, `float`, lists as `[...T]` where `T` is a type.
-- All structures, defined by: `myStructName: { <fields> }` are **open** -- they accept fields which are not specified.
+- Default types include: `null`, `string`, `bool`, `bytes`, `number`, `int`, `float`, and lists as `[...T]` where `T` is a type.
+- All structures defined by `myStructName: { <fields> }` are **open** -- they accept fields which are not specified.
 - Closed structures can be built by doing `myStructName: close({ <fields> })` -- they are strict in what they accept.
-- `#X` are **definitions**, referenced definitions are **recursively closed**, i.e. all its children structures are **closed**.
+- `#X` are **definitions**; referenced definitions are **recursively closed**, i.e. all their child structures are **closed**.
 - `&` operator is the [unification operator](https://cuelang.org/docs/references/spec/#unification) (similar to a type-level merging operator), `|` is the [disjunction operator](https://cuelang.org/docs/references/spec/#disjunction) (similar to a type-level union operator).
 - Values **are** types, i.e. `myStruct: { a: 3 }` is a valid type definition that only allows `3` as value.
 

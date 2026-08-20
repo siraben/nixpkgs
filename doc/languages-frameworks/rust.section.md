@@ -307,7 +307,7 @@ where they are known to differ. But there are ways to customize the argument:
 When using `buildRustPackage`, the `checkPhase` is enabled by default and runs
 `cargo test` on the package to build. To make sure that we don't compile the
 sources twice and to actually test the artifacts that will be used at runtime,
-the tests will be ran in the `release` mode by default.
+the tests will be run in the `release` mode by default.
 
 However, in some cases the test-suite of a package doesn't work properly in the
 `release` mode. For these situations, the mode for `checkPhase` can be changed like
@@ -404,7 +404,7 @@ rustPlatform.buildRustPackage {
 }
 ```
 
-In this scenario, the `checkPhase` will be ran in `debug` mode as well.
+In this scenario, the `checkPhase` will be run in `debug` mode as well.
 
 ### Custom `build`/`install`-procedures {#custom-buildinstall-procedures}
 
@@ -797,10 +797,10 @@ with import <nixpkgs> { };
 }
 ```
 
-Here, `crateOverrides` is expected to be a attribute set, where the
+Here, `crateOverrides` is expected to be an attribute set, where the
 key is the crate name without version number and the value a function.
 The function gets all attributes passed to `buildRustCrate` as first
-argument and returns a set that contains all attribute that should be
+argument and returns a set that contains all attributes that should be
 overwritten.
 
 For more complicated cases, such as when parts of the crate's
@@ -1011,7 +1011,7 @@ There are two community maintained approaches to Rust toolchain management:
 - [oxalica's Rust overlay](https://github.com/oxalica/rust-overlay)
 - [fenix](https://github.com/nix-community/fenix)
 
-Despite their names, both projects provides a similar set of packages and overlays under different APIs.
+Despite their names, both projects provide a similar set of packages and overlays under different APIs.
 
 Oxalica's overlay allows you to select a particular Rust version without you providing a hash or a flake input,
 but comes with a larger git repository than fenix.

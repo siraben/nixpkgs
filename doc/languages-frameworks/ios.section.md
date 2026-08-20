@@ -100,7 +100,7 @@ The above function takes a variety of parameters:
   and the location where the source code resides
 * `sdkVersion` specifies which version of the iOS SDK to use.
 
-It also possible to adjust the `xcodebuild` parameters. This is only needed in
+It is also possible to adjust the `xcodebuild` parameters. This is only needed in
 rare circumstances. In most cases the default values should suffice:
 
 * `target` specifies which `xcodebuild` target to build. By default it takes the target

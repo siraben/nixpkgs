@@ -23,8 +23,8 @@ Let's see two different examples from `pkgs/top-level/emscripten-packages.nix`:
 A special requirement of the `pkgs.buildEmscriptenPackage` is the `doCheck = true`.
 This means each Emscripten package requires that a [`checkPhase`](#ssec-check-phase) is implemented.
 
-* Use `export EMCC_DEBUG=2` from within a phase to get more detailed debug output what is going wrong.
-* The cache at `~/.emscripten` requires to set `HOME=$TMPDIR` in individual phases.
+* Use `export EMCC_DEBUG=2` from within a phase to get more detailed debug output about what is going wrong.
+* The cache at `~/.emscripten` requires setting `HOME=$TMPDIR` in individual phases.
   This makes compilation slower but also more deterministic.
 
 ::: {.example #usage-1-pkgs.zlib.override}
