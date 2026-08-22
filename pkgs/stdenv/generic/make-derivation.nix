@@ -199,6 +199,11 @@ let
   inherit (import ../../build-support/lib/cmake.nix { inherit lib stdenv; }) makeCMakeFlags;
   inherit (import ../../build-support/lib/meson.nix { inherit lib stdenv; }) makeMesonFlags;
 
+  # PERF: when compiling natively, makeCMakeFlags/makeMesonFlags only append
+  # per-stdenv constants that are empty; mkDerivation uses this to skip the
+  # function application and list concatenation entirely.
+  nativeCompilation = hostPlatform == buildPlatform;
+
   # Nix itself uses the `system` field of a derivation to decide where
   # to build it. This is a bit confusing for cross compilation.
   commonMeta = checkMeta.commonMeta hostPlatform;
@@ -538,14 +543,24 @@ let
       let
         doCheck = doCheck';
         doInstallCheck = doInstallCheck';
+        # PERF: when none of the optional pieces contribute anything, share
+        # the caller's list instead of allocating a concatenation.
         buildInputs' =
-          buildInputs ++ optionals doCheck checkInputs ++ optionals doInstallCheck installCheckInputs;
+          if doCheck || doInstallCheck then
+            buildInputs
+            ++ optionals doCheck checkInputs
+            ++ optionals doInstallCheck installCheckInputs
+          else
+            buildInputs;
         nativeBuildInputs' =
-          nativeBuildInputs
-          ++ optional separateDebugInfo' ../../build-support/setup-hooks/separate-debug-info.sh
-          ++ optional isWindows ../../build-support/setup-hooks/win-dll-link.sh
-          ++ optionals doCheck nativeCheckInputs
-          ++ optionals doInstallCheck nativeInstallCheckInputs;
+          if separateDebugInfo' || isWindows || doCheck || doInstallCheck then
+            nativeBuildInputs
+            ++ optional separateDebugInfo' ../../build-support/setup-hooks/separate-debug-info.sh
+            ++ optional isWindows ../../build-support/setup-hooks/win-dll-link.sh
+            ++ optionals doCheck nativeCheckInputs
+            ++ optionals doInstallCheck nativeInstallCheckInputs
+          else
+            nativeBuildInputs;
 
         outputs = outputs';
 
@@ -730,15 +745,21 @@ let
           depsTargetTargetPropagated = propagatedTargetTargetOutputs;
 
           configureFlags =
-            configureFlags
-            ++ (
-              if configurePlatforms == defaultConfigurePlatforms then
-                defaultConfigurePlatformsFlags
-              else
-                optional (elem "build" configurePlatforms) buildPlatformConfigureFlag
-                ++ optional (elem "host" configurePlatforms) hostPlatformConfigureFlag
-                ++ optional (elem "target" configurePlatforms) targetPlatformConfigureFlag
-            );
+            # PERF: common case (no user flags, default platforms) needs no
+            # fresh list; `defaultConfigurePlatformsFlags` is already exactly
+            # what the concatenation below would produce.
+            if configurePlatforms == defaultConfigurePlatforms && configureFlags == [ ] then
+              defaultConfigurePlatformsFlags
+            else
+              configureFlags
+              ++ (
+                if configurePlatforms == defaultConfigurePlatforms then
+                  defaultConfigurePlatformsFlags
+                else
+                  optional (elem "build" configurePlatforms) buildPlatformConfigureFlag
+                  ++ optional (elem "host" configurePlatforms) hostPlatformConfigureFlag
+                  ++ optional (elem "target" configurePlatforms) targetPlatformConfigureFlag
+              );
 
           inherit patches;
 
@@ -785,7 +806,11 @@ let
           # Enabling this check could be a breaking change as it requires to edit nix.conf
           # NixOS module already sets gccarch, unsure of nix installers and other distributions
           ${if requiredSystemFeaturesShouldBeSet then "requiredSystemFeatures" else null} =
-            attrs.requiredSystemFeatures or [ ] ++ gccArchFeature;
+            # PERF: avoid the concatenation when the user list is absent.
+            if attrs ? requiredSystemFeatures then
+              attrs.requiredSystemFeatures ++ gccArchFeature
+            else
+              gccArchFeature;
 
           # -- Darwin-specific attrs --
           ${if buildIsDarwin then "__darwinAllowLocalNetworking" else null} = __darwinAllowLocalNetworking;
@@ -967,8 +992,20 @@ let
         removeAttrs attrs argumentAttrsToRemove
         // {
           ${if __structuredAttrs then "env" else null} = checkedEnv;
-          cmakeFlags = makeCMakeFlags attrs;
-          mesonFlags = makeMesonFlags attrs;
+          # PERF: on the native path the flag hooks only concatenate an empty
+          # per-stdenv constant; inline that to skip two function calls and
+          # two list concatenations per package. The `++ [ ]` keeps the
+          # not-a-list error for bogus values (e.g. `cmakeFlags = null`).
+          cmakeFlags =
+            if nativeCompilation then
+              if attrs ? cmakeFlags then attrs.cmakeFlags ++ [ ] else [ ]
+            else
+              makeCMakeFlags attrs;
+          mesonFlags =
+            if nativeCompilation then
+              if attrs ? mesonFlags then attrs.mesonFlags ++ [ ] else [ ]
+            else
+              makeMesonFlags attrs;
         }
       );
 
@@ -1068,7 +1105,17 @@ let
         # should be made available to Nix expressions using the
         # derivation (e.g., in assertions).
         passthru
-    ) (derivation (derivationArg // checkedEnv));
+    ) (
+      # PERF: without `env` there is nothing to merge; skip both the full
+      # copy of `derivationArg` in `derivationArg // checkedEnv` and the
+      # checkedEnv computation itself. The size-only comparison cannot
+      # change observable behavior: an empty merge is the identity, and any
+      # non-attrset or non-empty `env` takes the original path below.
+      if env' == { } then
+        derivation derivationArg
+      else
+        derivation (derivationArg // checkedEnv)
+    );
 
 in
 {
