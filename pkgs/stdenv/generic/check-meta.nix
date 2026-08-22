@@ -138,7 +138,7 @@ let
         false
       else
         # on a list, check if any of the licenses weren't free (boolean AND)
-        any (l: !l.free or false) licenses;
+        any notFreeLicense licenses;
 
   isMarkedBroken = attrs: attrs.meta.broken or false;
 
@@ -237,7 +237,7 @@ let
   hasDeniedNonSourceProvenance =
     attrs:
     attrs ? meta.sourceProvenance
-    && any (t: !t.isSource) attrs.meta.sourceProvenance
+    && any notSource attrs.meta.sourceProvenance
     && !allowNonSourcePredicate attrs;
 
   showLicenseOrSourceType =
@@ -787,6 +787,12 @@ let
             inherit (problems) error warnings;
           };
         };
+
+  # Shared predicate closures for the per-package scans above. Defining them
+  # here (after everything else, keeping every earlier line in place) avoids
+  # allocating a fresh lambda on each package's license/provenance check.
+  notFreeLicense = l: !l.free or false;
+  notSource = t: !t.isSource;
 
 in
 {
