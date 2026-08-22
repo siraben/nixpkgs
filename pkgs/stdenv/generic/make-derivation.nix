@@ -361,6 +361,12 @@ let
 
   canExecuteHostOnBuild = buildPlatform.canExecute hostPlatform;
   defaultHardeningFlags = stdenv.cc.defaultHardeningFlags or knownHardeningFlags;
+
+  # PERF: With no `hardeningEnable`/`hardeningDisable`, every package resolves
+  # `NIX_HARDENING_ENABLE` to the same string; compute it once per stdenv
+  # instead of filtering and joining the flag list for every derivation.
+  defaultHardeningEnableString = concatStringsSep " " defaultHardeningFlags;
+
   hostSuffixNecessary = hostPlatform != buildPlatform && stdenvHasCC;
   stdenvHostSuffix = "-${hostPlatform.config}";
   stdenvStaticMarker = optionalString isStatic "-static";
@@ -662,7 +668,32 @@ let
           propagatedTargetTargetOutputs
         ];
 
-        derivationArg = removeAttrs attrs removedOrReplacedAttrNames // {
+        # PERF: `removeAttrs` allocates a fresh copy of the set even when it
+        # removes nothing; most packages set none of these attributes.
+        derivationArg =
+          (
+            if
+              !(attrs ? checkInputs)
+              && !(attrs ? installCheckInputs)
+              && !(attrs ? nativeCheckInputs)
+              && !(attrs ? nativeInstallCheckInputs)
+              && !(attrs ? __contentAddressed)
+              && !(attrs ? __darwinAllowLocalNetworking)
+              && !(attrs ? __impureHostDeps)
+              && !(attrs ? __propagatedImpureHostDeps)
+              && !(attrs ? sandboxProfile)
+              && !(attrs ? propagatedSandboxProfile)
+              && !(attrs ? disallowedReferences)
+              && !(attrs ? disallowedRequisites)
+              && !(attrs ? allowedReferences)
+              && !(attrs ? allowedRequisites)
+              && !(attrs ? allowedImpureDLLs)
+            then
+              attrs
+            else
+              removeAttrs attrs removedOrReplacedAttrNames
+          )
+          // {
           ${if (attrs ? name || (attrs ? pname && attrs ? version)) then "name" else null} =
             let
               # Indicate the host platform of the derivation if cross compiling.
@@ -745,21 +776,22 @@ let
           depsTargetTargetPropagated = propagatedTargetTargetOutputs;
 
           configureFlags =
-            # PERF: common case (no user flags, default platforms) needs no
-            # fresh list; `defaultConfigurePlatformsFlags` is already exactly
-            # what the concatenation below would produce.
-            if configurePlatforms == defaultConfigurePlatforms && configureFlags == [ ] then
-              defaultConfigurePlatformsFlags
-            else
-              configureFlags
-              ++ (
+            let
+              extraConfigureFlags =
                 if configurePlatforms == defaultConfigurePlatforms then
                   defaultConfigurePlatformsFlags
                 else
                   optional (elem "build" configurePlatforms) buildPlatformConfigureFlag
                   ++ optional (elem "host" configurePlatforms) hostPlatformConfigureFlag
-                  ++ optional (elem "target" configurePlatforms) targetPlatformConfigureFlag
-              );
+                  ++ optional (elem "target" configurePlatforms) targetPlatformConfigureFlag;
+            in
+            # PERF: avoid the `++` allocation when either side is empty.
+            if extraConfigureFlags == [ ] then
+              configureFlags
+            else if configureFlags == [ ] then
+              extraConfigureFlags
+            else
+              configureFlags ++ extraConfigureFlags;
 
           inherit patches;
 
@@ -786,27 +818,32 @@ let
             else
               null
           } =
-            concatStringsSep " " (
-              if elem "all" hardeningDisable then
-                [ ]
-              else
-                filter (
-                  flag:
-                  !(elem flag hardeningDisable)
-                  # disabling fortify implies fortify3 should also be disabled
-                  && (flag == "fortify3" -> !elem "fortify" hardeningDisable)
-                  # disabling strictflexarrays1 implies strictflexarrays3 should also be disabled
-                  && (flag == "strictflexarrays3" -> !elem "strictflexarrays1" hardeningDisable)
-                  # disabling libcxxhardeningfast implies libcxxhardeningextensive should also be disabled
-                  && (flag == "libcxxhardeningextensive" -> !elem "libcxxhardeningfast" hardeningDisable)
-                ) (defaultHardeningFlags ++ hardeningEnable)
-            );
+            # PERF: With no explicit hardening configuration this is the same
+            # string for every package on this stdenv; reuse the shared one.
+            if hardeningDisable == [ ] && hardeningEnable == [ ] then
+              defaultHardeningEnableString
+            else
+              concatStringsSep " " (
+                if elem "all" hardeningDisable then
+                  [ ]
+                else
+                  filter (
+                    flag:
+                    !(elem flag hardeningDisable)
+                    # disabling fortify implies fortify3 should also be disabled
+                    && (flag == "fortify3" -> !elem "fortify" hardeningDisable)
+                    # disabling strictflexarrays1 implies strictflexarrays3 should also be disabled
+                    && (flag == "strictflexarrays3" -> !elem "strictflexarrays1" hardeningDisable)
+                    # disabling libcxxhardeningfast implies libcxxhardeningextensive should also be disabled
+                    && (flag == "libcxxhardeningextensive" -> !elem "libcxxhardeningfast" hardeningDisable)
+                  ) (defaultHardeningFlags ++ hardeningEnable)
+              );
 
           # TODO: remove platform condition
           # Enabling this check could be a breaking change as it requires to edit nix.conf
           # NixOS module already sets gccarch, unsure of nix installers and other distributions
           ${if requiredSystemFeaturesShouldBeSet then "requiredSystemFeatures" else null} =
-            # PERF: avoid the concatenation when the user list is absent.
+            # PERF: avoid the `++` allocation when the attribute is absent.
             if attrs ? requiredSystemFeatures then
               attrs.requiredSystemFeatures ++ gccArchFeature
             else
@@ -985,8 +1022,17 @@ let
       );
 
     let
+      envHasMainProgram = attrs ? meta.mainProgram;
+
+      # PERF: When the caller passed no `env` argument and there is no
+      # `meta.mainProgram`, `env'` is empty and therefore `checkedEnv` is
+      # exactly `{ }`: every assertion below holds vacuously and mapping over
+      # the empty set yields the empty set. Skip that machinery entirely, and
+      # also skip merging it into the derivation arguments.
+      envEmpty = !(attrs ? env) && !envHasMainProgram;
+
       env' =
-        if attrs ? meta.mainProgram then env // { NIX_MAIN_PROGRAM = attrs.meta.mainProgram; } else env;
+        if envHasMainProgram then env // { NIX_MAIN_PROGRAM = attrs.meta.mainProgram; } else env;
 
       derivationArg = makeDerivationArgument (
         removeAttrs attrs argumentAttrsToRemove
@@ -1020,9 +1066,12 @@ let
       validity = assertValidity { inherit meta attrs; };
 
       checkedEnv =
-        let
-          overlappingArgs = intersectAttrs env' derivationArg;
-        in
+        if envEmpty then
+          { }
+        else
+          let
+            overlappingArgs = intersectAttrs env' derivationArg;
+          in
         assert
           (isAttrs env && !isDerivation env)
           || throw "`env` must be an attribute set of environment variables. Set `env.env` or pick a more specific name.";
