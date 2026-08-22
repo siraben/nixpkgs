@@ -2,53 +2,156 @@
 
 with lib;
 let
-  mergeFalseByDefault =
-    locs: defs:
-    if defs == [ ] then
-      abort "This case should never happen."
-    else if elem false (getValues defs) then
-      false
-    else
-      true;
+  # A single structured kernel configuration item: an attribute set with the
+  # (all optional) members `tristate`, `freeform` and `optional`.
+  #
+  # This is deliberately *not* a `types.submodule`: kernel configurations
+  # contain hundreds of items and every kernel in nixpkgs evaluates its own
+  # configuration, so the submodule used to instantiate the whole module
+  # system once per item per kernel (~700 nested evalModules calls per
+  # kernel attribute). The type below computes the identical merged value —
+  # same member defaults, same conflict errors, and the same handling of
+  # mkIf/mkMerge/mkOverride/mkOrder, which it mirrors from
+  # `lib.modules.mergeDefinitions` — without any nested module evaluation.
+  # Behaviour is pinned by pkgs/test/kernel.nix.
+  kernelItem =
+    let
+      knownKeys = [
+        "tristate"
+        "freeform"
+        "optional"
+      ];
 
-  kernelItem = types.submodule {
-    options = {
-      tristate = mkOption {
-        type = types.enum [
-          "y"
-          "m"
-          "n"
-          null
-        ];
-        default = null;
-        internal = true;
-        visible = true;
-        description = ''
-          Use this field for tristate kernel options expecting a "y" or "m" or "n".
-        '';
-      };
+      tristateType = types.enum [
+        "y"
+        "m"
+        "n"
+        null
+      ];
+      freeformType = types.nullOr types.str;
 
-      freeform = mkOption {
-        type = types.nullOr types.str;
-        default = null;
-        example = ''MMC_BLOCK_MINORS.freeform = "32";'';
-        description = ''
-          Freeform description of a kernel configuration item value.
-        '';
-      };
+      # Local equivalents of the module system's per-definition processing
+      # (`lib.modules.dischargeProperties`, `filterOverrides'` and
+      # `sortProperties`, which are deprecated for external use). These mirror
+      # their behaviour exactly for the property wrappers that can occur in
+      # configuration items: mkIf, mkMerge, mkOverride, mkOrder.
+      discharge =
+        value:
+        if value._type or "" == "merge" then
+          concatMap discharge value.contents
+        else if value._type or "" == "if" then
+          if isBool value.condition then
+            if value.condition then discharge value.content else [ ]
+          else
+            throw "‘mkIf’ called with a non-Boolean condition"
+        else
+          [ value ];
 
-      optional = mkOption {
-        type = types.bool // {
-          merge = mergeFalseByDefault;
-        };
-        default = false;
-        description = ''
-          Whether option should generate a failure when unused.
-          Upon merging values, mandatory wins over optional.
-        '';
-      };
+      filterOverrides =
+        defs:
+        let
+          getPrio = def: if def.value._type or "" == "override" then def.value.priority else 100;
+          strip =
+            def:
+            if def.value._type or "" == "override" then
+              def // { value = def.value.content; }
+            else
+              def;
+        in
+        if length defs == 1 then
+          map strip defs
+        else
+          let
+            highestPrio = foldl' (prio: def: min (getPrio def) prio) 9999 defs;
+          in
+          filter (def: getPrio def == highestPrio) defs;
+
+      sortByOrder =
+        defs:
+        let
+          strip =
+            def:
+            if def.value._type or "" == "order" then
+              def
+              // {
+                value = def.value.content;
+                inherit (def.value) priority;
+              }
+            else
+              def;
+        in
+        sort (a: b: (a.priority or 1000) < (b.priority or 1000)) (map strip defs);
+
+      # Process the definitions of one member the way the module system
+      # processes option definitions before calling the type's merge:
+      # discharge mkIf/mkMerge wrappers, drop lower-priority mkOverride
+      # definitions, then apply mkOrder.
+      processMember =
+        key: defs:
+        let
+          discharged = concatMap (
+            def:
+            map (value: {
+              inherit (def) file;
+              inherit value;
+            }) (discharge def.value.${key})
+          ) (filter (def: def.value ? ${key}) defs);
+          filtered = filterOverrides discharged;
+        in
+        if any (def: def.value._type or "" == "order") filtered then
+          sortByOrder filtered
+        else
+          filtered;
+    in
+    types.mkOptionType {
+      name = "kernelConfigItem";
+      description = "kernel configuration item";
+      descriptionClass = "noun";
+      # Validation happens in `merge`, after the per-definition processing
+      # above has unwrapped property values; `check` only guards the root so
+      # that non-attribute-set definitions produce a sane error message.
+      check = isAttrs;
+      merge =
+        loc: defs:
+        let
+          result = {
+            tristate =
+              let
+                memberDefs = processMember "tristate" defs;
+              in
+              if memberDefs == [ ] then null else tristateType.merge (loc ++ [ "tristate" ]) memberDefs;
+            freeform =
+              let
+                memberDefs = processMember "freeform" defs;
+              in
+              if memberDefs == [ ] then null else freeformType.merge (loc ++ [ "freeform" ]) memberDefs;
+            optional =
+              let
+                vals = map (def: def.value) (processMember "optional" defs);
+              in
+              if vals == [ ] then false else !elem false vals;
+          };
+        in
+        # Reject unknown members and non-attribute-set items with the same
+        # strictness as the module system's `_module.check`.
+        seq (
+          foldl' (
+            acc: def:
+            if !isAttrs def.value then
+              throw
+                "The definition of `${showOption loc}' is not a kernel configuration item (attribute set), but a value of type `${builtins.typeOf def.value}'"
+            else
+              let
+                extra = subtractLists knownKeys (attrNames def.value);
+              in
+              if extra != [ ] then
+                throw
+                  "The kernel configuration item `${showOption loc}' does not support the option${if length extra > 1 then "s" else ""} ${concatStringsSep ", " (map (k: "`${k}'") extra)}"
+              else
+                acc
+          ) 0 defs
+        ) result;
     };
-  };
 
   mkValue =
     with lib;
