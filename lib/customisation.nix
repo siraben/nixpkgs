@@ -314,12 +314,19 @@ rec {
       # This includes automatic ones and ones passed explicitly
       allArgs = intersectAttrs fargs autoArgs // args;
 
+      # PERF: check that every declared argument is either passed or has a
+      # default without materializing `removeAttrs fargs (attrNames allArgs)`
+      # plus its `attrNames`/`attrValues` lists on the happy path. The error
+      # branch below recomputes `unpassedArgs` lazily to build exactly the
+      # same message as before.
+      allPassed = all (arg: allArgs ? ${arg} || fargs.${arg}) (attrNames fargs);
+
       # arguments that weren't passed automatically to the function
       unpassedArgs = removeAttrs fargs (attrNames allArgs);
 
     in
-    # if nonempty, check if the function has defaults for those other args
-    if unpassedArgs == { } || all (value: value) (attrValues unpassedArgs) then
+    # if any declared argument is neither passed nor defaulted, error out
+    if allPassed then
       makeOverridable f allArgs
     else
       # Only show the error for the first missing argument
