@@ -1,5 +1,5 @@
 let
-  autoCalledPackages = import ./by-name-overlay.nix ../os-specific/darwin/by-name;
+  autoCalledPackages = import ./darwin-by-name-overlay.nix;
 in
 
 {
