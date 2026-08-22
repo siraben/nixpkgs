@@ -109,9 +109,20 @@ let
   stdenvBootstappingAndPlatforms =
     self: super:
     let
+      # When there are no adjacent packages, every fallback would be the same
+      # `self // { ... }`. Compute that shared set once instead of once per
+      # attribute: `//` copies the whole ~28k-entry binding table each time.
+      selfFallback =
+        if adjacentPackages == null then
+          self // { recurseForDerivations = false; }
+        else
+          null;
       withFallback =
         thisPkgs:
-        (if adjacentPackages == null then self else thisPkgs) // { recurseForDerivations = false; };
+        if adjacentPackages == null then
+          selfFallback
+        else
+          thisPkgs // { recurseForDerivations = false; };
     in
     {
       # Here are package sets of from related stages. They are all in the form
@@ -125,9 +136,12 @@ let
       pkgsBuildHost = withFallback adjacentPackages.pkgsBuildHost;
       pkgsBuildTarget = withFallback adjacentPackages.pkgsBuildTarget;
       pkgsHostHost = withFallback adjacentPackages.pkgsHostHost;
-      pkgsHostTarget = self // {
-        recurseForDerivations = false;
-      }; # always `self`
+      pkgsHostTarget =
+        # always `self`
+        if adjacentPackages == null then
+          selfFallback
+        else
+          self // { recurseForDerivations = false; };
       pkgsTargetTarget = withFallback adjacentPackages.pkgsTargetTarget;
 
       # Older names for package sets. Use these when only the host platform of the
