@@ -400,6 +400,61 @@ rec {
   extendDerivation =
     condition: passthru: drv:
     let
+      # PERF: the overwhelming majority of derivations have no `outputs`
+      # attribute or exactly the default `[ "out" ]`. For those, build the
+      # single output entry and `all` directly instead of going through the
+      # generic `map` / `++` / `catAttrs` / `listToAttrs` machinery, and
+      # merge the remaining small overlays into each other first so that
+      # the large derivation attrset is copied by a single full merge.
+      # An *explicit* `outputs = null` still takes the generic path (and
+      # its failure), matching the previous `drv.outputs or [ "out" ]`
+      # behavior, which only defaulted on a missing attribute.
+      commonAttrs =
+        # PERF: dispatch inline so the common case adds no let-bindings.
+        if !(drv ? outputs) || drv.outputs == [ "out" ] then
+          drv
+          # Same merge precedence as the generic path below: `passthru`
+          # shadows the synthesized `out`/`all` entries, and the asserted
+          # `drvPath`/`outPath` shadow everything.
+          // (
+            {
+              out = singleOutput;
+              all = [ singleOutput ];
+            }
+            // passthru
+          )
+          // {
+            drvPath =
+              assert condition;
+              drv.drvPath;
+            outPath =
+              assert condition;
+              drv.outPath;
+          }
+        else
+          drv // overlay;
+
+      # The output entry of the default-output fast path above: exactly
+      # what the generic path's `outputsList` builds for the output `"out"`.
+      singleOutput =
+        commonAttrs
+        // {
+          inherit (drv.out) type outputName;
+          outputSpecified = true;
+          drvPath =
+            assert condition;
+            drv.out.drvPath;
+          outPath =
+            assert condition;
+            drv.out.outPath;
+          # TODO: give the derivation control over the outputs.
+          #       `overrideAttrs` may not be the only attribute that needs
+          #       updating when switching outputs.
+          # TODO: also add overrideAttrs when overrideAttrs is not custom, e.g. when not splicing.
+          ${if passthru ? overrideAttrs then "overrideAttrs" else null} =
+            f: (passthru.overrideAttrs f).out;
+        };
+
       # Everything layered on top of `drv`, built as one small overlay set.
       # `//` is associative, so this is exactly the previous
       # `drv // listToAttrs (...) // passthru // { ... }` chain — but the
@@ -424,8 +479,6 @@ rec {
             assert condition;
             drv.outPath;
         };
-
-      commonAttrs = drv // overlay;
 
       outputsList = map (outputName: {
         name = outputName;
