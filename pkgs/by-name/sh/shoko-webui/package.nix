@@ -53,7 +53,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateSript = nix-update-script {
+  passthru.updateScript = nix-update-script {
     extraArgs = [
       "--version-regex"
       ''v([0-9]+\.[0-9]+\.[0-9]+).*''

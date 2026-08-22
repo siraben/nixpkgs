@@ -62,7 +62,7 @@ let
 
     dependencies = [ numpy ];
 
-    passthru.optional-depdendencies = {
+    passthru.optional-dependencies = {
       bokeh = [
         bokeh
         chromedriver
