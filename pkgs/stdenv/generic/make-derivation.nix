@@ -133,7 +133,16 @@ let
     ./default-builder.sh
   ];
 
-  isSingularDependency = dep: dep == null || isDerivation dep || isString dep || isPath dep;
+  # PERF: dependencies are overwhelmingly derivations; testing `isDerivation`
+  # first short-circuits the common case after one primop call.
+  isSingularDependency = dep: isDerivation dep || dep == null || isString dep || isPath dep;
+
+  # PERF: shared immutable empty containers. Pattern defaults and empty-list
+  # fast paths below refer to these bindings so each package does not allocate
+  # its own empty list/attrset; sharing is unobservable because Nix values are
+  # immutable.
+  emptyList = [ ];
+  emptyAttrs = { };
 
   cachedOutputChecks = {
     out = { };
@@ -385,6 +394,16 @@ let
     );
   gccArchFeature = [ "gccarch-${buildPlatform.gcc.arch}" ];
 
+  # PERF: shared per-stdenv mapping steps for the dependency lists. Hoisting
+  # the lambdas here means one closure each per stdenv instead of a fresh
+  # lambda allocation per package (and per forced list).
+  mapDevBuildBuild = map (drv: getDev drv.__spliced.buildBuild or drv);
+  mapDevBuildHost = map (drv: getDev drv.__spliced.buildHost or drv);
+  mapDevBuildTarget = map (drv: getDev drv.__spliced.buildTarget or drv);
+  mapDevHostHost = map (drv: getDev drv.__spliced.hostHost or drv);
+  mapDevHostTarget = map (drv: getDev drv.__spliced.hostTarget or drv);
+  mapDevTargetTarget = map (drv: getDev drv.__spliced.targetTarget or drv);
+
   makeDerivationArgument =
 
     # `makeDerivationArgument` is responsible for the `mkDerivation` arguments that
@@ -407,28 +426,28 @@ let
       # TODO(@Ericson2314): Stop using legacy dep attribute names
 
       #                                 host offset -> target offset
-      depsBuildBuild ? [ ], # -1 -> -1
-      depsBuildBuildPropagated ? [ ], # -1 -> -1
-      nativeBuildInputs ? [ ], # -1 ->  0  N.B. Legacy name
-      propagatedNativeBuildInputs ? [ ], # -1 ->  0  N.B. Legacy name
-      depsBuildTarget ? [ ], # -1 ->  1
-      depsBuildTargetPropagated ? [ ], # -1 ->  1
+      depsBuildBuild ? emptyList, # -1 -> -1
+      depsBuildBuildPropagated ? emptyList, # -1 -> -1
+      nativeBuildInputs ? emptyList, # -1 ->  0  N.B. Legacy name
+      propagatedNativeBuildInputs ? emptyList, # -1 ->  0  N.B. Legacy name
+      depsBuildTarget ? emptyList, # -1 ->  1
+      depsBuildTargetPropagated ? emptyList, # -1 ->  1
 
-      depsHostHost ? [ ], # 0 ->  0
-      depsHostHostPropagated ? [ ], # 0 ->  0
-      buildInputs ? [ ], # 0 ->  1  N.B. Legacy name
-      propagatedBuildInputs ? [ ], # 0 ->  1  N.B. Legacy name
+      depsHostHost ? emptyList, # 0 ->  0
+      depsHostHostPropagated ? emptyList, # 0 ->  0
+      buildInputs ? emptyList, # 0 ->  1  N.B. Legacy name
+      propagatedBuildInputs ? emptyList, # 0 ->  1  N.B. Legacy name
 
-      depsTargetTarget ? [ ], # 1 ->  1
-      depsTargetTargetPropagated ? [ ], # 1 ->  1
+      depsTargetTarget ? emptyList, # 1 ->  1
+      depsTargetTargetPropagated ? emptyList, # 1 ->  1
 
-      checkInputs ? [ ],
-      installCheckInputs ? [ ],
-      nativeCheckInputs ? [ ],
-      nativeInstallCheckInputs ? [ ],
+      checkInputs ? emptyList,
+      installCheckInputs ? emptyList,
+      nativeCheckInputs ? emptyList,
+      nativeInstallCheckInputs ? emptyList,
 
       # Configure Phase
-      configureFlags ? [ ],
+      configureFlags ? emptyList,
       configurePlatforms ? defaultConfigurePlatforms,
 
       # TODO(@Ericson2314): Make unconditional / resolve #33599
@@ -447,17 +466,17 @@ let
       separateDebugInfo ? false,
       outputs ? [ "out" ],
       __darwinAllowLocalNetworking ? false,
-      __impureHostDeps ? [ ],
-      __propagatedImpureHostDeps ? [ ],
+      __impureHostDeps ? emptyList,
+      __propagatedImpureHostDeps ? emptyList,
       sandboxProfile ? "",
       propagatedSandboxProfile ? "",
 
-      allowedImpureDLLs ? [ ],
+      allowedImpureDLLs ? emptyList,
 
-      hardeningEnable ? [ ],
-      hardeningDisable ? [ ],
+      hardeningEnable ? emptyList,
+      hardeningDisable ? emptyList,
 
-      patches ? [ ],
+      patches ? emptyList,
 
       __contentAddressed ?
         (!attrs ? outputHash) # Fixed-output drvs can't be content addressed too
@@ -496,7 +515,7 @@ let
           actualValue;
       outputs' = if separateDebugInfo' then outputs ++ [ "debug" ] else outputs;
 
-      checkDependencyList = checkDependencyList' [ ];
+      checkDependencyList = checkDependencyList' emptyList;
       checkDependencyList' =
         positions: name: deps:
         if all isSingularDependency deps then
@@ -570,44 +589,39 @@ let
 
         outputs = outputs';
 
+        # PERF: the empty fast paths return the (empty) input list itself
+        # instead of allocating a fresh `[ ]`, and reuse the hoisted per-stdenv
+        # mapping steps instead of allocating a lambda per package.
         buildBuildOutputs =
-          if depsBuildBuild == [ ] then
-            [ ]
+          if depsBuildBuild == emptyList then
+            depsBuildBuild
           else
-            map (drv: getDev drv.__spliced.buildBuild or drv) (
-              checkDependencyList "depsBuildBuild" depsBuildBuild
-            );
+            mapDevBuildBuild (checkDependencyList "depsBuildBuild" depsBuildBuild);
         buildHostOutputs =
-          if nativeBuildInputs' == [ ] then
-            [ ]
+          if nativeBuildInputs' == emptyList then
+            nativeBuildInputs'
           else
-            map (drv: getDev drv.__spliced.buildHost or drv) (
-              checkDependencyList "nativeBuildInputs" nativeBuildInputs'
-            );
+            mapDevBuildHost (checkDependencyList "nativeBuildInputs" nativeBuildInputs');
         buildTargetOutputs =
-          if depsBuildTarget == [ ] then
-            [ ]
+          if depsBuildTarget == emptyList then
+            depsBuildTarget
           else
-            map (drv: getDev drv.__spliced.buildTarget or drv) (
-              checkDependencyList "depsBuildTarget" depsBuildTarget
-            );
+            mapDevBuildTarget (checkDependencyList "depsBuildTarget" depsBuildTarget);
         hostHostOutputs =
-          if depsHostHost == [ ] then
-            [ ]
+          if depsHostHost == emptyList then
+            depsHostHost
           else
-            map (drv: getDev drv.__spliced.hostHost or drv) (checkDependencyList "depsHostHost" depsHostHost);
+            mapDevHostHost (checkDependencyList "depsHostHost" depsHostHost);
         hostTargetOutputs =
-          if buildInputs' == [ ] then
-            [ ]
+          if buildInputs' == emptyList then
+            buildInputs'
           else
-            map (drv: getDev drv.__spliced.hostTarget or drv) (checkDependencyList "buildInputs" buildInputs');
+            mapDevHostTarget (checkDependencyList "buildInputs" buildInputs');
         targetTargetOutputs =
-          if depsTargetTarget == [ ] then
-            [ ]
+          if depsTargetTarget == emptyList then
+            depsTargetTarget
           else
-            map (drv: getDev drv.__spliced.targetTarget or drv) (
-              checkDependencyList "depsTargetTarget" depsTargetTarget
-            );
+            mapDevTargetTarget (checkDependencyList "depsTargetTarget" depsTargetTarget);
         allDependencies = concatLists [
           buildBuildOutputs
           buildHostOutputs
@@ -618,47 +632,35 @@ let
         ];
 
         propagatedBuildBuildOutputs =
-          if depsBuildBuildPropagated == [ ] then
-            [ ]
+          if depsBuildBuildPropagated == emptyList then
+            depsBuildBuildPropagated
           else
-            map (drv: getDev drv.__spliced.buildBuild or drv) (
-              checkDependencyList "depsBuildBuildPropagated" depsBuildBuildPropagated
-            );
+            mapDevBuildBuild (checkDependencyList "depsBuildBuildPropagated" depsBuildBuildPropagated);
         propagatedBuildHostOutputs =
-          if propagatedNativeBuildInputs == [ ] then
-            [ ]
+          if propagatedNativeBuildInputs == emptyList then
+            propagatedNativeBuildInputs
           else
-            map (drv: getDev drv.__spliced.buildHost or drv) (
-              checkDependencyList "propagatedNativeBuildInputs" propagatedNativeBuildInputs
-            );
+            mapDevBuildHost (checkDependencyList "propagatedNativeBuildInputs" propagatedNativeBuildInputs);
         propagatedBuildTargetOutputs =
-          if depsBuildTargetPropagated == [ ] then
-            [ ]
+          if depsBuildTargetPropagated == emptyList then
+            depsBuildTargetPropagated
           else
-            map (drv: getDev drv.__spliced.buildTarget or drv) (
-              checkDependencyList "depsBuildTargetPropagated" depsBuildTargetPropagated
-            );
+            mapDevBuildTarget (checkDependencyList "depsBuildTargetPropagated" depsBuildTargetPropagated);
         propagatedHostHostOutputs =
-          if depsHostHostPropagated == [ ] then
-            [ ]
+          if depsHostHostPropagated == emptyList then
+            depsHostHostPropagated
           else
-            map (drv: getDev drv.__spliced.hostHost or drv) (
-              checkDependencyList "depsHostHostPropagated" depsHostHostPropagated
-            );
+            mapDevHostHost (checkDependencyList "depsHostHostPropagated" depsHostHostPropagated);
         propagatedHostTargetOutputs =
-          if propagatedBuildInputs == [ ] then
-            [ ]
+          if propagatedBuildInputs == emptyList then
+            propagatedBuildInputs
           else
-            map (drv: getDev drv.__spliced.hostTarget or drv) (
-              checkDependencyList "propagatedBuildInputs" propagatedBuildInputs
-            );
+            mapDevHostTarget (checkDependencyList "propagatedBuildInputs" propagatedBuildInputs);
         propagatedTargetTargetOutputs =
-          if depsTargetTargetPropagated == [ ] then
-            [ ]
+          if depsTargetTargetPropagated == emptyList then
+            depsTargetTargetPropagated
           else
-            map (drv: getDev drv.__spliced.targetTarget or drv) (
-              checkDependencyList "depsTargetTargetPropagated" depsTargetTargetPropagated
-            );
+            mapDevTargetTarget (checkDependencyList "depsTargetTargetPropagated" depsTargetTargetPropagated);
         allPropagatedDependencies = concatLists [
           propagatedBuildBuildOutputs
           propagatedBuildHostOutputs
@@ -706,14 +708,14 @@ let
                 && (
                   !(attrs ? outputHash)
                   ||
-                    depsBuildTarget == [ ]
-                    && depsBuildTargetPropagated == [ ]
-                    && depsHostHost == [ ]
-                    && depsHostHostPropagated == [ ]
-                    && buildInputs == [ ]
-                    && propagatedBuildInputs == [ ]
-                    && depsTargetTarget == [ ]
-                    && depsTargetTargetPropagated == [ ]
+                    depsBuildTarget == emptyList
+                    && depsBuildTargetPropagated == emptyList
+                    && depsHostHost == emptyList
+                    && depsHostHostPropagated == emptyList
+                    && buildInputs == emptyList
+                    && propagatedBuildInputs == emptyList
+                    && depsTargetTarget == emptyList
+                    && depsTargetTargetPropagated == emptyList
 
                 )
               ) stdenvHostSuffix;
@@ -813,7 +815,7 @@ let
             attrs.enableParallelInstalling or true;
 
           ${
-            if (hardeningDisable != [ ] || hardeningEnable != [ ] || isMusl) then
+            if (hardeningDisable != emptyList || hardeningEnable != emptyList || isMusl) then
               "NIX_HARDENING_ENABLE"
             else
               null
@@ -987,11 +989,11 @@ let
     {
 
       # Configure Phase
-      cmakeFlags ? [ ],
-      mesonFlags ? [ ],
+      cmakeFlags ? emptyList,
+      mesonFlags ? emptyList,
 
-      meta ? { },
-      passthru ? { },
+      meta ? emptyAttrs,
+      passthru ? emptyAttrs,
       pos ? # position used in error messages and for meta.position
         (
           if attrs.meta.description or null != null then
@@ -1006,7 +1008,7 @@ let
       # but for anything complex, be prepared to debug if enabling.
       __structuredAttrs ? structuredAttrsByDefault,
 
-      env ? { },
+      env ? emptyAttrs,
 
       ...
     }@attrs:
