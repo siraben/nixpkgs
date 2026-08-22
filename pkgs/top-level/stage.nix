@@ -12,10 +12,11 @@
 
 let
   # An overlay to auto-call packages in ../by-name.
-  # By defining it at the top of the file,
-  # this value gets reused even if this file is imported multiple times,
-  # thanks to Nix's import-value cache.
-  autoCalledPackages = import ./by-name-overlay.nix ../by-name;
+  # By importing it without arguments at the top of the file,
+  # this value gets reused even if this file is imported multiple times:
+  # Nix's import-value cache shares a single copy of the overlay (including
+  # its scan of ../by-name) across all package-set instantiations.
+  autoCalledPackages = import ./by-name-overlay.nix;
 in
 
 {
