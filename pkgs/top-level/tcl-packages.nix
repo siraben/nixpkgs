@@ -1,5 +1,5 @@
 let
-  autoCalledPackages = import ./by-name-overlay.nix ../development/tcl-modules/by-name;
+  autoCalledPackages = import ./tcl-by-name-overlay.nix;
 in
 
 {
