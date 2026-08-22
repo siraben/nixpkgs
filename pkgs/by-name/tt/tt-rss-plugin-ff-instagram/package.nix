@@ -23,9 +23,9 @@ stdenv.mkDerivation {
 
   meta = {
     broken = true; # Plugin code does not conform to plugin API changes. See https://github.com/wltb/ff_instagram/issues/13
-    description = "Plugin for Tiny Tiny RSS that allows to fetch posts from Instagram user sites";
+    description = "Plugin for Tiny Tiny RSS that allows fetching posts from Instagram user sites";
     longDescription = ''
-      Plugin for Tiny Tiny RSS that allows to fetch posts from Instagram user sites.
+      Plugin for Tiny Tiny RSS that allows fetching posts from Instagram user sites.
 
       The name of the plugin in TT-RSS is 'ff_instagram'.
     '';

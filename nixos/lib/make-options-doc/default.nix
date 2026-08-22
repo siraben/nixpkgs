@@ -45,7 +45,7 @@
 
   Documentation rendered as AsciiDoc. This is useful for e.g. man pages.
 
-  > Note: NixOS itself uses this output to to build the configuration.nix man page"
+  > Note: NixOS itself uses this output to build the configuration.nix man page"
 
   ## optionsNix
 

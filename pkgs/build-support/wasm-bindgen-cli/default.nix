@@ -34,7 +34,7 @@ rustPlatform.buildRustPackage {
 
   nativeCheckInputs = [ nodejs_latest ];
 
-  # tests require it to be ran in the wasm-bindgen monorepo
+  # tests require it to be run in the wasm-bindgen monorepo
   doCheck = false;
 
   passthru.updateScript = nix-update-script { };

@@ -44,7 +44,7 @@ buildPythonPackage rec {
   passthru.updateScript = nix-update-script { };
 
   meta = {
-    description = "Xonsh jupyter kernel allows to run Xonsh shell code in Jupyter, JupyterLab, Euporia, etc";
+    description = "Xonsh jupyter kernel allows running Xonsh shell code in Jupyter, JupyterLab, Euporia, etc";
     homepage = "https://github.com/xonsh/xontrib-jupyter";
     changelog = "https://github.com/xonsh/xontrib-jupyter/releases/tag/v${version}";
     license = lib.licenses.mit;

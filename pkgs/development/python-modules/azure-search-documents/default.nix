@@ -33,7 +33,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "azure.search.documents" ];
 
-  # require devtools_testutils which is a internal package for azure-sdk
+  # require devtools_testutils which is an internal package for azure-sdk
   doCheck = false;
 
   passthru = {

@@ -24,7 +24,7 @@ buildLua {
     substituteInPlace cutter.lua \
       --replace-fail '~/.config/mpv/scripts/c_concat.sh' '${placeholder "out"}/share/mpv/scripts/c_concat.sh'
 
-    # needs to be ran separately so that we can replace everything, and not every single mention explicitly
+    # needs to be run separately so that we can replace everything, and not every single mention explicitly
     # original script places them in the scripts folder, just spawning unnecessary errors
     # i know that hardcoding .config and especially the .mpv directory isn't best practice, but I didn't want to deviate too much from upstream
     substituteInPlace cutter.lua \

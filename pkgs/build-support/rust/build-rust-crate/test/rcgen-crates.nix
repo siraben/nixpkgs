@@ -4453,7 +4453,7 @@ rec {
               chmod +w -R .
 
               # test harness executables are suffixed with a hash, like cargo does
-              # this allows to prevent name collision with the main
+              # this allows preventing name collision with the main
               # executables of the crate
               hash=$(basename $out)
               for file in ${drv}/tests/*; do

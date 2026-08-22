@@ -28,7 +28,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   meta = {
     description = "Zenoh plugin for DDS";
-    longDescription = "A zenoh plug-in that allows to transparently route DDS data. This plugin can be used by DDS applications to leverage zenoh for geographical routing or for better scaling discovery";
+    longDescription = "A zenoh plug-in that allows transparently routing DDS data. This plugin can be used by DDS applications to leverage zenoh for geographical routing or for better scaling discovery";
     homepage = "https://github.com/eclipse-zenoh/zenoh-plugin-dds";
     changelog = "https://github.com/eclipse-zenoh/zenoh-plugin-dds/releases/tag/${finalAttrs.src.rev}";
     license = with lib.licenses; [

@@ -31,7 +31,7 @@ buildPythonPackage rec {
     description = "Python library which helps in using nmap";
     longDescription = ''
       python-nmap is a Python library which helps in using nmap port scanner. It
-      allows to easily manipulate nmap scan results and will be a perfect tool
+      allows easily manipulating nmap scan results and will be a perfect tool
       for systems administrators who want to automatize scanning task and reports.
       It also supports nmap script outputs.
     '';

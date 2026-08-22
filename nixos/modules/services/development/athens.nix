@@ -509,7 +509,7 @@ in
         of the /list endpoint as it can be assembled from both its own
         storage and the upstream VCS.
 
-        Note, that for better error messaging, this would also affect how other
+        Note that for better error messaging, this would also affect how other
         endpoints behave.
 
         Modes:

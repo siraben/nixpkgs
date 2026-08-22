@@ -142,7 +142,7 @@ in
         default = "";
         type = lib.types.str;
         description = ''
-          This option allows to remove the support of protocol, even if compiled
+          This option allows removing the support of protocol, even if compiled
           in. If nothing is given, there are no restrictions.
         '';
       };

@@ -1927,8 +1927,8 @@ in
                 else
                   mapAttrsToList (n: v: v // { _iName = n; }) interfaces;
 
-              # Udev script to execute for the default WLAN interface with the persistend udev name.
-              # The script creates the required, new WLAN interfaces interfaces and configures the
+              # Udev script to execute for the default WLAN interface with the persistent udev name.
+              # The script creates the required, new WLAN interfaces and configures the
               # existing, default interface.
               curInterfaceScript =
                 device: current: new:

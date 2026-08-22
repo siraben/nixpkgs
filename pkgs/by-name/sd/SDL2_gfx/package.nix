@@ -58,7 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
     longDescription = ''
       The SDL_gfx library evolved out of the SDL_gfxPrimitives code which
       provided basic drawing routines such as lines, circles or polygons and
-      SDL_rotozoom which implemented a interpolating rotozoomer for SDL
+      SDL_rotozoom which implemented an interpolating rotozoomer for SDL
       surfaces.
 
       The current components of the SDL_gfx library are:

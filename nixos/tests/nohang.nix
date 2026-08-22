@@ -27,7 +27,7 @@
     };
 
   # SIGTERM may be given so tail /dev/zero may or may not succeed
-  # The output will have have something like "Sending SIGTERM to /nix/store/87fc"
+  # The output will have something like "Sending SIGTERM to /nix/store/87fc"
   # with the truncated path so we'll check for that in the test
   testScript = ''
     machine.wait_for_unit("nohang.service")

@@ -221,7 +221,7 @@ in
       '';
 
       # The actual test of GitLab. Only push data to GitLab if
-      # `doSetup` is is true.
+      # `doSetup` is true.
       test =
         doSetup:
         ''

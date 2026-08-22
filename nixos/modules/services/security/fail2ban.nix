@@ -157,7 +157,7 @@ in
         default = false;
         type = lib.types.bool;
         description = ''
-          "bantime.increment" allows to use database for searching of previously banned ip's to increase
+          "bantime.increment" allows using the database for searching of previously banned ip's to increase
           a default ban time using special formula, default it is banTime * 1, 2, 4, 8, 16, 32 ...
         '';
       };

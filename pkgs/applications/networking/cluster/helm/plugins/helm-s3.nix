@@ -42,7 +42,7 @@ buildGoModule rec {
   '';
 
   meta = {
-    description = "Helm plugin that allows to set up a chart repository using AWS S3";
+    description = "Helm plugin that allows setting up a chart repository using AWS S3";
     homepage = "https://github.com/hypnoglow/helm-s3";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ yurrriq ];

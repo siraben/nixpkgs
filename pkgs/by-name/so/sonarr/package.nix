@@ -76,7 +76,7 @@ buildDotnetModule {
   pname = "sonarr";
   inherit version src;
 
-  # Upstream expects to be ran from a "bin" directory
+  # Upstream expects to be run from a "bin" directory
   installPath = "${placeholder "out"}/lib/sonarr/bin";
   strictDeps = true;
   nativeBuildInputs = [

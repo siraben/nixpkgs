@@ -100,7 +100,7 @@ in
   #
 
   # 2023-12-23: It needs this to build under ghc-9.6.3.
-  #   A factor of 100 is insufficient, 200 seems seems to work.
+  #   A factor of 100 is insufficient, 200 seems to work.
   hip = appendConfigureFlag "--ghc-options=-fsimpl-tick-factor=200" super.hip;
 
   # A given major version of ghc-exactprint only supports one version of GHC.

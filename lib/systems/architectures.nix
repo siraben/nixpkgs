@@ -553,7 +553,7 @@ rec {
     };
 
   /**
-    Check whether one GCC architecture has the the other inferior architecture.
+    Check whether one GCC architecture has the other inferior architecture.
 
     # Inputs
 

@@ -64,7 +64,7 @@ in
       accessUrl = mkOption {
         type = types.nullOr types.str;
         description = ''
-          Access URL should be a external IP address or domain with DNS records pointing to Coder.
+          Access URL should be an external IP address or domain with DNS records pointing to Coder.
         '';
         default = null;
         example = "https://coder.example.com";

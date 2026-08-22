@@ -35,7 +35,7 @@ buildGoModule (finalAttrs: {
   };
 
   meta = {
-    description = "Merge YAML/JSON files in a in a convenient fashion";
+    description = "Merge YAML/JSON files in a convenient fashion";
     homepage = "https://github.com/herrjulz/aviator";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ risson ];

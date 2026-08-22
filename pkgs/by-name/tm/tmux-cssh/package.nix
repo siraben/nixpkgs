@@ -35,8 +35,8 @@ stdenv.mkDerivation {
       terminal session. tmux-cssh (tmux-cluster-ssh) sets a comfortable and
       easy to use functionality, clustering and synchronizing virtual
       tmux-sessions, on top of tmux. No need for a x-server or x-forwarding.
-      tmux-cssh works just with tmux and in an low-level terminal-environment,
-      like most server do.
+      tmux-cssh works just with tmux and in a low-level terminal-environment,
+      like most servers do.
     '';
 
     license = lib.licenses.asl20;

@@ -61,7 +61,7 @@ weechat.override {
 }
 ```
 
-WeeChat allows to set defaults on startup using the `--run-command`. The `configure` method can be used to pass commands to the program:
+WeeChat allows setting defaults on startup using the `--run-command`. The `configure` method can be used to pass commands to the program:
 
 ```nix
 weechat.override {

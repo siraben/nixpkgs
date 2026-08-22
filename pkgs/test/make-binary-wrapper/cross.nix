@@ -15,7 +15,7 @@ runCommand "make-binary-wrapper-test-cross"
     ];
     # For x86_64-linux the machine field is
     # Advanced Micro Devices X86-64
-    # and uses a dash instead of a underscore unlike x86_64-linux in hostPlatform.parsed.cpu.name
+    # and uses a dash instead of an underscore unlike x86_64-linux in hostPlatform.parsed.cpu.name
     expectedArch = lib.replaceStrings [ "_" ] [ "-" ] expectedArch;
   }
   ''

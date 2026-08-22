@@ -23,7 +23,7 @@ in
     package = mkPackageOption pkgs "mullvad" { };
 
     enableExcludeWrapper =
-      (mkEnableOption "the security wrapper the allows the use of `mullvad-exclude`, a command that tunnels a single command directly to the clearnet, bypassing the system-wide VPN. It is recommended to disable this option for security models where privileged (`setuid`) binaries are a concern")
+      (mkEnableOption "the security wrapper that allows the use of `mullvad-exclude`, a command that tunnels a single command directly to the clearnet, bypassing the system-wide VPN. It is recommended to disable this option for security models where privileged (`setuid`) binaries are a concern")
       // {
         default = true;
       };

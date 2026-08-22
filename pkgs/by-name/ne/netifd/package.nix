@@ -40,7 +40,7 @@ stdenv.mkDerivation {
 
   postPatch = ''
     # by default this assumes the build directory is the source directory
-    # since we let cmake build in it's own build directory, we need to use
+    # since we let cmake build in its own build directory, we need to use
     # $PWD (which at the time of this script being run is the directory with the source code)
     # to adjust the paths
     sed "s|./make_ethtool_modes_h.sh|$PWD/make_ethtool_modes_h.sh|g" -i CMakeLists.txt

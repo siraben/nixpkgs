@@ -4,7 +4,7 @@
   pkgs,
 }:
 
-# since the tests are using a early stdenv, the stdenv will have dontPatchShebangs=1, so it has to be unset
+# since the tests are using an early stdenv, the stdenv will have dontPatchShebangs=1, so it has to be unset
 # https://github.com/NixOS/nixpkgs/blob/768a982bfc9d29a6bd3beb963ed4b054451ce3d0/pkgs/stdenv/linux/default.nix#L148-L153
 
 # strictDeps has to be disabled because the shell isn't in buildInputs

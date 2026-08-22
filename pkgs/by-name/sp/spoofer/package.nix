@@ -48,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
       visualizations to inform operators, response teams, and policy
       analysts. The system measures different types of forged
       addresses, including private and neighboring addresses.  The
-      test results allows to analyze characteristics of networks
+      test results allow analyzing the characteristics of networks
       deploying source address validation (e.g., network location,
       business type).
     '';

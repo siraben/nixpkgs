@@ -21,7 +21,7 @@ let
       mvnJdk ? jdk,
       mvnHash ? "",
       /**
-        Maven goal to execute. Normally the the default should be used, but some special cases need other goals.
+        Maven goal to execute. Normally the default should be used, but some special cases need other goals.
       */
       mvnGoal ? "package",
       /**

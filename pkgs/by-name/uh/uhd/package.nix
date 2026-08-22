@@ -135,7 +135,7 @@ stdenv.mkDerivation (finalAttrs: {
       [2]: https://discourse.nixos.org/t/missing-python-package-in-checkphase/9168/
 
       Hence we use upstream's provided cmake flag to control which python
-      interpreter they will use to run the the python tests.
+      interpreter they will use to run the python tests.
     */
     "-DRUNTIME_PYTHON_EXECUTABLE=${lib.getExe finalAttrs.passthru.runtimePython}"
     (cmakeBool "ENABLE_DPDK" enableDpdk)

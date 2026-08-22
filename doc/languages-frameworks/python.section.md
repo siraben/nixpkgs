@@ -1153,7 +1153,7 @@ buildPythonPackage (finalAttrs: {
     libxslt
   ];
 
-  # tests are meant to be ran "in-place" in the same directory as src
+  # tests are meant to be run "in-place" in the same directory as src
   doCheck = false;
 
   pythonImportsCheck = [
@@ -1831,7 +1831,7 @@ While this approach is not very idiomatic from Nix perspective, it can still be
 useful when dealing with pre-existing projects or in situations where it's not
 feasible or desired to write derivations for all required dependencies.
 
-This is an example of a `default.nix` for a `nix-shell`, which allows to consume
+This is an example of a `default.nix` for a `nix-shell`, which allows consuming
 a virtual environment created by `venv`, and install Python modules through
 `pip` the traditional way.
 

@@ -614,7 +614,7 @@ in
               description = ''
                 Tag list.
 
-                This option has no effect for runners registered with an runner
+                This option has no effect for runners registered with a runner
                 authentication tokens and will be ignored.
               '';
             };
@@ -625,7 +625,7 @@ in
                 Register to run untagged builds; defaults to
                 `true` when {option}`tagList` is empty.
 
-                This option has no effect for runners registered with an runner
+                This option has no effect for runners registered with a runner
                 authentication tokens and will be ignored.
               '';
             };
@@ -651,7 +651,7 @@ in
                 What is the maximum timeout (in seconds) that will be set for
                 job when using this Runner. 0 (default) simply means don't limit.
 
-                This option has no effect for runners registered with an runner
+                This option has no effect for runners registered with a runner
                 authentication tokens and will be ignored.
               '';
             };
@@ -662,7 +662,7 @@ in
                 When set to true Runner will only run on pipelines
                 triggered on protected branches.
 
-                This option has no effect for runners registered with an runner
+                This option has no effect for runners registered with a runner
                 authentication tokens and will be ignored.
               '';
             };

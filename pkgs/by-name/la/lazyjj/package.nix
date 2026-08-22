@@ -36,7 +36,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   doInstallCheck = true;
 
   checkFlags = [
-    # This tests checks the output of `jj diff`. However, `jj diff` had a change upstream making the test fail. Skip for now, until the test is updated.
+    # This test checks the output of `jj diff`. However, `jj diff` had a change upstream making the test fail. Skip for now, until the test is updated.
     "--skip=commander::files::tests::get_file_diff"
   ];
 

@@ -86,13 +86,13 @@ in
       user = lib.mkOption {
         type = lib.types.str;
         default = "redmine";
-        description = "User under which Redmine is ran.";
+        description = "User under which Redmine is run.";
       };
 
       group = lib.mkOption {
         type = lib.types.str;
         default = "redmine";
-        description = "Group under which Redmine is ran.";
+        description = "Group under which Redmine is run.";
       };
 
       address = lib.mkOption {
@@ -104,7 +104,7 @@ in
       port = lib.mkOption {
         type = lib.types.port;
         default = 3000;
-        description = "Port on which Redmine is ran.";
+        description = "Port on which Redmine is run.";
       };
 
       stateDir = lib.mkOption {

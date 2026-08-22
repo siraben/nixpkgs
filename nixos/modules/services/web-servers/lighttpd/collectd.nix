@@ -41,7 +41,7 @@ in
       '';
       description = ''
         Path to collection.cgi script from (collectd sources)/contrib/collection.cgi
-        This option allows to use a customized version
+        This option allows using a customized version
       '';
     };
   };

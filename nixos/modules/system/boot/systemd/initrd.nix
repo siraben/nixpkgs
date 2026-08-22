@@ -375,7 +375,7 @@ in
         A list of units to skip when generating system systemd configuration directory. This has
         priority over upstream units, {option}`boot.initrd.systemd.units`, and
         {option}`boot.initrd.systemd.additionalUpstreamUnits`. The main purpose of this is to
-        prevent a upstream systemd unit from being added to the initrd with any modifications made to it
+        prevent an upstream systemd unit from being added to the initrd with any modifications made to it
         by other NixOS modules.
       '';
     };

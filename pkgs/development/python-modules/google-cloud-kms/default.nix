@@ -65,7 +65,7 @@ buildPythonPackage rec {
   passthru.skipBulkUpdate = true;
 
   meta = {
-    description = "Cloud Key Management Service (KMS) API API client library";
+    description = "Cloud Key Management Service (KMS) API client library";
     homepage = "https://github.com/googleapis/google-cloud-python/tree/main/packages/google-cloud-kms";
     changelog = "https://github.com/googleapis/google-cloud-python/blob/${src.tag}/packages/google-cloud-kms/CHANGELOG.md";
     license = lib.licenses.asl20;

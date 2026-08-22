@@ -23,7 +23,7 @@ in
   name = "cjdns";
 
   nodes = {
-    # Alice finds peers over over ETHInterface.
+    # Alice finds peers over ETHInterface.
     alice =
       { ... }:
       {

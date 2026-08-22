@@ -78,7 +78,7 @@ in
           Enable periodic archive processing, which generates aggregated reports from the visits.
 
           This means that you can safely disable browser triggers for Matomo archiving,
-          and safely enable to delete old visitor logs.
+          and safely enable deleting old visitor logs.
           Before deleting visitor logs,
           make sure though that you run `systemctl start matomo-archive-processing.service`
           at least once without errors if you have already collected data before.

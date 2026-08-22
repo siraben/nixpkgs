@@ -181,7 +181,7 @@ in
           prio_args = mkOption {
             type = nullOr str;
             default = null;
-            description = "Arguments to pass to to the prio function";
+            description = "Arguments to pass to the prio function";
           };
 
           features = mkOption {

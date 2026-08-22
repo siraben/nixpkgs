@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
         used at linking stage. (In the distribution the name libalgol.a is used
         for this library.)
 
-      - the converter, MACVT, that allows to convert existing Algol 60 programs
+      - the converter, MACVT, that allows converting existing Algol 60 programs
         from some other representations to MARST representation.
     '';
     license = lib.licenses.gpl3Plus;

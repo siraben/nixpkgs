@@ -54,7 +54,7 @@ python3Packages.buildPythonApplication {
 
     $out/bin/thg version | grep -q "${version}"
     # Detect breakage of thg in case of out-of-sync mercurial update. In that
-    # case any thg subcommand just opens up an gui dialog with a description of
+    # case any thg subcommand just opens up a GUI dialog with a description of
     # version mismatch.
     echo "thg smoke test"
     $out/bin/thg -h > help.txt &

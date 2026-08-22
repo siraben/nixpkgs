@@ -22,7 +22,7 @@
   withTTS ? true,
   withMiddleClickScroll ? false,
   # Enables the use of vencord from nixpkgs instead of
-  # letting vesktop manage it's own version
+  # letting vesktop manage its own version
   withSystemVencord ? false,
 }:
 let

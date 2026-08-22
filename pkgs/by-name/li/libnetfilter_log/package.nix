@@ -24,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Userspace library providing interface to packets that have been logged by the kernel packet filter";
     longDescription = ''
       libnetfilter_log is a userspace library providing interface to packets
-      that have been logged by the kernel packet filter. It is is part of a
+      that have been logged by the kernel packet filter. It is part of a
       system that deprecates the old syslog/dmesg based packet logging. This
       library has been previously known as libnfnetlink_log.
     '';

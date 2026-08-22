@@ -109,7 +109,7 @@ stdenv.mkDerivation (finalAttrs: {
     longDescription = ''
       Eukleides is a computer language devoted to elementary plane
       geometry. It aims to be a fairly comprehensive system to create
-      geometric figures, either static or dynamic. Eukleides allows to
+      geometric figures, either static or dynamic. Eukleides allows you to
       handle basic types of data: numbers and strings, as well as
       geometric types of data: points, vectors, sets (of points), lines,
       circles and conics.

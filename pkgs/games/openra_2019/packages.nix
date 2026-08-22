@@ -28,7 +28,7 @@ let
      so the sets will actually be defined as a function instead,
      requiring the dependencies and returning the actual set.
 
-     Not all dependencies for defining a engine or mod set are shared,
+     Not all dependencies for defining an engine or mod set are shared,
      so additional arguments can be passed as well.
 
      The builders for engines and mods allow to delay specifying the name,

@@ -216,7 +216,7 @@ in
         DefaultDependencies = "no";
         ConditionSecurity = "apparmor";
       };
-      # Reloading instead of restarting enables to load new AppArmor profiles
+      # Reloading instead of restarting enables loading new AppArmor profiles
       # without necessarily restarting all services which have Requires=apparmor.service
       reloadIfChanged = true;
       restartTriggers = [

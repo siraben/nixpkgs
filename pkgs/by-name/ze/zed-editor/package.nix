@@ -202,7 +202,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     LIBGIT2_NO_VENDOR = true;
     LIBSQLITE3_SYS_USE_PKG_CONFIG = true;
     ZSTD_SYS_USE_PKG_CONFIG = true;
-    # Setting this environment variable allows to disable auto-updates
+    # Setting this environment variable allows disabling auto-updates
     # https://zed.dev/docs/development/linux#notes-for-packaging-zed
     ZED_UPDATE_EXPLANATION = "Zed has been installed using Nix. Auto-updates have thus been disabled.";
     # Used by `zed --version`

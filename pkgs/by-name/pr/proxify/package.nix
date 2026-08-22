@@ -40,7 +40,7 @@ buildGoModule (finalAttrs: {
     longDescription = ''
       This tool supports multiple operations such as request/response dump, filtering
       and manipulation via DSL language, upstream HTTP/Socks5 proxy. Additionally a
-      replay utility allows to import the dumped traffic (request/responses with correct
+      replay utility allows importing the dumped traffic (request/responses with correct
       domain name) into other tools by simply setting the upstream proxy to proxify.
     '';
     homepage = "https://github.com/projectdiscovery/proxify";

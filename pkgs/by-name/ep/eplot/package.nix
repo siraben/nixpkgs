@@ -42,7 +42,7 @@ stdenv.mkDerivation {
   meta = {
     description = "Create plots quickly with gnuplot";
     longDescription = ''
-      eplot ("easy gnuplot") is a ruby script which allows to pipe data easily
+      eplot ("easy gnuplot") is a ruby script which allows piping data easily
       through gnuplot and create plots quickly, which can be saved in
       postscript, PDF, PNG or EMF files. Plotting of multiple files into a
       single diagram is supported.

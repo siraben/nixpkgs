@@ -14,8 +14,8 @@
   avx2Support ? stdenv.hostPlatform.avx2Support,
   avx512Support ? stdenv.hostPlatform.avx512Support,
   config,
-  # Enable NIVIA GPU support
-  # Note, that this needs to be built on a system with a GPU
+  # Enable NVIDIA GPU support
+  # Note that this needs to be built on a system with a GPU
   # present for the tests to succeed.
   enableCuda ? config.cudaSupport,
   # type of GPU architecture

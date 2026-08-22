@@ -820,7 +820,7 @@ in
         default = 200;
         description = ''
           Max qps allowed from any query source.
-          0 means unlimited. With an verbosity of 2 blocked and
+          0 means unlimited. With a verbosity of 2, blocked and
           unblocked subnets will be logged.
         '';
       };
@@ -839,7 +839,7 @@ in
         default = 1000000;
         description = ''
           Size of the hashtable. More buckets use more memory but lower
-          the chance of hash hash collisions.
+          the chance of hash collisions.
         '';
       };
 

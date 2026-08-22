@@ -61,7 +61,7 @@ buildPythonPackage (finalAttrs: {
     "ssh"
     "foreach"
     "local_context"
-    "release" # meant to be ran on ubuntu to succeed
+    "release" # meant to be run on ubuntu to succeed
   ];
 
   meta = {

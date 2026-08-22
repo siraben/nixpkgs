@@ -13,7 +13,7 @@ bundlerApp {
     homepage = "https://github.com/grosser/pru";
     description = "Pipeable Ruby";
     longDescription = ''
-      pru allows to use Ruby scripts as filters, working as a convenient,
+      pru allows using Ruby scripts as filters, working as a convenient,
       higher-level replacement of typical text processing tools (like sed, awk,
       grep etc.).
     '';

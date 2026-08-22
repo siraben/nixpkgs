@@ -112,7 +112,7 @@ stdenv.mkDerivation (finalAttrs: {
       WWW-indexing bots with a universal library to obtain simple keywords
       to match against queries.  libextractor contains a shell-command
       extract that, similar to the well-known file command, can extract
-      meta-data from a file an print the results to stdout.
+      meta-data from a file and print the results to stdout.
 
       Currently, libextractor supports the following formats: HTML, PDF,
       PS, OLE2 (DOC, XLS, PPT), OpenOffice (sxw), StarOffice (sdw), DVI,

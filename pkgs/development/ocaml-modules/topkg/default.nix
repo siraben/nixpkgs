@@ -37,7 +37,7 @@ let
       };
 
   /*
-    This command allows to run the “topkg” build system.
+    This command allows running the “topkg” build system.
     It is usually called with `build` or `test` as argument.
     Packages that use `topkg` may call this command as part of
      their `buildPhase` or `checkPhase`.

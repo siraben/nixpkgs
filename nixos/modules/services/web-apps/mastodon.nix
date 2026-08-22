@@ -671,7 +671,7 @@ in
 
         prefix = lib.mkOption {
           description = ''
-            If provided, adds a prefix to indexes in Elasticsearch. This allows to use the same
+            If provided, adds a prefix to indexes in Elasticsearch. This allows using the same
             Elasticsearch cluster between different projects or Mastodon servers.
           '';
           type = lib.types.nullOr lib.types.str;

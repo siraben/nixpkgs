@@ -119,7 +119,7 @@ in
       default = false;
       description = ''
         Whether to set up a loopback device that continuously records and
-        allows to play back audio from the computer.
+        plays back audio from the computer.
 
         The loopback device is named `pcm.recorder`, audio can be saved
         by capturing from this device as with any microphone.

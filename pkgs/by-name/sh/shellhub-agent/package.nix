@@ -53,7 +53,7 @@ buildGoModule (finalAttrs: {
     longDescription = ''
       ShellHub is a modern SSH server for remotely accessing Linux devices via
       command line (using any SSH client) or web-based user interface, designed
-      as an alternative to _sshd_. Think ShellHub as centralized SSH for the the
+      as an alternative to _sshd_. Think ShellHub as centralized SSH for the
       edge and cloud computing.
     '';
     homepage = "https://shellhub.io/";

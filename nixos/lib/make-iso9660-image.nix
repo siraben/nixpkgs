@@ -41,7 +41,7 @@
   # Whether this should be an efi-bootable El-Torito CD.
   efiBootable ? false,
 
-  # Whether this should be an hybrid CD (bootable from USB as well as CD).
+  # Whether this should be a hybrid CD (bootable from USB as well as CD).
   usbBootable ? false,
 
   # The path (in the ISO file system) of the boot image.

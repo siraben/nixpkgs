@@ -18,7 +18,7 @@
         ];
         useBootLoader = true;
         useEFIBoot = true;
-        # To boot off the encrypted disk, we need to have a init script which comes from the Nix store
+        # To boot off the encrypted disk, we need to have an init script which comes from the Nix store
         mountHostNixStore = true;
       };
       boot.loader.systemd-boot.enable = true;

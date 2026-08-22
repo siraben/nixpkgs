@@ -121,7 +121,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   env = {
-    # HACK: We want to install policy files files to $out/share but polkit
+    # HACK: We want to install policy files to $out/share but polkit
     # should read them from /run/current-system/sw/share on a NixOS system.
     # Similarly for config files in /etc.
     # With autotools, it was possible to override Make variables

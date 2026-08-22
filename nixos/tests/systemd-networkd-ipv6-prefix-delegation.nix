@@ -312,7 +312,7 @@ import ./make-test-python.nix (
     };
 
     testScript = ''
-      # First start the router and wait for it it reach a state where we are
+      # First start the router and wait for it to reach a state where we are
       # certain networkd is up and it is able to send out RAs
       router.start()
       router.wait_for_unit("systemd-networkd.service")

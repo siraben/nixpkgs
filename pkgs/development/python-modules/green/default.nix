@@ -38,7 +38,7 @@ buildPythonPackage (finalAttrs: {
     lxml
   ];
 
-  # let green run it's own test suite
+  # let green run its own test suite
   checkPhase = ''
     $out/bin/green -tvvv \
       green.test.test_version \

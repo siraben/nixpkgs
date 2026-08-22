@@ -58,7 +58,7 @@ in
           Whether the config.yaml is writable by Nezha.
 
           If this option is disabled, changes on the web interface won't
-          be possible. If an config.yaml is present, it will be overwritten.
+          be possible. If a config.yaml is present, it will be overwritten.
         '';
       };
 

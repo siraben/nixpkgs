@@ -30,7 +30,7 @@ let
       export HOME=/root
       export DISPLAY=:0.0
 
-      # Determine if this script is ran with nounset
+      # Determine if this script is run with nounset
       strict="false"
       if set -o | grep --quiet --perl-regexp "nounset\s+on"; then
           strict="true"

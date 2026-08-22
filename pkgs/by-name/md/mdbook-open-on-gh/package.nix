@@ -18,7 +18,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   cargoHash = "sha256-jbBwXYUIkrDyf9qC2cL5czbXCM2/JrbBUmKJZb+VEAk=";
 
   meta = {
-    description = "mdbook preprocessor to add a open-on-github link on every page";
+    description = "mdbook preprocessor to add an open-on-github link on every page";
     mainProgram = "mdbook-open-on-gh";
     homepage = "https://github.com/badboy/mdbook-open-on-gh";
     license = lib.licenses.mpl20;

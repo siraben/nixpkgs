@@ -24,7 +24,7 @@ in
   };
 
   nodes = {
-    # the server provides both the the mocked google metadata server and the ssh server
+    # the server provides both the mocked google metadata server and the ssh server
     server = ./server.nix;
 
     client = { ... }: { };

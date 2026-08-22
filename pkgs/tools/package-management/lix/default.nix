@@ -117,7 +117,7 @@ let
 
           # surprisingly nixpkgs-reviewFull.override { nix = self.lix; }
           # doesn't work, as the way nix-reviewFull is defined uses callPackage
-          # which does it's own makeOverridable and hides the .override
+          # which does its own makeOverridable and hides the .override
           # from the derivation.
           nixpkgs-reviewFull = nixpkgs-reviewFull.override {
             nixpkgs-review = self.nixpkgs-review;

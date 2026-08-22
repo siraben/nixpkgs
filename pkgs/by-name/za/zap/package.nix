@@ -38,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
   version_tag = "20012000";
 
   # Copying config and adding version tag before first use to avoid permission
-  # issues if zap tries to copy config on it's own.
+  # issues if zap tries to copy config on its own.
   installPhase = ''
     runHook preInstall
 

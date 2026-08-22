@@ -32,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   meta = {
-    description = "Extension for nautilus, which adds an context-entry for opening in blackbox";
+    description = "Extension for nautilus, which adds a context-entry for opening in blackbox";
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ blankparticle ];
     homepage = "https://github.com/ppvan/nautilus-open-in-blackbox";

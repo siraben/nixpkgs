@@ -368,7 +368,7 @@ stdenv.mkDerivation (
       })
     ]
 
-    # Fixes stack overrun in rts which crashes an process whenever
+    # Fixes stack overrun in rts which crashes a process whenever
     # freeHaskellFunPtr is called with nixpkgs' hardening flags.
     # https://gitlab.haskell.org/ghc/ghc/-/issues/25485 krank:ignore-line
     # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/13599

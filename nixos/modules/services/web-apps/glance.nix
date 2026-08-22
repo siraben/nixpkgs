@@ -141,7 +141,7 @@ in
           you need to escape it as follows: use `\''${ENV_VAR}` in `"` strings
           and `${singleQuotes}''${ENV_VAR}` in `${singleQuotes}` strings.
 
-          Alternatively, you can put each secret in it's own file,
+          Alternatively, you can put each secret in its own file,
           see `services.glance.settings`.
         '';
       default = "/dev/null";

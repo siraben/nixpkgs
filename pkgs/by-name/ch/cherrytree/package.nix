@@ -55,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Hierarchical note taking application";
     mainProgram = "cherrytree";
     longDescription = ''
-      Cherrytree is an hierarchical note taking application, featuring rich
+      Cherrytree is a hierarchical note taking application, featuring rich
       text, syntax highlighting and powerful search capabilities. It organizes
       all information in units called "nodes", as in a tree, and can be very
       useful to store any piece of information, from tables and links to

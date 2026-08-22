@@ -6,7 +6,7 @@
 }:
 
 let
-  # Atlas needs the dep in a certain place, easier to download and and place in deps/ folder
+  # Atlas needs the dep in a certain place, easier to download and place in deps/ folder
   sat = fetchFromGitHub {
     owner = "nim-lang";
     repo = "sat";

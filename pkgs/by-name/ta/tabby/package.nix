@@ -53,7 +53,7 @@ let
       '' result
     );
 
-  # If user did not not override the acceleration attribute, then try to use one of
+  # If the user did not override the acceleration attribute, then try to use one of
   # - nixpkgs.config.cudaSupport
   # - nixpkgs.config.rocmSupport
   # - metal if (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)

@@ -285,7 +285,7 @@ in
         description = ''
           A list of files containing additional configuration
           to be included using the include directive. This option
-          allows to include configuration like TSIG keys without
+          allows including configuration like TSIG keys without
           exposing them to the nix store readable to any process.
           Note that using this option will also disable configuration
           checks at build time.

@@ -64,7 +64,7 @@ stdenv.mkDerivation (finalAttrs: {
     longDescription = ''
       Use neovim as a pager to view manpages, diffs, etc with nvim's syntax
       highlighting.  Includes a cat mode to print highlighted files to stdout
-      and a ansi esc mode to highlight ansi escape sequences in neovim.
+      and an ansi esc mode to highlight ansi escape sequences in neovim.
     '';
     homepage = "https://github.com/lucc/nvimpager";
     license = lib.licenses.bsd2;

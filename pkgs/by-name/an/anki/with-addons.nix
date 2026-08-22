@@ -9,7 +9,7 @@
 }:
 /*
   `ankiAddons`
-   :  A set of Anki add-ons to be installed. Here's a an example:
+   :  A set of Anki add-ons to be installed. Here's an example:
 
       ~~~
       pkgs.anki.withAddons [

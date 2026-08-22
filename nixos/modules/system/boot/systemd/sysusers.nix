@@ -63,7 +63,7 @@ in
 
   options = {
 
-    # This module doesn't set it's own user options but reuses the ones from
+    # This module doesn't set its own user options but reuses the ones from
     # users-groups.nix
 
     systemd.sysusers = {

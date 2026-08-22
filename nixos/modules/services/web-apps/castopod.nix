@@ -149,7 +149,7 @@ in
           support chunked uploads yet:
           https://code.castopod.org/adaures/castopod/-/issues/330).
 
-          Note, that practical upload size limit is smaller. For example, with
+          Note that the practical upload size limit is smaller. For example, with
           512 MiB setting - around 500 MiB is possible.
         '';
       };

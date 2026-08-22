@@ -2,7 +2,7 @@
 
 ## Build wrapped Firefox with extensions and policies {#build-wrapped-firefox-with-extensions-and-policies}
 
-The `wrapFirefox` function allows to pass policies, preferences and extensions that are available to Firefox. With the help of `fetchFirefoxAddon` this allows to build a Firefox version that already comes with add-ons pre-installed:
+The `wrapFirefox` function allows passing policies, preferences and extensions that are available to Firefox. With the help of `fetchFirefoxAddon` this allows building a Firefox version that already comes with add-ons pre-installed:
 
 ```nix
 {

@@ -25,8 +25,8 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Library of generic and type safe containers in pure C language";
     longDescription = ''
-      M*LIB (M star lib) is a C library enabling to define and use generic and
-      type safe container, aka handling generic containers in in pure C
+      M*LIB (M star lib) is a C library enabling one to define and use generic
+      and type safe containers, aka handling generic containers in pure C
       language. The objects within the containers can be trivial or very
       complex: they can have their own constructor, destructor, operators or can
       be basic C type like the C type 'int'. This makes it possible to construct

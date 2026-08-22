@@ -4,7 +4,7 @@
   inter,
   nixosTests,
   lib,
-  # This is a app can only be used in a browser and starts a web server only accessible at
+  # This is an app that can only be used in a browser and starts a web server only accessible at
   # localhost/127.0.0.1 from the local computer at the given port.
   defaultHostname ? "127.0.0.1",
   defaultPort ? 3000,
@@ -66,7 +66,7 @@ buildNpmPackage {
 
     # https://github.com/vercel/next.js/discussions/58864
     ln -s /var/cache/nextjs-ollama-llm-ui $out/share/homepage/.next/cache
-    # also provide a environment variable to override the cache directory
+    # also provide an environment variable to override the cache directory
     substituteInPlace $out/share/homepage/node_modules/next/dist/server/image-optimizer.js \
         --replace '_path.join)(distDir,' '_path.join)(process.env["NEXT_CACHE_DIR"] || distDir,'
 

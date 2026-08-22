@@ -714,7 +714,7 @@ rec {
       # Additional attrs to add to the sets `callPackage`.
       # When the package is from a subset (but not a subset within a package IS #211340)
       # within `spliced0` it will be spliced.
-      # When using an package outside the set but it's available from `pkgs`, use the package from `pkgs.__splicedPackages`.
+      # When using a package outside the set but it's available from `pkgs`, use the package from `pkgs.__splicedPackages`.
       # If the package is not available within the set or in `pkgs`, such as a package in a let binding, it will not be spliced
       # ex:
       # ```

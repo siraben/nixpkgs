@@ -79,7 +79,7 @@ in
       user.services.gamemoded = {
         # Use pkexec from the security wrappers to allow users to
         # run libexec/cpugovctl & libexec/gpuclockctl as root with
-        # the the actions defined in share/polkit-1/actions.
+        # the actions defined in share/polkit-1/actions.
         #
         # This uses a link farm to make sure other wrapped executables
         # aren't included in PATH.

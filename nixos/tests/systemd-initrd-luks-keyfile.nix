@@ -18,7 +18,7 @@ in
       virtualisation = {
         emptyDiskImages = [ 512 ];
         useBootLoader = true;
-        # Necessary to boot off the encrypted disk because it requires a init script coming from the Nix store
+        # Necessary to boot off the encrypted disk because it requires an init script coming from the Nix store
         mountHostNixStore = true;
         useEFIBoot = true;
       };

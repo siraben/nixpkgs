@@ -16,7 +16,7 @@ buildKodiAddon rec {
   };
 
   meta = {
-    description = "Addon that allows to manage bluetooth devices from within a Linux based Kodi";
+    description = "Addon that allows managing bluetooth devices from within a Linux based Kodi";
     homepage = "https://github.com/wastis/BluetoothManager";
     platforms = lib.platforms.all;
     maintainers = lib.teams.kodi.members;

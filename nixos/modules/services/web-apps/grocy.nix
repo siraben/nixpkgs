@@ -166,7 +166,7 @@ in
         ];
         default = "stock";
         description = ''
-          Specify an custom homepage if desired.
+          Specify a custom homepage if desired.
         '';
       };
     };

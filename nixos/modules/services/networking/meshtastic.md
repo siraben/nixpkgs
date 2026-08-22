@@ -39,7 +39,7 @@ A minimal configuration:
 
 By default Meshtasticd listens on all network interfaces. The example above
 binds the daemon to port `4403` and the web UI to `9443`. This module
-intentionally does not configure an reverse proxy for you, keeping the module
+intentionally does not configure a reverse proxy for you, keeping the module
 focused on the Meshtastic service itself. If you need to restrict access, use
 firewall rules or put the web UI behind a reverse proxy (e.g.: Caddy, Nginx)
 that binds to `127.0.0.1` and exposes only the proxy. This approach leaves proxy

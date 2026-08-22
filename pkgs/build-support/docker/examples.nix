@@ -349,7 +349,7 @@ rec {
 
   # 14. example of 3 layers images This image is used to verify the
   # order of layers is correct.
-  # It allows to validate
+  # It allows validating
   # - the layer of parent are below
   # - the order of parent layer is preserved at image build time
   #   (this is why there are 3 images)

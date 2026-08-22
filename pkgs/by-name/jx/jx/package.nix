@@ -47,7 +47,7 @@ buildGoModule rec {
     changelog = "https://github.com/jenkins-x/jx/releases/tag/v${version}";
     longDescription = ''
       Jenkins X provides automated CI+CD for Kubernetes with Preview
-      Environments on Pull Requests using using Cloud Native pipelines
+      Environments on Pull Requests using Cloud Native pipelines
       from Tekton.
     '';
     license = lib.licenses.asl20;

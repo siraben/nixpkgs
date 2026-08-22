@@ -48,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru.tests = nixosTests.freescout;
 
-  # Because freescout is searching for some folders only relative to it's own source location, we need to have the symlinks to the actual locations in here
+  # Because freescout is searching for some folders only relative to its own source location, we need to have the symlinks to the actual locations in here
   dontCheckForBrokenSymlinks = true;
   strictDeps = true;
   __structuredAttrs = true;

@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
     ./bump-cmake.patch
 
     # Fix for GCC 15 by adding a previously-implicit `#include <cstdint>` and
-    # replacing `<ciso646>` with `<version>` in the the llvm directory. Based
+    # replacing `<ciso646>` with `<version>` in the llvm directory. Based
     # on https://github.com/intel/intel-graphics-compiler/pull/383.
     ./gcc15-llvm-header-fixes.patch
 

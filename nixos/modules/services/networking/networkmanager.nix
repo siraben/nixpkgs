@@ -456,11 +456,11 @@ in
             };
             description = ''
               Declaratively define NetworkManager profiles. You can find information about the generated file format [here](https://networkmanager.dev/docs/api/latest/nm-settings-keyfile.html) and [here](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_and_managing_networking/assembly_networkmanager-connection-profiles-in-keyfile-format_configuring-and-managing-networking).
-              You current profiles which are most likely stored in `/etc/NetworkManager/system-connections` and there is [a tool](https://github.com/janik-haag/nm2nix) to convert them to the needed nix code.
+              Your current profiles which are most likely stored in `/etc/NetworkManager/system-connections` and there is [a tool](https://github.com/janik-haag/nm2nix) to convert them to the needed nix code.
               If you add a new ad-hoc connection via a GUI or nmtui or anything similar it should just work together with the declarative ones.
-              And if you edit a declarative profile NetworkManager will move it to the persistent storage and treat it like a ad-hoc one,
+              And if you edit a declarative profile NetworkManager will move it to the persistent storage and treat it like an ad-hoc one,
               but there will be two profiles as soon as the systemd unit from this option runs again which can be confusing since NetworkManager tools will start displaying two profiles with the same name and probably a bit different settings depending on what you edited.
-              A profile won't be deleted even if it's removed from the config until the system reboots because that's when NetworkManager clears it's temp directory.
+              A profile won't be deleted even if it's removed from the config until the system reboots because that's when NetworkManager clears its temp directory.
               If `networking.resolvconf.enable` is true, attributes affecting the name resolution (such as `ignore-auto-dns`) may not end up changing `/etc/resolv.conf` as expected when other name services (for example `networking.dhcpcd`) are enabled. Run `resolvconf -l` in the terminal to see what each service produces.
             '';
           };

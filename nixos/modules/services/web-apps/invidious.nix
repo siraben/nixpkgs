@@ -420,7 +420,7 @@ in
         description = ''
           The port of the database Invidious should use.
 
-          Defaults to the the default postgresql port.
+          Defaults to the default postgresql port.
         '';
       };
 

@@ -28,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   meta = {
-    description = "Zsh plugin that lets you use zsh in nix-shell shell";
+    description = "Zsh plugin that lets you use zsh in nix-shell";
     homepage = finalAttrs.src.meta.homepage;
     license = lib.licenses.bsd3;
     platforms = lib.platforms.unix;

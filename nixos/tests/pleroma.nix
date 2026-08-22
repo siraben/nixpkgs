@@ -9,7 +9,7 @@
   1. Provision a pleroma service from scratch (pleroma config + postgres db).
   2. Create a "jamy" admin user.
   3. Send a toot from this user.
-  4. Send a upload from this user.
+  4. Send an upload from this user.
   5. Check the toot is part of the server public timeline
 
   Notes:
@@ -49,7 +49,7 @@ import ./make-test-python.nix (
       echo "====================================================="
       echo "=                   SUCCESS                         ="
       echo "=                                                   ="
-      echo "=    We were able to sent a toot + a upload and     ="
+      echo "=    We were able to send a toot + an upload and     ="
       echo "=   retrieve both of them in the public timeline.   ="
       echo "====================================================="
     '';

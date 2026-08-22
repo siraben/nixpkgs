@@ -9,7 +9,7 @@ bundlerEnv {
 
   gemdir = ./.;
 
-  # Cannot use `wrapProgram` because the the help is aware of the file name.
+  # Cannot use `wrapProgram` because the help is aware of the file name.
   postInstall = ''
     rm $out/bin/thor
     sed 1a'ENV["PATH"] = "${git}/bin:#{ENV["PATH"] ? ":#{ENV["PATH"]}" : "" }"' -i $out/bin/homesick

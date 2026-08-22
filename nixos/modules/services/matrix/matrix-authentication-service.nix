@@ -357,7 +357,7 @@ in
         Extra config files to include.
 
         The configuration files will be included based on the command line
-        argument --config. This allows to configure secrets without
+        argument --config. This allows configuring secrets without
         having to go through the Nix store, e.g. based on deployment keys if
         NixOps is in use.
       '';

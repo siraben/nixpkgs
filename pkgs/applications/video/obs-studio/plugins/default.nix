@@ -7,7 +7,7 @@
 # When adding new plugins:
 # - Respect alphabetical order. On diversion, file a PR.
 # - Plugin name should reflect upstream's name. Including or excluding "obs" prefix/suffix.
-# - Add plugin to it's own directory (because of future patches).
+# - Add plugin to its own directory (because of future patches).
 
 {
   advanced-scene-switcher = qt6Packages.callPackage ./advanced-scene-switcher { };

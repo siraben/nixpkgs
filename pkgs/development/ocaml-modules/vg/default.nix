@@ -66,7 +66,7 @@ stdenv.mkDerivation (finalAttrs: {
       values.
 
       Renderers for PDF, SVG and the HTML canvas are distributed with the
-      module. An API allows to implement new renderers.
+      module. An API allows implementing new renderers.
     '';
     homepage = "https://erratique.ch/software/vg";
     license = lib.licenses.isc;

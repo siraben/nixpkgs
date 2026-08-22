@@ -94,7 +94,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   # This is needed because otherwise g++ will complain about
-  # "FORTIFY_SOURCE" needing to be ran with optimizations
+  # "FORTIFY_SOURCE" needing to be run with optimizations
   env.NIX_CFLAGS_COMPILE = toString [
     "-O2"
   ];

@@ -44,7 +44,7 @@ stdenv.mkDerivation {
     description = "Tool to inject machine checks into x86 kernel for testing";
     mainProgram = "mce-inject";
     longDescription = ''
-      mce-inject allows to inject machine check errors on the software level
+      mce-inject allows injecting machine check errors on the software level
       into a running Linux kernel. This is intended for validation of the
       kernel machine check handler.
     '';

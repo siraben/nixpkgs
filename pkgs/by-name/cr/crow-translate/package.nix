@@ -63,7 +63,7 @@ stdenv.mkDerivation (finalAttrs: {
   passthru.tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
 
   meta = {
-    description = "Simple and lightweight translator that allows to translate and speak text using Google, Yandex and Bing";
+    description = "Simple and lightweight translator that allows translating and speaking text using Google, Yandex and Bing";
     homepage = "https://invent.kde.org/office/crow-translate";
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ sikmir ];

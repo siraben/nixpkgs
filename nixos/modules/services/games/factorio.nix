@@ -92,7 +92,7 @@ in
           `stateDirName`).
         '';
       };
-      # Opting not to include the banlist in addition the the whitelist because:
+      # Opting not to include the banlist in addition to the whitelist because:
       # - banlists are not as often known in advance,
       # - losing banlist changes on restart seems much more of a headache.
 

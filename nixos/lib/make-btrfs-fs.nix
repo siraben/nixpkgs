@@ -1,4 +1,4 @@
-# Builds an btrfs image containing a populated /nix/store with the closure
+# Builds a btrfs image containing a populated /nix/store with the closure
 # of store paths passed in the storePaths parameter, in addition to the
 # contents of a directory that can be populated with commands. The
 # generated image is sized to only fit its contents, with the expectation

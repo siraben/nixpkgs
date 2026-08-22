@@ -25,7 +25,7 @@ buildPythonPackage (finalAttrs: {
   pythonImportsCheck = [ "tellcorenet" ];
 
   meta = {
-    description = "Python module that allows to run tellcore over TCP/IP";
+    description = "Python module that allows running tellcore over TCP/IP";
     homepage = "https://github.com/home-assistant-libs/tellcore-net";
     changelog = "https://github.com/home-assistant-libs/tellcore-net/releases/tag/${finalAttrs.version}";
     license = lib.licenses.bsd3;

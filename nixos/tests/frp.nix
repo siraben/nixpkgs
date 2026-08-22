@@ -65,7 +65,7 @@ in
             testdir = pkgs.writeTextDir "web/index.php" "<?php phpinfo();";
           in
           {
-            "test-appication" = {
+            "test-application" = {
               documentRoot = "${testdir}/web";
               locations."/" = {
                 index = "index.php index.html";

@@ -113,7 +113,7 @@ in
         dest_domain=. method=get parent="p1.example:8080; p2.example:8080" round_robin=true
       '';
       description = ''
-        Identify the parent proxies used in an cache hierarchy.
+        Identify the parent proxies used in a cache hierarchy.
 
         Consult the [upstream
         documentation](${getManualUrl "parent.config"}) for more details.
@@ -255,7 +255,7 @@ in
       type = types.nullOr yaml.type;
       default = null;
       description = ''
-        Specify the next hop proxies used in an cache hierarchy and the
+        Specify the next hop proxies used in a cache hierarchy and the
         algorithms used to select the next proxy.
 
         Consult the [

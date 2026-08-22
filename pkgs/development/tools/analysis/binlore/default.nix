@@ -35,7 +35,7 @@ let
     hash = "sha256-4Fs6HThfDhKRskuDJx2+hucl8crMRm10K6949JdIwPY=";
   };
   /*
-    binlore has one one more yallbacks responsible for
+    binlore has one or more yallbacks responsible for
     routing the appropriate lore to a named file in the
     appropriate format. At some point I might try to do
     something fancy with this, but for now the answer to

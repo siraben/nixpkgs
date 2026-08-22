@@ -10,7 +10,7 @@ in
         description = ''
           Mount verity-protected block devices in the initrd.
 
-          Enabling this option allows to use `systemd-veritysetup` and
+          Enabling this option allows using `systemd-veritysetup` and
           `systemd-veritysetup-generator` in the initrd.
         '';
       };

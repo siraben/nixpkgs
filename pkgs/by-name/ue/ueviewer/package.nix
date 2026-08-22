@@ -25,7 +25,7 @@ gccStdenv.mkDerivation (finalAttrs: {
 
   patches = [
     # Fix compilation on Darwin
-    # Remove when https://github.com/gildor2/UEViewer/pull/319 merged
+    # Remove when https://github.com/gildor2/UEViewer/pull/319 is merged
     (fetchpatch {
       name = "0001-ueviewer-Dont-use-c++2a-standard.patch";
       url = "https://github.com/gildor2/UEViewer/commit/d44bef038abca99c84d7f418aedcbcb761de58aa.patch";

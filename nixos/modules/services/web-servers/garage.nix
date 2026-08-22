@@ -130,7 +130,7 @@ in
               metadata_dir
             ]
             # data_dir can either be a string or a list of attrs
-            # if data_dir is a list, the actual path will in in the `path` attribute of each item
+            # if data_dir is a list, the actual path will be in the `path` attribute of each item
             # see https://garagehq.deuxfleurs.fr/documentation/reference-manual/configuration/#data_dir
             ++ lib.optional (lib.isList data_dir) (map (item: item.path) data_dir)
             ++ lib.optional (lib.isString data_dir) [ data_dir ]

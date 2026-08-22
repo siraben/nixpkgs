@@ -453,7 +453,7 @@ in
           "flags=X" # Report as a final delivery
           "user=${with config.users; users."public-inbox".name + ":" + groups."public-inbox".name}"
           # Specifying a nexthop when using the transport
-          # (eg. test public-inbox:test) allows to
+          # (eg. test public-inbox:test) allows you to
           # receive mails with an extension (eg. test+foo).
           "argv=${pkgs.writeShellScript "public-inbox-transport" ''
             export HOME="${stateDir}"

@@ -31,7 +31,7 @@ let
     ${mkPatterns cfg.filterBlocks}
   '';
 
-  # empty line at the end needed to to separate the blocks
+  # empty line at the end needed to separate the blocks
   mkPatterns =
     filterBlocks:
     lib.concatStringsSep "\n" (

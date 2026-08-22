@@ -1015,7 +1015,7 @@ in
             content_security_policy = mkOption {
               description = ''
                 Set to `true` to add the `Content-Security-Policy` header to your requests.
-                CSP allows to control resources that the user agent can load and helps prevent XSS attacks.
+                CSP allows controlling resources that the user agent can load and helps prevent XSS attacks.
               '';
               default = false;
               type = types.bool;

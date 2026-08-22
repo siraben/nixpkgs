@@ -274,7 +274,7 @@ pkgs.lib.recurseIntoAttrs rec {
     ${nvim_with_no_pname_plugin}/bin/nvim -i NONE -e --headless +quit
   '';
 
-  # Generate a neovim wrapper with only a init.lua and no init.vim file
+  # Generate a neovim wrapper with only an init.lua and no init.vim file
   nvim_with_only_init_lua = wrapNeovim2 "-only-lua-init-file" {
     luaRcContent = "-- some text";
   };

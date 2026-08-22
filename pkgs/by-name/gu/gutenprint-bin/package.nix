@@ -21,7 +21,7 @@
     cat ${pkgs.gutenprint-bin}/ppds/Canon/Canon-PIXMA_iP4000-gutenprint.5.0.sim-en.ppd.gz |gunzip > $out/lib/cups/model/Canon-PIXMA_iP4000-gutenprint.5.0.sim-en.ppd
     sed -i 's@/opt/gutenprint/cups@${pkgs.gutenprint-bin}/cups@' $out/lib/cups/model/Canon-PIXMA_iP4000-gutenprint.5.0.sim-en.ppd
 
-  Then rebuild your system and add your printer using the the localhost:603 cups web interface
+  Then rebuild your system and add your printer using the localhost:603 cups web interface
   select the extracted .ppd file which can be found in the model directory of
   sed -n 's/^ServerBin //p' $(sed -n 's/respawn.*-c \(.*''\) -F.*''/\1/p' /etc/event.d/cupsd)
   (sorry, cups still doesn't see it. You could copy it into /nix/store/

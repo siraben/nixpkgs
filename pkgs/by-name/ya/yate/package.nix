@@ -19,7 +19,7 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ openssl ];
 
-  # /dev/null is used when linking which is a impure path for the wrapper
+  # /dev/null is used when linking which is an impure path for the wrapper
   postPatch = ''
     patchShebangs configure
     substituteInPlace configure --replace ",/dev/null" ""

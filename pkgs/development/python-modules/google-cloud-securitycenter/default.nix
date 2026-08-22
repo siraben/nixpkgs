@@ -49,7 +49,7 @@ buildPythonPackage (finalAttrs: {
   ];
 
   meta = {
-    description = "Cloud Security Command Center API API client library";
+    description = "Cloud Security Command Center API client library";
     homepage = "https://github.com/googleapis/google-cloud-python/tree/main/packages/google-cloud-securitycenter";
     changelog = "https://github.com/googleapis/google-cloud-python/blob/google-cloud-securitycenter-v${finalAttrs.version}/packages/google-cloud-securitycenter/CHANGELOG.md";
     license = lib.licenses.asl20;

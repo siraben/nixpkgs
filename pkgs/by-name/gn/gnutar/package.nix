@@ -55,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [ autoreconfHook ] ++ lib.optional stdenv.hostPlatform.isCygwin gettext;
 
   # Add libintl on Darwin specifically as it fails to link (or skip)
-  # NLS on it's own:
+  # NLS on its own:
   #  "_libintl_textdomain", referenced from:
   #    _main in tar.o
   #  ld: symbol(s) not found for architecture x86_64

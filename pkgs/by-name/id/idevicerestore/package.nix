@@ -46,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/libimobiledevice/idevicerestore";
     description = "Restore/upgrade firmware of iOS devices";
     longDescription = ''
-      The idevicerestore tool allows to restore firmware files to iOS devices.
+      The idevicerestore tool allows restoring firmware files to iOS devices.
 
       It is a full reimplementation of all granular steps which are performed during
       restore of a firmware to a device.

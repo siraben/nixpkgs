@@ -55,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   # To fix this error when running:
-  # The file "/nix/store/path/whatever.exe" is an not a valid CIL image
+  # The file "/nix/store/path/whatever.exe" is not a valid CIL image
   dontStrip = true;
 
   meta = {

@@ -56,7 +56,7 @@ in
                   type = lib.types.separatedString " ";
                   example = "-L2222:localhost:22 -i \${config.age.secrets.privatekey.path}";
                   description = ''
-                    Arguments to be passed to the ssh process process.
+                    Arguments to be passed to the ssh process.
                     Some meaningful options include
                     -D (open SOCKS proxy on local port),
                     -R (forward remote port),

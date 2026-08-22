@@ -516,7 +516,7 @@ in
     if pathExists suffixFile then lib.strings.fileContents suffixFile else "pre-git";
 
   /**
-    Attempts to return the the current revision of nixpkgs and
+    Attempts to return the current revision of nixpkgs and
     returns the supplied default value otherwise.
 
     # Inputs

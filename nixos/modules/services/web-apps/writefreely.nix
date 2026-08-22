@@ -172,13 +172,13 @@ in
     user = mkOption {
       type = types.str;
       default = "writefreely";
-      description = "User under which Writefreely is ran.";
+      description = "User under which Writefreely is run.";
     };
 
     group = mkOption {
       type = types.str;
       default = "writefreely";
-      description = "Group under which Writefreely is ran.";
+      description = "Group under which Writefreely is run.";
     };
 
     host = mkOption {

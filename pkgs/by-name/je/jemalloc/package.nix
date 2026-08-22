@@ -97,7 +97,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isDarwin "-Wno-error=array-bounds";
 
-  # Tries to link test binaries binaries dynamically and fails
+  # Tries to link test binaries dynamically and fails
   doCheck = !stdenv.hostPlatform.isStatic;
 
   doInstallCheck = true;

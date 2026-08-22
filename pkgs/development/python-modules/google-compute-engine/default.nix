@@ -48,7 +48,7 @@ buildPythonPackage rec {
   '';
 
   postInstall = ''
-    # allows to install the package in `services.udev.packages` in NixOS
+    # allows installing the package in `services.udev.packages` in NixOS
     mkdir -p $out/lib/udev/rules.d
     cp -r google_config/udev/*.rules $out/lib/udev/rules.d
 

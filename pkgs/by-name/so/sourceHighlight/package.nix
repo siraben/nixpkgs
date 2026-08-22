@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  # source-highlight uses it's own binary to generate documentation.
+  # source-highlight uses its own binary to generate documentation.
   # During cross-compilation, that binary was built for the target
   # platform architecture, so it can't run on the build host.
   postPatch = lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''

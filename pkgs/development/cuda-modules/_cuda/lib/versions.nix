@@ -32,7 +32,7 @@ in
   majorMinorPatch = cudaLib.trimComponents 3;
 
   /**
-    Get a version string with no more than than the specified number of components.
+    Get a version string with no more than the specified number of components.
 
     # Type
 

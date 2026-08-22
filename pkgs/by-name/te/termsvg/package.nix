@@ -26,7 +26,7 @@ buildGoModule (finalAttrs: {
   ];
 
   meta = {
-    description = "Record, share and export your terminal as a animated SVG image";
+    description = "Record, share and export your terminal as an animated SVG image";
     homepage = "https://github.com/MrMarble/termsvg";
     license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ pbsds ];

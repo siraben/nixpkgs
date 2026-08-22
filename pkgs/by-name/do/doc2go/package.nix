@@ -23,7 +23,7 @@ buildGoModule (finalAttrs: {
   ];
 
   subPackages = [ "." ];
-  # integration is it's own module
+  # integration is its own module
   excludedPackages = [ "integration" ];
 
   checkFlags = [

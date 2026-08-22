@@ -52,8 +52,8 @@ python3.pkgs.buildPythonApplication rec {
     # https://github.com/mesonbuild/meson/pull/6827
     ./003-more-env-vars.patch
 
-    # Unlike libtool, vanilla Meson does not pass any information about the path
-    # library will be installed to to g-ir-scanner, breaking the GIR when path
+    # Unlike libtool, vanilla Meson does not pass any information about the
+    # library installation path to g-ir-scanner, breaking the GIR when path
     # other than ${!outputLib}/lib is used.
     # We patch Meson to add a --fallback-library-path argument with library
     # install_dir to g-ir-scanner.

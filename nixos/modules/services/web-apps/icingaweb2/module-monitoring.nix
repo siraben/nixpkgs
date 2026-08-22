@@ -144,7 +144,7 @@ in
               instance = mkOption {
                 type = nullOr str;
                 default = null;
-                description = "Assign a icinga instance to this transport";
+                description = "Assign an icinga instance to this transport";
               };
 
               path = mkOption {

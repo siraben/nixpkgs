@@ -108,7 +108,7 @@ stdenv.mkDerivation (finalAttrs: {
     ninja install
     runHook postInstall
   '';
-  # tests are intended to be ran manually as test/ python scripts and need accelerator
+  # tests are intended to be run manually as test/ python scripts and need accelerator
   doCheck = false;
   doInstallCheck = false;
 

@@ -797,7 +797,7 @@ with import <nixpkgs> { };
 }
 ```
 
-Here, `crateOverrides` is expected to be a attribute set, where the
+Here, `crateOverrides` is expected to be an attribute set, where the
 key is the crate name without version number and the value a function.
 The function gets all attributes passed to `buildRustCrate` as first
 argument and returns a set that contains all attribute that should be

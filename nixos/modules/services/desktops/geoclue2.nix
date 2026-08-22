@@ -258,7 +258,7 @@ in
 
     systemd.packages = [ cfg.package ];
 
-    # we cannot use DynamicUser as we need the the geoclue user to exist for the
+    # we cannot use DynamicUser as we need the geoclue user to exist for the
     # dbus policy to work
     users = {
       users.geoclue = {

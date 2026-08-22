@@ -44,7 +44,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     # `packages/app-lib/build.rs` requires a Gradle executable, but our flags
     # are injected through a bash function sourced by the stdenv :(
     #
-    # So, re-implement said wrapper to have the same behavior when Gradle is ran in `build.rs`
+    # So, re-implement said wrapper to have the same behavior when Gradle is run in `build.rs`
     (replaceVars ./gradle-from-path.patch {
       # Yes, it has to be a shell wrapper
       # https://github.com/NixOS/nixpkgs/issues/172583

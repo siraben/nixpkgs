@@ -17,7 +17,7 @@ buildPythonPackage rec {
   version = "0.6.3";
   pyproject = true;
 
-  # Still uses distrutils, https://github.com/MisterWil/skybellpy/issues/22
+  # Still uses distutils, https://github.com/MisterWil/skybellpy/issues/22
   disabled = pythonAtLeast "3.12";
 
   src = fetchFromGitHub {

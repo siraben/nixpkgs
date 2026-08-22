@@ -18,7 +18,7 @@ stdenv.mkDerivation {
     cp gpu-switch $out/bin/
   '';
   meta = {
-    description = "Application that allows to switch between the graphic cards of dual-GPU MacBook Pro models";
+    description = "Application that allows switching between the graphic cards of dual-GPU MacBook Pro models";
     mainProgram = "gpu-switch";
     homepage = "https://github.com/0xbb/gpu-switch";
     license = lib.licenses.mit;

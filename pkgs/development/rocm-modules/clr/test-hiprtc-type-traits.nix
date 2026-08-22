@@ -6,7 +6,7 @@
   rocm-smi,
 }:
 # minimal hiprtc test that compiles a kernel using <type_traits> at runtime
-# mirrors an migraphx workload, better test/iteration UX to be able to confirm
+# mirrors a migraphx workload, better test/iteration UX to be able to confirm
 # with just a build up to clr
 let
   hiprtc-test = stdenv.mkDerivation {

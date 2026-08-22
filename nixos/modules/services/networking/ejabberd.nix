@@ -39,13 +39,13 @@ in
       user = lib.mkOption {
         type = lib.types.str;
         default = "ejabberd";
-        description = "User under which ejabberd is ran";
+        description = "User under which ejabberd is run";
       };
 
       group = lib.mkOption {
         type = lib.types.str;
         default = "ejabberd";
-        description = "Group under which ejabberd is ran";
+        description = "Group under which ejabberd is run";
       };
 
       spoolDir = lib.mkOption {

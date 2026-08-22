@@ -103,9 +103,9 @@ stdenv.mkDerivation (
 
     postPatch = ''
       # kftray is using the updater plugin. We override the key pair since we
-      # want to update with nix. The following is an random generated key pair
-      # that holds no significance. Should we able to be simplified once
-      # --no-sign flag is available, see
+      # want to update with nix. The following is a randomly generated key pair
+      # that holds no significance. This should be simplifiable once
+      # the --no-sign flag is available, see
       # https://github.com/tauri-apps/tauri/pull/14052
       export TAURI_SIGNING_PRIVATE_KEY="dW50cnVzdGVkIGNvbW1lbnQ6IHJzaWduIGVuY3J5cHRlZCBzZWNyZXQga2V5ClJXUlRZMEl5SkpzS2h6elk5ZTZZVmhMaE4zL2ExWG1kcWlhYmZ0Y0wwRXhyVnNzNUpYb0FBQkFBQUFBQUFBQUFBQUlBQUFBQW50eHlFN1N1bE8yWFk5ZC9rZ1o1elhUclhpay9aS09jN0JBdkE3V3BaeCtoZDhNKy8zSk9WMWtJd2pJamExWmdZcWh2YUZXMUJVamVNUVo5Y3M4OVBlN05LbURuVUNzTHJzUWN3cWhuZnlKbzcyM21iTy8wQ1Y2elgvT1FXYk5ieE1kUzQ1MDE4YjA9Cg=="
       export TAURI_SIGNING_PRIVATE_KEY_PASSWORD=""

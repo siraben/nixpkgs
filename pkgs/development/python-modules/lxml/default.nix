@@ -49,7 +49,7 @@ buildPythonPackage (finalAttrs: {
     NIX_CFLAGS_COMPILE = "-Wno-error=incompatible-function-pointer-types";
   };
 
-  # tests are meant to be ran "in-place" in the same directory as src
+  # tests are meant to be run "in-place" in the same directory as src
   doCheck = false;
 
   pythonImportsCheck = [

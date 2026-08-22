@@ -32,9 +32,9 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "yabasic";
     longDescription = ''
       Yabasic is a traditional basic-interpreter. It comes with goto and various
-      loops and allows to define subroutines and libraries. It does simple
+      loops and allows defining subroutines and libraries. It does simple
       graphics and printing. Yabasic can call out to libraries written in C and
-      allows to create standalone programs. Yabasic runs under Unix and Windows
+      allows creating standalone programs. Yabasic runs under Unix and Windows
       and has a comprehensive documentation; it is small, simple, open-source
       and free.
     '';

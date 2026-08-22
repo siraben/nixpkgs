@@ -13,7 +13,7 @@
     {
       services.kubo = {
         enable = true;
-        # Also will add a unix domain socket socket API address, see module.
+        # Also will add a unix domain socket API address, see module.
         startWhenNeeded = true;
         settings.Addresses.API = "/ip4/127.0.0.1/tcp/2324";
         dataDir = "/mnt/ipfs";

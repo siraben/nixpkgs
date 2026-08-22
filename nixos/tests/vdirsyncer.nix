@@ -245,7 +245,7 @@ in
     machine.wait_for_unit("multi-user.target")
 
     with subtest("alice -> radicale"):
-        # vdirsyncer cannot create create collections on Radicale,
+        # vdirsyncer cannot create collections on Radicale,
         # see https://vdirsyncer.pimutils.org/en/stable/tutorials/radicale.html
         machine.succeed("runuser -u radicale -- install -Dm 644 ${mkRadicaleProps "VCALENDAR"} /var/lib/radicale/collections/collection-root/alice/foocal/.Radicale.props")
         machine.succeed("runuser -u radicale -- install -Dm 644 ${mkRadicaleProps "VADDRESSBOOK"} /var/lib/radicale/collections/collection-root/alice/foocard/.Radicale.props")
@@ -271,7 +271,7 @@ in
         machine.fail("test -e /var/lib/private/vdirsyncer/bob")
 
     with subtest("radicale <-> xandikos"):
-        # vdirsyncer cannot create create collections on Radicale,
+        # vdirsyncer cannot create collections on Radicale,
         # see https://vdirsyncer.pimutils.org/en/stable/tutorials/radicale.html
         machine.succeed("runuser -u radicale -- install -Dm 644 ${mkRadicaleProps "VCALENDAR"} /var/lib/radicale/collections/collection-root/alice/barcal/.Radicale.props")
         machine.succeed("runuser -u radicale -- install -Dm 644 ${mkRadicaleProps "VADDRESSBOOK"} /var/lib/radicale/collections/collection-root/alice/barcard/.Radicale.props")

@@ -27,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
   #
   # See this explanation from the maintainer, about an existing
   # package that exhibits the same problem (that we were able to
-  # produce when building for Darwin an musl.)
+  # produce when building for Darwin and musl.)
   #
   # https://lists.gnu.org/archive/html/help-libidn/2021-07/msg00009.html
   src = fetchzip {

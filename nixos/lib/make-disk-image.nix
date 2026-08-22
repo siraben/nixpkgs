@@ -62,16 +62,16 @@
 
   This partition table type uses GPT and:
 
-  - creates an FAT32 ESP partition from 8MiB to specified `bootSize` parameter (256MiB by default), set it bootable ;
-  - creates an primary ext4 partition starting after the boot partition and extending to the full disk image
+  - creates a FAT32 ESP partition from 8MiB to specified `bootSize` parameter (256MiB by default), set it bootable ;
+  - creates a primary ext4 partition starting after the boot partition and extending to the full disk image
 
   #### `efixbootldr`
 
   This partition table type uses GPT and:
 
-  - creates an FAT32 ESP partition from 8MiB to 100MiB, set it bootable ;
-  - creates an FAT32 BOOT partition from 100MiB to specified `bootSize` parameter (256MiB by default), set `bls_boot` flag ;
-  - creates an primary ext4 partition starting after the boot partition and extending to the full disk image
+  - creates a FAT32 ESP partition from 8MiB to 100MiB, set it bootable ;
+  - creates a FAT32 BOOT partition from 100MiB to specified `bootSize` parameter (256MiB by default), set `bls_boot` flag ;
+  - creates a primary ext4 partition starting after the boot partition and extending to the full disk image
 
   #### `hybrid`
 

@@ -25,7 +25,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   patches = [ ./include-unix-time-plus-one.diff ];
 
   # Some tests which implicitly relied on the above behavior now break.
-  # Force an mtime update to everything except symbolic inks to fix.
+  # Force an mtime update to everything except symbolic links to fix.
   postUnpack = ''
     find . -not -type l -exec touch -m {} +
   '';

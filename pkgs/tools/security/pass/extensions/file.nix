@@ -18,7 +18,7 @@ stdenv.mkDerivation (finalAttrs: {
   installFlags = [ "PREFIX=$(out)" ];
 
   meta = {
-    description = "Pass extension that allows to add files to password-store";
+    description = "Pass extension that allows adding files to password-store";
     homepage = "https://github.com/dvogt23/pass-file";
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ taranarmo ];

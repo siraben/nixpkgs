@@ -57,7 +57,7 @@ let
     ];
 
     postPatch = ''
-      # patch from Debian, allows to run xrdp daemon under unprivileged user
+      # patch from Debian, allows running the xrdp daemon under an unprivileged user
       substituteInPlace module/rdpClientCon.c \
         --replace 'g_sck_listen(dev->listen_sck);' 'g_sck_listen(dev->listen_sck); g_chmod_hex(dev->uds_data, 0x0660);'
 

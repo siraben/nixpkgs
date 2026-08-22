@@ -41,8 +41,8 @@ buildGoModule (finalAttrs: {
     description = "Command line catalog tool for your offline data";
     longDescription = ''
       gocatcli is a catalog tool for your offline data. It indexes external
-      media in a catalog file and allows to quickly find specific files or even
-      navigate in the catalog as if it was a mounted drive
+      media in a catalog file and allows one to quickly find specific files or
+      even navigate in the catalog as if it was a mounted drive
     '';
     license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [

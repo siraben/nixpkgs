@@ -149,7 +149,7 @@ let
   virtualIpAssertions = vrrpName: ip: [
     {
       assertion = ip.addr != "";
-      message = "The 'addr' option for an services.keepalived.vrrpInstances.${vrrpName}.virtualIps entry cannot be empty.";
+      message = "The 'addr' option for a services.keepalived.vrrpInstances.${vrrpName}.virtualIps entry cannot be empty.";
     }
   ];
 

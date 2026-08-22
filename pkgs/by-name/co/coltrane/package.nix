@@ -15,8 +15,8 @@ bundlerApp {
     homepage = "https://github.com/pedrozath/coltrane";
     description = "Music calculation library/CLI";
     longDescription = ''
-      coltrane allows to search for Notes, Chords, Scales for
-      guitar, bass, piano and ukelele
+      coltrane lets you search for Notes, Chords, Scales for
+      guitar, bass, piano and ukulele
     '';
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ panaeon ];

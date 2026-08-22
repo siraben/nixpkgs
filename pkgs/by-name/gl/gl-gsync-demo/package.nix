@@ -51,7 +51,7 @@ stdenv.mkDerivation {
 
       The min and max frame rates can be manually changed at runtime, by step of 10 fps and with a min of 10 fps.
 
-      The demo also allows to toggle V-Sync on/off.
+      The demo also allows toggling V-Sync on/off.
     '';
     homepage = "https://github.com/dahenry/gl-gsync-demo";
   };

@@ -24,7 +24,7 @@ buildGoModule (finalAttrs: {
 
   patches = [ ];
 
-  # This is the go generate is ran in the upstream builder, but we have to run the components separately for things to work.
+  # go generate is run in the upstream builder, but we have to run the components separately for things to work.
   preBuild = ''
     # Some steps expect GOROOT to be set.
     export GOROOT="$(go env GOROOT)"

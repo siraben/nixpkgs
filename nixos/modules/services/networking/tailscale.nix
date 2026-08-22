@@ -35,7 +35,7 @@ in
     permitCertUid = mkOption {
       type = types.nullOr types.nonEmptyStr;
       default = null;
-      description = "Username or user ID of the user allowed to to fetch Tailscale TLS certificates for the node.";
+      description = "Username or user ID of the user allowed to fetch Tailscale TLS certificates for the node.";
     };
 
     disableTaildrop = mkOption {
@@ -70,7 +70,7 @@ in
       description = ''
         Enables settings required for Tailscale's routing features like subnet routers and exit nodes.
 
-        To use these these features, you will still need to call `sudo tailscale up` with the relevant flags like `--advertise-exit-node` and `--exit-node`.
+        To use these features, you will still need to call `sudo tailscale up` with the relevant flags like `--advertise-exit-node` and `--exit-node`.
 
         When set to `client` or `both`, reverse path filtering will be set to loose instead of strict.
         When set to `server` or `both`, IP forwarding will be enabled.

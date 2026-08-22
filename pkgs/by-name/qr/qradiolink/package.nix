@@ -55,7 +55,7 @@ gnuradio.pkgs.mkDerivation rec {
     gnuradio.unwrapped.boost
     codec2
     gnuradio.unwrapped.logLib
-    # gnuradio uses it's own log library (spdlog), and qradiolink is still
+    # gnuradio uses its own log library (spdlog), and qradiolink is still
     # using the old gnuradio log library log4cpp. Perhaps this won't be needed
     # once the gr_3.10 branch will mature enough to be merged into qradiolink's
     # master branch.

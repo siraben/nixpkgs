@@ -68,7 +68,7 @@ python3Packages.buildPythonApplication rec {
   '';
 
   meta = {
-    description = "This application allows to manage Nitrokey 3 devices";
+    description = "This application allows managing Nitrokey 3 devices";
     homepage = "https://github.com/Nitrokey/nitrokey-app2";
     changelog = "https://github.com/Nitrokey/nitrokey-app2/releases/tag/${src.tag}";
     license = lib.licenses.asl20;

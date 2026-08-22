@@ -245,7 +245,7 @@ stdenv.mkDerivation (finalAttrs: {
     export HOME=$(mktemp -d)
     export PYTHONPATH="$out/${python3Packages.python.sitePackages}:$PYTHONPATH"
     export GDAL_DOWNLOAD_TEST_DATA=OFF
-    # allows to skip tests that fail because of file handle leak
+    # allows skipping tests that fail because of file handle leak
     # the issue was not investigated
     # https://github.com/OSGeo/gdal/blob/v3.9.0/autotest/gdrivers/bag.py#L54
     export CI=1

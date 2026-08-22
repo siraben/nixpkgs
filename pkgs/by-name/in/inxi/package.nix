@@ -100,7 +100,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Full featured CLI system information tool";
     longDescription = ''
       inxi is a command line system information script built for console and
-      IRC. It is also used a debugging tool for forum technical support to
+      IRC. It is also used as a debugging tool for forum technical support to
       quickly ascertain users' system configurations and hardware. inxi shows
       system hardware, CPU, drivers, Xorg, Desktop, Kernel, gcc version(s),
       Processes, RAM usage, and a wide variety of other useful information.

@@ -222,7 +222,7 @@ in
 
                     For example, you can set `services.mautrix-meta.settings.appservice.as_token = "$MAUTRIX_META_APPSERVICE_AS_TOKEN"`
                     and then specify `MAUTRIX_META_APPSERVICE_AS_TOKEN="{token}"` in the environment file.
-                    This value will get substituted into the configuration file as as token.
+                    This value will get substituted into the configuration file as a token.
                   '';
                 };
 

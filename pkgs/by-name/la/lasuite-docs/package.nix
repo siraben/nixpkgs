@@ -54,7 +54,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     ./secure_settings.patch
   ];
 
-  # They use a old version of mistralai which exported a class
+  # They use an old version of mistralai which exported a class
   # at the top level
   postPatch = ''
     substituteInPlace core/services/ai_services/legacy.py \

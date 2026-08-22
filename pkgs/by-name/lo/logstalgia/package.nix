@@ -69,7 +69,7 @@ stdenv.mkDerivation (finalAttrs: {
     longDescription = ''
       Logstalgia is a website traffic visualization that replays or
       streams web-server access logs as a pong-like battle between the
-      web server and an never ending torrent of requests.
+      web server and a never ending torrent of requests.
 
       Requests appear as colored balls (the same color as the host)
       which travel across the screen to arrive at the requested

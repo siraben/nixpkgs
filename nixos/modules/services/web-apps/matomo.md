@@ -46,7 +46,7 @@ https://matomo.org/docs/setup-auto-archiving/#disable-browser-triggers-for-matom
 ) at
 `Administration > System > General Settings`.
 
-With automatic archive processing, you can now also enable to
+With automatic archive processing, you can now also choose to
 [delete old visitor logs](https://matomo.org/docs/privacy/#step-2-delete-old-visitors-logs)
 at `Administration > System > Privacy`, but make sure that you run `systemctl start
 matomo-archive-processing.service` at least once without errors if

@@ -13,7 +13,7 @@
 
 let
   inherit (lib) cmakeBool;
-  # intel-graphics-compiler >= 2.36 does no longer support 8th Gen
+  # intel-graphics-compiler >= 2.36 no longer supports 8th Gen
   intel-graphics-compiler = callPackage ./intel-graphics-compiler.nix { };
 in
 stdenv.mkDerivation (finalAttrs: {

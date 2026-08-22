@@ -42,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   meta = {
-    description = "Relays a smart card using an contact-less interface";
+    description = "Relays a smart card using a contact-less interface";
     homepage = "https://frankmorgner.github.io/vsmartcard/pcsc-relay/README.html";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.all;

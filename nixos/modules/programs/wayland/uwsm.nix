@@ -106,7 +106,7 @@ in
                 type = with lib.types; listOf str;
                 default = [ ];
                 description = ''
-                  Extra command-line arguments pass to to the compsitor.
+                  Extra command-line arguments to pass to the compositor.
                 '';
               };
             };

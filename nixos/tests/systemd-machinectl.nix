@@ -303,7 +303,7 @@ in
     # Test tmpfs for /tmp
     machine.fail("mountpoint /tmp");
 
-    # Show to to delete the container
+    # Show how to delete the container
     machine.succeed("chattr -i ${containerRoot}/var/empty");
     machine.succeed("rm -rf ${containerRoot}");
 

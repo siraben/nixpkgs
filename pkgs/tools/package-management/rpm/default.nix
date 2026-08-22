@@ -30,7 +30,7 @@
   gnupg,
 
   # Disable the unshare RPM plugin, which can be useful if
-  # RPM is ran within the Nix sandbox.
+  # RPM is run within the Nix sandbox.
   disableUnshare ? true,
 }:
 

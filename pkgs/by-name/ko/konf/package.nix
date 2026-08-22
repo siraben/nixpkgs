@@ -23,7 +23,7 @@ buildGoModule (finalAttrs: {
   ];
 
   meta = {
-    description = "Lightweight and blazing fast kubeconfig manager which allows to use different kubeconfigs at the same time";
+    description = "Lightweight and blazing fast kubeconfig manager which allows using different kubeconfigs at the same time";
     mainProgram = "konf-go";
     homepage = "https://github.com/SimonTheLeg/konf-go";
     license = lib.licenses.asl20;

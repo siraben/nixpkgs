@@ -6,7 +6,7 @@
   buildPackages,
 }:
 let
-  # Wrap the binary coming out of the the compilation script, so it knows QT_PLUGIN_PATH
+  # Wrap the binary coming out of the compilation script, so it knows QT_PLUGIN_PATH
   wrapBinary = writeText "wrapBinary" ''
     source ${buildPackages.makeWrapper}/nix-support/setup-hook
     for p in $FILES; do

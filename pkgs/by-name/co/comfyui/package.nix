@@ -11,7 +11,7 @@
 
 let
   # Using overrideScope does not work when using `withPackages appDependencies`
-  # and creates a an env without those overrides
+  # and creates an env without those overrides
   python = python3.override {
     self = python;
     packageOverrides = final: prev: {

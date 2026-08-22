@@ -236,7 +236,7 @@ in
         type = types.bool;
         default = false;
         description = ''
-          Whether to configure nginx as an frontend to uwsgi.
+          Whether to configure nginx as a frontend to uwsgi.
         '';
       };
 

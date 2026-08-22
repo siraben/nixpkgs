@@ -974,7 +974,7 @@ rec {
   /**
     Splits the elements of a list into many lists, using the return value of a predicate.
     Predicate should return a string which becomes keys of attrset `groupBy` returns.
-    `groupBy'` allows to customise the combining function and initial value
+    `groupBy'` allows customising the combining function and initial value
 
     # Inputs
 
@@ -1411,7 +1411,7 @@ rec {
       - `1` if `a` is greater than `b`
       - `-1` if `a` is less than `b`
 
-      See [lib.compare](#function-library-lib.trivial.compare) for a an example implementation.
+      See [lib.compare](#function-library-lib.trivial.compare) for an example implementation.
 
     `a`
 

@@ -36,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Add a light/intuitive GUI to OpenGL applications";
     longDescription = ''
-      A small and easy-to-use C/C++ library that allows to quickly add a light
+      A small and easy-to-use C/C++ library that allows quickly adding a light
       and intuitive graphical user interface into graphic applications based on OpenGL
       (compatibility and core profiles), DirectX 9, DirectX 10 or DirectX 11
       to interactively tweak parameters on-screen

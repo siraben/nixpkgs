@@ -57,7 +57,7 @@ appimageTools.wrapType2 {
     description = "Fast, powerful and free cross-platform batch image converter";
     longDescription = ''
       XnConvert is a fast, powerful and free cross-platform batch image converter.
-      It allows to automate editing of your photo collections: you can rotate,
+      It allows you to automate editing of your photo collections: you can rotate,
       convert and compress your images, photos and pictures easily, and apply over
       80 actions (like resize, crop, color adjustments, filter, ...).
       All common picture and graphics formats are supported (JPEG, TIFF, PNG, GIF,

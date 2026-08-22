@@ -67,7 +67,7 @@ buildPythonPackage (finalAttrs: {
     rm -rf lib/zstd
   '';
 
-  # opt-in to use use system libs instead
+  # opt-in to use system libs instead
   env.HDF5PLUGIN_SYSTEM_LIBRARIES = lib.concatStringsSep "," [
     "blosc"
     "blosc2"

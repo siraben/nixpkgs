@@ -59,7 +59,7 @@
     set rtp+=~/.nix-profile/share/vim-plugins/youcompleteme
     " or for p in ["youcompleteme"] | exec 'set rtp+=~/.nix-profile/share/vim-plugins/'.p | endfor
 
-  Learn about about plugin Vim plugin mm managers at
+  Learn about Vim plugin managers at
   http://vim-wiki.mawercer.de/wiki/topic/vim%20plugin%20managment.html.
 
   The documentation can be accessed by Vim's :help command if it was tagged.

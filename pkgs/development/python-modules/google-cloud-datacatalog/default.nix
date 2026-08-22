@@ -63,7 +63,7 @@ buildPythonPackage (finalAttrs: {
   };
 
   meta = {
-    description = "Google Cloud Data Catalog API API client library";
+    description = "Google Cloud Data Catalog API client library";
     homepage = "https://github.com/googleapis/google-cloud-python/tree/main/packages/google-cloud-datacatalog";
     changelog = "https://github.com/googleapis/google-cloud-python/blob/${finalAttrs.src.tag}/packages/google-cloud-datacatalog/CHANGELOG.md";
     license = lib.licenses.asl20;

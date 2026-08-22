@@ -144,7 +144,7 @@ in
             "anuko.''${config.networking.domain}"
           ];
 
-          # To enable encryption and let let's encrypt take care of certificate
+          # To enable encryption and let Let's Encrypt take care of certificates
           forceSSL = true;
           enableACME = true;
         }

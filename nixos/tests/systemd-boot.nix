@@ -475,8 +475,8 @@ in
               return machine.succeed("/run/current-system/bin/switch-to-configuration boot 2>&1")
 
           output = switch()
-          assert 'to "/boot/EFI/systemd/systemd-bootx64.efi"' in output, "systemd-boot not copied to to /boot/EFI/systemd/systemd-bootx64.efi"
-          assert 'to "/boot/EFI/BOOT/BOOTX64.EFI"' in output, "systemd-boot not copied to to /boot/EFI/BOOT/BOOTX64.EFI"
+          assert 'to "/boot/EFI/systemd/systemd-bootx64.efi"' in output, "systemd-boot not copied to /boot/EFI/systemd/systemd-bootx64.efi"
+          assert 'to "/boot/EFI/BOOT/BOOTX64.EFI"' in output, "systemd-boot not copied to /boot/EFI/BOOT/BOOTX64.EFI"
 
           with subtest("Test that updating works with lowercase bootx64.efi"):
               machine.succeed(
@@ -485,8 +485,8 @@ in
                   "mv /boot/EFI/BOOT/bootx64.efi.new /boot/EFI/BOOT/bootx64.efi",
               )
               output = switch()
-              assert 'to "/boot/EFI/systemd/systemd-bootx64.efi"' in output, "systemd-boot not copied to to /boot/EFI/systemd/systemd-bootx64.efi"
-              assert 'to "/boot/EFI/BOOT/BOOTX64.EFI"' in output, "systemd-boot not copied to to /boot/EFI/BOOT/BOOTX64.EFI"
+              assert 'to "/boot/EFI/systemd/systemd-bootx64.efi"' in output, "systemd-boot not copied to /boot/EFI/systemd/systemd-bootx64.efi"
+              assert 'to "/boot/EFI/BOOT/BOOTX64.EFI"' in output, "systemd-boot not copied to /boot/EFI/BOOT/BOOTX64.EFI"
 
           with subtest("Test that switching with an up-to-date bootloader is a no-op"):
               output = machine.succeed("/run/current-system/bin/switch-to-configuration boot 2>&1")

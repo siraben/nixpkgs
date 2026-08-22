@@ -62,7 +62,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/tx00100xt/${finalAttrs.src.repo}";
     description = "Open source game engine version developed by Croteam for Serious Sam Classic";
     longDescription = ''
-      Note: This package allows to run both Serious Sam: The First Encounter (serioussam)
+      Note: This package allows running both Serious Sam: The First Encounter (serioussam)
       and The Second Encounter (serioussamse).
 
       For serioussam you must copy all the assets of the original games into

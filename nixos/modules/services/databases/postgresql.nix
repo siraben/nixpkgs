@@ -696,7 +696,7 @@ in
       '')
     ];
 
-    # The default allows to login with the same database username as the current system user.
+    # The default allows logging in with the same database username as the current system user.
     # This is the default for peer authentication without a map, but needs to be made explicit
     # once a map is used.
     services.postgresql.identMap = mkAfter ''

@@ -33,7 +33,7 @@ buildPythonPackage rec {
   nativeCheckInputs = [ pytestCheckHook ];
 
   disabledTests = [
-    # Test fails with a an error: AssertionError: assert 30 == 31
+    # Test fails with an error: AssertionError: assert 30 == 31
     "test_recurring_task_5"
   ];
 

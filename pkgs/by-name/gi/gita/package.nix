@@ -40,7 +40,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     "test_set_first_time"
   ];
 
-  # The test suite assumes that it is ran from a directory called "gita" that is
+  # The test suite assumes that it is run from a directory called "gita" that is
   # a git repository.
   preCheck = ''
     mkdir $TMPDIR/gita

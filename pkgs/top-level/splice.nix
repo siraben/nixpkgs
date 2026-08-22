@@ -64,7 +64,7 @@ let
         else if lib.isAttrs defaultValue then
           spliceReal value'
         else
-          # Don't be fancy about non-derivations. But we could have used used
+          # Don't be fancy about non-derivations. But we could have used
           # `__functor__` for functions instead.
           defaultValue;
     in

@@ -1169,10 +1169,10 @@ rec {
     If the predicate returns true, it does recurse, and does not apply the mapping function.
 
     ::: {.example #map-attrs-recursive-cond-example}
-    # Map over an leaf attributes defined by a condition
+    # Map over the leaf attributes defined by a condition
 
     Map derivations to their `name` attribute.
-    Derivatons are identified as attribute sets that contain `{ type = "derivation"; }`.
+    Derivations are identified as attribute sets that contain `{ type = "derivation"; }`.
     ```nix
     mapAttrsRecursiveCond
       (as: !(as ? "type" && as.type == "derivation"))

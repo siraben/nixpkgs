@@ -38,8 +38,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
     description = "i3 project manager similar to tmuxinator";
     mainProgram = "i3minator";
     longDescription = ''
-      A simple "workspace manager" for i3. It allows to quickly
-      manage workspaces defining windows and their layout. The
+      A simple "workspace manager" for i3. It allows quickly
+      managing workspaces defining windows and their layout. The
       project is inspired by tmuxinator and uses i3-py.
     '';
     homepage = "https://github.com/carlesso/i3minator";

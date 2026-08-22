@@ -34,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   cargoRoot = "deps/extension";
   cargoDeps = rustPlatform.fetchCargoVendor {
-    name = "sqlcipher-signal-exentsion";
+    name = "sqlcipher-signal-extension";
     inherit (finalAttrs) src cargoRoot;
     hash = "sha256-ChIzjkjIl663lNnOd5oLM1mc5CpLBZS/l82ikyXe/Ac=";
   };

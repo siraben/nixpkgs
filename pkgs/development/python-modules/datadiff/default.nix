@@ -27,7 +27,7 @@ buildPythonPackage (finalAttrs: {
   pythonImportsCheck = [ "datadiff" ];
 
   disabledTests = [
-    # slice is an hashable type in recent python versions
+    # slice is a hashable type in recent python versions
     "test_unhashable_type"
   ];
 

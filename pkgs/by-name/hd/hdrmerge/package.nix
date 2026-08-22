@@ -23,7 +23,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-4FIGchwROXe8qLRBaYih2k9zDll2YoYGDj06SrIqK9Q=";
   };
 
-  # Disable find_package(ALGLIB REQUIRED) in the CMake file by providing a empty
+  # Disable find_package(ALGLIB REQUIRED) in the CMake file by providing an empty
   # FindALGLIB.cmake, and provide ALGLIB_INCLUDES and ALGLIB_LIBRARIES ourselves
   preConfigure = ''
     touch cmake/FindALGLIB.cmake

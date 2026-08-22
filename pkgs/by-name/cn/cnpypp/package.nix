@@ -46,7 +46,7 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    description = "C++17 library that allows to read and write NumPy data files";
+    description = "C++17 library that allows reading and writing NumPy data files";
     homepage = "https://github.com/mreininghaus/cnpypp";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ jherland ];

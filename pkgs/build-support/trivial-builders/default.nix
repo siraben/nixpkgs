@@ -526,7 +526,7 @@ rec {
 
     linkFarm is instead used to create a simple derivation with symlinks to
     other derivations.  A derivation created with linkFarm is often used in CI
-    as a easy way to build multiple derivations at once.
+    as an easy way to build multiple derivations at once.
   */
   symlinkJoin = lib.extendMkDerivation {
     constructDrv = stdenvNoCC.mkDerivation;

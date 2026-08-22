@@ -38,7 +38,7 @@ buildDunePackage (finalAttrs: {
     homepage = "https://ocaml-batteries-team.github.io/batteries-included/hdoc2/";
     description = "OCaml Batteries Included";
     longDescription = ''
-      A community-driven effort to standardize on an consistent, documented,
+      A community-driven effort to standardize on a consistent, documented,
       and comprehensive development platform for the OCaml programming
       language.
     '';

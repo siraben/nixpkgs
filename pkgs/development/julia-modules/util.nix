@@ -37,7 +37,7 @@
       git commit -m "Dummy commit"
     '';
 
-  # Convert an dependency source info into a repo with a single commit
+  # Convert a dependency source info into a repo with a single commit
   repoifyInfo =
     uuid: info:
     runCommand "julia-${info.name}-${info.version}" { buildInputs = [ gitMinimal ]; } ''
