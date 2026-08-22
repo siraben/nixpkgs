@@ -524,7 +524,7 @@ in
       description = ''
         Additional disk images to provide to the VM. The value is
         a list of size in MiB (1024×1024 bytes) of each disk. These disks are
-        writeable by the VM.
+        writable by the VM.
       '';
     };
 

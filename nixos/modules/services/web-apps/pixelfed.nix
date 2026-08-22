@@ -456,7 +456,7 @@ in
         chmod -R g+rX ${cfg.dataDir}/storage/app/public
 
         # Link the app.php in the runtime folder.
-        # We cannot link the cache folder only because bootstrap folder needs to be writeable.
+        # We cannot link the cache folder only because bootstrap folder needs to be writable.
         ln -sf ${pixelfed}/bootstrap-static/app.php ${cfg.runtimeDir}/app.php
 
         # https://laravel.com/docs/10.x/filesystem#the-public-disk

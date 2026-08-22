@@ -213,7 +213,7 @@ buildNpmPackage {
 
     # cryptpad assumes it runs in the source directory and also outputs
     # its state files there, which is not exactly great for us.
-    # There are relative paths everywhere so just substituing source paths
+    # There are relative paths everywhere so just substituting source paths
     # is difficult and will likely break on a future update, instead we
     # make links to the required source directories before running.
     # The build.js step populates 'customize' from customize.dist and config;

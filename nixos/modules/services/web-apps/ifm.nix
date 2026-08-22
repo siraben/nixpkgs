@@ -17,7 +17,7 @@ in
 
     dataDir = lib.mkOption {
       type = lib.types.str;
-      description = "Directory to serve throught the file managing service";
+      description = "Directory to serve through the file managing service";
     };
 
     listenAddress = lib.mkOption {

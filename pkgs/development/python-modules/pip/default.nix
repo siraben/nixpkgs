@@ -72,7 +72,7 @@ let
     postBuild = lib.optionalString sphinxSupported ''
       cd docs
 
-      # remove references to sphinx extentions only required for html doc generation
+      # remove references to sphinx extensions only required for html doc generation
       # sphinx.ext.intersphinx requires network connection or packaged object.inv files for python and pypug
       # sphinxcontrib.towncrier is not currently packaged
       for ext in sphinx.ext.intersphinx sphinx_copybutton sphinx_inline_tabs sphinxcontrib.towncrier myst_parser; do

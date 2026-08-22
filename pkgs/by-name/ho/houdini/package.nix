@@ -84,7 +84,7 @@ buildFHSEnv {
         "bin/hotl" # hda/otl manipulation tool
         "bin/hython" # hython
         "bin/hkey" # license administration
-        "bin/husk" # hydra rendereing tool
+        "bin/husk" # hydra rendering tool
         "bin/mantra" # mantra renderer
         "houdini/sbin/sesinetd"
       ];

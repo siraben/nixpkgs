@@ -42,7 +42,7 @@
     };
     services.openssh.enable = true;
 
-    users.users.nixos.isNormalUser = true; # neeeded to establish a ssh connection, by default root login is succeeding without any password
+    users.users.nixos.isNormalUser = true; # needed to establish a ssh connection, by default root login is succeeding without any password
   };
 
   nodes.client = _: {

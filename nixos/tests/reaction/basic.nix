@@ -17,7 +17,7 @@
     services.openssh.enable = true;
     # If not running as root you need to give the reaction user and service the proper permissions
 
-    # allows reading journal logs of processess
+    # allows reading journal logs of processes
     users.users.reaction.extraGroups = [ "systemd-journal" ];
 
     # allows modifying ip firewall rules
@@ -27,7 +27,7 @@
       AmbientCapabilities = [ "CAP_NET_ADMIN" ];
     };
 
-    users.users.nixos.isNormalUser = true; # neeeded to establish a ssh connection, by default root login is succeeding without any password
+    users.users.nixos.isNormalUser = true; # needed to establish a ssh connection, by default root login is succeeding without any password
   };
 
   nodes.client = _: {

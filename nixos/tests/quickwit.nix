@@ -77,7 +77,7 @@ in
     with subtest("verify UI installed"):
       server.succeed("curl -sSf http://127.0.0.1:7280/ui/")
 
-    with subtest("injest and query data"):
+    with subtest("ingest and query data"):
       import json
 
       # Test CLI ingestion

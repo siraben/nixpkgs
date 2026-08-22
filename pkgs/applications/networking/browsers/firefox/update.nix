@@ -37,7 +37,7 @@ writeScript "update-${attrPath}" ''
 
   url=${baseUrl}
 
-  # retriving latest released version
+  # retrieving latest released version
   #  - extracts all links from the $url
   #  - extracts lines only with number and dots followed by a slash
   #  - removes trailing slash

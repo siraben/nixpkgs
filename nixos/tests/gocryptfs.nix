@@ -16,7 +16,7 @@
       programs.fuse.enable = true;
 
       specialisation.fstab-test.configuration = {
-        # This can't be fileSytems, as the qemu machinery doesn't honor it.
+        # This can't be fileSystems, as the qemu machinery doesn't honor it.
         virtualisation.fileSystems."/plain" = {
           device = "/encrypted";
           fsType = "fuse.gocryptfs";

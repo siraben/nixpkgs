@@ -236,7 +236,7 @@ let
           with subtest("Metricbeat metrics arrive in elasticsearch"):
               one.wait_until_succeeds(has_metricbeat())
 
-          with subtest("Logstash messages arive in elasticsearch"):
+          with subtest("Logstash messages arrive in elasticsearch"):
               one.wait_until_succeeds(expect_hits("flowers"))
               one.wait_until_succeeds(expect_no_hits("dragons"))
 

@@ -42,8 +42,8 @@ in
         example = "example.com";
         description = ''
           Hosts that homepage-dashboard will be running under.
-          You will want to change this in order to acess homepage from anything other than localhost.
-          see the upsream documentation:
+          You will want to change this in order to access homepage from anything other than localhost.
+          see the upstream documentation:
 
           <https://gethomepage.dev/installation/#homepage_allowed_hosts>
         '';

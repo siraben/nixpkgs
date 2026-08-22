@@ -10,7 +10,7 @@ with utils.systemdUtils.lib;
 with utils.systemdUtils.network.units;
 with lib;
 
-# When updating this file please use the same ording of options/sections as
+# When updating this file please use the same ordering of options/sections as
 # in the man pages / documentation. This makes future updates easier.
 
 let

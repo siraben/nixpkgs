@@ -327,7 +327,7 @@ in
         and write from. By default, FoundationDB runs under a heavily
         namespaced systemd environment without write access to most of
         the filesystem outside of its data and log directories. By
-        adding paths to this list, the set of writeable paths will be
+        adding paths to this list, the set of writable paths will be
         expanded. This is useful for allowing e.g. backups to local files,
         which must be performed on behalf of the foundationdb service.
       '';

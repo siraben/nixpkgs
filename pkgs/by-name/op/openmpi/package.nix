@@ -220,7 +220,7 @@ stdenv.mkDerivation (finalAttrs: {
         ))
         (lib.concatStringsSep "\n")
       ]}
-      # default compilers should be indentical to the
+      # default compilers should be identical to the
       # compilers at build time
       ${lib.pipe wrapperDataFileNames [
         (lib.mapCartesianProduct (

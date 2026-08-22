@@ -93,7 +93,7 @@ def perform_polkit_authentication_test(
     """
     1. Run `pkexec` as a background process that produces a specific
        output to stdout upon successful completion.
-    2. Wait unil it has been confimred that `cosmic-osd` has created
+    2. Wait until it has been confirmed that `cosmic-osd` has created
        a pop-up requesting the root user's password.
     3. Use ydotool to type the root user's password in the pop-up
        prompt.
@@ -101,7 +101,7 @@ def perform_polkit_authentication_test(
        the output that we expect.
 
     Any breakage in this flow is considered a failure of the polkit
-    authenticaion test.
+    authentication test.
     """
     logging.info("=" * 80)
     logging.info("Performing polkit authentication test")
@@ -203,7 +203,7 @@ def perform_polkit_authentication_test(
 def perform_gui_application_test(cli_args: argparse.Namespace) -> None:
     """
     1. Start one GUI application as a background process.
-    2. Wait unil it has been confimred that the GUI application is
+    2. Wait until it has been confirmed that the GUI application is
        running.
     3. Kill the background process of the GUI application.
 

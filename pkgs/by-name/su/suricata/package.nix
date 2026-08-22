@@ -126,7 +126,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   postConfigure = ''
-    # Avoid unintended clousure growth.
+    # Avoid unintended closure growth.
     sed -i 's|${builtins.storeDir}/\(.\{8\}\)[^-]*-|${builtins.storeDir}/\1...-|g' ./src/build-info.h
   '';
 

@@ -129,7 +129,7 @@ in
       description = ''
         Enable billing Cron-Jobs on the local instance. Enabled by default, but you may disable it
         on some nodes within a distributed poller setup. See [the docs](https://docs.librenms.org/Extensions/Distributed-Poller/#discovery)
-        for more informations about billing with distributed pollers.
+        for more information about billing with distributed pollers.
       '';
     };
 

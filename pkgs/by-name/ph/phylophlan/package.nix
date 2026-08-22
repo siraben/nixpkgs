@@ -55,7 +55,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
   '';
 
   postInstall = ''
-    # Not revelant in this context
+    # Not relevant in this context
     rm -f $out/bin/phylophlan_write_default_configs.sh
   '';
 

@@ -232,7 +232,7 @@ buildPythonPackage rec {
 
   checkPhase = ''
     runHook preCheck
-    # race conditions when running in paralell
+    # race conditions when running in parallel
     ${python.interpreter} -m twisted.trial -j1 twisted
     runHook postCheck
   '';

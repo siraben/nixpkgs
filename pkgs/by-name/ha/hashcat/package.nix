@@ -29,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   postPatch = ''
-     # MACOSX_DEPLOYMENT_TARGET is defined by the enviroment
+     # MACOSX_DEPLOYMENT_TARGET is defined by the environment
      # Remove hardcoded paths on darwin
     substituteInPlace src/Makefile \
       --replace-fail "export MACOSX_DEPLOYMENT_TARGET" "#export MACOSX_DEPLOYMENT_TARGET" \

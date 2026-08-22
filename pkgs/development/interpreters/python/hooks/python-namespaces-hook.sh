@@ -30,7 +30,7 @@ pythonNamespacesHook() {
                 rm -v "$pathToRemove"
             fi
 
-            # remove ${pname}-${version}-${python-interpeter}-nspkg.pth
+            # remove ${pname}-${version}-${python-interpreter}-nspkg.pth
             #
             # Still need to check that parent directory exists in the
             # event of a "meta-package" package, which will just install
@@ -42,7 +42,7 @@ pythonNamespacesHook() {
             fi
 
             # remove __pycache__/ entry, can be interpreter specific. E.g. __init__.cpython-38.pyc
-            # use null characters to perserve potential whitespace in filepath
+            # use null characters to preserve potential whitespace in filepath
             if [ -d "$pycachePath" ]; then
                 @findutils@/bin/find "$pycachePath" -name '__init__*' -exec rm -v "{}" +
             fi

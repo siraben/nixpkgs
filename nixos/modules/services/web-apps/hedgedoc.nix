@@ -164,7 +164,7 @@ in
               for more information.
 
               ::: {.note}
-                The relevant parts will be overriden if you set {option}`dbURL`.
+                The relevant parts will be overridden if you set {option}`dbURL`.
               :::
             '';
           };

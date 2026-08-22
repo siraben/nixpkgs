@@ -10,7 +10,7 @@ from nixos_render_docs.manual import HTMLConverter, HTMLParameters
 def _parse_xhtml(text: str) -> None:
     parser = expat.ParserCreate()
     # Use offline html entity definitions
-    # and enble to use them (XML_PARAM_ENTITY_PARSING_ALWAYS)
+    # and enable to use them (XML_PARAM_ENTITY_PARSING_ALWAYS)
     parser.UseForeignDTD(True)
     parser.SetParamEntityParsing(expat.XML_PARAM_ENTITY_PARSING_ALWAYS)
 
@@ -60,7 +60,7 @@ def _build(tmp_path: Path, sidebar_depth: int = 2, sidebar_open: frozenset[str] 
 
 def test_single_h1_and_flat_heading_levels(tmp_path: Path) -> None:
     html = _build(tmp_path)
-    # There should be only one h1 on an html for acessibility and semantic reasons
+    # There should be only one h1 on an html for accessibility and semantic reasons
     assert html.count("<h1") == 1
     assert '<h1 class="title">' in html
     assert '<h2 id="part-builders" class="title"' in html

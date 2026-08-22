@@ -34,7 +34,7 @@ in
       default = false;
       description = ''
         Whether to make {file}`/var/spool/at{jobs,spool}`
-        writeable by everyone (and sticky).  This is normally not
+        writable by everyone (and sticky).  This is normally not
         needed since the {command}`at` commands are
         setuid/setgid `atd`.
       '';

@@ -106,7 +106,7 @@ buildGoModule (
     preBuild = ''
       # `go mod tidy` requires internet access and does nothing
       echo "skip_mod_tidy: true" >> gqlgen.yml
-      # remove `-trimpath` fron `GOFLAGS` because `gqlgen` does not work with it
+      # remove `-trimpath` from `GOFLAGS` because `gqlgen` does not work with it
       GOFLAGS="''${GOFLAGS/-trimpath/}" go generate ./cmd/stash
     '';
 

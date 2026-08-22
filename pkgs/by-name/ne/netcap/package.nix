@@ -43,7 +43,7 @@ buildGoModule (finalAttrs: {
   '';
 
   preBuild = ''
-    # satisfiy go:embed
+    # satisfy go:embed
     mkdir -p cmd/capture/webui/frontend/dist
     touch cmd/capture/webui/frontend/dist/index.html
 

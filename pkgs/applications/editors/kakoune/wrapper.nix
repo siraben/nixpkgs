@@ -27,7 +27,7 @@ symlinkJoin {
     mkdir -p $out/share/kak/bin
 
     # location of kak binary is used to find ../share/kak/autoload,
-    # unless explicitly overriden with KAKOUNE_RUNTIME
+    # unless explicitly overridden with KAKOUNE_RUNTIME
     rm "$out/bin/kak"
     makeWrapper "${kakoune}/bin/kak" "$out/bin/kak" \
       --set KAKOUNE_RUNTIME "$out/share/kak" \

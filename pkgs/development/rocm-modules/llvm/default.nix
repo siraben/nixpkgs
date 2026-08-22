@@ -28,7 +28,7 @@
   # Whether to use LTO when building the ROCm toolchain
   # Slows down this toolchain's build, for typical ROCm usecase
   # time saved building composable_kernel and other heavy packages
-  # will outweight that. ~3-4% speedup multiplied by thousands
+  # will outweigh that. ~3-4% speedup multiplied by thousands
   # of corehours.
   withLto ? false,
   # whether rocm stdenv uses libcxx (clang c++ stdlib) instead of gcc stdlibc++

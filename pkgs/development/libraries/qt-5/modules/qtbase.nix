@@ -295,7 +295,7 @@ stdenv.mkDerivation (
 
         NIX_CFLAGS_COMPILE+=" -DNIXPKGS_QT_PLUGIN_PREFIX=\"${qtPluginPrefix}\""
 
-        # paralellize compilation of qtmake, which happens within ./configure
+        # parallelize compilation of qtmake, which happens within ./configure
         export MAKEFLAGS+=" -j$NIX_BUILD_CORES"
 
         ./bin/syncqt.pl -version ${version}

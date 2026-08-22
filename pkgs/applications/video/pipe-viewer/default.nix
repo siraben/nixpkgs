@@ -94,7 +94,7 @@ buildPerlModule rec {
       }"
   ''
   + lib.optionalString withGtk3 ''
-    # make xdg-open overrideable at runtime
+    # make xdg-open overridable at runtime
     wrapProgram "$out/bin/gtk-pipe-viewer" ''${gappsWrapperArgs[@]} \
       --prefix PERL5LIB : "$PERL5LIB" \
       --prefix PATH : "${

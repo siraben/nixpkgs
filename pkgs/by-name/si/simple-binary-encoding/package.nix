@@ -85,7 +85,7 @@ stdenv.mkDerivation (finalAttrs: {
       | txt2man \
         -P simple-binary-encoding \
         -t "sbetool" -s1 \
-        -r "$pname $verison" \
+        -r "$pname $version" \
         -v "Simple Binary Encoding" \
         > "$out/share/man/sbetool.1"
 

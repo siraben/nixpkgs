@@ -46,7 +46,7 @@ in
     services.hbase-standalone = {
 
       enable = lib.mkEnableOption ''
-        HBase master in standalone mode with embedded regionserver and zookeper.
+        HBase master in standalone mode with embedded regionserver and zookeeper.
         Do not use this configuration for production nor for evaluating HBase performance
       '';
 

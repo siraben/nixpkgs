@@ -64,7 +64,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   installFlags = [ "PREFIX=${placeholder "out"}" ];
   postInstall = ''
-    # test that installing picosat in configurePhase suceeded
+    # test that installing picosat in configurePhase succeeded
     test -f $out/bin/aigbmc
 
     install -m 444 -Dt $lib/lib libaiger.a

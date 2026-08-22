@@ -331,7 +331,7 @@ stdenv.mkDerivation (finalAttrs: {
                   return 0
                   ;;
 
-                # These test require outputing to files, so we skip them
+                # These test require outputting to files, so we skip them
                 testing_?print)
                   logWithDate "skipping $1 because it requires creating output"
                   return 0

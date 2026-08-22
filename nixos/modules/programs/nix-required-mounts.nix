@@ -46,7 +46,7 @@ let
         options.safePrefixes = lib.mkOption {
           default = [ builtins.storeDir ];
           type = listOf path;
-          description = "A list of path prefixes that do not need and shall not be searched recursively for further symlink targets. Everything in the nix store does not need to be searched as the derivation already calculcated the full closure of all nix store paths for the drivers package.";
+          description = "A list of path prefixes that do not need and shall not be searched recursively for further symlink targets. Everything in the nix store does not need to be searched as the derivation already calculated the full closure of all nix store paths for the drivers package.";
         };
       }
     );

@@ -189,7 +189,7 @@ def bootjson_to_bootspec(bootjson: dict) -> BootSpec:
 def generate_xen_efi_files(bootspec: BootSpec, gen: str) -> str:
     """Generate a Xen EFI xen.cfg file, and copy required files in place.
 
-    Assumes the bootspec has already been validated as having the requried
+    Assumes the bootspec has already been validated as having the required
     Xen keys.
 
     Arguments:

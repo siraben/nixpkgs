@@ -62,7 +62,7 @@ stdenv.mkDerivation (
     checkPhase = "NO_INTERACTON=yes make test";
 
     passthru = passthru // {
-      # Thes flags were introduced for `nix-update` so that it can update
+      # These flags were introduced for `nix-update` so that it can update
       # PHP extensions correctly.
       # See the corresponding PR: https://github.com/Mic92/nix-update/pull/123
       isPhpExtension = true;

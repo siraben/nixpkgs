@@ -80,7 +80,7 @@ buildPythonPackage rec {
 
   preCheck = ''
     export PATH="$PATH:$out/bin";
-    # skips timing senstive tests
+    # skips timing sensitive tests
     export CI=1
   '';
 

@@ -180,7 +180,7 @@ in
     for machine in all:
       with subtest("E-Mails ae received"):
         machine.wait_until_succeeds("curl -sSf --cookie-jar cjar --cookie cjar 'http://${freescoutDomain}/mailbox/1' | grep 'Hello NixOS'", timeout=180)
-        # Notifactions to users are being sent
+        # Notifications to users are being sent
 
     for machine in all:
       with subtest("Notifications are sent"):

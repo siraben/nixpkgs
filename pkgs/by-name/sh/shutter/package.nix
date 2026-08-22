@@ -96,7 +96,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   preFixup = ''
-    # make xdg-open overrideable at runtime
+    # make xdg-open overridable at runtime
     gappsWrapperArgs+=(
       --set PERL5LIB ${perlPackages.makePerlPath perlModules} \
       --prefix PATH : ${lib.makeBinPath [ imagemagick ]}

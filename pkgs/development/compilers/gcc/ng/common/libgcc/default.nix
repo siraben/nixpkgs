@@ -82,14 +82,14 @@ let
   #
   # If, in the future, we ever wish to use the headers-only build to avoid
   # building those other libraries twice (other distros sometimes do this), we
-  # would declare the threading model unconditonally, and then there would be
+  # would declare the threading model unconditionally, and then there would be
   # more cyclic symbol-level dependencies between them and us.
   #
   # libgcc (and libstdc++) read this attribute rather than probing the
   # compiler, which in a split package set is configured separately from the
   # runtimes and so can disagree. Only if we switched `cc-wrapper` to give GCC
   # "spec files" (more powerful than CLI flags) would be be able to get the
-  # compiler `-v` flag correct with respect to the libraries it happend to be
+  # compiler `-v` flag correct with respect to the libraries it happened to be
   # wrapped with.
   #
   # A `threads` package wins over the libc: that is the point of asking for

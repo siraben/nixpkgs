@@ -26,7 +26,7 @@ buildDotnetModule rec {
   selfContainedBuild = true;
 
   dotnetFlags = [
-    "-p:PublishAot=false" # untill https://github.com/NixOS/nixpkgs/issues/280923 is fixed
+    "-p:PublishAot=false" # until https://github.com/NixOS/nixpkgs/issues/280923 is fixed
     "-p:PublishSingleFile=true"
   ];
 

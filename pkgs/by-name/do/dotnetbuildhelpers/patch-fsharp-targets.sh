@@ -5,7 +5,7 @@
 
 # export FSharpTargetsPath=$(dirname $(which fsharpc))/../lib/mono/4.0/Microsoft.FSharp.Targets
 
-# In build scripts, you would add somehting like this:
+# In build scripts, you would add something like this:
 
 # export FSharpTargetsPath="${fsharp}/lib/mono/4.0/Microsoft.FSharp.Targets"
 

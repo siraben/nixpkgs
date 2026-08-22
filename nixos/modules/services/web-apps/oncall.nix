@@ -73,7 +73,7 @@ in
         For available and default option values see
         [upstream configuration file](https://github.com/linkedin/oncall/blob/master/configs/config.yaml)
         and the administration part in the
-        [offical documentation](https://oncall.tools/docs/admin_guide.html).
+        [official documentation](https://oncall.tools/docs/admin_guide.html).
       '';
     };
 

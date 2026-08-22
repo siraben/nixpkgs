@@ -21,7 +21,7 @@ stdenv.mkDerivation (finalAttrs: {
   sourceRoot = lib.optionalString stdenv.hostPlatform.isDarwin "${finalAttrs.src.name}/code";
 
   postPatch = lib.optionalString stdenv.hostPlatform.isLinux ''
-    # Disable -Werror to avoid biuld failure on fresh toolchains like
+    # Disable -Werror to avoid build failure on fresh toolchains like
     # gcc-13.
     substituteInPlace code/gc.gmk \
       --replace-fail "-Werror " " "

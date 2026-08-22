@@ -122,7 +122,7 @@ in
               cp -r ${cfg.rulesProvider}/* $out
             fi
 
-            # configured through .setings
+            # configured through .settings
             rm -f $out/ananicy.conf
             cp ${configFile} $out/ananicy.conf
             ${lib.optionalString (cfg.extraRules != [ ]) "cp ${extraRules} $out/nixRules.rules"}

@@ -177,7 +177,7 @@ in
           ${lib.concatMapAttrsStringSep "\n" (instanceName: instance: ''
             runner_token_file=$STATE_DIRECTORY/runner_tokens/${instanceName}
 
-            # Register any currenctly unregistered instances.
+            # Register any currently unregistered instances.
             if [ ! -f $runner_token_file ] || [[ $(cat $runner_token_file) != ptrt-* ]]; then
               # Server has to be running for registration.
               XDG_CONFIG_HOME=$temp_dir ${lib.getExe' cfg.package "peertube-runner"} server &

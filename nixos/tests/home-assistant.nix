@@ -88,7 +88,7 @@ in
           # configure the recorder component to use the postgresql db
           recorder.db_url = "postgresql://@/hass";
 
-          # this is effecitvely default_config (2026.5.0), but with components
+          # this is effectively default_config (2026.5.0), but with components
           # skipped that would cause ERRORs in the sandbox
           bluetooth = { };
           cloud = { };
@@ -305,7 +305,7 @@ in
           hass.succeed("${system}/specialisation/newFeature/bin/switch-to-configuration test")
           wait_for_homeassistant(cursor)
           new_pid = hass.succeed("systemctl show --property=MainPID home-assistant.service")
-          assert pid != new_pid, "The PID of the process must change when its PYTHONPATH changess"
+          assert pid != new_pid, "The PID of the process must change when its PYTHONPATH changes"
 
       with subtest("Check that new components get setup after restart"):
           journal = get_journal_since(cursor)

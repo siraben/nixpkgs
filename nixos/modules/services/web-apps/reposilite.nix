@@ -199,7 +199,7 @@ let
         ];
         description = ''
           Compression algorithm used by this instance of Reposilite.
-          `none` reduces usage of CPU & memory, but requires transfering more data.
+          `none` reduces usage of CPU & memory, but requires transferring more data.
         '';
         default = "none";
       };

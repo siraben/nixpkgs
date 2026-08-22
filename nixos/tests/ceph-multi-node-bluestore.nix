@@ -426,7 +426,7 @@ let
   #   from 2 different nodes
   # * verify bidirectional visibility of file changes
   # * performs another crash/recovery test (without crashing the clients)
-  # * verifiy the mounts survive and keep working.
+  # * verify the mounts survive and keep working.
   cephfsScript = ''
     kclient.wait_for_unit("network.target")
     fuseclient.wait_for_unit("network.target")

@@ -783,7 +783,7 @@ in
 
                   If set to `pick`, user namespacing is enabled and the UID/GID range is automatically chosen,
                   so that no overlapping UID/GID ranges are assigned to multiple containers.
-                  This is the recommanded option as it enhances container security massively and operates fully automatically in most cases.
+                  This is the recommended option as it enhances container security massively and operates fully automatically in most cases.
 
                   See <https://www.freedesktop.org/software/systemd/man/latest/systemd-nspawn.html#--private-users=> for details.
                 '';
@@ -994,7 +994,7 @@ in
           mapper =
             name: cfg:
             optional (cfg.networkNamespace != null && (cfg.privateNetwork || cfg.interfaces != [ ]))
-              "containers.${name}.networkNamespace is mutally exclusive to containers.${name}.privateNetwork and containers.${name}.interfaces.";
+              "containers.${name}.networkNamespace is mutually exclusive to containers.${name}.privateNetwork and containers.${name}.interfaces.";
         in
         mkMerge (mapAttrsToList mapper config.containers);
     }

@@ -149,7 +149,7 @@ in
     dbConfig = lib.mkOption {
       default = null;
       type = lib.types.nullOr lib.types.path;
-      description = "Certificate db configuration file. Path must be writeable.";
+      description = "Certificate db configuration file. Path must be writable.";
     };
 
     logLevel = lib.mkOption {

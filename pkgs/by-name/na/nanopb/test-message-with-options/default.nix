@@ -33,7 +33,7 @@ stdenv.mkDerivation {
     grep -q WithOptions $out/withoptions.pb.c || (echo "error: WithOptions not found in $out/withoptions.pb.c"; exit 1)
     grep -q WithOptions $out/withoptions.pb.h || (echo "error: WithOptions not found in $out/withoptions.pb.h"; exit 1)
     grep -q "pb_byte_t uuid\[16\]" $out/withoptions.pb.h || (echo "error: uuid is not of type pb_byte_t and of size 16 in $out/withoptions.pb.h"; exit 1)
-    grep -q "FIXED_LENGTH_BYTES, uuid" $out/withoptions.pb.h || (echo "error: uuid is not of fixed lenght bytes in $out/withoptions.pb.h"; exit 1)
+    grep -q "FIXED_LENGTH_BYTES, uuid" $out/withoptions.pb.h || (echo "error: uuid is not of fixed length bytes in $out/withoptions.pb.h"; exit 1)
     grep -q "#define WithOptions_size" $out/withoptions.pb.h || (echo "error: the size of WithOptions is not known in $out/withoptions.pb.h"; exit 1)
   '';
 }

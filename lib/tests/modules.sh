@@ -549,7 +549,7 @@ checkConfigOutput '/freeform-submodules.nix"$' config.fooDeclarations.0 ./freefo
 checkConfigOutput '^10$' config.free.xxx.foo ./freeform-submodules.nix
 checkConfigOutput '^10$' config.free.yyy.bar ./freeform-submodules.nix
 
-# Regression of either, due to freeform not beeing checked previously
+# Regression of either, due to freeform not being checked previously
 checkConfigOutput '^"foo"$' config.either.int ./freeform-deprecated-malicous.nix ./freeform-deprecated-malicous-wrong.nix
 ABORT_ON_WARN=1 checkConfigError "One or more definitions did not pass the type-check of the \'either\' type" config.either.int ./freeform-deprecated-malicous.nix ./freeform-deprecated-malicous-wrong.nix
 checkConfigOutput '^"foo"$' config.eitherBehindNullor.int ./freeform-deprecated-malicous.nix ./freeform-deprecated-malicous-wrong.nix

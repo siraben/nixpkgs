@@ -58,7 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
     "AR=${stdenv.cc.targetPrefix}ar"
   ]
   ++ lib.optionals (!stdenv.hostPlatform.isStatic) [
-    "SHARED=on" # genereate a shared library
+    "SHARED=on" # generate a shared library
   ]
   ++ lib.optionals withGf2x [
     "NTL_GF2X_LIB=on"

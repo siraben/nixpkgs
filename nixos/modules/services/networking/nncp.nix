@@ -94,7 +94,7 @@ in
 
     systemd.services."nncp-daemon" = mkIf daemonCfg.enable {
       enable = !daemonCfg.socketActivation.enable;
-      description = "NNCP TCP syncronization daemon.";
+      description = "NNCP TCP synchronization daemon.";
       documentation = [ "http://www.nncpgo.org/nncp_002ddaemon.html" ];
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
@@ -107,7 +107,7 @@ in
     };
 
     systemd.services."nncp-daemon@" = mkIf daemonCfg.socketActivation.enable {
-      description = "NNCP TCP syncronization daemon.";
+      description = "NNCP TCP synchronization daemon.";
       documentation = [ "http://www.nncpgo.org/nncp_002ddaemon.html" ];
       after = [ "network.target" ];
       serviceConfig = {
@@ -122,7 +122,7 @@ in
 
     systemd.sockets.nncp-daemon = mkIf daemonCfg.socketActivation.enable {
       inherit (daemonCfg.socketActivation) listenStreams;
-      description = "socket for NNCP TCP syncronization.";
+      description = "socket for NNCP TCP synchronization.";
       conflicts = [ "nncp-daemon.service" ];
       wantedBy = [ "sockets.target" ];
       socketConfig.Accept = true;

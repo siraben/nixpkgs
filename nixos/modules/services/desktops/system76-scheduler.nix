@@ -199,7 +199,7 @@ in
           useExecsnoop = mkOption {
             type = bool;
             default = true;
-            description = "Use execsnoop (otherwise poll the precess list periodically).";
+            description = "Use execsnoop (otherwise poll the process list periodically).";
           };
 
           refreshInterval = mkOption {

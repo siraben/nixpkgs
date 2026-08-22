@@ -30,7 +30,7 @@ buildPythonPackage rec {
 
   patches = [
     (fetchpatch {
-      name = "remove-async_timeout.pach";
+      name = "remove-async_timeout.patch";
       url = "https://github.com/apache/tinkerpop/commit/aa327ace6feaf6ccd3eca411f3b5f6f86f8571f6.patch";
       excludes = [ "gremlin-python/src/main/python/setup.py" ];
       hash = "sha256-NyXA9vffFem1EzhdNWuoYr7JPkT5DuKyl409LFj9AvQ=";

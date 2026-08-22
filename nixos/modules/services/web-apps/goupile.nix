@@ -35,7 +35,7 @@ in
           };
         };
       };
-      default = { }; # default will be lost for submodules if overriden
+      default = { }; # default will be lost for submodules if overridden
       example = lib.literalExpression ''
         {
           HTTP.Port = 8888;

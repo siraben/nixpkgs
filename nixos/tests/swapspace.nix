@@ -60,7 +60,7 @@ import ./make-test-python.nix (
           if not swamp:
             i += 1
           else:
-            print("*"*10, "SWAPED", "*"*10)
+            print("*"*10, "SWAPPED", "*"*10)
             machine.succeed("rm -f /root/memfs/*")
             break
 

@@ -148,7 +148,7 @@ stdenv.mkDerivation (finalAttrs: {
     # Create 'ldd' symlink, builtin
     ln -s $out/lib/libc.so $bin/bin/ldd
 
-    # (impure) cc wrapper around musl for interactive usuage
+    # (impure) cc wrapper around musl for interactive usage
     for i in musl-gcc musl-clang ld.musl-clang; do
       moveToOutput bin/$i $dev
     done

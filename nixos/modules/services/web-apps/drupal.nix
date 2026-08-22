@@ -238,7 +238,7 @@ let
             The location of the Drupal files directory.
 
             Many of the files in this directory are variable, so they must be located
-            in a location writeable by users of the webgroup.
+            in a location writable by users of the webgroup.
           '';
         };
 
@@ -289,7 +289,7 @@ let
             The path must be relative to the project root directory.
 
             This option differs from the `configSyncDir` option, which
-            tells this service where to create a user-writeable config directory
+            tells this service where to create a user-writable config directory
             on NixOS.
           '';
           example = "/config";
@@ -319,7 +319,7 @@ let
             `filesDir` option remains unchanged.
 
             Many of the files in this directory are variable, so they must be located
-            in a location writeable by users of the webgroup.
+            in a location writable by users of the webgroup.
           '';
         };
 

@@ -57,7 +57,7 @@ in
         # This doesn't actually work firezone/Swoosh seems to send 2 `EHLO`
         # which opensmtpd does not allow
         # https://github.com/OpenSMTPD/OpenSMTPD/issues/1284
-        # Would be nice for debbuging
+        # Would be nice for debugging
         # services.opensmtpd = {
         #   enable = true;
         #   extraServerArgs = [ "-v" ];

@@ -233,7 +233,7 @@ in
         "services"
         "globalprotect"
       ]
-      "The corresponding package was removed from nixpkgs, as it depended on qt5 webengine. A replacements based on tauri exist upstream, but requires non-trivial maintainance in nixpkgs to update."
+      "The corresponding package was removed from nixpkgs, as it depended on qt5 webengine. A replacements based on tauri exist upstream, but requires non-trivial maintenance in nixpkgs to update."
     )
     (mkRemovedOptionModule
       [

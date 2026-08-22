@@ -20,7 +20,7 @@
       jq
     ];
 
-    # code repo to scan for vulnerabilites, could be anything
+    # code repo to scan for vulnerabilities, could be anything
     # I just happened to pick the source of the package
     environment.etc."dep-scan-source".source = pkgs.dep-scan.src;
 

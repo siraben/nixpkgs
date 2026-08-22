@@ -75,7 +75,7 @@ let
   otherDicts = lib.filter (
     d:
     !(
-      lib.hasInfix "ru-ru-libreoffice" d.name # conflits with ru-ru-mozilla
+      lib.hasInfix "ru-ru-libreoffice" d.name # conflicts with ru-ru-mozilla
       || (
         lib.hasAttr "dictFileName" d && lib.elem d.dictFileName (lib.map (d: d.dictFileName) largeDicts)
       )

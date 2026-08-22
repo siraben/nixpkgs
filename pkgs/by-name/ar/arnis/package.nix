@@ -52,7 +52,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
         else if stdenv.hostPlatform.isDarwin then
           "Applications/Arnis.app/Contents/MacOS"
         else
-          throw "Unsuported system";
+          throw "Unsupported system";
     in
     "${placeholder "out"}/${binSubdirectory}/arnis";
   doInstallCheck = true;

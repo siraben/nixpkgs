@@ -112,7 +112,7 @@ in
       default = "unix:/run/lasuite-drive/gunicorn.sock";
       example = "127.0.0.1:8000";
       description = ''
-        The path, host/port or file descriptior to bind the gunicorn socket to.
+        The path, host/port or file descriptor to bind the gunicorn socket to.
 
         See  <https://docs.gunicorn.org/en/stable/settings.html#bind> for possible options.
       '';

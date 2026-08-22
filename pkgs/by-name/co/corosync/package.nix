@@ -85,7 +85,7 @@ stdenv.mkDerivation (finalAttrs: {
   preConfigure = lib.optionalString enableInfiniBandRdma ''
     # configure looks for the pkg-config files
     # of librdmacm and libibverbs
-    # Howver, rmda-core does not provide a pkg-config file
+    # However, rmda-core does not provide a pkg-config file
     # We give the flags manually here:
     export rdmacm_LIBS=-lrdmacm
     export rdmacm_CFLAGS=" "

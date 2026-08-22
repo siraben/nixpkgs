@@ -55,7 +55,7 @@ let
             --add-flags "-jar $out/share/java/${jar'}.jar"
 
           # Other distributions like debian distribute it as saxon*-xslt,
-          # this makes compilling packages that target other distros easier.
+          # this makes compiling packages that target other distros easier.
           ln -s $out/bin/${mainProgram} $out/bin/${mainProgram}-xslt
         ''
         + lib.optionalString (versionAtLeast finalAttrs.version "11") ''

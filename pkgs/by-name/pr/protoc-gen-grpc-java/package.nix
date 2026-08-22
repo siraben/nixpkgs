@@ -40,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
   inherit (data) version;
   src = fetchurl {
     url = "https://repo1.maven.org/maven2/io/grpc/protoc-gen-grpc-java/${finalAttrs.version}/protoc-gen-grpc-java-${finalAttrs.version}-${hostArch}.exe";
-    hash = data.hashes.${hostArch} or (throw "Unsuported host arch ${hostArch}");
+    hash = data.hashes.${hostArch} or (throw "Unsupported host arch ${hostArch}");
   };
   dontUnpack = true;
   dontConfigure = true;

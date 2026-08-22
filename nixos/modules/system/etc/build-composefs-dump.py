@@ -73,7 +73,7 @@ class ComposefsPath:
 
         match len(mode):
             case 3 | 4:
-                # We need to pad the mode, because we will later use the concatentation
+                # We need to pad the mode, because we will later use the concatenation
                 # filetype|mode, which assumes that the mode has a length of 4.
                 self.mode = f"{mode:0>4}"
             case _:

@@ -25,7 +25,7 @@ in
     environmentFile = mkOption {
       type = path;
       description = ''
-        Environment file containg at least the TAILSCALE_TAILNET,
+        Environment file containing at least the TAILSCALE_TAILNET,
         TAILSCALE_OAUTH_CLIENT_ID, and TAILSCALE_OAUTH_CLIENT_SECRET
         environment variables.
       '';

@@ -58,7 +58,7 @@ in
       -H "Authorization: Bearer ${token}"
       """)
     if out != "myartifact":
-      raise Exception(f"reponse in not 'myartifact': {out}")
+      raise Exception(f"response in not 'myartifact': {out}")
   '';
 
   meta.maintainers = [ lib.maintainers.ibizaman ];

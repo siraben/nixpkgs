@@ -442,7 +442,7 @@ in
 
       mutableSettings = mkOption {
         description = ''
-          Whether the Stash config.yml is writeable by Stash.
+          Whether the Stash config.yml is writable by Stash.
 
           If `false`, Any config changes done from within Stash UI will be temporary and reset to those defined in {option}`services.stash.settings` upon `Stash.service` restart.
           If `true`, the {option}`services.stash.settings` will only be used to initialize the Stash configuration if it does not exist, and are subsequently ignored.

@@ -24,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
     # standard system utilities such as date from /bin/ and logger
     # from /usr/bin are available through $PATH.
     # This is not the case for the nixpkgs build environment.
-    # To maintain compatability with nixpkgs build env nixpkgs dependency
+    # To maintain compatibility with nixpkgs build env nixpkgs dependency
     # purity and the following replacements are made:
     substituteInPlace Makefile \
        --replace-fail "logger" "echo" \

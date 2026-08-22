@@ -228,7 +228,7 @@ in
             }
           '';
           description = ''
-            Credentials for connecting look similar to UDP credientials
+            Credentials for connecting look similar to UDP credentials
             except they begin with the mac address.
           '';
         };

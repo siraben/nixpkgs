@@ -25,7 +25,7 @@ buildPythonPackage {
   build-system = [ setuptools ];
 
   postPatch = ''
-    # only used to update the interal publicsuffix list
+    # only used to update the internal publicsuffix list
     substituteInPlace setup.py \
       --replace "'requests >= 2.7.0'," ""
 

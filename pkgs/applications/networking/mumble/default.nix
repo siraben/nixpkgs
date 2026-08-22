@@ -157,7 +157,7 @@ let
       ];
 
       postInstall = lib.optionalString stdenv.hostPlatform.isDarwin ''
-        # The build erraneously marks the *.dylib as executable
+        # The build erroneously marks the *.dylib as executable
         # which causes the qt-hook to wrap it, which then prevents the app from loading it
         chmod -x $out/lib/mumble/plugins/*.dylib
 

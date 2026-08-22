@@ -34,7 +34,7 @@ in
     environmentFile = mkOption {
       type = path;
       description = ''
-        An environment file containg at least the FASTLY_API_TOKEN= environment
+        An environment file containing at least the FASTLY_API_TOKEN= environment
         variable.
       '';
     };

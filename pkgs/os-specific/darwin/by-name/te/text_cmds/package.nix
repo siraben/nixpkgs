@@ -48,7 +48,7 @@ mkAppleDerivation {
   xcodeHash = "sha256-8Z6Goz94xP3HqAaSnFUurhZE8l3G1mK5KviXtxSPQhI=";
 
   postPatch = ''
-    # Improve compatiblity with libmd in nixpkgs.
+    # Improve compatibility with libmd in nixpkgs.
     substituteInPlace md5/md5.c \
       --replace-fail '<sha224.h>' '<sha2.h>' \
       --replace-fail SHA224_Init SHA224Init \

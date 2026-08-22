@@ -44,7 +44,7 @@ in
         options = {
           plugins = mkOption {
             description = ''
-              Nixpkgs provides a `reaction-plugins` package set which includes both offical and community plugins for reaction.
+              Nixpkgs provides a `reaction-plugins` package set which includes both official and community plugins for reaction.
 
               To use the plugins in your module configuration, in `settings.plugins` you can use for e.g. `''${lib.getExe reaction-plugins.reaction-plugin-ipset}`
               See https://reaction.ppom.me/plugins/ to configure plugins.
@@ -168,7 +168,7 @@ in
 
         ```nix
         {
-          # allows reading journal logs of processess
+          # allows reading journal logs of processes
           users.users.reaction.extraGroups = [ "systemd-journal" ];
 
           # allows modifying ip firewall rules

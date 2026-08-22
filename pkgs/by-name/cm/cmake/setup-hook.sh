@@ -88,7 +88,7 @@ cmakeConfigurePhase() {
     prependToVar cmakeFlags "-DCMAKE_BUILD_TYPE=${cmakeBuildType:-Release}"
 
     # Disable user package registry to avoid potential side effects
-    # and unecessary attempts to access non-existent home folder
+    # and unnecessary attempts to access non-existent home folder
     # https://cmake.org/cmake/help/latest/manual/cmake-packages.7.html#disabling-the-package-registry
     prependToVar cmakeFlags "-DCMAKE_EXPORT_NO_PACKAGE_REGISTRY=ON"
     prependToVar cmakeFlags "-DCMAKE_FIND_USE_PACKAGE_REGISTRY=OFF"

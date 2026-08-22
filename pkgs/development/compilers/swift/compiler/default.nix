@@ -565,9 +565,9 @@ stdenv.mkDerivation {
     #   builder is an older macOS.
     # - Experimental features are OFF by default in CMake, but are enabled in
     #   official builds, so we do the same. (Concurrency is also required in
-    #   the stdlib. StringProcessing is often implicitely imported, causing
+    #   the stdlib. StringProcessing is often implicitly imported, causing
     #   lots of warnings if missing.)
-    # - SWIFT_STDLIB_ENABLE_OBJC_INTEROP is set explicitely because its check
+    # - SWIFT_STDLIB_ENABLE_OBJC_INTEROP is set explicitly because its check
     #   is buggy. (Uses SWIFT_HOST_VARIANT_SDK before initialized.)
     #   Fixed in: https://github.com/apple/swift/commit/84083afef1de5931904d5c815d53856cdb3fb232
     cmakeFlags="

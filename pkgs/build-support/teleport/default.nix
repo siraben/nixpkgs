@@ -190,7 +190,7 @@ buildGoModule (finalAttrs: {
   postInstall = ''
     mkdir -p $client/bin
     mv {$out,$client}/bin/tsh
-    # make xdg-open overrideable at runtime
+    # make xdg-open overridable at runtime
     wrapProgram $client/bin/tsh --suffix PATH : ${lib.makeBinPath [ xdg-utils ]}
     ln -s {$client,$out}/bin/tsh
   '';

@@ -191,7 +191,7 @@ in
           # We wait for the udev events queue to empty in the *hope* that the
           # devices needed here become available. This is terribly broken and
           # essentially no better than a random sleep(). Same below for initrd.
-          # FIXME: use .device units dependecies instead.
+          # FIXME: use .device units dependencies instead.
           ExecStartPre = "-${lib.getExe' config.systemd.package "udevadm"} settle --timeout=180";
 
           # because oneshot services do not have a timeout by default

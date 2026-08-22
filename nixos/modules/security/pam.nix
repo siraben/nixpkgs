@@ -2031,7 +2031,7 @@ in
           - `~` or `%h` expands to the user's home directory.
 
           ::: {.note}
-          Specifying user-writeable files here result in an insecure configuration:  a malicious process
+          Specifying user-writable files here result in an insecure configuration:  a malicious process
           can then edit such an authorized_keys file and bypass the ssh-agent-based authentication.
 
           See [issue #31611](https://github.com/NixOS/nixpkgs/issues/31611)
@@ -2065,7 +2065,7 @@ in
                 Variables may be specified as `$var`, `''${var}` or `''${var:defaultValue}`.
 
                 ::: {.note}
-                Specifying user-writeable files here results in an insecure configuration: a malicious process
+                Specifying user-writable files here results in an insecure configuration: a malicious process
                 can then edit such an `authorized_keys` file and bypass the ssh-agent-based authentication.
 
                 This option is ignored if {option}`security.pam.rssh.settings.authorized_keys_command` is set.
@@ -2634,7 +2634,7 @@ in
         ''
           security.pam.sshAgentAuth.authorizedKeysFiles contains files in the user's home directory.
 
-          Specifying user-writeable files there result in an insecure configuration:
+          Specifying user-writable files there result in an insecure configuration:
           a malicious process can then edit such an authorized_keys file and bypass the ssh-agent-based authentication.
           See https://github.com/NixOS/nixpkgs/issues/31611
         ''
@@ -2647,7 +2647,7 @@ in
           ''
             security.pam.rssh.settings.auth_key_file will be ignored as
             security.pam.rssh.settings.authorized_keys_command has been specified.
-            Explictly set the former to null to silence this warning.
+            Explicitly set the former to null to silence this warning.
           '';
 
     environment.systemPackages =

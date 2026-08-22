@@ -16,7 +16,7 @@ in
 
   options = {
     services.lubelogger = {
-      enable = lib.mkEnableOption "LubeLogger, a self-hosted, open-source, web-based vehicle maintenance and fuel milage tracker";
+      enable = lib.mkEnableOption "LubeLogger, a self-hosted, open-source, web-based vehicle maintenance and fuel mileage tracker";
 
       package = lib.mkPackageOption pkgs "lubelogger" { };
 

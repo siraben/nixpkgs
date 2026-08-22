@@ -19,7 +19,7 @@ buildGoModule (finalAttrs: {
     hash = "sha256-h2dwCScX0LVd5hV1fnhKjXQue/ywmqyk5t/vzEDAwQE=";
   };
 
-  # case-insensitive conflicts which produce platform `vendorHash` checksumm
+  # case-insensitive conflicts which produce platform `vendorHash` checksum
   proxyVendor = true;
 
   sourceRoot = "${finalAttrs.src.name}/client/go";

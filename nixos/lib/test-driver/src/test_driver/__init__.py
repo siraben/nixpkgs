@@ -44,8 +44,8 @@ class EnvDefault(argparse.Action):
 
 
 def writeable_dir(arg: str) -> Path:
-    """Raises an ArgumentTypeError if the given argument isn't a writeable directory
-    Note: We want to fail as early as possible if a directory isn't writeable,
+    """Raises an ArgumentTypeError if the given argument isn't a writable directory
+    Note: We want to fail as early as possible if a directory isn't writable,
     since an executed nixos-test could fail (very late) because of the test-driver
     writing in a directory without proper permissions.
     """
@@ -53,7 +53,7 @@ def writeable_dir(arg: str) -> Path:
     if not path.is_dir():
         raise argparse.ArgumentTypeError(f"{path} is not a directory")
     if not os.access(path, os.W_OK):
-        raise argparse.ArgumentTypeError(f"{path} is not a writeable directory")
+        raise argparse.ArgumentTypeError(f"{path} is not a writable directory")
     return path
 
 

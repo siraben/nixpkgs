@@ -194,7 +194,7 @@ stdenv.mkDerivation (finalAttrs: {
           testArgs+=(
             sanity 2a 2b 2ca 3a 3ba 3bb 3c 4 5 6 7 8 9 10a 10b 10c 11 12 13 14 15
           )
-          # Fallthough for running the test
+          # Fallthrough for running the test
           ;;&
 
         *)

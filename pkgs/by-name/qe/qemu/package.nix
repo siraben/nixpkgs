@@ -294,7 +294,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   preConfigure = ''
-    unset CPP # intereferes with dependency calculation
+    unset CPP # interferes with dependency calculation
     # this script isn't marked as executable b/c it's indirectly used by meson. Needed to patch its shebang
     chmod +x ./scripts/shaderinclude.py
     patchShebangs .

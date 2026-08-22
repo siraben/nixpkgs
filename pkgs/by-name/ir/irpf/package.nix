@@ -58,7 +58,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
     install -Dm644 irpf.jar Leia-me.htm offline.png online.png pgd-updater-*.*.*.jar "$BASEDIR"
 
-    # make xdg-open overrideable at runtime
+    # make xdg-open overridable at runtime
     makeWrapper ${lib.getExe java} $out/bin/irpf \
       --add-flags "-Dawt.useSystemAAFontSettings=gasp" \
       --add-flags "-Dswing.aatext=true" \
@@ -80,7 +80,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     #!nix-shell -i bash -p curl pup common-updater-scripts
 
     set -eu -o pipefail
-    #parses the html with the install links for the containers that contain the instalation files of type 'file archive, gets the version number of each version, and sorts to get the latest one on the website
+    #parses the html with the install links for the containers that contain the installation files of type 'file archive, gets the version number of each version, and sorts to get the latest one on the website
     version="$(curl -s https://www.gov.br/receitafederal/pt-br/centrais-de-conteudo/download/pgd/dirpf | pup '.rfb_container .rfb_ositem:parent-of(.fa-file-archive) attr{href}' | grep -oP "IRPF\K(\d+)-[\d.]+\d" | sort -r |  head -1)"
     update-source-version irpf "$version"
   '';

@@ -54,7 +54,7 @@ buildPythonPackage.override { stdenv = cudaPackages.backendStdenv; } (finalAttrs
           "nvcc_path = os.environ.get('NVCC', None)" \
           "return '${lib.getExe cudaPackages.cuda_nvcc}'"
     ''
-    # Inject absolute path to CUDA libraries which get disovered at runtime
+    # Inject absolute path to CUDA libraries which get discovered at runtime
     + ''
       substituteInPlace cupy/_core/core.pyx \
         --replace-fail \

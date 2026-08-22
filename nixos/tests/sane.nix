@@ -2,7 +2,7 @@
 /*
   SANE NixOS test
   ===============
-  SANE is intrisically tied to hardware, so testing it is not straightforward.
+  SANE is intrinsically tied to hardware, so testing it is not straightforward.
   However:
   - a fake webcam can be created with v4l2loopback
   - sane has a backend (v4l) to use a webcam as a scanner

@@ -44,7 +44,7 @@ stdenv.mkDerivation {
     description = "This program can crack zip,7z and rar file passwords";
     longDescription = ''
       If you forget your password for compressed archive (rar, 7z, zip), this program is the solution.
-      This program uses bruteforce algorithm to find correct password. You can specify wich characters will be used in password generations.
+      This program uses bruteforce algorithm to find correct password. You can specify which characters will be used in password generations.
       Warning: Please don't use this program for any illegal things!
     '';
     homepage = "https://github.com/jaredsburrows/Rarcrack";

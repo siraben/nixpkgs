@@ -75,7 +75,7 @@ def parse_derivation(
     try:
         parsed_drv = json.loads(proc.stdout)
 
-        # compabitility: https://github.com/NixOS/nix/pull/14770
+        # compatibility: https://github.com/NixOS/nix/pull/14770
         if "derivations" in parsed_drv:
             parsed_drv = parsed_drv["derivations"]
     except json.JSONDecodeError:

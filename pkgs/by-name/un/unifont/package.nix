@@ -64,7 +64,7 @@ stdenv.mkDerivation (finalAttrs: {
   #
   # > These "Unifont Sample" fonts contain combining circles, and four-digit
   # > hexadecimal glyphs for unassigned code points and Private Use Area glyphs.
-  # > Because of the inclusion of combining cirlces, "Unifont Sample" font
+  # > Because of the inclusion of combining circles, "Unifont Sample" font
   # > versions are only intended for illustrating individual glyphs, not for
   # > general-purpose writing.
   postInstall = ''

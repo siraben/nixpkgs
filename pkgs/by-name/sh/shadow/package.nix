@@ -84,7 +84,7 @@ stdenv.mkDerivation (finalAttrs: {
     sed 's/^\(s[ug]idperms\) = [0-9]755/\1 = 0755/' -i src/Makefile.am
 
     # The default shell is not defined at build time of the package. It is
-    # decided at build time of the NixOS configration. Thus, don't decide this
+    # decided at build time of the NixOS configuration. Thus, don't decide this
     # here but just point to the location of the shell on the system.
     substituteInPlace configure.ac --replace-fail '$SHELL' /bin/sh
   '';

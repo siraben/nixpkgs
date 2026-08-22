@@ -386,7 +386,7 @@ let
             --replace-fail '/blueprints' "$out/blueprints"
           substituteInPlace authentik/stages/email/utils.py \
             --replace-fail 'web/' '${webui}/'
-          # allways allow file upload if the data directoy exists
+          # always allow file upload if the data directory exists
           substituteInPlace authentik/admin/files/backends/file.py \
             --replace-fail "and (self._base_dir.is_mount() or (self._base_dir / self.usage.value).is_mount())" ""
         '';

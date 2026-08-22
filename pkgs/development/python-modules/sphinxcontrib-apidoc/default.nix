@@ -18,7 +18,7 @@ buildPythonPackage rec {
   };
 
   postPatch = ''
-    # break infite recursion, remove pytest 4 requirement
+    # break infinite recursion, remove pytest 4 requirement
     rm test-requirements.txt requirements.txt
   '';
 

@@ -45,7 +45,7 @@ in
         machine.wait_until_succeeds("pgrep octoprint")
 
     with subtest("Wait for final boot"):
-        # this appears whe octoprint is almost finished starting
+        # this appears when octoprint is almost finished starting
         machine.wait_for_file("/var/lib/octoprint/uploads")
 
     # octoprint takes some time to start. This makes sure we'll retry just in case it takes longer

@@ -1004,7 +1004,7 @@ builtins.intersectAttrs super {
   # This propagates this to everything depending on haskell-gi-base
   haskell-gi-base = addBuildDepend pkgs.gobject-introspection super.haskell-gi-base;
 
-  # requires valid, writeable $HOME
+  # requires valid, writable $HOME
   hatex-guide = overrideCabal (drv: {
     preConfigure = ''
       ${drv.preConfigure or ""}

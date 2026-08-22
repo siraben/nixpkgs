@@ -290,7 +290,7 @@ in
         Let's Encrypt's [staging endpoint](https://letsencrypt.org/docs/staging-environment/)
         while testing or in development.
 
-        Value `null` should be prefered for production setups,
+        Value `null` should be preferred for production setups,
         as it omits the `acme_ca` option to enable
         [automatic issuer fallback](https://caddyserver.com/docs/automatic-https#issuer-fallback).
       '';
@@ -368,7 +368,7 @@ in
         Environment file as defined in {manpage}`systemd.exec(5)`.
 
         You can use environment variables to pass secrets to the service without adding
-        them to the world-redable nix store.
+        them to the world-readable nix store.
 
         ```
         # in configuration.nix

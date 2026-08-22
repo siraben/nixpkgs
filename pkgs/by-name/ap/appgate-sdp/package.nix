@@ -159,7 +159,7 @@ stdenv.mkDerivation (finalAttrs: {
         } \
         --set LD_LIBRARY_PATH $out/opt/appgate/service
 
-    # make xdg-open overrideable at runtime
+    # make xdg-open overridable at runtime
     makeWrapper $out/opt/appgate/Appgate $out/bin/appgate \
         --suffix PATH : ${lib.makeBinPath [ xdg-utils ]} \
         --set LD_LIBRARY_PATH $out/opt/appgate:${lib.makeLibraryPath deps}

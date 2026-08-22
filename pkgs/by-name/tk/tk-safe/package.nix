@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
       exec = "tk-safe";
       desktopName = "TK-Safe";
       comment = meta.description;
-      genericName = "Eletronic medical record (ePA)";
+      genericName = "Electronic medical record (ePA)";
       categories = [ "Utility" ];
     })
   ];

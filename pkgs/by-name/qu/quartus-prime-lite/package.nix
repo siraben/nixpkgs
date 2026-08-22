@@ -184,7 +184,7 @@ buildFHSEnv (finalAttrs: {
   profile = ''
     # LD_PRELOAD fixes issues in the licensing system that cause memory corruption and crashes when
     # starting most operations in many containerized environments, including WSL2, Docker, and LXC
-    # (a similiar fix involving LD_PRELOADing tcmalloc did not solve the issue in my situation)
+    # (a similar fix involving LD_PRELOADing tcmalloc did not solve the issue in my situation)
     # https://community.intel.com/t5/Intel-FPGA-Software-Installation/Running-Quartus-Prime-Standard-on-WSL-crashes-in-libudev-so/m-p/1189032
     #
     # But, as can be seen in the above resource, LD_PRELOADing libudev breaks

@@ -156,7 +156,7 @@ in
         description = ''
           Text to display when users join. The motd will be readable in the nix store
           and the processlist.  If this is not intended use `motdFile` instead.
-          Will be overriden by {option}`services.syncplay.motdFile`.
+          Will be overridden by {option}`services.syncplay.motdFile`.
         '';
       };
 
@@ -185,7 +185,7 @@ in
         default = [ ];
         description = ''
           List of rooms that will be listed even if the room is empty.
-          Will be overriden by {option}`services.syncplay.permanentRoomsFile`.
+          Will be overridden by {option}`services.syncplay.permanentRoomsFile`.
         '';
       };
 
@@ -254,7 +254,7 @@ in
         type = types.bool;
         default = false;
         description = ''
-          Listen only on IPv4 when strting the server.
+          Listen only on IPv4 when starting the server.
         '';
       };
 
@@ -262,7 +262,7 @@ in
         type = types.bool;
         default = false;
         description = ''
-          Listen only on IPv6 when strting the server.
+          Listen only on IPv6 when starting the server.
         '';
       };
 

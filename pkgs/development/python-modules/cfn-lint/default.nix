@@ -70,7 +70,7 @@ buildPythonPackage rec {
   ];
 
   disabledTestPaths = [
-    # unexpected exit code afer nodejs_24 24.16.0 update
+    # unexpected exit code after nodejs_24 24.16.0 update
     "test/integration/test_quickstart_templates.py::TestQuickStartTemplates::test_templates"
     "test/integration/test_quickstart_templates_non_strict.py::TestQuickStartTemplates::test_module_integration"
     "test/integration/test_quickstart_templates_non_strict.py::TestQuickStartTemplates::test_templates"

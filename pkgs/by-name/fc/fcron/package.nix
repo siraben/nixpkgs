@@ -59,7 +59,7 @@ stdenv.mkDerivation (finalAttrs: {
     # Don't let fcron create the group fcron, nix(os) should do this
     sed -i '2s@.*@exit 0@' script/user-group
 
-    # --with-bootinstall=no shoud do this, didn't work. So just exit the script before doing anything
+    # --with-bootinstall=no should do this, didn't work. So just exit the script before doing anything
     sed -i '2s@.*@exit 0@' script/boot-install
 
     # also don't use chown or chgrp for documentation (or whatever) when installing

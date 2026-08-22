@@ -747,7 +747,7 @@ stdenv.mkDerivation (finalAttrs: {
       rm $out/bin/idle*
       rm $out/bin/pydoc*
 
-      echo linking DLLs for python’s compiled librairies
+      echo linking DLLs for python’s compiled libraries
       linkDLLsInfolder $out/lib/python*/lib-dynload/
     '';
 

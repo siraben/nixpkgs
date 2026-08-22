@@ -329,7 +329,7 @@ in
                     DPI=144
                     ;;
                   *)
-                    echo "Unknown profle: $AUTORANDR_CURRENT_PROFILE"
+                    echo "Unknown profile: $AUTORANDR_CURRENT_PROFILE"
                     exit 1
                 esac
                 echo "Xft.dpi: $DPI" | ''${pkgs.xrdb}/bin/xrdb -merge

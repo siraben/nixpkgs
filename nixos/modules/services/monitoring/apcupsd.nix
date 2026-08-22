@@ -57,7 +57,7 @@ let
       mkdir "$out"
       # Copy SCRIPTDIR from apcupsd package
       cp -r ${pkgs.apcupsd}/etc/apcupsd/* "$out"/
-      # Make the files writeable (nix will unset the write bits afterwards)
+      # Make the files writable (nix will unset the write bits afterwards)
       chmod u+w "$out"/*
       # Remove the sample event notification scripts, because they don't work
       # anyways (they try to send mail to "root" with the "mail" command)

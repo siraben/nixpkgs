@@ -30,7 +30,7 @@ INDEX = "https://pypi.io/pypi"
 """url of PyPI"""
 
 EXTENSIONS = ["tar.gz", "tar.bz2", "tar", "zip", ".whl"]
-"""Permitted file extensions. These are evaluated from left to right and the first occurance is returned."""
+"""Permitted file extensions. These are evaluated from left to right and the first occurrence is returned."""
 
 PRERELEASES = False
 

@@ -44,7 +44,7 @@ derivation {
     ld -v
     lipo -info true
     pbzx -v
-    # ranlib gets tested bulding hello
+    # ranlib gets tested building hello
     sigtool -h
     rm true
 

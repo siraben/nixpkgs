@@ -9,7 +9,7 @@ let
   stateDirectory = "/var/lib/traccar";
   configFilePath = "${stateDirectory}/config.xml";
 
-  # Map leafs to XML <entry> elements as expected by traccar, using
+  # Map leaves to XML <entry> elements as expected by traccar, using
   # dot-separated keys for nested attribute paths.
   mapLeafs = lib.mapAttrsRecursive (
     path: value: "<entry key='${lib.concatStringsSep "." path}'>${value}</entry>"
@@ -96,7 +96,7 @@ in
         preStart = ''
           test -f '${configFilePath}' && rm -f '${configFilePath}'
 
-          # Perform envvars substition read from environmentFile
+          # Perform envvars substitution read from environmentFile
           old_umask=$(umask)
           umask 0177
           ${lib.getExe pkgs.envsubst} \

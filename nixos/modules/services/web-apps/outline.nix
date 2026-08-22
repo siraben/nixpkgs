@@ -16,7 +16,7 @@ in
       "services"
       "outline"
       "sequelizeArguments"
-    ] "Database migration are run agains configurated database by outline directly")
+    ] "Database migration are run against configured database by outline directly")
   ];
   # See here for a reference of all the options:
   #   https://github.com/outline/outline/blob/v0.67.0/.env.sample
@@ -196,7 +196,7 @@ in
           uploadMaxSize = lib.mkOption {
             type = lib.types.int;
             default = 26214400;
-            description = "Maxmium file size for uploads.";
+            description = "Maximum file size for uploads.";
           };
           forcePathStyle = lib.mkOption {
             type = lib.types.bool;

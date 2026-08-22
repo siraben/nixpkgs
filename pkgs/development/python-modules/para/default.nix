@@ -35,7 +35,7 @@ buildPythonPackage (finalAttrs: {
     && (pythonOlder "3.14");
 
   meta = {
-    description = "Set utilities that ake advantage of python's 'multiprocessing' module to distribute CPU-intensive tasks";
+    description = "Set utilities that take advantage of python's 'multiprocessing' module to distribute CPU-intensive tasks";
     homepage = "https://pypi.org/project/para";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ GaetanLepage ];

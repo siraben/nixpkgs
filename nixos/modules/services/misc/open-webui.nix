@@ -97,7 +97,7 @@ in
       }
       // cfg.environment;
 
-      # backwards compatability migration
+      # backwards compatibility migration
       preStart = ''
         if [ -d "${cfg.stateDir}/data" ] && [ -n "$(ls -A "${cfg.stateDir}/data" 2>/dev/null)" ]; then
           exit 0

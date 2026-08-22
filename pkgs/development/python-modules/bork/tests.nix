@@ -17,7 +17,7 @@
       pytest
     ];
     script = ''
-      # Copy the source tree over, and make it writeable
+      # Copy the source tree over, and make it writable
       cp -r ${bork.src} bork/
       find -type d -exec chmod 0755 '{}' '+'
 

@@ -116,7 +116,7 @@ stdenv.mkDerivation (finalAttrs: {
     mkdir -p $doc/share/doc/rabbitmq-server
     mv $out/LICENSE* $doc/share/doc/rabbitmq-server
 
-    # and an unecessarily copied INSTALL file
+    # and an unnecessarily copied INSTALL file
     rm $out/INSTALL
   '';
 

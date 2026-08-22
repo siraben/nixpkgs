@@ -664,7 +664,7 @@ let
       # >
       # > In official builds this space will show the terms of service.
       #
-      # "official builds" refers to offical Google Chrome builds, not Chromium, for which we
+      # "official builds" refers to official Google Chrome builds, not Chromium, for which we
       # explicitly set is_official_build=true as gn flag. If this does ever change to something
       # actually worthwhile, we can drop this revert and update our VM test to handle this dialog.
       # Exclude ungoogled-chromium, as it ships its own variant of this patch.

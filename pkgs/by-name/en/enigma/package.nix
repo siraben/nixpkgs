@@ -63,7 +63,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   postInstall = ''
     rm -r $out/include
-    # make xdg-open overrideable at runtime
+    # make xdg-open overridable at runtime
     wrapProgram $out/bin/enigma --suffix PATH : "${lib.makeBinPath [ xdg-utils ]}"
   '';
 

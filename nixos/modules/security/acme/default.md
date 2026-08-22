@@ -34,7 +34,7 @@ to a provider of your choosing, or just change the server for one cert with
 You will need an HTTP server or DNS server for verification. For HTTP,
 the server must have a webroot defined that can serve
 {file}`.well-known/acme-challenge`. This directory must be
-writeable by the user that will run the ACME client. For DNS, you must
+writable by the user that will run the ACME client. For DNS, you must
 set up credentials with your provider/server for use with lego.
 
 ## Using ACME certificates in Nginx {#module-security-acme-nginx}

@@ -52,7 +52,7 @@ buildGoModule {
   '';
 
   preFixup = ''
-    # make xdg-open overrideable at runtime
+    # make xdg-open overridable at runtime
     gappsWrapperArgs+=(
       --suffix PATH : ${xdg-utils}/bin
       --prefix XDG_DATA_DIRS : $out/share

@@ -60,7 +60,7 @@ in
       type = lib.types.str;
       default = config.services.gitlab.host;
       defaultText = lib.literalExpression "config.services.gitlab.host";
-      description = "Address of the GitLab instance, Gitlab Contianer Registry connects to.";
+      description = "Address of the GitLab instance, Gitlab Container Registry connects to.";
     };
     certFile = lib.mkOption {
       type = lib.types.path;
@@ -227,7 +227,7 @@ in
             addr = lib.mkOption {
               type = lib.types.str;
               default = "127.0.0.1:4567";
-              description = "Address the contianer registry listens on.";
+              description = "Address the container registry listens on.";
             };
             headers.X-Content-Type-Options = lib.mkOption {
               type = lib.types.listOf lib.types.str;

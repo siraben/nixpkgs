@@ -23,7 +23,7 @@ appimageTools.wrapAppImage rec {
 
   # General fixup
   extraInstallCommands = ''
-    # Firstly, rename the executable to lbry for convinence
+    # Firstly, rename the executable to lbry for convenience
     mv $out/bin/${pname} $out/bin/lbry
 
     # Now, install assets such as the desktop file and icons

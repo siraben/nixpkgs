@@ -21,7 +21,7 @@
 # files usable by dictd.
 # This is basically a reimplementation of the wnfilter program by Rik Faith,
 # which unfortunately doesn't work correctly for wordnet files in the newer
-# formats. This version of wordnet_structures whould parse wordnet 2.1 files
+# formats. This version of wordnet_structures would parse wordnet 2.1 files
 # correctly, and create output very similar to what wnfilter would have
 # written.
 

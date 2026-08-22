@@ -148,7 +148,7 @@ in
       }
       {
         assertion = !(cfg.static && config.system.switch.enable);
-        message = "You cannot use `services.userborn.static = true` with switchable configurations, it is ONLY indended for appliance images with fully static user IDs";
+        message = "You cannot use `services.userborn.static = true` with switchable configurations, it is ONLY intended for appliance images with fully static user IDs";
       }
     ];
 

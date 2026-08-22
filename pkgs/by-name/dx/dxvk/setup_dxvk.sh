@@ -149,7 +149,7 @@ wine64="wine"
 wineboot="wineboot"
 
 # $PATH is the way for user to control where wine is located (including custom Wine versions).
-# Pure 64-bit Wine (non Wow64) requries skipping 32-bit steps.
+# Pure 64-bit Wine (non Wow64) requires skipping 32-bit steps.
 # In such case, wine64 and winebooot will be present, but wine binary will be missing,
 # however it can be present in other PATHs, so it shouldn't be used, to avoid versions mixing.
 wine_path=$(dirname "$(command -v $wineboot)")

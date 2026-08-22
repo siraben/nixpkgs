@@ -16,7 +16,7 @@ in
     domain = lib.mkOption {
       type = lib.types.str;
       description = ''
-        The domain under which the oauth2-proxy will be accesible and the path of cookies are set to.
+        The domain under which the oauth2-proxy will be accessible and the path of cookies are set to.
         This setting must be set to ensure back-redirects are working properly
         if oauth2-proxy is configured with {option}`services.oauth2-proxy.cookie.domain`
         or multiple {option}`services.oauth2-proxy.nginx.virtualHosts` that are not on the same domain.

@@ -176,7 +176,7 @@
         cp silent_hello.csh silent_hello_patched.csh
         patchRcPathCsh silent_hello_patched.csh "${hello}/bin"
 
-        echo "Testing in Csh if silent_hello_patched.csh get sourced without errer"
+        echo "Testing in Csh if silent_hello_patched.csh get sourced without error"
         tcsh -e -c "source silent_hello_patched.csh"
 
 

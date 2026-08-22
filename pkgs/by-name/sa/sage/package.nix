@@ -91,7 +91,7 @@ let
     inherit sage-with-env jupyter-kernel-specs;
   };
 
-  # sagelib with added wrappers and a dependency on sage-tests to make sure thet tests were run.
+  # sagelib with added wrappers and a dependency on sage-tests to make sure that tests were run.
   sage-with-env = callPackage ./sage-with-env.nix {
     inherit python3 pythonEnv;
     inherit sage-env;

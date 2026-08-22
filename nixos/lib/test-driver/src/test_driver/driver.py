@@ -68,7 +68,7 @@ class AssertionTester(TestCase):
 
 def get_tmp_dir() -> Path:
     """Returns a temporary directory that is defined by TMPDIR, TEMP, TMP or CWD
-    Raises an exception in case the retrieved temporary directory is not writeable
+    Raises an exception in case the retrieved temporary directory is not writable
     See https://docs.python.org/3/library/tempfile.html#tempfile.gettempdir
     """
     tmp_dir = Path(os.environ.get("XDG_RUNTIME_DIR", tempfile.gettempdir()))
@@ -79,7 +79,7 @@ def get_tmp_dir() -> Path:
         )
     if not os.access(tmp_dir, os.W_OK):
         raise PermissionError(
-            f"The directory defined by XDG_RUNTIME_DIR, TMPDIR, TEMP, TMP, or CWD: {tmp_dir} is not writeable"
+            f"The directory defined by XDG_RUNTIME_DIR, TMPDIR, TEMP, TMP, or CWD: {tmp_dir} is not writable"
         )
     return tmp_dir
 

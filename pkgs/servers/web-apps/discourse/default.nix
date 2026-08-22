@@ -396,7 +396,7 @@ let
 
       # safe_exec.rb, which is used to execute ImageMagick among other things, restricts executable paths to standard FHS paths
       # which breaks on nix. this patch adds the entire /nix/store to allowed paths, which is sub-optimal but
-      # still provides some benifits over disabling entirely.
+      # still provides some benefits over disabling entirely.
       ./safe-exec-from-nix-store.patch
     ];
 
@@ -511,7 +511,7 @@ let
 
       # safe_exec.rb, which is used to execute ImageMagick among other things, restricts executable paths to standard FHS paths
       # which breaks on nix. this patch adds the entire /nix/store to allowed paths, which is sub-optimal but
-      # still provides some benifits over disabling entirely.
+      # still provides some benefits over disabling entirely.
       ./safe-exec-from-nix-store.patch
 
       # Our app/assets/generated folder is a symlink, but the ruby File.mkdir_p doesn't allow
@@ -547,7 +547,7 @@ let
       rm -r $out/share/discourse/log
       ln -sf /var/log/discourse $out/share/discourse/log
       # we don't copy `tmp` from ${assets}, which means that any pre-cached content will be re-generated later
-      # however, we also can't copy `tmp` because then it would not be writeable by discourse, which it must be
+      # however, we also can't copy `tmp` because then it would not be writable by discourse, which it must be
       # and we can't write to /var/lib/discourse/tmp, because you can't do that in a build. this sucks.
       ln -sf /var/lib/discourse/tmp $out/share/discourse/tmp
       ln -sf /run/discourse/config $out/share/discourse/config

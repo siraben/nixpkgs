@@ -13,7 +13,7 @@
   validatePkgConfig,
   # Adds test groups and extra CLI flags.
   buildFixture ? false,
-  # Adds the ablilty to track malloc and free calls.
+  # Adds the ability to track malloc and free calls.
   # Note that if fixtures are enabled, this option is ignored
   # and will always be enabled.
   buildMemory ? buildFixture,

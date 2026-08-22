@@ -146,7 +146,7 @@ stdenv.mkDerivation (finalAttrs: {
     )
   ''
   + lib.optionalString useHunspell ''
-    # On all platforms, we must inject our dictionnaries
+    # On all platforms, we must inject our dictionaries
     ${hunspellCopyCommands}
   '';
 
@@ -223,7 +223,7 @@ stdenv.mkDerivation (finalAttrs: {
     asar p $asarBundle $opt/resources/app.asar
     rm -rf $asarBundle
 
-    # Pulsar uses `PULSAR_PATH` to know where it is intalled
+    # Pulsar uses `PULSAR_PATH` to know where it is installed
     mkdir -p $out/bin
     wrapProgram $opt/resources/pulsar.sh \
       --suffix "PATH" : "${lib.makeBinPath [ coreutils ]}" \

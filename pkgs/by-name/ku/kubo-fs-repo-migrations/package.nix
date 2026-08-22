@@ -107,7 +107,7 @@ let
     writeShellApplication {
       name = pname;
       text = ''
-        echo 'The kubo-fs-repo-migrations package was not buit with support for ${pname}.'
+        echo 'The kubo-fs-repo-migrations package was not built with support for ${pname}.'
         echo 'To enable support, set the minRepoVersion argument of this package to a lower value.'
         echo 'The purpose of this stub is to prevent the fs-repo-migrations program from downloading unsigned binaries from the internet.'
       '';

@@ -132,7 +132,7 @@ in
           };
           N8N_USER_FOLDER = lib.mkOption {
             type = lib.types.path;
-            # This folder must be writeable as the application is storing
+            # This folder must be writable as the application is storing
             # its data in it, so the StateDirectory is a good choice
             default = "/var/lib/n8n";
             description = ''

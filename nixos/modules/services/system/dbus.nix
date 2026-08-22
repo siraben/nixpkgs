@@ -40,7 +40,7 @@ in
         # Failed to connect to system scope bus via local transport: No such file or directory.
         #
         # When systemctl tries and fails to control the system manager
-        # over dbus, it fals back to a private bus socket after
+        # over dbus, it falls back to a private bus socket after
         # printing this message. It works, but users often think it is
         # the source of their problem when it isn't.
         default = true;

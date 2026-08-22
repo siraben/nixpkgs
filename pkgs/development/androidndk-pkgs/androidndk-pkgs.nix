@@ -67,7 +67,7 @@ let
     throw "Android NDK doesn't support building on ${stdenv.buildPlatform.config}, as far as we know"
   );
   targetInfo = ndkTargetInfoFun (
-    throw "Android NDK doesn't support targetting ${stdenv.targetPlatform.config}, as far as we know"
+    throw "Android NDK doesn't support targeting ${stdenv.targetPlatform.config}, as far as we know"
   );
 
   androidSdkVersion =

@@ -130,7 +130,7 @@ let
     ''
       set -x
       umask 027
-      # Working arround https://github.com/freescout-helpdesk/freescout/issues/2547
+      # Working around https://github.com/freescout-helpdesk/freescout/issues/2547
       # and having to manually clear cache when migrating from something around
       # ~1.8.159 (╯°□°)╯︵ ┻━┻
       # See: https://github.com/freescout-help-desk/freescout/issues/4366#issuecomment-2495993397
@@ -373,7 +373,7 @@ in
     # This needs to be manually started again and again
     # Freescout has its own scheduler built in to ensure tasks run at the desired frequency
     # --no-interaction makes sure, that the queue worker is not executed.
-    # This is needed, because otherweise the queue worker process would continue running
+    # This is needed, because otherwise the queue worker process would continue running
     # thus block further schedule invocations until the queue worker terminates.
     # See https://github.com/freescout-help-desk/freescout/blob/74fa4b7d4f8288f8d3fb1d343308d3289c4d72e2/app/Console/Kernel.php#L195-L267
     systemd.services."freescout-schedule-run" = baseService // {

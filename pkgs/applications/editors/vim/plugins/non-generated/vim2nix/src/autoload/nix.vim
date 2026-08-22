@@ -93,7 +93,7 @@ fun! nix#NixDerivation(opts, name, repository) abort
     " we should unpack the sources, look for the addon-info.json file ..
     " however most packages who have the addon-info.json file also are on
     " github thus will be of type "git" instead. The dependency information
-    " from vim-pi is encoded in the reposiotry. Thus this is likely to do the
+    " from vim-pi is encoded in the repository. Thus this is likely to do the
     " right thing most of the time.
     let addon_info = get(a:repository, 'addon-info', {})
     let dependencies = keys(get(addon_info, 'dependencies', {}))
@@ -142,7 +142,7 @@ fun! nix#AddNixDerivation(opts, cache, name, ...) abort
     else
       let repository = get(g:vim_addon_manager.plugin_sources, a:name, {})
       if repository == {}
-        throw "repository ".a:name." unkown!"
+        throw "repository ".a:name." unknown!"
       else
           if repository.url =~ 'github'
             let owner = matchstr(repository.url, 'github.com/\zs.\+\ze/')

@@ -5,7 +5,7 @@ const path = require("path");
 // When installing files rewritten to the Nix store with npm
 // npm writes the symlinks relative to the build directory.
 //
-// This makes relocating node_modules tricky when refering to the store.
+// This makes relocating node_modules tricky when referring to the store.
 // This script walks node_modules and canonicalizes symlinks.
 
 async function canonicalize(storePrefix, root) {

@@ -156,11 +156,11 @@ in
             }
           ];
           extraConfig = ''
-            # Combined test for two (predictable) Match criterias
+            # Combined test for two (predictable) Match criteria
             Match LocalAddress 127.0.0.1 LocalPort 22
               PermitRootLogin yes
 
-            # Separate tests for Match criterias
+            # Separate tests for Match criteria
             Match User root
               PermitRootLogin yes
             Match Group root

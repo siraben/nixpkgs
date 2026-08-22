@@ -43,7 +43,7 @@ let
         subvolume = 2; # Contains: options, target.
         volume = 3; # Contains: options, target, subvolume.
       }
-      .${name} or (throw "Unknow section '${name}'");
+      .${name} or (throw "Unknown section '${name}'");
 
   genConfig' = set: concatStringsSep "\n" (genConfig set);
   genConfig =

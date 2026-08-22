@@ -51,7 +51,7 @@ appimageTools.wrapAppImage {
   extraPkgs = pkgs: [ pkgs.hidapi ];
 
   extraInstallCommands = ''
-    # Add desktop convencience stuff
+    # Add desktop convenience stuff
     install -Dm444 ${appimageContents}/flexoptix-app.desktop -t $out/share/applications
     install -Dm444 ${appimageContents}/flexoptix-app.png -t $out/share/pixmaps
     substituteInPlace $out/share/applications/flexoptix-app.desktop \

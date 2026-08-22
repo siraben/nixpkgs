@@ -354,7 +354,7 @@ in
 
             system-features = mkOption {
               type = types.listOf types.str;
-              # We expose system-featuers here and in config below.
+              # We expose system-features here and in config below.
               # This allows users to access the default value via `options.nix.settings.system-features`
               default = defaultSystemFeatures;
               defaultText = literalExpression ''[ "nixos-test" "benchmark" "big-parallel" "kvm" "gccarch-<arch>" ]'';

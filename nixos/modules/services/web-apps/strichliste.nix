@@ -273,7 +273,7 @@ in
                 type = types.bool;
                 default = true;
                 description = ''
-                  Whether to allow undoing transactions withing the {option}`services.strichliste.settings.payment.undo.timeout` period.
+                  Whether to allow undoing transactions within the {option}`services.strichliste.settings.payment.undo.timeout` period.
                 '';
               };
 

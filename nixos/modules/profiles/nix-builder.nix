@@ -175,7 +175,7 @@ in
           ''
           +
             # When running as non-interactively as part of a DarwinConfiguration the working directory
-            # must be set to a writeable directory.
+            # must be set to a writable directory.
             (
               if cfg.workingDirectory != "." then
                 ''

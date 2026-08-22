@@ -65,7 +65,7 @@ in
             str
             (listOf str)
           ];
-        # Keeped for compatibility
+        # Kept for compatibility
         default = [
           "[::0]"
           "0.0.0.0"

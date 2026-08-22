@@ -139,7 +139,7 @@ in
             template = {
               # Templates implement following specifications
               # https://github.com/meta-llama/llama3/tree/main?tab=readme-ov-file#instruction-tuned-models
-              # ... and are insprired by:
+              # ... and are inspired by:
               # https://github.com/mudler/LocalAI/blob/master/embedded/models/llama3-instruct.yaml
               #
               # The rules for template evaluateion are defined here:

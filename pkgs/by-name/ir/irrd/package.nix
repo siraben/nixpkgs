@@ -17,7 +17,7 @@ let
       # sqlalchemy 2.0 is not supported
       sqlalchemy = prev.sqlalchemy_1_4;
 
-      # checkInputs do not work wiht sqlalchemy < 2.0
+      # checkInputs do not work with sqlalchemy < 2.0
       factory-boy = prev.factory-boy.overridePythonAttrs (
         lib.const {
           doCheck = false;

@@ -184,7 +184,7 @@ in
           description = ''
             Mount points to be used by chunkserver for storage (see {manpage}`sfshdd.cfg(5)`).
 
-            Note, that these mount points must writeable by the user defined by the saunafs user.
+            Note, that these mount points must writable by the user defined by the saunafs user.
           '';
         };
 

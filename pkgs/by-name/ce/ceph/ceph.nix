@@ -287,7 +287,7 @@ stdenv.mkDerivation {
     # This requires an upstream fix/patch as soon as upstream raises the minimum CMake version to 3.21 or higher.
     # See also: https://github.com/NixOS/nixpkgs/pull/494583#issuecomment-4195176699
     "-DSYSTEMD_SYSTEM_UNIT_DIR=${placeholder "out"}/lib/systemd/system"
-    # `WITH_JAEGER` requires `thrift` as a depenedncy (fine), but the build fails with:
+    # `WITH_JAEGER` requires `thrift` as a dependency (fine), but the build fails with:
     #     CMake Error at src/opentelemetry-cpp-stamp/opentelemetry-cpp-build-Release.cmake:49 (message):
     #     Command failed: 2
     #

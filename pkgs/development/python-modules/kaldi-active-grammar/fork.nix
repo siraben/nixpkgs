@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
   postPatch = ''
     # Replace the shebangs for the various build scripts
     patchShebangs src
-    # Compatability with OpenBLAS 0.3.21
+    # Compatibility with OpenBLAS 0.3.21
     substituteInPlace src/matrix/cblas-wrappers.h \
       --replace stptri_ LAPACK_stptri \
       --replace dtptri_ LAPACK_dtptri \

@@ -28,7 +28,7 @@ buildGoModule (finalAttrs: {
   strictDeps = true;
 
   ldflags = [
-    "-s" # Disable symbole table.
+    "-s" # Disable symbol table.
     "-w" # Disable DWARF generation.
   ];
 

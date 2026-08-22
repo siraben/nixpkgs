@@ -34,7 +34,7 @@ in
         type = types.nullOr types.str;
         description = ''
           If non-null, enables an nginx reverse proxy virtual host at this FQDN,
-          at the path configurated with `services.slskd.web.url_base`.
+          at the path configured with `services.slskd.web.url_base`.
         '';
         example = "slskd.example.com";
       };

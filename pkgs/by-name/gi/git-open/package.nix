@@ -27,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   buildPhase = ''
-    # marked-man is broken and severly outdated.
+    # marked-man is broken and severely outdated.
     # pandoc with some extra metadata is good enough and produces a by man readable file.
     cat <(echo echo '% git-open (1) Version ${finalAttrs.version} | Git manual') git-open.1.md > tmp
     mv tmp git-open.1.md

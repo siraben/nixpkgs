@@ -52,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
   postPatch = ''
     # Older versions of gettext come with a copy of `extern-inline.m4` that is not compatible with clang 18.
     # When a project uses gettext + autoreconfPhase, autoreconfPhase will invoke `autopoint -f`, which will
-    # replace whatever (probably compatible) version of `extern-inline.m4` with one that probalby won’t work
+    # replace whatever (probably compatible) version of `extern-inline.m4` with one that probably won’t work
     # because `autopoint` will copy the autoconf macros from the project’s required version of gettext.
     # Fixing this requires replacing all the older copies of the problematic file with a new one.
     #

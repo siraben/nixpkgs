@@ -47,7 +47,7 @@ in
 
         If left at the default, this will be automatically created on server
         startup if it does not already exist. If changed, it is the admin's
-        responsibility to make sure that the directory exists and is writeable
+        responsibility to make sure that the directory exists and is writable
         by the `crossfire` user.
       '';
     };
@@ -173,7 +173,7 @@ in
       # The crossfire server needs access to a bunch of files at runtime that
       # are not created automatically at server startup; they're meant to be
       # installed in $PREFIX/var/crossfire by `make install`. And those files
-      # need to be writeable, so we can't just point at the ones in the nix
+      # need to be writable, so we can't just point at the ones in the nix
       # store. Instead we take the approach of copying them out of the store
       # on first run. If `bookarch` already exists, we assume the rest of the
       # files do as well, and copy nothing -- otherwise we risk overwriting

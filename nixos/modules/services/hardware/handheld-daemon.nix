@@ -15,7 +15,7 @@ in
       "handheld-daemon"
       "adjustor"
       "package"
-    ] "Adjustor is now part of handheld-daemon package, so it can't be overriden")
+    ] "Adjustor is now part of handheld-daemon package, so it can't be overridden")
   ];
   options.services.handheld-daemon = {
     enable = mkEnableOption "Handheld Daemon";

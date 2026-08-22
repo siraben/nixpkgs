@@ -235,7 +235,7 @@ in
               ''}
 
               # If DynamicUser= is enabled, PrivateTmp=true is implied (and cannot be turned off).
-              # so disable them unless PrivateTmp=true is explicitely set.
+              # so disable them unless PrivateTmp=true is explicitly set.
               ${lib.optionalString (!cfg.serviceConfig.PrivateTmp) ''
                 echo "InaccessiblePaths=-+/tmp" >> "$serviceFile"
                 echo "InaccessiblePaths=-+/var/tmp" >> "$serviceFile"

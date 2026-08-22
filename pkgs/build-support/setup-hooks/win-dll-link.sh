@@ -28,8 +28,8 @@ linkDLLsInfolder() {
         # Use associative arrays as set
         local filesToChecks
         local filesDone
-        declare -A filesToChecks # files that still needs to have their dependancies checked
-        declare -A filesDone     # files that had their dependancies checked and who is copied to the bin folder if found
+        declare -A filesToChecks # files that still needs to have their dependencies checked
+        declare -A filesDone     # files that had their dependencies checked and who is copied to the bin folder if found
 
         markFileAsDone() {
             if [ ! "${filesDone[$1]+a}" ]; then filesDone[$1]=a; fi
@@ -78,7 +78,7 @@ linkDLLsInfolder() {
                 linkCount=$((linkCount + 1))
             fi
             # local dep_file
-            # Look at the file’s dependancies
+            # Look at the file’s dependencies
             for dep_file in $($OBJDUMP -p "$file" | sed -n 's/.*DLL Name: \(.*\)/\1/p' | sort -u); do
                 addFileToLink "$dep_file"
             done

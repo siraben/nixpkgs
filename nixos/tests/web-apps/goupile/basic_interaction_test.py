@@ -35,7 +35,7 @@ def run_test():
 
         page.goto(f"{BASE_URL}/admin")
 
-        # admin and doman setup
+        # admin and domain setup
         page.get_by_role("textbox", name="Domain name *").fill("domain")
         page.get_by_role("textbox", name="Domain title *").fill("domain")
         page.get_by_role("textbox", name="Password *").fill(ADMIN_PASSWD)

@@ -59,7 +59,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook preInstall
 
     mkdir -p $out/share/java $out/bin
-    # Read permisssion suffices for the jar and others.
+    # Read permission suffices for the jar and others.
     # Simple cp shall clear suid bits, if any.
     cp ij.jar $out/share/java
     cp -dR luts macros plugins $out/share

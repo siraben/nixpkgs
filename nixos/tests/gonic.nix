@@ -22,9 +22,9 @@
           name = "gonic-test-wrapper";
           runtimeInputs = [ pkgs.gonic ];
           text = ''
-            touch ${config.services.gonic.settings.cache-path}/foo && echo "cache dir writeable" >&2
-            touch /tmp/podcast/foo && echo "podcast dir writeable" >&2
-            touch /tmp/playlists/foo && echo "playlists dir writeable" >&2
+            touch ${config.services.gonic.settings.cache-path}/foo && echo "cache dir writable" >&2
+            touch /tmp/podcast/foo && echo "podcast dir writable" >&2
+            touch /tmp/playlists/foo && echo "playlists dir writable" >&2
             touch /tmp/secrets/foo && echo "shouldn't be able to write /tmp/secrets" >&2 && exit 1
             exec ${lib.getExe pkgs.gonic} "$@"
           '';

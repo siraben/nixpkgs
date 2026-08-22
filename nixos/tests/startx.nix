@@ -93,7 +93,7 @@
           machine.send_key("meta_l-ret", delay=0.5)
           machine.send_key("meta_l-ret", delay=0.5)
           machine.send_key("meta_l-ret", delay=0.5)
-          # Note: this tests that resources have beeen loaded
+          # Note: this tests that resources have been loaded
           machine.wait_for_window("myterm")
           machine.screenshot("screenshot.png")
 

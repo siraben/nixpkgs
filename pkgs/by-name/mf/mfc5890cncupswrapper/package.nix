@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
 
     #mfc5890cnlpr is a dependency of this package. Link all files of mfc5890cnlpr into the $out/usr folder, as other scripts depend on these files being present.
     #Ideally, we would use substituteInPlace for each file this package actually requires. But the scripts of Brother use variables to dynamically build the paths
-    #at runtime, making this approach more complex. Hence, the easier route of simply linking all files was choosen.
+    #at runtime, making this approach more complex. Hence, the easier route of simply linking all files was chosen.
     find "$lpr" -type f -exec sh -c "mkdir -vp \$(echo '{}' | sed 's|$lpr|$dir|g' | xargs dirname) && ln -s '{}' \$(echo '{}' | sed 's|$lpr|$dir|g')" \;
 
     mkdir -p $out/usr/share/ppd/

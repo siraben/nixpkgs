@@ -42,7 +42,7 @@ buildGoModule (finalAttrs: {
       --bash <($out/bin/lab completion bash) \
       --fish <($out/bin/lab completion fish) \
       --zsh <($out/bin/lab completion zsh)
-    # make xdg-open overrideable at runtime
+    # make xdg-open overridable at runtime
     wrapProgram $out/bin/lab \
       --suffix PATH ":" "${
         lib.makeBinPath [

@@ -28,7 +28,7 @@ writeScript "update-${pname}" ''
   tmpfile=`mktemp`
   url=${baseUrl}
 
-  # retriving latest released version
+  # retrieving latest released version
   #  - extracts all links from the $url
   #  - removes . and ..
   #  - this line remove everything not starting with a number
@@ -60,11 +60,11 @@ writeScript "update-${pname}" ''
     sources = [
   EOF
   for arch in linux-x86_64 linux-i686 linux-aarch64 mac; do
-    # retriving a list of all tarballs for each arch
+    # retrieving a list of all tarballs for each arch
     #  - only select tarballs for current arch
     #  - only select tarballs for current version
     #  - rename space with colon so that for loop doesnt
-    #  - inteprets sha and path as 2 lines
+    #  - interprets sha and path as 2 lines
     IFS=$'\n'
     for line in `echo "$shasums" | \
                  grep $arch | \

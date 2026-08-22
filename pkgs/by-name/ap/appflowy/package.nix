@@ -81,7 +81,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
       mkdir -p $out/{bin,opt}
 
-      # Copy archive contents to the outpout directory
+      # Copy archive contents to the output directory
       cp -r ./* $out/opt/
 
       # Copy icon

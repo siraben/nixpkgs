@@ -55,7 +55,7 @@ buildGoModule (finalAttrs: {
     makeWrapper
   ];
   postInstall = ''
-    # k9s requires a writeable log directory
+    # k9s requires a writable log directory
     # Otherwise an error message is printed
     # into the completion scripts
     export K9S_LOGS_DIR=$(mktemp -d)

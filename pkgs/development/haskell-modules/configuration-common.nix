@@ -1044,7 +1044,7 @@ with haskellLib;
   # https://github.com/LeventErkok/sbv/pull/772#issuecomment-3930657736
   # SBV requires a multitude of external tools, some not packaged with nixpkgs
   # for tests to pass, users may only want to use one or two of tools.
-  # maintainer recomends disabling tests
+  # maintainer recommends disabling tests
   sbv = dontCheck super.sbv;
   sdl2 = dontCheck super.sdl2; # the test suite needs an x server
   shadowsocks = dontCheck super.shadowsocks;
@@ -1635,7 +1635,7 @@ with haskellLib;
           wrapProgram "$out/bin/update-nix-fetchgit" --prefix 'PATH' ':' "${lib.makeBinPath deps}"
         '';
       }))
-      # pkgs.nix is not added to the wrapper since we can resonably expect it to be installed
+      # pkgs.nix is not added to the wrapper since we can reasonably expect it to be installed
       # and we don't know which implementation the eventual user prefers
       (addTestToolDepends (deps ++ [ pkgs.nix ]))
       # Patch for hnix compat.

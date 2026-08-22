@@ -94,7 +94,7 @@ stdenvNoCC.mkDerivation {
     mkdir -p $out/share/themes
     cp -a Nordic* $out/share/themes
 
-    # remove uneeded files
+    # remove unneeded files
     rm -r $out/share/themes/*/.gitignore
     rm -r $out/share/themes/*/Art
     rm -r $out/share/themes/*/FUNDING.yml
@@ -154,7 +154,7 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = {
-    description = "Gtk and KDE themes using the Nord color pallete";
+    description = "Gtk and KDE themes using the Nord color palette";
     homepage = "https://github.com/EliverLara/Nordic";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.all;

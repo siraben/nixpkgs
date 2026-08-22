@@ -149,7 +149,7 @@ in
       one_gpu.succeed("podman run --pull=never --device=nvidia.com/gpu=all -v /run/opengl-driver:/run/opengl-driver:ro cdi-test:latest")
 
     # Issue: https://github.com/NixOS/nixpkgs/issues/319201
-    with subtest("The generated CDI spec skips specified non-existant paths in the host"):
+    with subtest("The generated CDI spec skips specified non-existent paths in the host"):
       one_gpu_invalid_host_paths.wait_for_unit("nvidia-container-toolkit-cdi-generator.service")
       one_gpu_invalid_host_paths.fail("grep 'non-existant-path' /var/run/cdi/nvidia-container-toolkit.json")
   '';

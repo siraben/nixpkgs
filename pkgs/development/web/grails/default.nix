@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
   installPhase = ''
     mkdir -p "$out"
     cp -vr . "$out"
-    # Remove (for now) uneeded Windows .bat files
+    # Remove (for now) unneeded Windows .bat files
     rm -f "$out"/bin/*.bat
     # Improve purity
     sed -i -e '2iPATH=${binpath}:\$PATH' "$out"/bin/grails

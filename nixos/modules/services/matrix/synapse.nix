@@ -1219,7 +1219,7 @@ in
           description = ''
             Options for configuring workers. Worker support will be enabled if at least one worker is configured here.
 
-            See the [worker documention](https://element-hq.github.io/synapse/latest/workers.html#worker-configuration)
+            See the [worker documentation](https://element-hq.github.io/synapse/latest/workers.html#worker-configuration)
             for possible options for each worker. Worker-specific options overriding the shared homeserver configuration can be
             specified here for each worker.
 

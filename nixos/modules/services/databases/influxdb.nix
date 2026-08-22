@@ -101,7 +101,7 @@ in
                 https-enabled = false;
               };
 
-              # We can't make lists sensibly overrideable, so you have to override
+              # We can't make lists sensibly overridable, so you have to override
               # them whole
               graphite = lib.mkOptionDefault [
                 {

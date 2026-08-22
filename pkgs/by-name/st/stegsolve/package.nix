@@ -51,7 +51,7 @@ stdenv.mkDerivation (finalAttrs: {
       type = "Application";
       name = "stegsolve";
       desktopName = "Stegsolve";
-      comment = "A steganographic image analyzer, solver and data extractor for challanges";
+      comment = "A steganographic image analyzer, solver and data extractor for challenges";
       exec = "stegsolve";
       categories = [ "Graphics" ];
     })

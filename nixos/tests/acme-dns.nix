@@ -40,7 +40,7 @@
 
     machine.succeed(f'dig -t TXT @localhost {registration["fulldomain"]} | grep "SOA" | grep "admin.home.arpa"')
 
-    # acme-dns exspects a TXT value string length of exactly 43 chars
+    # acme-dns expects a TXT value string length of exactly 43 chars
     txt = "___dummy_validation_token_for_txt_record___"
 
     machine.succeed(

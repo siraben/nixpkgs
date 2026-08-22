@@ -35,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
     sed -i "2i$path" freeze.sh
     sed -i "2i$path" melt.sh
 
-    # Remove unneded binary
+    # Remove unneeded binary
     rm poorZFS.py
   '';
 

@@ -21,7 +21,7 @@ buildPythonPackage rec {
 
   patches = [
     # riscof copies a template directory from the store, but breaks because it
-    # doesn't change permissions and expects it to be writeable
+    # doesn't change permissions and expects it to be writable
     ./make_writeable.patch
   ];
 

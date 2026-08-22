@@ -26,7 +26,7 @@ let
   version = "1.0.7";
   # Pinning to Crystal 1.19.x since ahk_x11 crashes with segmentation
   # fault when built using >=1.20.0
-  # Refernce: https://github.com/phil294/AHK_X11/pull/127
+  # Reference: https://github.com/phil294/AHK_X11/pull/127
   crystal = crystal_1_19;
 in
 crystal.buildCrystalPackage {

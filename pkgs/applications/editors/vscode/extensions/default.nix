@@ -2470,7 +2470,7 @@ let
           hash = "sha256-ec1I3oQ06iMdSUcqf8yA3GjE7Aqa0PiLzRQLwFcL0KU=";
         };
         postInstall = ''
-          # Remove superflouous images to reduce closure size
+          # Remove superfluous images to reduce closure size
           rm $out/$installPrefix/images/*.gif
         '';
         meta = {

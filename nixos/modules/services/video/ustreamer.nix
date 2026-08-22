@@ -26,7 +26,7 @@ in
 
     autoStart = mkOption {
       description = ''
-        Wether to start µStreamer on boot. Disabling this will use socket
+        Whether to start µStreamer on boot. Disabling this will use socket
         activation. The service will stop gracefully after some inactivity.
         Disabling this will set `--exit-on-no-clients=300`
       '';

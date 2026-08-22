@@ -44,7 +44,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   # Some tests try to write configuration data to a location in the user's home
   # directory. Since this would be /homeless-shelter during the build, point at
-  # a writeable location instead.
+  # a writable location instead.
   preCheck = ''
     export APOLLO_CONFIG_HOME="$PWD"
   '';

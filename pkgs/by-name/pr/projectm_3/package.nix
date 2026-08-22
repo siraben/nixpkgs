@@ -43,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   fixupPhase =
     lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
-      # NOTE: 2019-10-05: Upstream inserts the src path buring build into ELF rpath, so must delete it out
+      # NOTE: 2019-10-05: Upstream inserts the src path during build into ELF rpath, so must delete it out
       # upstream report: https://github.com/projectM-visualizer/projectm/issues/245
       for entry in $out/bin/* ; do
         patchelf --set-rpath "$(patchelf --print-rpath $entry | tr ':' '\n' | grep -v 'src/libprojectM' | tr '\n' ':')" "$entry"

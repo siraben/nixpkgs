@@ -43,7 +43,7 @@ maven.buildMavenPackage (finalAttrs: {
   mvnParameters = lib.concatStringsSep " " (
     [
       "-Dmaven.buildNumber.skip=true" # skip build number generation; requires a git repository
-      "-Drat.skip=true" # skip license checks; they require manaul approval and should have already been run upstream
+      "-Drat.skip=true" # skip license checks; they require manual approval and should have already been run upstream
       "-Dspotless.skip=true" # skip formatting checks
 
       # skip tests that fail in the sandbox

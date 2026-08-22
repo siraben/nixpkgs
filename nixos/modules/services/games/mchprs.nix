@@ -210,7 +210,7 @@ in
           type = lib.types.bool;
           default = false;
           description = ''
-            Whether or not the whitelist (in {file}`whitelist.json`) shoud be enabled.
+            Whether or not the whitelist (in {file}`whitelist.json`) should be enabled.
             Only has effect when {option}`services.mchprs.declarativeSettings` is `true`.
           '';
         };

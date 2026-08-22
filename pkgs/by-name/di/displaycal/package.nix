@@ -34,7 +34,7 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
   postPatch = ''
     # 2 conflicting copies of bin/displaycal end up from the installation
     # process (one from pyproject.toml’s gui-scripts, one from setup.py). Keep
-    # only the setup.py version. Replace key with an invalide name to be
+    # only the setup.py version. Replace key with an invalid name to be
     # skipped.
     substituteInPlace pyproject.toml \
       --replace-fail "[project.gui-scripts]" "[_project.gui-scripts]" \

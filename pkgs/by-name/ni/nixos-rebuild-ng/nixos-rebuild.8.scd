@@ -340,7 +340,7 @@ It must be one of the following:
 *--diff*
 	show the diff between the system closure in /run/current-system
 	and the newly built system closure.
-	(avaliable for actions: build, boot, test, switch)
+	(available for actions: build, boot, test, switch)
 
 	This is similar to running:
 	"nix store diff-closures /run/current-system result" after build

@@ -734,7 +734,7 @@ in
                           freeformType = extraSettingsFormat.type;
                         };
                         description = ''
-                          Extra configuration options to put at the end of this BSS's defintion in the
+                          Extra configuration options to put at the end of this BSS's definition in the
                           hostapd.conf for the associated interface. To find out which options are global
                           and which are per-bss you have to read hostapd's source code, which is non-trivial
                           and not documented otherwise.
@@ -786,7 +786,7 @@ in
                           description = ''
                             Selects the authentication mode for this AP.
 
-                            - {var}`"none"`: Don't configure any authentication. This will disable wpa alltogether
+                            - {var}`"none"`: Don't configure any authentication. This will disable wpa altogether
                               and create an open AP. Use {option}`settings` together with this option if you
                               want to configure the authentication manually. Any password options will still be
                               effective, if set.

@@ -81,7 +81,7 @@ buildPythonPackage (finalAttrs: {
     # These tests use the flag -DSTAN_THREADS which doesn't work in cmdstan (missing file)
     "test_multi_proc_threads"
     "test_compile_force"
-    # These tests require a writeable cmdstan source directory
+    # These tests require a writable cmdstan source directory
     "test_pathfinder_threads"
     "test_save_profile"
   ]

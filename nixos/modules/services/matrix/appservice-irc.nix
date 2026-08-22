@@ -179,7 +179,7 @@ in
                     type = str;
                     example = "https://matrix.example.com/media";
                     description = ''
-                      URL under which the media proxy is publicly acccessible.
+                      URL under which the media proxy is publicly accessible.
                     '';
                   };
                 };

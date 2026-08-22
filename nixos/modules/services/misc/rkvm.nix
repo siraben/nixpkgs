@@ -111,7 +111,7 @@ in
               type = lib.types.path;
               default = "/etc/rkvm/certificate.pem";
               description = ''
-                TLS ceritficate path.
+                TLS certificate path.
 
                 ::: {.note}
                 This should be generated with {command}`rkvm-certificate-gen`.

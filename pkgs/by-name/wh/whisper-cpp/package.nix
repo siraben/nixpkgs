@@ -166,7 +166,7 @@ effectiveStdenv.mkDerivation (finalAttrs: {
       --prefix PATH : ${lib.makeBinPath [ ffmpeg ]}
   '';
 
-  requiredSystemFeatures = optionals rocmSupport [ "big-parallel" ]; # rocmSupport multiplies build time by the number of GPU targets, which takes arround 30 minutes on a 16-cores system to build
+  requiredSystemFeatures = optionals rocmSupport [ "big-parallel" ]; # rocmSupport multiplies build time by the number of GPU targets, which takes around 30 minutes on a 16-cores system to build
 
   # libcuda.so is provided by the driver at runtime and is not available in the sandbox
   # /nix/store/...-whisper-cpp-1.8.3/bin/whisper-cli: error while loading shared libraries: libcuda.so.1: cannot open shared object file: No such file or directory

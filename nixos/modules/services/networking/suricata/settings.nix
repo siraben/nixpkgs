@@ -432,7 +432,7 @@ in
                 type = types.str;
                 default = null;
                 description = ''
-                  af-packet capture interface, see [upstream docs reagrding tuning](https://docs.suricata.io/en/latest/performance/tuning-considerations.html#af-packet).
+                  af-packet capture interface, see [upstream docs regarding tuning](https://docs.suricata.io/en/latest/performance/tuning-considerations.html#af-packet).
                 '';
               };
             };

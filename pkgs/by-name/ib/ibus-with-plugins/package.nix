@@ -20,7 +20,7 @@ buildEnv {
     "/lib"
     "/libexec"
     "/share"
-    # Need to link contents so that the directories are writeable.
+    # Need to link contents so that the directories are writable.
     "/lib/systemd"
     "/share/dbus-1/services"
     "/share/systemd/user"

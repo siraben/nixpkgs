@@ -151,7 +151,7 @@ stdenv.mkDerivation (finalAttrs: {
     # keys
     install -D -m0644 keys/* $out/share/refind/keys/
 
-    # Fix variable definition of 'RefindDir' which is used to locate ressource files.
+    # Fix variable definition of 'RefindDir' which is used to locate resource files.
     sed -i "s,\bRefindDir=\"\$This.*,RefindDir=$out/share/refind,g" $out/bin/refind-install
 
     runHook postInstall

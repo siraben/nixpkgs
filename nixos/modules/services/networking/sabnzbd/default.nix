@@ -146,7 +146,7 @@ in
           which keeps the nixos configuration as the single source
           of truth. If you want to enable configuration of
           sabnzbd via the web interface or use options that require
-          a writeable configuration, such as quota tracking, enable
+          a writable configuration, such as quota tracking, enable
           this option.
         '';
         default = lib.versionOlder config.system.stateVersion "26.05";

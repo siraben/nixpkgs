@@ -18,7 +18,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   postPatch = ''
-    # the test hangs indefinetly when more than 3 threads are used, I haven't figured out why
+    # the test hangs indefinitely when more than 3 threads are used, I haven't figured out why
     substituteInPlace tests/Makefile.am \
       --replace-fail " crack-volume3.sh" ""
   '';

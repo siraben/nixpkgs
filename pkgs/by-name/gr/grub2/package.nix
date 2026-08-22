@@ -654,7 +654,7 @@ stdenv.mkDerivation rec {
      sed -i "tests/util/grub-shell.in" \
          -e's/qemu-system-i386/qemu-system-x86_64 -nodefaults/g'
 
-    unset CPP # setting CPP intereferes with dependency calculation
+    unset CPP # setting CPP interferes with dependency calculation
 
     patchShebangs .
 

@@ -21,7 +21,7 @@ in
       environment.systemPackages =
         let
           # A counter.  It has 2 functions:
-          # 1. GET /old and GET /new, to demostrate rewriting requests.
+          # 1. GET /old and GET /new, to demonstrate rewriting requests.
           # 2. GET /counter and POST /counter, to demonstrate replaying requests.
           counter = pkgs.writers.writePython3Bin "counter" { } ''
             from http.server import BaseHTTPRequestHandler, HTTPServer

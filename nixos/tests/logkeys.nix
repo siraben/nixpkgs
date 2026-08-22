@@ -16,7 +16,7 @@
       };
 
       # logkeys doesn't support specifying a device in `by-path`.
-      # In order not to make the test dependend on the ordering of the input event devices,
+      # In order not to make the test dependent on the ordering of the input event devices,
       # we'll create a custom symlink before starting the service.
       systemd.services.logkeys.serviceConfig.ExecStartPre = [
         "+${lib.getExe' pkgs.coreutils "ln"} -s /dev/input/by-path/pci-0000:00:0a.0-event-kbd /dev/input/virtio-kbd"

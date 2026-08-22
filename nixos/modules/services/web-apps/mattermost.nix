@@ -436,7 +436,7 @@ in
         type = types.bool;
         default = false;
         description = ''
-          Whether the Mattermost config.json is writeable by Mattermost.
+          Whether the Mattermost config.json is writable by Mattermost.
 
           Most of the settings can be edited in the system console of
           Mattermost if this option is enabled. A template config using

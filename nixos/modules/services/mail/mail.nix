@@ -17,7 +17,7 @@
         default = null;
         internal = true;
         description = ''
-          Configuration for the sendmail setuid wapper.
+          Configuration for the sendmail setuid wrapper.
         '';
       };
 

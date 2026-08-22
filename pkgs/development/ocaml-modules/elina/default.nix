@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
   createFindlibDestdir = true;
 
   meta = {
-    description = "ETH LIbrary for Numerical Analysis";
+    description = "ETH Library for Numerical Analysis";
     homepage = "https://elina.ethz.ch/";
     license = lib.licenses.lgpl3;
     maintainers = [ lib.maintainers.vbgl ];

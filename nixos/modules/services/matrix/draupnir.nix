@@ -46,7 +46,7 @@ in
       `services.draupnir.pantalaimon.*` has been removed because it depends on the deprecated and vulnerable
       libolm library for end-to-end encryption and upstream support for Pantalaimon in Draupnir is limited.
       See <https://the-draupnir-project.github.io/draupnir-documentation/bot/encryption> for details.
-      If you nontheless require E2EE via Pantalaimon, you can configure `services.pantalaimon-headless.instances`
+      If you nonetheless require E2EE via Pantalaimon, you can configure `services.pantalaimon-headless.instances`
       yourself and use that with `services.draupnir.settings.pantalaimon` and `services.draupnir.secrets.pantalaimon.password`.
     '')
   ];

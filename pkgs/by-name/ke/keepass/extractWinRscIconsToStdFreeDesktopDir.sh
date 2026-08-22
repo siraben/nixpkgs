@@ -32,10 +32,10 @@ fi
 rm -rf $tmp/png $tmp/ico
 mkdir -p $tmp/png $tmp/ico
 
-# Extract the ressource file's extension.
+# Extract the resource file's extension.
 rscFileExt=`echo "$rscFile" | sed -re 's/.+\.(.+)$/\1/'`
 
-# Debug ressource file extension.
+# Debug resource file extension.
 echo "rscFileExt=$rscFileExt"
 
 if [ "ico" = "$rscFileExt" ]; then

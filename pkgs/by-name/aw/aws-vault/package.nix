@@ -29,7 +29,7 @@ buildGoModule (finalAttrs: {
   ];
 
   postInstall = ''
-    # make xdg-open overrideable at runtime
+    # make xdg-open overridable at runtime
     # aws-vault uses https://github.com/skratchdot/open-golang/blob/master/open/open.go to open links
     ${lib.optionalString (
       !stdenv.hostPlatform.isDarwin

@@ -20,7 +20,7 @@ yarnInstallHook() {
     local -r tmpDir="$(mktemp -d)"
 
     # yarn pack does not work at all with bundleDependencies.
-    # Since we are imediately unpacking, we can just remove them from package.json
+    # Since we are immediately unpacking, we can just remove them from package.json
     # This will NOT be fixed in yarn v1: https://github.com/yarnpkg/yarn/issues/6794
     mv ./package.json "$tmpDir/package.json.orig"
     # Note: two spellings are accepted, 'bundleDependencies' and 'bundledDependencies'

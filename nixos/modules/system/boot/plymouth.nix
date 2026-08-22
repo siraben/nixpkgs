@@ -83,7 +83,7 @@ let
     fi
   '';
 
-  # 'emergency.serivce' and 'rescue.service' have
+  # 'emergency.service' and 'rescue.service' have
   # 'ExecStartPre=-plymouth quit --wait', but 'plymouth' is not on
   # their 'ExecSearchPath'. We could set 'ExecSearchPath', but it
   # overrides 'DefaultEnvironment=PATH=...', which is trouble for the

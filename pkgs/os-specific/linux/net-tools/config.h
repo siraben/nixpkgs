@@ -14,7 +14,7 @@
  * Internationalization
  * 
  * The net-tools package has currently been translated to French,
- * German and Brazilian Portugese.  Other translations are, of
+ * German and Brazilian Portuguese.  Other translations are, of
  * course, welcome.  Answer `n' here if you have no support for
  * internationalization on your system.
  * 

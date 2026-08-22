@@ -134,7 +134,7 @@ def create_vendor_staging(lockfile_path: Path, out_dir: Path) -> None:
     registry_packages: list[dict[str, Any]] = []
 
     for pkg in cargo_lock_toml["package"]:
-        # ignore local dependenices
+        # ignore local dependencies
         if "source" not in pkg.keys():
             eprint(f"Skipping local dependency: {pkg["name"]}")
             continue
@@ -220,7 +220,7 @@ def copy_and_patch_git_crate_subtree(git_tree: Path, crate_name: str, crate_out_
             if not islink(path):
                 continue
 
-            # Filter out cyclic symlinks and symlinks pointing at nonexistant files
+            # Filter out cyclic symlinks and symlinks pointing at nonexistent files
             try:
                 target_path = Path(realpath(path, strict=True))
             except OSError:
@@ -366,7 +366,7 @@ def create_vendor(vendor_staging_dir: Path, out_dir: Path) -> None:
 
     for pkg in cargo_lock_toml["package"]:
 
-        # ignore local dependenices
+        # ignore local dependencies
         if "source" not in pkg.keys():
             continue
 

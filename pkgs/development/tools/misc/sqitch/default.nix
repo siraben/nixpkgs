@@ -32,7 +32,7 @@ stdenv.mkDerivation {
   installPhase = ''
     mkdir -p $out/bin
     for d in bin/sqitch etc lib share ; do
-      # make sure dest alreay exists before symlink
+      # make sure dest already exists before symlink
       # this prevents installing a broken link into the path
       if [ -e ${sqitch}/$d ]; then
         ln -s ${sqitch}/$d $out/$d

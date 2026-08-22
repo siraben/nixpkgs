@@ -19,7 +19,7 @@ in
         default = true;
         type = types.bool;
         description = ''
-          If set to true, yubikey-touch-detctor will send notifications using libnotify
+          If set to true, yubikey-touch-detector will send notifications using libnotify
         '';
       };
 

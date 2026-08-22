@@ -91,7 +91,7 @@ buildGoModule (finalAttrs: {
     # also calls it `forgejo-runner`
     mv $out/bin/runner $out/bin/forgejo-runner
 
-    # Provide backward compatbility since v12 removed bundled git
+    # Provide backward compatibility since v12 removed bundled git
     wrapProgram $out/bin/forgejo-runner --suffix PATH : ${lib.makeBinPath [ gitMinimal ]}
 
     # Provide old binary name for compatibility

@@ -31,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
     "-std=gnu17"
   ];
 
-  makeFlags = [ "all" ]; # need "all" to be explicitely set
+  makeFlags = [ "all" ]; # need "all" to be explicitly set
 
   installPhase = ''
     runHook preInstall

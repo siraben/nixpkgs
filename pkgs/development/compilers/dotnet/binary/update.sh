@@ -120,7 +120,7 @@ versionAtLeast () {
 # updating after a SDK version bump.
 #
 # Due to this, make sure to check if new SDK versions introduce any new packages.
-# This should not happend in minor or bugfix updates, but probably happens
+# This should not happen in minor or bugfix updates, but probably happens
 # with every new major .NET release.
 aspnetcore_packages () {
   local version=$1

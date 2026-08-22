@@ -64,7 +64,7 @@ buildPythonPackage rec {
     mkdir -p $out/bin
     ln -s $out/${python.sitePackages}/kaleido/executable/bin/kaleido $out/bin/kaleido
 
-    # Relace bundled libraries with nixpkgs-packaged libraries
+    # Replace bundled libraries with nixpkgs-packaged libraries
     rm -rf $out/${python.sitePackages}/kaleido/executable/lib
     mkdir -p $out/${python.sitePackages}/kaleido/executable/lib
     ln -s ${expat}/lib/* $out/${python.sitePackages}/kaleido/executable/lib/

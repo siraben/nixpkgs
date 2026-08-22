@@ -87,7 +87,7 @@ buildPythonPackage rec {
 
   disabledTests = [
     # Requires google-cloud credentials
-    # google.auth.exceptions.DefaultCredentialsErro
+    # google.auth.exceptions.DefaultCredentialsError
     "test_activate_bigquery_default_dataset"
     # AttributeError: module 'sqlglot.expressions' has no attribute 'Acos'
     "test_unquoted_identifiers"

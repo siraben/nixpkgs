@@ -121,7 +121,7 @@ in
       # Run the interface checks twice: once before applying the dynamic config, and once after
       for dynamic_config in [False, True]:
 
-        # If testing the synamic, write out the fixture YAML file, and apply it
+        # If testing the dynamic, write out the fixture YAML file, and apply it
         if dynamic_config:
           with subtest("Run netplan apply to configure dynamic interfaces"):
             destination_filename = f"/run/netplan/{configfiles['dynamic']['filename']}"

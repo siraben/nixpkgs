@@ -32,7 +32,7 @@ buildPythonPackage (finalAttrs: {
   ];
 
   postPatch = ''
-    # we cant just substitute by matching `'git'` due to collisons
+    # we cant just substitute by matching `'git'` due to collisions
     substituteInPlace src/sphinx_last_updated_by_git.py \
       --replace-fail "'git', 'ls-tree'" " '${lib.getExe gitMinimal}', 'ls-tree'" \
       --replace-fail "'git', 'log'" "'${lib.getExe gitMinimal}', 'log'" \

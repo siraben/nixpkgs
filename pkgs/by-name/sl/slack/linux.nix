@@ -144,7 +144,7 @@ stdenv.mkDerivation rec {
     done
 
     # Replace the broken bin/slack symlink with a startup wrapper.
-    # Make xdg-open overrideable at runtime.
+    # Make xdg-open overridable at runtime.
     rm $out/bin/slack
     makeWrapper $out/lib/slack/slack $out/bin/slack \
       --prefix XDG_DATA_DIRS : $GSETTINGS_SCHEMAS_PATH \

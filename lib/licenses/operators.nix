@@ -100,7 +100,7 @@
 
     # Arguments
 
-    - [license] License to wich apply an exception
+    - [license] License to which apply an exception
   */
   PLUS = license: {
     licenseType = "plus";

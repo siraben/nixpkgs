@@ -56,7 +56,7 @@ in
       description = ''
         All sandboxes are created under this directory.
         To avoid symlink attacks, this directory and all its ancestors
-        must be writeable only by root.
+        must be writable only by root.
       '';
     };
 

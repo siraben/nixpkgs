@@ -1035,7 +1035,7 @@ rec {
     }:
     assert (
       (layeringPipeline == null -> maxLayers > 1)
-      || throw "the maxLayers argument of dockerTools.buildLayeredImage function must be greather than 1 (current value: ${toString maxLayers})"
+      || throw "the maxLayers argument of dockerTools.buildLayeredImage function must be greater than 1 (current value: ${toString maxLayers})"
     );
     assert (
       (enableFakechroot -> !stdenv.hostPlatform.isDarwin)

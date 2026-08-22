@@ -66,7 +66,7 @@ buildNpmPackage rec {
           rm -rf /tmp/cache
         done
         # Ensure that the root package-lock.json is placed in the output.
-        # This means only the root lockfile is checked for consistancy,
+        # This means only the root lockfile is checked for consistency,
         # but that should not be an issue.
         cp package-lock.json $out
       '';

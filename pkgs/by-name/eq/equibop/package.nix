@@ -44,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail -baseline ""
   '';
 
-  node-modules = callPackage ./node-modules.nix { equibop = finalAttrs.finalPackage; }; # helps when the parent package is overidden
+  node-modules = callPackage ./node-modules.nix { equibop = finalAttrs.finalPackage; }; # helps when the parent package is overridden
 
   nativeBuildInputs = [
     bun

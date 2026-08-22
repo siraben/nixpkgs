@@ -308,7 +308,7 @@ in
     #
     # We intentionally keep this as a visibility/isolation test rather than a
     # positive SSH-success test, since `pam_slurm` module is less
-    # deterministicly to assert positive here than `pam_slurm_adopt`.
+    # deterministically to assert positive here than `pam_slurm_adopt`.
     with subtest("pam_slurm_job_visibility_is_node_local"):
         submit.succeed(
             "runuser -u submitter -- sh -lc "

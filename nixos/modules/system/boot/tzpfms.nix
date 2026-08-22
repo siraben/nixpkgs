@@ -33,7 +33,7 @@ let
 
   datasetsByPool = lib.groupBy datasetToPool cfg.datasets;
 
-  # Goup neededForBoot filesystems by pool → initrd mount units
+  # Group neededForBoot filesystems by pool → initrd mount units
   initrdMountsByPool = lib.foldl' (
     acc: fs:
     let

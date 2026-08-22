@@ -33,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   postInstall = ''
-    rm -rf $out/include/linux/i2c-dev.h # conflics with kernel headers
+    rm -rf $out/include/linux/i2c-dev.h # conflicts with kernel headers
   '';
 
   meta = {

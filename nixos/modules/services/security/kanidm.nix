@@ -644,7 +644,7 @@ in
               };
 
               enableLegacyCrypto = mkOption {
-                description = "Enable legacy crypto on this client. Allows JWT signing algorthms like RS256.";
+                description = "Enable legacy crypto on this client. Allows JWT signing algorithms like RS256.";
                 type = types.bool;
                 default = false;
               };

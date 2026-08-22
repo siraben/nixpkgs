@@ -7,7 +7,7 @@ export CVS_RSH=$PWD/ssh
 # move the content without the root directory into $out ...
 # cvs -f -d "$url" export $tag -d "$out" "$module"
 # should work (but didn't - got no response on #cvs)
-# See als man Page for those options
+# See also man Page for those options
 
 mkdir -p export
 if [ -n "$tag" ]; then

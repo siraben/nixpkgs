@@ -218,7 +218,7 @@ tlutils_info () {
 tlutils_create_fmtutil () {
     # fmtutil.cnf created by install-tl already exists readonly in $texmfdist
     # so here we need to *disable* the entries that are not in $fmtutilCnf
-    # and write the output in the writeable $TEXMFSYSVAR
+    # and write the output in the writable $TEXMFSYSVAR
 
     local engine fmt line outFile sedExpr
     outFile="$TEXMFSYSVAR"/web2c/fmtutil.cnf
@@ -248,7 +248,7 @@ tlutils_create_fmtutil () {
 tlutils_create_updmap () {
     # updmap.cfg created by install-tl already exists readonly in $texmfdist
     # so here we need to *disable* the entries that are not in $updmapCfg
-    # and write the output in the writeable $TEXMFSYSVAR
+    # and write the output in the writable $TEXMFSYSVAR
 
     local line map outFile sedExpr
     outFile="$TEXMFSYSVAR"/web2c/updmap.cfg

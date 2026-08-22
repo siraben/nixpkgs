@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
   '';
 
   postFixup = ''
-    # make xdg-open overrideable at runtime
+    # make xdg-open overridable at runtime
     wrapProgram $out/bin/mytetra \
       --suffix PATH : ${xdg-utils}/bin
   '';

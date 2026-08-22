@@ -34,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   postFixup = ''
     # Make tsung_stats.pl accessible
-    # Leaving .pl at the end since all of tsung documentation is refering to it
+    # Leaving .pl at the end since all of tsung documentation is referring to it
     # as tsung_stats.pl
     ln -s $out/lib/tsung/bin/tsung_stats.pl $out/bin/tsung_stats.pl
 

@@ -1,4 +1,4 @@
-# This tests checks, wether upgrading between versions works fine
+# This tests checks, whether upgrading between versions works fine
 # In the past, there have been releases that would require manual deletion of specific
 # cache files, otherwise bricking the installation.
 # This test should catch similar instances in the future.
@@ -72,7 +72,7 @@ in
       machine.wait_for_unit("freescout-setup")
 
       with subtest("Create user and log in"):
-        # Create uesr
+        # Create user
         machine.succeed("/var/lib/freescout/artisan -- freescout:create-user --role=admin --firstName=Xenia --lastName=TheFox --email xenia@${freescoutDomain} --no-interaction --password=foo | grep 'User created with id'")
         # Obtain CSRF token
         token=machine.succeed("curl -fsSL --cookie-jar cjar 'http://${freescoutDomain}/login' | grep -Po '(?<= name=\"_token\" value=\")(\w+)(?=\")'").strip()

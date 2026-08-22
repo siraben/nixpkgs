@@ -66,7 +66,7 @@ stdenv.mkDerivation (finalAttrs: {
     # FixUp desktop templates to point to our own output
     substituteInPlace ./build/BellePoule/debian/bellepoule.desktop.template --replace-fail "/usr" "$out"
 
-    # FixUp erroneous properties in glade files tripping-up GTK2 -> GTK3 upgrade (identation is intentional here)
+    # FixUp erroneous properties in glade files tripping-up GTK2 -> GTK3 upgrade (indentation is intentional here)
     # Such as https://git.launchpad.net/bellepoule/tree/resources/glade/contest.glade?h=5.0/master#n197
     substituteInPlace ./resources/glade/*.glade --replace "            <property name=\"homogeneous\">True</property>" ""
 

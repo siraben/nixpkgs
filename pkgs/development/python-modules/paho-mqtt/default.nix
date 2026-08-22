@@ -35,7 +35,7 @@ buildPythonPackage rec {
       url = "https://github.com/eclipse-paho/paho.mqtt.python/pull/931.diff";
       hash = "sha256-A7rWwpR4PnCi77F1VqsQKHBxHNrdeHgmVM6BGMeUpjs=";
     })
-    # backports an upstream fix for flaky tests as repoted here:
+    # backports an upstream fix for flaky tests as reported here:
     # https://github.com/NixOS/nixpkgs/issues/542586
     # the fix has already landed in master of paho-mqtt:
     # https://github.com/eclipse-paho/paho.mqtt.python/pull/934

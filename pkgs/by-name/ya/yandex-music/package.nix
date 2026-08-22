@@ -25,7 +25,7 @@
   # Yandex Music's custom Windows-styled titlebar. Also makes the window frameless.
   customTitleBar ? false,
 }:
-assert lib.assertMsg (trayStyle >= 1 && trayStyle <= 3) "Tray style must be withing 1 and 3";
+assert lib.assertMsg (trayStyle >= 1 && trayStyle <= 3) "Tray style must be within 1 and 3";
 assert lib.assertMsg (vibeAnimationMaxFps >= 0) "Vibe animation max FPS must be greater then 0";
 stdenvNoCC.mkDerivation rec {
   pname = "yandex-music";

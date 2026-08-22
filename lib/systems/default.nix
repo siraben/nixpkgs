@@ -472,7 +472,7 @@ let
                   final.parsed.cpu.name;
 
               # https://doc.rust-lang.org/reference/conditional-compilation.html#target_env
-              # Accomodate system definitions written before Nixpkgs learned about target_env.
+              # Accommodate system definitions written before Nixpkgs learned about target_env.
               env =
                 if rust ? platform.env then
                   rust.platform.env

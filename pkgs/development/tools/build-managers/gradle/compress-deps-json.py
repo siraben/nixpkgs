@@ -8,7 +8,7 @@ from typing import Dict, Set
 # concatenated like part1/part2.part3 or part1.part2
 # part3 is simply always the file extension, but part1 and part2 is
 # optimized using special heuristics
-# additionally, if part2 ends with /a/b/{a}-{b}, the all occurences of
+# additionally, if part2 ends with /a/b/{a}-{b}, the all occurrences of
 # /{a}/{b}/ are replaced with #
 # finally, anything that ends with = is considered SHA256, anything that
 # starts with http is considered a redirect URL, anything else is

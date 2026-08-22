@@ -55,7 +55,7 @@
 
   # Spherical harmonics/Cartesian orbital conventions
   cartGaussOrd ? "standard", # Ordering of Cartesian basis functions, "standard" is CCA
-  shGaussOrd ? "standard", # Ordering of spherical harmonic basis functions. "standard" is -l to +l, "guassian" is 0, 1, -1, 2, -2, ...
+  shGaussOrd ? "standard", # Ordering of spherical harmonic basis functions. "standard" is -l to +l, "gaussian" is 0, 1, -1, 2, -2, ...
   shellSet ? "standard",
   eri3PureSh ? false, # Transformation of 3-centre ERIs into spherical harmonics
   eri2PureSh ? false, # Transformation of 2-centre ERIs into spherical harmonics

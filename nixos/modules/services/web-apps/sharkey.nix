@@ -88,7 +88,7 @@ in
               type = types.str;
               example = "https://blahaj.social/";
               description = ''
-                The full URL that the Sharkey instance will be publically accessible on.
+                The full URL that the Sharkey instance will be publicly accessible on.
 
                 Do NOT change this after initial setup!
               '';

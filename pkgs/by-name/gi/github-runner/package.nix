@@ -278,7 +278,7 @@ buildDotnetModule (finalAttrs: {
       --replace '/sbin/ldconfig' '${glibc.bin}/bin/ldconfig'
   ''
   + ''
-    # Remove uneeded copy for run-helper template
+    # Remove unneeded copy for run-helper template
     substituteInPlace $out/lib/github-runner/run.sh --replace 'cp -f "$DIR"/run-helper.sh.template "$DIR"/run-helper.sh' ' '
     substituteInPlace $out/lib/github-runner/run-helper.sh --replace '"$DIR"/bin/' '"$DIR"/'
 

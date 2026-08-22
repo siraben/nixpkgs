@@ -34,7 +34,7 @@ setupMpiCheck() {
     openmpi)
       # Note, that openmpi-5 switched to using PRRTE.
       # Thus we need to set PRTE_MCA_* instead of OMPI_MCA_*.
-      # We keep the openmpi-4 parameters for backward compatability.
+      # We keep the openmpi-4 parameters for backward compatibility.
 
       # Make sure the test starts even if we have less than the requested amount of cores
       export OMPI_MCA_rmaps_base_oversubscribe=1

@@ -100,7 +100,7 @@ in
       type = types.listOf types.str;
       default = [ ];
       description = ''
-        Allow the specified IPs to act as a proxy. Proxys have the ability to
+        Allow the specified IPs to act as a proxy. Proxies have the ability to
         overwrite the remote and local connection addresses (via the X-Forwarded-\*
         HTTP header fields). The special name "localhost" accepts the loopback
         addresses 127.0.0.0/8 and ::1/128. By default, all IPs are rejected.

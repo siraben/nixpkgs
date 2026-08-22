@@ -15,7 +15,7 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "suleman1971";
     repo = "boinctui";
-    rev = "6656f288580170121f53d0e68c35077f5daa700b"; # no proper release tags unfortunaly
+    rev = "6656f288580170121f53d0e68c35077f5daa700b"; # no proper release tags unfortunately
     hash = "sha256-MsSTvlTt54ukQXyVi8LiMFIkv8FQJOt0q30iDxf4TsE=";
   };
 

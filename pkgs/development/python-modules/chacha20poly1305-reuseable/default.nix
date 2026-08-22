@@ -50,7 +50,7 @@ buildPythonPackage {
   ];
 
   meta = {
-    description = "ChaCha20Poly1305 that is reuseable for asyncio";
+    description = "ChaCha20Poly1305 that is reusable for asyncio";
     homepage = "https://github.com/bdraco/chacha20poly1305-reuseable";
     changelog = "https://github.com/bdraco/chacha20poly1305-reuseable/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.asl20;

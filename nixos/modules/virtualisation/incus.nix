@@ -375,7 +375,7 @@ in
           include ${cfg.lxcPackage}/etc/apparmor.d/lxc-containers
         '';
         "incusd".profile = ''
-          # incusd is deliberatly left unconfined, with NO named profile attached to the binary.
+          # incusd is deliberately left unconfined, with NO named profile attached to the binary.
           # Incus checks its own confinement at startup by reading /proc/self/attr/current
           # (https://github.com/lxc/incus/blob/92b0cbbc5728ed45578fdeeec634606af8826404/internal/server/sys/apparmor.go).
           # Anything other than "unconfined" makes Incus believe that the host process is

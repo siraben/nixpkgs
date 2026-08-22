@@ -61,7 +61,7 @@ stdenv.mkDerivation {
     # Resolves the warning "Fontconfig error: No writable cache directories"
     export XDG_CACHE_HOME="$(mktemp -d)"
 
-    # Adds one file with tests that's missing from compiliation
+    # Adds one file with tests that's missing from compilation
     # Makes sure NUnit framework from NuGet can be found
     substituteInPlace UnitTestDLL.csproj \
       --replace-fail '</Compile>' '</Compile><Compile Include="Classes\UnitTest.cs"/>' \

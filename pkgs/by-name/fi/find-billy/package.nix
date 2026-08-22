@@ -48,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
     ln -s ${godot_4}/share/godot/templates $HOME/.local/share/godot
 
     mkdir -p $out/share/find-billy
-    # the export preset here is for x86_64 but the pack format is architecture independant
+    # the export preset here is for x86_64 but the pack format is architecture independent
     godot4 --headless --export-pack 'linux_x86-64' $out/share/find-billy/find-billy.pck
     makeWrapper ${godot_4}/bin/godot4 $out/bin/find-billy \
       --add-flags "--main-pack" \

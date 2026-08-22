@@ -120,7 +120,7 @@ EOF
         # Sometimes, garbage collection weirdness causes a generation to still exist in
         # the loader entries, but its Bootspec file was deleted. We consider such a
         # generation to be invalid, but we don't write extra code to handle this
-        # situation, as supressing grep's error messages above is quite enough, and the
+        # situation, as suppressing grep's error messages above is quite enough, and the
         # error message below is still technically correct, as no Xen can be found in
         # something that does not exist.
         [ "$1" = "debug" ] && echo -e "                \e[1;33mwarning:\e[0m \e[1;31mno Xen found\e[0m in $gen."
@@ -128,7 +128,7 @@ EOF
 done
 
 # Counterpart to the preGenerations array above. We use it to diff the
-# generations created/deleted when callled with the `info` argument.
+# generations created/deleted when called with the `info` argument.
 mapfile -t postGenerations < <(find "$efiMountPoint"/loader/entries -type f -name 'xen-*.conf' | sort -V | sed 's_/loader/entries/nixos_/loader/entries/xen_g;s_^.*/xen_xen_g;s_.conf$__g')
 
 # In the event the script does nothing, guide the user to debug, as it'll only

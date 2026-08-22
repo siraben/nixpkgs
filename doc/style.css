@@ -564,7 +564,7 @@ nav.toc-sidebar a.active-trail {
 
 @media (prefers-color-scheme: dark) {
   nav.toc-sidebar a:hover {
-    /* hover should win over scroll selectors despite beeing less specific */
+    /* hover should win over scroll selectors despite being less specific */
     background-color: #606060 !important;
   }
   nav.toc-sidebar a.active {

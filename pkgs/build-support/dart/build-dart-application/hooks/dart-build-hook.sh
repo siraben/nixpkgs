@@ -7,7 +7,7 @@ _getDartEntryPoints() {
     else
         # The pubspec executables section follows the pattern:
         # <output-bin-name>: [source-file-name]
-        # Where source-file-name defaults to output-bin-name if omited
+        # Where source-file-name defaults to output-bin-name if omitted
         @yq@ -r '(.executables | to_entries | map("bin/" + .key + "\t" + "bin/" + (.value // .key) + ".dart") | join("\n"))' pubspec.yaml
     fi
 }

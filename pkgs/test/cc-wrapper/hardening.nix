@@ -225,7 +225,7 @@ let
       ''
         (
           export PATH=$HOST_PATH
-          echo "Saturated buffer:" # check program isn't completly broken
+          echo "Saturated buffer:" # check program isn't completely broken
           test-bin ${saturatedArgs}
           echo "One byte too far:" # overflow byte being the null terminator?
           (

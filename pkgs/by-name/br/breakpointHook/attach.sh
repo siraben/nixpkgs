@@ -72,7 +72,7 @@ pwd="$(readlink /proc/$pid/cwd)"
 # enter the namespace of the failed build
 # bash needs to be executed with --init-file /build/env-vars to include the bash native
 #   variables like ones declared via `declare -a`.
-# If another shell is chosen via `debugShell`, it will only have simple env vars avaialable.
+# If another shell is chosen via `debugShell`, it will only have simple env vars available.
 exec nsenter --mount --ipc --uts --pid --user --setuid follow --setgid follow --net --target "$pid" "$bashInteractive" -c "
   set -eu -o pipefail
   source \"$buildDir/env-vars\"

@@ -160,7 +160,7 @@ in
 
     hostname = mkOption {
       type = str;
-      example = "frigate.exampe.com";
+      example = "frigate.example.com";
       description = ''
         Hostname of the nginx vhost to configure.
 
@@ -202,7 +202,7 @@ in
         pkgs.stdenv.buildPlatform.canExecute pkgs.stdenv.hostPlatform
         && (!pkgs.stdenv.hostPlatform.isAarch64);
       defaultText = literalExpression ''
-        pkgs.stdenv.buildPlatform.canExecute pkgs.stdenv.hostPlatform && !(pkgs.stdenv.hostPlaform.isAarch64)
+        pkgs.stdenv.buildPlatform.canExecute pkgs.stdenv.hostPlatform && !(pkgs.stdenv.hostPlatform.isAarch64)
       '';
       description = ''
         Whether to check the configuration at build time.

@@ -73,7 +73,7 @@ stdenv.mkDerivation {
   doCheck = true;
 
   postCheck = ''
-    # These lit tests need to be build seperatly.
+    # These lit tests need to be build separately.
     # See https://github.com/google/bloaty/blob/main/tests/README.md
     cmake --build . --target check-bloaty
   '';

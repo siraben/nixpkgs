@@ -157,7 +157,7 @@ in
 
     ip6 = "${containerSLAACv6}".split("/")[0]
 
-    with subtest("Container reponds to ICMPv6 echo requests"):
+    with subtest("Container responds to ICMPv6 echo requests"):
         # IPv6 ND can take some time, so try at most 30 times:
         for i in range(30):
             print(f"Sending ICMP echo request, attempt #{i}")

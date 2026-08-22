@@ -70,8 +70,8 @@ let
             ];
           }
           ''
-            echo "Furiously sleep ideas green colorless." | link-parser en | grep "No complete linkages found." || die "Grammaticaly invalid sentence was parsed."
-            echo "Colorless green ideas sleep furiously." | link-parser en | grep "Found .* linkages." || die "Grammaticaly valid sentence was not parsed."
+            echo "Furiously sleep ideas green colorless." | link-parser en | grep "No complete linkages found." || die "Grammatically invalid sentence was parsed."
+            echo "Colorless green ideas sleep furiously." | link-parser en | grep "Found .* linkages." || die "Grammatically valid sentence was not parsed."
             touch $out
           '';
     };

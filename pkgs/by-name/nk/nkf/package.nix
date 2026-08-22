@@ -15,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   patches = [
-    # Pull upstream fix for parllel build failures
+    # Pull upstream fix for parallel build failures
     (fetchpatch {
       name = "parallel-install.patch";
       url = "http://git.osdn.net/view?p=nkf/nkf.git;a=patch;h=9ccff5975bec7963e591e042e1ab1139252a4dc9";

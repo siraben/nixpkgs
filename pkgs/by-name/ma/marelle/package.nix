@@ -35,7 +35,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   __structuredAttrs = true;
 
   meta = {
-    description = "Cursive font for teaching handwritting in primary school";
+    description = "Cursive font for teaching handwriting in primary school";
     homepage = "https://marelle.forge.apps.education.fr";
     license = lib.licenses.ofl;
     maintainers = with lib.maintainers; [ nim65s ];

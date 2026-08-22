@@ -96,7 +96,7 @@ let
     name: details:
     assert
       details.description.relative
-      || throw "Only relative paths are supported - ${name} has an absolue path!";
+      || throw "Only relative paths are supported - ${name} has an absolute path!";
     (
       if lib.isDerivation src then
         src

@@ -55,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
             --replace "-fgnu-runtime" "-fobjc-runtime=gnustep-2.0"
         done
 
-        # we need to build inside this directory as well, so we have to make it writeable
+        # we need to build inside this directory as well, so we have to make it writable
         chmod +w ../UniversalDetector -R
       ''
   );

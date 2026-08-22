@@ -284,7 +284,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
       disabledTestsString =
         lib.pipe
           [
-            # assumes / is not writeable, somehow fails on nix-portable brwap
+            # assumes / is not writable, somehow fails on nix-portable brwap
             "test_create_open"
           ]
           [

@@ -101,7 +101,7 @@ in
           type = lib.types.bool;
           description = ''
             Whether to open the firewall for the ports in
-            {option}`services.deluge.config.listen_ports`. It only takes effet if
+            {option}`services.deluge.config.listen_ports`. It only takes effect if
             {option}`services.deluge.declarative` is set to
             `true`.
 

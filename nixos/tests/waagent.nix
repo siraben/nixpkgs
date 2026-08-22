@@ -64,7 +64,7 @@ in
     machine.fail("grep -q '^CGroups.Excluded=' '${confPath}'")
 
     # Test service start
-    # Skip testing actual functionality due to lacking Azure infrasturcture
+    # Skip testing actual functionality due to lacking Azure infrastructure
     machine.wait_for_unit("waagent.service")
   '';
 }

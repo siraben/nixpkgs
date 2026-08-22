@@ -118,7 +118,7 @@ in
       # Set NIX_DISK_IMAGE so that the qemu script finds the right disk image.
       os.environ['NIX_DISK_IMAGE'] = tmp_disk_image.name
 
-      with subtest("/etc/os-release contains the right fileds"):
+      with subtest("/etc/os-release contains the right fields"):
         os_release = machine.succeed("cat /etc/os-release")
         t.assertIn('IMAGE_ID="${imageId}"', os_release)
         t.assertIn('IMAGE_VERSION="${imageVersion}"', os_release)

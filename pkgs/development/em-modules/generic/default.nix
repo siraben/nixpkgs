@@ -76,7 +76,7 @@ wrapDerivation (
       args.checkPhase or ''
         runHook preCheck
 
-        echo "Please provide a test for your emscripten based library/tool, see libxml2 as an exmple on how to use emcc/node to verify your build"
+        echo "Please provide a test for your emscripten based library/tool, see libxml2 as an example on how to use emcc/node to verify your build"
         echo ""
         echo "In normal C 'unresolved symbols' would yield an error and a breake of execution. In contrast, in emscripten they are only a warning which is ok given that emscripten assumptions about shared libraries."
         echo "  -> https://github.com/kripken/emscripten/wiki/Linking"

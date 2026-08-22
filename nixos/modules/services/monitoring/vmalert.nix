@@ -74,7 +74,7 @@ in
               type = lib.types.bool;
               default = false;
               description = ''
-                Wether to enable VictoriaMetrics's `vmalert`.
+                Whether to enable VictoriaMetrics's `vmalert`.
 
                 `vmalert` evaluates alerting and recording rules against a data source, sends notifications via Alertmanager.
               '';

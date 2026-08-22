@@ -1,14 +1,14 @@
 # shellcheck shell=bash
 
 # getSortedMapKeys
-# Stores the sorted keys of the input associative array referenced by inputMapRef in the indexed arrray referenced by
+# Stores the sorted keys of the input associative array referenced by inputMapRef in the indexed array referenced by
 # outputArrRef.
 #
 # Note from the Bash manual on arrays:
 #   There is no maximum limit on the size of an array, nor any requirement that members be indexed or assigned contiguously.
 #   - https://www.gnu.org/software/bash/manual/html_node/Arrays.html
 #
-# Since no guarantees are made about the order in which associative maps are traversed, this function is primarly
+# Since no guarantees are made about the order in which associative maps are traversed, this function is primarily
 # useful for getting rid of yet another source of non-determinism. As an added benefit, it checks that the arguments
 # provided are of correct type, unlike native parameter expansion which will accept expansions of strings.
 #

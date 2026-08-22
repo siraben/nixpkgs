@@ -275,7 +275,7 @@ effectiveBuildPythonApplication rec {
     cat ${xorgModulePaths} >> $out/etc/xpra/xorg.conf
     cat ${xorgModulePaths} >> $out/etc/xpra/xorg-uinput.conf
 
-    # make application icon visible to desktop environemnts
+    # make application icon visible to desktop environments
     icon_dir="$out/share/icons/hicolor/64x64/apps"
     mkdir -p "$icon_dir"
     ln -sr "$out/share/icons/xpra.png" "$icon_dir"

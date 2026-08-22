@@ -53,7 +53,7 @@ in
         Enable to run Hercules CI Agent as a system service.
 
         [Hercules CI](https://hercules-ci.com) is a
-        continuous integation service that is centered around Nix.
+        continuous integration service that is centered around Nix.
 
         Support is available at [help@hercules-ci.com](mailto:help@hercules-ci.com).
       '';

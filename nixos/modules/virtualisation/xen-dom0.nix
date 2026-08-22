@@ -254,7 +254,7 @@ in
         description = ''
           The boot entry builder script should be called with exactly one of the following arguments in order to specify its verbosity:
 
-          - `quiet` supresses all messages.
+          - `quiet` suppresses all messages.
 
           - `default` adds a simple "Installing Xen Project Hypervisor boot entries...done." message to the script.
 
@@ -657,7 +657,7 @@ in
                 }
               ) (n: n != 0);
               description = ''
-                Perodic scanning for all the rings as a safenet for lazy clients.
+                Periodic scanning for all the rings as a safenet for lazy clients.
                 Define the interval in seconds; set to a negative integer to disable.
               '';
             };

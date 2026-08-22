@@ -20,7 +20,7 @@ from .md import Renderer
 # > to be displayed as plain ASCII characters, for example in source code samples, they require
 # > escaping to render as follows:
 #
-# since we don't want these to be touched anywhere (because markdown will do all substituations
+# since we don't want these to be touched anywhere (because markdown will do all substitutions
 # we want to have) we'll escape those as well. we also escape " (macro metacharacter), - (might
 # turn into a typographic hyphen), and . (roff request marker at SOL, changes spacing semantics
 # at EOL). groff additionally does not allow unicode escapes for codepoints below U+0080, so

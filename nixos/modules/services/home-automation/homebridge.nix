@@ -117,7 +117,7 @@ in
       type = str;
       default = "/var/lib/homebridge";
       description = ''
-        Path to store homebridge user files (needs to be writeable).
+        Path to store homebridge user files (needs to be writable).
       '';
     };
 
@@ -125,7 +125,7 @@ in
       type = str;
       default = "/var/lib/homebridge/node_modules";
       description = ''
-        Path to the plugin download directory (needs to be writeable).
+        Path to the plugin download directory (needs to be writable).
         Seems this needs to end with node_modules, as Homebridge will run npm
         on the parent directory.
       '';

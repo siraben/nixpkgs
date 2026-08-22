@@ -272,7 +272,7 @@ in
                     (you can grant access to it with `users.users."<user>".extraGroups = [ ${client.user.group} ]`),
 
                   Even though the local system resources access is restricted:
-                  - `CAP_NET_RAW`, `CAP_NET_ADMIN` and `CAP_BPF` still give unlimited network manipulation possibilites,
+                  - `CAP_NET_RAW`, `CAP_NET_ADMIN` and `CAP_BPF` still give unlimited network manipulation possibilities,
                   - older kernels don't have `CAP_BPF` and use `CAP_SYS_ADMIN` instead,
 
                   Known security features that are not (yet) integrated into the module:

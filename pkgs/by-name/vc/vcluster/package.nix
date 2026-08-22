@@ -26,7 +26,7 @@ buildGoModule (finalAttrs: {
 
   nativeBuildInputs = [
     installShellFiles
-    # vcluster crashes, even on generating the completion script, if home is not writeable
+    # vcluster crashes, even on generating the completion script, if home is not writable
     writableTmpDirAsHomeHook
   ];
 

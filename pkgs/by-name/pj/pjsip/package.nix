@@ -100,7 +100,7 @@ stdenv.mkDerivation (finalAttrs: {
       change_args+=(-change ../../lib/$lib_name $lib)
     done
 
-    # Rewrite id and library refences for all non-symlinked libraries.
+    # Rewrite id and library references for all non-symlinked libraries.
     for lib in "''${libraries[@]}"; do
       if [ -f "$lib" ]; then
         install_name_tool -id $lib "''${change_args[@]}" $lib

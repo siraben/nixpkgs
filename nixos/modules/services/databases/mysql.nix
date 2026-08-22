@@ -248,7 +248,7 @@ in
                   Permissions to ensure for the user, specified as attribute set.
                   The attribute names specify the database and tables to grant the permissions for,
                   separated by a dot. You may use wildcards here.
-                  The attribute values specfiy the permissions to grant.
+                  The attribute values specify the permissions to grant.
                   You may specify one or multiple comma-separated SQL privileges here.
 
                   For more information on how to specify the target

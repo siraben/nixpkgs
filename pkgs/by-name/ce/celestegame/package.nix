@@ -167,7 +167,7 @@ buildFHSEnv {
 
       # This script is symlinked to gameDir/Celeste, which gets launched by Olympus
       # (if the user set up Olympus to use gameDir as the location of Celeste).
-      # Writing the script like this makes Olympus able to launch Celeste wihout any wrapper without any problems.
+      # Writing the script like this makes Olympus able to launch Celeste without any wrapper without any problems.
       echo "#! ${runtimeShell}
       exec $NIX_CELESTE_LAUNCHER"' "$@"' > "${writableDir'}/Celeste"
       chmod +x "${writableDir'}/Celeste"

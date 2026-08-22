@@ -132,7 +132,7 @@ in
             defaultText = "postgresql://part-db@localhost/part-db?serverVersion=\${config.services.postgresql.package.version}&host=/run/postgresql";
             description = ''
               The postgresql database server to connect to.
-              Defauls to local postgresql unix socket
+              Defaults to local postgresql unix socket
             '';
           };
         };

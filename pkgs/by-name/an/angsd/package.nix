@@ -23,7 +23,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   patches = [
-    # Pull pending inclusion upstream patch for parallel buil fixes:
+    # Pull pending inclusion upstream patch for parallel build fixes:
     #   https://github.com/ANGSD/angsd/pull/590
     (fetchpatch {
       name = "parallel-make.patch";

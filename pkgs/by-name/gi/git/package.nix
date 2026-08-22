@@ -361,7 +361,7 @@ stdenv.mkDerivation (finalAttrs: {
         --replace ' grep' ' ${gnugrep}/bin/grep' \
         --replace ' egrep' ' ${gnugrep}/bin/egrep'
 
-    # Fix references to the perl, sed, awk and various coreutil binaries used by
+    # Fix references to the perl, sed, awk and various coreutils binaries used by
     # shell scripts that git calls (e.g. filter-branch)
     SCRIPT="$(cat <<'EOS'
       BEGIN{

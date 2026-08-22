@@ -45,7 +45,7 @@ stdenv'.mkDerivation (finalAttrs: {
         "Math"
       ];
       exec = "xprism";
-      comment = "Probabalistic Symbolic Model Checker";
+      comment = "Probabilistic Symbolic Model Checker";
     })
   ];
 

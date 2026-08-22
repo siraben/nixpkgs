@@ -723,7 +723,7 @@ let
             Extra configuration to add to the kube-proxy's configuration file. The subset of the kube-proxy's
             configuration that can be configured via a file is defined by the
             [KubeProxyConfiguration](https://kubernetes.io/docs/reference/config-api/kube-proxy-config.v1alpha1/)
-            struct. Note that the kubeconfig param will be overriden by `clientConnection.kubeconfig`, so you must
+            struct. Note that the kubeconfig param will be overridden by `clientConnection.kubeconfig`, so you must
             set the `clientConnection.kubeconfig` option if you want to use `extraKubeProxyConfig`.
           '';
         };
@@ -816,10 +816,10 @@ let
             "${name}: Auto deploying Helm charts are only installed on server nodes (role == server), they will be ignored by this node."
           )
           ++ (lib.optional (duplicateManifests != [ ])
-            "${name}: The following auto deploying charts are overriden by manifests of the same name: ${toString duplicateManifests}."
+            "${name}: The following auto deploying charts are overridden by manifests of the same name: ${toString duplicateManifests}."
           )
           ++ (lib.optional (duplicateCharts != [ ])
-            "${name}: The following auto deploying charts are overriden by charts of the same name: ${toString duplicateCharts}."
+            "${name}: The following auto deploying charts are overridden by charts of the same name: ${toString duplicateCharts}."
           )
           ++ (lib.optional (cfg.role != "server" && cfg.charts != { })
             "${name}: Helm charts are only made available to the cluster on server nodes (role == server), they will be ignored by this node."

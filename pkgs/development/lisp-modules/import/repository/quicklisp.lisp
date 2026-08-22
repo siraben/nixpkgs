@@ -175,7 +175,7 @@
                   from pkgs"
                  )))
 
-          ;; First pass: insert system and source tarball informaton.
+          ;; First pass: insert system and source tarball information.
           ;; Can't insert dependency information, because this works
           ;; on system ids in the database and they don't exist
           ;; yet. Could it be better to just base dependencies on

@@ -34,7 +34,7 @@ stdenv.mkDerivation {
   };
 
   postPatch = lib.optionalString stdenv.hostPlatform.isDarwin ''
-    # There is not enough space in the load command to accomodate a full path to the store,
+    # There is not enough space in the load command to accommodate a full path to the store,
     # so use `@executable_path` to specify a relative path to chicken’s lib folder.
     sed -e '/POSTINSTALL_PROGRAM_FLAGS = /{s|$(LIBDIR)|@executable_path/../lib|}' \
       -i Makefile.macosx

@@ -33,7 +33,7 @@ let
           };
 
         testScript = ''
-          with subtest("Capture stap ouput"):
+          with subtest("Capture stap output"):
               output = machine.succeed("stap ${stapScript} 2>&1")
 
           with subtest("Ensure that expected output from stap script is there"):

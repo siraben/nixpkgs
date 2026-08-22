@@ -86,7 +86,7 @@ lib.extendMkDerivation {
           # environment variables (including LD_PRELOAD) to the Pub process.
           #
           # Instead, Flutter is patched to allow the path to the Dart binary used for
-          # Pub commands to be overriden.
+          # Pub commands to be overridden.
           export NIX_FLUTTER_PUB_DART="${
             runCommand "dart-with-certs" { nativeBuildInputs = [ makeWrapper ]; } ''
               mkdir -p "$out/bin"

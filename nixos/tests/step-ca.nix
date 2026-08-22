@@ -138,7 +138,7 @@ import ./make-test-python.nix (
         caserver.wait_until_succeeds("journalctl -o cat -u step-ca.service | grep '${pkgs.step-ca.version}'")
 
         caclient.wait_for_unit("acme-caclient.service")
-        # The order is run asynchonously, keep trying.
+        # The order is run asynchronously, keep trying.
         catester.wait_until_succeeds("curl https://caclient/ | grep \"Welcome to nginx!\"")
 
         caclientcaddy.wait_for_unit("caddy.service")

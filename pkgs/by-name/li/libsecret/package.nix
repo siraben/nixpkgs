@@ -152,7 +152,7 @@ stdenv.mkDerivation (finalAttrs: {
     # Our gobject-introspection patches make the shared library paths absolute
     # in the GIR files. When running tests, the library is not yet installed,
     # though, so we need to replace the absolute path with a local one during build.
-    # We are using a symlink that will be overwitten during installation.
+    # We are using a symlink that will be overwritten during installation.
     mkdir -p $out/lib $out/lib
     ln -s "$PWD/libsecret/libmock-service.so" "$out/lib/libmock-service.so"
     ln -s "$PWD/libsecret/libsecret-1.so.0" "$out/lib/libsecret-1.so.0"
@@ -161,7 +161,7 @@ stdenv.mkDerivation (finalAttrs: {
     # If abrmdSupport is disabled, the user‐space resource manager TCTI
     # module is not linked at compile time. It is however needed during
     # testing because the TPM emulator lacks an integrated resource manager
-    # The module path is therefore injected temporarly using the
+    # The module path is therefore injected temporarily using the
     # LD_LIBRARY_PATH environment variable, so that it may be found by
     # dlopen().
     #

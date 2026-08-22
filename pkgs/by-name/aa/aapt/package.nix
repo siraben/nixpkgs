@@ -24,7 +24,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
             hash = "sha256-RI/S2oXMSvipALRfeRTsiXUh130/b8iP+EO0yltd7x0=";
           }
         else
-          throw "Unsupport platform: ${stdenvNoCC.system}";
+          throw "Unsupported platform: ${stdenvNoCC.system}";
     in
     fetchzip (
       urlAndHash

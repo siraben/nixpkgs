@@ -175,8 +175,8 @@ let
           default = null;
           example = "/run/secrets/kimai.env";
           description = ''
-            Securely pass environment variabels to Kimai. This can be used to
-            set other environement variables such as MAILER_URL.
+            Securely pass environment variables to Kimai. This can be used to
+            set other environment variables such as MAILER_URL.
           '';
         };
       };

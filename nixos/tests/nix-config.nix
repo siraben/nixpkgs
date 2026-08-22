@@ -14,7 +14,7 @@
     start_all()
     machine.wait_for_unit("nix-daemon.socket")
     # regression test for the workaround for https://github.com/NixOS/nix/issues/9487
-    # unset NIX_PATH because environtment overrides the config
+    # unset NIX_PATH because environment overrides the config
     print(machine.succeed("env -u NIX_PATH nix-instantiate --find-file extra"))
     print(machine.succeed("env -u NIX_PATH nix-instantiate --find-file nonextra"))
   '';

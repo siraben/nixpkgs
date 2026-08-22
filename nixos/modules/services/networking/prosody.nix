@@ -925,7 +925,7 @@ in
 
   imports = [
     (lib.mkRemovedOptionModule [ "services" "prosody" "uploadHttp" ]
-      "mod_http_upload has been obsoloted and been replaced by mod_http_file_share which can be configured with httpFileShare options."
+      "mod_http_upload has been obsoleted and been replaced by mod_http_file_share which can be configured with httpFileShare options."
     )
   ];
 

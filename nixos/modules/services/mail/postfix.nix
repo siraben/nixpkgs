@@ -755,7 +755,7 @@ in
           };
           description = ''
             The {file}`master.cf` configuration file as an attribute set of service
-            defitions
+            definitions
 
             ::: {.tip}
             Check <https://www.postfix.org/master.5.html> for possible settings.

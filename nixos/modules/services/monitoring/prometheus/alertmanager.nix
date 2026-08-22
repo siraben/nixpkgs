@@ -124,7 +124,7 @@ in
         description = ''
           The URL under which Alertmanager is externally reachable (for example, if Alertmanager is served via a reverse proxy).
           Used for generating relative and absolute links back to Alertmanager itself.
-          If the URL has a path portion, it will be used to prefix all HTTP endoints served by Alertmanager.
+          If the URL has a path portion, it will be used to prefix all HTTP endpoints served by Alertmanager.
           If omitted, relevant URL components will be derived automatically.
         '';
       };

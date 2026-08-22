@@ -365,7 +365,7 @@ in
           SMTP relay to send emails, so this configuration enforced by default.
 
           If you want to utilize an alternative way to send emails (e.g. via a
-          supportd API-based service), enable this option and define
+          supported API-based service), enable this option and define
           `OUTBOUND_EMAIL_FROM`, `OUTBOUND_EMAIL_ADAPTER` and
           `OUTBOUND_EMAIL_ADAPTER_OPTS` manually via
           {option}`services.firezone.server.settings` and/or

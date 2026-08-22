@@ -30,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   postPatch = ''
     echo 'const char *gitversion = "${finalAttrs.version}";' > git_version.h
-    # Adress sanitization crashes the application, reported upstream at https://github.com/wangyu-/udp2raw/issues/474
+    # Address sanitization crashes the application, reported upstream at https://github.com/wangyu-/udp2raw/issues/474
     substituteInPlace CMakeLists.txt --replace "sanitize=address," "sanitize="
   '';
 

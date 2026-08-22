@@ -205,7 +205,7 @@ fn fetch_packuments(
 /// When these dependencies are specified with a commit identifier, npm generates a tarball, and inserts the integrity hash of that
 /// tarball into the lockfile.
 ///
-/// Thus, we remove this hash, to replace it with our own determinstic copies of dependencies from hosted Git providers.
+/// Thus, we remove this hash, to replace it with our own deterministic copies of dependencies from hosted Git providers.
 ///
 /// If no fixups were performed, `None` is returned and the lockfile structure should be left as-is. If fixups were performed, the
 /// `dependencies` key in v2 lockfiles designed for backwards compatibility with v1 parsers is removed because of inconsistent data.

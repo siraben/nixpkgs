@@ -457,7 +457,7 @@ lib.fix (
         "/share/texmf-var/tex/generic/config"
         "/share/texmf-var/web2c"
         "/share/texmf-config"
-        "/bin" # ensure these are writeable directories
+        "/bin" # ensure these are writable directories
       ];
 
       postBuild = ''

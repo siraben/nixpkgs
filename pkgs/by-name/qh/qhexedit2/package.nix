@@ -18,7 +18,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   postPatch = ''
-    # Replace QPallete::Background with QPallete::Window in all files, since QPallete::Background was removed in Qt 6
+    # Replace QPalette::Background with QPalette::Window in all files, since QPalette::Background was removed in Qt 6
     find . -type f -exec sed -i 's/QPalette::Background/QPalette::Window/g' {} +
   '';
 

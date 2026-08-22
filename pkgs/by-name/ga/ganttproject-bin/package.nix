@@ -32,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
         exec = "ganttproject";
         icon = "ganttproject";
         desktopName = "GanttProject";
-        genericName = "Shedule and manage projects";
+        genericName = "Schedule and manage projects";
         comment = finalAttrs.meta.description;
         categories = [ "Office" ];
       };

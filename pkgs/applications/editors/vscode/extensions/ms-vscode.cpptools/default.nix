@@ -117,7 +117,7 @@ vscode-utils.buildVscodeMarketplaceExtension {
   postFixup =
     lib.optionalString isx86Linux ''
       autoPatchelf $out/share/vscode/extensions/ms-vscode.cpptools/debugAdapters
-      # cpptools* are distributed by the extension and need to be run through the distributed musl interpretter
+      # cpptools* are distributed by the extension and need to be run through the distributed musl interpreter
       patchelf --set-interpreter $out/share/vscode/extensions/ms-vscode.cpptools/bin/libc.so $out/share/vscode/extensions/ms-vscode.cpptools/bin/cpptools
       patchelf --set-interpreter $out/share/vscode/extensions/ms-vscode.cpptools/bin/libc.so $out/share/vscode/extensions/ms-vscode.cpptools/bin/cpptools-srv
       patchelf --set-interpreter $out/share/vscode/extensions/ms-vscode.cpptools/bin/libc.so $out/share/vscode/extensions/ms-vscode.cpptools/bin/cpptools-wordexp

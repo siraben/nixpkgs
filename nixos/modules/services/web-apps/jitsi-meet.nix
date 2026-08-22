@@ -194,7 +194,7 @@ in
       default = false;
       description = ''
         Add module allowners, any user in chat is able to
-        kick other. Usefull in jitsi-meet to kick ghosts.
+        kick other. Useful in jitsi-meet to kick ghosts.
       '';
     };
 

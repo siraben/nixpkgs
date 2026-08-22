@@ -406,7 +406,7 @@ let
           set -ex
 
           # Regenerate self-signed certificates (in case the SANs change) until we
-          # have seen a succesfull ACME certificate at least once.
+          # have seen a successful ACME certificate at least once.
           if [ -e out/acme-success ]; then
             exit 0
           fi

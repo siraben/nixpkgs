@@ -28,7 +28,7 @@
   withHeadlessDeps ? ffmpegVariant == "headless" || withSmallDeps,
 
   # Dependencies a user might customarily expect from a regular ffmpeg build.
-  # /All/ packages that depend on ffmpeg and some of its feaures should depend
+  # /All/ packages that depend on ffmpeg and some of its features should depend
   # on the small variant. Small means the minimal set of features that satisfies
   # all dependants in Nixpkgs
   withSmallDeps ? ffmpegVariant == "small" || withFullDeps,

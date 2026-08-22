@@ -1,7 +1,7 @@
 accumulateRoles
 
 # Only set up `DEVELOPER_DIR` if a default darwin min version is set,
-# which is a signal that we're targetting darwin.
+# which is a signal that we're targeting darwin.
 if [[ "@darwinMinVersion@" ]]; then
     # `DEVELOPER_DIR` is used to dynamically locate libSystem (and the SDK frameworks) based on the SDK at that path.
     mangleVarSingle DEVELOPER_DIR ${role_suffixes[@]+"${role_suffixes[@]}"}

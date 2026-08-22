@@ -37,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
   postPatch = ''
     shopt -s globstar
 
-    # Patch all occurences of the support lib with an absolute path so it
+    # Patch all occurrences of the support lib with an absolute path so it
     # works without wrapping.
     substituteInPlace **/*.idr \
       --replace-quiet "libidris2_support" "${libidris2_support}/lib/libidris2_support${extensions.sharedLibrary}"

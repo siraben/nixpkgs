@@ -24,7 +24,7 @@ buildPythonPackage rec {
     repo = "python-igraph";
     tag = version;
     postFetch = ''
-      # export-subst prevents reproducability
+      # export-subst prevents reproducibility
       rm $out/.git_archival.json
     '';
     hash = "sha256-Y7ZQ1yNoD8A5b6c92OGz9Unietdg1uNt/Za6nxdCSP0=";

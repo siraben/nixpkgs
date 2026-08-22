@@ -31,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   # The user will need to have all the files in '.' to run egoboo, with
-  # writeable controls.txt and setup.txt
+  # writable controls.txt and setup.txt
   installPhase = ''
     mkdir -p $out/share/egoboo-${finalAttrs.version}
     cp -v game/egoboo $out/share/egoboo-${finalAttrs.version}

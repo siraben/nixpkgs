@@ -43,7 +43,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     installShellCompletion --zsh _zinit
 
     # Manpage
-    # otherwsise zinit tries to create them in the nix store
+    # otherwise zinit tries to create them in the nix store
     mkdir -p $man/share/man/man{1..9}
     installManPage doc/zinit.1
 

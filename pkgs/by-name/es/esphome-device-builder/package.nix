@@ -129,7 +129,7 @@ pythonPackages.buildPythonApplication (finalAttrs: {
     "test_find_esptool_cmd_prefers_sibling_script"
     "test_find_esptool_cmd_falls_back_to_python_dash_m"
 
-    # TOOD: requires patching the device state monitor
+    # TODO: requires patching the device state monitor
     "test_start_logs_ping_count_at_debug"
   ];
 

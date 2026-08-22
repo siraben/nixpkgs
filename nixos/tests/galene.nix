@@ -59,7 +59,7 @@ in
             machine.wait_for_unit("galene")
             machine.wait_for_open_port(${toString galenePort})
 
-            # Reponds fine?
+            # Responds fine?
             machine.succeed("curl -s -D - -o /dev/null 'http://localhost:${toString galenePort}' >&2")
 
         machine.succeed("cp -v /etc/${galeneTestGroupFile} ${galeneTestGroupsDir}/test.json >&2")
@@ -143,7 +143,7 @@ in
             machine.wait_for_unit("galene")
             machine.wait_for_open_port(${toString galenePort})
 
-            # Reponds fine?
+            # Responds fine?
             machine.succeed("curl -s -D - -o /dev/null 'http://localhost:${toString galenePort}' >&2")
 
         machine.succeed("cp -v /etc/${galeneTestGroupFile} ${galeneTestGroupsDir}/test.json >&2")
@@ -278,7 +278,7 @@ in
             machine.wait_for_unit("galene")
             machine.wait_for_open_port(${toString galenePort})
 
-            # Reponds fine?
+            # Responds fine?
             machine.succeed("curl -s -D - -o /dev/null 'http://localhost:${toString galenePort}' >&2")
 
         machine.succeed("cp -v /etc/${galeneTestGroupFile} ${galeneTestGroupsDir}/test.json >&2")
