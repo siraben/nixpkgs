@@ -34,6 +34,16 @@
   # until <https://github.com/NixOS/nix/issues/11503> is fixed.
   __allowFileset ? true,
 
+  # Internal memo of the user `config` evaluated through the module system,
+  # handed down by `nixpkgsFun` to package-set re-instantiations (pkgsCross.*,
+  # pkgsMusl, pkgsStatic, ...) that inherit the exact same `config` attribute
+  # set. This makes the cost of evaluating the config module system independent
+  # of how many package sets are instantiated from one user configuration.
+  # A `config` that is a function may observe `pkgs`, which differs between
+  # instantiations, so no memo is forwarded in that case.
+  # Not a supported interface; never pass this explicitly.
+  __nixpkgsConfigMemo ? null,
+
   # List of overlays layers used to extend Nixpkgs.
   overlays ? [ ],
 
@@ -141,31 +151,39 @@ let
   # { pkgs, ... } : { /* the config */ }
   config1 = if lib.isFunction config0 then config0 { inherit lib pkgs; } else config0;
 
-  configEval = lib.evalModules {
-    modules = [
-      ./config.nix
-      (
-        { options, ... }:
-        {
-          _file = "nixpkgs.config";
-          config = config1;
-        }
-      )
-    ];
-    class = "nixpkgsConfig";
-  };
-
   # take all the rest as-is
+  #
+  # When `nixpkgsFun` handed down a memo of an already evaluated, identical
+  # `config`, reuse it instead of re-entering the module system. This is sound
+  # because a plain attribute set `config` yields the same evaluated value in
+  # every package set instantiated from these arguments.
   config =
-    let
-      failedAssertionsString = lib.concatMapStringsSep "\n" (x: "- ${x.message}") (
-        lib.filter (x: !x.assertion) configEval.config.assertions
-      );
-    in
-    if failedAssertionsString != "" then
-      throw "Failed assertions:\n${failedAssertionsString}"
+    if __nixpkgsConfigMemo != null then
+      __nixpkgsConfigMemo
     else
-      lib.showWarnings configEval.config.warnings configEval.config;
+      let
+        configEval = lib.evalModules {
+          modules = [
+            ./config.nix
+            (
+              { options, ... }:
+              {
+                _file = "nixpkgs.config";
+                config = config1;
+              }
+            )
+          ];
+          class = "nixpkgsConfig";
+        };
+
+        failedAssertionsString = lib.concatMapStringsSep "\n" (x: "- ${x.message}") (
+          lib.filter (x: !x.assertion) configEval.config.assertions
+        );
+      in
+      if failedAssertionsString != "" then
+        throw "Failed assertions:\n${failedAssertionsString}"
+      else
+        lib.showWarnings configEval.config.warnings configEval.config;
 
   # A few packages make a new package set to draw their dependencies from.
   # (Currently to get a cross tool chain, or forced-i686 package.) Rather than
@@ -192,7 +210,23 @@ let
   # via `evalModules` is not idempotent. In other words, if you add `config` to
   # `newArgs`, expect strange very hard to debug errors! (Yes, I'm speaking from
   # experience here.)
-  nixpkgsFun = newArgs: import ./. (args // newArgs);
+  # Hand the already evaluated `config` down to the new package set, so it does
+  # not evaluate the config module system again. Only valid when the new
+  # arguments don't override `config`, and when `config` cannot depend on this
+  # instantiation (a function `config` observes `pkgs`, which differs between
+  # instantiations).
+  nixpkgsFun =
+    newArgs:
+    import ./. (
+      args
+      // newArgs
+      // (
+        if !(newArgs ? config) && !lib.isFunction config0 then
+          { __nixpkgsConfigMemo = config; }
+        else
+          { }
+      )
+    );
 
   # Partially apply some arguments for building bootstrapping stage pkgs
   # sets. Only apply arguments which no stdenv would want to override.
