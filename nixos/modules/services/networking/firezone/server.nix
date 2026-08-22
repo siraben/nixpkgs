@@ -176,7 +176,7 @@ in
 
   options.services.firezone.server = {
     enable = mkEnableOption "all Firezone components";
-    enableLocalDB = mkEnableOption "a local postgresql database for Firezone";
+    enableLocalDB = mkEnableOption "a local PostgreSQL database for Firezone";
     nginx.enable = mkEnableOption "nginx virtualhost definition";
 
     openClusterFirewall = mkOption {
@@ -362,7 +362,7 @@ in
         description = ''
           Outbound email configuration is mandatory for Firezone and supports
           many different delivery adapters. Yet, most users will only need an
-          SMTP relay to send emails, so this configuration enforced by default.
+          SMTP relay to send emails, so this configuration is enforced by default.
 
           If you want to utilize an alternative way to send emails (e.g. via a
           supported API-based service), enable this option and define
@@ -408,7 +408,7 @@ in
       passwordFile = mkOption {
         type = types.path;
         example = "/run/secrets/smtp-password";
-        description = "File containing the password for the given username. Beware that a file in the nix store will be world readable.";
+        description = "File containing the password for the given username. Beware that a file in the Nix store will be world-readable.";
       };
     };
 
@@ -464,7 +464,7 @@ in
       port = mkOption {
         type = types.port;
         default = 8081;
-        description = "The port under which the api will be served locally";
+        description = "The port under which the API will be served locally";
       };
 
       trustedProxies = mkOption {
@@ -567,8 +567,8 @@ in
           TELEMETRY_ENABLED = mkDefault false;
 
           # By default this will open nproc * 2 connections for each component,
-          # which can exceeds the (default) maximum of 100 connections for
-          # postgresql on a 12 core +SMT machine. 16 connections will be
+          # which can exceed the (default) maximum of 100 connections for
+          # PostgreSQL on a 12 core +SMT machine. 16 connections will be
           # sufficient for small to medium deployments
           DATABASE_POOL_SIZE = "16";
 

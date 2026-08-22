@@ -44,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
   passthru.updateScript = ./update.py;
 
   meta = {
-    description = "Run local processes in the context of Kubernetes environment";
+    description = "Run local processes in the context of a Kubernetes environment";
     homepage = "https://mirrord.dev/";
     license = lib.licenses.mit;
     platforms = builtins.attrNames manifest.assets;

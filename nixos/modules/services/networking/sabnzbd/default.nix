@@ -104,7 +104,7 @@ in
       secretFiles = mkOption {
         type = with types; listOf path;
         description = ''
-          Path to a list of ini file containing confidential settings such as credentials.
+          Path to a list of ini files containing confidential settings such as credentials.
           Settings here will be merged with the rest of the configuration (with
           the secret settings taking precedence in case of conflicts, and files
           that occur later in this list taking precedence over those that
@@ -143,7 +143,7 @@ in
         type = types.bool;
         description = ''
           By default we create the sabnzbd configuration read-only,
-          which keeps the nixos configuration as the single source
+          which keeps the NixOS configuration as the single source
           of truth. If you want to enable configuration of
           sabnzbd via the web interface or use options that require
           a writable configuration, such as quota tracking, enable
@@ -335,7 +335,7 @@ in
                     description = ''
                       Whether to enable NotifyOSD alerts. Does not really make sense
                       in a server environment, hence we default to false despite
-                      upstream's default true.
+                      upstream's default of true.
                     '';
                     default = false;
                   };
@@ -378,7 +378,7 @@ in
                     priority = mkOption {
                       type = types.int;
                       description = ''
-                        Priority of this servers. Servers are queried in
+                        Priority of this server. Servers are queried in
                         order of priority, from highest (0) to lowest (100).
                       '';
                       default = 0;
@@ -471,7 +471,7 @@ in
   config = mkIf cfg.enable {
     warnings = lib.optional (cfg.configFile != null) ''
       `sabnzbd.configFile` is deprecated, consider using `sabnzbd.settings` instead.
-      If you have values set in `sabnzbd.settings` set, they will be ignored.
+      If you have values set in `sabnzbd.settings`, they will be ignored.
     '';
 
     users.users = mkIf (cfg.user == "sabnzbd") {

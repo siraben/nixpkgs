@@ -25,8 +25,8 @@ let
 
   # Used by builds that would otherwise attempt to write into storeDir.
   #
-  # Will run build two times, keeping all files created during the
-  # first run, except the FASL's. Then using that directory tree as the
+  # Will run the build twice, keeping all files created during the
+  # first run, except the FASLs. Then using that directory tree as the
   # source of the second run.
   #
   # E.g. cl-unicode creating .txt files during compilation
@@ -67,7 +67,7 @@ let
     );
 
   # Makes it so packages imported from Quicklisp can be re-used as
-  # lispLibs ofpackages in this file.
+  # lispLibs of packages in this file.
   ql = quicklispPackagesFor spec;
 
   packages = ql.overrideScope (

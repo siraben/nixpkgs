@@ -30,7 +30,7 @@
       ("Repart", "repart"),
     ]
     expected_priv_sd_interfaces = [
-      ("Login", None), # systemd-logind-varlink.socket exist but is not necessary.
+      ("Login", None), # systemd-logind-varlink.socket exists but is not necessary.
     ]
     expected_interfaces = [
       (f"io.systemd.{intf}", f"systemd-{socket_name}", f"/run/varlink/registry/io.systemd.{intf}") for intf, socket_name in expected_reg_sd_interfaces

@@ -88,7 +88,7 @@ let
   # libgcc (and libstdc++) read this attribute rather than probing the
   # compiler, which in a split package set is configured separately from the
   # runtimes and so can disagree. Only if we switched `cc-wrapper` to give GCC
-  # "spec files" (more powerful than CLI flags) would be be able to get the
+  # "spec files" (more powerful than CLI flags) would be able to get the
   # compiler `-v` flag correct with respect to the libraries it happened to be
   # wrapped with.
   #

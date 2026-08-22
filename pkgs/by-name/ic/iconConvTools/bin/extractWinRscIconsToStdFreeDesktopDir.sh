@@ -2,14 +2,14 @@
 
 # The file from which to extract *.ico files or a particular *.ico file.
 # (e.g.: './KeePass.exe', './myLibrary.dll', './my/path/to/app.ico').
-# As you notived, the utility can extract icons from a windows executable or
+# As you noticed, the utility can extract icons from a Windows executable or
 # dll.
 rscFile=$1
 
 # A regexp that can extract the image size from the file name. Because we
 # use 'icotool', this value should usually be set to something like
 # '[^\.]+\.exe_[0-9]+_[0-9]+_[0-9]+_[0-9]+_([0-9]+x[0-9]+)x[0-9]+\.png'.
-# A reg expression may be written at some point that relegate this to
+# A reg expression may be written at some point that relegates this to
 # an implementation detail.
 sizeRegex=$2
 
@@ -23,7 +23,7 @@ sizeReplaceExp=$3
 nameRegex=$4
 
 # A regexp replace expression that will be used alongside 'nameRegex' to create
-# a icon file name. Note that you usually put directly you icon name here
+# an icon file name. Note that you usually put your icon name directly here
 # without any extension (e.g.: 'my-app'). But in case you've got something
 # fancy, it will usually be '\1'.
 nameReplaceExp=$5

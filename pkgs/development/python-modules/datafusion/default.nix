@@ -37,7 +37,7 @@ buildPythonPackage (finalAttrs: {
     owner = "apache";
     repo = "datafusion-python";
     tag = finalAttrs.version;
-    # Fetch arrow-testing and parquet-testing (tests assets)
+    # Fetch arrow-testing and parquet-testing (test assets)
     fetchSubmodules = true;
     hash = "sha256-Kh8w8L3AJCs9a3KA9RHaA0btbJEBdYZge1VK7AX0lX0=";
   };

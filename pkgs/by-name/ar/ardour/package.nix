@@ -91,7 +91,7 @@ let
     version = "9.7";
 
     # We can't use `fetchFromGitea` here, as attempting to fetch release archives from git.ardour.org
-    # result in an empty archive. See https://tracker.ardour.org/view.php?id=7328 for more info.
+    # results in an empty archive. See https://tracker.ardour.org/view.php?id=7328 for more info.
     src = fetchgit {
       url = "git://git.ardour.org/ardour/ardour.git";
       tag = finalAttrs.version;
@@ -187,7 +187,7 @@ let
       "--no-phone-home"
       "--ptformat"
       # since we don't have https://github.com/agfline/LibAAF yet,
-      # we need to use some of ardours internal libs, see:
+      # we need to use some of Ardour's internal libs, see:
       # https://discourse.ardour.org/t/ardour-8-2-released/109615/6
       # and
       # https://discourse.ardour.org/t/ardour-8-2-released/109615/8
@@ -227,7 +227,7 @@ let
         own CDs. Mix video soundtracks. Experiment with new ideas about
         music and sound.
 
-        Please consider supporting the ardour project financially:
+        Please consider supporting the Ardour project financially:
         https://community.ardour.org/donate
       '';
       homepage = "https://ardour.org/";

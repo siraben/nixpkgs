@@ -104,7 +104,7 @@ buildEnv {
         target="$(readlink -f "$link")"
         relativeTarget="''${target#$ibusPackage/}"
         if [[ "$ibusPackage/$relativeTarget" != "$target" ]]; then
-            >&2 echo "File $link does not point to to a file in $ibusPackage"
+            >&2 echo "File $link does not point to a file in $ibusPackage"
             exit 1
         fi
         unlink "$link"

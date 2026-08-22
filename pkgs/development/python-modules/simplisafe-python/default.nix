@@ -69,7 +69,7 @@ buildPythonPackage (finalAttrs: {
   __darwinAllowLocalNetworking = true;
 
   meta = {
-    description = "Python library the SimpliSafe API";
+    description = "Python library for the SimpliSafe API";
     homepage = "https://simplisafe-python.readthedocs.io/";
     changelog = "https://github.com/bachya/simplisafe-python/releases/tag/${finalAttrs.src.tag}";
     license = lib.licenses.mit;

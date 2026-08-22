@@ -310,7 +310,7 @@ lib.fix (
             ) pkgList.nonEnvOutputs
           )
         );
-        # useful for inclusion in the `fonts.packages` nixos option or for use in devshells
+        # useful for inclusion in the `fonts.packages` NixOS option or for use in devshells
         fonts = "${texmfroot}/texmf-dist/fonts";
         __overrideTeXConfig = lib.warn "__overrideTeXConfig is deprecated, please switch to overrideAttrs" (
           newArgs:

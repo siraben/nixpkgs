@@ -46,7 +46,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "gophish" ];
 
-  # Module has no test
+  # Module has no tests
   doCheck = false;
 
   meta = {

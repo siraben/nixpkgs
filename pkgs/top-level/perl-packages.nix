@@ -14200,7 +14200,7 @@ with self;
     ];
 
     meta = {
-      description = "an be used to determine if files should be updated based on the mtime timestamps of their dependencies";
+      description = "Can be used to determine if files should be updated based on the mtime timestamps of their dependencies";
       homepage = "https://github.com/shlomif/perl-File-ShouldUpdate";
       license = lib.licenses.mit;
     };
@@ -15049,7 +15049,7 @@ with self;
     };
     propagatedBuildInputs = [ Error ];
     meta = {
-      description = "This is the Git.pm, plus the other files in the perl/Git directory, from github's git/git";
+      description = "This is the Git.pm, plus the other files in the perl/Git directory, from GitHub's git/git";
       license = lib.licenses.gpl2Plus;
       maintainers = with lib.maintainers; [
         de11n
@@ -19246,7 +19246,7 @@ with self;
       hash = "sha256-l8oYajxBa/ae1i2gRvGmDYjYm45u0lAIsvlueH3unWA=";
     };
     meta = {
-      description = "This module adds, removes and modify user and group accounts according to the passwd and shadow files syntax";
+      description = "This module adds, removes and modifies user and group accounts according to the passwd and shadow files syntax";
       license = with lib.licenses; [
         artistic1
         gpl1Plus
@@ -32582,7 +32582,7 @@ with self;
     ];
     doCheck = !stdenv.hostPlatform.isAarch64;
     meta = {
-      description = "Perl extension for getting CPU information. Currently only number of CPU's supported";
+      description = "Perl extension for getting CPU information. Currently only the number of CPUs is supported";
       license = with lib.licenses; [
         artistic1
         gpl1Plus

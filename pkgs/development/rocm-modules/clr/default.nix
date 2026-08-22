@@ -213,7 +213,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   # libamdhip64.so dlopens its own bare name for hipGetProcAddress symbol resolution,
-  # same pattern with libhiprtc.so, so add own lib directory to all .so's
+  # same pattern with libhiprtc.so, so add its own lib directory to all .so's
   # RPATHs so they can find themselves and neighbouring libs
   # Must be in postFixup so it runs after patchelf --shrink-rpath which removes
   # the apparently useless rpath

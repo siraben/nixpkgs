@@ -154,8 +154,8 @@ in
         type = types.nullOr types.str;
         default = null;
         description = ''
-          Text to display when users join. The motd will be readable in the nix store
-          and the processlist.  If this is not intended use `motdFile` instead.
+          Text to display when users join. The motd will be readable in the Nix store
+          and the process list. If this is not intended, use `motdFile` instead.
           Will be overridden by {option}`services.syncplay.motdFile`.
         '';
       };

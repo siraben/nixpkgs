@@ -981,7 +981,7 @@ in
             chmod a+rwxt /var/spool/mail
             ln -sf /var/spool/mail /var/
 
-            #Finally delegate to postfix checking remain directories in /var/lib/postfix and set permissions on them
+            # Finally, let postfix check the remaining directories in /var/lib/postfix and set permissions on them
             ${lib.getExe' cfg.package "postfix"} set-permissions config_directory=/var/lib/postfix/conf
           '';
         };

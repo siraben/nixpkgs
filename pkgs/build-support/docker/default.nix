@@ -1027,7 +1027,7 @@ rec {
       # pipeline can use one of the available functions (like "limit_layers")
       # to control the amount of layers.
       # See: pkgs/build-support/flatten-references-graph/src/flatten_references_graph/pipe.py
-      # for available functions, and it's test for how to use them.
+      # for available functions, and its test for how to use them.
       # WARNING!! this interface is highly experimental and subject to change.
       layeringPipeline ? null,
       # Enables debug logging for the layering pipeline.

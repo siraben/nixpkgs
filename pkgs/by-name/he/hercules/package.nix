@@ -32,7 +32,7 @@ let
 
       buildPhase = ''
         mkdir ../build $out
-        # In source builds are not allowed.
+        # In-source builds are not allowed.
         cd ../build
         ../source/build \
           --pkgname ${depName} \

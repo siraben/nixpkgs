@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
   installPhase = ''
     runHook preInstall
 
-    # Not moving etc because it only contains init.rd settings
+    # Not moving etc because it only contains init.d settings
     mv usr $out
     mv lib $out
 

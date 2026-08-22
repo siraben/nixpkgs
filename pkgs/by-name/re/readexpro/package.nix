@@ -33,7 +33,7 @@ stdenvNoCC.mkDerivation {
     longDescription = ''
       Readex is the world-script expansion of the font Lexend designed by Thomas Jockin and Nadine Chahine. Readex currently supports Latin and Arabic.
 
-      Lexend is a variable typeface designed by Bonnie Shaver-Troup and Thomas Jockin in 2018. Applying the Shaver-Troup Individually Optimal Text Formation Factors, studies have found readers instantaneously improve their reading fluency.
+      Lexend is a variable typeface designed by Bonnie Shaver-Troup and Thomas Jockin in 2018. Studies have found that applying the Shaver-Troup Individually Optimal Text Formation Factors helps readers instantaneously improve their reading fluency.
 
       This font is based on the Quicksand project from Andrew Paglinawan, initiated in 2008. Quicksand was improved in 2016 by Thomas Jockin for Google Fonts. Thomas modified Quicksand for the specialized task of improving reading fluency in low-proficiency readers (including those with dyslexia.)
     '';

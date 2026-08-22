@@ -116,13 +116,13 @@ let
 
           [[ $string == "world testing-string hello" ]] || (echo "'\$string' was not 'world testing-string hello'" && false)
 
-          # test appending to a unset variable
+          # test appending to an unset variable
           appendToVar nonExistant created hello
           declare -p nonExistant
           if [[ -n $__structuredAttrs ]]; then
             [[ "''${nonExistant[@]}" == "created hello" ]]
           else
-            # there's a extra " " in front here and a extra " " in the end of prependToVar
+            # there's an extra " " in front here and an extra " " in the end of prependToVar
             # shouldn't matter because these functions will mostly be used for $*Flags and the Flag variable will in most cases already exist
             [[ "$nonExistant" == " created hello" ]]
           fi
@@ -170,7 +170,7 @@ let
           [[ "''${flagsArray[5]}" == "g" ]] || (echo "'\$flagsArray[5]' was not 'g'" && false)
           [[ "''${flagsArray[6]}" == "h" ]] || (echo "'\$flagsArray[6]' was not 'h'" && false)
 
-          # test concatenating to unset variable
+          # test concatenating to an unset variable
           concatTo nonExistant string list notset=e=f empty_array=g empty_string=h
           declare -p nonExistant
           [[ "''${nonExistant[0]}" == "a" ]] || (echo "'\$nonExistant[0]' was not 'a'" && false)

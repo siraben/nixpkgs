@@ -115,7 +115,7 @@ in
       };
     };
 
-    # The linux builder is a lightweight VM for remote building; not evaluation.
+    # The Linux builder is a lightweight VM for remote building, not evaluation.
     nix.channel.enable = false;
 
     # Deployment is by image.
@@ -174,7 +174,7 @@ in
             set -euo pipefail
           ''
           +
-            # When running as non-interactively as part of a DarwinConfiguration the working directory
+            # When running non-interactively as part of a DarwinConfiguration, the working directory
             # must be set to a writable directory.
             (
               if cfg.workingDirectory != "." then

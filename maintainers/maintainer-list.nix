@@ -27,7 +27,7 @@
    Specifying a GitHub account is required, because:
    - you will get invited to the @NixOS/nixpkgs-maintainers team;
    - once you are part of the @NixOS org, you can be requested for review;
-   - once you can be requested for review, CI will request you review pull requests that modify a package for which you are a maintainer.
+   - once you can be requested for review, CI will request that you review pull requests that modify a package for which you are a maintainer.
 
    `handle == github` is strongly preferred whenever `github` is an acceptable attribute name and is short and convenient.
 
@@ -40,7 +40,7 @@
 
    Add PGP/GPG keys only if you actually use them to sign commits and/or mail.
 
-   To get the required PGP/GPG values for a key run
+   To get the required PGP/GPG values for a key, run
    ```shell
    gpg --fingerprint <email> | head -n 2
    ```
@@ -57,7 +57,7 @@
    See `./scripts/check-maintainer-github-handles.sh` for an example on how to work with this data.
 
    When adding a new maintainer, be aware of the current commit conventions
-   documented at [CONTRIBUTING.md](https://github.com/NixOS/nixpkgs/blob/master/CONTRIBUTING.md#commit-conventions)
+   documented in the [CONTRIBUTING.md](https://github.com/NixOS/nixpkgs/blob/master/CONTRIBUTING.md#commit-conventions)
    file located in the root of the Nixpkgs repo.
 */
 {

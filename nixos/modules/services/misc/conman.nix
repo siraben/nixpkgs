@@ -72,7 +72,7 @@
         {
           assertion =
             (cfg.configFile != null) && (cfg.config == null) || (cfg.configFile == null && cfg.config != null);
-          message = "Either but not both `configFile` and `config` must be specified for conman.";
+          message = "Either `configFile` or `config`, but not both, must be specified for conman.";
         }
       ];
       environment.systemPackages = [ cfg.package ];

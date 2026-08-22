@@ -2319,7 +2319,7 @@ runTests {
           bar = 3;
         }
         {
-          #second attribute set
+          # second attribute set
           foo.bar = 1;
           foo.quz = 2;
           baz = 4;

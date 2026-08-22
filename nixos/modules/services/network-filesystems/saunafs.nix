@@ -93,7 +93,7 @@ in
       masterHost = lib.mkOption {
         type = lib.types.str;
         default = null;
-        description = "IP or hostname name of master host.";
+        description = "IP or hostname of the master host.";
       };
 
       sfsUser = lib.mkOption {
@@ -184,7 +184,8 @@ in
           description = ''
             Mount points to be used by chunkserver for storage (see {manpage}`sfshdd.cfg(5)`).
 
-            Note, that these mount points must writable by the user defined by the saunafs user.
+            Note that these mount points must be writable by the user defined by the
+            {option}`services.saunafs.sfsUser` option.
           '';
         };
 
@@ -195,7 +196,7 @@ in
             options.DATA_PATH = lib.mkOption {
               type = lib.types.str;
               default = "/var/lib/saunafs/chunkserver";
-              description = "Directory for chunck meta data";
+              description = "Directory for chunk metadata";
             };
           };
 

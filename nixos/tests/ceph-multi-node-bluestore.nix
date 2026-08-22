@@ -425,7 +425,7 @@ let
   # * mount it via in-kernel ("kclient") and a `ceph-fuse` ("fuseclient")
   #   from 2 different nodes
   # * verify bidirectional visibility of file changes
-  # * performs another crash/recovery test (without crashing the clients)
+  # * perform another crash/recovery test (without crashing the clients)
   # * verify the mounts survive and keep working.
   cephfsScript = ''
     kclient.wait_for_unit("network.target")

@@ -50,7 +50,7 @@ let
 
   addonsSrc = "${src}/addons";
 
-  # Fetches the Yarn modules in Nix to to be used as an offline cache
+  # Fetches the Yarn modules in Nix to be used as an offline cache
   yarnOfflineCache = fetchYarnDeps {
     yarnLock = "${addonsSrc}/yarn.lock";
     sha256 = "sha256-9l4lSzFTF5rSByO388tosJCxOb65Nnua6HaDD7F62No=";

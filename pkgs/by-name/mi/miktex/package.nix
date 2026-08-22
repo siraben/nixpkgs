@@ -104,17 +104,17 @@ stdenv.mkDerivation (finalAttrs: {
 
   patches = [
     ./startup-config-support-nix-store.patch
-    # Miktex will search executables in "GetMyPrefix(true)/bin".
-    # The path evaluate to "/usr/bin" in FHS style linux distribution,
+    # MiKTeX will search for executables in "GetMyPrefix(true)/bin".
+    # The path evaluates to "/usr/bin" in FHS style Linux distribution,
     # compared to "/nix/store/.../bin" in NixOS.
-    # As a result, miktex will fail to find e.g. 'pkexec','ksudo','gksu'
+    # As a result, MiKTeX will fail to find e.g. 'pkexec','ksudo','gksu'
     # under /run/wrappers/bin in NixOS.
     # We fix this by adding the PATH environment variable to executables' search path.
     ./find-exectables-in-path.patch
   ];
 
   postPatch = ''
-    # dont symlink fontconfig to /etc/fonts/conf.d
+    # don't symlink fontconfig to /etc/fonts/conf.d
     substituteInPlace Programs/MiKTeX/miktex/topics/fontmaps/commands/FontMapManager.cpp \
       --replace-fail 'this->ctx->session->IsAdminMode()' 'false'
 
@@ -136,7 +136,7 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace Programs/TeXAndFriends/omega/otps/source/outocp.c \
       --replace-fail 'fprintf(stderr, s);' 'fprintf(stderr, "%s", s);'
 
-    # we use unsigned-char for all platform
+    # we use unsigned-char on all platforms
     substituteInPlace Programs/TeXAndFriends/Knuth/web/CMakeLists.txt \
       --replace-fail '--using-namespace=MiKTeX::TeXAndFriends' '--using-namespace=MiKTeX::TeXAndFriends --chars-are-unsigned'
   '';

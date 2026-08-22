@@ -123,7 +123,7 @@ in
       cellName = mkOption {
         default = "";
         type = types.str;
-        description = "Cell name, this server will serve.";
+        description = "Cell name that this server will serve.";
         example = "grand.central.org";
       };
 
@@ -228,7 +228,7 @@ in
 
           enableFabs = mkEnableOption ''
             FABS, the flexible AFS backup system. It stores volumes as dump files, relying on other
-            pre-existing backup solutions for handling them
+            pre-existing backup solutions for handling them.
           '';
 
           buserverArgs = mkOption {
@@ -287,8 +287,8 @@ in
         default = 1310720;
         type = types.int;
         description = ''
-          UDP packet size to use in Bytes. Higher values can speed up
-          communications. The default of 1 MB is a sufficient in most
+          UDP packet size to use in bytes. Higher values can speed up
+          communications. The default of 1 MB is sufficient in most
           cases. Make sure to increase the kernel's UDP buffer size
           accordingly via `net.core(w|r|opt)mem_max`
           sysctl.

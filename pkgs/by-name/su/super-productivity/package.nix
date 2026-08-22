@@ -50,7 +50,7 @@ buildNpmPackage rec {
 
       env = {
         # Some lockfiles do not include any dependencies to install so
-        # prefertch-npm-deps produces an error.  Those can be ignored with
+        # prefetch-npm-deps produces an error.  Those can be ignored with
         # this flag.
         FORCE_EMPTY_CACHE = true;
         NPM_FETCHER_VERSION = "2";

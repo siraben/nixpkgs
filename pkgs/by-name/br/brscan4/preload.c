@@ -1,7 +1,7 @@
 /* Brgen4 search for configuration under `/etc/opt/brother/scanner/brscan4`. This
    LD_PRELOAD library intercepts execvp(), open and open64 calls to redirect them to
-   the corresponding location in $out. Also support specifying an alternate
-   file name for `brsanenetdevice4.cfg` which otherwise is invariable
+   the corresponding location in $out. Also supports specifying an alternate
+   file name for `brsanenetdevice4.cfg` which otherwise is invariably
    created at `/etc/opt/brother/scanner/brscan4`*/
 
 #define _GNU_SOURCE

@@ -4,10 +4,10 @@ This component is basically a wrapper/workaround that makes it possible to
 expose an Xcode installation as a Nix package by means of symlinking to the
 relevant executables on the host system.
 
-Since Xcode can't be packaged with Nix, nor we can publish it as a Nix package
-(because of its license) this is basically the only integration strategy
+Since Xcode can't be packaged with Nix, nor can we publish it as a Nix package
+(because of its license), this is basically the only integration strategy
 making it possible to do iOS application builds that integrate with other
-components of the Nix ecosystem
+components of the Nix ecosystem.
 
 The primary objective of this project is to use the Nix expression language to
 specify how iOS apps can be built from source code, and to automatically spawn
@@ -100,7 +100,7 @@ The above function takes a variety of parameters:
   and the location where the source code resides
 * `sdkVersion` specifies which version of the iOS SDK to use.
 
-It also possible to adjust the `xcodebuild` parameters. This is only needed in
+It is also possible to adjust the `xcodebuild` parameters. This is only needed in
 rare circumstances. In most cases the default values should suffice:
 
 * `target` specifies which `xcodebuild` target to build. By default it takes the target
@@ -136,10 +136,10 @@ When enabled, you need to configure the following options:
 
 * The `installURL` parameter refers to the URL of a PHP script that composes the
   `itms-services://` URL allowing iOS devices to install the IPA file.
-* `bundleId` refers to the bundle ID value of the app
-* `appVersion` refers to the app's version number
+* `bundleId` refers to the bundle ID value of the app.
+* `appVersion` refers to the app's version number.
 
-To use wireless adhoc distributions, you must also install the corresponding
+To use wireless ad hoc distributions, you must also install the corresponding
 PHP script on a web server (see section: 'Installing the PHP script for wireless
 ad hoc installations from Hydra' for more information).
 
@@ -174,8 +174,8 @@ provided Xcode installation. The script can be started as follows:
 ./result/bin/run-test-simulator
 ```
 
-By default, the script will show an overview of UDID for all available simulator
-instances and asks you to pick one. You can also provide a UDID as a
+By default, the script will show an overview of the UDIDs of all available
+simulator instances and ask you to pick one. You can also provide a UDID as a
 command-line parameter to launch an instance automatically:
 
 ```bash

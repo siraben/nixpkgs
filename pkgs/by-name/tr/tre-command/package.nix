@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     installShellCompletion --zsh scripts/completion/_tre
   '';
 
-  # this test requires package to be in a git repo to succeed
+  # this test requires the package to be in a git repo to succeed
   checkFlags = [
     "--skip"
     "respect_git_ignore"

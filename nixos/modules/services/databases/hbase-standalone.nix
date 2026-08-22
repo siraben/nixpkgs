@@ -47,7 +47,7 @@ in
 
       enable = lib.mkEnableOption ''
         HBase master in standalone mode with embedded regionserver and zookeeper.
-        Do not use this configuration for production nor for evaluating HBase performance
+        Do not use this configuration for production nor for evaluating HBase performance.
       '';
 
       package = lib.mkPackageOption pkgs "hbase" { };

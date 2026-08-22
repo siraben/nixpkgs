@@ -43,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
     longDescription = ''
       MultiMarkdown is a lightweight markup language created by
       Fletcher T. Penney and based on Markdown, which supports
-      more export-formats (html, latex, beamer, memoir, odf, opml,
+      more export formats (html, latex, beamer, memoir, odf, opml,
       lyx, mmd) and implements some added features currently not
       available with plain Markdown syntax.
 

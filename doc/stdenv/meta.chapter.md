@@ -117,7 +117,7 @@ The list of Nix platform types on which the package is supported. Hydra builds p
 { meta.platforms = lib.platforms.linux; }
 ```
 
-Attribute Set `lib.platforms` defines [various common lists](https://github.com/NixOS/nixpkgs/blob/master/lib/systems/doubles.nix) of platforms types.
+The `lib.platforms` attribute set defines [various common lists](https://github.com/NixOS/nixpkgs/blob/master/lib/systems/doubles.nix) of platform types.
 
 ### `badPlatforms` {#var-meta-badPlatforms}
 
@@ -140,7 +140,7 @@ Packages which can be built with or without `systemd` support will use `lib.meta
 
 ### `timeout` {#var-meta-timeout}
 
-A timeout (in seconds) for building the derivation. If the derivation takes longer than this time to build, Hydra will fail it due to breaking the timeout. However, all computers do not have the same computing power, hence some builders may decide to apply a multiplicative factor to this value. When filling this value in, try to keep it approximately consistent with other values already present in `nixpkgs`.
+A timeout (in seconds) for building the derivation. If the derivation takes longer than this time to build, Hydra will fail it due to breaking the timeout. However, not all computers have the same computing power, hence some builders may decide to apply a multiplicative factor to this value. When filling this value in, try to keep it approximately consistent with other values already present in `nixpkgs`.
 
 `meta` attributes are not stored in the instantiated derivation.
 Therefore, this setting may be lost when the package is used as a dependency.
@@ -187,7 +187,7 @@ This means that `broken` can be used to express constraints, for example:
   ```
 
 This makes `broken` strictly more powerful than `meta.badPlatforms`.
-However `meta.availableOn` currently examines only `meta.platforms` and `meta.badPlatforms`, so `meta.broken` does not influence the default values for optional dependencies.
+However, `meta.availableOn` currently examines only `meta.platforms` and `meta.badPlatforms`, so `meta.broken` does not influence the default values for optional dependencies.
 
 Underneath, `meta.broken = true;` is the same as
 ```nix
@@ -242,7 +242,7 @@ This package supplies unfree, redistributable firmware. This is a separate value
 
 The value of a package's `meta.sourceProvenance` attribute specifies the provenance of the package's derivation outputs.
 
-If a package contains elements that are not built from the original source by a nixpkgs derivation, the `meta.sourceProvenance` attribute should be a list containing one or more value from `lib.sourceTypes` defined in [`nixpkgs/lib/source-types.nix`](https://github.com/NixOS/nixpkgs/blob/master/lib/source-types.nix).
+If a package contains elements that are not built from the original source by a Nixpkgs derivation, the `meta.sourceProvenance` attribute should be a list containing one or more values from `lib.sourceTypes` defined in [`nixpkgs/lib/source-types.nix`](https://github.com/NixOS/nixpkgs/blob/master/lib/source-types.nix).
 
 Adding this information helps users who have needs related to build transparency and supply-chain security to gain some visibility into their installed software or set policy to allow or disallow installation based on source provenance.
 
@@ -272,7 +272,7 @@ Code which is intentionally obfuscated by a third party, for example by using a 
 
 ## Software identifiers {#sec-meta-identifiers}
 
-Package's `meta.identifiers` attribute specifies information about software identifiers associated with this package. Software identifiers are used, for example:
+A package's `meta.identifiers` attribute specifies information about software identifiers associated with this package. Software identifiers are used, for example:
 * to generate Software Bill of Materials (SBOM) that lists all components used to build the software, which can later be used to perform vulnerability or license analysis of the resulting software;
 * to lookup software in different vulnerability databases or report new vulnerabilities to them.
 
@@ -280,13 +280,13 @@ Overriding the default `meta.identifiers` attribute is optional, but it is recom
 For example, we could get automatic notifications about potential vulnerabilities for users in the future.
 All identifiers specified in `meta.identifiers` are expected to be unambiguous and valid.
 
-`meta.identifiers` contains `v1` attribute which is an attribute set that guarantees backward compatibility of its constituents. Right now it contains copies of all other attributes in `meta.identifiers`.
+`meta.identifiers` contains a `v1` attribute which is an attribute set that guarantees backward compatibility of its constituents. Right now it contains copies of all other attributes in `meta.identifiers`.
 
 ### CPE {#sec-meta-identifiers-cpe}
 
-Common Platform Enumeration (CPE) is a specification maintained by NIST as part of the Security Content Automation Protocol (SCAP). It is used to identify software in National Vulnerabilities Database (NVD, https://nvd.nist.gov) and other vulnerability databases.
+Common Platform Enumeration (CPE) is a specification maintained by NIST as part of the Security Content Automation Protocol (SCAP). It is used to identify software in the National Vulnerability Database (NVD, https://nvd.nist.gov) and other vulnerability databases.
 
-Current version of CPE 2.3 consists of 13 parts:
+The current version of CPE 2.3 consists of 13 parts:
 
 ```
 cpe:2.3:a:<vendor>:<product>:<version>:<update>:<edition>:<language>:<sw_edition>:<target_sw>:<target_hw>:<other>
@@ -315,10 +315,10 @@ For example, for glibc 2.40.1 CPE would be `cpe:2.3:a:gnu:glibc:2.40.1:*:*:*:*:*
 
 This attribute contains an attribute set of all parts of the CPE for this package. Most of the parts default to `*` (match any value), with some exceptions:
 
-* `part` defaults to `a` (application), can also be set to `o` for operating systems, for example, Linux kernel, or to `h` for hardware
+* `part` defaults to `a` (application), but can also be set to `o` for operating systems, for example the Linux kernel, or to `h` for hardware
 * `vendor` cannot be deduced from other sources, so it must be specified by the package author
-* `product` defaults to provided derivation's `pname` attribute and must be provided explicitly if `pname` is missing
-* `version` and `update` have no defaults and should be specified explicitly or using helper functions, when missing, `cpe` attribute will be empty, and all possible guesses using helper functions will be in `possibleCPEs` attribute.
+* `product` defaults to the provided derivation's `pname` attribute and must be provided explicitly if `pname` is missing
+* `version` and `update` have no defaults and should be specified explicitly or using helper functions; when missing, the `cpe` attribute will be empty, and all possible guesses using helper functions will be in the `possibleCPEs` attribute.
 
 It is up to the package author to make sure all parts are correct and match expected values in [NVD dictionary](https://nvd.nist.gov/products/cpe). Unknown values can be skipped, which would leave them with the default value of `*`.
 
@@ -326,7 +326,7 @@ Following functions help with filling out `version` and `update` fields:
 
 * [`lib.meta.cpeFullVersionWithVendor`](#function-library-lib.meta.cpeFullVersionWithVendor)
 
-For many packages to make CPE available it should be enough to specify only:
+For many packages, to make CPE available it should be enough to specify only:
 
 ```nix
 {
@@ -337,11 +337,11 @@ For many packages to make CPE available it should be enough to specify only:
 
 #### `meta.identifiers.cpe` {#var-meta-identifiers-cpe}
 
-A readonly attribute that concatenates all CPE parts in one string.
+A read-only attribute that concatenates all CPE parts in one string.
 
 #### `meta.identifiers.possibleCPEs` {#var-meta-identifiers-possibleCPEs}
 
-A readonly attribute containing the list of guesses for what CPE for this package can look like. It includes all variants of version handling mentioned above. Each item is an attrset with attributes `cpeParts` and `cpe` for each guess.
+A read-only attribute containing the list of guesses for what CPE for this package can look like. It includes all variants of version handling mentioned above. Each item is an attrset with attributes `cpeParts` and `cpe` for each guess.
 
 ### Package URL {#sec-meta-identifiers-purl}
 
@@ -365,7 +365,7 @@ For handling edge cases, consider using the list interface [`meta.identifiers.pu
 #### `meta.identifiers.purls` {#var-meta-identifiers-purls}
 
 An extendable list attribute which defaults to a single element equal to [`meta.identifiers.purl`](#var-meta-identifiers-purl).
-It provides an interface for additional identifiers of `mkDerivation.src` or for identifiers of vendored dependencies inside `mkDerivation.src`, which maintainers may carefully consider to specify as well.
+It provides an interface for additional identifiers of `mkDerivation.src` or for identifiers of vendored dependencies inside `mkDerivation.src`, which maintainers may carefully consider specifying as well.
 
 Additional identifiers are generally not recommended, as they might cause maintenance overhead or diverge.
 For example, a source distribution `pkg:github` may be hard to keep correctly aligned with the corresponding binary distribution `pkg:pypi`.

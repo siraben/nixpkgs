@@ -284,8 +284,8 @@ in
     keyPasswordFile = lib.mkOption {
       type = lib.types.nullOr lib.types.path;
       description = ''
-        Path the the file containing the password used to unlock the Java KeyStore file specified in {option}`services.reposilite.settings.keyPath`.
-        This file must be readable my {option}`services.reposilite.user`.
+        Path to the file containing the password used to unlock the Java KeyStore file specified in {option}`services.reposilite.settings.keyPath`.
+        This file must be readable by {option}`services.reposilite.user`.
       '';
       default = null;
     };

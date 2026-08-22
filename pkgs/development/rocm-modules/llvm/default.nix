@@ -26,7 +26,7 @@
   # llvmPackages_22 (22.1) and ROCm LLVM (22.0). Uses new bitcode attr
   # 105 nocreateundeforpoison fails to link hipify.
   # Whether to use LTO when building the ROCm toolchain
-  # Slows down this toolchain's build, for typical ROCm usecase
+  # Slows down this toolchain's build, for typical ROCm use cases
   # time saved building composable_kernel and other heavy packages
   # will outweigh that. ~3-4% speedup multiplied by thousands
   # of corehours.

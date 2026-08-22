@@ -49,7 +49,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
   '';
 
   disabledTests = [
-    "test_timeit2" # flakey, and depends sleep being precise to the millisecond
+    "test_timeit2" # flaky, and depends on sleep being precise to the millisecond
   ];
 
   __darwinAllowLocalNetworking = true;

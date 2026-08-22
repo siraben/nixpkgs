@@ -158,7 +158,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     echo "m4_define(VERSION_NUMBER, [${finalAttrs.version}])" > version.m4
 
-    # hardcode libexecdir, I am assuming that cockpit only use it to find it's binaries
+    # hardcode libexecdir, I am assuming that cockpit only uses it to find its binaries
     printf 'def get_libexecdir() -> str:\n\treturn "%s"' "$out/libexec" >> src/cockpit/packages.py
 
     # patch paths used as visibility conditions in apps

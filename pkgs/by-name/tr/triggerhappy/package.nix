@@ -37,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Lightweight hotkey daemon";
     longDescription = ''
       Triggerhappy is a hotkey daemon developed with small and embedded systems in
-      mind, e.g. linux based routers. It attaches to the input device files and
+      mind, e.g. Linux-based routers. It attaches to the input device files and
       interprets the event data received and executes scripts configured in its
       configuration.
     '';

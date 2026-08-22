@@ -1,6 +1,6 @@
 # Mosquitto {#module-services-mosquitto}
 
-Mosquitto is a MQTT broker often used for IoT or home automation data transport.
+Mosquitto is an MQTT broker often used for IoT or home automation data transport.
 
 ## Quickstart {#module-services-mosquitto-quickstart}
 
@@ -78,11 +78,11 @@ the global settings of the daemon, listeners, plugins, and bridges.
 Bridges and listeners are part of the global configuration, plugins are part of listeners.
 Users of the broker are configured as parts of listeners rather than globally, allowing
 configurations in which a given user is only allowed to log in to the broker using specific
-listeners (eg to configure an admin user with full access to all topics, but restricted to
+listeners (e.g. to configure an admin user with full access to all topics, but restricted to
 localhost).
 
 Almost all options of Mosquitto are available for configuration at their appropriate levels, some
-as NixOS options written in camel case, the remainders under `settings` with their exact names in
+as NixOS options written in camel case, the remainder under `settings` with their exact names in
 the Mosquitto config file. The exceptions are `per_listener_settings` (which is always set to
 `true`) and the per-listener access control, which is always configured via instances of the
 `acl-file` and `password-file` plugins generated from the `acl` and `users` attributes of each
@@ -108,8 +108,8 @@ configured via two attributes of the config:
   * the `acl` attribute of the listener configures pattern ACL entries and topic ACL entries
     for anonymous users. Each entry must be prefixed with `pattern` or `topic` to distinguish
     between these two cases.
-  * the `acl` attribute of every user configures in the listener configured the ACL for that
-    given user. Only topic ACLs are supported by Mosquitto in this setting, so no prefix is
+  * the `acl` attribute of every user configures the ACL for that given user in that listener.
+    Only topic ACLs are supported by Mosquitto in this setting, so no prefix is
     required or allowed.
 
 The default ACL for a listener is empty, disallowing all accesses from all clients. To configure

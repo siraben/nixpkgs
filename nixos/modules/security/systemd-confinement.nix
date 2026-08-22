@@ -234,7 +234,7 @@ in
                 echo "BindReadOnlyPaths=$realprog:/bin/sh" >> "$serviceFile"
               ''}
 
-              # If DynamicUser= is enabled, PrivateTmp=true is implied (and cannot be turned off).
+              # If DynamicUser= is enabled, PrivateTmp=true is implied (and cannot be turned off),
               # so disable them unless PrivateTmp=true is explicitly set.
               ${lib.optionalString (!cfg.serviceConfig.PrivateTmp) ''
                 echo "InaccessiblePaths=-+/tmp" >> "$serviceFile"

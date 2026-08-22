@@ -137,7 +137,7 @@ in
             default = "/var/lib/n8n";
             description = ''
               Provide the path where n8n will create the .n8n folder.
-              This directory stores user-specific data, such as database file and encryption key.
+              This directory stores user-specific data, such as the database file and encryption key.
             '';
             readOnly = true;
           };
@@ -365,7 +365,7 @@ in
         RestrictNamespaces = "yes";
         RestrictRealtime = "yes";
         RestrictSUIDSGID = "yes";
-        MemoryDenyWriteExecute = "no"; # v8 JIT requires memory segments to be Writable-Executable.
+        MemoryDenyWriteExecute = "no"; # v8 JIT requires memory segments to be writable and executable.
         LockPersonality = "yes";
       };
     };
@@ -425,7 +425,7 @@ in
         RestrictNamespaces = "yes";
         RestrictRealtime = "yes";
         RestrictSUIDSGID = "yes";
-        MemoryDenyWriteExecute = "no"; # v8 JIT requires memory segments to be Writable-Executable.
+        MemoryDenyWriteExecute = "no"; # v8 JIT requires memory segments to be writable and executable.
         LockPersonality = "yes";
       };
     };

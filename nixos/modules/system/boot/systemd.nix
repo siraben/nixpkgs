@@ -521,7 +521,7 @@ in
         A list of units to skip when generating system systemd configuration directory. This has
         priority over upstream units, {option}`systemd.units`, and
         {option}`systemd.additionalUpstreamSystemUnits`. The main purpose of this is to
-        prevent a upstream systemd unit from being added to the initrd with any modifications made to it
+        prevent an upstream systemd unit from being added to the initrd with any modifications made to it
         by other NixOS modules.
       '';
     };
@@ -929,7 +929,7 @@ in
     (mkRemovedOptionModule [ "systemd" "generator-packages" ] "Use systemd.packages instead.")
     (mkRemovedOptionModule [ "systemd" "enableUnifiedCgroupHierarchy" ] ''
       In 256 support for cgroup v1 ('legacy' and 'hybrid' hierarchies) is now considered obsolete and systemd by default will refuse to boot under it.
-      To forcibly reenable cgroup v1 support, you can set boot.kernelParams = [ "systemd.unified_cgroup_hierarchy=0" "SYSTEMD_CGROUP_ENABLE_LEGACY_FORCE=1" ].
+      To forcibly re-enable cgroup v1 support, you can set boot.kernelParams = [ "systemd.unified_cgroup_hierarchy=0" "SYSTEMD_CGROUP_ENABLE_LEGACY_FORCE=1" ].
       NixOS does not officially support this configuration and might cause your system to be unbootable in future versions. You are on your own.
     '')
     (mkRemovedOptionModule [ "systemd" "extraConfig" ] "Use systemd.settings.Manager instead.")

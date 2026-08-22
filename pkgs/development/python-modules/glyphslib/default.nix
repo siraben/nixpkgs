@@ -48,7 +48,7 @@ buildPythonPackage (finalAttrs: {
 
   disabledTestPaths = [
     "tests/builder/designspace_gen_test.py" # this test tries to use non-existent font "CoolFoundry Examplary Serif"
-    "tests/builder/interpolation_test.py" # this test tries to use a font that previous test should made
+    "tests/builder/interpolation_test.py" # this test tries to use a font that the previous test should have made
   ];
 
   meta = {

@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     # https://github.com/AcademySoftwareFoundation/openexr/issues/1556
     lib.optional stdenv.hostPlatform.isMusl ./disable-iex-test.patch;
 
-  # tests are determined to use /var/tmp on unix
+  # tests are determined to use /var/tmp on Unix
   postPatch = ''
     cat <(find . -name tmpDir.h) <(echo src/test/OpenEXRCoreTest/main.cpp) | while read -r f ; do
       substituteInPlace $f --replace '/var/tmp' "$TMPDIR"
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     ctestCheckHook
   ];
 
-  # Without 'sse' enforcement tests fail on i686 as due to excessive precision as:
+  # Without 'sse' enforcement, tests fail on i686 due to excessive precision:
   #   error reading back channel B pixel 21,-76 got -nan expected -nan
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isi686 "-msse2 -mfpmath=sse";
 

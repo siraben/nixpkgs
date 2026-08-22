@@ -40,7 +40,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "riscof" ];
 
-  # No unitests available
+  # No unit tests available
   doCheck = false;
 
   meta = {

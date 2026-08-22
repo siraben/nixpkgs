@@ -48,7 +48,7 @@ stdenv.mkDerivation {
         tag = "NSS_${lib.replaceStrings [ "." ] [ "_" ] version}_RTM";
       in
       [
-        # Prefer mercurial as the canonical source, while github is just a mirror
+        # Prefer mercurial as the canonical source, while GitHub is just a mirror
         "https://hg-edge.mozilla.org/projects/nss/raw-file/${tag}/${file}"
         "https://raw.githubusercontent.com/nss-dev/nss/refs/tags/${tag}/${file}"
       ];

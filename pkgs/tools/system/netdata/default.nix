@@ -143,10 +143,10 @@ stdenv.mkDerivation (
     ]
     ++ lib.optional withCloudUi (
       replaceVars ./dashboard-v3-add.patch {
-        # FIXME web.archive.org link can be replace once https://github.com/netdata/netdata-cloud/issues/1081 resolved
+        # FIXME web.archive.org link can be replaced once https://github.com/netdata/netdata-cloud/issues/1081 is resolved
         # last update 12/10/2025 21:25:17
         dashboardPath = fetchzip {
-          # The `if_` suffix is intentional, with out it the hash will vary depending on the region
+          # The `if_` suffix is intentional, without it the hash will vary depending on the region
           url = "https://web.archive.org/web/20251210212517if_/https://app.netdata.cloud/agent.tar.gz";
           hash = "sha256-8ovYkvt324l6f0YT6wTG+Y2u7VaVqotAdssnNTtHIEk=";
         };
@@ -234,7 +234,7 @@ stdenv.mkDerivation (
             )
           }'
 
-      # Prevent the path to be caught into the Nix store path.
+      # Prevent the paths from being caught in the Nix store path.
       substituteInPlace CMakeLists.txt \
         --replace-fail 'set(CACHE_DIR "''${NETDATA_RUNTIME_PREFIX}/var/cache/netdata")' 'set(CACHE_DIR "/var/cache/netdata")' \
         --replace-fail 'set(CONFIG_DIR "''${NETDATA_RUNTIME_PREFIX}/etc/netdata")' 'set(CONFIG_DIR "/etc/netdata")' \

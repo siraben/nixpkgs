@@ -140,10 +140,10 @@ let
   testFile = pkgs.writeText "test.txt" "hello world";
   sharedFile = pkgs.writeText "shared.txt" "shared content";
 
-  # Define the for exposing SFTP
+  # Define the port for exposing SFTP
   sftpPort = 2022;
 
-  # Define the for exposing HTTP
+  # Define the port for exposing HTTP
   httpPort = 8080;
 in
 {
@@ -160,7 +160,7 @@ in
           httpPort
         ];
 
-        # nodes.server.configure postgresql database
+        # Configure the PostgreSQL database on nodes.server
         services.postgresql = {
           enable = true;
           ensureDatabases = [ "sftpgo" ];
@@ -240,7 +240,7 @@ in
             "d ${statePath} 0750 ${sftpgoUser} ${sftpgoGroup} -"
             "d ${statePath}/users 0750 ${sftpgoUser} ${sftpgoGroup} -"
 
-            # Created shared folder directories
+            # Create shared folder directories
             "d ${statePath}/${sharedFolderName} 2770 ${sftpgoUser} ${sharedFolderName}   -"
           ]
           ++ lib.mapAttrsToList (
@@ -376,7 +376,7 @@ in
           # The configured ACL should prevent uploading files to the root directory
           client.fail("scp -P ${toString sftpPort} ${toString testFile} alice@server:/")
 
-      with subtest("Attempting an interactive SSH sessions must fail"):
+      with subtest("Attempting an interactive SSH session must fail"):
           client.fail("ssh -p ${toString sftpPort} alice@server")
 
       ${accessSharedFoldersSubtest {

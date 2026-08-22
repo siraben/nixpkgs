@@ -49,7 +49,7 @@
  *   int open(const char *pathname, int flags);
  *   int open(const char *pathname, int flags, mode_t mode);
  *
- * But using either signature in this code cause a compile error, because
+ * But using either signature in this code causes a compile error, because
  * glibc has declared the function as "int open(const char *, int, ...)".
  * Same thing with "openat".
  *

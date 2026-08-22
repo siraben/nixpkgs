@@ -9,7 +9,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
   version = "2.5.5";
   pyproject = true;
 
-  # NOTE: Using maintained fork because upstream has stopped working, and it has
+  # NOTE: Using a maintained fork because upstream has stopped working, and it has
   # not been updated in a while.
   # https://github.com/PetterKraabol/Twitch-Chat-Downloader/issues/142
   src = fetchFromGitHub {

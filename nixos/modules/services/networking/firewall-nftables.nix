@@ -121,7 +121,7 @@ in
         # Accept them before conntrack to avoid dropped replies.
         icmpv6 type echo-reply accept
 
-        # Some ICMPv6 types like NDP is untracked
+        # Some ICMPv6 types like NDP are untracked
         ct state vmap {
           invalid : drop,
           established : accept,

@@ -6,9 +6,9 @@ from typing import Dict, Set
 # this compresses MITM URL lists with Gradle-specific optimizations
 # specifically, it splits each url into up to 3 parts - they will be
 # concatenated like part1/part2.part3 or part1.part2
-# part3 is simply always the file extension, but part1 and part2 is
+# part3 is simply always the file extension, but part1 and part2 are
 # optimized using special heuristics
-# additionally, if part2 ends with /a/b/{a}-{b}, the all occurrences of
+# additionally, if part2 ends with /a/b/{a}-{b}, all occurrences of
 # /{a}/{b}/ are replaced with #
 # finally, anything that ends with = is considered SHA256, anything that
 # starts with http is considered a redirect URL, anything else is

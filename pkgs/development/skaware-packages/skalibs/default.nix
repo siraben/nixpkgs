@@ -65,7 +65,7 @@ skawarePackages.buildPackage {
 
   passthru.tests = {
     # fdtools is one of the few non-skalib packages that depends on skalibs
-    # and might break if skalibs gets an breaking update.
+    # and might break if skalibs gets a breaking update.
     fdtools = pkgs.fdtools;
   };
 

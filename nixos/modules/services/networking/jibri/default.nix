@@ -288,7 +288,7 @@ in
                 default = "0";
                 example = "1 hour";
                 description = ''
-                  The duration that the Jibri session can be.
+                  The maximum duration of the Jibri session.
                   A value of zero means indefinitely.
                 '';
               };

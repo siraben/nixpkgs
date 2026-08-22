@@ -60,7 +60,7 @@ stdenv.mkDerivation {
       FTE is a game engine based on QuakeWorld able to
       play games such as Quake 1, 2, 3, and Hexen 2.
       It includes various features such as extended map
-      limits, vulkan and OpenGL renderers, a dedicated
+      limits, Vulkan and OpenGL renderers, a dedicated
       server, and fteqcc, for easier QuakeC development
     '';
     maintainers = with lib.maintainers; [ necrophcodr ];

@@ -60,7 +60,7 @@ buildEnv {
 
     # Remove symlinks to the input tarballs, they aren't needed, use -f so it
     # will not fail if no .tar.gz symlinks are there - for example if
-    # something which is not a tarball used as a package
+    # something which is not a tarball is used as a package
     rm -f $out/*.tar.gz
 
     createOctavePackagesPath $out ${octave}

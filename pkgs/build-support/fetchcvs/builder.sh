@@ -3,11 +3,11 @@
 chmod +x ssh
 export CVS_RSH=$PWD/ssh
 
-# creating the export drictory and checking out there only to be able to
+# creating the export directory and checking out there only to be able to
 # move the content without the root directory into $out ...
 # cvs -f -d "$url" export $tag -d "$out" "$module"
 # should work (but didn't - got no response on #cvs)
-# See also man Page for those options
+# See also the man page for those options
 
 mkdir -p export
 if [ -n "$tag" ]; then

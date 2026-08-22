@@ -4,7 +4,7 @@
   fetchurl,
   fetchpatch,
   updateAutotoolsGnuConfigScriptsHook,
-  # Note: -static hasn’t work on darwin
+  # Note: -static hasn’t worked on Darwin
   static ? with stdenv.hostPlatform; isStatic && !isDarwin,
 }:
 

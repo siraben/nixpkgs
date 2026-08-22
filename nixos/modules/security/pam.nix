@@ -250,9 +250,9 @@ let
             description = ''
               If set, users listed in
               {file}`$XDG_CONFIG_HOME/Yubico/u2f_keys` (or
-              {file}`$HOME/.config/Yubico/u2f_keys` if XDG variable is
-              not set) are able to log in with the associated U2F key. Path can be
-              changed using {option}`security.pam.u2f.authFile` option.
+              {file}`$HOME/.config/Yubico/u2f_keys` if the XDG variable is
+              not set) are able to log in with the associated U2F key. The path can be
+              changed using the {option}`security.pam.u2f.authFile` option.
             '';
           };
 
@@ -285,7 +285,7 @@ let
             in their SSH agent are able to log in. Specific options are controlled
             using the {option}`security.pam.ussh` options.
 
-            Note that the  {option}`security.pam.ussh.enable` must also be
+            Note that the {option}`security.pam.ussh.enable` must also be
             set for this option to take effect.
           '';
         };
@@ -549,9 +549,9 @@ let
             Whether to allow logging into accounts that have no password
             set (i.e., have an empty password field in
             {file}`/etc/passwd` or
-            {file}`/etc/group`).  This does not enable
+            {file}`/etc/group`). This does not enable
             logging into disabled accounts (i.e., that have the password
-            field set to `!`).  Note that regardless of
+            field set to `!`). Note that regardless of
             what the pam_unix documentation says, accounts with hashed
             empty passwords are always allowed to log in.
           '';
@@ -664,7 +664,7 @@ let
         sssdStrictAccess = lib.mkOption {
           default = false;
           type = lib.types.bool;
-          description = "enforce sssd access control";
+          description = "Whether to enforce SSSD access control";
         };
 
         enableGnomeKeyring = lib.mkOption {
@@ -2026,12 +2026,12 @@ in
           the keys that will be trusted by the `pam_ssh_agent_auth` module.
 
           The following patterns are expanded when interpreting the path:
-          - `%f` and `%H` respectively expand to the fully-qualified and short hostname ;
-          - `%u` expands to the username ;
+          - `%f` and `%H` respectively expand to the fully-qualified and short hostname;
+          - `%u` expands to the username;
           - `~` or `%h` expands to the user's home directory.
 
           ::: {.note}
-          Specifying user-writable files here result in an insecure configuration:  a malicious process
+          Specifying user-writable files here results in an insecure configuration: a malicious process
           can then edit such an authorized_keys file and bypass the ssh-agent-based authentication.
 
           See [issue #31611](https://github.com/NixOS/nixpkgs/issues/31611)
@@ -2202,14 +2202,14 @@ in
           {file}`$XDG_CONFIG_HOME/Yubico/u2f_keys` (or
           {file}`$HOME/.config/Yubico/u2f_keys` if XDG variable is
           not set) are able to log in with the associated U2F key. The path can
-          be changed using {option}`security.pam.u2f.authFile` option.
+          be changed using the {option}`security.pam.u2f.authFile` option.
 
           File format is:
           ```
           <username1>:<KeyHandle1>,<UserKey1>,<CoseType1>,<Options1>:<KeyHandle2>,<UserKey2>,<CoseType2>,<Options2>:...
           <username2>:<KeyHandle1>,<UserKey1>,<CoseType1>,<Options1>:<KeyHandle2>,<UserKey2>,<CoseType2>,<Options2>:...
           ```
-          This file can be generated using {command}`pamu2fcfg` command.
+          This file can be generated using the {command}`pamu2fcfg` command.
 
           More information can be found [here](https://developers.yubico.com/pam-u2f/).
         '';
@@ -2248,13 +2248,13 @@ in
                 {file}`$HOME/.config/Yubico/u2f_keys` if XDG variable is
                 not set).
 
-                If you want to change auth file locations or centralize database (for
-                example use {file}`/etc/u2f-mappings`) you can set this
+                If you want to change auth file locations or centralize the database (for
+                example, use {file}`/etc/u2f-mappings`) you can set this
                 option.
 
                 File format is:
                 `username:first_keyHandle,first_public_key: second_keyHandle,second_public_key`
-                This file can be generated using {command}`pamu2fcfg` command.
+                This file can be generated using the {command}`pamu2fcfg` command.
 
                 More information can be found [here](https://developers.yubico.com/pam-u2f/).
               '';
@@ -2264,7 +2264,7 @@ in
               default = null;
               type = with lib.types; nullOr str;
               description = ''
-                By default `pam-u2f` module sets the application
+                By default, the `pam-u2f` module sets the application
                 ID to `pam://$HOSTNAME`.
 
                 When using {command}`pamu2fcfg`, you can specify your
@@ -2278,10 +2278,10 @@ in
               default = null;
               type = with lib.types; nullOr str;
               description = ''
-                By default `pam-u2f` module sets the origin
+                By default, the `pam-u2f` module sets the origin
                 to `pam://$HOSTNAME`.
-                Setting origin to an host independent value will allow you to
-                reuse credentials across machines
+                Setting the origin to a host-independent value will allow you to
+                reuse credentials across machines.
 
                 When using {command}`pamu2fcfg`, you can specify your
                 application ID with the `-o` flag.
@@ -2634,7 +2634,7 @@ in
         ''
           security.pam.sshAgentAuth.authorizedKeysFiles contains files in the user's home directory.
 
-          Specifying user-writable files there result in an insecure configuration:
+          Specifying user-writable files there results in an insecure configuration:
           a malicious process can then edit such an authorized_keys file and bypass the ssh-agent-based authentication.
           See https://github.com/NixOS/nixpkgs/issues/31611
         ''

@@ -89,7 +89,7 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ aciceri ];
     # https://github.com/Python-Cardano/pycardano/blob/v0.13.2/Makefile#L26-L39
-    # cbor2 with C extensions fail tests due to differences in used sized vs unsized arrays
+    # cbor2 with C extensions fails tests due to differences in used sized vs unsized arrays
     # more info: https://github.com/NixOS/nixpkgs/pull/402433#issuecomment-2916520286
     broken = cbor2.withCExtensions; # consider overriding cbor2 with cbor2WithoutCExtensions
   };

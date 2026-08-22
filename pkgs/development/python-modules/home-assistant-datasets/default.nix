@@ -57,7 +57,7 @@ buildPythonPackage (finalAttrs: {
   doCheck = false;
 
   meta = {
-    description = "Collection of datasets for evaluating AI Models in the context of Home Assistant";
+    description = "Collection of datasets for evaluating AI models in the context of Home Assistant";
     homepage = "https://github.com/allenporter/home-assistant-datasets";
     changelog = "https://github.com/allenporter/home-assistant-datasets/releases/tag/${finalAttrs.src.tag}";
     license = lib.licenses.asl20;

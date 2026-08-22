@@ -28,7 +28,7 @@ buildDunePackage (finalAttrs: {
     longDescription = ''
       Dum is a library for inspecting the runtime representation of
       arbitrary OCaml values. Shared or cyclic data are detected
-      and labelled. This guarantees that printing would always
+      and labelled. This guarantees that printing will always
       terminate. This makes it possible to print values such as closures,
       objects or exceptions in depth and without risk.
     '';

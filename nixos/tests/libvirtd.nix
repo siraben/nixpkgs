@@ -24,8 +24,8 @@
         environment.systemPackages = with pkgs; [ virt-manager ];
 
         # This adds `resolve` to the `hosts` line of /etc/nsswitch.conf; NSS modules placed after it
-        # will not be consulted. Therefore this tests that the libvirtd NSS modules will be
-        # be placed early enough for name resolution to work.
+        # will not be consulted. Therefore, this tests that the libvirtd NSS modules will be
+        # placed early enough for name resolution to work.
         services.resolved.enable = true;
       };
   };

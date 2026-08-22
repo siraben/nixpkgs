@@ -15,7 +15,7 @@
 # along with wordnet_tools; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-# This program requires python >= 2.4.
+# This program requires Python >= 2.4.
 
 # This program converts wordnet index/data file pairs into dict index/data
 # files usable by dictd.

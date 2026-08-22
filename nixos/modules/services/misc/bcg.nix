@@ -138,7 +138,7 @@ in
       rename = lib.mkOption {
         type = with lib.types; attrsOf str;
         default = { };
-        description = "Rename nodes to different name.";
+        description = "Rename nodes to different names.";
       };
     };
   };

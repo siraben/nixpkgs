@@ -64,7 +64,7 @@ buildDotnetModule rec {
   '';
 
   meta = {
-    description = "Ansi/Ascii text and RIPscrip vector graphic art editor/viewer with multi-user capabilities";
+    description = "ANSI/ASCII text and RIPscrip vector graphic art editor/viewer with multi-user capabilities";
     homepage = "https://picoe.ca/products/pablodraw";
     license = lib.licenses.mit;
     mainProgram = "PabloDraw";

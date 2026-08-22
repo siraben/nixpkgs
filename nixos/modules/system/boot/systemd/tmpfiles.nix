@@ -375,7 +375,7 @@ in
         ];
       };
 
-      # sets up files under the prefix /sysroot, after the hierarchy is available and before nixos activation
+      # sets up files under the prefix /sysroot, after the hierarchy is available and before NixOS activation
       services.systemd-tmpfiles-setup-sysroot = {
         description = "Create Volatile Files and Directories in the Real Root";
         after = [ "initrd-fs.target" ];

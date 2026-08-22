@@ -76,7 +76,7 @@ in
         defaultText = lib.literalMD "The value of the deprecated option `enabled`, defaulting to null";
         example = "fcitx5";
         description = ''
-          Select the enabled input method. Input methods is a software to input symbols that are not available on standard input devices.
+          Select the enabled input method. Input methods are software used to input symbols that are not available on standard input devices.
 
           Input methods are specially used to input Chinese, Japanese and Korean characters.
 
@@ -85,9 +85,9 @@ in
           - ibus: The intelligent input bus, extra input engines can be added using `i18n.inputMethod.ibus.engines`.
           - fcitx5: The next generation of fcitx, addons (including engines, dictionaries, skins) can be added using `i18n.inputMethod.fcitx5.addons`.
           - nabi: A Korean input method based on XIM. Nabi doesn't support Qt 5.
-          - uim: The universal input method, is a library with a XIM bridge. uim mainly support Chinese, Japanese and Korean.
+          - uim: The universal input method is a library with a XIM bridge. uim mainly supports Chinese, Japanese and Korean.
           - hime: An extremely easy-to-use input method framework.
-          - kime: Koream IME.
+          - kime: Korean IME.
         '';
       };
 
@@ -96,7 +96,7 @@ in
         type = lib.types.nullOr lib.types.path;
         default = null;
         description = ''
-          The input method method package.
+          The input method package.
         '';
       };
 

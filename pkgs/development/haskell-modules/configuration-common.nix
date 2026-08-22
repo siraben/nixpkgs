@@ -402,7 +402,7 @@ with haskellLib;
     "--ghc-option=-optc=-Wno-error=implicit-function-declaration"
   ] super.termbox-bindings-c;
 
-  # There are numerical tests on random data, that may fail occasionally
+  # There are numerical tests on random data that may fail occasionally
   lapack = dontCheck super.lapack;
 
   # fpr-calc test suite depends on random >= 1.3
@@ -1107,11 +1107,11 @@ with haskellLib;
   # Missing module.
   rematch = dontCheck super.rematch; # https://github.com/tcrayford/rematch/issues/5
 
-  # Package exists only to be example of documentation, yet it has restrictive
+  # Package exists only to be an example of documentation, yet it has a restrictive
   # "base" dependency.
   haddock-cheatsheet = doJailbreak super.haddock-cheatsheet;
 
-  # This packages compiles 4+ hours on a fast machine. That's just unreasonable.
+  # This package takes 4+ hours to compile on a fast machine. That's just unreasonable.
   CHXHtml = dontDistribute super.CHXHtml;
 
   # Avoid "QuickCheck >=2.3 && <2.10" dependency we cannot fulfill in lts-11.x.
@@ -1412,7 +1412,7 @@ with haskellLib;
 
   ghcup =
     lib.throwIf pkgs.config.allowAliases
-      "ghcup cannot be used to install the haskell tool chain on NixOS because there is no compatible bindist. Please install ghc etc. via Nix. On non-NixOS systems you can use the ghcup shell installer"
+      "ghcup cannot be used to install the Haskell toolchain on NixOS because there is no compatible bindist. Please install GHC etc. via Nix. On non-NixOS systems you can use the ghcup shell installer"
       super.ghcup;
 
   # This breaks because of version bounds, but compiles and runs fine.

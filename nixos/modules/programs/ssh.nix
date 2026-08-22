@@ -185,7 +185,7 @@ in
                     the host's ssh service. This list includes the name of the
                     containing `knownHosts` attribute by default
                     for convenience. If you wish to configure multiple host keys
-                    for the same host use multiple `knownHosts`
+                    for the same host, use multiple `knownHosts`
                     entries with different attribute names and the same
                     `hostNames` list.
                   '';

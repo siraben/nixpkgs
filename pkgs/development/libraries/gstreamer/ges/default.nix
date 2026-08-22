@@ -87,7 +87,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   meta = {
-    description = "Library for creation of audio/video non-linear editors";
+    description = "Library for the creation of audio/video non-linear editors";
     mainProgram = "ges-launch-1.0";
     homepage = "https://gstreamer.freedesktop.org";
     license = lib.licenses.lgpl2Plus;

@@ -94,7 +94,7 @@ in
         default = "";
         description = ''
           The Monero wallet address used for mining payouts.
-          It's recommended to store your wallet address in an environment file to avoid it being saved in the nix store.
+          It's recommended to store your wallet address in an environment file to avoid it being saved in the Nix store.
           See [](#opt-services.p2pool.environmentFile) for more details.
         '';
       };

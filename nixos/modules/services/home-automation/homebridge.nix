@@ -310,7 +310,7 @@ in
         install -d -m 755 -o ${cfg.user} -g ${cfg.group} "${cfg.pluginPath}"
 
         # In order for hb-service to detect the homebridge installation, we need to create a folder structure
-        # where homebridge and homebrdige-config-ui-x node modules are side by side, and then point
+        # where homebridge and homebridge-config-ui-x node modules are side by side, and then point
         # UIX_BASE_PATH_OVERRIDE at the homebridge-config-ui-x node module in the service environment.
         # So, first create a directory to symlink these packages to
         install -d -m 755 -o ${cfg.user} -g ${cfg.group} "${cfg.userStoragePath}/homebridge-packages"
@@ -398,7 +398,7 @@ in
     };
 
     # Need passwordless sudo for a few commands
-    # homebridge-config-ui-x needs for some features
+    # that homebridge-config-ui-x needs for some features
     security.sudo.extraRules = [
       {
         users = [ cfg.user ];

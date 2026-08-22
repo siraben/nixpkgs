@@ -254,7 +254,7 @@ in
                 ];
                 example = "en";
                 description = ''
-                  The language used to to parse words and sentences.
+                  The language used to parse words and sentences.
                 '';
               };
 

@@ -55,7 +55,7 @@ buildPythonPackage rec {
   disabledTestPaths =
     lib.optionals stdenv.hostPlatform.isDarwin [
       # These tests may fail if multiple builds run them at the same time due
-      # to hardcoded port number used for rendezvous
+      # to a hardcoded port number used for rendezvous
       "tests/attr/test_data_parallel.py"
     ]
     ++ lib.optionals (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) [

@@ -122,7 +122,7 @@ in
         type = with types; listOf str;
         default = [ ];
         description = ''
-          List of extra flags to pass to the tlsrpt-reportd executable.
+          List of extra flags to pass to the tlsrpt-collectd executable.
 
           See {manpage}`tlsrpt-collectd(1)` for possible flags.
         '';
@@ -228,7 +228,7 @@ in
                 ''${lib.getExe pkgs.curl} --silent --header 'Content-Type: application/tlsrpt+gzip' --data-binary @-
               '';
               description = ''
-                Call to an HTTPS client, that accepts the URL on the commandline and the request body from stdin.
+                Call to an HTTPS client that accepts the URL on the command line and the request body from stdin.
               '';
             };
 
@@ -271,7 +271,7 @@ in
         description = ''
           List of extra flags to pass to the tlsrpt-reportd executable.
 
-          See {manpage}`tlsrpt-report(1)` for possible flags.
+          See {manpage}`tlsrpt-reportd(1)` for possible flags.
         '';
       };
     };

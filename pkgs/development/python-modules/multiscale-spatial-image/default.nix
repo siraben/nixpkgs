@@ -65,7 +65,7 @@ buildPythonPackage (finalAttrs: {
   pythonImportsCheck = [ "multiscale_spatial_image" ];
 
   meta = {
-    description = "Generate a multiscale, chunked, multi-dimensional spatial image data structure that can serialized to OME-NGFF";
+    description = "Generate a multiscale, chunked, multi-dimensional spatial image data structure that can be serialized to OME-NGFF";
     homepage = "https://github.com/spatial-image/multiscale-spatial-image";
     changelog = "https://github.com/spatial-image/multiscale-spatial-image/releases/tag/${finalAttrs.src.tag}";
     license = lib.licenses.asl20;

@@ -32,7 +32,7 @@ setupMpiCheck() {
 
   case $mpiType in
     openmpi)
-      # Note, that openmpi-5 switched to using PRRTE.
+      # Note that openmpi-5 switched to using PRRTE.
       # Thus we need to set PRTE_MCA_* instead of OMPI_MCA_*.
       # We keep the openmpi-4 parameters for backward compatibility.
 

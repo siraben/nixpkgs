@@ -42,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     homepage = "https://wiki.documentfoundation.org/DLP/Libraries/libabw";
-    description = "Library parsing abiword documents";
+    description = "Library parsing AbiWord documents";
     platforms = lib.platforms.unix;
     license = lib.licenses.mpl20;
   };

@@ -35,8 +35,8 @@ buildLua rec {
       zopieux
     ];
     longDescription = ''
-      You can access the webui when accessing http://127.0.0.1:8080 or
-      http://[::1]:8080 in your webbrowser. By default it listens on
+      You can access the webui at http://127.0.0.1:8080 or
+      http://[::1]:8080 in your web browser. By default it listens on
       0.0.0.0:8080 and [::0]:8080
     '';
     license = lib.licenses.mit;

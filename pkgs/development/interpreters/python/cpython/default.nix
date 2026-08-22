@@ -742,7 +742,7 @@ stdenv.mkDerivation (finalAttrs: {
       EXTERNALLY_MANAGED
     ''
     + optionalString stdenv.hostPlatform.isWindows ''
-      # Shebang files that link against the build python. Shebang don’t work on windows
+      # Shebang files that link against the build python. Shebangs don’t work on Windows
       rm $out/bin/2to3*
       rm $out/bin/idle*
       rm $out/bin/pydoc*

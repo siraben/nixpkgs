@@ -115,7 +115,7 @@ buildPythonPackage (finalAttrs: {
 
   meta = {
     changelog = "https://github.com/maurosoria/dirsearch/releases/tag/${finalAttrs.src.tag}";
-    description = "Command-line tool for brute-forcing directories and files in webservers, AKA a web path scanner";
+    description = "Command-line tool for brute-forcing directories and files in webservers, also known as a web path scanner";
     homepage = "https://github.com/maurosoria/dirsearch";
     license = lib.licenses.gpl2Only;
     mainProgram = "dirsearch";

@@ -84,7 +84,7 @@ buildPythonPackage (finalAttrs: {
   '';
 
   meta = {
-    description = "Neuron geometry library for swc format";
+    description = "Neuron geometry library for SWC format";
     homepage = "https://github.com/yzx9/swcgeom";
     changelog = "https://github.com/yzx9/swcgeom/blob/${finalAttrs.src.tag}/CHANGELOG.md";
     license = lib.licenses.asl20;

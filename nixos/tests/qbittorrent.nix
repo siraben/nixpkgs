@@ -40,7 +40,7 @@
     };
     # Separate vm because it's not possible to reboot into a specialisation with
     # switch-to-configuration: https://github.com/NixOS/nixpkgs/issues/82851
-    # For one of the test we check if manual changes are overridden during
+    # For one of the tests we check if manual changes are overridden during
     # reboot, therefore it's necessary to reboot into a declarative setup.
     declarative = {
       services.qbittorrent = {

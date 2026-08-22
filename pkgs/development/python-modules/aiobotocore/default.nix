@@ -99,7 +99,7 @@ buildPythonPackage rec {
   __darwinAllowLocalNetworking = true;
 
   meta = {
-    description = "Python client for amazon services";
+    description = "Python client for Amazon services";
     homepage = "https://github.com/aio-libs/aiobotocore";
     changelog = "https://github.com/aio-libs/aiobotocore/blob/${src.tag}/CHANGES.rst";
     license = lib.licenses.asl20;

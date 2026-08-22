@@ -100,7 +100,7 @@ in
 
     taskSnapshotInterval = lib.mkOption {
       type = lib.types.str;
-      description = "Specifies how often to snapshot the task state  (in InfluxDB time units)";
+      description = "Specifies how often to snapshot the task state (in InfluxDB time units)";
       default = "1m0s";
     };
 

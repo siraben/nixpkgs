@@ -57,8 +57,8 @@ maven.buildMavenPackage (finalAttrs: {
       on-screen.
 
       The formatting object tree can be in the form of an XML document (output
-      by an XSLT engine like xalan) or can be passed in memory as a DOM
-      Document or (in the case of xalan) SAX events.
+      by an XSLT engine like Xalan) or can be passed in memory as a DOM
+      Document or (in the case of Xalan) SAX events.
 
       This package contains the fop command line tool.
     '';

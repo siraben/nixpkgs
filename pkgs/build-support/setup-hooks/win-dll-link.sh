@@ -11,7 +11,7 @@ _linkDLLs() {
     linkDLLsInfolder "$prefix/bin"
 }
 
-# Try to links every known dependency of exe/dll in the folder of the 1str input
+# Try to link every known dependency of exe/dll in the folder of the first input
 # into said folder, so they are found on invocation.
 # (DLLs are first searched in the directory of the running exe file.)
 # The links are relative, so relocating whole /nix/store won't break them.
@@ -25,11 +25,11 @@ linkDLLsInfolder() {
         fi
         cd "$folder" || exit
 
-        # Use associative arrays as set
+        # Use associative arrays as a set
         local filesToChecks
         local filesDone
-        declare -A filesToChecks # files that still needs to have their dependencies checked
-        declare -A filesDone     # files that had their dependencies checked and who is copied to the bin folder if found
+        declare -A filesToChecks # files that still need to have their dependencies checked
+        declare -A filesDone     # files that had their dependencies checked and whose dependencies are copied to the bin folder if found
 
         markFileAsDone() {
             if [ ! "${filesDone[$1]+a}" ]; then filesDone[$1]=a; fi

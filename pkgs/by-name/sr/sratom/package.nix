@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
 
       set -eu -o pipefail
 
-      # Expect the text in format of 'download.drobilla.net/sratom-0.30.16.tar.xz">'
+      # Expect the text in the format 'download.drobilla.net/sratom-0.30.16.tar.xz">'
       new_version="$(curl -s https://drobilla.net/category/sratom/ |
           pcre2grep -o1 'download.drobilla.net/sratom-([0-9.]+).tar.xz' |
           head -n1)"

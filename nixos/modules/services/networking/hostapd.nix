@@ -708,8 +708,8 @@ in
                           not increase security, since your clients will then broadcast the SSID instead,
                           which can increase congestion.
 
-                          - {var}`"disabled"`: Advertise ssid normally.
-                          - {var}`"empty"`: send empty (length=0) SSID in beacon and ignore probe request for broadcast SSID
+                          - {var}`"disabled"`: Advertise SSID normally.
+                          - {var}`"empty"`: Send empty (length=0) SSID in beacon and ignore probe request for broadcast SSID.
                           - {var}`"clear"`: clear SSID (ASCII 0), but keep the original length (this may be required with some
                             legacy clients that do not support empty SSID) and ignore probe requests for broadcast SSID. Only
                             use this if empty does not work with your clients.

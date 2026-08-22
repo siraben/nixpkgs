@@ -1,7 +1,7 @@
 # This is the vendored build script from
 # https://raw.githubusercontent.com/NixOS/nix/refs/heads/master/docker.nix
 # which builds the Nix image.
-# This is only here to please Hydra which is not being able to build IFDs.
+# This is only here to please Hydra which is not able to build IFDs.
 # `import (nixRepo + "./docker.nix")`.
 {
   # Core dependencies

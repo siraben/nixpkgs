@@ -16,7 +16,7 @@ buildGoModule (finalAttrs: {
     repo = "pdfcpu";
     tag = "v${finalAttrs.version}";
     hash = "sha256-thbm0QgIP5ANPz+Fp9At5zhTOsVOjUCvIGRltmEDjsI=";
-    # Apparently upstream requires that the compiled executable will know the
+    # Apparently upstream requires that the compiled executable know the
     # commit hash and the date of the commit. This information is also presented
     # in the output of `pdfcpu version` which we use as a sanity check in the
     # installCheckPhase. This was discussed upstream in:

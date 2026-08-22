@@ -5,14 +5,14 @@
 # - Whether syncthing's API handles multiple requests for many devices, see
 #   https://github.com/NixOS/nixpkgs/issues/260262
 #
-# - Whether syncthing-init.service generated bash script removes devices and
+# - Whether the syncthing-init.service generated bash script removes devices and
 #   folders that are not present in the user's configuration, which is partly
 #   injected into the script. See also:
 #   https://github.com/NixOS/nixpkgs/issues/259256
 #
 
 let
-  # Just a long path not to copy paste
+  # Just a long path to avoid having to copy-paste it
   configPath = "/var/lib/syncthing/.config/syncthing/config.xml";
 
   # We will iterate this and more attribute sets defined here, later in the
@@ -50,7 +50,7 @@ let
       builtins.listToAttrs
     ];
   };
-  # Non default options that we check later if were applied
+  # Non-default options that we check later to see whether they were applied
   settingsWithoutId = {
     options = {
       autoUpgradeIntervalH = 0;
@@ -121,7 +121,7 @@ let
       # Arbitrary, doesn't really matter
       name = "DeleteThisDevice";
     }
-    # Folders' id strings also use for their path when created.
+    # Folders' id strings are also used for their path when created.
     {
       t = "folder";
       id = "DeleteMe";
@@ -243,7 +243,7 @@ in
     mergeScript = machine.succeed(
         "systemctl cat syncthing-init.service | "
         "${pkgs.initool}/bin/initool g - Service ExecStart --value-only"
-    ).strip() # strip from new lines
+    ).strip() # strip the trailing newline
     machine.copy_from_machine(mergeScript, "")
   '';
 }

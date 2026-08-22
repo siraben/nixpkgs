@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     else
     # 2021-03-29: multithread (-DTHR -D_REENTRANT) was disabled on linux-arm
     # because it caused Sage's 3D plotting tests to hang indefinitely.
-    # see https://github.com/NixOS/nixpkgs/pull/117465
+    # See https://github.com/NixOS/nixpkgs/pull/117465
     if stdenv.hostPlatform.system == "aarch64-linux" then
       "linux-arm"
     else if stdenv.hostPlatform.system == "armv7l-linux" then
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
     ./make-archs.patch
   ];
   postPatch = ''
-    # Ensure looks for nix-provided Carbon, not system frameworks
+    # Ensure it looks for the Nix-provided Carbon, not system frameworks
     substituteInPlace unix/Make-arch \
       --replace '-F/System/Library/Frameworks' ""
   '';

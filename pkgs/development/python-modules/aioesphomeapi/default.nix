@@ -72,7 +72,7 @@ buildPythonPackage (finalAttrs: {
   ];
 
   # Lack of network sandboxing leads to conflicting listeners when testing
-  # this package e.g. in nixpkgs-review on the two supported python package sets.
+  # this package e.g. in nixpkgs-review on the two supported Python package sets.
   doCheck = !stdenv.hostPlatform.isDarwin;
 
   disabledTestPaths = [

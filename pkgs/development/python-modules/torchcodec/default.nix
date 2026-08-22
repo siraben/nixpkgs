@@ -121,7 +121,7 @@ buildPythonPackage.override { inherit (torch) stdenv; } (finalAttrs: {
 
   disabledTests =
     lib.optionals rocmSupport [
-      # HSA runtime logs topology error in sandbox breaking test that asserts no output
+      # HSA runtime logs topology errors in the sandbox, breaking tests that assert no output
       "test_python_logger"
     ]
     ++ lib.optionals (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64) [

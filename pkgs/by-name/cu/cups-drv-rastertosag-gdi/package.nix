@@ -57,7 +57,7 @@ python3Packages.buildPythonApplication rec {
       In contrast to other Ricoh laser printers,
       they use the proprietary SAG-GDI raster format by
       Sagem Communication and do not understand PCL or PostScript.
-      Therefore they do not work with Ricoh's PPD files.
+      Therefore, they do not work with Ricoh's PPD files.
     '';
   };
 }

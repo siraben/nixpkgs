@@ -73,7 +73,7 @@ python3Packages.buildPythonApplication rec {
   meta = {
     description = "Define and match graph patterns within binaries";
     longDescription = ''
-      grap takes patterns and binary files, uses a Casptone-based disassembler to obtain the control flow graphs from the binaries, then matches the patterns against them.
+      grap takes patterns and binary files, uses a Capstone-based disassembler to obtain the control flow graphs from the binaries, then matches the patterns against them.
 
       Patterns are user-defined graphs with instruction conditions ("opcode is xor and arg1 is eax") and repetition conditions (3 identical instructions, basic blocks...).
     '';

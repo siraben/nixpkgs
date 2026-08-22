@@ -46,7 +46,7 @@ in
             description = ''
               Nixpkgs provides a `reaction-plugins` package set which includes both official and community plugins for reaction.
 
-              To use the plugins in your module configuration, in `settings.plugins` you can use for e.g. `''${lib.getExe reaction-plugins.reaction-plugin-ipset}`
+              To use the plugins in your module configuration, in `settings.plugins` you can use for example `''${lib.getExe reaction-plugins.reaction-plugin-ipset}`
               See https://reaction.ppom.me/plugins/ to configure plugins.
             '';
             default = { };

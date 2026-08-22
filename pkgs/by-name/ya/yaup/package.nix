@@ -67,7 +67,7 @@ stdenv.mkDerivation {
     description = "Yet Another UPnP Portmapper";
     longDescription = ''
       Portmapping made easy.
-      Portforward your incoming traffic to a specified local ip.
+      Port-forward your incoming traffic to a specified local IP.
       Mostly used for IPv4.
     '';
     license = lib.licenses.gpl3Plus;

@@ -24,7 +24,7 @@
 
   # Build with headless deps; excludes dependencies that are only necessary for
   # GUI applications. To be used for purposes that don't generally need such
-  # components and i.e. only depend on libav
+  # components, i.e. those that only depend on libav
   withHeadlessDeps ? ffmpegVariant == "headless" || withSmallDeps,
 
   # Dependencies a user might customarily expect from a regular ffmpeg build.

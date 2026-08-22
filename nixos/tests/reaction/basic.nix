@@ -27,7 +27,7 @@
       AmbientCapabilities = [ "CAP_NET_ADMIN" ];
     };
 
-    users.users.nixos.isNormalUser = true; # needed to establish a ssh connection, by default root login is succeeding without any password
+    users.users.nixos.isNormalUser = true; # needed to establish an SSH connection, by default root login succeeds without any password
   };
 
   nodes.client = _: {

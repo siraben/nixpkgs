@@ -656,8 +656,8 @@ in
           set of extensions if you want to provide your users with a
           good XMPP experience.
 
-          This NixOS module aims to provide a "advanced server"
-          experience as per defined in the XEP-0423[1] specification.
+          This NixOS module aims to provide an "advanced server"
+          experience as defined in the XEP-0423[1] specification.
 
           Setting this option to true will prevent you from building a
           NixOS configuration which won't comply with this standard.
@@ -846,7 +846,7 @@ in
             domain = "conference.my-xmpp-example-host.org";
           }
         ];
-        description = "Multi User Chat (MUC) configuration";
+        description = "Multi-User Chat (MUC) configuration";
       };
 
       virtualHosts = mkOption {
@@ -925,7 +925,7 @@ in
 
   imports = [
     (lib.mkRemovedOptionModule [ "services" "prosody" "uploadHttp" ]
-      "mod_http_upload has been obsoleted and been replaced by mod_http_file_share which can be configured with httpFileShare options."
+      "mod_http_upload has been obsoleted and replaced by mod_http_file_share, which can be configured with the httpFileShare options."
     )
   ];
 
@@ -934,7 +934,7 @@ in
       let
         genericErrMsg = ''
 
-          Having a server not XEP-0423-compliant might make your XMPP
+          Having a server that is not XEP-0423-compliant might make your XMPP
           experience terrible. See the NixOS manual for further
           information.
 
@@ -945,7 +945,7 @@ in
           {
             assertion = (builtins.length cfg.muc > 0) || !cfg.xmppComplianceSuite;
             message = ''
-              You need to setup at least a MUC domain to comply with
+              You need to set up at least a MUC domain to comply with
               XEP-0423.
             ''
             + genericErrMsg;

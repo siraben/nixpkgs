@@ -45,11 +45,11 @@ in
         machine.wait_until_succeeds("pgrep octoprint")
 
     with subtest("Wait for final boot"):
-        # this appears when octoprint is almost finished starting
+        # this appears when OctoPrint is almost finished starting
         machine.wait_for_file("/var/lib/octoprint/uploads")
 
     # octoprint takes some time to start. This makes sure we'll retry just in case it takes longer
-    # retry-all-errors in necessary, since octoprint will report a 404 error when not yet ready
+    # retry-all-errors is necessary, since octoprint will report a 404 error when not yet ready
     curl_cmd = "curl --retry-all-errors --connect-timeout 5 --max-time 10 --retry 5 --retry-delay 5 \
                 --retry-max-time 40 -X GET --header 'X-API-Key: ${apikey}' "
 

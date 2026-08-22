@@ -13,6 +13,6 @@ in
 pkgs.stdenvNoCC.mkDerivation {
   pname = "a";
   version = "0";
-  meta.problems.deprecated.message = "Package a is deprecated and superseeded by b.";
+  meta.problems.deprecated.message = "Package a is deprecated and superseded by b.";
   meta.maintainers = [ "hello" ];
 }

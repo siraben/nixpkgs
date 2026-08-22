@@ -7,9 +7,9 @@ NixOS uses Let's Encrypt. The alternative ACME client
 the hood.
 
 Automatic cert validation and configuration for Apache and Nginx virtual
-hosts is included in NixOS, however if you would like to generate a wildcard
-cert or you are not using a web server you will have to configure DNS
-based validation.
+hosts is included in NixOS; however, if you would like to generate a wildcard
+cert or you are not using a web server you will have to configure DNS-based
+validation.
 
 ## Prerequisites {#module-security-acme-prerequisites}
 
@@ -85,7 +85,7 @@ to using them with Nginx. The attribute names are all the same, just replace
 
 ## Manual configuration of HTTP-01 validation {#module-security-acme-configuring}
 
-First off you will need to set up a virtual host to serve the challenges.
+First off, you will need to set up a virtual host to serve the challenges.
 This example uses a vhost called `certs.example.com`, with
 the intent that you will generate certs for all your vhosts and redirect
 everyone to HTTPS.
@@ -168,9 +168,9 @@ module.
 
 This is useful if you want to generate a wildcard certificate, since
 ACME servers will only hand out wildcard certs over DNS validation.
-There are a number of supported DNS providers and servers you can utilise,
+There are a number of supported DNS providers and servers you can utilise;
 see the [lego docs](https://go-acme.github.io/lego/dns/)
-for provider/server specific configuration values. For the sake of these
+for provider/server-specific configuration values. For the sake of these
 docs, we will provide a fully self-hosted example using bind.
 
 ```nix
@@ -295,7 +295,7 @@ you will set them as defaults
 And that's it! Next time your configuration is rebuilt, or when
 you add a new virtualHost, it will be DNS-01 validated.
 
-## Using ACME with services demanding root owned certificates {#module-security-acme-root-owned}
+## Using ACME with services demanding root-owned certificates {#module-security-acme-root-owned}
 
 Some services refuse to start if the configured certificate files
 are not owned by root. PostgreSQL and OpenSMTPD are examples of these.
@@ -383,4 +383,4 @@ Services that depend on ACME certificates and need to be reloaded can use one of
 
 1. **Using the `security.acme.certs.<name>.reloadServices` option**: This will cause `systemctl try-reload-or-restart` to be run for the listed services.
 
-2. **Using a separate reload unit**: if you need perform more complex actions you can implement a separate reload unit but need to ensure that it lists the `acme-renew-<name>.service` unit both as `wantedBy` AND `after`. See the nginx module implementation with its `nginx-config-reload` service.
+2. **Using a separate reload unit**: if you need to perform more complex actions you can implement a separate reload unit but need to ensure that it lists the `acme-renew-<name>.service` unit both as `wantedBy` AND `after`. See the nginx module implementation with its `nginx-config-reload` service.

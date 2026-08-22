@@ -325,7 +325,7 @@ in
         Your instance will bind to `*:8123` by default. This can be changed in the [HTTP] integration in the frontend.
 
         :::{.warning}
-        The upstream project does not support this installation method. Make sure to file issues against nixpkgs first.
+        The upstream project does not support this installation method. Make sure to file issues against Nixpkgs first.
         :::
 
         [HTTP]: https://www.home-assistant.io/integrations/http/

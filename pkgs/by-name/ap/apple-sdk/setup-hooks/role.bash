@@ -36,7 +36,7 @@ function getTargetRole() {
     getRole "$targetOffset"
 }
 
-# `depHostOffset` describes how the host platform of the dependencies are slid
+# `depHostOffset` describes how the host platform of the dependencies is slid
 # relative to the depending package. `depTargetOffset` likewise describes the
 # target platform of dependencies. Both are brought into scope of the
 # environment hook defined for the dependency being applied relative to the

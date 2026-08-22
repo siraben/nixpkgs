@@ -21,7 +21,7 @@ buildGoModule {
   checkFlags = [ "-skip=TestBloomfilter" ];
 
   meta = {
-    description = "Transparent proxy works on linux desktop, MacOS, router";
+    description = "Transparent proxy works on Linux desktop, macOS, router";
     homepage = "https://github.com/monsterxx03/snet";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ azuwis ];

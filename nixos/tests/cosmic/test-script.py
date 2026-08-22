@@ -97,7 +97,7 @@ def perform_polkit_authentication_test(
        a pop-up requesting the root user's password.
     3. Use ydotool to type the root user's password in the pop-up
        prompt.
-    4. Ensure that the the `pkexec` background process' stdout matches
+    4. Ensure that the `pkexec` background process' stdout matches
        the output that we expect.
 
     Any breakage in this flow is considered a failure of the polkit

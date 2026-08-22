@@ -72,8 +72,8 @@ stdenv.mkDerivation (finalAttrs: {
 
     patchShebangs --build ./bin ./packages/*/bin
 
-    # Patch all references to `git` to a no-op `true`. This neuter automatic
-    # translation update.
+    # Patch all references to `git` to a no-op `true`. This neuters automatic
+    # translation updates.
     substituteInPlace bin/package-browser bin/package-electron \
       --replace-fail "git" "true"
 

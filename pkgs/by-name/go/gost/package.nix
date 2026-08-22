@@ -40,7 +40,7 @@ buildGoModule (finalAttrs: {
   passthru.updateScript = nix-update-script { };
 
   meta = {
-    description = "Simple tunnel written in golang";
+    description = "Simple tunnel written in Go";
     homepage = "https://github.com/go-gost/gost";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [

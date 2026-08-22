@@ -1,4 +1,4 @@
-# This tests checks, whether upgrading between versions works fine
+# This test checks whether upgrading between versions works fine
 # In the past, there have been releases that would require manual deletion of specific
 # cache files, otherwise bricking the installation.
 # This test should catch similar instances in the future.

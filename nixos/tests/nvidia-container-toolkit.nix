@@ -138,11 +138,11 @@ in
   testScript = ''
     start_all()
 
-    with subtest("Generate an empty CDI spec for a machine with no Nvidia GPUs"):
+    with subtest("Generate an empty CDI spec for a machine with no NVIDIA GPUs"):
       no_gpus.wait_for_unit("nvidia-container-toolkit-cdi-generator.service")
       no_gpus.succeed("cat /var/run/cdi/nvidia-container-toolkit.json | jq")
 
-    with subtest("Podman loads the generated CDI spec for a machine with an Nvidia GPU"):
+    with subtest("Podman loads the generated CDI spec for a machine with an NVIDIA GPU"):
       one_gpu.wait_for_unit("nvidia-container-toolkit-cdi-generator.service")
       one_gpu.succeed("cat /var/run/cdi/nvidia-container-toolkit.json | jq")
       one_gpu.succeed("podman load < ${testContainerImage}")

@@ -106,8 +106,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     # libsoup 2.4 and its dependents (specifically gupnp and gssdp) were
-    # removed due to being insecure and having many known vulnerabilities. this
-    # thus no longer builds. this derivation might be obsoleted by updating to
+    # removed due to being insecure and having many known vulnerabilities, so
+    # this no longer builds. this derivation might be obsoleted by updating to
     # hqplayer 6.0, as it ostensibly removes the need for rygel.
     broken = true;
     description = "Home media solution (UPnP AV MediaServer) that allows you to easily share audio, video and pictures to other devices";

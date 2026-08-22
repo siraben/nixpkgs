@@ -66,7 +66,7 @@ buildPythonApplication (finalAttrs: {
       (test cases) which are used to perform the assessment and can
       be extended easily with new ones. The name EXPLIoT (pronounced
       expl-aa-yo-tee) is a pun on the word exploit and explains the
-      purpose of the framework i.e. IoT exploitation.
+      purpose of the framework, i.e. IoT exploitation.
     '';
     homepage = "https://expliot.readthedocs.io/";
     license = lib.licenses.agpl3Plus;

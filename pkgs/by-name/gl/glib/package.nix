@@ -108,11 +108,11 @@ stdenv.mkDerivation (finalAttrs: {
       # to the Nix user and system profiles.  That way, the list of available
       # applications shown by the desktop environment is immediately updated
       # when the user installs or removes any
-      # (see <https://issues.guix.gnu.org/35594>).
+      # application (see <https://issues.guix.gnu.org/35594>).
 
       # It does so by monitoring /nix/var/nix/profiles (for changes to the system
       # profile) and /nix/var/nix/profiles/per-user/USER (for changes to the user
-      # profile) as well as /etc/profiles/per-user (for chanes to the user
+      # profile) as well as /etc/profiles/per-user (for changes to the user
       # environment profile) and crawling their share/applications sub-directory when
       # changes happen.
       ./glib-appinfo-watch.patch

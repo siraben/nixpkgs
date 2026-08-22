@@ -123,7 +123,7 @@ buildPythonPackage (finalAttrs: {
 
   pythonImportsCheck = [ "nicegui" ];
 
-  # chromedriver release doesn't seems to be supported, try with next release
+  # chromedriver release doesn't seem to be supported, try with next release
   doCheck = false;
 
   meta = {

@@ -54,8 +54,8 @@
 #          \
 #           \- (G:1)
 #
-# Then each leaf counter is merged with its parent node, replacing the
-# parent node with a counter of 1, and each existing counter being
+# Then, each leaf counter is merged with its parent node, replacing the
+# parent node with a counter of 1, and each existing counter is
 # incremented by 1. That is to say `- D - (F:1)` becomes `- (D:1, F:2)`:
 #
 #     A - B - C - (D:1, F:2)
@@ -66,7 +66,7 @@
 #          \
 #           \- (G:1)
 #
-# Then each leaf counter is merged with its parent node again, merging
+# Then, each leaf counter is merged with its parent node again, merging
 # any counters, then incrementing each:
 #
 #     A - B - (C:1, D:2, E:2, F:5)

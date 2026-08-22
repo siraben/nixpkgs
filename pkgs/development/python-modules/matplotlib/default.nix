@@ -185,7 +185,7 @@ buildPythonPackage (finalAttrs: {
   '';
 
   meta = {
-    description = "Python plotting library, making publication quality plots";
+    description = "Python plotting library, making publication-quality plots";
     homepage = "https://matplotlib.org/";
     changelog = "https://github.com/matplotlib/matplotlib/releases/tag/v${finalAttrs.version}";
     license = with lib.licenses; [

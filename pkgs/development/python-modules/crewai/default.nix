@@ -143,9 +143,9 @@ buildPythonPackage (finalAttrs: {
 
   disabledTestPaths = [
     # Ignore tests that require {chromadb, telemetry, security, test_agent}
-    "tests/test_crew.py" # require require API keys
+    "tests/test_crew.py" # require API keys
     "tests/rag/chromadb/test_client.py" # issue with chromadb
-    "tests/telemetry/test_telemetry.py" # telemetry need network access
+    "tests/telemetry/test_telemetry.py" # telemetry needs network access
 
     # ImportError: cannot import name 'InitFrom' from 'qdrant_client.models'
     "tests/rag/qdrant/test_client.py"

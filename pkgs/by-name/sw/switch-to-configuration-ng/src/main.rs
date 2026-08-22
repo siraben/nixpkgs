@@ -345,7 +345,7 @@ fn get_active_units<'a, 'b>(
 // example `ExecStart=`), then all current definitions are removed.
 //
 // Instead of returning the HashMap, this function takes a mutable reference to a HashMap to return
-// the data in. This allows calling the function multiple times with the same Hashmap to parse
+// the data in. This allows calling the function multiple times with the same HashMap to parse
 // override files.
 fn parse_systemd_ini(data: &mut UnitInfo, mut unit_file: impl Read) -> Result<()> {
     let mut unit_file_content = String::new();
@@ -364,7 +364,7 @@ fn parse_systemd_ini(data: &mut UnitInfo, mut unit_file: impl Read) -> Result<()
             enabled_escape: false,
         },
     )
-    .context("Failed parse unit file as INI")?;
+    .context("Failed to parse unit file as INI")?;
 
     // Copy over all sections
     for (section, properties) in ini.iter() {

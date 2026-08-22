@@ -50,7 +50,7 @@ python3.pkgs.buildPythonApplication {
       szurubooru.server
     ];
   });
-  # Waitress is used to run the serer.
+  # Waitress is used to run the server.
   passthru.waitress = python3.pkgs.waitress.overrideAttrs (old: {
     propagatedBuildInputs = old.propagatedBuildInputs ++ [
       szurubooru.server

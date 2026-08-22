@@ -231,7 +231,7 @@ stdenv.mkDerivation (finalAttrs: {
     "--with-icc-directory=/run/current-system/sw/share/color/icc"
     # fix libdir in pc files (${exec_prefix} needs to be passed verbatim)
     "--libdir=\${exec_prefix}/lib"
-    "--disable-python" # depends on Python2 which was EOLed on 2020-01-01
+    "--disable-python" # depends on Python 2, which reached EOL on 2020-01-01
   ];
 
   enableParallelBuilding = true;

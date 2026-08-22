@@ -32,7 +32,7 @@ buildPythonPackage (finalAttrs: {
   pytestFlags = [ "--asyncio-mode=auto" ];
 
   disabledTests = [
-    # Tests requires network features (e. g., discovery testing)
+    # Tests require network features (e.g., discovery testing)
     "test_Bulb_Discovery"
     "test_timeout"
     "test_timeout_PilotBuilder"

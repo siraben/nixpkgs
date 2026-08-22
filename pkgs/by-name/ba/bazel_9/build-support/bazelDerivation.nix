@@ -24,7 +24,7 @@ stdenv.mkDerivation (
     preBuildPhases = [ "preBuildPhase" ];
     preBuildPhase =
       (lib.optionalString (bazelRepoCache != null) ''
-        # repo_cache needs to be writeable even in air-gapped builds
+        # repo_cache needs to be writable even in air-gapped builds
         mkdir repo_cache
         ${lndir}/bin/lndir -silent ${bazelRepoCache}/repo_cache repo_cache
       '')

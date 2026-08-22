@@ -27,8 +27,8 @@
   };
 
   /**
-     Create a compound licenses where the user needs to follow both licenses,
-     eqivialent of spdx `and` modifier.
+     Create a compound license where the user needs to follow both licenses,
+     equivalent of the SPDX `and` modifier.
 
     # Example
 
@@ -54,8 +54,8 @@
   };
 
   /**
-     Create a licenses exception where a license has a license exception,
-     eqivialent of spdx `with` modifier.
+     Create a license exception where a license has a license exception,
+     equivalent of the SPDX `with` modifier.
 
     # Example
 
@@ -82,8 +82,8 @@
   };
 
   /**
-     Create a licenses which can be upgraded to any later version of itself,
-     eqivialent of spdx `+` modifier
+     Create a license which can be upgraded to any later version of itself,
+     equivalent of the SPDX `+` modifier.
 
     # Example
 
@@ -100,7 +100,7 @@
 
     # Arguments
 
-    - [license] License to which apply an exception
+    - [license] License to which to apply the exception
   */
   PLUS = license: {
     licenseType = "plus";

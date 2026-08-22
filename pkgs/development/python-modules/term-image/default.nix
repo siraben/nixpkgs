@@ -55,7 +55,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "term_image" ];
 
   meta = {
-    description = "Display images in the terminal with python";
+    description = "Display images in the terminal with Python";
     homepage = "https://github.com/AnonymouX47/term-image";
     changelog = "https://github.com/AnonymouX47/term-image/releases/tag/v${version}";
     license = lib.licenses.mit;

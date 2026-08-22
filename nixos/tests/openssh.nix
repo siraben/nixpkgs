@@ -90,7 +90,7 @@ in
         ];
       };
 
-    # IP addresses are allocated according to the alphabetical order of the machine name, and since tests rely on the IP address of this machine, let's name it so it's order (and thus address) is predictable.
+    # IP addresses are allocated according to the alphabetical order of the machine name, and since tests rely on the IP address of this machine, let's name it so its order (and thus address) is predictable.
     aaa-server-lazy-socket = {
       virtualisation.vlans = [
         1

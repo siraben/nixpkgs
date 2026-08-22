@@ -42,8 +42,8 @@ in
         example = "example.com";
         description = ''
           Hosts that homepage-dashboard will be running under.
-          You will want to change this in order to access homepage from anything other than localhost.
-          see the upstream documentation:
+          You will want to change this in order to access Homepage from anything other than localhost.
+          See the upstream documentation:
 
           <https://gethomepage.dev/installation/#homepage_allowed_hosts>
         '';
@@ -76,7 +76,7 @@ in
       customJS = lib.mkOption {
         type = lib.types.lines;
         description = ''
-          Custom Javascript for Homepage.
+          Custom JavaScript for Homepage.
 
           See <https://gethomepage.dev/configs/custom-css-js/>.
         '';

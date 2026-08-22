@@ -48,14 +48,14 @@ The maintainer is welcome to come back at any time.
 
 ## Tools for maintainers
 
-When a pull request is made against a package, nixpkgs CI will notify the appropriate maintainer(s) by trying to correlate the files the PR touches with the packages that need rebuilding.
-This process is subject to error however, so we encourage PR authors to notify the appropriate people.
+When a pull request is made against a package, Nixpkgs CI will notify the appropriate maintainer(s) by trying to correlate the files the PR touches with the packages that need rebuilding.
+This process is subject to error, however, so we encourage PR authors to notify the appropriate people.
 
 Maintainers can also invoke the [nixpkgs-merge-bot](../ci/README.md#nixpkgs-merge-bot) to merge pull requests targeting packages they are the maintainer of, which satisfy the current security [constraints](../ci/README.md#merge-bot-constraints).
 Examples: [#397273](https://github.com/NixOS/nixpkgs/pull/397273#issuecomment-2789382120) and [#377027](https://github.com/NixOS/nixpkgs/pull/377027#issuecomment-2614510869)
 
 New maintainers will automatically get invited to join the [NixOS/nixpkgs-maintainers](https://github.com/orgs/NixOS/teams/nixpkgs-maintainers) GitHub team.
-By joining, you will get some triaging rights in the nixpkgs repository, like the ability to close and reopen issues made by others, and managing labels.
+By joining, you will get some triaging rights in the Nixpkgs repository, like the ability to close and reopen issues made by others, and managing labels.
 However, the GitHub team invite is usually only sent by email, and is only valid for one week!
 Should it expire, please ask for a re-invite in the [GitHub org owners help desk Matrix channel](https://matrix.to/#/#org_owners:nixos.org).
 
@@ -69,7 +69,7 @@ Should it expire, please ask for a re-invite in the [GitHub org owners help desk
 You can view which packages a specific maintainer maintains and subscribe to updates with atom/rss.
 Example: [repology.org/maintainer/pbsds](https://repology.org/maintainer/pbsds%40hotmail.com).
 
-[nixpk.gs/pr-tracker](https://nixpk.gs/pr-tracker.html) and [nixpkgs-tracker.ocfox.me](https://nixpkgs-tracker.ocfox.me/) can visualize the release status of any nixpkgs pull request.
+[nixpk.gs/pr-tracker](https://nixpk.gs/pr-tracker.html) and [nixpkgs-tracker.ocfox.me](https://nixpkgs-tracker.ocfox.me/) can visualize the release status of any Nixpkgs pull request.
 
 ## Reviewing contributions
 
@@ -96,14 +96,14 @@ When adding users to [`maintainer-list.nix`](./maintainer-list.nix), the followi
   }
   ```
 
-  First receive their key from a keyserver:
+  First, receive their key from a keyserver:
 
       $ gpg --recv-keys 0xF04F7A19AAA63AFE
       gpg: key 0xF04F7A19AAA63AFE: public key "Example <user@example.com>" imported
       gpg: Total number processed: 1
       gpg:               imported: 1
 
-  Then check the commit is signed by that key:
+  Then, check the commit is signed by that key:
 
       $ git log --show-signature
       commit b87862a4f7d32319b1de428adb6cdbdd3a960153
@@ -117,7 +117,7 @@ When adding users to [`maintainer-list.nix`](./maintainer-list.nix), the followi
 
   and validate that there is a `Good signature` and the printed key matches the user's submitted key.
 
-  Note: GitHub's "Verified" label does not display the user's full key fingerprint, and should not be used for validating the key matches.
+  Note: GitHub's "Verified" label does not display the user's full key fingerprint, and should not be used for validating that the key matches.
 
 - Ensure that the user has specified a `github` account name and a `githubId` and verify the two match.
 
@@ -154,7 +154,7 @@ Feel free to merge changes to the team if the existing members are unresponsive.
 #### Synced GitHub teams
 
 As an alternative to tracking team members in `team-list.nix`, a corresponding GitHub team can be created by any org member and its members subsequently managed directly on GitHub.
-When creating the team it should be created with the `nixpkgs-maintainers` team as parent.
+When creating the team, it should be created with the `nixpkgs-maintainers` team as parent.
 Once approved, the team will have the right privileges to be pinged and requested for review in Nixpkgs.
 
 > [!TIP]
@@ -164,14 +164,14 @@ After the first [weekly team sync](../.github/workflows/teams.yml) with the new 
 
 # Maintainer scripts
 
-Various utility scripts, which are mainly useful for nixpkgs maintainers, are available under `./scripts/`.
+Various utility scripts, which are mainly useful for Nixpkgs maintainers, are available under `./scripts/`.
 See its [README](./scripts/README.md) for further information.
 
 # nixpkgs-merge-bot
 
 To streamline autoupdates, leverage the nixpkgs-merge-bot by commenting `@NixOS/nixpkgs-merge-bot merge` if the package resides in `pkgs/by-name`, the commenter is among the package maintainers, and the pull request author is @r-ryantm or a Nixpkgs committer.
-The bot ensures that all ofborg checks, except for darwin, are successfully completed before merging the pull request.
-Should the checks still be underway, the bot patiently waits for ofborg to finish before attempting the merge again.
+The bot ensures that all Ofborg checks, except for darwin, are successfully completed before merging the pull request.
+Should the checks still be underway, the bot patiently waits for Ofborg to finish before attempting the merge again.
 
 # Guidelines for Committers
 
@@ -184,7 +184,7 @@ Additionally, using tools like [nixpkgs-review](https://github.com/Mic92/nixpkgs
 ## Breaking changes
 
 In general breaking changes to `master` and `staging` branches are permitted, as long as they are documented in the release notes.
-Though restrictions might apply towards the end of a NixOS release cycle, due to our feature freeze mechanism.
+However, restrictions might apply towards the end of a NixOS release cycle, due to our feature freeze mechanism.
 This is to avoid large-scale breakages shortly before and during a Zero Hydra Failures (ZHF) campaign.
 These restrictions also intend to decrease the likelihood of a delayed NixOS release.
 The feature freeze period is documented in the announcement of each release schedule.

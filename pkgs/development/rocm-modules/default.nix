@@ -256,9 +256,9 @@ let
       ''; # Added 2026-03-08
 
       rocmPath = throw ''
-        'rocm-path' has been removed. If a ROCM_PATH value is required in nixpkgs please
+        'rocm-path' has been removed. If a ROCM_PATH value is required in nixpkgs, please
         construct one with the minimal set of required deps.
-        For convenience use outside of nixpkgs consider one of the entries in
+        For convenience use outside of Nixpkgs, consider one of the entries in
         'rocmPackages.meta'.
       ''; # Added 2025-09-30
 

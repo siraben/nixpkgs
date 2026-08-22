@@ -210,7 +210,7 @@ in
       wantedBy = [ "multi-user.target" ];
       wants = [ "network-online.target" ];
       after = [ "network-online.target" ];
-      description = "Grafana backend plugin that handles rendering of panels & dashboards to PNGs using headless browser (Chromium/Chrome)";
+      description = "Grafana backend plugin that handles rendering of panels & dashboards to PNGs using a headless browser (Chromium/Chrome)";
 
       serviceConfig = {
         DynamicUser = true;

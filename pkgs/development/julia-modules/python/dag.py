@@ -1,5 +1,5 @@
 
-# This file based on a ChatGPT response for the following prompt:
+# This file is based on a ChatGPT response for the following prompt:
 # "can you write code in python to build up a DAG representing
 # a dependency tree, and then a function that can return all the
 # dependencies of a given node?"

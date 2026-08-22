@@ -64,7 +64,7 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
   '';
 
   meta = {
-    description = "Gather E-mails, subdomains and names from different public sources";
+    description = "Gather emails, subdomains and names from different public sources";
     longDescription = ''
       theHarvester is a very simple, yet effective tool designed to be used in the early
       stages of a penetration test. Use it for open source intelligence gathering and

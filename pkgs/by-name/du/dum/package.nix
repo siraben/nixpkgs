@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   passthru.updateScript = nix-update-script { };
 
   meta = {
-    description = "Npm scripts runner written in Rust";
+    description = "npm scripts runner written in Rust";
     mainProgram = "dum";
     homepage = "https://github.com/egoist/dum";
     changelog = "https://github.com/egoist/dum/blob/v${finalAttrs.version}/CHANGELOG.md";

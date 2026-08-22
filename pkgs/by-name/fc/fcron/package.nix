@@ -56,10 +56,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   preConfigure = ''
     sed -i 's@/usr/bin/env perl@${lib.getExe buildPackages.perl}@g' configure script/*
-    # Don't let fcron create the group fcron, nix(os) should do this
+    # Don't let fcron create the group fcron; nix(os) should do this
     sed -i '2s@.*@exit 0@' script/user-group
 
-    # --with-bootinstall=no should do this, didn't work. So just exit the script before doing anything
+    # --with-bootinstall=no should do this but didn't work. So just exit the script before doing anything
     sed -i '2s@.*@exit 0@' script/boot-install
 
     # also don't use chown or chgrp for documentation (or whatever) when installing

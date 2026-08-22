@@ -103,7 +103,7 @@ stdenv.mkDerivation (finalAttrs: {
   hardeningDisable = [ "zerocallusedregs" ];
 
   # Right now we hardcode quite a few paths at build time. Probably we should
-  # patch networkmanager to allow passing these path in config file. This will
+  # patch networkmanager to allow passing these paths in the config file. This will
   # remove unneeded build-time dependencies.
   mesonFlags = [
     # System paths

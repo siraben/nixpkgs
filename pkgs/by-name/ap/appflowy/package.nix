@@ -131,7 +131,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       # c.f. https://github.com/AppFlowy-IO/AppFlowy/blob/main/LICENSE
       agpl3Only
       # But, the source code has not been synced with any major release since
-      # the end of 2025. One of the core team member said that they will "merge
+      # the end of 2025. One of the core team members said that they would "merge
       # Flutter code back into this public repository at a later stage". However,
       # 2 months later, nothing has changed.
       #

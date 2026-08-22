@@ -81,7 +81,7 @@ def parse_derivation(
     except json.JSONDecodeError:
         output_str: str = proc.stdout.decode("utf-8")
         logging.error(
-            "Couldn't parse the output of"
+            "Couldn't parse the output of "
             "`nix show-derivation`"
             f". Expected JSON, observed: {output_str}",
         )

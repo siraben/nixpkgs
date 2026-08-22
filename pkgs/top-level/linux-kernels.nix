@@ -433,7 +433,7 @@ in
         nvidia_dc = nvidiaPackages.dc;
 
         # this is not a replacement for nvidia_x11*
-        # only the opensource kernel driver exposed for hydra to build
+        # only the open-source kernel driver exposed for Hydra to build
         nvidia_x11_beta_open = nvidiaPackages.beta.open;
         nvidia_x11_latest_open = nvidiaPackages.latest.open;
         nvidia_x11_production_open = nvidiaPackages.production.open;

@@ -162,7 +162,7 @@ buildPythonPackage rec {
           "CryptTests.test_verifyCryptedPassword"
           "CryptTests.test_verifyCryptedPasswordOSError"
         ];
-        # dependant on UnixCheckerTests.test_isChecker
+        # dependent on UnixCheckerTests.test_isChecker
         "src/twisted/cred/test/test_cred.py" = [
           "HashedPasswordOnDiskDatabaseTests.testBadCredentials"
           "HashedPasswordOnDiskDatabaseTests.testGoodCredentials"
@@ -178,7 +178,7 @@ buildPythonPackage rec {
       }
       // lib.optionalAttrs stdenv.hostPlatform.isDarwin {
         "src/twisted/internet/test/test_process.py" = [
-          # invalid syntaax
+          # invalid syntax
           "ProcessTestsBuilder_AsyncioSelectorReactorTests.test_openFileDescriptors"
           "ProcessTestsBuilder_SelectReactorTests.test_openFileDescriptors"
           # exit code 120

@@ -107,7 +107,7 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    description = "Limiter, compressor, reverberation, equalizer and auto volume effects for Pulseaudio applications";
+    description = "Limiter, compressor, reverberation, equalizer and auto volume effects for PulseAudio applications";
     mainProgram = "pulseeffects";
     homepage = "https://github.com/wwmm/easyeffects";
     license = lib.licenses.gpl3Plus;

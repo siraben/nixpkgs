@@ -24,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   # include sys/sysctl.h is deprecated in glibc. The sysctl calls are only used
   # for Apple to determine the kernel version. Because this build only targets
-  # Linux is it safe to remove.
+  # Linux, it is safe to remove.
   patches = [ ./remove-sysctl.patch ];
 
   nativeBuildInputs = [ pkg-config ];
@@ -37,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   meta = {
-    description = "HPE's implementation of the open-source tape filesystem standard ltfs";
+    description = "HPE's implementation of the open-source tape filesystem standard LTFS";
     homepage = "https://support.hpe.com/hpesc/public/km/product/1009214665/Product";
     license = lib.licenses.lgpl21;
     maintainers = [ lib.maintainers.redvers ];

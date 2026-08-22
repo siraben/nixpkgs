@@ -82,7 +82,7 @@ buildPythonPackage rec {
   ++ lib.concatAttrValues optional-dependencies;
 
   preCheck = ''
-    # For paths in test to work, we have to be in python dir
+    # For paths in the tests to work, we have to be in the Python dir
     cd python
 
     # In tests we want to use deltalake that we have built

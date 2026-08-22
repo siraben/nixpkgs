@@ -100,7 +100,7 @@ lib:
 # some exceptions.
 # K3s also carries patches to some packages (such as containerd and cni
 # plugins), so we intentionally use the k3s versions of those binaries for k3s,
-# even if the upstream version of those binaries exist in nixpkgs already. In
+# even if the upstream version of those binaries exists in nixpkgs already. In
 # the end, that means we have a thick k3s binary that behaves like the upstream
 # one for the most part.
 # However, k3s also bundles several pieces of unpatched software, from the

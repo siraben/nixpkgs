@@ -60,7 +60,7 @@ in
         default = true;
         type = types.bool;
         description = ''
-          Whether to enable UPNP support.
+          Whether to enable UPnP support.
         '';
       };
 

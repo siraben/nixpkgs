@@ -157,7 +157,7 @@ mkpath("$stateDirectory", 0, 0700);
 if ($action eq "list") {
     foreach my $confFile (glob "$configurationDirectory/*.conf") {
         # Filter libpod configuration files
-        # From 22.05 and onwards this is not an issue any more as directories dont clash
+        # From 22.05 and onwards this is not an issue any more as directories don't clash
         if($confFile eq "/etc/containers/libpod.conf" || $confFile eq "/etc/containers/containers.conf" || $confFile eq "/etc/containers/registries.conf") {
             next
         }
@@ -250,7 +250,7 @@ if ($action eq "create") {
         my %usedIPs;
         foreach my $confFile2 (glob "$configurationDirectory/*.conf") {
             # Filter libpod configuration files
-            # From 22.05 and onwards this is not an issue any more as directories dont clash
+            # From 22.05 and onwards this is not an issue any more as directories don't clash
             if($confFile2 eq "/etc/containers/libpod.conf" || $confFile2 eq "/etc/containers/containers.conf" || $confFile2 eq "/etc/containers/registries.conf") {
                 next
             }

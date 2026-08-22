@@ -96,7 +96,7 @@ in
         preStart = ''
           test -f '${configFilePath}' && rm -f '${configFilePath}'
 
-          # Perform envvars substitution read from environmentFile
+          # Perform envvars substitution of values read from environmentFile
           old_umask=$(umask)
           umask 0177
           ${lib.getExe pkgs.envsubst} \

@@ -40,8 +40,8 @@ in
           test2:CR:$1$rkpibm5J$Aq1.9VtYAn0JrqZ8M.1ME.
         ```
 
-        You can generate md5-crypted passwords via <https://unix4lyfe.org/crypt/>
-        Note that htpasswd tool generates incompatible md5-crypted passwords.
+        You can generate md5-crypted passwords via <https://unix4lyfe.org/crypt/>.
+        Note that the htpasswd tool generates incompatible md5-crypted passwords.
         Consult [documentation](https://github.com/z3APA3A/3proxy/wiki/How-To-%28incomplete%29#USERS) for more information.
       '';
     };
@@ -189,8 +189,8 @@ in
                       description = ''
                         List of target IP ranges, use empty list for any.
                         May also contain host names instead of addresses.
-                        It's possible to use wildmask in the beginning and in the the end of hostname, e.g. `*badsite.com` or `*badcontent*`.
-                        Hostname is only checked if hostname presents in request.
+                        It's possible to use wildmask in the beginning and in the end of the hostname, e.g. `*badsite.com` or `*badcontent*`.
+                        The hostname is only checked if it is present in the request.
                       '';
                     };
                     targetPorts = lib.mkOption {

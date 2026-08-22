@@ -10,7 +10,7 @@ from nixos_render_docs.manual import HTMLConverter, HTMLParameters
 def _parse_xhtml(text: str) -> None:
     parser = expat.ParserCreate()
     # Use offline html entity definitions
-    # and enable to use them (XML_PARAM_ENTITY_PARSING_ALWAYS)
+    # and enable their use (XML_PARAM_ENTITY_PARSING_ALWAYS)
     parser.UseForeignDTD(True)
     parser.SetParamEntityParsing(expat.XML_PARAM_ENTITY_PARSING_ALWAYS)
 
@@ -60,7 +60,7 @@ def _build(tmp_path: Path, sidebar_depth: int = 2, sidebar_open: frozenset[str] 
 
 def test_single_h1_and_flat_heading_levels(tmp_path: Path) -> None:
     html = _build(tmp_path)
-    # There should be only one h1 on an html for accessibility and semantic reasons
+    # There should be only one h1 on an HTML page for accessibility and semantic reasons
     assert html.count("<h1") == 1
     assert '<h1 class="title">' in html
     assert '<h2 id="part-builders" class="title"' in html
@@ -134,7 +134,7 @@ def test_sidebar_depth_caps_the_tree(tmp_path: Path) -> None:
     deep = _build(tmp_path, sidebar_depth=3)
     assert 'href="#sub-a"' in deep
 
-    # with depth=2, its not listed
+    # with depth=2, it's not listed
     shallow = _build(tmp_path, sidebar_depth=2)
     assert 'href="#sub-a"' not in shallow
 
@@ -199,7 +199,7 @@ def test_output_is_well_formed_xhtml(tmp_path: Path) -> None:
     )
     conv.convert(tmp_path / "index.md", out / "index.html")
     pages = sorted(out.glob("*.html"))
-    # Test that pages produced orderly with into-file
+    # Test that pages are produced in order with into-file
     assert {p.name for p in pages} == {"index.html", "chapter.html"}
     for page in pages:
         _parse_xhtml(page.read_text())

@@ -23,7 +23,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoHash = "sha256-ybAcG7sCEwZC6FxWx2KhHd1HkhK8wwkGeeLoI/KOXKU=";
 
-  doCheck = false; # there are no cli tests
+  doCheck = false; # there are no CLI tests
   cargoBuildFlags = [
     "--package"
     "lockbook"

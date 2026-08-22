@@ -74,7 +74,7 @@ buildDotnetModule {
       install_data . "$out/lib/${pname}" cnc d2k ra
     )
 
-    # Replace precompiled libraries with links to native one.
+    # Replace precompiled libraries with links to native ones.
     # This is similar to configure-system-libraries.sh in the source repository
     ln -s -f ${lua51Packages.lua}/lib/liblua.so $out/lib/${pname}/lua51.so
     ln -s -f ${SDL2}/lib/libSDL2.so             $out/lib/${pname}/SDL2.so

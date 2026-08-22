@@ -98,7 +98,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   patches = [
-    # to remove compiler from the runtime closure, reference was retained via
+    # to remove the compiler from the runtime closure, a reference was retained via
     # gimp --version --verbose output
     (replaceVars ./remove-cc-reference.patch {
       cc_version = stdenv.cc.cc.name;
@@ -261,7 +261,7 @@ stdenv.mkDerivation (finalAttrs: {
     patchShebangs tools/gimp-mkenums
 
     # GIMP is executed at build time so we need to fix this.
-    # TODO: Look into if we can fix the interp thing.
+    # TODO: Look into whether we can fix the interp thing.
     chmod +x plug-ins/python/{colorxhtml,file-openraster,foggify,gradients-save-as-css,histogram-export,palette-export-as-kpl,palette-offset,palette-sort,palette-to-gradient,python-eval,spyro-plus}.py
     patchShebangs \
       plug-ins/python/{colorxhtml,file-openraster,foggify,gradients-save-as-css,histogram-export,palette-export-as-kpl,palette-offset,palette-sort,palette-to-gradient,python-eval,spyro-plus}.py
@@ -279,7 +279,7 @@ stdenv.mkDerivation (finalAttrs: {
     in
     ''
       # Our gobject-introspection patches make the shared library paths absolute
-      # in the GIR files. When running GIMP in build or check phase, it will try
+      # in the GIR files. When running GIMP in the build or check phase, it will try
       # to use plug-ins, which import GIMP introspection files which will try
       # to load the GIMP libraries which will not be installed yet.
       # So we need to replace the absolute path with a local one.
@@ -335,7 +335,7 @@ stdenv.mkDerivation (finalAttrs: {
     targetPluginDir = "${finalAttrs.passthru.targetLibDir}/plug-ins";
     targetScriptDir = "${finalAttrs.passthru.targetDataDir}/scripts";
 
-    # probably its a good idea to use the same gtk in plugins ?
+    # probably it's a good idea to use the same GTK in plugins?
     gtk = gtk3;
   };
 

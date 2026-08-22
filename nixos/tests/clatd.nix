@@ -40,7 +40,7 @@
     # The server is configured with static IPv4 addresses.
     # To reach the IPv4 address pool of the NAT64 gateway, there is a static
     # route configured. In normal cases, where the router would also source NAT
-    # the pool addresses to one IPv4 addresses, this would not be needed.
+    # the pool addresses to a single IPv4 address, this would not be needed.
     server = {
       virtualisation.vlans = [
         2 # towards router
@@ -71,7 +71,7 @@
     # client so clatd is able to auto-discover the PLAT prefix. For NAT64, the
     # ULA prefix fde7:6c52:047e::/96 is used. NAT64 is done with TAYGA which
     # provides the tun-interface nat64 and does the translation over it. The
-    # IPv6 packets are sent to this interfaces and received as IPv4 packets and
+    # IPv6 packets are sent to this interface and received as IPv4 packets and
     # vice versa. As TAYGA only translates IPv6 addresses to dedicated IPv4
     # addresses, it needs a pool of IPv4 addresses which must be at least as
     # big as the expected amount of clients. In this test, the packets from the

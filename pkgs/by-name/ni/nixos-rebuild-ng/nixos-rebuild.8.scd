@@ -140,7 +140,7 @@ It must be one of the following:
 *build-vm-with-bootloader*
 	Like build-vm, but boots using the regular boot loader of your
 	configuration (e.g. GRUB 1 or 2), rather than booting directly into the
-	kernel and initial ramdisk of the system. This al‐ lows you to test
+	kernel and initial ramdisk of the system. This allows you to test
 	whether the boot loader works correctly. However, it does not guarantee
 	that your NixOS configuration will boot successfully on the host
 	hardware (i.e., after running *nixos-rebuild switch*), because the
@@ -151,8 +151,8 @@ It must be one of the following:
 *list-generations [--json]*
 	List the available generations in a similar manner to the boot loader
 	menu. It shows the generation number, build date and time, NixOS
-	version, kernel version and the configuration revi‐ sion. There is also
-	a json version of output available.
+	version, kernel version and the configuration revision. There is also
+	a JSON version of the output available.
 
 # OPTIONS
 
@@ -201,10 +201,10 @@ It must be one of the following:
 	Allow ad-hoc remote builders for building the new system. This requires
 	the user executing *nixos-rebuild* (usually root) to be configured as a
 	trusted user in the Nix daemon. This can be achieved by using the
-	_nix.settings.trusted-users_ NixOS option. Examples values for that
+	_nix.settings.trusted-users_ NixOS option. Example values for that
 	option are described in the “Remote builds” chapter in the Nix manual,
 	(i.e. ‘--builders "ssh://bigbrother x86_64-linux"’). By specifying an
-	empty string existing builders specified in /etc/nix/machines can be
+	empty string, existing builders specified in /etc/nix/machines can be
 	ignored: ‘--builders ""’ for example when they are not reachable due to
 	network connectivity.
 
@@ -329,23 +329,23 @@ It must be one of the following:
 	Build the NixOS system from the specified flake. It defaults to the
 	directory containing the target of the symlink _/etc/nixos/flake.nix_,
 	if it exists. The flake must contain an output named
-	‘nixosConfigurations.name’. If name is omitted, it default to the
+	‘nixosConfigurations.name’. If name is omitted, it defaults to the
 	current host name.
 
 *--no-flake*
 	Do not imply *--flake* if _/etc/nixos/flake.nix exists_. With this
 	option, it is possible to build non-flake NixOS configurations even if
-	the current NixOS systems uses flakes.
+	the current NixOS system uses flakes.
 
 *--diff*
-	show the diff between the system closure in /run/current-system
+	Show the diff between the system closure in /run/current-system
 	and the newly built system closure.
 	(available for actions: build, boot, test, switch)
 
 	This is similar to running:
 	"nix store diff-closures /run/current-system result" after build
 
-In addition, *nixos-rebuild* accepts following options from nix commands that
+In addition, *nixos-rebuild* accepts the following options from nix commands that
 the tool calls:
 
 Flake-related options:
@@ -395,8 +395,8 @@ NIXOS_REBUILD_NO_SYSTEMD_RUN
 
 /etc/nixos/system.nix
 	If this file exists, then *nixos-rebuild* will use it as if the
-	*--file* option was given. This allows to build a self-contained
-	system configuration, without requiring ‘nixos’ channel.
+	*--file* option was given. This allows building a self-contained
+	system configuration, without requiring the ‘nixos’ channel.
 
 /etc/nixos/flake.nix
 	If this file exists, then *nixos-rebuild* will use it as if the

@@ -146,14 +146,14 @@ in
       openFirewall = lib.mkOption {
         type = lib.types.bool;
         default = false;
-        description = "Whether to open ports in the firewall";
+        description = "Whether to open ports in the firewall.";
       };
 
       dataDir = lib.mkOption {
         type = lib.types.str;
         default = "/var/lib/terraria";
         example = "/srv/terraria";
-        description = "Path to variable state data directory for terraria.";
+        description = "Path to variable state data directory for Terraria.";
       };
     };
   };

@@ -7,7 +7,7 @@
 # * packages that hard code the location of native libraries, so they need to be patched/
 #   supplied the patch explicitly
 # * passing native libraries that are not detected correctly by cabal2nix
-# * test suites that fail due to some features not available in the nix sandbox
+# * test suites that fail due to some features not available in the Nix sandbox
 #   (networking being a common one)
 #
 # In general, this file should *not* contain overrides that fix build failures that could

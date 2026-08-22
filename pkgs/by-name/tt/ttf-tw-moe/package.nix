@@ -28,7 +28,7 @@ stdenvNoCC.mkDerivation rec {
     longDescription = ''
       Installs 2 TTF fonts: MOESongUN and TW-MOE-Std-Kai.
       Both are provided by the Ministry of Education of Taiwan; each character's shape
-      closely follows the official recommendation, and can be used as for teaching purposes.
+      closely follows the official recommendation, and can be used for teaching purposes.
     '';
     license = lib.licenses.cc-by-nd-30;
     maintainers = [ lib.maintainers.jiehong ];

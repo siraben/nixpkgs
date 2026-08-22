@@ -146,8 +146,8 @@ stdenv.mkDerivation (finalAttrs: {
     tests = {
       test-xrdcp = finalAttrs.passthru.fetchxrd {
         pname = "xrootd-test-xrdcp";
-        # Use the the bin output hash of xrootd as version to ensure that
-        # the test gets rebuild everytime xrootd gets rebuild
+        # Use the bin output hash of xrootd as version to ensure that
+        # the test gets rebuilt every time xrootd gets rebuilt
         version =
           finalAttrs.version
           + "-"

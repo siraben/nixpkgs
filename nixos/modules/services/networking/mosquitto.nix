@@ -9,8 +9,8 @@ let
 
   pluginLibDir = "${lib.getLib cfg.package}/lib";
 
-  # note that mosquitto config parsing is very simplistic as of may 2021.
-  # often times they'll e.g. strtok() a line, check the first two tokens, and ignore the rest.
+  # note that mosquitto config parsing is very simplistic as of May 2021.
+  # often they'll e.g. strtok() a line, check the first two tokens, and ignore the rest.
   # there's no escaping available either, so we have to prevent any being necessary.
   str = lib.types.strMatching "[^\r\n]*" // {
     description = "single-line string";
@@ -80,7 +80,7 @@ let
           default = null;
           description = ''
             Specifies the hashed password for the MQTT User.
-            To generate hashed password install the `mosquitto`
+            To generate a hashed password, install the `mosquitto`
             package and use `mosquitto_passwd`, then extract
             the second field (after the `:`) from the generated
             file.
@@ -94,7 +94,7 @@ let
           description = ''
             Specifies the path to a file containing the
             hashed password for the MQTT user.
-            To generate hashed password install the `mosquitto`
+            To generate a hashed password, install the `mosquitto`
             package and use `mosquitto_passwd`, then remove the
             `username:` prefix from the generated file.
             The file is securely passed to mosquitto by
@@ -310,7 +310,7 @@ let
         port = lib.mkOption {
           type = port;
           description = ''
-            Port to listen on. Must be set to 0 to listen on a unix domain socket.
+            Port to listen on. Must be set to 0 to listen on a Unix domain socket.
           '';
           default = 1883;
         };
@@ -352,7 +352,7 @@ let
           type = bool;
           description = ''
             Omits password checking, allowing anyone to log in with any user name unless
-            other mandatory authentication methods (eg TLS client certificates) are configured.
+            other mandatory authentication methods (e.g. TLS client certificates) are configured.
           '';
           default = false;
         };
@@ -584,7 +584,7 @@ let
       type = listOf path;
       description = ''
         Directories to be scanned for further config files to include.
-        Directories will processed in the order given,
+        Directories will be processed in the order given,
         `*.conf` files in the directory will be
         read in case-sensitive alphabetical order.
       '';

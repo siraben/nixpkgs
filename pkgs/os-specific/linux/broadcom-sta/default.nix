@@ -106,7 +106,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   meta = {
-    description = "Kernel module driver for some Broadcom's wireless cards";
+    description = "Kernel module driver for some Broadcom wireless cards";
     homepage = "https://www.broadcom.com/support/download-search?pg=Legacy%20Products&pf=Legacy%20Wireless&pn&pa&po&dk&pl";
     license = lib.licenses.unfreeRedistributable;
     maintainers = with lib.maintainers; [

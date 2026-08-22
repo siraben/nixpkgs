@@ -73,7 +73,7 @@ in
           A set of ZIM files to serve. The key is used as the name for the ZIM files
           (e.g. in the example, the files will be served as `wikipedia.zim` and `nix.zim`).
 
-          Exclusive with [services.kiwix-serve.libraryPath](#opt-services.kiwix-serve.libraryPath).
+          Mutually exclusive with [services.kiwix-serve.libraryPath](#opt-services.kiwix-serve.libraryPath).
         '';
       };
 
@@ -85,7 +85,7 @@ in
           An XML library file listing ZIM files to serve.
           For more information, see <https://wiki.kiwix.org/wiki/Kiwix-manage>.
 
-          Exclusive with [services.kiwix-serve.library](#opt-services.kiwix-serve.library).
+          Mutually exclusive with [services.kiwix-serve.library](#opt-services.kiwix-serve.library).
         '';
       };
 

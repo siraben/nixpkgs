@@ -55,7 +55,7 @@ buildPythonPackage (finalAttrs: {
   pythonImportsCheck = [ "pycfmodel" ];
 
   meta = {
-    description = "Model for Cloud Formation scripts";
+    description = "Model for CloudFormation scripts";
     homepage = "https://github.com/Skyscanner/pycfmodel";
     changelog = "https://github.com/Skyscanner/pycfmodel/releases/tag/${finalAttrs.src.tag}";
     license = lib.licenses.asl20;

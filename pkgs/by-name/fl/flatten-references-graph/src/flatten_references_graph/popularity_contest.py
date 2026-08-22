@@ -1,4 +1,4 @@
-# Using a simple algorithm, convert the references to a path in to a
+# Using a simple algorithm, convert the references to a path into a
 # sorted list of dependent paths based on how often they're referenced
 # and how deep in the tree they live. Equally-"popular" paths are then
 # sorted by name.
@@ -228,7 +228,7 @@ def make_graph_segment_from_root(subgraphs_cache, root, lookup):
     return children
 
 
-# Convert a graph segment in to a popularity-counted dictionary:
+# Convert a graph segment into a popularity-counted dictionary:
 #
 # From:
 # {

@@ -23,7 +23,7 @@ in
   config = lib.mkIf cfg.enable {
     environment = {
       # systemd-localed looks into 00-keyboard.conf
-      # systemd-localed does not like if Option values are ""
+      # systemd-localed does not like it if Option values are ""
       etc."X11/xorg.conf.d/00-keyboard.conf".text =
         let
           optionLine =

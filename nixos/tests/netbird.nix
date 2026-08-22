@@ -17,10 +17,10 @@
   };
 
   /*
-    Historically waiting for the NetBird client daemon initialization helped catch number of bugs with the service,
-     so we keep try to keep it here in as much details as it makes sense.
+    Historically waiting for the NetBird client daemon initialization helped catch a number of bugs with the service,
+     so we try to keep it here in as much detail as makes sense.
 
-    Initially `netbird status` returns a "Disconnected" messages:
+    Initially `netbird status` returns a "Disconnected" message:
         OS: linux/amd64
         Daemon version: 0.54.0
         CLI version: 0.54.0
@@ -38,7 +38,7 @@
         Forwarding rules: 0
         Peers count: 0/0 Connected
 
-    After a while passes it should start returning "NeedsLogin" help message.
+    After a while passes, it should start returning the "NeedsLogin" help message.
 
     As of ~0.53.0+ in ~30 second intervals the `netbird status` instead of "NeedsLogin" it briefly (for under 2 seconds) crashes with:
 

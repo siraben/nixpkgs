@@ -60,7 +60,7 @@ in
       type = lib.types.str;
       default = config.services.gitlab.host;
       defaultText = lib.literalExpression "config.services.gitlab.host";
-      description = "Address of the GitLab instance, Gitlab Container Registry connects to.";
+      description = "Address of the GitLab instance, GitLab Container Registry connects to.";
     };
     certFile = lib.mkOption {
       type = lib.types.path;

@@ -158,12 +158,12 @@ in
       default = null;
       description = ''
         The path to the file holding the credentials to access the web
-        interface. If unset no authentication will be required.
+        interface. If unset, no authentication will be required.
 
         The file must contain user names and password hashes in the format
         `username:hash`, one for each line.  Usernames must
         start with a lowercase ([a-z]) ASCII character, might contain
-        non-consecutive underscores except at the end, and consists of
+        non-consecutive underscores except at the end, and consist of
         small-case a-z characters and digits 0-9.
         The {command}`htpasswd` tool from the `apacheHttpd`
         package may be used to generate the hash:

@@ -114,7 +114,7 @@ in
       description = ''
         The path, host/port or file descriptor to bind the gunicorn socket to.
 
-        See  <https://docs.gunicorn.org/en/stable/settings.html#bind> for possible options.
+        See <https://docs.gunicorn.org/en/stable/settings.html#bind> for possible options.
       '';
     };
 
@@ -281,7 +281,7 @@ in
                 "unix://${config.services.redis.servers.lasuite-drive.unixSocket}?db=1"
               else
                 null;
-            description = "URL of the redis backend";
+            description = "URL of the Redis backend";
           };
 
           CELERY_BROKER_URL = mkOption {
@@ -291,7 +291,7 @@ in
                 "redis+socket://${config.services.redis.servers.lasuite-drive.unixSocket}?db=2"
               else
                 null;
-            description = "URL of the redis backend for celery";
+            description = "URL of the Redis backend for Celery";
           };
         };
       };
@@ -326,7 +326,7 @@ in
     warnings = mkIf (cfg.enableNginx && !(hasSuffix "/" cfg.s3Url)) [
       ''
         services.lasuite-drive.s3Url should end with a trailing slash (/).
-        This could break the HTTP requests by nginx to the S3 backend.
+        This could break the HTTP requests from nginx to the S3 backend.
       ''
     ];
 

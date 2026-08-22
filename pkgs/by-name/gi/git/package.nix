@@ -244,7 +244,7 @@ stdenv.mkDerivation (finalAttrs: {
     "ZLIB_NG=1"
   ]
   # Git does not allow setting a shell separately for building and run-time.
-  # Therefore lets leave it at the default /bin/sh when cross-compiling
+  # Therefore, let's leave it at the default /bin/sh when cross-compiling
   ++ lib.optional (stdenv.buildPlatform == stdenv.hostPlatform) "SHELL_PATH=${stdenv.shell}"
   ++ (if perlSupport then [ "PERL_PATH=${perlPackages.perl}/bin/perl" ] else [ "NO_PERL=1" ])
   ++ (if pythonSupport then [ "PYTHON_PATH=${python3}/bin/python" ] else [ "NO_PYTHON=1" ])
@@ -263,12 +263,12 @@ stdenv.mkDerivation (finalAttrs: {
   # git-gui refuses to start with the version of tk distributed with
   # macOS Catalina. We can prevent git from building the .app bundle
   # by specifying an invalid tk framework. The postInstall step will
-  # then ensure that git-gui uses tcl/tk from nixpkgs, which is an
+  # then ensure that git-gui uses tcl/tk from Nixpkgs, which is an
   # acceptable version.
   #
   # See https://github.com/Homebrew/homebrew-core/commit/dfa3ccf1e7d3901e371b5140b935839ba9d8b706
   ++ lib.optional stdenv.hostPlatform.isDarwin "TKFRAMEWORK=/nonexistent"
-  # Starting with future Git version 3.0.0, rust will be mandatory. For now, it's optional.
+  # Starting with future Git version 3.0.0, Rust will be mandatory. For now, it's optional.
   ++ lib.optional (!rustSupport) "NO_RUST=YesPlease";
 
   disallowedReferences = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [

@@ -137,12 +137,12 @@ in
             };
             stopwords = [ "<|eot_id|>" ];
             template = {
-              # Templates implement following specifications
+              # Templates implement the following specifications
               # https://github.com/meta-llama/llama3/tree/main?tab=readme-ov-file#instruction-tuned-models
               # ... and are inspired by:
               # https://github.com/mudler/LocalAI/blob/master/embedded/models/llama3-instruct.yaml
               #
-              # The rules for template evaluateion are defined here:
+              # The rules for template evaluation are defined here:
               # https://pkg.go.dev/text/template
               chat_message = ''
                 <|start_header_id|>{{.RoleName}}<|end_header_id|>

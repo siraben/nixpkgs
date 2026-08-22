@@ -26,7 +26,7 @@ in
           HTTP.Port = lib.mkOption {
             type = lib.types.port;
             default = 8889;
-            description = "The port goupile runs on";
+            description = "The port Goupile runs on";
           };
           Data.RootDirectory = lib.mkOption {
             type = lib.types.str;
@@ -52,7 +52,7 @@ in
     configFile = lib.mkOption {
       type = lib.types.path;
       description = ''
-        The configuration file to be passed to goupile server.
+        The configuration file to be passed to Goupile server.
 
         By default the configuration file is created from `services.goupile.settings`.
       '';
@@ -62,7 +62,7 @@ in
       type = lib.types.str;
       default = config.networking.fqdnOrHostName;
       defaultText = lib.literalExpression "config.networking.fqdnOrHostName";
-      description = "Nginx service name for goupile service.";
+      description = "Nginx service name for Goupile service.";
     };
   };
   config = lib.mkIf cfg.enable (

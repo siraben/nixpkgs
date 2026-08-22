@@ -35,8 +35,8 @@ to `configuration.nix`:
 }
 ```
 
-Should grub be used as bootloader, and `/boot` is located on an
-encrypted partition, it is necessary to add the following grub option:
+Should GRUB be used as the bootloader and `/boot` be located on an
+encrypted partition, it is necessary to add the following GRUB option:
 
 ```nix
 { boot.loader.grub.enableCryptodisk = true; }
@@ -44,8 +44,8 @@ encrypted partition, it is necessary to add the following grub option:
 
 ## FIDO2 {#sec-luks-file-systems-fido2}
 
-NixOS also supports unlocking your LUKS-Encrypted file system using a FIDO2
-compatible token.
+NixOS also supports unlocking your LUKS-Encrypted file system using a
+FIDO2-compatible token.
 
 ### Without systemd in initrd {#sec-luks-file-systems-fido2-legacy}
 
@@ -66,7 +66,7 @@ Old password (again):
 Added to key to device /dev/sda2, slot: 2
 ```
 
-To ensure that this file system is decrypted using the FIDO2 compatible
+To ensure that this file system is decrypted using the FIDO2-compatible
 key, add the following to `configuration.nix`:
 
 ```nix
@@ -88,8 +88,8 @@ as [Trezor](https://trezor.io/).
 ### systemd Stage 1 {#sec-luks-file-systems-fido2-systemd}
 
 If systemd stage 1 is enabled, it handles unlocking of LUKS-encrypted volumes
-during boot. The following example enables systemd stage1 and adds support for
-unlocking the existing LUKS2 volume `root` using any enrolled FIDO2 compatible
+during boot. The following example enables systemd stage 1 and adds support for
+unlocking the existing LUKS2 volume `root` using any enrolled FIDO2-compatible
 tokens.
 
 ```nix

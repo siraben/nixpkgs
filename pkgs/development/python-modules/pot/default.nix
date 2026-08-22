@@ -50,7 +50,7 @@ buildPythonPackage (finalAttrs: {
       --replace-fail " --durations=20" "" \
       --replace-fail " --junit-xml=junit-results.xml" ""
 
-    # we don't need setup.py to find the macos sdk for us
+    # we don't need setup.py to find the macOS SDK for us
     sed -i '/sdk_path/d' setup.py
   '';
 

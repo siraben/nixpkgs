@@ -15,7 +15,7 @@ in
       enable = lib.mkEnableOption "yubikey-touch-detector";
 
       libnotify = lib.mkOption {
-        # This used to be true previously and using libnotify would be a sane default.
+        # This used to be true previously, and using libnotify would be a sane default.
         default = true;
         type = types.bool;
         description = ''

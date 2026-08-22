@@ -23,7 +23,7 @@ stdenv.mkDerivation {
   meta = {
     homepage = "https://github.com/RhysU/yeshup";
     platforms = lib.platforms.linux;
-    license = lib.licenses.cc-by-sa-30; # From Stackoverflow answer
+    license = lib.licenses.cc-by-sa-30; # From Stack Overflow answer
     maintainers = with lib.maintainers; [ obadz ];
     mainProgram = "yeshup";
   };

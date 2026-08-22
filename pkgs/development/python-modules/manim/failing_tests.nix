@@ -50,7 +50,7 @@
   # reason for failure: tests try to reach network
   "test_logging_to_file"
 
-  # This tests checks if the manim executable is a python script. In our case it is not.
+  # This test checks if the manim executable is a Python script. In our case it is not.
   # It is a wrapper shell script instead.
   "test_manim_checkhealth_subcommand"
 

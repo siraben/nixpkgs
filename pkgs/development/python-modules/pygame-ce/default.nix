@@ -191,7 +191,7 @@ buildPythonPackage (finalAttrs: {
   };
 
   meta = {
-    description = "Pygame Community Edition (CE) - library for multimedia application built on SDL";
+    description = "Pygame Community Edition (CE) - library for multimedia applications built on SDL";
     homepage = "https://pyga.me/";
     changelog = "https://github.com/pygame-community/pygame-ce/releases/tag/${finalAttrs.src.tag}";
     license = lib.licenses.lgpl21Plus;

@@ -164,7 +164,7 @@ stdenv.mkDerivation {
     "--set USE_WOLFRAM_LD_LIBRARY_PATH 1"
     # Fix xkeyboard config path for Qt
     "--set QT_XKB_CONFIG_ROOT ${xkeyboard_config}/share/X11/xkb"
-    # if wayland isn't supported we fail over to xcb
+    # if Wayland isn't supported we fail over to xcb
     # see https://github.com/qt/qtbase/blob/35d0f012ee9b95e8cf3563a41d710ff3c023d841/src/gui/kernel/qguiapplication.cpp#L1218
     "--set QT_QPA_PLATFORM wayland;xcb"
   ]

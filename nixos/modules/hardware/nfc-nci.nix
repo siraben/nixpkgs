@@ -59,7 +59,7 @@ let
       NXP_SYS_CLK_SRC_SEL = "0x01";
       NXP_SYS_CLK_FREQ_SEL = "0x00";
       NXP_SYS_CLOCK_TO_CFG = "0x01";
-      # Configure the non-propriety NCI settings in EEPROM:
+      # Configure the non-proprietary NCI settings in EEPROM:
       # 0x28: PN_NFC_DEP_SPEED = 0x00 (Data exchange: Highest Available Bit Rates)
       # 0x21: PI_BIT_RATE = 0x00 (Maximum allowed bit rate: 106 Kbit/s)
       # 0x30: LA_BIT_FRAME_SDD = 0x08 (Bit Frame SDD value to be sent in Byte 1 of SENS_RES)
@@ -138,7 +138,7 @@ in
     settings = lib.mkOption {
       default = defaultSettings;
       description = ''
-        Configuration to be written to the libncf-nci configuration files.
+        Configuration to be written to the libnfc-nci configuration files.
         To understand the configuration format, refer to <https://github.com/NXPNFCLinux/linux_libnfc-nci/tree/master/conf>.
       '';
       type = lib.types.attrs;

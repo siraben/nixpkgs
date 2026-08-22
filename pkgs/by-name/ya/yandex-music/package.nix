@@ -15,11 +15,11 @@
   trayEnabled ? true,
   # Style of tray: 1 - default style, 2 - mono black, 3 - mono white
   trayStyle ? 1,
-  # Whether to leave application in tray disregarding of its play state
+  # Whether to leave the application in the tray regardless of its play state
   trayAlways ? false,
   # Whether to enable developers tools
   devTools ? false,
-  # Vibe animation FPS can be  from 0 (black screen) to any reasonable number.
+  # Vibe animation FPS can be from 0 (black screen) to any reasonable number.
   # Recommended 25 - 144. Default 25.
   vibeAnimationMaxFps ? 25,
   # Yandex Music's custom Windows-styled titlebar. Also makes the window frameless.

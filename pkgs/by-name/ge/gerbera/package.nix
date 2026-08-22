@@ -178,8 +178,8 @@ stdenv.mkDerivation (finalAttrs: {
     description = "UPnP Media Server for 2024";
     longDescription = ''
       Gerbera is a Mediatomb fork.
-      It allows to stream your digital media through your home network and consume it on all kinds
-      of UPnP supporting devices.
+      It allows you to stream your digital media through your home network and consume it on all
+      kinds of UPnP supporting devices.
     '';
     license = lib.licenses.gpl2Only;
     maintainers = with lib.maintainers; [ ardumont ];

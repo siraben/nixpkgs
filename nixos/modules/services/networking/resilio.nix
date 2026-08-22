@@ -134,7 +134,7 @@ in
         type = types.bool;
         default = true;
         description = ''
-          Use Universal Plug-n-Play (UPnP)
+          Use Universal Plug-n-Play (UPnP).
         '';
       };
 

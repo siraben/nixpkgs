@@ -361,7 +361,7 @@ in
     ];
 
     # Note: the following options are also declared in virtualisation.lxc, but
-    # the latter can't be simply enabled to reuse the formers, because it
+    # the latter can't be simply enabled to reuse them, because it
     # does a bunch of unrelated things.
     systemd.tmpfiles.rules = [ "d /var/lib/lxc/rootfs 0755 root root -" ];
 

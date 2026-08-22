@@ -131,7 +131,7 @@ in
       openFirewall = mkOption {
         type = bool;
         default = false;
-        description = "Whether to open the TCP port in the firewall";
+        description = "Whether to open the TCP port in the firewall.";
       };
 
       environmentFile = mkOption {

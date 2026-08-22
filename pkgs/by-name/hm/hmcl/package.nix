@@ -106,7 +106,7 @@ stdenv.mkDerivation (finalAttrs: {
     jar xf $src META-INF/MANIFEST.MF
     # Remove last empty line; otherwise file is invalid
     sed -i '/^[[:space:]]*$/d' META-INF/MANIFEST.MF
-    # Let our patch jar be the entrance and load hmcl.jar
+    # Let our patch jar act as the entry point and load hmcl.jar
     echo "Class-Path: $out/lib/hmcl/hmcl.jar" >> META-INF/MANIFEST.MF
 
     # Package our patch jar

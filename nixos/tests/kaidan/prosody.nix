@@ -13,10 +13,10 @@ let
     cp key.pem cert.pem $out
   '';
 
-  # Creates and set password for the 2 xmpp test users.
+  # Creates and sets the password for the two XMPP test users.
   #
   # Doing that in a bash script instead of doing that in the test
-  # script allow us to easily provision the users when running that
+  # script allows us to easily provision the users when running that
   # test interactively.
   createUsers = pkgs.writeShellScriptBin "create-prosody-users" ''
     set -e

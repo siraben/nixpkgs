@@ -153,7 +153,7 @@ in
 # gcc miscompiles coroutines at least until 13.2, possibly longer
 # do not remove this check unless you are sure you (or your users) will not report bugs to Lix upstream about GCC miscompilations.
 assert lib.assertMsg (enableStrictLLVMChecks && isLLVMOnly -> stdenv.cc.isClang)
-  "Lix upstream strongly discourage the usage of GCC to compile Lix as there's known miscompilations in important places. If you are a compiler developer, please get in touch with us.";
+  "Lix upstream strongly discourages the usage of GCC to compile Lix as there are known miscompilations in important places. If you are a compiler developer, please get in touch with us.";
 stdenv.mkDerivation (finalAttrs: {
   pname = "lix";
 
@@ -176,7 +176,7 @@ stdenv.mkDerivation (finalAttrs: {
   disallowedReferences = lib.optionals isLLVMOnly [
     # We don't want the Clang.
     stdenv.cc.cc
-    # We don't want the underlying GCC neither!
+    # We don't want the underlying GCC either!
     stdenv.cc.cc.stdenv.cc.cc
   ];
   __structuredAttrs = true;
@@ -238,7 +238,7 @@ stdenv.mkDerivation (finalAttrs: {
     meson
     ninja
     cmake
-    # Required for libstd++ assertions that leaks inside of the final binary.
+    # Required for libstd++ assertions that leak inside of the final binary.
     removeReferencesTo
 
     # Tests

@@ -23,9 +23,9 @@ in
       enable = lib.mkOption {
         default = false;
         description = ''
-          Whether to enable Rygel UPnP Mediaserver.
+          Whether to enable the Rygel UPnP Mediaserver.
 
-          You will need to also allow UPnP connections in firewall, see the following [comment](https://github.com/NixOS/nixpkgs/pull/45045#issuecomment-416030795).
+          You will also need to allow UPnP connections in your firewall; see the following [comment](https://github.com/NixOS/nixpkgs/pull/45045#issuecomment-416030795).
         '';
         type = lib.types.bool;
       };

@@ -186,7 +186,7 @@ in
               }
             '';
             # Allow "/internal" interface only from 127.0.0.1
-            # Don't comment out the section below for the security reason!
+            # Don't comment out the section below for security reasons!
             "~* ^(\\/[\\d]+\\.[\\d]+\\.[\\d]+[\\.|-][\\w]+)?\\/(internal)(\\/.*)$".extraConfig = ''
               allow 127.0.0.1;
               deny all;
@@ -275,7 +275,7 @@ in
           NODE_ENV = "production-linux";
         };
         serviceConfig = {
-          # needs to be ran wrapped in FHS for now
+          # needs to be run wrapped in FHS for now
           # because the default config refers to many FHS paths
           ExecStart = "${cfg.package.fhs}/bin/onlyoffice-wrapper ${cfg.package.fileconverter}/bin/fileconverter";
           Group = "onlyoffice";
@@ -310,7 +310,7 @@ in
 
             cp /run/onlyoffice/config/default.json{,.orig}
 
-            # for a mapping of environment variables from the docker container to json options see
+            # for a mapping of environment variables from the Docker container to JSON options see
             # https://github.com/ONLYOFFICE/Docker-DocumentServer/blob/master/run-document-server.sh
             FS_SECRET_STRING=$(cut -d '"' -f 2 < ${cfg.securityNonceFile})
             jq '

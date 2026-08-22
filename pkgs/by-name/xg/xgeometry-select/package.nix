@@ -28,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   meta = {
-    description = "Select a region with mouse and prints geometry information (x/y/w/h)";
+    description = "Select a region with the mouse and print geometry information (x/y/w/h)";
     homepage = "https://bbs.archlinux.org/viewtopic.php?pid=660837";
     maintainers = with lib.maintainers; [ obadz ];
     platforms = lib.platforms.linux;

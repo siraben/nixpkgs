@@ -83,7 +83,7 @@ npmConfigHook() {
       echo
       echo "ERROR: npmDepsHash is out of date"
       echo
-      echo "The package-lock.json in src is not the same as the in $npmDeps."
+      echo "The package-lock.json in src is not the same as the one in $npmDeps."
       echo
       echo "To fix the issue:"
       echo '1. Use `lib.fakeHash` as the npmDepsHash value'

@@ -140,7 +140,7 @@ in
         Enables [distributed pollers](https://docs.librenms.org/Extensions/Distributed-Poller/)
         for this LibreNMS instance. This will enable a local `rrdcached` and `memcached` server.
 
-        To use this feature, make sure to configure your firewall that the distributed pollers
+        To use this feature, make sure to configure your firewall so that the distributed pollers
         can reach the local `mysql`, `rrdcached` and `memcached` ports.
       '';
     };

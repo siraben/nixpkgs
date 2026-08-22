@@ -37,7 +37,7 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    description = "Mini Web server that let others upload files to your computer";
+    description = "Mini Web server that lets others upload files to your computer";
     homepage = "http://stackp.online.fr/droopy";
     license = lib.licenses.bsd3;
     maintainers = [ ];

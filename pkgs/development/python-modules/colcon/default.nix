@@ -32,7 +32,7 @@ buildPythonPackage rec {
   };
 
   # Upstream tracking issue: https://github.com/ros2/ros2/issues/1738
-  # This will break some functionality of building setuptools packages using colcon, other package types should work fine
+  # This will break some functionality of building setuptools packages using colcon; other package types should work fine
   patches = [ ./0001-update-setuptools.patch ];
 
   build-system = [ setuptools ];

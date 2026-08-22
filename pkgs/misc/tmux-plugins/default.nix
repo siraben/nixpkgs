@@ -36,7 +36,7 @@ let
       ...
     }:
     if lib.hasAttr "dependencies" a then
-      throw "dependencies attribute is obsolete. see NixOS/nixpkgs#118034" # added 2021-04-01
+      throw "dependencies attribute is obsolete. See NixOS/nixpkgs#118034" # added 2021-04-01
     else
       addRtp "${rtpPath}/${path}" rtpFilePath a (
         stdenv.mkDerivation (

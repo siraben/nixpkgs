@@ -82,7 +82,7 @@ stdenv.mkDerivation (finalAttrs: {
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-error=c++11-narrowing";
 
   meta = {
-    description = "Core library for full-featured text search engine";
+    description = "Core library for a full-featured text search engine";
     longDescription = ''
       CLucene is a high-performance, scalable, cross platform, full-featured,
       open-source indexing and searching API. Specifically, CLucene is the guts

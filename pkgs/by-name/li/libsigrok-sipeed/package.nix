@@ -77,7 +77,7 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    description = "A fork of libsigrok with slogic devices support ";
+    description = "A fork of libsigrok with support for slogic devices";
     homepage = "https://github.com/sipeed/libsigrok/";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux ++ lib.platforms.darwin;

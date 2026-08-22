@@ -46,7 +46,7 @@ buildPythonPackage rec {
   '';
 
   meta = {
-    description = "Simple python bindings to Yann Collet ZSTD compression library";
+    description = "Simple Python bindings to Yann Collet's ZSTD compression library";
     homepage = "https://github.com/sergey-dryabzhinsky/python-zstd";
     license = lib.licenses.bsd2;
     maintainers = with lib.maintainers; [ eadwu ];

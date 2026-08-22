@@ -6,7 +6,7 @@
 tracee.overrideAttrs (old: {
   pname = old.pname + "-integration";
   postPatch = old.postPatch or "" + ''
-    # fix the test to look at nixos paths for running programs
+    # fix the test to look at NixOS paths for running programs
       # --replace-fail '"integration.tes"' '"tracee-integrat"' \
     substituteInPlace tests/integration/event_filters_test.go \
       --replace-fail "exec=/usr/bin/dockerd" "comm=dockerd" \
@@ -30,7 +30,7 @@ tracee.overrideAttrs (old: {
     touch dist/btfhub/.placeholder
     cp ${lib.getOutput "lib" tracee}/lib/tracee/tracee.bpf.o ./dist/
 
-    # then compile the tests to be ran later
+    # then compile the tests to be run later
     mkdir -p $GOPATH/tracee-integration
     CGO_LDFLAGS="$(pkg-config --libs libbpf)" go build -o $GOPATH/tracee-integration/syscaller ./tests/integration/syscaller/cmd
     CGO_LDFLAGS="$(pkg-config --libs libbpf)" go test -tags core,ebpf,integration -c -o $GOPATH/tracee-integration/ ./tests/integration/...

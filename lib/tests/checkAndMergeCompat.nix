@@ -261,7 +261,7 @@ in
     };
   };
 
-  # Coereced to
+  # Coerced to
   coerce_attrsOf_str_to_listOf_str_run = getMatrix {
     outerTypeName = "coercedTo";
     innerTypeName = "attrsOf_str->listOf_str";

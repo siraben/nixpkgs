@@ -12,9 +12,9 @@
 
 stdenv.mkDerivation (finalAttrs: {
   # pf5234 (a developer?) at freenode #egoboo told me that I better use 2.7.3 until
-  # they fix more, because it even has at least one bugs less than 2.7.4.
-  # 2.8.0 does not start properly on linux
-  # They just starting making that 2.8.0 work on linux.
+  # they fix more, because it even has at least one bug less than 2.7.4.
+  # 2.8.0 does not start properly on Linux
+  # They just started making that 2.8.0 work on Linux.
   pname = "egoboo";
   version = "2.7.3";
 

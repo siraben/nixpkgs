@@ -24,7 +24,7 @@
 
     So: use `nushell.withPlugins` for devShells and non-interactive shells
     where you can't modify the plugin registry first (e.g. if there's no
-    writeable home directory). Use nixos' `programs.nushell.plugins` for
+    writable home directory). Use NixOS' `programs.nushell.plugins` for
     interactive shells.
 */
 symlinkJoin {

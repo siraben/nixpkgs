@@ -163,7 +163,7 @@ in
                     default = 3600;
                     example = 0;
                     description = ''
-                      Lifetime in seconds, that generated URLs stay valid.
+                      Lifetime in seconds for which generated URLs stay valid.
 
                       Set the lifetime to 0 to prevent URLs from becoming invalid.
                     '';

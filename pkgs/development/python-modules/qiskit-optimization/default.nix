@@ -58,7 +58,7 @@ buildPythonPackage rec {
   pytestFlags = [ "--durations=10" ];
 
   meta = {
-    # broken because it depends on qiskit-algorithms which is not yet packaged in nixpkgs
+    # broken because it depends on qiskit-algorithms which is not yet packaged in Nixpkgs
     broken = true;
     description = "Software for developing quantum computing programs";
     homepage = "https://qiskit.org";

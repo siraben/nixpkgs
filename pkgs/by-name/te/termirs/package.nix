@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   passthru.updateScript = nix-update-script { };
 
-  # Try to access network stack in sandboxed darwin
+  # Tests try to access the network stack in sandboxed Darwin
   checkFlags = lib.optionals stdenvNoCC.hostPlatform.isDarwin [
     "--skip=async_ssh_client::tests::test_connect_embedded_server"
     "--skip=async_ssh_client::tests::test_port_forwarding"

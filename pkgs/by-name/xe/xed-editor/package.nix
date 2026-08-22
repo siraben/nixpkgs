@@ -34,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   patches = [
     # We patch gobject-introspection and meson to store absolute paths to libraries in typelibs
-    # but that requires the install_dir is an absolute path.
+    # but that requires install_dir to be an absolute path.
     ./correct-gir-lib-path.patch
   ];
 

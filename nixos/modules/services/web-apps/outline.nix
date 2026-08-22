@@ -16,7 +16,7 @@ in
       "services"
       "outline"
       "sequelizeArguments"
-    ] "Database migration are run against configured database by outline directly")
+    ] "Database migrations are run directly by Outline against the configured database")
   ];
   # See here for a reference of all the options:
   #   https://github.com/outline/outline/blob/v0.67.0/.env.sample

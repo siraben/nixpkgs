@@ -35,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   patches = [
     # specify what files should be installed in package.json (https://github.com/unageek/graphest/pull/1000)
-    # not accepted by upstream because the developer did not intend to publish as an npm package
+    # not accepted by upstream because the developer did not intend to publish it as an npm package
     (fetchpatch {
       name = "npm-files";
       url = "https://github.com/unageek/graphest/commit/1d1b8ee610a55bf9465a630499c6b0f6e9a66689.patch";

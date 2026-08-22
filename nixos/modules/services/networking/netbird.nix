@@ -221,7 +221,7 @@ in
                   Start the service with the system.
 
                   As of 2024-02-13 it is not possible to start a NetBird client daemon without immediately
-                  connecting to the network, but it is [planned for a near future](https://github.com/netbirdio/netbird/projects/2#card-91718018).
+                  connecting to the network, but it is [planned for the near future](https://github.com/netbirdio/netbird/projects/2#card-91718018).
                 '';
               };
 
@@ -258,7 +258,7 @@ in
                 type = bool;
                 default = true;
                 description = ''
-                  Opens up internal firewall ports for the NetBird's network interface.
+                  Opens up internal firewall ports for NetBird's network interface.
                 '';
               };
 
@@ -267,8 +267,8 @@ in
                 default = true;
                 description = ''
                   Hardened service:
-                  - runs as a dedicated user with minimal set of permissions (see caveats),
-                  - restricts daemon configuration socket access to dedicated user group
+                  - runs as a dedicated user with a minimal set of permissions (see caveats),
+                  - restricts daemon configuration socket access to a dedicated user group
                     (you can grant access to it with `users.users."<user>".extraGroups = [ ${client.user.group} ]`),
 
                   Even though the local system resources access is restricted:
@@ -371,7 +371,7 @@ in
 
                   It is implemented as a `preStart` script which overrides {file}`config.json`
                   with content of {file}`/etc/${client.dir.baseName}/config.d/*.json` files.
-                  This option manages specifically {file}`50-nixos.json` file.
+                  This option specifically manages the {file}`50-nixos.json` file.
 
                   Consult [the source code](https://github.com/netbirdio/netbird/blob/88747e3e0191abc64f1e8c7ecc65e5e50a1527fd/client/internal/config.go#L49-L82)
                   or inspect existing file for a complete list of available configurations.

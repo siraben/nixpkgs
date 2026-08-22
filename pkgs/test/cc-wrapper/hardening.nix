@@ -42,7 +42,7 @@ let
   flexArrF2ExampleWithStdEnv = writeCBinWithStdenv ./flex-arrays-fortify-example.c;
 
   # we don't really have a reliable property for testing for
-  # libstdc++ we'll just have to check for the absence of libcxx
+  # libstdc++, so we'll just have to check for the absence of libcxx
   checkGlibcxxassertionsWithStdEnv =
     expectDefined: stdenv': derivationArgs:
     brokenIf (stdenv.cc.libcxx != null) (

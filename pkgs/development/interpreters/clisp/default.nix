@@ -93,7 +93,7 @@ stdenv.mkDerivation {
 
   # First, replace port 9090 (rather low, can be used)
   # with 64237 (much higher, IANA private area, not
-  # anything rememberable).
+  # anything memorable).
   postPatch = ''
     sed -e 's@9090@64237@g' -i tests/socket.tst
     sed -i 's@/bin/pwd@${coreutils}&@' src/clisp-link.in

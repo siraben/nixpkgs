@@ -39,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     mkdir $out/bin
     mv $out/documentation /$out/doc
 
-    # ums >= 9.0.0 ships its own JRE in the package. if we remove it, the `UMS.sh`
+    # ums >= 9.0.0 ships its own JRE in the package. If we remove it, the `UMS.sh`
     # script will correctly fall back to the JRE specified by JAVA_HOME
     rm -rf $out/jre17
 

@@ -50,7 +50,7 @@ buildGoModule (finalAttrs: {
     # using the native Go implementation of xz. By wrapping ncps, and
     # setting the XZ_BINARY_PATH environment variable, we ensure that
     # ncps can always find the xz binary. This environment variable is
-    # read by a flag in pkg/ncps and can be overridden by using calling
+    # read by a flag in pkg/ncps and can be overridden by calling
     # ncps with the --xz-binary-path flag.
     wrapProgram $out/bin/ncps --set XZ_BINARY_PATH ${lib.getExe' xz "xz"}
 

@@ -37,7 +37,7 @@ buildPythonPackage rec {
   meta = {
     description = "Libervia temporary third party patches";
     longDescription = ''
-      This module is used by Libervia project (formerly “Salut à Toi”) project to patch third party modules
+      This module is used by the Libervia project (formerly “Salut à Toi”) to patch third-party modules
       when the patches are not yet available upstream. Patches are removed from this module once merged upstream.
     '';
     homepage = "https://libervia.org";

@@ -820,7 +820,7 @@ let
         # NOTE Check whether the key starts with an @, in which case it is
         # interpreted as the name of the credential from which the actual key
         # shall be read by systemd-creds.
-        # Do not remove this check as the nix store is world-readable.
+        # Do not remove this check as the Nix store is world-readable.
         sectionWireGuard = checkUnitConfig "WireGuard" [
           (assertKeyIsSystemdCredential "PrivateKey")
           (assertOnlyFields [
@@ -840,7 +840,7 @@ let
         # NOTE Check whether the key starts with an @, in which case it is
         # interpreted as the name of the credential from which the actual key
         # shall be read by systemd-creds.
-        # Do not remove this check as the nix store is world-readable.
+        # Do not remove this check as the Nix store is world-readable.
         sectionWireGuardPeer = checkUnitConfigWithLegacyKey "wireguardPeerConfig" "WireGuardPeer" [
           (assertKeyIsSystemdCredential "PresharedKey")
           (assertOnlyFields [
@@ -2921,7 +2921,7 @@ let
         `[WireGuard]` section of the unit. See
         {manpage}`systemd.netdev(5)` for details.
         Use `PrivateKeyFile` instead of
-        `PrivateKey`: the nix store is
+        `PrivateKey`: the Nix store is
         world-readable.
       '';
     };
@@ -2943,7 +2943,7 @@ let
         `[WireGuardPeer]` section of the unit. See
         {manpage}`systemd.netdev(5)` for details.
         Use `PresharedKeyFile` instead of
-        `PresharedKey`: the nix store is
+        `PresharedKey`: the Nix store is
         world-readable.
       '';
     };

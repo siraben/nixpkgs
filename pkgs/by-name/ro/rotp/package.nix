@@ -23,8 +23,8 @@ stdenv.mkDerivation {
     makeWrapper
   ];
 
-  # By default, the game tries to write to the java class path. If that fails
-  # (and it always does, since they are in the read-only nix store), it won't
+  # By default, the game tries to write to the Java class path. If that fails
+  # (and it always does, since they are in the read-only Nix store), it won't
   # launch.
   patches = [ ./0001-store-config-and-saves-in-XDG_CONFIG_HOME.patch ];
 

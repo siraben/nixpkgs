@@ -1,5 +1,5 @@
 # This is a distributed test of the Network Address Translation involving a topology
-# with a router inbetween three separate virtual networks:
+# with a router between three separate virtual networks:
 # - "external" -- i.e. the internet,
 # - "internal" -- i.e. an office LAN,
 #
@@ -9,7 +9,7 @@
 # - when using externalIP, only the specified IP is used for NAT,
 # - port forwarding functionality behaves correctly
 #
-# The client is behind the nat (read: protected by the nat) and the server is on the external network, attempting to access services behind the NAT.
+# The client is behind the NAT (read: protected by the NAT) and the server is on the external network, attempting to access services behind the NAT.
 
 import ./make-test-python.nix (
   {

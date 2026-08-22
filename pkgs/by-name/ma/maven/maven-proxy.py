@@ -1,8 +1,8 @@
 """
 Maven doesn't honor HTTP[S]_PROXY and NO_PROXY env vars out of the box.
 Instead, it expects the user to configure a settings.xml file.
-We however impurely pass only these env vars in FODs.
-This creates the XML file on demand, if one or more env vars is set.
+We, however, impurely pass only these env vars in FODs.
+This creates the XML file on demand, if one or more env vars are set.
 """
 
 import os

@@ -113,7 +113,7 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
   pythonImportsCheck = [ "maigret" ];
 
   meta = {
-    description = "Tool to collect details about an username";
+    description = "Tool to collect details about a username";
     homepage = "https://maigret.readthedocs.io";
     changelog = "https://github.com/soxoj/maigret/blob/${finalAttrs.src.tag}/CHANGELOG.md";
     license = lib.licenses.mit;

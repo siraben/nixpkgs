@@ -308,7 +308,7 @@ stdenv.mkDerivation (finalAttrs: {
                 # Skip the python scripts
                 *.py) return 0 ;;
 
-                # These test require files, so we skip them
+                # These tests require files, so we skip them
                 testing_?io) ;&
                 testing_?madd) ;&
                 testing_?matrix) ;&
@@ -331,20 +331,20 @@ stdenv.mkDerivation (finalAttrs: {
                   return 0
                   ;;
 
-                # These test require outputting to files, so we skip them
+                # These tests require outputting to files, so we skip them
                 testing_?print)
                   logWithDate "skipping $1 because it requires creating output"
                   return 0
                   ;;
 
-                # These test succeed but exit with a non-zero code
+                # These tests succeed but exit with a non-zero code
                 testing_[cdz]gglse) ;&
                 testing_sgemm_fp16)
-                  logWithDate "skipping $1 because has a non-zero exit code"
+                  logWithDate "skipping $1 because it has a non-zero exit code"
                   return 0
                   ;;
 
-                # These test have memory freeing/allocation errors:
+                # These tests have memory freeing/allocation errors:
                 testing_?mdotc)
                   logWithDate "skipping $1 because it fails to allocate or free memory"
                   return 0

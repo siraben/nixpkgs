@@ -64,14 +64,14 @@ buildDir=$(getVar NIX_BUILD_TOP)
 # bashInteractive is used instead of bash, as we depend on it anyways, due to it being
 #   the default debug shell
 bashInteractive="$(getVar bashInteractive)"
-# the debug shell will be started as interactive shell after loading the env vars
+# the debug shell will be started as an interactive shell after loading the env vars
 debugShell="$(getVar debugShell)"
 # to drop the user into the working directory at the point of failure
 pwd="$(readlink /proc/$pid/cwd)"
 
 # enter the namespace of the failed build
-# bash needs to be executed with --init-file /build/env-vars to include the bash native
-#   variables like ones declared via `declare -a`.
+# bash needs to be executed with --init-file /build/env-vars to include the
+#   native bash variables like those declared via `declare -a`.
 # If another shell is chosen via `debugShell`, it will only have simple env vars available.
 exec nsenter --mount --ipc --uts --pid --user --setuid follow --setgid follow --net --target "$pid" "$bashInteractive" -c "
   set -eu -o pipefail

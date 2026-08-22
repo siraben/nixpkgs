@@ -32,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "fdkaac";
     longDescription = ''
       fdkaac reads linear PCM audio in either WAV, raw PCM, or CAF format,
-      and encodes it into either M4A / AAC file.
+      and encodes it into an M4A / AAC file.
     '';
     homepage = "https://github.com/nu774/fdkaac";
     license = lib.licenses.zlib;

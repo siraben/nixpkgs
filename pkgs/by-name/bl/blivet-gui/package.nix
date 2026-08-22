@@ -2,7 +2,7 @@
 # 1. --pure cannot be used (as pkexec will be used from the path,
 #    and we can't use nixpkgs polkit due to lack of setuid bit)
 # 2. You must prefix the blivet-gui command with "SHELL=/bin/bash"
-#    (otherwise your system polkit will reject the SHEL Lfrom nixpkgs).
+#    (otherwise your system polkit will reject the SHELL from nixpkgs).
 
 {
   lib,

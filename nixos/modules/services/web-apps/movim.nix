@@ -400,13 +400,13 @@ in
             restrictsuggestions = mkOption {
               type = types.nullOr types.bool;
               default = null;
-              description = "Only suggest chatrooms, Communities and other contents that are available on the user XMPP server and related services";
+              description = "Only suggest chatrooms, Communities and other content that is available on the user's XMPP server and related services";
             };
 
             chatonly = mkOption {
               type = types.nullOr types.bool;
               default = null;
-              description = "Disable all the social feature (Communities, Blog…) and keep only the chat ones";
+              description = "Disable all the social features (Communities, Blog…) and keep only the chat ones";
             };
 
             disableregistration = mkOption {

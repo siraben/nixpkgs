@@ -80,7 +80,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "meeko" ];
 
   meta = {
-    description = "Python package for preparing small molecule for docking";
+    description = "Python package for preparing small molecules for docking";
     homepage = "https://github.com/forlilab/Meeko";
     changelog = "https://github.com/forlilab/Meeko/releases/tag/${src.tag}";
     license = lib.licenses.lgpl21Only;

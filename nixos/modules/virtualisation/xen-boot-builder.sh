@@ -25,7 +25,7 @@ if [ "$1" = "debug" ]; then
     if ((${#preGenerations[@]} == 0)); then
         echo -e "\e[1;34mxenBootBuilder:\e[0m no previous Xen entries."
     else
-        echo -e "\e[1;34mxenBootBuilder:\e[0m deleting the following stale xen entries:" && for debugGen in "${preGenerations[@]}"; do echo "                - $debugGen"; done
+        echo -e "\e[1;34mxenBootBuilder:\e[0m deleting the following stale Xen entries:" && for debugGen in "${preGenerations[@]}"; do echo "                - $debugGen"; done
     fi
 fi
 
@@ -143,11 +143,11 @@ if ((${#postGenerations[@]} == 0)); then
 # If the script is successful, change the default boot, say "done.", write a
 # diff, or print the total files written, depending on the argument this script
 # was called with. We use some dumb dependencies here, like `diff` or `bat` for
-# colourisation, but they're only included  with the `info` argument.
+# colourisation, but they're only included with the `info` argument.
 #
 # It's also fine to change the default here, as this runs after the
 # `systemd-boot-builder.py` script, which overwrites the file, and this script
-# does not run after an user disables the Xen module.
+# does not run after a user disables the Xen module.
 else
     sed --in-place 's/^default nixos-/default xen-/g' "$efiMountPoint"/loader/loader.conf
     case "$1" in

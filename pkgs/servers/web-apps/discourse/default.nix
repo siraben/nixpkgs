@@ -395,14 +395,14 @@ let
       ./prebuild-asset-processor.patch
 
       # safe_exec.rb, which is used to execute ImageMagick among other things, restricts executable paths to standard FHS paths
-      # which breaks on nix. this patch adds the entire /nix/store to allowed paths, which is sub-optimal but
+      # which breaks on Nix. This patch adds the entire /nix/store to allowed paths, which is sub-optimal but
       # still provides some benefits over disabling entirely.
       ./safe-exec-from-nix-store.patch
     ];
 
     env.RAILS_ENV = "production";
     env.DISCOURSE_DOWNLOAD_PRE_BUILT_ASSETS = "0";
-    # Allow to use different bundler version than the lockfile has
+    # Allow using a different bundler version than the lockfile has
     env.BUNDLER_VERSION = pkgs.bundler.version;
 
     # requires full git and repository, even a src `leaveDotGit` is not enough. So patch this function to return the version
@@ -510,7 +510,7 @@ let
       ./prebuild-asset-processor.patch
 
       # safe_exec.rb, which is used to execute ImageMagick among other things, restricts executable paths to standard FHS paths
-      # which breaks on nix. this patch adds the entire /nix/store to allowed paths, which is sub-optimal but
+      # which breaks on Nix. This patch adds the entire /nix/store to allowed paths, which is sub-optimal but
       # still provides some benefits over disabling entirely.
       ./safe-exec-from-nix-store.patch
 
@@ -546,9 +546,9 @@ let
       cp -r . $out/share/discourse
       rm -r $out/share/discourse/log
       ln -sf /var/log/discourse $out/share/discourse/log
-      # we don't copy `tmp` from ${assets}, which means that any pre-cached content will be re-generated later
-      # however, we also can't copy `tmp` because then it would not be writable by discourse, which it must be
-      # and we can't write to /var/lib/discourse/tmp, because you can't do that in a build. this sucks.
+      # We don't copy `tmp` from ${assets}, which means that any pre-cached content will be re-generated later.
+      # However, we also can't copy `tmp` because then it would not be writable by Discourse, which it must be,
+      # and we can't write to /var/lib/discourse/tmp because you can't do that in a build. This sucks.
       ln -sf /var/lib/discourse/tmp $out/share/discourse/tmp
       ln -sf /run/discourse/config $out/share/discourse/config
       ln -sf /run/discourse/public $out/share/discourse/public

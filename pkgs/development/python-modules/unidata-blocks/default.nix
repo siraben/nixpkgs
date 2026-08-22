@@ -31,7 +31,7 @@ buildPythonPackage (finalAttrs: {
   passthru.updateScript = nix-update-script { };
 
   meta = {
-    description = "Library that helps query unicode blocks by Blocks.txt";
+    description = "Library that helps query Unicode blocks by Blocks.txt";
     homepage = "https://github.com/TakWolf/unidata-blocks";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [

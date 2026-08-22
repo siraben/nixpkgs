@@ -11,7 +11,7 @@ with lib;
 let
 
   /*
-    minimal secure setup:
+    Minimal secure setup:
 
     enable = true;
     forceLocalLoginsSSL = true;
@@ -42,7 +42,7 @@ let
 
   optionDescription = [
     (yesNoOption "allowWriteableChroot" "allow_writeable_chroot" false ''
-      Allow the use of writeable root inside chroot().
+      Allow the use of writable root inside chroot().
     '')
     (yesNoOption "virtualUseLocalPrivs" "virtual_use_local_privs" false ''
       If enabled, virtual users will use the same privileges as local
@@ -76,16 +76,16 @@ let
     '')
     (yesNoOption "userlistDeny" "userlist_deny" false ''
       Specifies whether {option}`userlistFile` is a list of user
-      names to allow or deny access.
+      names used to allow or deny access.
       The default `false` means whitelist/allow.
     '')
     (yesNoOption "forceLocalLoginsSSL" "force_local_logins_ssl" false ''
-      Only applies if {option}`sslEnable` is true. Non anonymous (local) users
+      Only applies if {option}`sslEnable` is true. Non-anonymous (local) users
       must use a secure SSL connection to send a password.
     '')
     (yesNoOption "forceLocalDataSSL" "force_local_data_ssl" false ''
-      Only applies if {option}`sslEnable` is true. Non anonymous (local) users
-      must use a secure SSL connection for sending/receiving data on data connection.
+      Only applies if {option}`sslEnable` is true. Non-anonymous (local) users
+      must use a secure SSL connection for sending/receiving data on the data connection.
     '')
     (yesNoOption "portPromiscuous" "port_promiscuous" false ''
       Set to YES if you want to disable the PORT security check that ensures that
@@ -169,11 +169,11 @@ in
         defaultText = literalExpression ''pkgs.writeText "userlist" (concatMapStrings (x: "''${x}\n") cfg.userlist)'';
         description = ''
           Newline separated list of names to be allowed/denied if {option}`userlistEnable`
-          is `true`. Meaning see {option}`userlistDeny`.
+          is `true`. See {option}`userlistDeny` for the meaning.
 
           The default is a file containing the users from {option}`userlist`.
 
-          If explicitly set to null userlist_file will not be set in vsftpd's config file.
+          If explicitly set to null, userlist_file will not be set in vsftpd's config file.
         '';
       };
 
@@ -182,7 +182,7 @@ in
         default = false;
         description = ''
           Whether to enable the `pam_userdb`-based
-          virtual user system
+          virtual user system.
         '';
       };
 
@@ -215,7 +215,7 @@ in
 
           Caution: `pam_userdb` will automatically
           append a `.db` suffix to the filename you
-          provide though this option. This option shouldn't include
+          provide through this option. This option shouldn't include
           this filetype suffix.
         '';
       };
@@ -226,7 +226,7 @@ in
         example = "/var/www/$USER";
         description = ''
           This option represents a directory which vsftpd will try to
-          change into after a local (i.e. non- anonymous) login.
+          change into after a local (i.e. non-anonymous) login.
 
           Failure is silently ignored.
         '';

@@ -53,8 +53,8 @@ stdenv.mkDerivation {
     longDescription = ''
       The Nafees font family is developed according
       to calligraphic rules, following the style of Syed Nafees
-      Al-Hussaini (Nafees Raqam) one of the finest calligraphers of
-      Pakistan
+      Al-Hussaini (Nafees Raqam), one of the finest calligraphers of
+      Pakistan.
     '';
     homepage = "http://www.cle.org.pk/software/localization.htm";
 

@@ -65,7 +65,7 @@ buildPythonPackage rec {
   ];
 
   disabledTests = [
-    # Tests require access socket
+    # Tests require socket access
     "BasicTestUdpMulticastBusIPv4"
     "BasicTestUdpMulticastBusIPv6"
     # pytest.approx is not supported in a boolean context (since pytest7)

@@ -57,14 +57,14 @@ buildGoModule (finalAttrs: {
     description = "Data-provider-agnostic (GTFS) public transportation app";
     longDescription = ''
       Transito is a data-provider-agnostic public transportation app
-      that let's you route between locations using openly available
-      public GTFS feeds.  Utilizing the Mobroute library,
-      the Transito app lets you performs routing calculations offline
+      that lets you route between locations using openly available
+      public GTFS feeds. Utilizing the Mobroute library,
+      the Transito app lets you perform routing calculations offline
       (no network calls once data is initially fetched).
 
-      Overall, Transito aims to be an opensource alternative
+      Overall, Transito aims to be an open-source alternative
       to proprietary routing apps to get users from point A to point B
-      via public transit without comprising privacy or user freedoms.
+      via public transit without compromising privacy or user freedoms.
       It works in many well-connected metros which have publicly available
       GTFS data, to name a few: Lisbon, NYC, Brussels, Krakow, and Bourges.
     '';

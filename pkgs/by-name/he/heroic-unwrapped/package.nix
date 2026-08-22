@@ -136,7 +136,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   meta = {
-    description = "Native GOG, Epic, and Amazon Games Launcher for Linux, Windows and Mac";
+    description = "Native GOG, Epic, and Amazon Games Launcher for Linux, Windows, and Mac";
     homepage = "https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher";
     changelog = "https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl3Only;

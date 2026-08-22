@@ -42,9 +42,9 @@ stdenv.mkDerivation (finalAttrs: {
       bsd2
       bsdSourceCode
       mitOpenGroup
-      # there is a bit of a diff, but i think its close enough
-      # it was probably just adapted a bit to fit to the repository structure
-      # or its an older version that the one on spdx
+      # there is a bit of a diff, but i think it's close enough
+      # it was probably just adapted a bit to fit the repository structure
+      # or it's an older version than the one on spdx
       unicodeTOU
     ];
     maintainers = [ ];

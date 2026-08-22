@@ -150,7 +150,7 @@ in
             raise AssertionError(
                 "Container either did not assign itself the expected SLAAC "
                 + "v6 out of the announced ULA prefix (${containerSLAACv6}) "
-                + "or did not assign a route for the URL prefix "
+                + "or did not assign a route for the ULA prefix "
                 + f"(${ulaPrefix}).\n\n==> ip addr show eth0:\n{iface_ips}"
                 + f"\n\n==> ip -6 route show:\n{v6_routes}"
             )

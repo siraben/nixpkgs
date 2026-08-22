@@ -17,7 +17,7 @@
   udevCheckHook,
 }:
 let
-  # We have to hardcode revision because upstream often create multiple releases for the same version number.
+  # We have to hardcode revision because upstream often creates multiple releases for the same version number.
   # This is the commit hash that maps to 1.5.0-beta.14 released on 2026-5-21
   rev = "12052dec15d0e0948032c7ec11eff2da0d109106";
 in
@@ -40,7 +40,7 @@ stdenv.mkDerivation {
 
   dontBuild = true;
   installPhase =
-    # Some plugins needs to load things dynamically and in that case we won't find python3 without this
+    # Some plugins need to load things dynamically and in that case we won't find python3 without this
     let
       binPath = [
         python3Packages.python.interpreter
@@ -57,7 +57,7 @@ stdenv.mkDerivation {
       mkdir -p $out/bin/
 
       # Note that the implementation of main.py assumes
-      # working directory to be at the root of the project's source code
+      # the working directory to be at the root of the project's source code
       makeWrapper \
         ${python3Packages.python.interpreter} \
         $out/bin/streamcontroller \

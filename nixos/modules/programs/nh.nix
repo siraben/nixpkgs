@@ -46,7 +46,7 @@ in
         type = lib.types.singleLineStr;
         default = "weekly";
         description = ''
-          How often cleanup is performed. Passed to systemd.time
+          How often cleanup is performed. Passed to systemd.time.
 
           The format is described in
           {manpage}`systemd.time(7)`.

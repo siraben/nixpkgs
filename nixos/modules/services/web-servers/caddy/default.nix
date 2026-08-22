@@ -368,7 +368,7 @@ in
         Environment file as defined in {manpage}`systemd.exec(5)`.
 
         You can use environment variables to pass secrets to the service without adding
-        them to the world-readable nix store.
+        them to the world-readable Nix store.
 
         ```
         # in configuration.nix

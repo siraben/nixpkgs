@@ -73,11 +73,11 @@ in
         '';
         description = ''
           The USBGuard daemon will load this as the policy rule set.
-          As these rules are NixOS managed they are immutable and can't
+          As these rules are NixOS-managed, they are immutable and can't
           be changed by the IPC interface.
 
           If you do not set this option, the USBGuard daemon will load
-          it's policy rule set from the option configured in `services.usbguard.ruleFile`.
+          its policy rule set from the option configured in `services.usbguard.ruleFile`.
 
           Running `usbguard generate-policy` as root will
           generate a config for your currently plugged in devices.
@@ -137,7 +137,7 @@ in
         type = lib.types.bool;
         default = false;
         description = ''
-          The  USBGuard  daemon  modifies  some attributes of controller
+          The USBGuard daemon modifies some attributes of controller
           devices like the default authorization state of new child device
           instances. Using this setting, you can control whether the daemon
           will try to restore the attribute values to the state before
@@ -171,7 +171,7 @@ in
         type = lib.types.bool;
         default = false;
         description = ''
-          Generate device specific rules including the "via-port" attribute.
+          Generate device-specific rules including the "via-port" attribute.
         '';
       };
 

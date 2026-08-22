@@ -36,7 +36,7 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    description = "Grub bootloader themes, contains light/dark/orange/bigSur styles";
+    description = "GRUB bootloader themes with light/dark/orange/bigSur styles";
     homepage = "https://github.com/sandesh236/sleek--themes";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;

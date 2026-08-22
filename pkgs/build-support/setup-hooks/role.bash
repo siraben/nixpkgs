@@ -1,8 +1,8 @@
 # Since the same derivation can be depended on in multiple ways, we need to
-# accumulate *each* role (i.e. host and target platforms relative the depending
+# accumulate *each* role (i.e. host and target platforms relative to the depending
 # derivation) in which the derivation is used.
 #
-# The role is intended to be used as part of other variables names like
+# The role is intended to be used as part of other variable names like
 #  - $NIX_SOMETHING${role_post}
 
 function getRole() {
@@ -26,7 +26,7 @@ function getRole() {
 # `hostOffset` describes how the host platform of the package is slid relative
 # to the depending package. `targetOffset` likewise describes the target
 # platform of the package. Both are brought into scope of the setup hook defined
-# for dependency whose setup hook is being processed relative to the package
+# for the dependency whose setup hook is being processed relative to the package
 # being built.
 
 function getHostRole()   {

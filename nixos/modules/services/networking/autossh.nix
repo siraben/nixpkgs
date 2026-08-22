@@ -37,9 +37,9 @@ in
                 default = 0;
                 example = 20000;
                 description = ''
-                  Port to be used by AutoSSH for peer monitoring. Note, that
-                  AutoSSH also uses mport+1. Value of 0 disables the keep-alive
-                  style monitoring
+                  Port to be used by AutoSSH for peer monitoring. Note that
+                  AutoSSH also uses mport+1. A value of 0 disables the keep-alive
+                  style monitoring.
                 '';
               };
               extraArguments = lib.mkOption {
@@ -50,7 +50,7 @@ in
                   process. Some meaningful options include -N (don't run remote
                   command), -D (open SOCKS proxy on local port), -R (forward
                   remote port), -L (forward local port), -v (Enable debug). Check
-                  ssh manual for the complete list.
+                  the ssh manual for the complete list.
                 '';
               };
             };

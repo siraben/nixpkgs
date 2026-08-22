@@ -440,7 +440,7 @@ in
         );
       default = null;
       description = ''
-        Linux high speed capture support.
+        Linux high-speed capture support.
       '';
     };
 

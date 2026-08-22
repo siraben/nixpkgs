@@ -57,7 +57,7 @@
             If set, all recipients to users at either "localhost" (the literal string)
             or the canonical host name (from the me control attribute) are remapped to this address.
             This is provided to allow local daemons to be able to send email to
-            "somebody@localhost" and have it go somewhere sensible instead of being  bounced
+            "somebody@localhost" and have it go somewhere sensible instead of being bounced
             by your relay host. To send to multiple addresses,
             put them all on one line separated by a comma.
           '';
@@ -78,7 +78,7 @@
             The content of this attribute is appended to any host name that
             does not contain a period (except localhost), including defaulthost
             and idhost. Defaults to the value of the me attribute, if it exists,
-            otherwise the literal name defauldomain.
+            otherwise the literal name defaultdomain.
           '';
         };
 
@@ -106,7 +106,7 @@
           type = lib.types.nullOr lib.types.str;
           default = null;
           description = ''
-            Sets  the  environment variable $HELOHOST which is used by the
+            Sets the environment variable $HELOHOST which is used by the
             SMTP protocol module to set the parameter given to the HELO command.
             Defaults to the value of the me configuration attribute.
           '';
@@ -139,7 +139,7 @@
           type = lib.types.nullOr lib.types.str;
           default = null;
           description = ''
-            The fully-qualifiled host name of the computer running nullmailer.
+            The fully-qualified host name of the computer running nullmailer.
             Defaults to the literal name me.
           '';
         };
@@ -188,9 +188,9 @@
             ]);
           default = null;
           description = ''
-            The  time to wait for a remote module listed above to complete sending
+            The time to wait for a remote module listed above to complete sending
             a message before killing it and trying again, in seconds.
-            Defaults to 1 hour (3600).  If this is set to 0, nullmailer-send
+            Defaults to 1 hour (3600). If this is set to 0, nullmailer-send
             will wait forever for messages to complete sending.
           '';
         };

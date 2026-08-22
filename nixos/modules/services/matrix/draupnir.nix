@@ -93,7 +93,7 @@ in
             default = cfg.settings.homeserverUrl;
             defaultText = literalExpression "config.${opt.settings}.homeserverUrl";
             description = ''
-              Public base URL of the Matrix homeserver that provides the Client-Server API when using the Draupnir's
+              Public base URL of the Matrix homeserver that provides the Client-Server API when using Draupnir's
               [Report forwarding feature](https://the-draupnir-project.github.io/draupnir-documentation/bot/homeserver-administration#report-forwarding).
 
               ::: {.warning}

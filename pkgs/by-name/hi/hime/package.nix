@@ -52,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "http://hime-ime.github.io/";
     downloadPage = "https://github.com/hime-ime/hime/downloads";
-    description = "Useful input method engine for Asia region";
+    description = "Useful input method engine for the Asia region";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ yanganto ];

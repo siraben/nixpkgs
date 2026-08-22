@@ -112,7 +112,7 @@ stdenv.mkDerivation (finalAttrs: {
     # never be executed (somewhere below in the script).
     sed -i $out/sbin/rabbitmq-env -e "2s|^|RABBITMQ_SCRIPTS_DIR=$out/sbin\n|"
 
-    # there’s a few stray files that belong into share
+    # there are a few stray files that belong into share
     mkdir -p $doc/share/doc/rabbitmq-server
     mv $out/LICENSE* $doc/share/doc/rabbitmq-server
 

@@ -14,7 +14,7 @@ stdenv.mkDerivation {
 
   buildInputs = [ nanopb ];
 
-  # protoc requires any .proto file to be compiled to reside within it's
+  # protoc requires any .proto file to be compiled to reside within its
   # proto_path. By default the current directory is automatically added to the
   # proto_path. I tried using --proto_path ${./.} ${./simple.proto} and it did
   # not work because they end up in the store at different locations.
@@ -30,7 +30,7 @@ stdenv.mkDerivation {
     grep -q WithAnnotations $out/withannotations.pb.c || (echo "error: WithAnnotations not found in $out/withannotations.pb.c"; exit 1)
     grep -q WithAnnotations $out/withannotations.pb.h || (echo "error: WithAnnotations not found in $out/withannotations.pb.h"; exit 1)
     grep -q "pb_byte_t uuid\[16\]" $out/withannotations.pb.h || (echo "error: uuid is not of type pb_byte_t and of size 16 in $out/withannotations.pb.h"; exit 1)
-    grep -q "FIXED_LENGTH_BYTES, uuid" $out/withannotations.pb.h || (echo "error: uuid is not of fixed lenght bytes in $out/withannotations.pb.h"; exit 1)
+    grep -q "FIXED_LENGTH_BYTES, uuid" $out/withannotations.pb.h || (echo "error: uuid is not of fixed length bytes in $out/withannotations.pb.h"; exit 1)
     grep -q "#define WithAnnotations_size" $out/withannotations.pb.h || (echo "error: the size of WithAnnotations is not known in $out/withannotations.pb.h"; exit 1)
   '';
 }

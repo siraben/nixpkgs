@@ -28,12 +28,12 @@
   enableSGE ? false,
   # Pass PATH/LD_LIBRARY_PATH to point to current mpirun by default
   enablePrefix ? false,
-  # Enable libfabric support (necessary for Omnipath networks) on x86_64 linux
+  # Enable libfabric support (necessary for Omnipath networks) on x86_64 Linux
   fabricSupport ? stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isx86_64,
   # Enable Fortran support
   fortranSupport ? true,
   # AVX/SSE options. See passthru.defaultAvxOptions for the available options.
-  # note that opempi fails to build with AVX disabled, meaning that everything
+  # note that openmpi fails to build with AVX disabled, meaning that everything
   # up to AVX is enabled by default.
   avxOptions ? { },
 }:
@@ -114,7 +114,7 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.enableFeature cudaSupport "mca-dso")
     (lib.enableFeature fortranSupport "mpi-fortran")
     (lib.withFeatureAs stdenv.hostPlatform.isLinux "libnl" (lib.getDev libnl))
-    # From some reason, without this the darwin build fails with cyclic
+    # For some reason, without this the darwin build fails with cyclic
     # references between $dev and $out
     "--with-pmix=${lib.getDev pmix}"
     "--with-pmix-libdir=${lib.getLib pmix}/lib"
@@ -131,7 +131,7 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.enableFeature cudaSupport "dlopen")
     (lib.withFeatureAs fabricSupport "psm2" (lib.getDev libpsm2))
     (lib.withFeatureAs fabricSupport "ofi" (lib.getDev libfabric))
-    # The flag --without-ofi-libdir is not supported from some reason, so we
+    # The flag --without-ofi-libdir is not supported for some reason, so we
     # don't use lib.withFeatureAs
   ]
   ++ lib.optionals fabricSupport [ "--with-ofi-libdir=${lib.getLib libfabric}/lib" ];

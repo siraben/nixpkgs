@@ -98,7 +98,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   meta = {
-    description = "Engineering and scientific problems algorithms";
+    description = "Algorithms for large-scale engineering and scientific problems";
     mainProgram = "nvcc_wrapper";
     longDescription = ''
       The Trilinos Project is an effort to develop algorithms and enabling

@@ -63,7 +63,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   patches = [
-    # No openssl bundling on macOS. It's not working.
+    # No OpenSSL bundling on macOS. It doesn't work.
     # See https://github.com/mysql/mysql-shell/blob/5b84e0be59fc0e027ef3f4920df15f7be97624c1/cmake/ssl.cmake#L53
     ./no-openssl-bundling.patch
   ];

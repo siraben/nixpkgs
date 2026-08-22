@@ -31,7 +31,7 @@
   ghc,
 
   # A function that takes `{ pkgs, lib, callPackage }` as the first arg and
-  # `self` as second, and returns a set of haskell packages
+  # `self` as second, and returns a set of Haskell packages
   package-set,
 
   # The final, fully overridden package set usable with the nixpkgs fixpoint
@@ -145,7 +145,7 @@ let
                 newScope = mkScope (fix' (extends f scope.__unfix__));
               in
               # note that we have to be careful here: `allArgs` includes the auto-arguments that
-              # weren't manually specified. If we would just pass `allArgs` to the recursive call here,
+              # weren't manually specified. If we just passed `allArgs` to the recursive call here,
               # then we wouldn't look up any packages in the scope in the next iteration, because it
               # appears as if all arguments were already manually passed, so the scope change would do
               # nothing.
@@ -350,10 +350,10 @@ package-set { inherit pkgs lib callPackage; } self
   #   , cabal2nixOptions : Defaulted
   #   } -> NixShellAwareDerivation
   #
-  # Given a path to a haskell package directory, an optional package name
+  # Given a path to a Haskell package directory, an optional package name
   # which defaults to the base name of the path, an optional set of source
   # overrides as appropriate for the 'packageSourceOverrides' function, an
-  # optional set of arbitrary overrides, and an optional haskell package
+  # optional set of arbitrary overrides, and an optional Haskell package
   # modifier, return a derivation appropriate for nix-build or nix-shell to
   # build that package.
   #

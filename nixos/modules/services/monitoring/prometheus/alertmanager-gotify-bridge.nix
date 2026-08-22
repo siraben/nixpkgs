@@ -19,7 +19,7 @@ in
 {
   meta.maintainers = with lib.maintainers; [ juli0604 ];
   options.services.prometheus.alertmanagerGotify = {
-    enable = mkEnableOption "alertmagager-gotify";
+    enable = mkEnableOption "alertmanager-gotify";
     package = mkPackageOption pkgs "alertmanager-gotify-bridge" { };
     bindAddress = mkOption {
       type = types.str;

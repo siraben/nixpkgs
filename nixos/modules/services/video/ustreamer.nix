@@ -37,8 +37,8 @@ in
 
     listenAddress = mkOption {
       description = ''
-        Address to expose the HTTP server. This accepts values for
-        ListenStream= defined in {manpage}`systemd.socket(5)`
+        Address to expose the HTTP server on. This accepts values for
+        ListenStream= defined in {manpage}`systemd.socket(5)`.
       '';
       type = types.str;
       default = "0.0.0.0:8080";
@@ -56,7 +56,7 @@ in
 
     extraArgs = mkOption {
       description = ''
-        Extra arguments to pass to `ustreamer`. See {manpage}`ustreamer(1)`
+        Extra arguments to pass to `ustreamer`. See {manpage}`ustreamer(1)`.
       '';
       type = with types; listOf str;
       default = [ ];

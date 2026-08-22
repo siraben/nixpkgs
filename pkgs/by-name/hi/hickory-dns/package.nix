@@ -83,7 +83,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   passthru.updateScript = nix-update-script { };
 
   meta = {
-    description = "Rust based DNS client, server, and resolver";
+    description = "Rust-based DNS client, server, and resolver";
     homepage = "https://hickory-dns.org/";
     changelog = "https://github.com/hickory-dns/hickory-dns/releases/tag/v${finalAttrs.version}";
     maintainers = with lib.maintainers; [

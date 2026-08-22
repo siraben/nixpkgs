@@ -113,7 +113,7 @@ in
           webhook = { };
           zeroconf = { };
 
-          # include some popular integrations, that absolutely shouldn't break
+          # include some popular integrations that absolutely shouldn't break
           knx = { };
           zha = { };
 
@@ -266,7 +266,7 @@ in
           for package in ["colorama", "paho-mqtt", "psycopg2"]:
               assert package in python_path, f"{package} not in PYTHONPATH"
 
-      with subtest("Check that declaratively configured components get setup"):
+      with subtest("Check that declaratively configured components are set up"):
           journal = get_journal_since(cursor)
           for domain in ["emulated_hue", "wake_on_lan"]:
               assert f"Setup of domain {domain} took" in journal, f"{domain} setup missing"
@@ -307,7 +307,7 @@ in
           new_pid = hass.succeed("systemctl show --property=MainPID home-assistant.service")
           assert pid != new_pid, "The PID of the process must change when its PYTHONPATH changes"
 
-      with subtest("Check that new components get setup after restart"):
+      with subtest("Check that new components are set up after restart"):
           journal = get_journal_since(cursor)
           for domain in ["prometheus"]:
               assert f"Setup of domain {domain} took" in journal, f"{domain} setup missing"

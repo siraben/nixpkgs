@@ -50,7 +50,7 @@ in
     enablePersistence = mkOption {
       type = types.bool;
       default = true;
-      description = "Enable persistence of Wireguard peer info between restarts.";
+      description = "Enable persistence of WireGuard peer info between restarts.";
     };
     openFirewall = mkOption {
       type = types.bool;
@@ -65,7 +65,7 @@ in
           interface = mkOption {
             type = types.str;
             description = ''
-              Wireguard interface to manage (it is NOT created by wgautomesh, you
+              WireGuard interface to manage (it is NOT created by wgautomesh, you
               should use another NixOS option to create it such as
               `networking.wireguard.interfaces.wg0 = {...};`).
             '';
@@ -88,7 +88,7 @@ in
             type = types.nullOr types.port;
             default = null;
             description = ''
-              Public port number to try to redirect to this machine's Wireguard
+              Public port number to try to redirect to this machine's WireGuard
               daemon using UPnP IGD.
             '';
           };
@@ -98,12 +98,12 @@ in
                 options = {
                   pubkey = mkOption {
                     type = types.str;
-                    description = "Wireguard public key of this peer.";
+                    description = "WireGuard public key of this peer.";
                   };
                   address = mkOption {
                     type = types.str;
                     description = ''
-                      Wireguard address of this peer (a single IP address, multiple
+                      WireGuard address of this peer (a single IP address, multiple
                       addresses or address ranges are not supported).
                     '';
                     example = "10.0.0.42";
@@ -111,7 +111,7 @@ in
                   endpoint = mkOption {
                     type = types.nullOr types.str;
                     description = ''
-                      Bootstrap endpoint for connecting to this Wireguard peer if no
+                      Bootstrap endpoint for connecting to this WireGuard peer if no
                       other address is known or none are working.
                     '';
                     default = null;

@@ -19,7 +19,7 @@
   #     https://github.com/OpenMathLib/OpenBLAS/wiki/Faq/4bded95e8dc8aadc70ce65267d1093ca7bdefc4c#multi-threaded
   #     https://github.com/OpenMathLib/OpenBLAS/issues/2543
   # This flag builds a single-threaded OpenBLAS using the flags
-  # stated in there.
+  # stated there.
   singleThreaded ? false,
   buildPackages,
   # Select a specific optimization target (other than the default)

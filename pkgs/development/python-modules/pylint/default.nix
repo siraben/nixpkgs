@@ -104,10 +104,10 @@ buildPythonPackage (finalAttrs: {
     # changelog = "https://github.com/pylint-dev/pylint/releases/tag/${finalAttrs.src.tag}";
     longDescription = ''
       Pylint is a Python static code analysis tool which looks for programming errors,
-      helps enforcing a coding standard, sniffs for code smells and offers simple
+      helps enforce a coding standard, sniffs for code smells and offers simple
       refactoring suggestions.
-      Pylint is shipped with following additional commands:
-      - pyreverse: an UML diagram generator
+      Pylint is shipped with the following additional commands:
+      - pyreverse: a UML diagram generator
       - symilar: an independent similarities checker
       - epylint: Emacs and Flymake compatible Pylint
     '';

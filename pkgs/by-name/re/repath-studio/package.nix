@@ -147,7 +147,7 @@ buildNpmPackage (finalAttrs: {
       type = "Application";
       terminal = false;
       icon = "repath-studio";
-      comment = "Vector graphics editor, that combines procedural tooling with traditional design workflows";
+      comment = "Vector graphics editor that combines procedural tooling with traditional design workflows";
       categories = [ "Graphics" ];
     })
   ];
@@ -228,7 +228,7 @@ buildNpmPackage (finalAttrs: {
 
   meta = {
     changelog = "https://github.com/repath-studio/repath-studio/blob/${finalAttrs.src.rev}/CHANGELOG.md";
-    description = "Cross-platform vector graphics editor, that combines procedural tooling with traditional design workflows";
+    description = "Cross-platform vector graphics editor that combines procedural tooling with traditional design workflows";
     homepage = "https://repath.studio";
     downloadPage = "https://github.com/repath-studio/repath-studio";
     license = lib.licenses.agpl3Only;

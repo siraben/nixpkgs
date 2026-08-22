@@ -8,14 +8,16 @@ in
     ./amd.nix
   ];
   options.hardware.facter.detected = {
-    graphics.enable = lib.mkEnableOption "Enable the Graphics module" // {
+    graphics.enable = lib.mkEnableOption "the graphics module" // {
       default = builtins.length (config.hardware.facter.report.hardware.monitor or [ ]) > 0;
       defaultText = "hardware dependent";
     };
     boot.graphics.kernelModules = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      # We currently don't auto import nouveau, in case the user might want to use the proprietary nvidia driver,
-      # We might want to change this in future, if we have a better idea, how to handle this.
+      # We currently don't auto-import nouveau, in case the user might want to
+      # use the proprietary NVIDIA driver.
+      # We might want to change this in the future, if we find a better way of
+      # handling this.
       default = lib.remove "nouveau" (
         lib.uniqueStrings (
           facterLib.collectDrivers (config.hardware.facter.report.hardware.graphics_card or [ ])

@@ -19,13 +19,13 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ cachetools ];
 
-  # tests take in the order of 10 minutes to execute and sometimes hang forever on tear-down
+  # tests take on the order of 10 minutes to execute and sometimes hang forever on tear-down
   doCheck = false;
   pythonImportsCheck = [ "coapthon" ];
 
   meta = {
     inherit (src.meta) homepage;
-    description = "Python3 library to the CoAP protocol compliant with the RFC";
+    description = "Python 3 library for the CoAP protocol, compliant with the RFC";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ urbas ];
   };

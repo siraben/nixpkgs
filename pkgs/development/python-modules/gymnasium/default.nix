@@ -107,7 +107,7 @@ buildPythonPackage rec {
 
   disabledTests = [
     # Succeeds for most environments but `test_render_modes[Reacher-v4]` fails because it requires
-    # OpenGL access which is not possible inside the sandbox.
+    # OpenGL access, which is not possible inside the sandbox.
     "test_render_mode"
   ];
 

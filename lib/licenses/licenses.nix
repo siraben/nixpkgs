@@ -1530,10 +1530,10 @@ lib.mapAttrs mkLicense (
       #
       # Hello,
       #
-      # nix is very young software distribution system (http://nix.cs.uu.nl/)
-      # I'd like to ask wether you permit us to add teamspeak (server/ client?)
+      # nix is a very young software distribution system (http://nix.cs.uu.nl/)
+      # I'd like to ask whether you permit us to add teamspeak (server/ client?)
       #
-      # Sincerly
+      # Sincerely
       # Marc Weber (small nix contributor)
     };
 

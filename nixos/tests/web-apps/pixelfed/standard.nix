@@ -13,7 +13,7 @@
           nginx = { };
           secretFile = (
             pkgs.writeText "secrets.env" ''
-              # Snakeoil secret, can be any random 32-chars secret via CSPRNG.
+              # Snakeoil secret, can be any random 32-character secret via CSPRNG.
               APP_KEY=adKK9EcY8Hcj3PLU7rzG9rJ6KKTOtYfA
             ''
           );
@@ -25,7 +25,7 @@
         virtualisation.emptyDiskImages = [ 4096 ];
         swapDevices = [ { device = "/dev/vdb"; } ];
 
-        # allows running nixos test on qemu without kvm, eg. github actions on aarch64-linux
+        # allows running the NixOS test on QEMU without KVM, e.g. GitHub Actions on aarch64-linux
         systemd.settings.Manager.DefaultDeviceTimeoutSec = lib.mkForce 1800;
         boot.initrd.kernelModules = [ "virtio_console" ];
       };
@@ -43,7 +43,7 @@
     # Create an account
     server.succeed("pixelfed-manage user:create --name=test --username=test --email=test@test.com --password=test")
     # Create a OAuth token.
-    # TODO: figure out how to use it to send a image/toot
+    # TODO: figure out how to use it to send an image/toot
     # server.succeed("pixelfed-manage passport:client --personal")
     # server.succeed("curl -H 'Host: pixefed.local' -H 'Accept: application/json' -H 'Authorization: Bearer secret' -F'status'='test' http://localhost/api/v1/statuses")
   '';

@@ -241,7 +241,7 @@ in
   relint = ignoreCompilationError super.relint;
 
   # native compilation for tests/seq-tests.el never ends
-  # delete tests/seq-tests.el to workaround this
+  # delete tests/seq-tests.el to work around this
   seq = super.seq.overrideAttrs (old: {
     dontUnpack = false;
     postUnpack =

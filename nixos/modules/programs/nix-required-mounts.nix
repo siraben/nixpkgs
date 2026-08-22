@@ -46,7 +46,7 @@ let
         options.safePrefixes = lib.mkOption {
           default = [ builtins.storeDir ];
           type = listOf path;
-          description = "A list of path prefixes that do not need and shall not be searched recursively for further symlink targets. Everything in the nix store does not need to be searched as the derivation already calculated the full closure of all nix store paths for the drivers package.";
+          description = "A list of path prefixes that do not need and shall not be searched recursively for further symlink targets. Everything in the Nix store does not need to be searched as the derivation already calculated the full closure of all Nix store paths for the drivers package.";
         };
       }
     );
@@ -94,7 +94,7 @@ in
   options.programs.nix-required-mounts = {
     enable = lib.mkEnableOption "Expose extra paths to the sandbox depending on derivations' requiredSystemFeatures";
     presets.nvidia-gpu.enable = lib.mkEnableOption ''
-      Declare the support for derivations that require an Nvidia GPU to be
+      support for derivations that require an Nvidia GPU to be
       available, e.g. derivations with `requiredSystemFeatures = [ "cuda" ]`.
       This mounts the corresponding userspace drivers and device nodes in the
       sandbox, but only for derivations that request these special features.

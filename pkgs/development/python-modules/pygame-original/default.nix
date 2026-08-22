@@ -40,7 +40,7 @@ buildPythonPackage rec {
     repo = "pygame";
     tag = version;
     # Unicode file names lead to different checksums on HFS+ vs. other
-    # filesystems because of unicode normalisation. The documentation
+    # filesystems because of Unicode normalisation. The documentation
     # has such files and will be removed.
     hash = "sha256-paSDF0oPogq0g0HSDRagGu0OfsqIku6q4GGAMveGntk=";
     postFetch = "rm -rf $out/docs/reST";

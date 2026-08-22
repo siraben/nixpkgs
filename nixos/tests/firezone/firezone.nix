@@ -27,7 +27,7 @@ in
         # 3. socat TCP-LISTEN:443,fork TCP:127.0.0.1:12345
         # 4. Firezone has to succeed when sending mail
         #   - Get opensmtpd to work
-        #   - add an actual mailaccount to the test
+        #   - add an actual mail account to the test
         # virtualisation.forwardPorts = [
         #   {
         #     from = "host";
@@ -54,7 +54,7 @@ in
           };
         };
 
-        # This doesn't actually work firezone/Swoosh seems to send 2 `EHLO`
+        # This doesn't actually work: firezone/Swoosh seems to send 2 `EHLO`
         # which opensmtpd does not allow
         # https://github.com/OpenSMTPD/OpenSMTPD/issues/1284
         # Would be nice for debugging

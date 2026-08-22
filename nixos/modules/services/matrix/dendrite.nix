@@ -256,7 +256,7 @@ in
               type = lib.types.str;
               default = "file:mscs.db";
               description = ''
-                Database for experimental MSC's.
+                Database for experimental MSCs.
               '';
             };
           };

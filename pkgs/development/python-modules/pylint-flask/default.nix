@@ -27,8 +27,8 @@ buildPythonPackage rec {
     pylint-plugin-utils
   ];
 
-  # Tests require a very old version of pylint
-  # also tests are only available at GitHub, with an old release tag
+  # Tests require a very old version of pylint.
+  # Also, tests are only available on GitHub, with an old release tag.
   doCheck = false;
 
   pythonImportsCheck = [ "pylint_flask" ];

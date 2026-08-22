@@ -95,8 +95,8 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Multipole-accelerated capacitance extraction program";
     longDescription = ''
-      Fastcap is  a three dimensional capacitance extraction program that
-      compute self and mutual capacitances between conductors of arbitrary
+      Fastcap is a three-dimensional capacitance extraction program that
+      computes self and mutual capacitances between conductors of arbitrary
       shapes, sizes and orientations.
     '';
     homepage = "https://www.rle.mit.edu/cpg/research_codes.htm";

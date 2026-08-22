@@ -178,7 +178,7 @@ in
 
     # Doing a second loop so that we won't have to wait that much
     for machine in all:
-      with subtest("E-Mails ae received"):
+      with subtest("E-Mails are received"):
         machine.wait_until_succeeds("curl -sSf --cookie-jar cjar --cookie cjar 'http://${freescoutDomain}/mailbox/1' | grep 'Hello NixOS'", timeout=180)
         # Notifications to users are being sent
 

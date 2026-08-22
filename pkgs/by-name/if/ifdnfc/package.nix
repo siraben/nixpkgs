@@ -40,8 +40,8 @@ stdenv.mkDerivation {
       libnfc Interface Plugin to be used in <code>services.pcscd.plugins</code>.
       It provides support for all readers which are not supported by ccid but by libnfc.
 
-      For activating your reader you need to run
-      <code>ifdnfc-activate yes<code> with this package in your
+      To activate your reader you need to run
+      <code>ifdnfc-activate yes</code> with this package in your
       <code>environment.systemPackages</code>
 
       To use your reader you may need to blacklist your reader kernel modules:

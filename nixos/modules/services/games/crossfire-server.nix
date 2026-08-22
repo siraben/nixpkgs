@@ -31,7 +31,7 @@ in
       default = "${cfg.package}/share/crossfire";
       defaultText = lib.literalExpression ''"''${config.services.crossfire.package}/share/crossfire"'';
       description = ''
-        Where to load readonly data from -- maps, archetypes, treasure tables,
+        Where to load read-only data from -- maps, archetypes, treasure tables,
         and the like. If you plan to edit the data on the live server (rather
         than overlaying the crossfire-maps and crossfire-arch packages and
         nixos-rebuilding), point this somewhere read-write and copy the data

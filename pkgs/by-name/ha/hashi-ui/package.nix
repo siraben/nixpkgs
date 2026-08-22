@@ -22,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     homepage = "https://github.com/jippi/hashi-ui";
-    description = "Modern user interface for hashicorp Consul & Nomad";
+    description = "Modern user interface for HashiCorp Consul & Nomad";
     platforms = [ "x86_64-linux" ];
     maintainers = with lib.maintainers; [ numkem ];
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];

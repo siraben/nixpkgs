@@ -155,7 +155,7 @@ flutter341.buildFlutterApplication (finalAttrs: {
   __structuredAttrs = true;
   meta = {
     homepage = "https://commet.chat";
-    description = "Client for Matrix focused on providing a feature rich experience while maintaining a simple interface";
+    description = "Client for Matrix focused on providing a feature-rich experience while maintaining a simple interface";
     platforms = lib.platforms.linux;
     license = lib.licenses.agpl3Only;
     maintainers = with lib.maintainers; [ ckgxrg ];

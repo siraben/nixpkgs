@@ -26,7 +26,7 @@ let
       withExternalPoll = true;
     }).overrideAttrs
       (old: {
-        # Avoid bug in firefox preventing websockets being created over http/2 connections
+        # Avoid a bug in Firefox preventing websockets from being created over HTTP/2 connections
         # https://github.com/eclipse/mosquitto/issues/1211#issuecomment-958137569
         cmakeFlags = old.cmakeFlags ++ [ "-DLWS_WITH_HTTP2=OFF" ];
       });

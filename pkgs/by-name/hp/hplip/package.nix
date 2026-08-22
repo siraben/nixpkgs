@@ -233,10 +233,10 @@ python3Packages.buildPythonApplication {
   enableParallelInstalling = false;
 
   env = {
-    # Prevent 'ppdc: Unable to find include file "<font.defs>"' which prevent
+    # Prevent 'ppdc: Unable to find include file "<font.defs>"' which prevents
     # generation of '*.ppd' files.
     # This seems to be a 'ppdc' issue when the tool is run in a hermetic sandbox.
-    # Could not find how to fix the problem in 'ppdc' so this is a workaround.
+    # Could not find a way to fix the problem in 'ppdc', so this is a workaround.
     CUPS_DATADIR = "${cups}/share/cups";
 
     NIX_CFLAGS_COMPILE = toString [

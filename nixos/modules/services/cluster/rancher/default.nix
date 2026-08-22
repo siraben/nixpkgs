@@ -184,7 +184,7 @@ let
               description = ''
                 Whether to enable the installation of this Helm chart. Note that setting
                 this option to `false` will not uninstall the chart from the cluster, if
-                it was previously installed. Please use the the `--disable` flag or `.skip`
+                it was previously installed. Please use the `--disable` flag or `.skip`
                 files to delete/disable Helm charts, as mentioned in the
                 [docs](https://docs.k3s.io/installation/packaged-components#disabling-manifests).
               '';
@@ -612,7 +612,7 @@ let
           description = ''
             Auto-deploying manifests that are linked to {file}`${manifestDir}` before ${name} starts.
             Note that deleting manifest files will not remove or otherwise modify the resources
-            it created. Please use the the `--disable` flag or `.skip` files to delete/disable AddOns,
+            it created. Please use the `--disable` flag or `.skip` files to delete/disable AddOns,
             as mentioned in the [docs](https://docs.k3s.io/installation/packaged-components#disabling-manifests).
             This option only makes sense on server nodes (`role = server`).
             Read the [auto-deploying manifests docs](https://docs.k3s.io/installation/packaged-components#auto-deploying-manifests-addons)

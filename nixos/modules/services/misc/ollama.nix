@@ -118,7 +118,7 @@ in
         default = "127.0.0.1";
         example = "[::]";
         description = ''
-          The host address which the ollama server HTTP interface listens to.
+          The host address which the Ollama server HTTP interface listens to.
         '';
       };
       port = lib.mkOption {
@@ -126,7 +126,7 @@ in
         default = 11434;
         example = 11111;
         description = ''
-          Which port the ollama server listens to.
+          Which port the Ollama server listens to.
         '';
       };
 
@@ -135,10 +135,10 @@ in
         default = null;
         example = "10.3.0";
         description = ''
-          Override what rocm will detect your gpu model as.
+          Override what ROCm will detect your GPU model as.
           For example, if you have an RX 5700 XT, try setting this to `"10.1.0"` (gfx 1010).
 
-          This sets the value of `HSA_OVERRIDE_GFX_VERSION`. See [ollama's docs](
+          This sets the value of `HSA_OVERRIDE_GFX_VERSION`. See [Ollama's docs](
           https://github.com/ollama/ollama/blob/main/docs/gpu.md#amd-radeon
           ) for details.
         '';
@@ -152,11 +152,11 @@ in
           HIP_VISIBLE_DEVICES = "0,1";
         };
         description = ''
-          Set arbitrary environment variables for the ollama service.
+          Set arbitrary environment variables for the Ollama service.
 
-          Be aware that these are only seen by the ollama server (systemd service),
+          Be aware that these are only seen by the Ollama server (systemd service),
           not normal invocations like `ollama run`.
-          Since `ollama run` is mostly a shell around the ollama server, this is usually sufficient.
+          Since `ollama run` is mostly a shell around the Ollama server, this is usually sufficient.
         '';
       };
 

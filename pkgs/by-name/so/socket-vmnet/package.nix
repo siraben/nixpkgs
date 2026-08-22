@@ -20,12 +20,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   postPatch = ''
     # NOTA BENE:
-    # Since socket_vmnet is macOS only the upstream Makefile assumes
+    # Since socket_vmnet is macOS-only, the upstream Makefile assumes
     # standard system utilities such as date from /bin/ and logger
     # from /usr/bin are available through $PATH.
-    # This is not the case for the nixpkgs build environment.
-    # To maintain compatibility with nixpkgs build env nixpkgs dependency
-    # purity and the following replacements are made:
+    # This is not the case for the Nixpkgs build environment.
+    # To maintain compatibility with the Nixpkgs build env and Nixpkgs
+    # dependency purity, the following replacements are made:
     substituteInPlace Makefile \
        --replace-fail "logger" "echo" \
        --replace-fail "-r $(SOURCE_DATE_EPOCH)" "-d @$(SOURCE_DATE_EPOCH)"

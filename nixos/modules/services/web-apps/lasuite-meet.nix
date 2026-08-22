@@ -103,7 +103,7 @@ in
       "services"
       "lasuite-meet"
       "frontendPackage"
-    ] "services.lasuite-mette.package.frontend should be used instead")
+    ] "services.lasuite-meet.package.frontend should be used instead")
   ];
 
   options.services.lasuite-meet = {
@@ -133,7 +133,7 @@ in
       description = ''
         The path, host/port or file descriptor to bind the gunicorn socket to.
 
-        See  <https://docs.gunicorn.org/en/stable/settings.html#bind> for possible options.
+        See <https://docs.gunicorn.org/en/stable/settings.html#bind> for possible options.
       '';
     };
 

@@ -51,7 +51,7 @@ in
 {
   imports = [
     (lib.mkRemovedOptionModule [ "services" "jitsi-videobridge" "apis" ]
-      "services.jitsi-videobridge.apis was broken and has been migrated into the boolean option services.jitsi-videobridge.colibriRestApi. It is set to false by default, setting it to true will correctly enable the private /colibri rest API."
+      "services.jitsi-videobridge.apis was broken and has been migrated into the boolean option services.jitsi-videobridge.colibriRestApi. It is set to false by default; setting it to true will correctly enable the private /colibri REST API."
     )
   ];
   options.services.jitsi-videobridge = with lib.types; {
@@ -135,7 +135,7 @@ in
                 type = str;
                 example = "jvbbrewery@internal.xmpp.example.org";
                 description = ''
-                  JID of the MUC to join. JiCoFo needs to be configured to join the same MUC.
+                  JID of the MUC to join. Jicofo needs to be configured to join the same MUC.
                 '';
               };
               mucNickname = lib.mkOption {
@@ -143,7 +143,7 @@ in
                 type = str;
                 description = ''
                   Videobridges use the same XMPP account and need to be distinguished by the
-                  nickname (aka resource part of the JID). By default, system hostname is used.
+                  nickname (aka resource part of the JID). By default, the system hostname is used.
                 '';
               };
               disableCertificateVerification = lib.mkOption {

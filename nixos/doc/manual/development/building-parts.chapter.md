@@ -44,7 +44,7 @@ that can be built). Attributes of interest include:
     $ qemu-system-x86_64 -kernel ./kernel/bzImage -initrd ./initrd/initrd -hda /dev/null
     ```
 
-`system.build.nixos-rebuild` , `system.build.nixos-install` , `system.build.nixos-generate-config`
+`system.build.nixos-rebuild`, `system.build.nixos-install`, `system.build.nixos-generate-config`
 
 :   These build the corresponding NixOS commands.
 

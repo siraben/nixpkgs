@@ -27,7 +27,7 @@ in
       type = nullOr str;
       example = "meet.example.org";
       description = ''
-        Domain name of the XMMP server to which to connect as a component.
+        Domain name of the XMPP server to which to connect as a component.
 
         If null, <option>xmppHost</option> is used.
       '';
@@ -154,7 +154,7 @@ in
           EOF
           chmod 444 "$temp"
 
-          # Replace <<$VAR_NAME>> from example config to $VAR_NAME for environment substitution
+          # Replace <<$VAR_NAME>> in the example config with $VAR_NAME for environment substitution
           sed -i -E \
             's/<<([^>]+)>>/\$\1/g' \
             "$temp"

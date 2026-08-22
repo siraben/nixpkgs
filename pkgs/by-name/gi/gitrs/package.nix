@@ -35,7 +35,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   meta = {
-    description = "Simple, opinionated, tool, written in Rust, for declaratively managing Git repos on your machine";
+    description = "Simple, opinionated tool, written in Rust, for declaratively managing Git repos on your machine";
     homepage = "https://github.com/mccurdyc/gitrs";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ mccurdyc ];

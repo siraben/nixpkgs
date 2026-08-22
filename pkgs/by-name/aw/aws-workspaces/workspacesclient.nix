@@ -52,8 +52,8 @@ stdenv.mkDerivation (finalAttrs: {
     wrapProgram "$out/bin/workspacesclient" \
       --set GIO_EXTRA_MODULES ${glib-networking}/lib/gio/modules \
 
-    # dcvclient does not setup the environment correctly.
-    # Instead wrap the binary directly the correct environment paths
+    # dcvclient does not set up the environment correctly.
+    # Instead wrap the binary directly with the correct environment paths
     mv $out/${dcv-path}/dcvviewer $out/${dcv-path}/workspacesclientdcv
     wrapProgram $out/${dcv-path}/workspacesclientdcv \
       --suffix LD_LIBRARY_PATH : $out/${dcv-path} \

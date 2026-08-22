@@ -60,7 +60,7 @@ let
   three = callPackage ./threejs-sage.nix { };
 
   # A bash script setting various environment variables to tell sage where
-  # the files its looking fore are located. Also see `sage-env`.
+  # the files it's looking for are located. Also see `sage-env`.
   env-locations = callPackage ./env-locations.nix {
     inherit pari_data;
     inherit singular maxima;
@@ -86,7 +86,7 @@ let
     pkg-config = pkgs.pkg-config; # not to confuse with pythonPackages.pkg-config
   };
 
-  # The documentation for sage, building it takes a lot of ram.
+  # The documentation for Sage; building it takes a lot of RAM.
   sagedoc = callPackage ./sagedoc.nix {
     inherit sage-with-env jupyter-kernel-specs;
   };

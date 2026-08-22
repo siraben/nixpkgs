@@ -106,7 +106,7 @@ stdenv.mkDerivation (finalAttrs: {
     (
       cd ..
 
-      # effectively distable this test because it is slow
+      # effectively disable this test because it is slow
       echo > .github/scripts/fuzzy_test.txt
 
       # even with the correct paho-mqtt version these tests fail, suggesting

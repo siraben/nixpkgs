@@ -85,7 +85,7 @@ if [ -z "${NIX_LINK_TYPE_@suffixSalt@:-}" ]; then
     extraAfter+=($(filterRpathFlags "$linkType" $NIX_LDFLAGS_@suffixSalt@))
     extraBefore+=($(filterRpathFlags "$linkType" $NIX_LDFLAGS_BEFORE_@suffixSalt@))
 
-    # By adding dynamic linker to extraBefore we allow the users set their
+    # By adding dynamic linker to extraBefore we allow the users to set their
     # own dynamic linker as NIX_LD_FLAGS will override earlier set flags
     if [[ "$linkType" == dynamic && -n "$NIX_DYNAMIC_LINKER_@suffixSalt@" ]]; then
         extraBefore+=("-dynamic-linker" "$NIX_DYNAMIC_LINKER_@suffixSalt@")

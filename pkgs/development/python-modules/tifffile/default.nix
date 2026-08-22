@@ -34,7 +34,7 @@ buildPythonPackage rec {
   ];
 
   disabledTests = [
-    # Test require network access
+    # Tests require network access
     "test_class_omexml"
     "test_write_ome"
     # Test file is missing

@@ -13,7 +13,7 @@ let
 
   # The configuration files are JS of format "var <<string>> = <<JSON>>;". In order to
   # override only some settings, we need to extract the JSON, use jq to merge it with
-  # the config provided by user, and then reconstruct the file.
+  # the config provided by the user, and then reconstruct the file.
   overrideJs =
     source: varName: userCfg: appendExtra:
     let
@@ -34,9 +34,9 @@ let
       ) > $out
     '');
 
-  # Essential config - it's probably not good to have these as option default because
-  # types.attrs doesn't do merging. Let's merge explicitly, can still be overridden if
-  # user desires.
+  # Essential config - it's probably not good to have these as option defaults because
+  # types.attrs doesn't do merging. Let's merge explicitly; these can still be overridden if
+  # the user desires.
   defaultCfg = {
     hosts = {
       domain = cfg.hostName;
@@ -113,9 +113,9 @@ in
         type = bool;
         default = true;
         description = ''
-          Jitsi Videobridge instance and configure it to connect to Prosody.
+          Whether to enable a Jitsi Videobridge instance and configure it to connect to Prosody.
 
-          Additional configuration is possible with {option}`services.jitsi-videobridge`
+          Additional configuration is possible with {option}`services.jitsi-videobridge`.
         '';
       };
 
@@ -136,7 +136,7 @@ in
       type = bool;
       default = true;
       description = ''
-        Whether to enable JiCoFo instance and configure it to connect to Prosody.
+        Whether to enable a JiCoFo instance and configure it to connect to Prosody.
 
         Additional configuration is possible with {option}`services.jicofo`.
       '';
@@ -157,7 +157,7 @@ in
       type = bool;
       default = false;
       description = ''
-        Whether to enable jigasi instance and configure it to connect to Prosody.
+        Whether to enable a jigasi instance and configure it to connect to Prosody.
 
         Additional configuration is possible with <option>services.jigasi</option>.
       '';
@@ -167,7 +167,7 @@ in
       type = bool;
       default = true;
       description = ''
-        Whether to enable nginx virtual host that will serve the javascript application and act as
+        Whether to enable an nginx virtual host that will serve the JavaScript application and act as
         a proxy for the XMPP server. Further nginx configuration can be done by adapting
         {option}`services.nginx.virtualHosts.<hostName>`.
         When this is enabled, ACME will be used to retrieve a TLS certificate by default. To disable
@@ -193,8 +193,8 @@ in
       type = bool;
       default = false;
       description = ''
-        Add module allowners, any user in chat is able to
-        kick other. Useful in jitsi-meet to kick ghosts.
+        Add module allowners; any user in the chat is able to
+        kick others. Useful in Jitsi Meet to kick ghosts.
       '';
     };
 

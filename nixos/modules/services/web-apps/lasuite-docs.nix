@@ -108,7 +108,7 @@ in
       description = ''
         The path, host/port or file descriptor to bind the gunicorn socket to.
 
-        See  <https://docs.gunicorn.org/en/stable/settings.html#bind> for possible options.
+        See <https://docs.gunicorn.org/en/stable/settings.html#bind> for possible options.
       '';
     };
 
@@ -183,7 +183,7 @@ in
               type = types.str;
               default = toString cfg.collaborationServer.port;
               readOnly = true;
-              description = "Port used by collaboration server to listen to";
+              description = "Port used by the collaboration server to listen";
             };
 
             COLLABORATION_BACKEND_BASE_URL = mkOption {
@@ -208,7 +208,7 @@ in
           }
         '';
         description = ''
-          Configuration options of collaboration server.
+          Configuration options of the collaboration server.
 
           See <https://github.com/suitenumerique/docs/blob/v${cfg.collaborationServer.package.version}/docs/env.md>
         '';

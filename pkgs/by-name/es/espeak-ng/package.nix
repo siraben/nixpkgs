@@ -137,7 +137,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = {
-    description = "Speech synthesizer that supports more than hundred languages and accents";
+    description = "Speech synthesizer that supports more than a hundred languages and accents";
     homepage = "https://github.com/espeak-ng/espeak-ng";
     changelog = "https://github.com/espeak-ng/espeak-ng/blob/${src.rev}/ChangeLog.md";
     license = lib.licenses.gpl3Plus;

@@ -54,7 +54,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   # JAR files that are intended to be used by other packages
   # should go to $out/share/java.
-  # (Some uses ij.jar as a library not as a standalone program.)
+  # (Some use ij.jar as a library, not as a standalone program.)
   installPhase = ''
     runHook preInstall
 

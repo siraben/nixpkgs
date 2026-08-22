@@ -38,8 +38,8 @@ buildNpmPackage (finalAttrs: {
   ];
 
   postPatch = ''
-    # VRCX's upstream lockfile lacks `integrity` and `resolved` fields
-    # annoying but can be trivially fixed by cloning the vrcx repo locally then
+    # VRCX's upstream lockfile lacks `integrity` and `resolved` fields.
+    # It's annoying but can be trivially fixed by cloning the VRCX repo locally, then
     # regenerating the lockfile with `nix run nixpkgs#npm-lockfile-fix -- package-lock.json`
     cp ${./package-lock.json} package-lock.json
   '';

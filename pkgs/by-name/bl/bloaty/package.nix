@@ -49,7 +49,7 @@ stdenv.mkDerivation {
       --replace "find_package(Python COMPONENTS Interpreter)" "" \
       --replace "if(Python_FOUND AND LIT_EXECUTABLE" "if(LIT_EXECUTABLE" \
       --replace "COMMAND \''${Python_EXECUTABLE} \''${LIT_EXECUTABLE}" "COMMAND \''${LIT_EXECUTABLE}"
-    # wasm test fail. Possibly due to LLVM version < 17. See https://github.com/google/bloaty/pull/354
+    # wasm tests fail. Possibly due to LLVM version < 17. See https://github.com/google/bloaty/pull/354
     rm -rf tests/wasm
   '';
 
@@ -73,7 +73,7 @@ stdenv.mkDerivation {
   doCheck = true;
 
   postCheck = ''
-    # These lit tests need to be build separately.
+    # These lit tests need to be built separately.
     # See https://github.com/google/bloaty/blob/main/tests/README.md
     cmake --build . --target check-bloaty
   '';

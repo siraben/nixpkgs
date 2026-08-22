@@ -12,22 +12,22 @@ done
 
 
 # fortify3 implies fortify enablement - make explicit before
-# we filter unsupported flags because unsupporting fortify3
-# doesn't mean we should unsupport fortify too
+# we filter unsupported flags because not supporting fortify3
+# doesn't mean we should not support fortify too
 if [[ -n "${hardeningEnableMap[fortify3]-}" ]]; then
   hardeningEnableMap["fortify"]=1
 fi
 
 # strictflexarrays3 implies strictflexarrays1 enablement - make explicit before
-# we filter unsupported flags because unsupporting strictflexarrays3
-# doesn't mean we should unsupport strictflexarrays1 too
+# we filter unsupported flags because not supporting strictflexarrays3
+# doesn't mean we should not support strictflexarrays1 too
 if [[ -n "${hardeningEnableMap[strictflexarrays3]-}" ]]; then
   hardeningEnableMap["strictflexarrays1"]=1
 fi
 
 # libcxxhardeningextensive implies libcxxhardeningfast enablement - make explicit before
-# we filter unsupported flags because unsupporting libcxxhardeningextensive
-# doesn't mean we should unsupport libcxxhardeningfast too
+# we filter unsupported flags because not supporting libcxxhardeningextensive
+# doesn't mean we should not support libcxxhardeningfast too
 if [[ -n "${hardeningEnableMap[libcxxhardeningextensive]-}" ]]; then
   hardeningEnableMap["libcxxhardeningfast"]=1
 fi

@@ -60,7 +60,7 @@ in
           It must at least contain the variables `SLSKD_SLSK_USERNAME` and `SLSKD_SLSK_PASSWORD`.
           Web interface credentials should also be set here in `SLSKD_USERNAME` and `SLSKD_PASSWORD`.
           Other, optional credentials like SOCKS5 with `SLSKD_SLSK_PROXY_USERNAME` and `SLSKD_SLSK_PROXY_PASSWORD`
-          should all reside here instead of in the world-readable nix store.
+          should all reside here instead of in the world-readable Nix store.
           Variables are documented at <https://github.com/slskd/slskd/blob/master/docs/config.md>
         '';
       };
@@ -101,7 +101,7 @@ in
             directories = {
               incomplete = mkOption {
                 type = nullOr path;
-                description = "Directory where incomplete downloading files are stored.";
+                description = "Directory where incomplete downloads are stored.";
                 defaultText = "/var/lib/slskd/incomplete";
                 default = null;
               };
@@ -186,7 +186,7 @@ in
               url_base = mkOption {
                 type = path;
                 default = "/";
-                description = "The base path in the url for web requests.";
+                description = "The base path in the URL for web requests.";
               };
               # Users should use a reverse proxy instead for https
               https.disabled = mkOption {

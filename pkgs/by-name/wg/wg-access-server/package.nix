@@ -69,7 +69,7 @@ buildGoModule (finalAttrs: {
   };
 
   meta = {
-    description = "All-in-one WireGuard VPN solution with a web ui for connecting devices";
+    description = "All-in-one WireGuard VPN solution with a web UI for connecting devices";
     homepage = "https://github.com/freifunkMUC/wg-access-server";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ xanderio ];

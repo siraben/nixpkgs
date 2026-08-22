@@ -44,7 +44,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "aiohttp_middlewares" ];
 
   disabledTests = [
-    # TRests are outdated
+    # Tests are outdated
     "test_shield_middleware_funcitonal[DELETE-False]"
     "test_shield_middleware_funcitonal[GET-False]"
     "test_shield_middleware_funcitonal[POST-True]"

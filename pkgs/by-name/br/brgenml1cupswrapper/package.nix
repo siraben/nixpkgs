@@ -103,7 +103,7 @@ stdenv.mkDerivation rec {
       --replace "\$TEMPRC\`" "\$TEMPRC; chmod a+rw \$TEMPRC\`" \
       --replace "\`mv " "\`cp -p "
 
-    # This config script make this assumption that the *.ppd are found in a global location `/etc/cups/ppd`.
+    # This config script makes the assumption that the *.ppd files are found in a global location `/etc/cups/ppd`.
     substituteInPlace $PAPER_CFG \
       --replace "/etc/cups/ppd" "$out/share/cups/model"
   '';

@@ -267,7 +267,7 @@ stdenv.mkDerivation (finalAttrs: {
     # 3. bootstrapper unpacks installer (dylinked binary with hardcoded interpreter and libraries in /lib)
     # 4. installer installs the actual components we need
     #
-    # While stage 1 allows to "only extract", other stages always try running the next executable down, and remove stuff if they fail.
+    # While stage 1 allows you to "only extract", other stages always try running the next executable down, and remove stuff if they fail.
     # I'm afraid this is the cleanest solution for now.
     mkdir -p fhs-root/{lib,lib64}
     ln -s "${glibc}/lib/"* fhs-root/lib/

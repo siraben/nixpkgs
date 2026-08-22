@@ -53,7 +53,7 @@ in
             Whether Postfix and Dovecot should be set up to receive
             mail locally. parsedmarc will be configured to watch the
             local inbox as the automatically created user specified in
-            [](#opt-services.parsedmarc.provision.localMail.recipientName)
+            [](#opt-services.parsedmarc.provision.localMail.recipientName).
           '';
         };
 
@@ -392,7 +392,7 @@ in
         deprecationWarning =
           optname:
           "Starting in 8.0.0, the `${optname}` option has been moved from the `services.parsedmarc.settings.imap`"
-          + "configuration section to the `services.parsedmarc.settings.mailbox` configuration section.";
+          + " configuration section to the `services.parsedmarc.settings.mailbox` configuration section.";
         hasImapOpt = lib.flip builtins.hasAttr cfg.settings.imap;
         movedOptions = [
           "reports_folder"

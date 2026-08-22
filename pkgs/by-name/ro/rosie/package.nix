@@ -23,7 +23,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   preConfigure = ''
     patchShebangs src/build_info.sh
-    # rosie is ran as part of `make check`,
+    # rosie is run as part of `make check`,
     # and so needs to be patched in preConfigure.
     patchShebangs rosie
     # Part of the same Makefile target which calls git to update submodules
@@ -45,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
     ln -s $out/share/vim-plugins/rosie $out/share/nvim/site
   '';
 
-  # librosie.so is dlopen'ed , so we disable ELF patching to preserve RUNPATH .
+  # librosie.so is dlopen'ed, so we disable ELF patching to preserve RUNPATH.
   dontPatchELF = true;
 
   makeFlags = [ "DESTDIR=${placeholder "out"}" ];

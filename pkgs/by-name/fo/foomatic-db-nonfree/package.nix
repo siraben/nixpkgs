@@ -82,7 +82,7 @@ stdenv.mkDerivation (finalAttrs: {
       from being used on a variety of machines
       for licensing and other non-technical reasons.
       The XML files in this package enable `foomatic-db-ppds`
-      to create about 120 additional PPD files, for printer from
+      to create about 120 additional PPD files, for printers from
       Dell, Genicom, Lexmark, Oce, Tektronix and Xerox.
       Besides the XML files, this package contains
       about 130 PPD files, for printers from

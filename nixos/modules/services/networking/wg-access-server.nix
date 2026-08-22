@@ -73,7 +73,7 @@ in
         (attrPath: {
           assertion = !lib.hasAttrByPath attrPath config.services.wg-access-server.settings;
           message = ''
-            {option}`services.wg-access-server.settings.${lib.concatStringsSep "." attrPath}` must defined
+            {option}`services.wg-access-server.settings.${lib.concatStringsSep "." attrPath}` must be defined
             in {option}`services.wg-access-server.secretsFile`.
           '';
         })

@@ -160,8 +160,8 @@ rec {
       if-clause-k
     ] default-out
     ```
-    where a if-clause has the form `{ cond = b; out = r; }`
-    the first branch such as `b` is true
+    where an if-clause has the form `{ cond = b; out = r; }`
+    the first branch such that `b` is true is taken
   */
 
   switch-if = c: d: (findFirst (getAttr "cond") { } c).out or d;
@@ -176,7 +176,7 @@ rec {
     ] default-out
     ```
     where a simple-clause has the form `{ case = p; out = r; }`
-    the first branch such as `p x` is true
+    the first branch such that `p x` is true is taken
     or
     ```nix
     switch [ x1 .. xn ] [
@@ -187,11 +187,11 @@ rec {
     ```
     where a complex-clause is either a simple-clause
     or has the form { cases = [ p1 .. pn ]; out = r; }
-    in which case the first branch such as all `pi x` are true
+    in which case the first branch such that all `pi x` are true is taken
 
     if the variables p are not functions,
-    they are converted to a equal p
-    if out is missing the default-out is taken
+    they are converted to `equal p`
+    if out is missing, the default-out is taken
   */
 
   switch =

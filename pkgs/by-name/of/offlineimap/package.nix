@@ -28,7 +28,7 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
     # Skip xmllint to stop failures due to no network access
     sed -i docs/Makefile -e "s|a2x -v -d |a2x -L -v -d |"
 
-    # Provide CA certificates (Used when "sslcacertfile = OS-DEFAULT" is configured")
+    # Provide CA certificates (Used when "sslcacertfile = OS-DEFAULT" is configured)
     sed -i offlineimap/utils/distro_utils.py -e '/def get_os_sslcertfile():/a\ \ \ \ return "${cacert}/etc/ssl/certs/ca-bundle.crt"'
   '';
 

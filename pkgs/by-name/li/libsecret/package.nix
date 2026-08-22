@@ -160,7 +160,7 @@ stdenv.mkDerivation (finalAttrs: {
   + lib.optionalString (withTpm2Tss && !abrmdSupport) ''
     # If abrmdSupport is disabled, the user‐space resource manager TCTI
     # module is not linked at compile time. It is however needed during
-    # testing because the TPM emulator lacks an integrated resource manager
+    # testing because the TPM emulator lacks an integrated resource manager.
     # The module path is therefore injected temporarily using the
     # LD_LIBRARY_PATH environment variable, so that it may be found by
     # dlopen().

@@ -226,7 +226,7 @@ buildPythonPackage (finalAttrs: {
   ];
 
   pytestFlags = [
-    "--timeout=10" # any test taking long, timeouts with more than 60s
+    "--timeout=10" # any test taking long times out with more than 60s
     "--benchmark-disable"
     "--tb=line"
   ];

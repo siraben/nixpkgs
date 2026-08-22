@@ -64,7 +64,7 @@ let
       };
 
       # Avoid infinite recursion in tests.
-      # arro3-core tests depends on arro3-compute and arro3-compute depends on arro3-core
+      # arro3-core tests depend on arro3-compute and arro3-compute depends on arro3-core
       passthru.tests = { inherit arro3-tests; };
 
       meta = commonMeta // {

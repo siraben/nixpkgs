@@ -138,7 +138,7 @@ class EfiVars:
     def _assert_stopped(self) -> None:
         if self.machine.booted:
             raise RequestedAssertionFailed(
-                "System is currently running and concurrent reads / writes to the OVMF variables is unsupported"
+                "System is currently running and concurrent reads / writes to the OVMF variables are unsupported"
             )
 
     def read_content(self) -> dict[str, dict[str, EfiVariable]] | None:

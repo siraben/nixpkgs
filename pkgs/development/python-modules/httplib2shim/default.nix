@@ -33,7 +33,7 @@ buildPythonPackage (finalAttrs: {
     urllib3
   ];
 
-  # Tests require a network access
+  # Tests require network access
   doCheck = false;
 
   pythonImportsCheck = [ "httplib2shim" ];

@@ -10,7 +10,7 @@
 }:
 
 # This package only builds ktikz without KDE integration because KDE4 is
-# deprecated and upstream does not (yet ?) support KDE5.
+# deprecated and upstream does not (yet?) support KDE5.
 # See historical versions of this file for building ktikz with KDE4.
 
 stdenv.mkDerivation rec {
@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
   qmakeFlags = [
     "DESKTOP_INSTALL_DIR=${placeholder "out"}/share/applications"
     "MIME_INSTALL_DIR=${placeholder "out"}/share/mime/packages"
-    # qcollectiongenerator does no more exist in `qt5.qttools`.
+    # qcollectiongenerator no longer exists in `qt5.qttools`.
     # It was merged with qhelpgenerator at some point.
     "QCOLLECTIONGENERATORCOMMAND=qhelpgenerator"
   ];

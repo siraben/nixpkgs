@@ -154,7 +154,7 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = {
-    description = "Gtk and KDE themes using the Nord color palette";
+    description = "GTK and KDE themes using the Nord color palette";
     homepage = "https://github.com/EliverLara/Nordic";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.all;

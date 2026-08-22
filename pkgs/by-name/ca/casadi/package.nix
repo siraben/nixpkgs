@@ -88,7 +88,7 @@ stdenv.mkDerivation (finalAttrs: {
          ${python3Packages.python}/include/python3.${python3Packages.python.sourceVersion.minor})"
 
     # I have no clue. without this, it tries to install a non existent file.
-    # maybe a run without SWIG_IMPORT is required before a run with SWIG_IMPORT.
+    # maybe a run without SWIG_IMPORT is required before a run with SWIG_IMPORT,
     # but we need SWIG_IMPORT at some point for something else TODO
     substituteInPlace swig/python/CMakeLists.txt --replace-fail \
       "if (SWIG_IMPORT)" \
@@ -173,7 +173,7 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.cmakeBool "WITH_PROXQP" true)
     (lib.cmakeBool "WITH_BUILD_TINYXML" false)
     (lib.cmakeBool "WITH_TINYXML" true)
-    (lib.cmakeBool "WITH_BUILD_DSDP" true) # not sure where this come from
+    (lib.cmakeBool "WITH_BUILD_DSDP" true) # not sure where this comes from
     (lib.cmakeBool "WITH_DSDP" true)
     # "clang_compiler.cpp has basically been abandonded for several years", ref.
     # https://github.com/casadi/casadi/issues/4225#issuecomment-3352552113

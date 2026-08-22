@@ -23,13 +23,13 @@ in
 
       user = lib.mkOption {
         default = "influxdb";
-        description = "User account under which influxdb runs";
+        description = "User account under which InfluxDB runs";
         type = lib.types.str;
       };
 
       group = lib.mkOption {
         default = "influxdb";
-        description = "Group under which influxdb runs";
+        description = "Group under which InfluxDB runs";
         type = lib.types.str;
       };
 
@@ -41,7 +41,7 @@ in
 
       settings = lib.mkOption {
         default = { };
-        description = "Extra configuration options for influxdb";
+        description = "Extra configuration options for InfluxDB";
         type = lib.types.submodule {
           freeformType = settingsFormat.type;
           config =
@@ -188,7 +188,7 @@ in
       influxdb = {
         uid = config.ids.uids.influxdb;
         group = "influxdb";
-        description = "Influxdb daemon user";
+        description = "InfluxDB daemon user";
       };
     };
 

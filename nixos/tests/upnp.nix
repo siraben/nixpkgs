@@ -2,7 +2,7 @@
 # and Miniupnpc.
 # It runs a Miniupnpd service on one machine, and verifies
 # a client can indeed create a port mapping using Miniupnpc. If
-# this succeeds an external client will try to connect to the port
+# this succeeds, an external client will try to connect to the port
 # mapping.
 
 import ./make-test-python.nix (

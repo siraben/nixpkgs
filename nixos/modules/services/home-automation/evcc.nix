@@ -45,7 +45,7 @@ in
       description = ''
         File with environment variables to pass into the runtime environment.
 
-        Useful to pass secrets into the configuration, that get applied using `envsubst`.
+        Useful to pass secrets into the configuration, which are then applied using `envsubst`.
       '';
     };
 

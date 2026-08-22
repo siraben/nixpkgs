@@ -115,7 +115,7 @@ propagateCudaLibraries() {
   [[ -z ${cudaPropagateToOutput-} ]] && return 0
 
   mkdir -p "${!cudaPropagateToOutput}/nix-support"
-  # One'd expect this should be propagated-build-build-deps, but that doesn't seem to work
+  # One would expect this to be propagated-build-build-deps, but that doesn't seem to work
   echo "@setupCudaHook@" >>"${!cudaPropagateToOutput}/nix-support/propagated-native-build-inputs"
 
   local propagatedBuildInputs=("${!cudaHostPathsSeen[@]}")

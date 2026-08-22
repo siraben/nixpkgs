@@ -44,7 +44,7 @@ in
       """))
 
     if out["status"] != "enabled":
-      raise Exception(f"status is not enabled in response: {out}")
+      raise Exception(f"status is not enabled in the response: {out}")
 
     out = read_json(machine.succeed("""curl -X PUT "127.0.0.1:${toString ports.turborepo-remote-cache}/v8/artifacts/${artifactid}?teamId=${team}" \
       -H "Authorization: Bearer ${token}" \
@@ -58,7 +58,7 @@ in
       -H "Authorization: Bearer ${token}"
       """)
     if out != "myartifact":
-      raise Exception(f"response in not 'myartifact': {out}")
+      raise Exception(f"response is not 'myartifact': {out}")
   '';
 
   meta.maintainers = [ lib.maintainers.ibizaman ];

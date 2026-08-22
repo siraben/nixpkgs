@@ -51,7 +51,7 @@ class VersionManager:
 
         for version_name in release_versions:
 
-            # split version string, convert to list to int
+            # split version string, convert to a list of ints
             version_split = version_name.split(".")
             version_split = list(map(int, version_split))
 

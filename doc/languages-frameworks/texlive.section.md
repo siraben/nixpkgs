@@ -80,9 +80,9 @@ There is a TeX Live packaging that lives entirely under attribute `texlive`.
 
 ## Custom packages {#sec-language-texlive-custom-packages}
 
-You may find that you need to use an external TeX package. A derivation for such package has to provide the contents of the "texmf" directory in its `"tex"` output, according to the [TeX Directory Structure](https://tug.ctan.org/tds/tds.html). Dependencies on other TeX packages can be listed in the attribute `passthru.tlDeps`, which is a function taking a package set and returning a list of packages.
+You may find that you need to use an external TeX package. A derivation for such a package has to provide the contents of the "texmf" directory in its `"tex"` output, according to the [TeX Directory Structure](https://tug.ctan.org/tds/tds.html). Dependencies on other TeX packages can be listed in the attribute `passthru.tlDeps`, which is a function taking a package set and returning a list of packages.
 
-The function `texlive.withPackages` recognise the following outputs:
+The function `texlive.withPackages` recognises the following outputs:
 
 - `"out"`: contents are linked in the TeX Live environment, and binaries in the `$out/bin` folder are wrapped;
 - `"tex"`: linked in `$TEXMFDIST`; files should follow the TDS (for instance `$tex/tex/latex/foiltex/foiltex.cls`);
@@ -200,7 +200,7 @@ runCommand "test.pdf" { nativeBuildInputs = [ latex_with_foiltex ]; } ''
 ## LuaLaTeX font cache {#sec-language-texlive-lualatex-font-cache}
 
 The font cache for LuaLaTeX is written to `$HOME`.
-Therefore, it is necessary to set `$HOME` to a writable path, e.g. [before using LuaLaTeX in nix derivations](https://github.com/NixOS/nixpkgs/issues/180639):
+Therefore, it is necessary to set `$HOME` to a writable path, e.g. [before using LuaLaTeX in Nix derivations](https://github.com/NixOS/nixpkgs/issues/180639):
 ```nix
 runCommand "lualatex-hello-world" { buildInputs = [ texliveFull ]; } ''
   mkdir $out

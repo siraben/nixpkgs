@@ -60,7 +60,7 @@ buildPythonPackage (finalAttrs: {
     description = "Python module that implements the HomeKit protocol";
     longDescription = ''
       This Python library implements the HomeKit protocol for controlling
-      Homekit accessories.
+      HomeKit accessories.
     '';
     homepage = "https://github.com/Jc2k/aiohomekit";
     changelog = "https://github.com/Jc2k/aiohomekit/releases/tag/${finalAttrs.src.tag}";

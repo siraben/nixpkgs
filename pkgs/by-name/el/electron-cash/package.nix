@@ -68,13 +68,13 @@ python3Packages.buildPythonApplication rec {
   #   Elliptic curve cryptography operations will be performed in slow
   #   Python-only mode.
   #
-  # Upstream hardcoded `libsecp256k1.so.0` where we provides
+  # Upstream hardcoded `libsecp256k1.so.0` where we provide
   # `libsecp256k1.so.5`. The only breaking change is the removal of two
-  # functions which seem not used by electron-cash.
+  # functions which do not seem to be used by electron-cash.
   # See: <https://github.com/Electron-Cash/Electron-Cash/issues/3009>
   #
   # 2. The code should be compatible with python-dateutil 2.10 which is the
-  # version we have in nixpkgs. Changelog:
+  # version we have in Nixpkgs. Changelog:
   # <https://dateutil.readthedocs.io/en/latest/changelog.html#version-2-9-0-post0-2024-03-01>
   postPatch = ''
     substituteInPlace setup.py \

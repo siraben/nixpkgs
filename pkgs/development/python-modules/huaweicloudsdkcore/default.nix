@@ -45,7 +45,7 @@ buildPythonPackage (finalAttrs: {
     six
   ];
 
-  # All components are stored in a mono repo
+  # All components are stored in a monorepo
   doCheck = false;
 
   pythonImportsCheck = [ "huaweicloudsdkcore" ];

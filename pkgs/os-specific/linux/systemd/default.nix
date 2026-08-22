@@ -226,7 +226,7 @@ stdenv.mkDerivation (finalAttrs: {
   # Importantly, patches to improve usability, enable new features on NixOS or
   # add entirely new features to systemd are not allowed.
 
-  # On major changes, or when otherwise required, you *must* :
+  # On major changes, or when otherwise required, you *must*:
   # 1. reformat the patches,
   # 2. `git am path/to/00*.patch` them into a systemd worktree,
   # 3. rebase to the more recent systemd version,
@@ -400,7 +400,7 @@ stdenv.mkDerivation (finalAttrs: {
     # Options
 
     # We bump this attribute on every (major) version change to ensure that we
-    # have known-good value for a timestamp that is in the (not so distant)
+    # have a known-good value for a timestamp that is in the (not so distant)
     # past. This serves as a lower bound for valid system timestamps during
     # startup. Systemd will reset the system timestamp if this date is +- 15
     # years from the system time.

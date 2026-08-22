@@ -137,7 +137,7 @@ rustPlatform.buildRustPackage rec {
       triggered buffer-repeat effect), Crisp (high-frequency excitement
       inspired by Polarity's Fake Distortion), Loudness War Winner
       (digital saturation/clipper), Puberty Simulator (octave-down with
-      formant artefacts), Safety Limiter (hearing-protection  tool that cuts
+      formant artefacts), Safety Limiter (hearing-protection tool that cuts
       to Morse-code SOS on clip), Soft Vacuum (oversampled port of Airwindows'
       Hard Vacuum) and Spectral Compressor (FFT-based dynamics processor).
 

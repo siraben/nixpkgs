@@ -39,9 +39,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   checkFlags = [
     /*
-      These tests (https://github.com/rcieri/glab-tui/blob/main/tests/e2e/pagination.rs) are a bit flaky and non critical :
-      1. They rely on a mock glab and gh, which for some reason does not work well with nix sandbox, building process and environment.
-      2. They address pagination issue (ex: Is there the correct number of issues shown on each glab-tui page?). It is unlikely that pagination will fail only on nixos build and not in CI and other distribution packages.
+      These tests (https://github.com/rcieri/glab-tui/blob/main/tests/e2e/pagination.rs) are a bit flaky and non-critical:
+      1. They rely on a mock glab and gh, which for some reason does not work well with the Nix sandbox, the build process, and the environment.
+      2. They address pagination issues (e.g. Is there the correct number of issues shown on each glab-tui page?). It is unlikely that pagination will fail only on NixOS builds and not in CI or other distribution packages.
       3. In the case they do fail, it's not a big deal that glab-tui shows 101 or 99 issues on the first page instead of 100.
     */
     "--skip=pagination::test_pagination_custom_per_endpoint"

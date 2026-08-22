@@ -122,7 +122,7 @@ in
 
     systemd.sockets.nncp-daemon = mkIf daemonCfg.socketActivation.enable {
       inherit (daemonCfg.socketActivation) listenStreams;
-      description = "socket for NNCP TCP synchronization.";
+      description = "Socket for NNCP TCP synchronization.";
       conflicts = [ "nncp-daemon.service" ];
       wantedBy = [ "sockets.target" ];
       socketConfig.Accept = true;

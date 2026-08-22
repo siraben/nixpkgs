@@ -43,7 +43,7 @@ buildPythonPackage (finalAttrs: {
   pythonImportsCheck = [ "frigidaire" ];
 
   meta = {
-    description = "Python API for the Frigidaire devices";
+    description = "Python API for Frigidaire devices";
     homepage = "https://github.com/bm1549/frigidaire";
     changelog = "https://github.com/bm1549/frigidaire/releases/tag/${finalAttrs.src.tag}";
     license = lib.licenses.mit;

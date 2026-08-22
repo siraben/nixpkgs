@@ -105,7 +105,7 @@ let
 
     meta = {
       mainProgram = "backgroundremover";
-      description = "Command line tool to remove background from image and video, made by nadermx to power";
+      description = "Command line tool to remove background from image and video, made by nadermx to power BackgroundRemoverAI";
       homepage = "https://BackgroundRemoverAI.com";
       downloadPage = "https://github.com/nadermx/backgroundremover/releases";
       license = lib.licenses.mit;

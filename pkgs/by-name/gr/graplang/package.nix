@@ -28,9 +28,9 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Language for typesetting graphs";
     longDescription = ''
-      Grap is an Expressive language for describing graphs and incorporating
+      Grap is an expressive language for describing graphs and incorporating
       them in typeset documents.  It is implemented as a preprocessor to
-      Kernigan's pic language for describing languages, so any system that can
+      Kernighan's pic language for describing languages, so any system that can
       use pic can use grap. For sure, TeX and groff can use it.
     '';
     homepage = "https://www.lunabase.org/~faber/Vault/software/grap/";

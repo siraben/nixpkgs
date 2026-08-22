@@ -2,13 +2,13 @@
 
 ## Packaging GNOME applications {#ssec-gnome-packaging}
 
-Programs in the GNOME universe are written in various languages but they all use GObject-based libraries like GLib, GTK or GStreamer. These libraries are often modular, relying on looking into certain directories to find their modules. However, due to Nix’s specific file system organization, this will fail without our intervention. Fortunately, the libraries usually allow overriding the directories through environment variables, either natively or thanks to a patch in nixpkgs. [Wrapping](#fun-wrapProgram) the executables to ensure correct paths are available to the application constitutes a significant part of packaging a modern desktop application. In this section, we will describe various modules needed by such applications, environment variables needed to make the modules load, and finally a script that will do the work for us.
+Programs in the GNOME universe are written in various languages but they all use GObject-based libraries like GLib, GTK or GStreamer. These libraries are often modular, relying on looking into certain directories to find their modules. However, due to Nix’s specific file system organization, this will fail without our intervention. Fortunately, the libraries usually allow overriding the directories through environment variables, either natively or thanks to a patch in Nixpkgs. [Wrapping](#fun-wrapProgram) the executables to ensure correct paths are available to the application constitutes a significant part of packaging a modern desktop application. In this section, we will describe various modules needed by such applications, environment variables needed to make the modules load, and finally a script that will do the work for us.
 
 ### Settings {#ssec-gnome-settings}
 
 [GSettings](https://developer.gnome.org/gio/stable/GSettings.html) API is often used for storing settings. GSettings schemas are required, to know the type and other metadata of the stored values. GLib looks for `glib-2.0/schemas/gschemas.compiled` files inside the directories of `XDG_DATA_DIRS`.
 
-On Linux, GSettings API is implemented using [dconf](https://gitlab.gnome.org/GNOME/dconf) backend. You will need to add `dconf` [GIO module](#ssec-gnome-gio-modules) to `GIO_EXTRA_MODULES` variable, otherwise the `memory` backend will be used and the saved settings will not be persistent.
+On Linux, GSettings API is implemented using [dconf](https://gitlab.gnome.org/GNOME/dconf) backend. You will need to add `dconf` [GIO module](#ssec-gnome-gio-modules) to the `GIO_EXTRA_MODULES` variable, otherwise the `memory` backend will be used and the saved settings will not be persistent.
 
 Last you will need the dconf database D-Bus service itself. You can enable it using `programs.dconf.enable`.
 
@@ -30,19 +30,19 @@ In particular, we recommend:
 * adding `dconf.lib` for any software on Linux that reads [GSettings](#ssec-gnome-settings) (even transitively through e.g. GTK’s file manager)
 * adding `glib-networking` for any software that accesses network using GIO or libsoup – glib-networking contains a module that implements TLS support and loads system-wide proxy settings
 
-To allow software to use various virtual file systems, `gvfs` package can be also added. But that is usually an optional feature so we typically use `gvfs` from the system (e.g. installed globally using NixOS module).
+To allow software to use various virtual file systems, `gvfs` package can also be added. But that is usually an optional feature so we typically use `gvfs` from the system (e.g. installed globally using NixOS module).
 
 ### GdkPixbuf loaders {#ssec-gnome-gdk-pixbuf-loaders}
 
-GTK applications typically use [GdkPixbuf](https://gitlab.gnome.org/GNOME/gdk-pixbuf/) to load images. But `gdk-pixbuf` package only supports basic bitmap formats like JPEG, PNG or TIFF, requiring to use third-party loader modules for other formats. This is especially painful since GTK itself includes SVG icons, which cannot be rendered without a loader provided by `librsvg`.
+GTK applications typically use [GdkPixbuf](https://gitlab.gnome.org/GNOME/gdk-pixbuf/) to load images. But `gdk-pixbuf` package only supports basic bitmap formats like JPEG, PNG or TIFF, requiring the use of third-party loader modules for other formats. This is especially painful since GTK itself includes SVG icons, which cannot be rendered without a loader provided by `librsvg`.
 
 Unlike other libraries mentioned in this section, GdkPixbuf only supports a single value in its controlling environment variable `GDK_PIXBUF_MODULE_FILE`. It is supposed to point to a cache file containing information about the available loaders. Each loader package will contain a `lib/gdk-pixbuf-2.0/2.10.0/loaders.cache` file describing the default loaders in `gdk-pixbuf` package plus the loader contained in the package itself. If you want to use multiple third-party loaders, you will need to create your own cache file manually. Fortunately, this is pretty rare as [not many loaders exist](https://gitlab.gnome.org/federico/gdk-pixbuf-survey/blob/master/src/modules.md).
 
-`gdk-pixbuf` contains [a setup hook](#ssec-gnome-hooks-gdk-pixbuf) that sets `GDK_PIXBUF_MODULE_FILE` from dependencies but as mentioned in further section, it is pretty limited. Loaders should propagate this setup hook.
+`gdk-pixbuf` contains [a setup hook](#ssec-gnome-hooks-gdk-pixbuf) that sets `GDK_PIXBUF_MODULE_FILE` from dependencies but as mentioned in the following section, it is pretty limited. Loaders should propagate this setup hook.
 
 ### Icons {#ssec-gnome-icons}
 
-When an application uses icons, an icon theme should be available in `XDG_DATA_DIRS` during runtime. The package for the default, icon-less [hicolor-icon-theme](https://www.freedesktop.org/wiki/Software/icon-theme/) (should be propagated by every icon theme) contains [a setup hook](#ssec-gnome-hooks-hicolor-icon-theme) that will pick up icon themes from `buildInputs` and add their datadirs to `XDG_ICON_DIRS` environment variable (this is Nixpkgs specific, not actually a XDG standard variable). Unfortunately, relying on that would mean every user has to download the theme included in the package expression no matter their preference. For that reason, we leave the installation of icon theme on the user. If you use one of the desktop environments, you probably already have an icon theme installed.
+When an application uses icons, an icon theme should be available in `XDG_DATA_DIRS` during runtime. The package for the default, icon-less [hicolor-icon-theme](https://www.freedesktop.org/wiki/Software/icon-theme/) (should be propagated by every icon theme) contains [a setup hook](#ssec-gnome-hooks-hicolor-icon-theme) that will pick up icon themes from `buildInputs` and add their datadirs to `XDG_ICON_DIRS` environment variable (this is Nixpkgs specific, not actually a XDG standard variable). Unfortunately, relying on that would mean every user has to download the theme included in the package expression no matter their preference. For that reason, we leave the installation of icon themes on the user. If you use one of the desktop environments, you probably already have an icon theme installed.
 
 In the rare case you need to use icons from dependencies (e.g. when an app forces an icon theme), you can use the following to pick them up:
 
@@ -62,7 +62,7 @@ To avoid costly file system access when locating icons, GTK, [as well as Qt](htt
 
 ### Packaging icon themes {#ssec-icon-theme-packaging}
 
-Icon themes may inherit from other icon themes. The inheritance is specified using the `Inherits` key in the `index.theme` file distributed with the icon theme. According to the [icon theme specification](https://specifications.freedesktop.org/icon-theme-spec/latest), icons not provided by the theme are looked for in its parent icon themes. Therefore the parent themes should be installed as dependencies for a more complete experience regarding the icon sets used.
+Icon themes may inherit from other icon themes. The inheritance is specified using the `Inherits` key in the `index.theme` file distributed with the icon theme. According to the [icon theme specification](https://specifications.freedesktop.org/icon-theme-spec/latest), icons not provided by the theme are looked for in its parent icon themes. Therefore, the parent themes should be installed as dependencies for a more complete experience regarding the icon sets used.
 
 The package `hicolor-icon-theme` provides a setup hook which makes symbolic links for the parent themes into the directory `share/icons` of the current theme directory in the nix store, making sure they can be found at runtime. For that to work the packages providing parent icon themes should be listed as propagated build dependencies, together with `hicolor-icon-theme`.
 
@@ -125,9 +125,9 @@ The hooks do the following:
 
 - []{#ssec-gnome-hooks-hicolor-icon-theme} `hicolor-icon-theme`’s setup hook will add icon themes to `XDG_ICON_DIRS`.
 
-- []{#ssec-gnome-hooks-gobject-introspection} `gobject-introspection` setup hook populates `GI_TYPELIB_PATH` variable with `lib/girepository-1.0` directories of dependencies, which is then added to wrapper by `wrapGApps*` hook. It also adds `share` directories of dependencies to `XDG_DATA_DIRS`, which is intended to promote GIR files but it also [pollutes the closures](https://github.com/NixOS/nixpkgs/issues/32790) of packages using `wrapGApps*` hook.
+- []{#ssec-gnome-hooks-gobject-introspection} `gobject-introspection` setup hook populates `GI_TYPELIB_PATH` variable with `lib/girepository-1.0` directories of dependencies, which is then added to the wrapper by the `wrapGApps*` hook. It also adds `share` directories of dependencies to `XDG_DATA_DIRS`, which is intended to promote GIR files but it also [pollutes the closures](https://github.com/NixOS/nixpkgs/issues/32790) of packages using `wrapGApps*` hook.
 
-- []{#ssec-gnome-hooks-gst-grl-plugins} Setup hooks of `gst_all_1.gstreamer` and `grilo` will populate the `GST_PLUGIN_SYSTEM_PATH_1_0` and `GRL_PLUGIN_PATH` variables, respectively, which will then be added to the wrapper by `wrapGApps*` hook.
+- []{#ssec-gnome-hooks-gst-grl-plugins} Setup hooks of `gst_all_1.gstreamer` and `grilo` will populate the `GST_PLUGIN_SYSTEM_PATH_1_0` and `GRL_PLUGIN_PATH` variables, respectively, which will then be added to the wrapper by the `wrapGApps*` hook.
 
 - []{#ssec-gnome-hooks-libglycin} `libglycin`'s [setup hook](#libglycin-setup-hook) will populate `XDG_DATA_DIRS` with the path to the loaders.
 
@@ -148,17 +148,17 @@ You can also pass additional arguments to `makeWrapper` using `gappsWrapperArgs`
 
 ## Updating GNOME packages {#ssec-gnome-updating}
 
-Most GNOME package offer [`updateScript`](#var-passthru-updateScript), it is therefore possible to update to latest source tarball by running `nix-shell maintainers/scripts/update.nix --argstr package nautilus` or even en masse with `nix-shell maintainers/scripts/update.nix --argstr path gnome`. Read the package’s `NEWS` file to see what changed.
+Most GNOME packages offer [`updateScript`](#var-passthru-updateScript); it is therefore possible to update to the latest source tarball by running `nix-shell maintainers/scripts/update.nix --argstr package nautilus` or even en masse with `nix-shell maintainers/scripts/update.nix --argstr path gnome`. Read the package’s `NEWS` file to see what changed.
 
 ## Frequently encountered issues {#ssec-gnome-common-issues}
 
 ### `GLib-GIO-ERROR **: 06:04:50.903: No GSettings schemas are installed on the system` {#ssec-gnome-common-issues-no-schemas}
 
-There are no schemas available in `XDG_DATA_DIRS`. Temporarily add a random package containing schemas like `gsettings-desktop-schemas` to `buildInputs`. [`glib`](#ssec-gnome-hooks-glib) and [`wrapGApps*`](#ssec-gnome-hooks-wrapgappshook) setup hooks will take care of making the schemas available to application and you will see the actual missing schemas with the [next error](#ssec-gnome-common-issues-missing-schema). Or you can try looking through the source code for the actual schemas used.
+There are no schemas available in `XDG_DATA_DIRS`. Temporarily add a random package containing schemas like `gsettings-desktop-schemas` to `buildInputs`. [`glib`](#ssec-gnome-hooks-glib) and [`wrapGApps*`](#ssec-gnome-hooks-wrapgappshook) setup hooks will take care of making the schemas available to the application and you will see the actual missing schemas with the [next error](#ssec-gnome-common-issues-missing-schema). Or you can try looking through the source code for the actual schemas used.
 
 ### `GLib-GIO-ERROR **: 06:04:50.903: Settings schema ‘org.gnome.foo’ is not installed` {#ssec-gnome-common-issues-missing-schema}
 
-Package is missing some GSettings schemas. You can find out the package containing the schema with `nix-locate org.gnome.foo.gschema.xml` and let the hooks handle the wrapping as [above](#ssec-gnome-common-issues-no-schemas).
+The package is missing some GSettings schemas. You can find out the package containing the schema with `nix-locate org.gnome.foo.gschema.xml` and let the hooks handle the wrapping as [above](#ssec-gnome-common-issues-no-schemas).
 
 ### When using `wrapGApps*` hook with special derivers or hooks you can end up with double wrapped binaries. {#ssec-gnome-common-issues-double-wrapped}
 
@@ -188,7 +188,7 @@ python3.pkgs.buildPythonApplication {
 }
 ```
 
-And for a QT app like:
+And for a Qt app like:
 
 ```nix
 stdenv.mkDerivation {
@@ -218,9 +218,9 @@ You can rely on applications depending on the library setting the necessary envi
 
 - []{#ssec-gnome-common-issues-unwrappable-package-gsettings} The following examples are hardcoding GSettings schema paths. To get the schema paths we use the functions
 
-  * `glib.getSchemaPath` Takes a nix package attribute as an argument.
+  * `glib.getSchemaPath` takes a Nix package attribute as an argument.
 
-  * `glib.makeSchemaPath` Takes a package output like `$out` and a derivation name. You should use this if the schemas you need to hardcode are in the same derivation.
+  * `glib.makeSchemaPath` takes a package output like `$out` and a derivation name. You should use this if the schemas you need to hardcode are in the same derivation.
 
   []{#ssec-gnome-common-issues-unwrappable-package-gsettings-vala} [Hard-coding GSettings schema path in Vala plug-in (dynamically loaded library)](https://github.com/NixOS/nixpkgs/blob/7bb8f05f12ca3cff9da72b56caa2f7472d5732bc/pkgs/desktops/pantheon/apps/elementary-files/default.nix#L78-L86) – here, `replaceVars` cannot be used since the schema comes from the same package preventing us from pass its path to the function, probably due to a [Nix bug](https://github.com/NixOS/nix/issues/1846).
 

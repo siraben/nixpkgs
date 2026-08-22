@@ -59,7 +59,7 @@ in
         '';
         description = ''
           Solanum IRC daemon configuration file.
-          check <https://github.com/solanum-ircd/solanum/blob/main/doc/reference.conf> for all options.
+          Check <https://github.com/solanum-ircd/solanum/blob/main/doc/reference.conf> for all options.
         '';
       };
 

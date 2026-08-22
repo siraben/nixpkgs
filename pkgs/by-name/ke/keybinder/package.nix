@@ -56,7 +56,7 @@ stdenv.mkDerivation (finalAttrs: {
       The library contains:
 
       * A C library, ``libkeybinder``
-      * Gobject-Introspection (gir)  generated bindings
+      * GObject-Introspection (gir) generated bindings
       * Lua bindings, ``lua-keybinder``
     '';
     homepage = "https://github.com/kupferlauncher/keybinder/";

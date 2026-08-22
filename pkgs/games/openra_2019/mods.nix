@@ -40,7 +40,7 @@ in
   d2 = unsafeBuildOpenRAMod rec {
     version = "134.git.69a4aa7";
     title = "Dune II";
-    meta.description = "A modernization of the original ${title} game";
+    meta.description = "Modernization of the original ${title} game";
     meta.homepage = "https://github.com/OpenRA/d2";
     src = fetchFromGitHub {
       owner = "OpenRA";
@@ -73,7 +73,7 @@ in
   dr = buildOpenRAMod rec {
     version = "324.git.ffcd6ba";
     title = "Dark Reign";
-    meta.description = "A re-imagination of the original Command & Conquer: ${title} game";
+    meta.description = "Re-imagination of the original Command & Conquer: ${title} game";
     meta.homepage = "https://github.com/drogoganor/DarkReign";
     src = fetchFromGitHub {
       owner = "drogoganor";
@@ -157,7 +157,7 @@ in
   mw = buildOpenRAMod rec {
     version = "257.git.c9be8f2";
     title = "Medieval Warfare";
-    meta.description = "A re-imagination of the original Command & Conquer: ${title} game";
+    meta.description = "Re-imagination of the original Command & Conquer: ${title} game";
     meta.homepage = "https://github.com/CombinE88/Medieval-Warfare";
     src = fetchFromGitHub {
       owner = "CombinE88";
@@ -209,7 +209,7 @@ in
   raclassic = buildOpenRAMod {
     version = "183.git.c76c13e";
     title = "Red Alert Classic";
-    meta.description = "A modernization of the original Command & Conquer: Red Alert game";
+    meta.description = "Modernization of the original Command & Conquer: Red Alert game";
     meta.homepage = "https://github.com/OpenRA/raclassic";
     src = fetchFromGitHub {
       owner = "OpenRA";
@@ -290,7 +290,7 @@ in
   ss = buildOpenRAMod rec {
     version = "77.git.23e1f3e";
     title = "Sole Survivor";
-    meta.description = "A re-imagination of the original Command & Conquer: ${title} game";
+    meta.description = "Re-imagination of the original Command & Conquer: ${title} game";
     meta.homepage = "https://github.com/MustaphaTR/sole-survivor";
     src = fetchFromGitHub {
       owner = "MustaphaTR";

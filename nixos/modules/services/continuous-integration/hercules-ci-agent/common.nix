@@ -63,7 +63,7 @@ in
       description = ''
         These settings are written to the {file}`agent.toml` file.
 
-        Not all settings are listed as options, can be set nonetheless.
+        Not all settings are listed as options, but they can be set nonetheless.
 
         For the exhaustive list of settings, see <https://docs.hercules-ci.com/hercules-ci/reference/agent-config/>.
       '';

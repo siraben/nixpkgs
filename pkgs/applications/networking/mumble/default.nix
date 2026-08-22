@@ -139,7 +139,7 @@ let
         "-D overlay-xcompile=OFF"
         "-D oss=OFF"
         "-D warnings-as-errors=OFF" # `std::wstring_convert` deprecation workaround
-        # building the overlay on darwin does not work in nipxkgs (yet)
+        # building the overlay on darwin does not work in nixpkgs (yet)
         # also see the patch below to disable scripts the build option misses
         # see https://github.com/mumble-voip/mumble/issues/6816
         (lib.cmakeBool "overlay" (!stdenv.hostPlatform.isDarwin))

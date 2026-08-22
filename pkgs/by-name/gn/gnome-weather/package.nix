@@ -53,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   postPatch = ''
     # The .service file is not wrapped with the correct environment
-    # so misses GIR files when started. By re-pointing from the gjs
+    # so it misses GIR files when started. By re-pointing from the gjs
     # entry point to the wrapped binary we get back to a wrapped
     # binary.
     substituteInPlace "data/org.gnome.Weather.service.in" \

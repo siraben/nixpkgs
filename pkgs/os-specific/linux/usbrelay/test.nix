@@ -42,7 +42,7 @@ import ../../../../nixos/tests/make-test-python.nix (
         pkgs.usbrelay
         pkgs.mosquitto
       ];
-      documentation.nixos.enable = false; # building nixos manual takes long time
+      documentation.nixos.enable = false; # building the NixOS manual takes a long time
     };
 
     testScript = /* py */ ''
@@ -54,7 +54,7 @@ import ../../../../nixos/tests/make-test-python.nix (
           import sys
           sys.exit(2)
       machine.start()
-      # usbrelayd is started by udev when an relay is detected
+      # usbrelayd is started by udev when a relay is detected
       machine.wait_for_unit("usbrelayd.service")
 
       stdout = machine.succeed("usbrelay")

@@ -42,7 +42,7 @@
     };
     services.openssh.enable = true;
 
-    users.users.nixos.isNormalUser = true; # needed to establish a ssh connection, by default root login is succeeding without any password
+    users.users.nixos.isNormalUser = true; # needed to establish an SSH connection; by default root login succeeds without any password
   };
 
   nodes.client = _: {
@@ -65,7 +65,7 @@
       client_addr = "${(lib.head nodes.client.networking.interfaces.eth1.ipv4.addresses).address}"
       server_addr = "${(lib.head nodes.server.networking.interfaces.eth1.ipv4.addresses).address}"
 
-      # Verify there is not ban and the port is reachable from the client.
+      # Verify there is no ban and the port is reachable from the client.
       server.succeed(f"reaction show | grep -q {client_addr} || test $? -eq 1")
       client.succeed(f"nc -w3 -z {server_addr} 22")
 

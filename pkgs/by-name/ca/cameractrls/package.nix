@@ -117,7 +117,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
       It's a standalone Python CLI and GUI (GTK3, GTK4) and
       camera Viewer (SDL) to set the camera controls in Linux.
       It can set the V4L2 controls and it is extendable with
-      the non standard controls. Currently it has a Logitech
+      the non-standard controls. Currently it has a Logitech
       extension (LED mode, LED frequency, BRIO FoV, Relative
       Pan/Tilt, PTZ presets), Kiyo Pro extension (HDR, HDR
       mode, FoV, AF mode, Save), Preset extension (Save and

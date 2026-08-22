@@ -31,7 +31,7 @@
 # client system-options file `dsm.sys` and expects it
 # to be located in a directory within the package.
 # Note that the command line client and the API use
-# different "dms.sys" files (located in different directories).
+# different "dsm.sys" files (located in different directories).
 # Since these files contain settings to be altered by the
 # admin user (e.g. TSM server name), we create symlinks
 # in place of the files that the client attempts to open.
@@ -43,7 +43,7 @@
 # that help the executables find the configuration file,
 # packages that link against the API have to
 # set the environment variable `DSMI_DIR` to
-# point to this derivations `/dsmi_dir` directory symlink.
+# point to this derivation's `/dsmi_dir` directory symlink.
 # Other environment variables might be necessary,
 # depending on local configuration or usage; see:
 # https://www.ibm.com/docs/en/storage-protect/8.2.2?topic=solaris-set-api-environment-variables

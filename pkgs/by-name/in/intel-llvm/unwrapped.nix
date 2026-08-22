@@ -197,7 +197,7 @@ stdenv.mkDerivation (finalAttrs: {
       sycl/cmake/modules/FetchEmhash.cmake
   ''
   # v7.0.0 half-applied an upstream rename of libclc's AMD target. Without this patch,
-  # The compiler builds and links fully, but the final compiler will lack the device libraries
+  # the compiler builds and links fully, but the final compiler will lack the device libraries
   # needed for compiling to AMD.
   # Build `pkgsRocm.intel-llvm.tests.sycl-compile-amdgcn-amd-amdhsa` to check; it fails without this patch.
   # TODO: It's likely that we can drop this on the next update.

@@ -117,7 +117,7 @@ buildPythonPackage rec {
     "test_warpedvrt"
     "test_rio_warp"
 
-    # AssertionError CLI exists with non-zero error code
+    # AssertionError CLI exits with non-zero error code
     # This is a regression introduced by https://github.com/NixOS/nixpkgs/pull/448189
     "test_sample_stdin"
     "test_transform"

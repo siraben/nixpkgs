@@ -523,7 +523,7 @@ in
       default = [ ];
       description = ''
         Additional disk images to provide to the VM. The value is
-        a list of size in MiB (1024×1024 bytes) of each disk. These disks are
+        a list of the sizes in MiB (1024×1024 bytes) of each disk. These disks are
         writable by the VM.
       '';
     };

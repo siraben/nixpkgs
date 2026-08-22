@@ -26,7 +26,7 @@ let
     ;
 
   # The priority of an option or section.
-  # The configurations format are order-sensitive. Pairs are added as children of
+  # The configuration format is order-sensitive. Pairs are added as children of
   # the last sections if possible, otherwise, they start a new section.
   # We sort them in topological order:
   # 1. Leaf pairs.
@@ -78,7 +78,7 @@ let
         command = "${pkgs.coreutils}/bin/readlink";
         options = [ "NOPASSWD" ];
       }
-      # for ssh, they are not the same than the one hard coded in ${pkgs.btrbk}
+      # for ssh, they are not the same as the ones hard coded in ${pkgs.btrbk}
       {
         command = "/run/current-system/sw/bin/btrfs";
         options = [ "NOPASSWD" ];
@@ -100,7 +100,7 @@ let
     else if config.security.doas.enable then
       "doas"
     else
-      throw "The btrbk nixos module needs either sudo or doas enabled in the configuration";
+      throw "The btrbk NixOS module needs either sudo or doas enabled in the configuration";
 
   addDefaults = settings: { backend = "btrfs-progs-${sudo_doas}"; } // settings;
 
@@ -243,7 +243,7 @@ in
                     };
                   };
                 };
-                description = "configuration options for btrbk. Nested attrsets translate to subsections.";
+                description = "Configuration options for btrbk. Nested attrsets translate to subsections.";
               };
             };
           });
@@ -312,7 +312,7 @@ in
           (doasCmdNoPass "${pkgs.btrfs-progs}/bin/btrfs")
           (doasCmdNoPass "${pkgs.coreutils}/bin/mkdir")
           (doasCmdNoPass "${pkgs.coreutils}/bin/readlink")
-          # for ssh, they are not the same than the one hard coded in ${pkgs.btrbk}
+          # for ssh, they are not the same as the ones hard coded in ${pkgs.btrbk}
           (doasCmdNoPass "/run/current-system/sw/bin/btrfs")
           (doasCmdNoPass "/run/current-system/sw/bin/mkdir")
           (doasCmdNoPass "/run/current-system/sw/bin/readlink")

@@ -2,7 +2,7 @@
   system,
   pkgs,
 
-  # Projects the test configuration into a the desired value; usually
+  # Projects the test configuration into the desired value; usually
   # the test runner: `config: config.test`.
   callTest,
 

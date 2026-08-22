@@ -54,7 +54,7 @@ buildPythonPackage (finalAttrs: {
   pythonImportsCheck = [ "webargs" ];
 
   disabledTests = [
-    # Tests is outdated
+    # Test is outdated
     "test_it_should_handle_type_error_on_load_json"
   ];
 

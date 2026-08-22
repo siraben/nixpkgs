@@ -9,7 +9,7 @@
   simpledbus,
 }:
 let
-  # zmkBATx is incompatible against the new ABI
+  # zmkBATx is incompatible with the new ABI
   simplebluez' = simplebluez.overrideAttrs rec {
     version = "0.7.3";
     src = fetchFromGitHub {

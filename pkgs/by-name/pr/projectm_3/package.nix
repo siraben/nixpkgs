@@ -43,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   fixupPhase =
     lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
-      # NOTE: 2019-10-05: Upstream inserts the src path during build into ELF rpath, so must delete it out
+      # NOTE: 2019-10-05: Upstream inserts the src path during build into ELF rpath, so we must remove it afterwards
       # upstream report: https://github.com/projectM-visualizer/projectm/issues/245
       for entry in $out/bin/* ; do
         patchelf --set-rpath "$(patchelf --print-rpath $entry | tr ':' '\n' | grep -v 'src/libprojectM' | tr '\n' ':')" "$entry"
@@ -62,7 +62,7 @@ stdenv.mkDerivation (finalAttrs: {
     maintainers = [ ];
     longDescription = ''
       The open-source project that reimplements the esteemed Winamp Milkdrop by Geiss in a more modern, cross-platform reusable library.
-      Read an audio input and produces mesmerizing visuals, detecting tempo, and rendering advanced equations into a limitless array of user-contributed visualizations.
+      It reads an audio input and produces mesmerizing visuals by detecting tempo and rendering advanced equations into a limitless array of user-contributed visualizations.
     '';
   };
 })

@@ -124,7 +124,7 @@ in
       description = ''
         Label for the NixOS root volume.
         Usually used when creating a recovery NixOS media installation
-        that avoids conflicting with previous installation label.
+        that avoids conflicting with the previous installation label.
       '';
     };
 

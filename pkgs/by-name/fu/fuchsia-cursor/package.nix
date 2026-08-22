@@ -70,7 +70,7 @@ lib.checkListOfEnum "${pname}: theme variants" [ "Fuchsia" "Fuchsia-Pop" "Fuchsi
     '';
 
     meta = {
-      description = "First OpenSource port of FuchsiaOS's cursors for Linux and Windows";
+      description = "First open-source port of FuchsiaOS's cursors for Linux and Windows";
       homepage = "https://github.com/ful1e5/fuchsia-cursor";
       maintainers = [ ];
       platforms = lib.platforms.all;

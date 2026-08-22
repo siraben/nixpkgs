@@ -72,15 +72,15 @@ stdenv.mkDerivation (finalAttrs: {
       Features:
 
       -  Builtin CLOS.
-      -  Common Lisp like reader macro.
+      -  Common Lisp-like reader macro.
       -  Cryptographic libraries.
       -  Customisable cipher and hash algorithm.
       -  Custom codec mechanism.
-      -  CL like keyword lambda syntax (taken from Gauche).
-      -  Constant definition form. (define-constant form).
-      -  Builtin regular expression
-      -  mostly works O(n)
-      -  Replaceable reader
+      -  CL-like keyword lambda syntax (taken from Gauche).
+      -  Constant definition form (define-constant form).
+      -  Builtin regular expression.
+      -  Mostly works O(n).
+      -  Replaceable reader.
     '';
     homepage = "https://github.com/ktakashi/sagittarius-scheme";
     license = lib.licenses.bsd2;

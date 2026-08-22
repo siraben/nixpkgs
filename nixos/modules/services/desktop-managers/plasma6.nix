@@ -113,7 +113,7 @@ in
           kwrited # wall message proxy, not to be confused with kwrite
           baloo # system indexer
           milou # search engine atop baloo
-          kdegraphics-thumbnailers # pdf etc thumbnailer
+          kdegraphics-thumbnailers # PDF etc thumbnailer
           polkit-kde-agent-1 # polkit auth ui
           plasma-desktop
           plasma-workspace

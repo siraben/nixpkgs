@@ -208,7 +208,7 @@ in
         type = lib.types.nullOr lib.types.str;
         default = null;
         example = "/run/secrets/davis-mail-dsn";
-        description = "A file containing the mail DSN for sending emails.  Mutually exclusive with `services.davis.mail.dsn`.";
+        description = "A file containing the mail DSN for sending emails. Mutually exclusive with `services.davis.mail.dsn`.";
       };
       inviteFromAddress = lib.mkOption {
         type = lib.types.nullOr lib.types.str;

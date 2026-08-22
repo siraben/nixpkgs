@@ -151,7 +151,7 @@ in
         if servicename == "ananicy-cpp" then
           {
             # https://gitlab.com/ananicy-cpp/ananicy-cpp/-/blob/master/src/config.cpp#L12
-            loglevel = mkOD "warn"; # default is info but its spammy
+            loglevel = mkOD "warn"; # default is info but it's spammy
             cgroup_realtime_workaround = true;
             log_applied_rule = mkOD false;
           }

@@ -56,7 +56,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   disabledTests = [
-    # Because preciceDt becomes very small. Test is likely to fail on other platform.
+    # Because preciceDt becomes very small. Test is likely to fail on other platforms.
     "precice.Integration/Serial/Time/Explicit/ParallelCoupling/ReadWriteScalarDataWithSubcycling6400Steps"
   ];
 

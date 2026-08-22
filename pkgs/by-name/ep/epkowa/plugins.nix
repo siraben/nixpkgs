@@ -19,7 +19,7 @@
     src = fetchurl {
       # To find new versions, visit
       # http://download.ebz.epson.net/dsc/search/01/search/?OSC=LX and search for
-      # some printer like for instance "WF-7210" to get to the most recent
+      # some printer such as "WF-7210" to get to the most recent
       # version.
       # NOTE: Don't forget to update the webarchive link too!
       urls = [

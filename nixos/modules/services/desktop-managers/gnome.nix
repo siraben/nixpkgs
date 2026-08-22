@@ -236,7 +236,7 @@ in
       default = [ ];
       example = literalExpression "[ pkgs.showtime ]";
       type = types.listOf types.package;
-      description = "Which packages gnome should exclude from the default environment";
+      description = "Which packages GNOME should exclude from the default environment";
     };
 
   };

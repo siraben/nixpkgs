@@ -243,7 +243,7 @@ let
           flycheck-rtags = ignoreCompilationError (fix-rtags super.flycheck-rtags); # elisp error
 
           pdf-tools = super.pdf-tools.overrideAttrs (old: {
-            # Temporary work around for:
+            # Temporary workaround for:
             #   - https://github.com/vedang/pdf-tools/issues/102
             #   - https://github.com/vedang/pdf-tools/issues/103
             #   - https://github.com/vedang/pdf-tools/issues/109
@@ -481,7 +481,7 @@ let
                 ];
               });
 
-          # Telega has a server portion for it's network protocol
+          # Telega has a server portion for its network protocol
           # elisp error
           telega = (ignoreCompilationError super.telega).overrideAttrs (old: {
             buildInputs = old.buildInputs ++ [

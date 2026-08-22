@@ -32,7 +32,7 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
   build-system = with python3.pkgs; [ setuptools_80 ];
 
   postPatch = ''
-    # 2 conflicting copies of bin/displaycal end up from the installation
+    # 2 conflicting copies of bin/displaycal are produced by the installation
     # process (one from pyproject.toml’s gui-scripts, one from setup.py). Keep
     # only the setup.py version. Replace key with an invalid name to be
     # skipped.

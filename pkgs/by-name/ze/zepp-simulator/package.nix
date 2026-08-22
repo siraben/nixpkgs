@@ -11,8 +11,8 @@
   asar,
   dpkg,
 
-  # qemu deps
-  # (it's not possible to de-vendor the qemu binary since it relies on proprietary cpu extensions)
+  # QEMU deps
+  # (it's not possible to de-vendor the QEMU binary since it relies on proprietary CPU extensions)
   glib,
   libgcc,
   libcxx,
@@ -59,7 +59,7 @@ stdenv.mkDerivation {
   src = fetchurl srcs.${stdenv.hostPlatform.system};
 
   patches = [
-    # Fix for qemu input grab not working with NIXOS_OZONE_WL=1
+    # Fix for QEMU input grab not working with NIXOS_OZONE_WL=1
     ./0001-force_qemu_x11.patch
   ];
 
@@ -145,7 +145,7 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  # HACK: Replace libsasl2.so.ls with libsasl2.so.3
+  # HACK: Replace libsasl2.so.2 with libsasl2.so.3
   postFixup = ''
     patchelf \
       --replace-needed libsasl2.so.2 libsasl2.so.3 \

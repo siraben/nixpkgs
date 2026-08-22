@@ -37,12 +37,12 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    description = "Efficient, large scale, parallel remote execution of commands";
+    description = "Efficient, large-scale, parallel remote execution of commands";
     mainProgram = "taktuk";
     longDescription = ''
       TakTuk allows one to execute commands in parallel on a potentially large set
       of remote nodes (using ssh to connect to each node). It is typically used
-      inside high performance computing clusters and grids. It uses an adaptive
+      inside high-performance computing clusters and grids. It uses an adaptive
       algorithm to efficiently distribute the work and sets up an interconnection
       network to transport commands and perform I/Os multiplexing. It doesn't
       require any specific software on the nodes thanks to a self-propagation

@@ -1,4 +1,4 @@
-# TODO: yargen has been deprecated in favor or [yargen-go](https://github.com/Neo23x0/yarGen-Go)
+# TODO: yargen has been deprecated in favor of [yargen-go](https://github.com/Neo23x0/yarGen-Go)
 #       package yargen-go and drop yargen
 
 {

@@ -125,7 +125,7 @@ in
         type = lib.types.lines;
         description = ''
           Contents of the runtime configuration file, apcupsd.conf. The default
-          settings makes apcupsd autodetect USB UPSes, limit network access to
+          settings make apcupsd autodetect USB UPSes, limit network access to
           localhost and shutdown the system when the battery level is below 50
           percent, or when the UPS has calculated that it has 5 minutes or less
           of remaining power-on time. See man apcupsd.conf for details.

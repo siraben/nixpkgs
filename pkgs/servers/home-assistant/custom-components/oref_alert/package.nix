@@ -24,7 +24,7 @@ buildHomeAssistantComponent rec {
     hash = "sha256-ZYV/pylzjzjDAR9v9CaCMUCS+ttCf5t3yii06tmjLm0=";
   };
 
-  # Do not publish cards, currently broken, attempting to write to nix store.
+  # Do not publish cards: currently broken and attempts to write to the Nix store.
   postPatch = ''
     substituteInPlace custom_components/oref_alert/__init__.py \
       --replace-fail 'version = await publish_cards(hass)' 'version = "1.0.0"'

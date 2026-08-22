@@ -31,13 +31,13 @@ writeScript "update-${pname}" ''
   # retrieving latest released version
   #  - extracts all links from the $url
   #  - removes . and ..
-  #  - this line remove everything not starting with a number
+  #  - this line removes everything not starting with a number
   #  - this line sorts everything with semver in mind
-  #  - we remove lines that are mentioning funnelcake
+  #  - we remove lines that mention funnelcake
   #  - this line removes beta version if we are looking for final release
   #    versions or removes release versions if we are looking for beta
   #    versions
-  # - this line pick up latest release
+  # - this line picks up the latest release
   version=`xidel -s $url --extract "//a" | \
            sed s"/.$//" | \
            grep "^[0-9]" | \
@@ -51,7 +51,7 @@ writeScript "update-${pname}" ''
   gpgv --keyring=$GNUPGHOME/pubring.kbx $HOME/shasums.asc $HOME/shasums
 
   # this is a list of sha256 and tarballs for both arches
-  # Upstream files contains python repr strings like b'somehash', hence the sed dance
+  # Upstream files contain python repr strings like b'somehash', hence the sed dance
   shasums=`cat $HOME/shasums | sed -E s/"b'([a-f0-9]{64})'?(.*)"/'\1\2'/ | grep '\.\(tar\.[a-z0-9]\+\|dmg\)$' | grep -v mac-EME-free`
 
   cat > $tmpfile <<EOF
@@ -63,7 +63,7 @@ writeScript "update-${pname}" ''
     # retrieving a list of all tarballs for each arch
     #  - only select tarballs for current arch
     #  - only select tarballs for current version
-    #  - rename space with colon so that for loop doesnt
+    #  - rename space with colon so that the for loop doesn't split on them
     #  - interprets sha and path as 2 lines
     IFS=$'\n'
     for line in `echo "$shasums" | \

@@ -23,10 +23,10 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
     description = "Convert csv files to OpenDocument Format";
     mainProgram = "csv2odf";
     longDescription = ''
-      csv2odf is a command line tool that can convert a comma separated value
-      (csv) file to an odf, ods, html, xlsx, or docx document that can be viewed in
+      csv2odf is a command line tool that can convert a comma-separated value
+      (CSV) file to an odf, ods, html, xlsx, or docx document that can be viewed in
       LibreOffice and other office productivity programs. csv2odf is useful for
-      creating reports from databases and other data sources that produce csv files.
+      creating reports from databases and other data sources that produce CSV files.
       csv2odf can be combined with cron and shell scripts to automatically generate
       business reports.
 

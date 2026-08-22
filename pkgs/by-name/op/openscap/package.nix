@@ -149,7 +149,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   postFixup = ''
     # Set plugin directory to discover the SCE plugin.
-    # openscap calls dlopen with this as the directory prefix.
+    # OpenSCAP calls dlopen with this as the directory prefix.
     wrapProgram $out/bin/oscap \
       --set OSCAP_CHECK_ENGINE_PLUGIN_DIR $out/lib
   '';

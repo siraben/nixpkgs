@@ -27,9 +27,9 @@
   propagateFullGlib ? true,
 }:
 
-# now that gobject-introspection creates large .gir files (eg gtk3 case)
+# now that gobject-introspection creates large .gir files (e.g. gtk3 case)
 # it may be worth thinking about using multiple derivation outputs
-# In that case its about 6MB which could be separated
+# In that case it's about 6MB which could be separated
 
 let
   pythonModules = pp: [
@@ -144,7 +144,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   postInstall = lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
     cp -r ${buildPackages.gobject-introspection-unwrapped.devdoc} $devdoc
-    # these are uncompiled c and header files which aren't installed when cross-compiling because
+    # these are uncompiled C and header files which aren't installed when cross-compiling because
     # code that installs them is in tests/meson.build which is only run when not cross-compiling
     # pygobject3 needs them
     cp -r ${buildPackages.gobject-introspection-unwrapped.dev}/share/gobject-introspection-1.0/tests $dev/share/gobject-introspection-1.0/tests

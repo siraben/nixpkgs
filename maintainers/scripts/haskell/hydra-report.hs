@@ -9,7 +9,7 @@
 The purpose of this script is
 
 1) download the state of the nixpkgs/haskell-updates job from hydra (with get-report)
-2) print a summary of the state suitable for pasting into a github comment (with ping-maintainers)
+2) print a summary of the state suitable for pasting into a GitHub comment (with ping-maintainers)
 3) print a list of broken packages suitable for pasting into configuration-hackage2nix.yaml
 
 Because step 1) is quite expensive and takes roughly ~5 minutes the result is cached in a json file in XDG_CACHE.
@@ -337,7 +337,7 @@ getMaintainerMap =
   <&> catMaybes
   <&> Map.fromList
 
--- | Get the a map of all dependencies of every package by calling the nix
+-- | Get a map of all dependencies of every package by calling the nix
 -- script ./dependencies.nix.
 getDependencyMap :: IO DependencyMap
 getDependencyMap =
@@ -346,7 +346,7 @@ getDependencyMap =
       ("maintainers/scripts/haskell/dependencies.nix" : nixExprParams)
       "Failed to decode nix output for lookup of dependencies: "
 
--- | Run a process that produces JSON on stdout and and decode the JSON to a
+-- | Run a process that produces JSON on stdout and decode the JSON to a
 -- data type.
 --
 -- If the JSON-decoding fails, throw the JSON-decoding error.
@@ -609,7 +609,7 @@ evalLine Eval{id, jobsetevalinputs = JobsetEvalInputs{nixpkgs = Nixpkgs{revision
     <> showT id
     <> "](https://hydra.nixos.org/eval/"
     <> showT id
-    <> ") of nixpkgs commit ["
+    <> ") of Nixpkgs commit ["
     <> Text.take 7 revision
     <> "](https://github.com/NixOS/nixpkgs/commits/"
     <> revision

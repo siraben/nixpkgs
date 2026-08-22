@@ -56,7 +56,7 @@ mkCoqDerivation {
     patchShebangs ./clean_extraction.sh
     patchShebangs ./make_plugin.sh
 
-    # drop after  https://github.com/CertiRocq/certirocq/pull/162
+    # drop after https://github.com/CertiRocq/certirocq/pull/162
     substituteInPlace runtime/Makefile \
       --replace-fail "gcc -I /opt/homebrew/include" '$(CC)'
     substituteInPlace clean_extraction.sh \

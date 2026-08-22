@@ -48,7 +48,7 @@ default-package-overrides:
   - http2-tls < 0.4.6
   # liquidhaskell-boot 0.9.10.1.2 requires this specific version of liquid-fixpoint
   - liquid-fixpoint == 0.9.6.3.2
-  # liquidhaskell(-boot) support one GHC at a time, so we choose the one matching the current GHC (9.10)
+  # liquidhaskell(-boot) supports one GHC at a time, so we choose the one matching the current GHC (9.10)
   - liquidhaskell == 0.9.10.*
   - liquidhaskell-boot == 0.9.10.*
   # 2025-03-07: HLS and many other pkgs don't support lsp >= 2.8 (yet)
@@ -798,7 +798,7 @@ supported-platforms:
   hommage-ds:                                   [ platforms.windows ]
   hpapi:                                        [ platforms.linux ] # limited by pkgs.papi
   HQu:                                          [ platforms.x86 ] # vendored C++ library needs i686/x86_64
-  hs-swisstable-hashtables-class:               [ platforms.x86_64 ] # depends on swisstable, which Needs AVX2
+  hs-swisstable-hashtables-class:               [ platforms.x86_64 ] # depends on swisstable, which needs AVX2
   hsignal:                                      [ platforms.x86 ] # -msse2
   htune:                                        [ platforms.linux ] # depends on alsa-pcm
   hw-prim-bits:                                 [ platforms.x86 ] # x86 assembler

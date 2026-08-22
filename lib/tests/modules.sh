@@ -2,7 +2,7 @@
 
 # This script is used to test that the module system is working as expected.
 # Executing it runs tests for `lib.modules`, `lib.options` and `lib.types`.
-# By default it test the version of nixpkgs which is defined in the NIX_PATH.
+# By default it tests the version of Nixpkgs which is defined in the NIX_PATH.
 #
 # Run:
 # [nixpkgs]$ lib/tests/modules.sh
@@ -187,7 +187,7 @@ checkConfigOutput '^true$' config.result ./test-mergeAttrDefinitionsWithPrio.nix
 #
 # Hypothetically, Nix could help support this by giving access to the default
 # values, through a new built-in function.
-# However the default values are allowed to depend on other arguments, so those
+# However, the default values are allowed to depend on other arguments, so those
 # would have to be passed in somehow, making this not just a getter but
 # something more complicated.
 #
@@ -536,10 +536,10 @@ checkConfigOutput '^"24"$' config.value ./freeform-attrsOf.nix ./define-value-st
 # and this should work too with nested values
 checkConfigOutput '^false$' config.nest.foo ./freeform-attrsOf.nix ./freeform-nested.nix
 checkConfigOutput '^"bar"$' config.nest.bar ./freeform-attrsOf.nix ./freeform-nested.nix
-# Check whether a declared option can depend on an freeform-typed one
+# Check whether a declared option can depend on a freeform-typed one
 checkConfigOutput '^null$' config.foo ./freeform-attrsOf.nix ./freeform-str-dep-unstr.nix
 checkConfigOutput '^"24"$' config.foo ./freeform-attrsOf.nix ./freeform-str-dep-unstr.nix ./define-value-string.nix
-# Check whether an freeform-typed value can depend on a declared option, this can only work with lazyAttrsOf
+# Check whether a freeform-typed value can depend on a declared option, this can only work with lazyAttrsOf
 REQUIRE_INFINITE_RECURSION_HINT=1 checkConfigError 'infinite recursion encountered' config.foo ./freeform-attrsOf.nix ./freeform-unstr-dep-str.nix
 checkConfigError 'The option .* was accessed but has no value defined. Try setting the option.' config.foo ./freeform-lazyAttrsOf.nix ./freeform-unstr-dep-str.nix
 checkConfigOutput '^"24"$' config.foo ./freeform-lazyAttrsOf.nix ./freeform-unstr-dep-str.nix ./define-value-string.nix
@@ -666,7 +666,7 @@ checkConfigError 'In module .*/options-type-error-typical.nix: expected an optio
 checkConfigError 'In module .*/options-type-error-typical-nested.nix: expected an option declaration at option path .result.here. but got an attribute set with type option-type' config.result.here ./options-type-error-typical-nested.nix
 checkConfigError 'In module .*/options-type-error-configuration.nix: expected an option declaration at option path .result. but got an attribute set with type configuration' config.result ./options-type-error-configuration.nix
 
-# Check that that merging of option collisions doesn't depend on type being set
+# Check that merging of option collisions doesn't depend on type being set
 checkConfigError 'The option .group..*would be a parent of the following options, but its type .<no description>. does not support nested options.\n\s*- option.s. with prefix .group.enable..*' config.group.enable ./merge-typeless-option.nix
 
 # types.optionDeclaration

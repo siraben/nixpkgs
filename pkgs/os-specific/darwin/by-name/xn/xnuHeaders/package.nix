@@ -39,8 +39,8 @@ mkAppleDerivation {
     substituteInPlace makedefs/MakeInc.top \
       --replace-fail "MEMORY_SIZE := " 'MEMORY_SIZE := 1073741824 # '
 
-    # iig is closed-sourced, we don't have it
-    # create an empty file to the header instead
+    # iig is closed-source, we don't have it
+    # create an empty file for the header instead
     # this line becomes: echo "" > $@; echo --header ...
     substituteInPlace iokit/DriverKit/Makefile \
       --replace-fail '--def $<' '> $@; echo'
