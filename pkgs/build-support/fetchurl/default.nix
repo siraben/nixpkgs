@@ -235,16 +235,16 @@ lib.extendMkDerivation {
       urls_ = rewriteAllUrls preRewriteUrls;
 
       hash_ =
+        # Count the set hash arguments directly instead of building a list
+        # and applying a filter predicate per element on every fetch; the
+        # strings are still forced left-to-right in this order.
         if
-          length (
-            filter (s: s != "") [
-              hash
-              outputHash
-              sha1
-              sha256
-              sha512
-            ]
-          ) > 1
+          (if hash != "" then 1 else 0)
+          + (if outputHash != "" then 1 else 0)
+          + (if sha1 != "" then 1 else 0)
+          + (if sha256 != "" then 1 else 0)
+          + (if sha512 != "" then 1 else 0)
+          > 1
         then
           throw "multiple hashes passed to fetchurl: ${lib.generators.toPretty { } urls_}"
         else
