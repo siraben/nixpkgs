@@ -103,7 +103,7 @@ formatExtRuntimeDeps() {
   jsonStorePath="$(echo "$jsonShaWStorePath" | tail -n1)"
   1>&2 echo "jsonStorePath='$jsonStorePath'"
 
-  # Assume packages without an architectures are for x86_64 and remap arm64 to aarch64.
+  # Assume packages without an `architectures` field are for x86_64 and remap arm64 to aarch64.
   declare jqQuery
   jqQuery=$(cat <<'EOF'
 .runtimeDependencies

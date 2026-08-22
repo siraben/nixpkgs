@@ -17,7 +17,7 @@ def unpretty(s: str) -> str:
     return "".join(map(str.strip, s.splitlines())).replace('␣', ' ').replace('↵', '\n')
 
 def test_lists_styles() -> None:
-    # nested lists rotate through a number of list style
+    # nested lists rotate through a number of list styles
     c = Converter({}, {})
     assert c._render("- - - - foo") == unpretty("""
       <div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;">
@@ -63,7 +63,7 @@ def test_lists_styles() -> None:
     """)
 
 def test_xrefs() -> None:
-    # nested lists rotate through a number of list style
+    # nested lists rotate through a number of list styles
     c = Converter({}, {
         'foo': nrd.manual_structure.XrefTarget('foo', '<hr/>', 'toc1', 'title1', 'index.html'),
         'bar': nrd.manual_structure.XrefTarget('bar', '<br/>', 'toc2', 'title2', 'index.html', True),

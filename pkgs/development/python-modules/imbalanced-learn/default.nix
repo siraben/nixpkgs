@@ -67,7 +67,7 @@ buildPythonPackage rec {
 
   disabledTestPaths = [
     # require tensorflow and keras, but we don't want to
-    # add them to nativeCheckInputs just for this tests
+    # add them to nativeCheckInputs just for these tests
     "imblearn/keras"
     "imblearn/tensorflow"
     # even with precheck directory change, pytest still tries to test docstrings

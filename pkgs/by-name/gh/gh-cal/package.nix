@@ -20,7 +20,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   buildInputs = [ openssl ];
 
   meta = {
-    description = "GitHub contributions calender terminal viewer";
+    description = "GitHub contributions calendar terminal viewer";
     homepage = "https://github.com/mrshmllow/gh-cal";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ loicreynier ];

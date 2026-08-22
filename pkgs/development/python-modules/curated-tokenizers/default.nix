@@ -44,7 +44,7 @@ buildPythonPackage rec {
   enabledTestPaths = [ "tests" ];
 
   preCheck = ''
-    # avoid local paths, relative imports wont resolve correctly
+    # avoid local paths, relative imports won't resolve correctly
     mv curated_tokenizers/tests tests
     rm -r curated_tokenizers
   '';

@@ -289,8 +289,8 @@ def update_gitaly():
         .strip()
     )
     git_data = {
-        # We use the commit hash here as part of the dervations' version because it would be quite hard to find out
-        # the actual commit date, and even than we don't want to have `unstable` as part of the derivation as GitLab
+        # We use the commit hash here as part of the derivations' version because it would be quite hard to find out
+        # the actual commit date, and even then we don't want to have `unstable` as part of the derivation as GitLab
         # considers this git version stable.
         "version": f"{git_major_minor}-{git_rev[:8]}",
         "rev": git_rev,

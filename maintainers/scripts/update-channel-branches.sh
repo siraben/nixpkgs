@@ -57,7 +57,7 @@ done
 
 echo "Fetching channels from nixos-version:"
 if currentSystem=$(nixos-version 2>/dev/null); then
-    # If the system is entirely build from a custom nixpkgs version,
+    # If the system is entirely built from a custom nixpkgs version,
     # then the version is not annotated in git version. This sed
     # expression is basically matching that the expressions end with
     # ".<sha1> (Name)" to extract the sha1.
@@ -93,7 +93,7 @@ done
 
 # Suggest to remove channel branches which are no longer found by this
 # script. This is to handle the cases where a local/remote channel
-# disappear. We should not attempt to remove manually any branches, as they
+# disappears. We should not attempt to remove any branches manually, as they
 # might be user branches.
 if test -n "$deadChannels"; then
 

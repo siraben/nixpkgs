@@ -12,9 +12,9 @@ It supports the following modes:
 | `update`     | for updating a specific Electron release        |
 | `update-all` | for updating all electron releases at once      |
 
-The `update` commands requires a `--version` flag
+The `update` command requires a `--version` flag
 to specify the major release to be updated.
-The `update-all command updates all non-eol major releases.
+The `update-all` command updates all non-eol major releases.
 
 The `update` and `update-all` commands accept an optional `--commit`
 flag to automatically commit the changes for you, and `--force` to

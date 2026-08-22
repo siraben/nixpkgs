@@ -1,4 +1,4 @@
-# This setup hook makes the fixup phase to repack all java archives in a
+# This setup hook makes the fixup phase repack all java archives in a
 # deterministic fashion. The most important change being done is the resetting
 # of the modification times of the archive entries
 

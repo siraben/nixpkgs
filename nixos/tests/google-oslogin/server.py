@@ -32,7 +32,7 @@ def gen_email(username: str):
 
 def gen_mockuser(username: str, uid: str, gid: str, home_directory: str, snakeoil_pubkey: str) -> Dict:
     snakeoil_pubkey_fingerprint = gen_fingerprint(snakeoil_pubkey)
-    # seems to be a 21 characters long numberstring, so mimic that in a reproducible way
+    # seems to be a 21 characters long number string, so mimic that in a reproducible way
     email = gen_email(username)
     return {
         "loginProfiles": [

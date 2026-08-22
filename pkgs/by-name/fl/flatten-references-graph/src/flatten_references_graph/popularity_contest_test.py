@@ -50,8 +50,8 @@ class Test(
                 []
             )
 
-        # popularity_contest works with igraph graph or refurence_graph in
-        # form a list of dicts (as returned by nix's exportReferencesGraph)
+        # popularity_contest works with igraph graph or reference_graph in
+        # the form of a list of dicts (as returned by nix's exportReferencesGraph)
         test_empty(directed_graph([]))
         test_empty([])
 

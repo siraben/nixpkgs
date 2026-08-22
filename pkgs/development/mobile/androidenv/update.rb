@@ -249,7 +249,7 @@ def expire_records record, oldest_valid_day
       return nil
     end
     update = {}
-    # This should only happen in the first run of this scrip after adding the `expire_record` function.
+    # This should only happen in the first run of this script after adding the `expire_record` function.
     if record.has_key?('displayName') &&
       !record.has_key?('last-available-day')
       update['last-available-day'] = today
@@ -560,7 +560,7 @@ end
 fixup_result = fixup(result)
 
 # Regular installation of Android SDK would keep the previously installed packages even if they are not
-# in the uptodate XML files, so here we try to support this logic by keeping un-available packages,
+# in the up-to-date XML files, so here we try to support this logic by keeping unavailable packages,
 # therefore the old packages will work as long as the links are working on the Google servers.
 output = sort_recursively(merge(input, fixup_result))
 

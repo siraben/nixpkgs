@@ -74,8 +74,8 @@ class Test(
         ]
 
         expected_graph_args = [
-            # "B"" separated from the rest by "split_paths" and
-            # "subcomponent_in' stages.
+            # "B" separated from the rest by "split_paths" and
+            # "subcomponent_in" stages.
             ([], ["B"]),
             # Deps of "B", split into individual layers by "popularity_contest",
             # with "F" being most popular

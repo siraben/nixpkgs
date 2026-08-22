@@ -24,10 +24,10 @@ preConfigure() {
     local flagsArray=()
     concatTo flagsArray makeMakerFlags
 
-    # Perl expect these to be exported
+    # Perl expects these to be exported
     export CPPRUN="$CC -E"
     export FULL_AR=$AR
-    # Requires to be $CC since it tries adding "-Wl"
+    # Needs to be $CC since it tries adding "-Wl"
     export LD=$CC
     perl Makefile.PL AR="$AR" FULL_AR="$AR" CC="$CC" LD="$CC" CPPRUN="$CPPRUN" \
         PREFIX=$out INSTALLDIRS=site "${flagsArray[@]}" \

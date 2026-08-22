@@ -100,7 +100,7 @@ versionAtLeast () {
   printf "%s\0%s" "$min_version" "$cur_version" | sort -zVC
 }
 
-# These packages are implicitly references by the build process,
+# These packages are implicitly referenced by the build process,
 # based on the specific project configurations (RIDs, used features, etc.)
 # They are always referenced with the same version as the SDK used for building.
 # Since we lock nuget dependencies, when these packages are included in the generated

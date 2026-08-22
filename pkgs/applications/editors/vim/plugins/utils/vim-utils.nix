@@ -148,7 +148,7 @@ let
     let
       drv =
         if builtins.isString plugin then
-          # make sure `pname` is set to that we are able to convert the derivation
+          # make sure `pname` is set so that we are able to convert the derivation
           # back to a string.
           (knownPlugins.${plugin} // { pname = plugin; })
         else

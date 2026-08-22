@@ -23,7 +23,7 @@ stdenv.mkDerivation (finalAttrs: {
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   meta = {
-    description = "Theme for ITGMania to (hopefully) utilize all of it's features and more";
+    description = "Theme for ITGMania to (hopefully) utilize all of its features and more";
     homepage = "https://codeberg.org/JNero/Digital-Dance-ITGMania";
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ ungeskriptet ];

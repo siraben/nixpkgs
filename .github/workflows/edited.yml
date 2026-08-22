@@ -8,7 +8,7 @@
 # Instead of adding this to each workflow's pull_request_target event, we trigger this in a separate workflow.
 # This has the advantage, that we can actually skip running those jobs for simple edits like changing the title or description.
 # The actual trigger happens by closing and re-opening the pull request, which triggers the default pull_request_target events.
-# This is much simpler and reliable than other approaches.
+# This is much simpler and more reliable than other approaches.
 
 name: "Edited base branch"
 

@@ -86,7 +86,7 @@ Man pages are written in [`mdoc(7)` format](https://mandoc.bsd.lv/man/mdoc.7.htm
 
 For a preview, run `man --local-file path/to/file.8`.
 
-Being written in `mdoc`, these manpages use semantic markup. This following subsections provides a guideline on where to apply which semantic elements.
+Being written in `mdoc`, these manpages use semantic markup. The following subsections provide a guideline on where to apply which semantic elements.
 
 ### Command lines and arguments {#ssec-contributing-nixos-tools-cli-and-args}
 
@@ -117,7 +117,7 @@ Generated paths, e.g. `result/bin/run-hostname-vm` (where `hostname` is a variab
 
 ### Code examples and other commands {#ssec-contributing-nixos-tools-code-examples}
 
-In free text names and complete invocations of other commands (e.g. `ssh` or `tar -xvf src.tar`) should be marked with `Ic`, fragments of command lines should be marked with `Ql`.
+In free text, names and complete invocations of other commands (e.g. `ssh` or `tar -xvf src.tar`) should be marked with `Ic`, fragments of command lines should be marked with `Ql`.
 
 Larger code blocks or those that cannot be shown inline should use indented literal display block markup for their contents, i.e.
 

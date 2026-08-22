@@ -28,7 +28,7 @@ for binname in $binfiles ; do
   fi
 
   # look for scripts
-  # the explicit list of extensions avoid non-scripts such as $binname.cmd, $binname.jar, $binname.pm
+  # the explicit list of extensions avoids non-scripts such as $binname.cmd, $binname.jar, $binname.pm
   # the order is relevant: $binname.sh is preferred to other $binname.*
   for folder in $scriptsFolder ; do
     for script in "$folder/$binname"{,.sh,.lua,.pl,.py,.rb,.sno,.tcl,.texlua,.tlu}; do

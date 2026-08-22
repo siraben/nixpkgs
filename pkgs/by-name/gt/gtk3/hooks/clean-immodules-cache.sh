@@ -2,7 +2,7 @@
 
 fixupOutputHooks+=(_gtkCleanImmodulesCache)
 
-# Clean comments that link to generator of the file
+# Clean comments that link to the generator of the file
 _gtkCleanImmodulesCache() {
     # gtk_module_path is where the modules are installed
     # https://gitlab.gnome.org/GNOME/gtk/-/blob/3.24.24/gtk/gtkmodules.c#L68

@@ -162,7 +162,7 @@ class QemuStartCommand:
 
     @property
     def machine_name(self) -> str:
-        """A start script from nixos/modules/virtualiation/qemu-vm.nix.
+        """A start script from nixos/modules/virtualisation/qemu-vm.nix.
         These Nix commands have the particular characteristic that the
         machine name can be extracted out of them via a regex match.
         (Admittedly a _very_ implicit contract, TODO fix this eventually.)
@@ -472,7 +472,7 @@ class BaseMachine(ABC):
             state = info["ActiveState"]
             if state != require_state:
                 raise RequestedAssertionFailed(
-                    f"Expected unit '{unit}' to to be in state "
+                    f"Expected unit '{unit}' to be in state "
                     f"'{require_state}' but it is in state '{state}'"
                 )
 

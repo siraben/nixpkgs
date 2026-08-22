@@ -357,7 +357,7 @@ let
         # First evaluation of defaultListen based on a set of listen lines.
         mkDefaultListenVhost =
           listenLines:
-          # If this vhost has SSL or is a SSL rejection host.
+          # If this vhost has SSL or is an SSL rejection host.
           # We enable a TLS variant for lines without explicit ssl or ssl = true.
           optionals (hasSSL || vhost.rejectSSL) (
             map (
@@ -1492,7 +1492,7 @@ in
               )
             ) (attrValues virtualHosts);
           message = ''
-            services.nginx.virtualHosts.<name>.enableACME requires a HTTP listener
+            services.nginx.virtualHosts.<name>.enableACME requires an HTTP listener
             to answer to ACME requests.
           '';
         }

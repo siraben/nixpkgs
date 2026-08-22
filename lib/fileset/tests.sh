@@ -1399,7 +1399,7 @@ createGitRepo() {
 
 # Check that gitTracked[With] works as expected when evaluated out-of-tree
 
-## First we create a git repositories (and a subrepository) with `default.nix` files referring to their local paths
+## First we create a git repository (and a subrepository) with `default.nix` files referring to their local paths
 ## Simulating how it would be used in the wild
 createGitRepo .
 echo '{ fs }: fs.toSource { root = ./.; fileset = fs.gitTracked ./.; }' > default.nix

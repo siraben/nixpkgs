@@ -67,7 +67,7 @@ mkMesonDerivation (finalAttrs: {
   preConfigure =
     # TEMP hack for Meson before make is gone, where
     # `src/nix-functional-tests` is during the transition a symlink and
-    # not the actual directory directory.
+    # not the actual directory.
     ''
       cd $(readlink -e $PWD)
       echo $PWD | grep tests/functional

@@ -40,7 +40,7 @@ buildPythonPackage rec {
   # HACK: parallelize compilation of make calls within pyqt's setup.py
   # pkgs/stdenv/generic/setup.sh doesn't set this for us because
   # make gets called by python code and not its build phase
-  # format=pyproject means the pip-build-hook hook gets used to build this project
+  # format=pyproject means the pip-build-hook gets used to build this project
   # pkgs/development/interpreters/python/hooks/pip-build-hook.sh
   # does not use the enableParallelBuilding flag
   postUnpack = ''

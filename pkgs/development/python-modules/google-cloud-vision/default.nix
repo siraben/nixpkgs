@@ -57,7 +57,7 @@ buildPythonPackage (finalAttrs: {
   ];
 
   meta = {
-    description = "Cloud Vision API API client library";
+    description = "Cloud Vision API client library";
     homepage = "https://github.com/googleapis/google-cloud-python/tree/main/packages/google-cloud-vision";
     changelog = "https://github.com/googleapis/google-cloud-python/blob/google-cloud-vision-v${finalAttrs.version}/packages/google-cloud-vision/CHANGELOG.md";
     license = lib.licenses.asl20;

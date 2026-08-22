@@ -102,7 +102,7 @@ if [[ -n "$flake" ]]; then
     flake="${BASH_REMATCH[1]}"
     flakeAttr="${BASH_REMATCH[2]}"
   fi
-  # Unlike nix cli, builtins.getFlake infer path:// when a path is given
+  # Unlike nix cli, builtins.getFlake infers path:// when a path is given
   # See https://github.com/NixOS/nix/issues/5836
   if [[ -d "$flake" ]]; then
       repo=$(discover_git "$(realpath "$flake")")

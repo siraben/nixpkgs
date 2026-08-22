@@ -104,7 +104,7 @@ patchShebangs() {
             fi
         else
             if [[ -z $oldPath ]]; then
-                # If no interpreter is specified linux will use /bin/sh. Set
+                # If no interpreter is specified, Linux will use /bin/sh. Set
                 # oldpath="/bin/sh" so that we get /nix/store/.../sh.
                 oldPath="/bin/sh"
             fi

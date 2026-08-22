@@ -14,7 +14,7 @@ if [[ "$currentVersion" == "$latestVersion" ]]; then
     exit 0
 fi
 
-# urls unfortunately include a weird buildid that make it hard to get
+# urls unfortunately include a weird buildid that makes it hard to get
 latestWholeVersion=$(curl $baseUrl/$latestVersion/manifest.json | jq -r '.platforms."linux-x64".url' | cut -d/ -f6)
 latestBuildId=${latestWholeVersion#*-}
 currentBuildId=$(sed -n 's/.*buildId = "\([^"]*\)";.*/\1/p' "$packageFile")

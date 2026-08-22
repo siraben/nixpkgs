@@ -53,7 +53,7 @@ def preapply_func(func_call_data):
     debug("args", args)
     debug('func_name in ["over"]', func_name in ["over"])
 
-    # TODO: these could be handled in more generic way by defining, for each
+    # TODO: these could be handled in a more generic way by defining, for each
     # function, which of the args are expected to be functions which need
     # pre-applying.
     if func_name == "over":

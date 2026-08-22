@@ -34,7 +34,7 @@ def main_impl(file_path):
         # For reproducibility.
         sort_keys=True,
         indent=2,
-        # Avoid tailing whitespaces.
+        # Avoid trailing whitespace.
         separators=(",", ": ")
     )
 

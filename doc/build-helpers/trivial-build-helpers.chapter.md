@@ -748,7 +748,7 @@ Runtime environment variables can be set with the `runtimeEnv` argument.
 
 : Inputs to add to the shell script's `$PATH` at runtime.
 
-  Each elements can either be a normal derivation, or a string containing a path, in which case it will be suffixed with `/bin` to create a `PATH` expression (see [`lib.strings.makeBinPath`](#function-library-lib.strings.makeBinPath) for more information).
+  Each element can either be a normal derivation, or a string containing a path, in which case it will be suffixed with `/bin` to create a `PATH` expression (see [`lib.strings.makeBinPath`](#function-library-lib.strings.makeBinPath) for more information).
 
 `runtimeEnv` (Attribute set, _optional_)
 

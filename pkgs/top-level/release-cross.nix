@@ -156,13 +156,13 @@ in
 
 {
   # These derivations from a cross package set's `buildPackages` should be
-  # identical to their vanilla equivalents --- none of these package should
+  # identical to their vanilla equivalents --- none of these packages should
   # observe the target platform which is the only difference between those
   # package sets.
   ensureUnaffected =
     let
       # Absurd values are fine here, as we are not building anything. In fact,
-      # there probably a good idea to try to be "more parametric" --- i.e. avoid
+      # it would probably be a good idea to try to be "more parametric" --- i.e. avoid
       # any special casing.
       crossSystem = {
         config = "mips64el-apple-windows-gnu";

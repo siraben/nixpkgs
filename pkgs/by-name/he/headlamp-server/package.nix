@@ -40,7 +40,7 @@ buildGoModule rec {
     mv $out/bin/cmd $out/bin/headlamp-server
   '';
 
-  # headlamp-frontend and headlamp inherit src (and version) from here, update their hashes aswell
+  # headlamp-frontend and headlamp inherit src (and version) from here, update their hashes as well
   passthru.updateScript = writeShellScript "headlamp-update" ''
     set -euo pipefail
     ${lib.getExe nix-update} headlamp-server

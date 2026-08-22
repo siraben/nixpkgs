@@ -25,7 +25,7 @@ glibPostInstallHook() {
 }
 
 # gappsWrapperArgsHook expects GSETTINGS_SCHEMAS_PATH variable to be set by this.
-# Until we have dependency mechanism in generic builder, we need to use this hack.
+# Until we have a dependency mechanism in the generic builder, we need to use this hack.
 # This relies on the fact that postInstallHooks are run *after* postInstall passed to
 # mkDerivation.
 postInstallHooks+=(glibPostInstallHook)

@@ -3,7 +3,7 @@
 # Validate your changes with python3 ./closure-graph.py --test
 
 
-# Using a simple algorithm, convert the references to a path in to a
+# Using a simple algorithm, convert the references to a path into a
 # sorted list of dependent paths based on how often they're referenced
 # and how deep in the tree they live. Equally-"popular" paths are then
 # sorted by name.
@@ -108,7 +108,7 @@
 # * Note: People who have used a Dockerfile before assume Docker's
 # Layers are inherently ordered. However, this is not true -- Docker
 # layers are content-addressable and are not explicitly layered until
-# they are composed in to an Image.
+# they are composed into an Image.
 
 import sys
 import json
@@ -382,7 +382,7 @@ class TestMakeGraphSegmentFromRoot(unittest.TestCase):
             {}
         )
 
-# Convert a graph segment in to a popularity-counted dictionary:
+# Convert a graph segment into a popularity-counted dictionary:
 #
 # From:
 # {

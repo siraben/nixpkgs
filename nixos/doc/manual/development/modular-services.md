@@ -28,7 +28,7 @@ The `submodule` is pre-loaded with two modules:
 
 So note that the default value of `system.services.<name>` is not a complete service. It requires that the user provide a value, and this is typically done by importing a module. For example:
 
-<!-- Not using typical example syntax, because reading this is *not* optional, and should it should not be folded closed. -->
+<!-- Not using typical example syntax, because reading this is *not* optional, and it should not be folded closed. -->
 ```nix
 {
   system.services.my-service-instance = {

@@ -898,7 +898,7 @@ class Editor:
         Feel free to override this function in derived classes.
 
         Note:
-            Known bug: you have to use a deprecated name, instead of new one.
+            Known bug: you have to use a deprecated name, instead of the new one.
             This is because we resolve deprecations later and can't get new
             plugin URL before we request info about it.
 
@@ -1291,7 +1291,7 @@ def check_results(
 
 
 def make_repo(uri: str, branch) -> Repo:
-    """Instantiate a Repo with the correct specialization depending on server (gitub spec)"""
+    """Instantiate a Repo with the correct specialization depending on server (github spec)"""
     # dumb check to see if it's of the form owner/repo (=> github) or https://...
     res = urlparse(uri)
     if res.netloc in ["github.com", ""]:

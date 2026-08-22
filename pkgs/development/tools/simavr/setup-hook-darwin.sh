@@ -9,7 +9,7 @@ fixupCFlagsForDarwin() {
     # Apple SDK’s setup hook. Remove that because avr-gcc will fail due to file not found.
     ldFlagsFilter='s|/nix/store/[^-]*-apple-framework-CoreFoundation[^ ]*||g'
 
-    # `cc-wrapper.sh`` supports getting flags from a system-specific salt. While it is currently a
+    # `cc-wrapper.sh` supports getting flags from a system-specific salt. While it is currently a
     # tuple, that’s not considered a stable interface, so the derivation will provide them.
     export NIX_CFLAGS_COMPILE_@darwinSuffixSalt@=${NIX_CFLAGS_COMPILE-}
     export NIX_LDFLAGS_@darwinSuffixSalt@=${NIX_LDFLAGS-}

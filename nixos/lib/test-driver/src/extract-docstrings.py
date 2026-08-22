@@ -3,8 +3,8 @@ import sys
 from pathlib import Path
 
 """
-This program takes all the Machine class methods and prints its methods in
-markdown-style. These can then be included in the NixOS test driver
+This program takes all the Machine class methods and prints them in
+markdown style. These can then be included in the NixOS test driver
 markdown style, assuming the docstrings themselves are also in markdown.
 
 These are included in the test driver documentation in the NixOS manual.

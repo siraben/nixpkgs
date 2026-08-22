@@ -212,7 +212,7 @@ def generate_commit(
 
         if not previous_server:
             # this version didn't exist before
-            # check if its now the latest version
+            # check if it's now the latest version
             if version == new_latest:
                 action = f"{old_latest} -> {new_latest}"
                 attribute = "minecraft-server"

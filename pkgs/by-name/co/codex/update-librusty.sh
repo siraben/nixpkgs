@@ -6,7 +6,7 @@ set -eu -o pipefail
 
 echo "librusty_v8: UPDATING"
 
-# ASSUMES; The Cargo.lock file is located at <REPO>/codex-rs/Cargo.toml
+# ASSUMES: The Cargo.lock file is located at <REPO>/codex-rs/Cargo.lock
 
 CODEX_LATEST_VERSION=$(curl ${GITHUB_TOKEN:+-u ":$GITHUB_TOKEN"} --silent --fail --location "https://api.github.com/repos/openai/codex/releases/latest" | jq --raw-output .tag_name)
 CARGO_LOCK=$(curl ${GITHUB_TOKEN:+-u ":$GITHUB_TOKEN"} --silent --fail --location "https://github.com/openai/codex/raw/$CODEX_LATEST_VERSION/codex-rs/Cargo.lock")

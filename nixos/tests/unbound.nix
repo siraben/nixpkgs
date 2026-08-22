@@ -50,7 +50,7 @@ in
 
   nodes = {
 
-    # The server that actually serves our zones, this tests unbounds authoriative mode
+    # The server that actually serves our zones, this tests unbound's authoritative mode
     authoritative =
       {
         lib,

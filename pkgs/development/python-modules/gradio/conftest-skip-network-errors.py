@@ -1,4 +1,4 @@
-# This is a pytest hook that skips tests that tries to access the network.
+# This is a pytest hook that skips tests that try to access the network.
 # These tests will immediately fail, then get marked as "Expected fail" (xfail).
 
 from _pytest.runner import pytest_runtest_makereport as orig_pytest_runtest_makereport

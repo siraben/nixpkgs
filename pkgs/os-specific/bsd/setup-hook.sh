@@ -1,7 +1,7 @@
 # shellcheck shell=bash disable=SC2154,SC2164
 
 # BSD makefiles should be able to detect this
-# but without they end up using gcc on Darwin stdenv
+# but without it they end up using gcc on Darwin stdenv
 addMakeFlags() {
   export setOutputFlags=
 

@@ -154,7 +154,7 @@ stdenv.mkDerivation (
     );
 
     # Guard against unused build-time development inputs in closure. Without
-    # the ./skip-CONFIGURE_COMMAND.patch patch the closure retains inputs up
+    # the ./skip-CONFIGURE_COMMAND.patch patch, the closure retains inputs up
     # to bootstrap tools:
     #   https://github.com/NixOS/nixpkgs/pull/175719
     # We pick zlib.dev as a simple canary package with pkg-config input.

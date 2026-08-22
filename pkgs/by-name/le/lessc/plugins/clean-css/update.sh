@@ -13,7 +13,7 @@ latest_commit="$(
   | jq -r .commit.sha
 )"
 
-# This repository does not report it's version in tags
+# This repository does not report its version in tags
 version="$(
   curl https://raw.githubusercontent.com/less/less-plugin-clean-css/$latest_commit/package.json \
   | jq -r .version

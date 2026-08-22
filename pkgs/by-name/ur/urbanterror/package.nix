@@ -112,7 +112,7 @@ stdenv.mkDerivation {
       FrozenSand, that (thanks to the ioquake3-code) does not require
       Quake III Arena anymore. Urban Terror can be described as a Hollywood
       tactical shooter; somewhat realism based, but the motto is "fun over
-      realism". This results in a very unique, enjoyable and addictive game.
+      realism". This results in a unique, enjoyable and addictive game.
     '';
     mainProgram = "urbanterror";
     maintainers = [ ];

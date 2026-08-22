@@ -80,7 +80,7 @@ stdenv.mkDerivation (finalAttrs: {
     longDescription = ''
       The libevent API provides a mechanism to execute a callback function
       when a specific event occurs on a file descriptor or after a timeout
-      has been reached.  Furthermore, libevent also support callbacks due
+      has been reached.  Furthermore, libevent also supports callbacks due
       to signals or regular timeouts.
 
       libevent is meant to replace the event loop found in event driven

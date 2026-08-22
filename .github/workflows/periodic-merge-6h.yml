@@ -3,7 +3,7 @@
 #  * prevent conflicts or rather resolve them early
 #  * make all potential breakage happen on the staging branch
 #  * and make sure that all major rebuilds happen before the staging
-#    branch get’s merged back into its base branch.
+#    branch gets merged back into its base branch.
 
 name: "Periodic Merges (6h)"
 

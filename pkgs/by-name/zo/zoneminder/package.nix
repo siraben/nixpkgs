@@ -50,7 +50,7 @@
 # 4. The makefile for the perl modules needs patching to put things into the
 # right place. That also means we have to not run "make install" for them.
 #
-# 5. In principal the various ZM_xx variables should be overridable from the
+# 5. In principle the various ZM_xx variables should be overridable from the
 # config file but some of them are baked into the perl scripts, so we *have* to
 # set them here instead of in the configuration in the NixOS module.
 #

@@ -27,7 +27,7 @@ updateVersion()
 
 currentVersion=$(cd $dirname && nix eval --raw -f ../../../.. readarr.version)
 
-# We cannot use the latest releases as in the past Readarr released old version with v2.0 and then went back to 0.1
+# We cannot use the latest releases, as in the past Readarr released an old version with v2.0 and then went back to 0.1
 latestTag=$(curl https://api.github.com/repos/Readarr/Readarr/releases | jq -r ".[0].tag_name")
 latestVersion="$(expr $latestTag : 'v\(.*\)')"
 

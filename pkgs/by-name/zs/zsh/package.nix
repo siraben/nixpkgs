@@ -80,7 +80,7 @@ stdenv.mkDerivation (finalAttrs: {
   # so skip groups Y Z
   checkFlags = map (T: "TESTNUM=${T}") (lib.stringToCharacters "ABCDEVW");
 
-  # XXX: think/discuss about this, also with respect to nixos vs nix-on-X
+  # XXX: think about/discuss this, also with respect to nixos vs nix-on-X
   postInstall = ''
         make install.info install.html
         mkdir -p $out/etc/

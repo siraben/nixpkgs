@@ -15,7 +15,7 @@
 #
 # The simplest solution would be to have separate cc-wrappers per (3 intended
 # use-cases * n absolute concrete platforms). For the use-case axis, we would
-# @-splice in 'BUILD_' '' 'TARGET_' to use the write environment variables when
+# @-splice in 'BUILD_' '' 'TARGET_' to use the right environment variables when
 # building the cc-wrapper, and likewise prefix the binaries' names so they didn't
 # clobber each other on the PATH. But the need for 3x cc-wrappers, along with
 # non-standard name prefixes, is annoying and liable to break packages' build
@@ -37,7 +37,7 @@
 #    with the wrapped binaries.
 #
 #  - The wrapped binaries will exclusively *read* cc-wrapper-derivation-specific
-#    environment variables distinguished with with `suffixSalt`, like
+#    environment variables distinguished with `suffixSalt`, like
 #    `NIX_CFLAGS_COMPILE_@suffixSalt@`.
 #
 #  - `add-flags`, beyond its old task of reading extra flags stuck inside the

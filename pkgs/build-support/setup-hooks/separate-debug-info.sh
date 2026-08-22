@@ -82,7 +82,7 @@ _separateDebugInfo() {
         # architecture than we're building for.  (This happens with
         # firmware blobs in QEMU.)
         if $OBJCOPY --only-keep-debug "$i" "$debuginfoFile"; then
-            # If we succeeded, also a create a symlink <original-name>.debug.
+            # If we succeeded, also create a symlink <original-name>.debug.
             ln -sfn "$debuginfoFile" "$dst/../$(basename "$i")"
             # also create a symlink mapping the build-id to the original elf file and the source
             # debuginfod protocol relies on it

@@ -477,7 +477,7 @@ def install_bootloader() -> None:
 
         raise Exception(
             textwrap.dedent("""
-            Could not find a valid place for Limine configuration files!'
+            Could not find a valid place for Limine configuration files!
             Possible candidates that were ruled out:
         """)
             + causes_str

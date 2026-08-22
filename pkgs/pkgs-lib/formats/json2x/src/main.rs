@@ -10,7 +10,7 @@ use argh::{FromArgValue, FromArgs};
 /// Convert a JSON file to another format
 #[derive(FromArgs)]
 struct Args {
-    /// convert only value of this attribute
+    /// convert only the value of this attribute
     #[argh(option)]
     unwrap: Option<String>,
     /// format of the output file, possible values: toml

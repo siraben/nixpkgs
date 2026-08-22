@@ -36,7 +36,7 @@ function pytestCheckPhase() {
         if [[ "$path" =~ "::" ]]; then
             flagsArray+=("$path")
         else
-            # The `|| kill "$$"` trick propagates the errors from the process substitutiton subshell,
+            # The `|| kill "$$"` trick propagates the errors from the process substitution subshell,
             # which is suggested by a StackOverflow answer: https://unix.stackexchange.com/a/217643
             readarray -t -O"${#flagsArray[@]}" flagsArray < <(
                 @pythonCheckInterpreter@ - "$path" <<EOF || kill "$$"

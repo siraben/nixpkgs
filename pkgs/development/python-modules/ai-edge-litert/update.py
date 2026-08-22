@@ -60,7 +60,7 @@ def get_platform(platform: str) -> Optional[str]:
 def get_python_version(python: str) -> str:
     result = re.match(r"^cp(?P<major>\d)(?P<minor>\d+)$", python)
     if not result:
-        raise RuntimeError(f"Unable to disect python compat tag: {python}")
+        raise RuntimeError(f"Unable to dissect python compat tag: {python}")
 
     return f"{result.group('major')}.{result.group('minor')}"
 
@@ -95,7 +95,7 @@ def main(package: str):
             filename,
         )
         if not result:
-            raise RuntimeError(f"Unable to disect wheel filename: {filename}")
+            raise RuntimeError(f"Unable to dissect wheel filename: {filename}")
 
         platform = get_platform(result.group("platform"))
         if not platform:

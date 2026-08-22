@@ -91,7 +91,7 @@ def check_structure(src: str, kind: TocEntryType, tokens: Sequence[Token]) -> No
             continue
 
         # book subtitle headings do not need an id, only book title headings do.
-        # every other headings needs one too. we need this to build a TOC and to
+        # every other heading needs one too. we need this to build a TOC and to
         # provide stable links if the manual changes shape.
         if 'id' not in token.attrs and (kind != 'book' or token.tag != 'h2'):
             raise SrcError(

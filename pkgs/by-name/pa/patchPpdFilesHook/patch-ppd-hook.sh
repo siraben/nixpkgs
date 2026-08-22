@@ -27,7 +27,7 @@ _patchPpdFileCommands4fixupOutputHooks () {
 # However, ignore ppd files that don't belong to the same
 # prefix ($NIX_STORE/$package_name) as PPD-ROOT-DIR does,
 # to avoid stepping into other package's directories.
-# ppd files may be gzipped; if the are,
+# ppd files may be gzipped; if they are,
 # uncompress them, later recompress them.
 # Skip symlinks to ppd files.
 # PPD-ROOT may also be a single ppd file.

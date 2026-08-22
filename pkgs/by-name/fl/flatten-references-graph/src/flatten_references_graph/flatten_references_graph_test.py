@@ -59,7 +59,7 @@ class Test(unittest.TestCase):
         self.assertEqual(
             result,
             [
-                # B and it's exclusive deps
+                # B and its exclusive deps
                 ["B", "D"],
                 # Common deps
                 ["C"],

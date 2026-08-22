@@ -480,15 +480,15 @@ class Driver:
             self.race_timer.cancel()
 
     def terminate_test(self) -> None:
-        # This will be usually running in another thread than
+        # This will usually be running in another thread than
         # the thread actually executing the test script.
         with self.logger.nested("timeout reached; test terminating..."):
             for machine in self.machines:
                 machine.release()
             # As we cannot `sys.exit` from another thread
             # We can at least force the main thread to get SIGTERM'ed.
-            # This will prevent any user who caught all the exceptions
-            # to swallow them and prevent itself from terminating.
+            # This will prevent any user who catches all the exceptions
+            # from swallowing them and preventing themselves from terminating.
             os.kill(os.getpid(), signal.SIGTERM)
 
     def create_machine(

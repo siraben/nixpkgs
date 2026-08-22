@@ -56,7 +56,7 @@ in
         example = "https://ollama.example.org";
         description = ''
           The address (including host and port) under which we can access the Ollama backend server.
-          !Note that if the the UI service is running under a domain "https://ui.example.org",
+          !Note that if the UI service is running under a domain "https://ui.example.org",
           the Ollama backend service must allow "CORS" requests from this domain, e.g. by adding
           "services.ollama.environment.OLLAMA_ORIGINS = [ ... "https://ui.example.org" ];"!
         '';

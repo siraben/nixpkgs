@@ -1565,7 +1565,7 @@ rec {
     builtins.zipAttrsWith or (f: sets: zipAttrsWithNames (concatMap attrNames sets) f sets);
 
   /**
-    Merge sets of attributes and combine each attribute value in to a list.
+    Merge sets of attributes and combine each attribute value into a list.
 
     Like `lib.attrsets.zipAttrsWith` with `(name: values: values)` as the function.
 

@@ -20,7 +20,7 @@ for performance.
 
 A docker image has each layer contents archived as separate tarballs,
 and they later all get enveloped into a single big tarball in a
-content addressed fashion. However, because how "tar" format works,
+content addressed fashion. However, because of how the "tar" format works,
 we have to know about the name (which includes the checksum in our
 case) and the size of the tarball before we can start adding it to the
 outer tarball.  We achieve that by creating the layer tarballs twice;

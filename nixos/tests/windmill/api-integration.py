@@ -44,7 +44,7 @@ with http_client.open(login_req) as response:
 if "python" in args.language:
     # Windmill package recipe requires a manually set default python version in the global instance settings
     python_version_form = {
-        # NOTE; Update hardcoded python version below to match the windmill package
+        # NOTE: Update hardcoded python version below to match the windmill package
         "value": "3.12"
     }
     python_version_req = Request(
@@ -90,7 +90,7 @@ with http_client.open(script_request) as response:
     script_hash = response.read().decode('utf-8')
     assert script_hash, "Failed to receive an identifier from script creation."
 
-# NOTE; Some languages require dependencies and the depenceny collection tasks take some time to complete
+# NOTE: Some languages require dependencies and the dependency collection tasks take some time to complete
 if "bash" not in args.language:
     for i in [1, 2, 3, 4, 5, 6]:
         time.sleep(10)  # seconds
@@ -130,7 +130,7 @@ with http_client.open(request) as response:
 
 
 started_jobs = set([job_id])
-# NOTE; Some languages require script compilation and take longer to run until completion
+# NOTE: Some languages require script compilation and take longer to run until completion
 timeout = 60  # seconds
 timeout_end = time.time() + timeout
 while any(started_jobs) and time.time() < timeout_end:

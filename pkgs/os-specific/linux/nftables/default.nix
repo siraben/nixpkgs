@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
       hash = "sha256-gJi6Q6mpURynzpnTFs1VJmZ+SpnNhyOrCzKarJmu/6w=";
     })
     (fetchurl {
-      name = "0002-build-simplify-the-instantation-of-nftversion.h.patch";
+      name = "0002-build-simplify-the-instantiation-of-nftversion.h.patch";
       url = "https://git.netfilter.org/nftables/patch/?id=2a0ec8a7246e5c5eb85270e3d4de43e20a00c577";
       hash = "sha256-gzlMHaZTXCqR8IcccIsLaMZie3CaMEPa4lnGr/x7b/o=";
     })

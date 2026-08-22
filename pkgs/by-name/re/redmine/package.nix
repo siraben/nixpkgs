@@ -78,7 +78,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   patches = [
     (fetchpatch {
-      name = "update_rails_8_1_3_1.pach";
+      name = "update_rails_8_1_3_1.patch";
       url = "https://github.com/redmine/redmine/commit/cbb2c341ca54baae28ba2dafc0573102c5d1099c.patch";
       hash = "sha256-cAWUN1MB9DXNKwVxvZcStKXehRxTXTE9hjVrvkA98vk=";
     })

@@ -73,7 +73,7 @@ By default, the builder fails early upon detecting these exceptions.
 
 ### Path collisions {#ssec-buildEnv-collisions}
 
-Path collisions occur when files provided by two more output paths with the same priority overlap with each other, making the result profile layout potentially affected by the order of elements of `paths`.
+Path collisions occur when files provided by two or more output paths with the same priority overlap with each other, making the result profile layout potentially affected by the order of elements of `paths`.
 This is undesirable in several use cases, such as when `paths` are determined by merging Nix modules.
 
 If the argument `checkCollisionContents` is `true`, the builder checks whether the overlapping paths share the same content and mode, and fails only if not.

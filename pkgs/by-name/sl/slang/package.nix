@@ -88,7 +88,7 @@ stdenv.mkDerivation rec {
       not exist as a separate application, it is distributed with a quite
       capable program called slsh ("slang-shell") that embeds the interpreter
       and allows one to execute S-Lang scripts, or simply experiment with S-Lang
-      at an interactive prompt. Many of the the examples in this document are
+      at an interactive prompt. Many of the examples in this document are
       presented in the context of one of the above applications.
 
       S-Lang is also a programmer's library that permits a programmer to develop

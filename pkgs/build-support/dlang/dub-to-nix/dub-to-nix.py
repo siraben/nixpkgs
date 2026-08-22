@@ -35,7 +35,7 @@ for pname in depsDict:
         eprint(f'Expected version of "{pname}" to be non-branch type')
         eprint(f'Found: "{version}"')
         eprint("Please specify a non-branch version inside `dub.selections.json`")
-        eprint("When packaging, you might also need to patch the version value in the appropriate places (`dub.selections.json`, dub.sdl`, `dub.json`)")
+        eprint("When packaging, you might also need to patch the version value in the appropriate places (`dub.selections.json`, `dub.sdl`, `dub.json`)")
         sys.exit(1)
     if "repository" in depDict:
         repository = depDict["repository"]
@@ -44,7 +44,7 @@ for pname in depsDict:
             eprint(f'Found: "{repository}"')
             sys.exit(1)
         if (len(version) < 7 or len(version) > 40 or not all(c in string.hexdigits for c in version)):
-            eprint(f'Expected version field of "{pname}" to begin be a valid git revision')
+            eprint(f'Expected version field of "{pname}" to be a valid git revision')
             eprint(f'Found: "{version}"')
             sys.exit(1)
 

@@ -145,7 +145,7 @@ installPhase() {
         install -Dm644 -t $firmware/lib/firmware/nvidia/$version firmware/*.bin
     fi
 
-    # All libs except GUI-only are installed now, so fixup them.
+    # All libs except GUI-only are installed now, so fix them up.
     for libname in $(find "$out/lib/" $(test -n "$lib32" && echo "$lib32/lib/") $(test -n "$bin" && echo "$bin/lib/") -name '*.so.*')
     do
       # I'm lazy to differentiate needed libs per-library, as the closure is the same.

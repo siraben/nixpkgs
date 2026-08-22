@@ -1,7 +1,7 @@
 #! /usr/bin/env nix-shell
 #! nix-shell -i bash -p git gh -I nixpkgs=.
 #
-# Script to merge the currently open haskell-updates PR , bump the Stackage
+# Script to merge the currently open haskell-updates PR, bump the Stackage
 # version and Hackage versions, and open the next haskell-updates PR.
 
 set -eu -o pipefail

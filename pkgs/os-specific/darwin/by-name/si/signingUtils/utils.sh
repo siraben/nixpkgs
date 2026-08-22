@@ -1,4 +1,4 @@
-# Work around for some odd behaviour where we can't codesign a file
+# Workaround for some odd behaviour where we can't codesign a file
 # in-place if it has been called before. This happens for example if
 # you try to fix-up a binary using strip/install_name_tool, after it
 # had been used previously.  The solution is to copy the binary (with

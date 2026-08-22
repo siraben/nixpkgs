@@ -259,7 +259,7 @@ _callImplicitHook() {
         return "$def"
     fi
     # `_eval` expects hook to need nounset disable and leave it
-    # disabled anyways, so Ok to to delegate. The alternative of a
+    # disabled anyways, so Ok to delegate. The alternative of a
     # return trap is no good because it would affect nested returns.
 }
 

@@ -336,11 +336,11 @@ in
             default = null;
             description = ''
               If set to a value greater than 0, multipathd will watch paths and check
-              how many times a path has been failed due to errors.If the number of
-              failures on a particular path is greater then the san_path_err_threshold,
+              how many times a path has been failed due to errors. If the number of
+              failures on a particular path is greater than the san_path_err_threshold,
               then the path will not reinstate till san_path_err_recovery_time. These
               path failures should occur within a san_path_err_forget_rate checks, if
-              not we will consider the path is good enough to reinstantate.
+              not we will consider the path is good enough to reinstate.
             '';
           };
 
@@ -349,8 +349,8 @@ in
             default = null;
             description = ''
               If set to a value greater than 0, multipathd will check whether the path
-              failures has exceeded the san_path_err_threshold within this many checks
-              i.e san_path_err_forget_rate. If so we will not reinstante the path till
+              failures have exceeded the san_path_err_threshold within this many checks
+              i.e san_path_err_forget_rate. If so we will not reinstate the path till
               san_path_err_recovery_time.
             '';
           };

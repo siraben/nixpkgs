@@ -3,7 +3,7 @@
 
 set -euxo pipefail
 
-# Possibly also add non-https redirect, but there were non of those when I first
+# Possibly also add non-https redirect, but there were none of those when I first
 # made this script to test that. Feel free to add it when it is relevant.
 curl https://repology.org/api/v1/repository/nix_unstable/problems \
    | jq -r '.[] | select(.type == "homepage_permanent_https_redirect") | .data | "s@\(.url)@\(.target)@"' \

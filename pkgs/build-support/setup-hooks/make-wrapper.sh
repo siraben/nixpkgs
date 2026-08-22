@@ -64,10 +64,10 @@ makeShellWrapper() {
         local value="$4"      # one value, or multiple values separated by `separator`, to add to list
 
         # Disable file globbing, since bash will otherwise try to find
-        # filenames matching the the value to be prefixed/suffixed if
+        # filenames matching the value to be prefixed/suffixed if
         # it contains characters considered wildcards, such as `?` and
         # `*`. We want the value as is, except we also want to split
-        # it on on the separator; hence we can't quote it.
+        # it on the separator; hence we can't quote it.
         local reenableGlob=0
         if [[ ! -o noglob ]]; then
             reenableGlob=1

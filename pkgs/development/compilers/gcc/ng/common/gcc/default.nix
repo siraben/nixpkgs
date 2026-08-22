@@ -240,7 +240,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   preConfigure =
-    # Don't built target libraries, because we want to build separately
+    # Don't build target libraries, because we want to build separately
     ''
       substituteInPlace configure \
         --replace 'noconfigdirs=""' 'noconfigdirs="$noconfigdirs $target_libraries"'

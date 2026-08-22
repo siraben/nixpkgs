@@ -106,6 +106,6 @@ lnsymfrc --no-target-directory ../faxcron.lastrun lastrun
 lnsymfrc --no-target-directory "@userAccessFile@" hosts.hfaxd
 
 # etc/config and etc/config.${DEVID} must be copied:
-# hfaxd reads these file after locking itself up in a chroot
+# hfaxd reads these files after locking itself up in a chroot
 cprd --no-target-directory "@globalConfigPath@" config
 cprd --target-directory=. "@modemConfigPath@"/*

@@ -52,7 +52,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "momepy" ];
 
   disabledTestPaths = [
-    # this tests depends on neatnet, not packaged in nixpkgs
+    # these tests depend on neatnet, not packaged in nixpkgs
     # it's probably not worthy to package it just for this test
     "momepy/tests/test_continuity.py"
   ];

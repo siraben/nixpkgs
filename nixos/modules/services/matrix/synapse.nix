@@ -55,7 +55,7 @@ let
     let
       isIpv6 = hasInfix ":";
 
-      # add a tail, so that without any bind_addresses we still have a useable address
+      # add a tail, so that without any bind_addresses we still have a usable address
       bindAddress = head (clientListener.bind_addresses ++ [ "127.0.0.1" ]);
       listenerProtocol = if clientListener.tls then "https" else "http";
     in

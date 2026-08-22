@@ -39,7 +39,7 @@ installManPage() {
                   }
                   continue;;
               --name=*)
-                  # Treat `--name=foo` that same as `--name foo`
+                  # Treat `--name=foo` the same as `--name foo`
                   name=${arg#--name=}
                   continue;;
               --)

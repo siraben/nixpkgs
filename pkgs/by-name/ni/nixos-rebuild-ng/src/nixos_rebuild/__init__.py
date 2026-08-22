@@ -460,7 +460,7 @@ def _handle_called_process_error(ex: CalledProcessError) -> int:
 
         # If cmd is a list, stringify any Paths and join in a single string
         # This will show much nicer in the error (e.g., as something that
-        # the user can simple copy-paste in terminal to debug)
+        # the user can simply copy-paste in terminal to debug)
         cmd = (
             shlex.join([str(cmd) for cmd in ex.cmd])
             if isinstance(ex.cmd, list)

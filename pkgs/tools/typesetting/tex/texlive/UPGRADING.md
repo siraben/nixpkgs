@@ -83,7 +83,7 @@ update this in `texlive.bin.context`, when updating TeX Live.
 ### Updating the licensing information
 
 The license of each package in texlive is automatically extracted from texlive's
-texlive.tlpdb into tlpdb.nix. The combined licenses of the schemes is stored
+texlive.tlpdb into tlpdb.nix. The combined licenses of the schemes are stored
 separately in `default.nix` and must be kept in sync with the licenses of the
 actual contents of these schemes. Whether this is the case can be verified with the
 `pkgs.tests.texlive.licenses` test. In case of a mismatch, copy the “correct”

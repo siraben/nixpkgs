@@ -30,10 +30,10 @@ This will create a `result` directory containing the following:
 These three files are meant to be copied over to the other already running
 Linux Distribution.
 
-Note its symlinks pointing elsewhere, so `cd` in, and use
+Note it has symlinks pointing elsewhere, so `cd` in, and use
 `scp * root@$destination` to copy it over, rather than rsync.
 
-Once you finished copying, execute `kexec-boot` *on the destination*, and after
+Once you have finished copying, execute `kexec-boot` *on the destination*, and after
 some seconds, the machine should be booting into an (ephemeral) NixOS
 installation medium.
 

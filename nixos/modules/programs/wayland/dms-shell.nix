@@ -26,7 +26,7 @@ let
     "dms-shell"
   ];
 
-  builtInRemovedMsg = "This is now built-in in DMS and doesn't need additional dependencies.";
+  builtInRemovedMsg = "This is now built into DMS and doesn't need additional dependencies.";
 
   optionalPackages =
     optionals cfg.enableSystemMonitoring [ pkgs.dgop ]

@@ -74,7 +74,7 @@ buildPythonPackage rec {
     yamale
   ];
 
-  # No python test hooks has been added as all tests seems to be relying on network data
+  # No python test hooks have been added as all tests seem to be relying on network data
   # https://github.com/Ouranosinc/xclim/blob/e8ce9bf37083832517afb3375acc853191782d8f/tests/conftest.py#L314
   nativeCheckInputs = [
     versionCheckHook

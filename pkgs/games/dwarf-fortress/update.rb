@@ -591,7 +591,7 @@ class DFLock < Struct.new(:game, :therapist, keyword_init: true)
   end
 end
 
-# 0.43 and below has a broken dfhack.
+# 0.43 and below have a broken dfhack.
 new_df_lock = DFLock.new
 new_df_lock.load! cutoff: '0.44'
 

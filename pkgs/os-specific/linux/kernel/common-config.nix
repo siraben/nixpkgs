@@ -1341,7 +1341,7 @@ let
         # GPIO on Intel Bay Trail, for some Chromebook internal eMMC disks
         PINCTRL_BAYTRAIL = lib.mkIf stdenv.hostPlatform.isx86 yes;
         # GPIO for Braswell and Cherryview devices
-        # Needs to be built-in to for integrated keyboards to function properly
+        # Needs to be built-in for integrated keyboards to function properly
         PINCTRL_CHERRYVIEW = lib.mkIf stdenv.hostPlatform.isx86 yes;
         # 8 is default. Modern gpt tables on eMMC may go far beyond 8.
         MMC_BLOCK_MINORS = freeform "32";

@@ -11,9 +11,9 @@ Changing the K3s token requires resetting the cluster. To reset the cluster, you
 
 #### Stopping K3s
 
-Disabling the K3s NixOS module won't stop K3s related dependencies, such as containerd or networking. To stop everything, either run "k3s-killall.sh" script (available on $PATH under `/run/current-system/sw/bin/k3s-killall.sh`) or reboot the host.
+Disabling the K3s NixOS module won't stop K3s related dependencies, such as containerd or networking. To stop everything, either run the "k3s-killall.sh" script (available on $PATH under `/run/current-system/sw/bin/k3s-killall.sh`) or reboot the host.
 
-### Syncing K3s in multiple hosts
+### Syncing K3s across multiple hosts
 
 Nix automatically syncs hosts to `configuration.nix`. To sync `configuration.nix`'s git repository and trigger `nixos-rebuild switch` on multiple hosts, `ansible` is commonly used, which enables automation of cluster provisioning, upgrade and reset.
 
@@ -43,7 +43,7 @@ Delete k3s data:
 ```
 When using Etcd, Reset Etcd:
 
-Ensure **all** K3s instances are stopped, because a single instance can re-seed etcd database with previous cryptographic key.
+Ensure **all** K3s instances are stopped, because a single instance can re-seed the etcd database with the previous cryptographic key.
 
 Disable etcd database in NixOS configuration:
 ```
@@ -64,7 +64,7 @@ In NixOS configuration:
  Re-enable K3s second. Rebuild NixOS. Verify service health. (systemctl status k3s)
 ```
 The Etcd & K3s cluster will be provisioned anew.
-Tip: Use Ansible to automate reset routine, like this.
+Tip: Use Ansible to automate the reset routine.
 
 ## Troubleshooting
 

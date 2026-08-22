@@ -6,7 +6,7 @@
 # The existing writeClosure prints the paths in a simple ascii-based sorting of the paths.
 #
 # Sorting the paths by graph improves the chances that the difference
-# between two builds appear near the end of the list, instead of near
+# between two builds appears near the end of the list, instead of near
 # the beginning. This makes a difference for Nix builds which export a
 # closure for another program to consume, if that program implements its
 # own level of binary diffing.

@@ -159,7 +159,7 @@ rec {
     ```
     is a function which accepts one of `hash`, `sha256`, or `sha512` (or the original's `outputHash` and `outputHashAlgo`).
 
-    Its `functionArgs` metadata only lists `hash` as a parameter, optional iff. `outputHash` was an optional parameter of
+    Its `functionArgs` metadata only lists `hash` as a parameter, optional iff `outputHash` was an optional parameter of
     the original function.  `sha256`, `sha512`, `outputHash`, or `outputHashAlgo` are not mentioned in the `functionArgs`
     metadata.
 

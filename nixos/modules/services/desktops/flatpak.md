@@ -39,4 +39,4 @@ $ flatpak search bustle
 $ flatpak install flathub org.freedesktop.Bustle
 $ flatpak run org.freedesktop.Bustle
 ```
-Again, GNOME Software offers graphical interface for these tasks.
+Again, GNOME Software offers a graphical interface for these tasks.

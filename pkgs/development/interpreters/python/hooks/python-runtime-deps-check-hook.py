@@ -78,7 +78,7 @@ def test_requirement(requirement: Requirement) -> bool:
         error(f"{package_name} not installed")
         return False
 
-    # Allow prereleases, to give to give us some wiggle-room
+    # Allow prereleases, to give us some wiggle-room
     requirement.specifier.prereleases = True
 
     if requirement.specifier and package.version not in requirement.specifier:

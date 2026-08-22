@@ -151,7 +151,7 @@ stdenv.mkDerivation (finalAttrs: {
 
       # Tell Meson to install gdb scripts next to the lib
       # GDB only looks there and in ${gdb}/share/gdb/auto-load,
-      # and by default meson installs in to $out/share/gdb/auto-load
+      # and by default meson installs into $out/share/gdb/auto-load
       # which does not help
       ./gdb_script.patch
     ];

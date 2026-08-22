@@ -117,7 +117,7 @@ let
 in
 ((emacsPackagesFor emacs).overrideScope overrides).withPackages (
   p: with p; [
-    # here both these package will use haskell-mode of our own choice
+    # here both these packages will use haskell-mode of our own choice
     ghc-mod
     dante
   ]

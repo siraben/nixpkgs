@@ -27,7 +27,7 @@ rustPlatform.buildRustPackage {
   '';
 
   checkFlags = [
-    # All these test try to connect to Reddit.
+    # All these tests try to connect to Reddit.
     # utils.rs
     "--skip=test_fetching_subreddit_quarantined"
     "--skip=test_fetching_nsfw_subreddit"

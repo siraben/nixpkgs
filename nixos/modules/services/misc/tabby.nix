@@ -54,13 +54,13 @@ in
           If you want to utilize an existing model that you've already
           downloaded you'll need to move it into tabby's state directory which
           lives in `/var/lib/tabby`. Because the tabby.service is configured to
-          use a DynamicUser the service will need to have been started at least
+          use a DynamicUser, the service will need to have been started at least
           once before you can move the locally existing model into
           `/var/lib/tabby`. You can set the model to 'none' and tabby will
-          startup and fail to download a model, but will have created the
+          start up and fail to download a model, but will have created the
           `/var/lib/tabby` directory. You can then copy over the model manually
           into `/var/lib/tabby`, update the model option to the name you just
-          downloaded and copied over then `nixos-rebuild switch` to start using
+          downloaded and copied over, then run `nixos-rebuild switch` to start using
           it.
 
           $ tabby download --model TabbyML/DeepseekCoder-6.7B

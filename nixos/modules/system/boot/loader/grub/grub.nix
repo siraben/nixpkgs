@@ -875,11 +875,11 @@ in
         }
         {
           assertion = cfg.efiInstallAsRemovable -> cfg.efiSupport;
-          message = "If you wish to to use boot.loader.grub.efiInstallAsRemovable, then turn on boot.loader.grub.efiSupport";
+          message = "If you wish to use boot.loader.grub.efiInstallAsRemovable, then turn on boot.loader.grub.efiSupport";
         }
         {
           assertion = cfg.efiInstallAsRemovable -> !config.boot.loader.efi.canTouchEfiVariables;
-          message = "If you wish to to use boot.loader.grub.efiInstallAsRemovable, then turn off boot.loader.efi.canTouchEfiVariables";
+          message = "If you wish to use boot.loader.grub.efiInstallAsRemovable, then turn off boot.loader.efi.canTouchEfiVariables";
         }
         {
           assertion = !(options.boot.loader.grub.version.isDefined && cfg.version == 1);

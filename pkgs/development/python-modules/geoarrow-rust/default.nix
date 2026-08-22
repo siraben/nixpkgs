@@ -153,7 +153,7 @@ let
       "test_parquet_file"
     ];
 
-    # fix the directory name, as it is named as source for nix build
+    # fix the directory name, as it is named "source" during the nix build
     postPatch = ''
       substituteInPlace python/tests/utils.py \
         --replace-fail 'while current_dir.stem != "geoarrow-rs":' 'while current_dir.stem != "source":'

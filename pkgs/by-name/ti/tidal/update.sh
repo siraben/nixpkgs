@@ -11,7 +11,7 @@ set -euo pipefail
 
 # Please test the update manually before pushing. There have been errors before
 # and because the service is proprietary and a paid account is necessary to do
-# anything with spotify automatic testing is not possible.
+# anything with spotify, automatic testing is not possible.
 
 # As an optional argument you can specify the snapcraft channel to update to.
 # Default is `stable` and only stable updates should be pushed to nixpkgs. For

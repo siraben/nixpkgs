@@ -46,7 +46,7 @@ curl -L https://github.com/zammad/zammad/archive/$VERSION.tar.gz --output source
 tar zxf source.tar.gz
 
 if [[ ! "$SOURCE_DIR" || ! -d "$SOURCE_DIR" ]]; then
-    echo "Source directory does not exists."
+    echo "Source directory does not exist."
     exit 1
 fi
 

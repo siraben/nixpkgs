@@ -54,7 +54,7 @@ stdenv.mkDerivation (finalAttrs: {
   gradleBuildTask = "core:dist";
 
   # Gaiasky binary has to be executed to generate manpage.
-  # However, since since /usr/bin/env bash is hardcoded in the binary
+  # However, since /usr/bin/env bash is hardcoded in the binary
   # it errors out. It is generated in postBuild phase instead.
   gradleFlags = [
     "-x :core:generateManPage"

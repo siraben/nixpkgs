@@ -13,7 +13,7 @@ manual](https://kafka.apache.org/documentation/#configuration) broker settings.
 ## KRaft {#module-services-apache-kafka-kraft}
 
 Kafka in [KRaft](https://kafka.apache.org/documentation/#kraft) mode requires
-each log dir to be "formatted" (which means a cluster-specific a metadata file
+each log dir to be "formatted" (which means a cluster-specific metadata file
 must exist in each log dir)
 
 The upstream intention is for users to execute the [storage

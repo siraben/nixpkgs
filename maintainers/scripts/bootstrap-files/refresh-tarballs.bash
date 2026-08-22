@@ -11,7 +11,7 @@ set -o pipefail
 # How the refresher works:
 #
 # For a given list of <targets>:
-# 1. fetch latest successful '.build` job
+# 1. fetch latest successful `.build` job
 # 2. fetch oldest evaluation that contained that '.build', extract nixpkgs commit
 # 3. fetch all the `.build` artifacts from '$out/on-server/' directory
 # 4. calculate hashes and craft the commit message with the details on
@@ -172,7 +172,7 @@ for target in "${targets[@]}"; do
     esac
 
     # We enforce s3 prefix for all targets here. This slightly differs
-    # from manual uploads targets where names were chosen inconsistently.
+    # from manual upload targets where names were chosen inconsistently.
     s3_prefix="stdenv/$target"
 
     # resolve 'latest' build to the build 'id', construct the link.
@@ -185,7 +185,7 @@ for target in "${targets[@]}"; do
     [[ $? -ne 0 ]] && die "Did not find 'id' in latest build"
     build_uri="https://hydra.nixos.org/build/${latest_build_id}"
 
-    # We pick oldest jobset evaluation and extract the 'nicpkgs' commit.
+    # We pick oldest jobset evaluation and extract the 'nixpkgs' commit.
     #
     # We use oldest instead of latest to make the result more stable
     # across unrelated 'nixpkgs' updates. Ideally two subsequent runs of

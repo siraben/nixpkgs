@@ -74,7 +74,7 @@ def get_date_lists(
         for string in line.split():
             string = string.strip(":")
             try:
-                # strip ':' incase there is a string like 2019-11-01:
+                # strip ':' in case there is a string like 2019-11-01:
                 my_date = datetime.strptime(string, "%Y-%m-%d").date()
             except ValueError:
                 try:

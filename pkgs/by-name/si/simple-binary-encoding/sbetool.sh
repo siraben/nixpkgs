@@ -40,7 +40,7 @@ if [[ -z "${files[*]}" ]]; then
   exit 1
 fi
 
-# NB: `--add-opens` flag is added because newer version of `agrona` (a utility
+# NB: `--add-opens` flag is added because newer versions of `agrona` (a utility
 # lib used in `sbetool`) depends on jdk.internal.misc.Unsafe
 #
 # The Unsafe API is deprecated and requires special opt-in to use.

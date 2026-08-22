@@ -29,7 +29,7 @@ wrapLuaProgramsIn() {
   # Find all regular files in the output directory that are executable.
   find "$dir" -type f -perm -0100 -print0 | while read -d "" f; do
     if head -n1 "$f" | grep -q '#!.*'; then
-        # Cross-compilation hack: exec '/nix/store/...-lua-.../bin/lua' execute
+        # Cross-compilation hack: exec '/nix/store/...-lua-.../bin/lua' to execute
         # the host lua
         # NOTE: We don't --replace-fail, because this hook is also used
         # on Lua packages' wrapped binaries.

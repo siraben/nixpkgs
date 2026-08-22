@@ -1,5 +1,5 @@
 # shellcheck shell=bash
-# This setup hook set the HOME environment variable to a writable directory.
+# This setup hook sets the HOME environment variable to a writable directory.
 
 export HOME
 

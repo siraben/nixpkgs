@@ -1,4 +1,4 @@
-# freeeformType should have been (attrsOf either)
+# freeformType should have been (attrsOf either)
 # This should also print the warning
 {
   config.either = {

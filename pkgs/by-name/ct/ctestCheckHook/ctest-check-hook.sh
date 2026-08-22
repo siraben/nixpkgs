@@ -14,7 +14,7 @@ ctestCheckHook() {
     local flagsArray=(
         "-j$buildCores"
         # This is enabled by the cmakeConfigurePhase by exporting
-        # CTEST_OUTPUT_ON_FAILURE, but it makes sense it enable it globally here
+        # CTEST_OUTPUT_ON_FAILURE, but it makes sense to enable it globally here
         # as well.
         "--output-on-failure"
     )

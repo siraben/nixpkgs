@@ -131,7 +131,7 @@ in
 
                 ::: {.note}
                 Secrets are passed using `LoadCredential=` on the systemd unit,
-                so this options is read-only.
+                so this option is read-only.
 
                 Configure {option}`services.postsrsd.secretsFile` instead.
               '';

@@ -24,7 +24,7 @@
 # IMPLEMENTATION NOTES:
 #
 # The "Requires-Dist" dependency specification format is described in PEP 508.
-# Examples that the regular expressions in this hook needs to support:
+# Examples that the regular expressions in this hook need to support:
 #
 # Requires-Dist: foo
 #   -> foo

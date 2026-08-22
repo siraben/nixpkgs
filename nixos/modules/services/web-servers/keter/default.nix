@@ -40,7 +40,7 @@ in
           ip-from-header = lib.mkOption {
             default = true;
             type = lib.types.bool;
-            description = "You want that ip-from-header in the nginx setup case. It allows nginx setting the original ip address rather then it being localhost (due to reverse proxying)";
+            description = "You want that ip-from-header in the nginx setup case. It allows nginx setting the original ip address rather than it being localhost (due to reverse proxying)";
           };
           listeners = lib.mkOption {
             default = [

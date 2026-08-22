@@ -45,7 +45,7 @@ class VersionManager:
             print(e)
             return
 
-        # we only want versions that are no pre-releases
+        # we only want versions that are not pre-releases
         release_versions = filter(
             lambda v_name: all(s not in v_name for s in ["pre", "rc"]), response.json()["versions"])
 

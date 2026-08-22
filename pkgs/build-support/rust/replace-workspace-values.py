@@ -99,7 +99,7 @@ def main() -> None:
 
     if "workspace" not in top_cargo_toml:
         # If top_cargo_toml is not a workspace manifest, then this script was probably
-        # ran on something that does not actually use workspace dependencies
+        # run on something that does not actually use workspace dependencies
         print(f"{sys.argv[2]} is not a workspace manifest, doing nothing.")
         return
 

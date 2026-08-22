@@ -6,8 +6,8 @@ set -eu -o pipefail
 
 echo "Windmill UI builder: UPDATING"
 
-# ASSUMES; The UI builder package is referenced in post-install script "untar_ui_builder.js"
-# REF; https://github.com/windmill-labs/windmill/blob/205618af0a60b6bf5fcdd80f2b23c3b490ddbc00/frontend/scripts/untar_ui_builder.js#L23
+# ASSUMES: The UI builder package is referenced in post-install script "untar_ui_builder.js"
+# REF: https://github.com/windmill-labs/windmill/blob/205618af0a60b6bf5fcdd80f2b23c3b490ddbc00/frontend/scripts/untar_ui_builder.js#L23
 
 WINDMILL_LATEST_VERSION=$(curl ${GITHUB_TOKEN:+-u ":$GITHUB_TOKEN"} --silent --fail --location "https://api.github.com/repos/windmill-labs/windmill/releases/latest" | jq --raw-output .tag_name)
 UI_BUILDER_SCRIPT=$(curl ${GITHUB_TOKEN:+-u ":$GITHUB_TOKEN"} --silent --fail --location "https://github.com/windmill-labs/windmill/raw/$WINDMILL_LATEST_VERSION/frontend/scripts/untar_ui_builder.js")

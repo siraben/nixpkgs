@@ -10,7 +10,7 @@ writeRequiredOctavePackagesPhase() {
     echo ${requiredOctavePackages} > $out/nix-support/required-octave-packages
 }
 
-# Yes its a bit long...
+# Yes it's a bit long...
 if [ -z "${dontWriteRequiredOctavePackagesPhase-}" ]; then
     echo "Using writeRequiredOctavePackagesPhase"
     appendToVar preDistPhases writeRequiredOctavePackagesPhase

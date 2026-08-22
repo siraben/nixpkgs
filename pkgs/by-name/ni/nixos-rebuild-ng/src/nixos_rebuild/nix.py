@@ -673,7 +673,7 @@ def set_profile(
         )
         if r.returncode:
             msg = dedent(
-                # the lowercase for the first letter below is proposital
+                # the lowercase for the first letter below is intentional
                 f"""
                     your NixOS configuration path seems to be missing essential files.
                     To avoid corrupting your current NixOS installation, the activation will abort.

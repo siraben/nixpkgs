@@ -1,8 +1,8 @@
 # Since the same derivation can be depended on in multiple ways, we need to
-# accumulate *each* role (i.e. host and target platforms relative the depending
+# accumulate *each* role (i.e. host and target platforms relative to the depending
 # derivation) in which the derivation is used.
 #
-# The role is intended to be used as part of other variables names like
+# The role is intended to be used as part of other variable names like
 #  - $NIX_SOMETHING${role_post}
 
 function getRole() {

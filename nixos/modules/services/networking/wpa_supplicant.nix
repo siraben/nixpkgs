@@ -304,7 +304,7 @@ in
           This allows old wireless cards (that lack recent features required by
           WPA3) to connect to mixed WPA2/WPA3 access points.
 
-          To avoid possible downgrade attacks, disable this options.
+          To avoid possible downgrade attacks, disable this option.
         '';
       };
 

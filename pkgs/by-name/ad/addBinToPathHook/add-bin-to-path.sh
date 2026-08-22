@@ -1,5 +1,5 @@
 # shellcheck shell=bash
-# This setup hook add $out/bin to the PATH environment variable.
+# This setup hook adds $out/bin to the PATH environment variable.
 
 export PATH
 

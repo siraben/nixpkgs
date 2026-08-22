@@ -330,8 +330,8 @@ def _parse_blockattrs(info: str) -> Optional[tuple[AttrBlockKind, Optional[str],
     if (parsed_attrs := _parse_attrs(m[1])) is None:
         return None
     id, classes = parsed_attrs
-    # check that we actually support this kind of block, and that is adheres to
-    # whetever restrictions we want to enforce for that kind of block.
+    # check that we actually support this kind of block, and that it adheres to
+    # whatever restrictions we want to enforce for that kind of block.
     if len(classes) == 1 and classes[0] in get_args(AdmonitionKind):
         # don't want to support ids for admonitions just yet
         if id is not None:

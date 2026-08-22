@@ -55,7 +55,7 @@ buildGoModule (finalAttrs: {
 
   meta = {
     changelog = "https://github.com/Shopify/toxiproxy/releases/tag/v${finalAttrs.version}";
-    description = "Proxy for for simulating network conditions";
+    description = "Proxy for simulating network conditions";
     homepage = "https://github.com/Shopify/toxiproxy";
     maintainers = with lib.maintainers; [ avnik ];
     license = lib.licenses.mit;

@@ -93,11 +93,11 @@ async function main() {
     url,
     hash,
   };
-  console.log(`[update] Updating Notion ${oldInfo.version} -> ${info.version}`);
+  console.log(`[update] Updating the Unarchiver ${oldInfo.version} -> ${info.version}`);
   await fsPromises.writeFile(filePath, JSON.stringify(info, null, 2) + "\n", {
     encoding: "utf-8",
   });
-  console.log("[update] Updating Notion complete");
+  console.log("[update] Updating the Unarchiver complete");
 }
 
 main();

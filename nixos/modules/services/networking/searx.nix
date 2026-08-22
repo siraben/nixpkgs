@@ -150,7 +150,7 @@ in
           If no path is specified, a default one is used (default config file has debug mode enabled).
 
           ::: {.note}
-          Setting this options overrides [](#opt-services.searx.settings).
+          Setting this option overrides [](#opt-services.searx.settings).
           :::
 
           ::: {.warning}

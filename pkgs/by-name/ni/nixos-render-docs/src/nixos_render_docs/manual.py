@@ -31,7 +31,7 @@ class BaseConverter(Converter[md.TR], Generic[md.TR]):
     # per-converter configuration for ns:arg=value arguments to include blocks, following
     # the include type. html converters need something like this to support chunking, or
     # another external method like the chunktocs docbook uses (but block options seem like
-    # a much nicer of doing this).
+    # a much nicer way of doing this).
     INCLUDE_ARGS_NS: ClassVar[str]
     INCLUDE_FRAGMENT_ALLOWED_ARGS: ClassVar[set[str]] = set()
     INCLUDE_OPTIONS_ALLOWED_ARGS: ClassVar[set[str]] = set()
@@ -296,7 +296,7 @@ class ManualHTMLRenderer(RendererMixin, HTMLRenderer):
         # images may be used more than once, but we want to store them only once and
         # in an easily accessible (ie, not input-file-path-dependent) location without
         # having to maintain a mapping structure. hashing the file and using the hash
-        # as both the path of the final image provides both.
+        # as the path of the final image provides both.
         content_hash = hashlib.sha3_256(content).hexdigest()
         target_name = f"{content_hash}{src_path.suffix}"
         target_path = self._base_path / self._html_params.media_dir / target_name

@@ -45,7 +45,7 @@ buildGoModule (finalAttrs: {
         "TestElegant"
       ]
       ++ lib.optionals stdenv.hostPlatform.isDarwin [
-        # Not sure why these test fail on darwin with __darwinAllowLocalNetworking.
+        # Not sure why these tests fail on darwin with __darwinAllowLocalNetworking.
         "TestHttpOverUnix"
         "TestConnectionRefuse"
       ];

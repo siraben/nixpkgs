@@ -76,7 +76,7 @@ static void init()
 
 static const char * rewrite(const char * volatile path, char * buf)
 {
-    // Marking the path volatile is needed so the the following check isn't
+    // Marking the path volatile is needed so the following check isn't
     // optimized away by the compiler.
     if (path == NULL) return path;
 

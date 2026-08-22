@@ -105,8 +105,8 @@ in
         description = ''
           Whether to check the resulting config file with unbound checkconf for syntax errors.
 
-          If settings.include is used, this options is disabled, as the import can likely not be accessed at build time.
-          If settings.remote-control is used, this option is disabled, too as the control-key-file, server-cert-file and server-key-file cannot be accessed at build time.
+          If settings.include is used, this option is disabled, as the import can likely not be accessed at build time.
+          If settings.remote-control is used, this option is disabled, too, as the control-key-file, server-cert-file and server-key-file cannot be accessed at build time.
         '';
       };
 

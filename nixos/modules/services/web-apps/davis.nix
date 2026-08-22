@@ -231,7 +231,7 @@ in
           serverAliases = [
             "dav.''${config.networking.domain}"
           ];
-          # To enable encryption and let let's encrypt take care of certificate
+          # To enable encryption and let Let's Encrypt take care of certificate
           forceSSL = true;
           enableACME = true;
         }

@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-# this is a quick and dirty test suite for easier analyzing of breakages in a
+# this is a quick and dirty test suite for easier analyzing of breakages in
 # manual testing.
 # For automated testing use the test.nix
 

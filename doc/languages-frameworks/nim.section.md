@@ -103,7 +103,7 @@ pkgs.nitter.overrideNimAttrs {
 
 ## Lockfile dependency overrides {#nim-lock-overrides}
 
-The `buildNimPackage` function matches the libraries specified by `lockFile` to attrset of override functions that are then applied to the package derivation.
+The `buildNimPackage` function matches the libraries specified by `lockFile` to an attrset of override functions that are then applied to the package derivation.
 The default overrides are maintained as the top-level `nimOverrides` attrset at `pkgs/top-level/nim-overrides.nix`.
 
 For example, to propagate a dependency on SDL2 for lockfiles that select the Nim `sdl2` library, an overlay is added to the set in the `nim-overrides.nix` file:
@@ -134,7 +134,7 @@ The annotations in the `nim-overrides.nix` set are functions that take two argum
 - lockAttrs: the attrset for this library from within a lockfile. This can be used to implement library version constraints, such as marking libraries as broken or insecure.
 - prevAttrs: the attrset produced by initial arguments to `buildNimPackage` and any preceding lockfile overlays.
 
-### Overriding an Nim library override {#nim-lock-overrides-overrides}
+### Overriding a Nim library override {#nim-lock-overrides-overrides}
 
 The `nimOverrides` attrset makes it possible to modify overrides in a few different ways.
 

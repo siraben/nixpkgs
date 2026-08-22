@@ -48,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
 
       This results in CMocka being a relatively small library that can be
       used to test a variety of exotic code. If a developer wishes to
-      simply test an application with the latest compiler then other unit
+      simply test an application with the latest compiler, then other unit
       testing frameworks may be preferable.
 
       This is the successor of Google's Cmockery.

@@ -58,7 +58,7 @@ in
           AWS_S3_REGION_NAME = "garage";
           MEDIA_BASE_URL = "http://${domain}";
 
-          # Disable HTTPS feature in tests because we're running on a HTTP connection
+          # Disable HTTPS feature in tests because we're running on an HTTP connection
           DJANGO_SECURE_PROXY_SSL_HEADER = "";
           DJANGO_SECURE_SSL_REDIRECT = false;
           DJANGO_CSRF_COOKIE_SECURE = false;

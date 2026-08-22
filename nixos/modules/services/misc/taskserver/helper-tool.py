@@ -170,7 +170,7 @@ def generate_key(org, user):
     pubcert = os.path.join(userdir, "public.cert")
 
     try:
-        # We change the permissions and the owner ship of the base directories
+        # We change the permissions and the ownership of the base directories
         # so that cfg.group and cfg.user could read the directories' contents.
         # See also: https://bugs.python.org/issue42367
         for bd in [keysdir, orgdir, userdir]:

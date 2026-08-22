@@ -18,7 +18,7 @@ in
 
     services.synergy = {
 
-      # !!! All these option descriptions needs to be cleaned up.
+      # !!! All these option descriptions need to be cleaned up.
 
       client = {
         enable = lib.mkEnableOption "the Synergy client (receive keyboard and mouse events from a Synergy server)";

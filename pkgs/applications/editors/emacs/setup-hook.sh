@@ -1,7 +1,7 @@
 addToEmacsLoadPath() {
   local lispDir="$1"
   if [[ -d $lispDir && ${EMACSLOADPATH-} != *"$lispDir":* ]] ; then
-    # It turns out, that the trailing : is actually required
+    # It turns out that the trailing : is actually required
     # see https://www.gnu.org/software/emacs/manual/html_node/elisp/Library-Search.html
     export EMACSLOADPATH="$lispDir:${EMACSLOADPATH-}"
   fi

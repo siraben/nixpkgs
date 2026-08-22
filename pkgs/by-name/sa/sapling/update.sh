@@ -3,7 +3,7 @@
 
 set -euo pipefail
 
-# Some Facebook package make use of nightly Rust features
+# Some Facebook packages make use of nightly Rust features
 rustup toolchain install nightly --force
 
 # Paths

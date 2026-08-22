@@ -55,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
     librda
     systemd
 
-    # TODO these bloat the closure size alot, just so the indicator doesn't have the potential to crash.
+    # TODO these bloat the closure size a lot, just so the indicator doesn't have the potential to crash.
     # is there a better way to give it access to DE-specific schemas as needed?
     # https://github.com/AyatanaIndicators/ayatana-indicator-session/blob/88846bad7ee0aa8e0bb122816d06f9bc887eb464/src/service.c#L1387-L1413
     gnome-settings-daemon

@@ -112,7 +112,7 @@ buildOctavePath() {
 
 # Adds the bin directories to the program_PATH variable.
 # Recurses on any paths declared in `propagated-build-inputs`, while avoiding
-# duplicating paths by flagging the directires it has seen in `octavePathsSeen`.
+# duplicating paths by flagging the directories it has seen in `octavePathsSeen`.
 _addToOctavePath() {
     local dir="$1"
     # Stop if we've already visited this path.

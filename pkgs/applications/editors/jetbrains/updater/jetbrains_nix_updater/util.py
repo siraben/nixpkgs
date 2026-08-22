@@ -38,7 +38,7 @@ def replace_blocks(
     identifier of the block.
 
     The lines between these markers are replaced with the content of the block.
-    The content is stripped of trailin and leading lines containing only whitespaces first.
+    The content is stripped of trailing and leading lines containing only whitespaces first.
 
     The file is formatted with `nixfmt` after saving.
     """

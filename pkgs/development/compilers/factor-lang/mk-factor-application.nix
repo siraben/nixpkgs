@@ -114,7 +114,7 @@ in
         mkdir -p "$out/lib/factor" "$TMPDIR/.cache"
         export XDG_CACHE_HOME="$TMPDIR/.cache"
 
-        # Deploy script writes the deploy path to to $PWD/deploy-path.txt
+        # Deploy script writes the deploy path to $PWD/deploy-path.txt
         factor "${deployScript}" "./$vocabName" "$out/lib/factor"
         deploy_path=$(cat "$PWD/deploy-path.txt")
         if [ ! -x "$deploy_path" ]; then

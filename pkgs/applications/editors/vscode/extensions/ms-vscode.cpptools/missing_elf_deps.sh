@@ -18,7 +18,7 @@ echo "interpreter='$interpreter'"
 ncursesLibDir="$(get_pkg_out "ncurses5.out" "/lib")"
 echo "ncursesLibDir='$ncursesLibDir'"
 
-# For clanformat dep on 'libstdc++.so.6'.
+# For clangformat dep on 'libstdc++.so.6'.
 stdcppLibDir="$(get_pkg_out "stdenv.cc.cc.lib" "/lib")"
 echo "stdcppLibDir='$stdcppLibDir'"
 

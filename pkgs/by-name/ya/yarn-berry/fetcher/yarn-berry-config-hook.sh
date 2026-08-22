@@ -64,7 +64,7 @@ yarnBerryConfigHook() {
     YARN_IGNORE_PATH=1 @yarn_offline@ config set enableTelemetry false
     YARN_IGNORE_PATH=1 @yarn_offline@ config set enableGlobalCache false
 
-    # The cache needs to be writable in case yarn needs to re-pack any patch: or git dependencies
+    # The cache needs to be writable in case yarn needs to re-pack any patch or git dependencies
     rm -rf ./.yarn/cache
     mkdir -p ./.yarn
     cp -r --reflink=auto $offlineCache/cache ./.yarn/cache

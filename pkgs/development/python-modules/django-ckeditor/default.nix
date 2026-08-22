@@ -79,7 +79,7 @@ buildPythonPackage rec {
         * The django-ckeditor deprecation notice:
           <https://406.ch/writing/django-ckeditor/>
 
-        * The non-free/commerical CKEditor 4 LTS package:
+        * The non-free/commercial CKEditor 4 LTS package:
           <https://ckeditor.com/ckeditor-4-support/>
       ''
     ];

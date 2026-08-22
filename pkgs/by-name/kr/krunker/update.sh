@@ -37,7 +37,7 @@ update() {
     fi
 
     url="https://$updater_url/latest${electron_suffix}.yml"
-    log "fetching update information from from $url"
+    log "fetching update information from $url"
     response="$(curl -sSL "$url")"
     version="$(yq --raw-output '.version' <<<"$response")"
     sha512="$(yq \

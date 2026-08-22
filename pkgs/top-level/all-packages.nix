@@ -2764,7 +2764,7 @@ with pkgs;
 
   rtaudio = rtaudio_5;
 
-  mpi = openmpi; # this attribute should used to build MPI applications
+  mpi = openmpi; # this attribute should be used to build MPI applications
 
   quota = if stdenv.hostPlatform.isLinux then linuxquota else unixtools.quota;
 

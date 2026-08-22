@@ -253,7 +253,7 @@ Examples of errors which this fixes.
 At the time of writing, it is assumed the issue only happens on `glibc` because it splits the static libraries into a different output.
 
 ::: {.note}
-You may want to look in to using `stdenvAdapters.makeStatic` or `pkgsStatic` or a `isStatic = true` platform.
+You may want to look into using `stdenvAdapters.makeStatic` or `pkgsStatic` or a `isStatic = true` platform.
 
 ## Cross-building packages {#sec-cross-usage}
 

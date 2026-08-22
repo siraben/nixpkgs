@@ -47,7 +47,7 @@ buildPythonPackage rec {
     "test_create_item"
   ];
 
-  # the build should should also generate a program for cli, but nothing is installed in $out/bin
+  # the build should also generate a program for cli, but nothing is installed in $out/bin
   # related comment: https://github.com/NixOS/nixpkgs/pull/392056#issuecomment-2751934248
   meta = {
     description = "Create STAC Items from raster datasets";

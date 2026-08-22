@@ -505,10 +505,10 @@ def _update_package(path, target):
         if n == 0:
             raise ValueError("Unable to find rev value for {}.".format(pname))
         else:
-            # forcefully rewrite rev, incase tagging conventions changed for a release
+            # forcefully rewrite rev, in case tagging conventions changed for a release
             match = matches[0]
             text = text.replace(match, f'tag = "{prefix}${{version}}";')
-            # incase there's no prefix, just rewrite without interpolation
+            # in case there's no prefix, just rewrite without interpolation
             text = text.replace('"${version}";', "version;")
 
             # update changelog to reference the src.tag

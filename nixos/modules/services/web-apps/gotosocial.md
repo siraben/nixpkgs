@@ -4,8 +4,8 @@
 
 ## Service configuration {#modules-services-gotosocial-service-configuration}
 
-The following configuration sets up the PostgreSQL as database backend and binds
-GoToSocial to `127.0.0.1:8080`, expecting to be run behind a HTTP proxy on `gotosocial.example.com`.
+The following configuration sets up PostgreSQL as the database backend and binds
+GoToSocial to `127.0.0.1:8080`, expecting to be run behind an HTTP proxy on `gotosocial.example.com`.
 
 ```nix
 {

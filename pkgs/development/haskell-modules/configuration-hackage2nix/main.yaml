@@ -951,7 +951,7 @@ dont-distribute-packages:
   - pocket-dns # depends on persistent-zookeeper
   - zoovisitor # depends on zookeeper_mt, which depends on openssl-1.1
 
-  # These packages are deprecated due to the usage of opentracing which is a archived upstream.
+  # These packages are deprecated due to the usage of opentracing which is an archived upstream.
   - opentracing
   - opentracing-wai
   - opentracing-jaeger

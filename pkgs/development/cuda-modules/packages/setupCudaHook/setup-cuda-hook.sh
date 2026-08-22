@@ -126,7 +126,7 @@ propagateCudaLibraries() {
     break
   done
 
-  # One'd expect this should be propagated-host-host-deps, but that doesn't seem to work
+  # One would expect this to be propagated-host-host-deps, but that doesn't seem to work
   printWords "${propagatedBuildInputs[@]}" >>"${!cudaPropagateToOutput}/nix-support/propagated-build-inputs"
 }
 postFixupHooks+=(propagateCudaLibraries)

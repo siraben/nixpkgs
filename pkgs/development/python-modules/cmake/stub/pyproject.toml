@@ -5,7 +5,7 @@ build-backend = "flit_core.buildapi"
 [project]
 name = "cmake"
 version = "@version@"
-description = "CMake is an open-source, cross-platform family oftools designed to build, test and package software"
+description = "CMake is an open-source, cross-platform family of tools designed to build, test and package software"
 
 [project.scripts]
 cmake = "cmake:cmake"

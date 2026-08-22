@@ -26,7 +26,7 @@ pnpmBuildHook() {
         echo
         echo "Here are a few things you can try, depending on the error:"
         echo "1. Make sure your build script (${pnpmBuildScript:-build}) exists"
-        echo '   If there isnt one, set `dontPnpmBuild = true`.'
+        echo '   If there is not one, set `dontPnpmBuild = true`.'
         echo
 
         exit 1

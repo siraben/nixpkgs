@@ -53,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
     zlib
   ];
 
-  # upstream documents JDK 17 or higher for the CLI, which is what this packages
+  # upstream documents JDK 17 or higher for the CLI, which is what this package uses
   installPhase =
     assert lib.assertMsg (lib.versionAtLeast jre.version "17.0.0") ''
       bloop requires Java 17 or newer, but ${jre.name} is ${jre.version}

@@ -15,7 +15,7 @@
 <programlisting>
 <xref linkend="opt-services.onedrive.enable"/> = true;
 </programlisting>
-  This installs the <literal>onedrive</literal> package and a service <literal>onedriveLauncher</literal> which will instantiate a <literal>onedrive</literal> service for all your OneDrive accounts. Follow the steps in documentation of the onedrive client to setup your accounts. To use the service with multiple accounts, create a file named <filename>onedrive-launcher</filename> in <filename>~/.config</filename> and add the filename of the config directory, relative to <filename>~/.config</filename>. For example, if you have two OneDrive accounts with configs in <filename>~/.config/onedrive_bob_work</filename> and <filename>~/.config/onedrive_bob_personal</filename>, add the following lines:
+  This installs the <literal>onedrive</literal> package and a service <literal>onedriveLauncher</literal> which will instantiate a <literal>onedrive</literal> service for all your OneDrive accounts. Follow the steps in documentation of the onedrive client to set up your accounts. To use the service with multiple accounts, create a file named <filename>onedrive-launcher</filename> in <filename>~/.config</filename> and add the filename of the config directory, relative to <filename>~/.config</filename>. For example, if you have two OneDrive accounts with configs in <filename>~/.config/onedrive_bob_work</filename> and <filename>~/.config/onedrive_bob_personal</filename>, add the following lines:
 <programlisting>
 onedrive_bob_work
 # Not in use:

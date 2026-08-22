@@ -2251,7 +2251,7 @@ let
               You may have to create a `let` binding, file or attribute to give yourself access to the relevant modules.
               While loading a configuration into the module system is a very sensible idea, it can not be done cleanly in practice.
             '';
-            # ^^ Extended explanation: That's because a finalized configuration is more than just a set of modules. For instance, it has its own `specialArgs` that, by the nature of `specialArgs` can't be loaded through `imports` or the the `modules` argument. So instead, we have to ask you to extract the relevant modules and use those instead. This way, we keep the module system comparatively simple, and hopefully avoid a bad surprise down the line.
+            # ^^ Extended explanation: That's because a finalized configuration is more than just a set of modules. For instance, it has its own `specialArgs` that, by the nature of `specialArgs` can't be loaded through `imports` or the `modules` argument. So instead, we have to ask you to extract the relevant modules and use those instead. This way, we keep the module system comparatively simple, and hopefully avoid a bad surprise down the line.
 
             "flake" = lines (
               [

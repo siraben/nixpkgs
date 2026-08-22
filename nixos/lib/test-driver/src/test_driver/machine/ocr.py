@@ -28,7 +28,7 @@ def perform_ocr_variants_on_screenshot(
 
     # Tesseract runs parallel on up to 4 cores.
     # Docs suggest to run it with OMP_THREAD_LIMIT=1 for hundreds of parallel
-    # runs. Our average test run is somewhere inbetween.
+    # runs. Our average test run is somewhere in between.
     # https://github.com/tesseract-ocr/tesseract/issues/3109
     nix_cores: str | None = os.environ.get("NIX_BUILD_CORES")
     cores: int = os.cpu_count() or 1 if nix_cores is None else int(nix_cores)

@@ -9,7 +9,7 @@ mixBuildDirHook() {
   while read -r -d ':' lib; do
     for dir in "$lib"/*; do
       # Strip version number for directory name if it exists, so naming of
-      # all libs matches what mix's expectation.
+      # all libs matches what mix expects.
       dest=$(basename "$dir" | cut -d '-' -f1)
       build_dir="_build/$MIX_BUILD_PREFIX/lib/$dest"
 

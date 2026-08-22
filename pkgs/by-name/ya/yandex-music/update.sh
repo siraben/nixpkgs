@@ -24,7 +24,7 @@ importTree="(let tree = import ./.; in if builtins.isFunction tree then tree {} 
 
 # Old version with rc part (e.g. 5.61.1rc3)
 oldVersion=$(nix-instantiate --eval -E "with $importTree; $attrname.version" | tr -d '"')
-# Rc part of old version (without "rc) (e.g. 3)
+# Rc part of old version (without "rc") (e.g. 3)
 oldVersionRc="${oldVersion##*rc}"
 
 # If old version does not have "rc" part - assume rc is 0

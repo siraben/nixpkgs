@@ -58,7 +58,7 @@ let
         password = "foobar";
       };
 
-      # Taken from from the parsedmarc.nix test
+      # Taken from the parsedmarc.nix test
       services.postfix.enable = true;
       services.dovecot2 = {
         enable = true;

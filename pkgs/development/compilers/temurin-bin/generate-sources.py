@@ -58,7 +58,7 @@ def generate_sources(assets, feature_version, out):
 
 
 # Parse optional version arguments; default to all known versions.
-# This is especially helpful when adding a new version without updating everything..
+# This is especially helpful when adding a new version without updating everything.
 if len(sys.argv) > 1:
     try:
         feature_versions = tuple(int(v) for v in sys.argv[1:])

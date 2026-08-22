@@ -37,7 +37,7 @@ _asciidoc_escapes = {
 }
 def asciidoc_escape(s: str) -> str:
     s = s.translate(_asciidoc_escapes)
-    # :: is deflist item, ;; is has a replacement but no idea why
+    # :: is deflist item, ;; has a replacement but no idea why
     return s.replace("::", "{two-colons}").replace(";;", "{two-semicolons}")
 
 @dataclass(kw_only=True)

@@ -134,7 +134,7 @@ in
                   default = null;
                   description = ''
                     Path to a file containing a Headscale API key.
-                    This is required for OIDC authentication aswell for the Headplane agent.
+                    This is required for OIDC authentication as well as for the Headplane agent.
                   '';
                   example = lib.literalExpression "config.sops.secrets.headplane_pre_authkey.path";
                 };

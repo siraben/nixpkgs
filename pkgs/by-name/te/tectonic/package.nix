@@ -25,10 +25,10 @@ symlinkJoin {
     rm $out/bin/{tectonic,nextonic}
   ''
   # Pin the version of the online TeX bundle that Tectonic's developer
-  # distribute, so that the `biber` version and the `biblatex` version
+  # distributes, so that the `biber` version and the `biblatex` version
   # distributed from there are compatible.
   #
-  # Upstream is updating it's online TeX bundle slower then
+  # Upstream is updating its online TeX bundle slower than
   # https://github.com/plk/biber. That's why we match here the `bundleURL`
   # version with that of `biber-for-tectonic`. See also upstream discussion:
   #

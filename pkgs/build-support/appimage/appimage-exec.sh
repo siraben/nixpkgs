@@ -38,7 +38,7 @@ unpack() {
       ;;
 
     "02")
-      # This method avoid issues with non executable appimages,
+      # This method avoids issues with non-executable appimages,
       # non-native packer, packer patching and squashfs-root destination prefix.
 
       # multiarch offset one-liner using same method as AppImage

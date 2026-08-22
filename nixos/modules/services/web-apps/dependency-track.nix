@@ -94,7 +94,7 @@ in
         default = "postgresql";
         description = ''
           `h2` database is not recommended for a production setup.
-          `postgresql` this settings it recommended for production setups.
+          `postgresql` is recommended for production setups.
           `manual` the module doesn't handle database settings.
         '';
       };

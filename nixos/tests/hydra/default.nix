@@ -30,7 +30,7 @@ in
     # create a project with a trivial job
     machine.wait_for_open_port(3000)
 
-    # make sure the build as been successfully built
+    # make sure the build has been successfully built
     machine.succeed("create-trivial-project.sh")
 
     machine.wait_until_succeeds(
