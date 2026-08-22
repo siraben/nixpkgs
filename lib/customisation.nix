@@ -400,9 +400,13 @@ rec {
   extendDerivation =
     condition: passthru: drv:
     let
-      commonAttrs =
-        drv
-        // listToAttrs (
+      # Everything layered on top of `drv`, built as one small overlay set.
+      # `//` is associative, so this is exactly the previous
+      # `drv // listToAttrs (...) // passthru // { ... }` chain — but the
+      # large derivation attrset is now copied by a single merge instead
+      # of once per overlay layer.
+      overlay =
+        listToAttrs (
           outputsList
           ++ [
             {
@@ -420,6 +424,8 @@ rec {
             assert condition;
             drv.outPath;
         };
+
+      commonAttrs = drv // overlay;
 
       outputsList = map (outputName: {
         name = outputName;
