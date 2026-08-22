@@ -113,24 +113,32 @@ let
   allowUnsupportedSystem =
     config.allowUnsupportedSystem || getEnv "NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM" == "1";
 
-  isUnfree =
-    licenses:
-    # ? is non-strict in its type, so it doubles as performing an isAttrs check
-    if licenses ? licenseType then
-      !(isFree licenses)
-    else if isAttrs licenses then
-      !(licenses.free or true)
-    # TODO: Returning false in the case of a string is a bug that should be fixed.
-    # In a previous implementation of this function the function body
-    # was `licenses: lib.lists.any (l: !l.free or true) licenses;`
-    # which always evaluates to `!true` for strings.
-    else if isString licenses then
+  # NOTE: inlined former `isUnfree` helper to save two closure applications per
+  # package on the hot path (`hasDeniedUnfreeLicense` -> `hasUnfreeLicense`
+  # -> `isUnfree`). Behavior is identical, including the TODO quirk for string
+  # licenses.
+  hasUnfreeLicense =
+    attrs:
+    if !attrs ? meta.license then
       false
     else
-      # on a list, check if any of the licenses weren't free (boolean AND)
-      any (l: !l.free or false) licenses;
-
-  hasUnfreeLicense = attrs: attrs ? meta.license && isUnfree attrs.meta.license;
+      let
+        licenses = attrs.meta.license;
+      in
+      # ? is non-strict in its type, so it doubles as performing an isAttrs check
+      if licenses ? licenseType then
+        !(isFree licenses)
+      else if isAttrs licenses then
+        !(licenses.free or true)
+      # TODO: Returning false in the case of a string is a bug that should be fixed.
+      # In a previous implementation of this function the function body
+      # was `licenses: lib.lists.any (l: !l.free or true) licenses;`
+      # which always evaluates to `!true` for strings.
+      else if isString licenses then
+        false
+      else
+        # on a list, check if any of the licenses weren't free (boolean AND)
+        any (l: !l.free or false) licenses;
 
   isMarkedBroken = attrs: attrs.meta.broken or false;
 
@@ -747,9 +755,25 @@ let
     { meta, attrs }:
     let
       invalid = checkValidity' attrs;
-      problems = checkProblems attrs;
     in
-    if invalid == null then
+    # Performance: only pay for the meta.problems machinery once checkValidity
+    # has passed; this keeps the (more expensive) problem-list construction off
+    # the hot path for packages that already failed a validity check, and
+    # avoids allocating the `problems` thunk for them.
+    # NOTE: results are identical for passing and failing packages; the checks
+    # are pure, so evaluation order between them does not matter.
+    if invalid != null then
+      {
+        valid = "no";
+        handled = handle {
+          inherit attrs meta;
+          error = invalid;
+        };
+      }
+    else
+      let
+        problems = checkProblems attrs;
+      in
       if problems == null then
         {
           valid = "yes";
@@ -762,15 +786,7 @@ let
             inherit attrs meta;
             inherit (problems) error warnings;
           };
-        }
-    else
-      {
-        valid = "no";
-        handled = handle {
-          inherit attrs meta;
-          error = invalid;
         };
-      };
 
 in
 {
