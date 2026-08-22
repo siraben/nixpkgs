@@ -22,7 +22,6 @@ let
     filter
     filterAttrs
     foldl'
-    getDev
     head
     intersectAttrs
     isAttrs
@@ -394,16 +393,6 @@ let
     );
   gccArchFeature = [ "gccarch-${buildPlatform.gcc.arch}" ];
 
-  # PERF: shared per-stdenv mapping steps for the dependency lists. Hoisting
-  # the lambdas here means one closure each per stdenv instead of a fresh
-  # lambda allocation per package (and per forced list).
-  mapDevBuildBuild = map (drv: getDev drv.__spliced.buildBuild or drv);
-  mapDevBuildHost = map (drv: getDev drv.__spliced.buildHost or drv);
-  mapDevBuildTarget = map (drv: getDev drv.__spliced.buildTarget or drv);
-  mapDevHostHost = map (drv: getDev drv.__spliced.hostHost or drv);
-  mapDevHostTarget = map (drv: getDev drv.__spliced.hostTarget or drv);
-  mapDevTargetTarget = map (drv: getDev drv.__spliced.targetTarget or drv);
-
   makeDerivationArgument =
 
     # `makeDerivationArgument` is responsible for the `mkDerivation` arguments that
@@ -543,6 +532,58 @@ let
           ) 1 deps) deps;
 
       isErroneous = flag: !elem flag knownHardeningFlags;
+
+      # PERF: Map a dependency list to its spliced outputs, validating every
+      # element in the same pass. This produces exactly what
+      #   map (drv: getDev drv.__spliced.${splicedAttr} or drv)
+      #     (checkDependencyList name deps)
+      # produces - including the deprecation warning for nested lists and the
+      # invalid-element error, replicated verbatim via the untouched
+      # `checkDependencyList'` below - but traverses each list only once and
+      # avoids the per-element `lib.isSingularDependency` and `lib.getDev`
+      # function calls by inlining both. `lib.isDerivation` (`value.type or
+      # null == "derivation"`) is inlined with its test reordered so
+      # derivation elements, the overwhelming majority, succeed on the first
+      # test; all tests are pure, so accepted/rejected inputs are unchanged.
+      #
+      # The rare diagnostic branches delegate to `checkDependencyList'` so
+      # their messages stay byte-identical (including the element numbering):
+      # * a nested list warns here, then has its contents checked recursively;
+      #   (double nesting reports positions relative to the inner list)
+      # * any other invalid element makes the whole list re-checked by
+      #   `checkDependencyList'`, which throws the exact original message.
+      mapDependencies =
+        name: splicedAttr: deps:
+        let
+          unwrap =
+            drv:
+            let
+              d = drv.__spliced.${splicedAttr} or drv;
+            in
+            if !(d ? outputSpecified) || !d.outputSpecified then d.dev or d.out or d else d;
+        in
+        map (
+          dep:
+          if
+            dep.type or null == "derivation"
+            || builtins.isString dep
+            || builtins.isPath dep
+            || dep == null
+          then
+            let
+              d = dep.__spliced.${splicedAttr} or dep;
+            in
+            if !(d ? outputSpecified) || !d.outputSpecified then d.dev or d.out or d else d
+          else if isList dep then
+            warn
+              ''
+                Dependency of package '${attrs.name or attrs.pname}' uses a nested list in attribute '${name}'.
+                This is deprecated as of Nixpkgs release 26.05, and support will
+                be removed in a future nixpkgs release.''
+              (seq (checkDependencyList' [ ] name dep) (unwrap dep))
+          else
+            seq (checkDependencyList' [ ] name deps) (unwrap dep)
+        ) deps;
     in
     if
       # Check if any hardening flag is erroneous
@@ -596,32 +637,32 @@ let
           if depsBuildBuild == emptyList then
             depsBuildBuild
           else
-            mapDevBuildBuild (checkDependencyList "depsBuildBuild" depsBuildBuild);
+            mapDependencies "depsBuildBuild" "buildBuild" depsBuildBuild;
         buildHostOutputs =
           if nativeBuildInputs' == emptyList then
             nativeBuildInputs'
           else
-            mapDevBuildHost (checkDependencyList "nativeBuildInputs" nativeBuildInputs');
+            mapDependencies "nativeBuildInputs" "buildHost" nativeBuildInputs';
         buildTargetOutputs =
           if depsBuildTarget == emptyList then
             depsBuildTarget
           else
-            mapDevBuildTarget (checkDependencyList "depsBuildTarget" depsBuildTarget);
+            mapDependencies "depsBuildTarget" "buildTarget" depsBuildTarget;
         hostHostOutputs =
           if depsHostHost == emptyList then
             depsHostHost
           else
-            mapDevHostHost (checkDependencyList "depsHostHost" depsHostHost);
+            mapDependencies "depsHostHost" "hostHost" depsHostHost;
         hostTargetOutputs =
           if buildInputs' == emptyList then
             buildInputs'
           else
-            mapDevHostTarget (checkDependencyList "buildInputs" buildInputs');
+            mapDependencies "buildInputs" "hostTarget" buildInputs';
         targetTargetOutputs =
           if depsTargetTarget == emptyList then
             depsTargetTarget
           else
-            mapDevTargetTarget (checkDependencyList "depsTargetTarget" depsTargetTarget);
+            mapDependencies "depsTargetTarget" "targetTarget" depsTargetTarget;
         allDependencies = concatLists [
           buildBuildOutputs
           buildHostOutputs
@@ -635,32 +676,32 @@ let
           if depsBuildBuildPropagated == emptyList then
             depsBuildBuildPropagated
           else
-            mapDevBuildBuild (checkDependencyList "depsBuildBuildPropagated" depsBuildBuildPropagated);
+            mapDependencies "depsBuildBuildPropagated" "buildBuild" depsBuildBuildPropagated;
         propagatedBuildHostOutputs =
           if propagatedNativeBuildInputs == emptyList then
             propagatedNativeBuildInputs
           else
-            mapDevBuildHost (checkDependencyList "propagatedNativeBuildInputs" propagatedNativeBuildInputs);
+            mapDependencies "propagatedNativeBuildInputs" "buildHost" propagatedNativeBuildInputs;
         propagatedBuildTargetOutputs =
           if depsBuildTargetPropagated == emptyList then
             depsBuildTargetPropagated
           else
-            mapDevBuildTarget (checkDependencyList "depsBuildTargetPropagated" depsBuildTargetPropagated);
+            mapDependencies "depsBuildTargetPropagated" "buildTarget" depsBuildTargetPropagated;
         propagatedHostHostOutputs =
           if depsHostHostPropagated == emptyList then
             depsHostHostPropagated
           else
-            mapDevHostHost (checkDependencyList "depsHostHostPropagated" depsHostHostPropagated);
+            mapDependencies "depsHostHostPropagated" "hostHost" depsHostHostPropagated;
         propagatedHostTargetOutputs =
           if propagatedBuildInputs == emptyList then
             propagatedBuildInputs
           else
-            mapDevHostTarget (checkDependencyList "propagatedBuildInputs" propagatedBuildInputs);
+            mapDependencies "propagatedBuildInputs" "hostTarget" propagatedBuildInputs;
         propagatedTargetTargetOutputs =
           if depsTargetTargetPropagated == emptyList then
             depsTargetTargetPropagated
           else
-            mapDevTargetTarget (checkDependencyList "depsTargetTargetPropagated" depsTargetTargetPropagated);
+            mapDependencies "depsTargetTargetPropagated" "targetTarget" depsTargetTargetPropagated;
         allPropagatedDependencies = concatLists [
           propagatedBuildBuildOutputs
           propagatedBuildHostOutputs
