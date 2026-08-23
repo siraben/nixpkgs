@@ -69,8 +69,6 @@ let
     # Some pythonModules are turned in to a pythonApplication by setting the field to false
     && (!isBool drv.pythonModule);
 
-  isMismatchedPython = drv: drv.pythonModule != python;
-
   withDistOutput' = flip elem [
     "pyproject"
     "setuptools"
@@ -278,7 +276,17 @@ lib.extendMkDerivation {
 
           checkDrv =
             attrName: drv:
-            if isPythonModule drv && isMismatchedPython drv then throwMismatch attrName drv else true;
+            # Inlined isPythonModule and isMismatchedPython tests, in their
+            # original evaluation order, so validating one input costs a
+            # single invocation instead of up to four nested helper calls.
+            if
+              drv ? "pythonModule"
+              && (!isBool drv.pythonModule)
+              && drv.pythonModule != python
+            then
+              throwMismatch attrName drv
+            else
+              true;
 
         in
         attrName: inputs: seq (all (checkDrv attrName) inputs) inputs;
