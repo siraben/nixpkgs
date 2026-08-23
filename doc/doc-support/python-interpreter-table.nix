@@ -32,17 +32,20 @@ let
     lib.naturalSort (lib.filter isPythonInterpreter (lib.attrNames pythonInterpreters))
   );
 
+  # Interpreter-like names in `pkgs`. Computing this once makes `aliases`
+  # linear in the number of interpreters instead of re-scanning the whole
+  # package set once per interpreter.
+  interpreterLikeNames = lib.filter isPythonInterpreter (lib.attrNames pkgs);
+
   aliases =
     pname:
-    lib.attrNames (
-      lib.filterAttrs (
-        name: value:
-        # use tryEval to handle entries in aliases.nix
-        (builtins.tryEval (
-          isPythonInterpreter name && name != pname && interpreterName name == interpreterName pname
-        )).value
-      ) pkgs
-    );
+    lib.filter (
+      name:
+      # use tryEval to handle entries in aliases.nix
+      (builtins.tryEval (
+        name != pname && interpreterName name == interpreterName pname
+      )).value
+    ) interpreterLikeNames;
 
   result = map (pname: {
     inherit pname;
