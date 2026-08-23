@@ -1,7 +1,6 @@
 {
   callPackage,
   fetchFromGitHub,
-  nixos,
   conmon,
 }:
 let
@@ -85,14 +84,33 @@ let
         };
       };
 
+  # Produce the same result as
+  # `(nixos { programs.singularity = { enable = true; inherit package; }; })
+  #    .config.programs.singularity.packageOverriden`
+  # without evaluating it through the module system: with `enable = true` and
+  # only the `package` option defined, the module derives `packageOverriden`
+  # from fixed defaults, which are computed here directly. Evaluating the full
+  # module system once per attribute dominated their evaluation cost.
   genOverridenNixos =
     package: packageName:
-    (nixos {
-      programs.singularity = {
-        enable = true;
-        inherit package;
-      };
-    }).config.programs.singularity.packageOverriden.overrideAttrs
+    (package.override (
+      {
+        # Module default of `systemBinPaths`, extended by the module config.
+        systemBinPaths = [ "/run/wrappers/bin" ];
+        # `enableExternalLocalStateDir` defaults to true.
+        externalLocalStateDir = "/var/lib";
+      }
+      // (
+        # `enableSuid` defaults to `package.projectName != "apptainer"`.
+        if package.projectName != "apptainer" then
+          {
+            enableSuid = true;
+            starterSuidPath = "/run/wrappers/bin/${package.projectName}-suid";
+          }
+        else
+          { }
+      )
+    )).overrideAttrs
       (oldAttrs: {
         meta = oldAttrs.meta // {
           description = "";
