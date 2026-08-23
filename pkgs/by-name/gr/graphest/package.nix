@@ -186,7 +186,7 @@ stdenv.mkDerivation (finalAttrs: {
         # See README of https://github.com/unageek/inari:
         # limited to platforms that are supported by the gmp-mpfr-sys crate.
         broken = stdenv.hostPlatform.isMsvc;
-        mainProgram = "graph";
+        mainProgram = "Graphest";
       };
     };
   };

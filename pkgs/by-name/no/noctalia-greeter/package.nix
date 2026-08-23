@@ -79,7 +79,7 @@ stdenv.mkDerivation (finalAttrs: {
       samiser
       spacedentist
     ];
-    mainProgram = "noctalia-greeter-session";
+    mainProgram = "noctalia-greeter";
     platforms = lib.platforms.linux;
   };
 })

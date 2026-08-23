@@ -55,6 +55,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/OpShin/uplc";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ aciceri ];
-    mainProgram = "opshin";
+    mainProgram = "uplc";
   };
 }

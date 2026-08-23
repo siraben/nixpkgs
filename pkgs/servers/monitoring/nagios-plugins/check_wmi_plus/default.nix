@@ -100,7 +100,7 @@ stdenv.mkDerivation rec {
     description = "Sensu/nagios plugin using WMI to query Windows hosts";
     homepage = "https://edcint.co.nz/checkwmiplus/";
     license = lib.licenses.gpl2Plus;
-    mainProgram = "check_wmi_plus";
+    mainProgram = "check_wmi_plus.pl";
     maintainers = with lib.maintainers; [ peterhoeg ];
   };
 }

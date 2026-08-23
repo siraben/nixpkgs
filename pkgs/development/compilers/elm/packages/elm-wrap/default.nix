@@ -45,6 +45,6 @@ stdenv.mkDerivation rec {
     homepage = "https://elm-wrap.dev/";
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ turbomack ];
-    mainProgram = "wrap";
+    mainProgram = "elm-wrap";
   };
 }

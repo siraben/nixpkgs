@@ -44,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
     teams = with lib.teams; [ ngi ];
     maintainers = [ ];
     license = lib.licenses.agpl3Plus;
-    mainProgram = "twister";
+    mainProgram = "taler-twister";
     platforms = lib.platforms.linux;
   };
 })

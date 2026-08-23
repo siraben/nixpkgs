@@ -19,7 +19,7 @@ rustPlatform.buildRustPackage (oldAttrs: {
   __structuredAttrs = true;
 
   meta = {
-    mainProgram = "telemt";
+    mainProgram = "yggdrasil";
     description = "Yggdrasil Network rewritten in Rust";
     homepage = "https://github.com/Revertron/Yggdrasil-ng";
     license = lib.licenses.mpl20;

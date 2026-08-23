@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://github.com/lxqt/lxqt-build-tools";
     description = "Various packaging tools and scripts for LXQt applications";
-    mainProgram = "lxqt-transupdate";
+    mainProgram = "lxqt2-transupdate";
     license = lib.licenses.lgpl21Plus;
     platforms = with lib.platforms; unix;
     teams = [ lib.teams.lxqt ];

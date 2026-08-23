@@ -163,7 +163,7 @@ buildPythonPackage (finalAttrs: {
       Language supporting various standards, exposed through a Python or
       REST API ${lib.optionalString gui " and a graphical user interface"}.
     '';
-    mainProgram = "arelle";
+    mainProgram = "arelleCmdLine";
     homepage = "http://arelle.org/";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [

@@ -28,6 +28,6 @@ buildGoModule (finalAttrs: {
     changelog = "https://github.com/trickest/trickest-cli/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ fab ];
-    mainProgram = "trickest";
+    mainProgram = "trickest-cli";
   };
 })

@@ -37,6 +37,6 @@ buildGoModule (finalAttrs: {
     changelog = "https://github.com/teler-sh/teler/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ fab ];
-    mainProgram = "teler.app";
+    mainProgram = "teler";
   };
 })

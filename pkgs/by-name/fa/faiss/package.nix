@@ -125,7 +125,6 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Library for efficient similarity search and clustering of dense vectors by Facebook Research";
-    mainProgram = "demo_ivfpq_indexing";
     homepage = "https://github.com/facebookresearch/faiss";
     changelog = "https://github.com/facebookresearch/faiss/blob/${finalAttrs.src.tag}/CHANGELOG.md";
     license = lib.licenses.mit;

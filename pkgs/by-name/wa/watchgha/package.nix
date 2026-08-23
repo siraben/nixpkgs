@@ -35,7 +35,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
 
   meta = {
     description = "Live display of current GitHub action runs";
-    mainProgram = "watch_gha_runs";
+    mainProgram = "watchgha";
     homepage = "https://github.com/nedbat/watchgha";
     license = lib.licenses.apsl20;
     maintainers = with lib.maintainers; [ purcell ];

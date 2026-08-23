@@ -56,7 +56,7 @@ buildPythonPackage (finalAttrs: {
 
   meta = {
     description = "Histogramming for analysis powered by boost-histogram";
-    mainProgram = "";
+    mainProgram = "hist";
     homepage = "https://hist.readthedocs.io/";
     downloadPage = "https://github.com/scikit-hep/hist";
     changelog = "https://github.com/scikit-hep/hist/releases/tag/v${finalAttrs.version}";

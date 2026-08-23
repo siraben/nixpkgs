@@ -48,6 +48,6 @@ buildPythonPackage (finalAttrs: {
     changelog = "https://github.com/rauleteee/pqc-scanner/releases/tag/${finalAttrs.src.tag}";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ fab ];
-    mainProgram = "pqc-scanner";
+    mainProgram = "pqc-audit";
   };
 })

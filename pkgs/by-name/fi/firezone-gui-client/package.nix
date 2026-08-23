@@ -168,7 +168,7 @@ rustPlatform.buildRustPackage rec {
       oddlama
       patrickdag
     ];
-    mainProgram = "firezone-gui-client";
+    mainProgram = "firezone-client-gui";
     platforms = lib.platforms.linux;
   };
 }

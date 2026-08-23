@@ -35,6 +35,6 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/timbray/topfew";
     maintainers = with lib.maintainers; [ liberodark ];
     license = lib.licenses.gpl3Only;
-    mainProgram = "tf";
+    mainProgram = "topfew";
   };
 })

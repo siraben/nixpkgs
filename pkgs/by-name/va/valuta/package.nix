@@ -67,7 +67,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     license = lib.licenses.gpl3Plus;
     maintainers = [ ];
     teams = [ lib.teams.gnome-circle ];
-    mainProgram = "currencyconverter";
+    mainProgram = "valuta";
     platforms = lib.platforms.linux;
   };
 })

@@ -21,6 +21,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/pubky/pkarr";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ dpc ];
-    mainProgram = "pkarr-server";
+    mainProgram = "pkarr-relay";
   };
 })

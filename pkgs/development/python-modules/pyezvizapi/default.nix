@@ -43,6 +43,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/RenierM26/pyEzvizApi/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ dotlambda ];
-    mainProgram = "pyezviz";
+    mainProgram = "pyezvizapi";
   };
 }

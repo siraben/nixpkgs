@@ -65,12 +65,11 @@ let
       description = "Run and manage FastAPI apps from the command line with FastAPI CLI";
       homepage = "https://github.com/fastapi/fastapi-cli";
       changelog = "https://github.com/fastapi/fastapi-cli/releases/tag/${src.tag}";
-      mainProgram = "fastapi";
       license = lib.licenses.mit;
       maintainers = [ ];
-      # This package provides a `fastapi`-executable that is in conflict with the one from
-      # python3Packages.fastapi. Because this package is primarily used for the purpose of
-      # implementing the CLI for python3Packages.fastapi, we reduce the executable's priority
+      # fastapi-cli no longer ships a `fastapi` executable: the entry point was
+      # removed upstream in 0.0.9 and is now provided by python3Packages.fastapi
+      # itself, so there is no conflict to resolve.
       priority = 10;
     };
   };

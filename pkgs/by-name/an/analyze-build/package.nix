@@ -35,7 +35,7 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
   meta = {
     description = "run Clang static analyzer against a project with compilation database";
     homepage = "https://github.com/llvm/llvm-project/tree/llvmorg-${finalAttrs.version}/clang/tools/scan-build-py/";
-    mainProgram = "scan-build";
+    mainProgram = "analyze-build";
     license = with lib.licenses; [
       asl20
       llvm-exception

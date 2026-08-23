@@ -52,6 +52,6 @@ buildDunePackage (finalAttrs: {
     homepage = "https://github.com/mirage/decompress";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.vbgl ];
-    mainProgram = "decompress.pipe";
+    mainProgram = "decompress";
   };
 })

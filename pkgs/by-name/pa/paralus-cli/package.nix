@@ -34,6 +34,6 @@ buildGoModule (finalAttrs: {
     homepage = "https://www.paralus.io/";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ kashw2 ];
-    mainProgram = "paralus";
+    mainProgram = "cli";
   };
 })

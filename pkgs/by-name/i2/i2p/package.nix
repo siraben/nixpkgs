@@ -143,6 +143,6 @@ stdenv.mkDerivation (finalAttrs: {
       "aarch64-linux"
     ];
     maintainers = with lib.maintainers; [ linsui ];
-    mainProgram = "i2prouter-plain";
+    mainProgram = "i2prouter";
   };
 })

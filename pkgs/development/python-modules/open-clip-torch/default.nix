@@ -93,6 +93,5 @@ buildPythonPackage (finalAttrs: {
     changelog = "https://github.com/mlfoundations/open_clip/releases/tag/${finalAttrs.src.tag}";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ iynaix ];
-    mainProgram = "open-clip";
   };
 })

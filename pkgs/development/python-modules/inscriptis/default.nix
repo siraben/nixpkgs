@@ -43,7 +43,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "HTML to text converter";
-    mainProgram = "inscript.py";
+    mainProgram = "inscript";
     homepage = "https://github.com/weblyzard/inscriptis";
     changelog = "https://github.com/weblyzard/inscriptis/releases/tag/${src.tag}";
     license = lib.licenses.asl20;

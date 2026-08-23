@@ -12,7 +12,7 @@ mkLinphoneDerivation {
 
   meta = {
     description = "Real-Time Transport Protocol (RFC3550) stack. Part of the Linphone project";
-    mainProgram = "ortp_tester";
+    mainProgram = "ortp-tester";
     license = lib.licenses.agpl3Plus;
   };
 }
