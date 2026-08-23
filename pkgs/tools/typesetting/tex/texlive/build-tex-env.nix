@@ -66,9 +66,13 @@ lib.fix (
               ]
             ) packages;
             keySet = p: {
+              # Inline optionalString: this runs for every node of the
+              # dependency closure of every environment.
               key =
                 p.pname or p.name
-                + lib.optionalString (p.outputSpecified or false) ("-" + p.tlOutputName or p.outputName or "");
+                + (
+                  if p.outputSpecified or false then "-" + p.tlOutputName or p.outputName or "" else ""
+                );
               inherit p;
               tlDeps =
                 if p ? tlDeps then
