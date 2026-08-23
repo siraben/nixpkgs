@@ -19,12 +19,6 @@ let
     rootDir = "";
     sparseCheckout = null;
   };
-  useFetchGitArgsDefaultNullable = {
-    leaveDotGit = false;
-    sparseCheckout = [ ];
-  };
-
-  useFetchGitargsDefaultNonNull = useFetchGitArgsDefault // useFetchGitArgsDefaultNullable;
 
   # useFetchGitArgsWD to exclude from automatic passing.
   # Other useFetchGitArgsWD will pass down to fetchgit.
@@ -65,14 +59,21 @@ decorate (
   );
 
   let
+    # Whether any of the arguments selecting between fetchzip and fetchgit
+    # differs from its default.  A plain disjunction over the known keys
+    # avoids building and comparing an intermediate attribute set on every
+    # instantiation while visiting the arguments in the same order such a
+    # comparison would, keeping forcing behaviour and diagnostics unchanged.
+    # leaveDotGit and sparseCheckout treat null like absence.
     useFetchGit =
-      lib.mapAttrs (
-        name: nonNullDefault:
-        if args ? ${name} && (useFetchGitArgsDefaultNullable ? ${name} -> args.${name} != null) then
-          args.${name}
-        else
-          nonNullDefault
-      ) useFetchGitargsDefaultNonNull != useFetchGitargsDefaultNonNull;
+      (args ? deepClone && args.deepClone != false)
+      || (args ? fetchLFS && args.fetchLFS != false)
+      || (args ? fetchSubmodules && args.fetchSubmodules != false)
+      || (args ? forceFetchGit && args.forceFetchGit != false)
+      || (args ? leaveDotGit && args.leaveDotGit != null && args.leaveDotGit != false)
+      || (args ? postCheckout && args.postCheckout != "")
+      || (args ? rootDir && args.rootDir != "")
+      || (args ? sparseCheckout && args.sparseCheckout != null && args.sparseCheckout != [ ]);
 
     useFetchGitArgsWDPassing = lib.overrideExisting (removeAttrs useFetchGitArgsDefault excludeUseFetchGitArgNames) args;
 
