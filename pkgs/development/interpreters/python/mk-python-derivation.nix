@@ -209,24 +209,31 @@ lib.extendMkDerivation {
     }@attrs:
 
     let
+      # Lazily-bound reads of the passthru attributes this builder consumes.
+      # Each key is looked up once per derivation instead of once per use,
+      # with the same or-fallback and error text as before.
       getFinalPassthru =
         let
           pos = unsafeGetAttrPos "passthru" finalAttrs;
+          missing = attrName: throw (
+            ''
+              ${finalAttrs.name}: passthru.${attrName} missing after overrideAttrs overriding.
+            ''
+            + optionalString (pos != null) ''
+              Last overridden at ${pos.file}:${toString pos.line}
+            ''
+          );
         in
-        attrName:
-        finalAttrs.passthru.${attrName} or (throw (
-          ''
-            ${finalAttrs.name}: passthru.${attrName} missing after overrideAttrs overriding.
-          ''
-          + optionalString (pos != null) ''
-            Last overridden at ${pos.file}:${toString pos.line}
-          ''
-        ));
+        {
+          pyproject = finalAttrs.passthru.pyproject or (missing "pyproject");
+          "build-system" = finalAttrs.passthru."build-system" or (missing "build-system");
+          dependencies = finalAttrs.passthru.dependencies or (missing "dependencies");
+        };
 
       format' =
-        assert (getFinalPassthru "pyproject" != null) -> (format == null);
-        if getFinalPassthru "pyproject" != null then
-          if getFinalPassthru "pyproject" then "pyproject" else "other"
+        assert (getFinalPassthru.pyproject != null) -> (format == null);
+        if getFinalPassthru.pyproject != null then
+          if getFinalPassthru.pyproject then "pyproject" else "other"
         else if format != null then
           format
         else
@@ -381,13 +388,13 @@ lib.extendMkDerivation {
         pythonOutputDistHook
       ]
       ++ nativeBuildInputs
-      ++ getFinalPassthru "build-system";
+      ++ getFinalPassthru."build-system";
 
       buildInputs = validatePythonMatches "buildInputs" (buildInputs ++ pythonPath);
 
       propagatedBuildInputs =
         validatePythonMatches "propagatedBuildInputs" (
-          propagatedBuildInputs ++ getFinalPassthru "dependencies"
+          propagatedBuildInputs ++ getFinalPassthru.dependencies
         )
         ++ [
           # we propagate python even for packages transformed with 'toPythonApplication'
