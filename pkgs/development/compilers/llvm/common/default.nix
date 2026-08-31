@@ -122,6 +122,12 @@ makeScopeWithSplicing' {
 
       clangVersion = lib.versions.major metadata.release_version;
 
+      bintoolsNoLibc' = if bootBintoolsNoLibc == null then self.bintoolsNoLibc else bootBintoolsNoLibc;
+      bintools' = if bootBintools == null then self.bintools else bootBintools;
+    in
+    {
+      inherit (metadata) release_version;
+
       mkExtraBuildCommands0 =
         cc:
         ''
@@ -144,24 +150,18 @@ makeScopeWithSplicing' {
 
       mkExtraBuildCommandsBasicRt =
         cc:
-        mkExtraBuildCommands0 cc
+        self.mkExtraBuildCommands0 cc
         + ''
           ln -s "${targetLlvmPackages.compiler-rt-no-libc.out}/lib" "$rsrc/lib"
         '';
 
       mkExtraBuildCommands =
         cc:
-        mkExtraBuildCommands0 cc
+        self.mkExtraBuildCommands0 cc
         + ''
           ln -s "${targetLlvmPackages.compiler-rt.out}/lib" "$rsrc/lib"
           ln -s "${targetLlvmPackages.compiler-rt.out}/share" "$rsrc/share"
         '';
-
-      bintoolsNoLibc' = if bootBintoolsNoLibc == null then self.bintoolsNoLibc else bootBintoolsNoLibc;
-      bintools' = if bootBintools == null then self.bintools else bootBintools;
-    in
-    {
-      inherit (metadata) release_version;
 
       libllvm = callPackage ./llvm { };
 
@@ -222,14 +222,14 @@ makeScopeWithSplicing' {
         # libstdcxx is taken from gcc in an ad-hoc way in cc-wrapper.
         libcxx = null;
         extraPackages = [ targetLlvmPackages.compiler-rt ];
-        extraBuildCommands = mkExtraBuildCommands cc;
+        extraBuildCommands = self.mkExtraBuildCommands cc;
       };
 
       libcxxClang = wrapCCWith rec {
         cc = self.clang-unwrapped;
         libcxx = targetLlvmPackages.libcxx;
         extraPackages = [ targetLlvmPackages.compiler-rt ];
-        extraBuildCommands = mkExtraBuildCommands cc;
+        extraBuildCommands = self.mkExtraBuildCommands cc;
       };
 
       # Darwin uses the system libc++ by default. It is set up as its own clang definition so that `libcxxClang`
@@ -238,7 +238,7 @@ makeScopeWithSplicing' {
         cc = self.clang-unwrapped;
         libcxx = darwin.libcxx;
         extraPackages = [ targetLlvmPackages.compiler-rt ];
-        extraBuildCommands = mkExtraBuildCommands cc;
+        extraBuildCommands = self.mkExtraBuildCommands cc;
       };
 
       lld = callPackage ./lld { };
@@ -293,7 +293,7 @@ makeScopeWithSplicing' {
         ++ lib.optionals (!stdenv.targetPlatform.isWasm && !stdenv.targetPlatform.isFreeBSD) [
           targetLlvmPackages.libunwind
         ];
-        extraBuildCommands = mkExtraBuildCommands cc;
+        extraBuildCommands = self.mkExtraBuildCommands cc;
         nixSupport.cc-cflags = [
           "-rtlib=compiler-rt"
           "-Wno-unused-command-line-argument"
@@ -332,7 +332,7 @@ makeScopeWithSplicing' {
             [
               targetLlvmPackages.libunwind
             ];
-        extraBuildCommands = mkExtraBuildCommandsBasicRt cc;
+        extraBuildCommands = self.mkExtraBuildCommandsBasicRt cc;
         nixSupport.cc-cflags = [
           "-rtlib=compiler-rt"
           "-Wno-unused-command-line-argument"
@@ -357,7 +357,7 @@ makeScopeWithSplicing' {
         libcxx = null;
         bintools = bintools';
         extraPackages = [ targetLlvmPackages.compiler-rt-no-libc ];
-        extraBuildCommands = mkExtraBuildCommandsBasicRt cc;
+        extraBuildCommands = self.mkExtraBuildCommandsBasicRt cc;
         nixSupport.cc-cflags = [
           "-rtlib=compiler-rt"
           "-B${targetLlvmPackages.compiler-rt-no-libc}/lib"
@@ -371,7 +371,7 @@ makeScopeWithSplicing' {
         libcxx = null;
         bintools = bintoolsNoLibc';
         extraPackages = [ targetLlvmPackages.compiler-rt-no-libc ];
-        extraBuildCommands = mkExtraBuildCommandsBasicRt cc;
+        extraBuildCommands = self.mkExtraBuildCommandsBasicRt cc;
         nixSupport.cc-cflags = [
           "-rtlib=compiler-rt"
           "-B${targetLlvmPackages.compiler-rt-no-libc}/lib"
@@ -384,7 +384,7 @@ makeScopeWithSplicing' {
         libcxx = null;
         bintools = bintoolsNoLibc';
         extraPackages = [ ];
-        extraBuildCommands = mkExtraBuildCommands0 cc;
+        extraBuildCommands = self.mkExtraBuildCommands0 cc;
         # "-nostartfiles" used to be needed for pkgsLLVM, causes problems so don't include it.
         nixSupport.cc-cflags = lib.optional stdenv.targetPlatform.isWasm "-fno-exceptions";
       };
@@ -396,7 +396,7 @@ makeScopeWithSplicing' {
         libcxx = null;
         bintools = bintools';
         extraPackages = [ ];
-        extraBuildCommands = mkExtraBuildCommands0 cc;
+        extraBuildCommands = self.mkExtraBuildCommands0 cc;
         nixSupport.cc-cflags = lib.optional stdenv.targetPlatform.isWasm "-fno-exceptions";
       };
 
@@ -514,7 +514,7 @@ makeScopeWithSplicing' {
               cc = flangUnwrapped;
               bintools = bintools';
               extraPackages = [ targetLlvmPackages.flang-rt ];
-              extraBuildCommands = mkExtraBuildCommands0 cc + ''
+              extraBuildCommands = self.mkExtraBuildCommands0 cc + ''
                 # triplet however is not used in darwin
                 PLATFORM_DIR="${if stdenv.targetPlatform.isDarwin then "darwin" else stdenv.targetPlatform.config}"
                 RT_LIB_PATH="${targetLlvmPackages.flang-rt}/lib/clang/${clangVersion}/lib/$PLATFORM_DIR"
