@@ -78,7 +78,7 @@
 }:
 
 let
-  version = "1.4.33";
+  version = "1.4.39";
   aws = [ fs-s3fs ];
   grpc = [
     grpcio
@@ -128,7 +128,7 @@ let
     owner = "bentoml";
     repo = "BentoML";
     tag = "v${version}";
-    hash = "sha256-SR84EeZ9WNoaRDG4uklYhlFSDigZv81XX3VlKCn/7Zw=";
+    hash = "sha256-HXQ0bt8zPkKLsWbcxR/V9BQp5yJv2BLwFisMUs4S1M0=";
   };
 in
 buildPythonPackage {
@@ -248,14 +248,6 @@ buildPythonPackage {
     description = "Build Production-Grade AI Applications";
     homepage = "https://github.com/bentoml/BentoML";
     changelog = "https://github.com/bentoml/BentoML/releases/tag/${src.tag}";
-    knownVulnerabilities = [
-      "CVE-2026-27905"
-      "CVE-2026-33744"
-      "CVE-2026-35043"
-      "CVE-2026-35044"
-      "CVE-2026-44345"
-      "CVE-2026-44346"
-    ];
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [
       happysalada
