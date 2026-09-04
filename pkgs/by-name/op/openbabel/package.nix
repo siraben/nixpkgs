@@ -21,19 +21,14 @@
 
 stdenv.mkDerivation {
   pname = "openbabel";
-  version = "3.1.1-unstable-2024-12-21";
+  version = "3.2.1";
 
   src = fetchFromGitHub {
     owner = "openbabel";
     repo = "openbabel";
-    rev = "889c350feb179b43aa43985799910149d4eaa2bc";
-    hash = "sha256-pJbvKBjpvXNjTZRxD2AqEarqmq+Pq08uvGvog/k/a7k=";
+    tag = "openbabel-3-2-1";
+    hash = "sha256-B1jHLv4Aht9vS1YnIPCfOtZjD5Kkfg51qJbDq6u3PnM=";
   };
-
-  patches = [
-    # <https://github.com/openbabel/openbabel/pull/2784>
-    ./fix-cmake-4.patch
-  ];
 
   nativeBuildInputs = [
     cmake
