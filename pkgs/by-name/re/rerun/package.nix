@@ -74,6 +74,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "--package"
     "rerun-cli"
   ];
+
+  # The selected package has no tests, but its release-profile test harness
+  # takes almost 50 minutes to compile on Hydra.
+  checkType = "debug";
+
   buildNoDefaultFeatures = true;
   buildFeatures = [
     "native_viewer"
