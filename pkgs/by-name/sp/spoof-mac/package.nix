@@ -6,8 +6,8 @@
 
 python3Packages.buildPythonPackage {
   pname = "spoof-mac";
-  version = "0-unstable-2018-01-27";
-  format = "setuptools";
+  version = "2.1.1-unstable-2018-01-27";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "feross";
@@ -16,7 +16,9 @@ python3Packages.buildPythonPackage {
     hash = "sha256-Qiu0URjUyx8QDVQQUFGxPax0J80e2m4+bPJeqFoKxX8=";
   };
 
-  propagatedBuildInputs = [ python3Packages.docopt ];
+  build-system = [ python3Packages.setuptools ];
+
+  dependencies = [ python3Packages.docopt ];
 
   # No tests
   doCheck = false;
@@ -28,6 +30,7 @@ python3Packages.buildPythonPackage {
     homepage = "https://github.com/feross/SpoofMAC";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ siraben ];
+    mainProgram = "spoof-mac";
     platforms = lib.platforms.unix;
   };
 }
