@@ -5,18 +5,21 @@
   bash,
 }:
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "kubectl-node-shell";
   version = "1.11.0";
+
+  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "kvaps";
     repo = "kubectl-node-shell";
-    rev = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-jLwnWp/XS4SOyf5v46DPy2Nc6LatF6AzNvHiGVNpsto=";
   };
 
   strictDeps = true;
+
   buildInputs = [ bash ];
 
   installPhase = ''
@@ -30,9 +33,9 @@ stdenvNoCC.mkDerivation rec {
   meta = {
     description = "Exec into node via kubectl";
     mainProgram = "kubectl-node_shell";
-    homepage = "https://github.com/kvaps/kubectl-node-shell";
+    homepage = finalAttrs.src.meta.homepage;
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ jocelynthode ];
     platforms = lib.platforms.unix;
   };
-}
+})
