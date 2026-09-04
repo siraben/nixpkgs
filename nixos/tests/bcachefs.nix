@@ -29,10 +29,13 @@
         "parted --script /dev/vdb -- mkpart primary 1024M 50% mkpart primary 50% -1s",
         "udevadm settle",
         "echo password | bcachefs format --encrypted --metadata_replicas 2 --label vtest /dev/vdb1 /dev/vdb2",
-        "echo password | bcachefs unlock -k session /dev/vdb1",
-        "echo password | mount -t bcachefs /dev/vdb1:/dev/vdb2 /tmp/mnt",
+        # The installer console runs under the login PAM service. The default
+        # bcachefs keyring is the user keyring, which must be linked into that
+        # login's otherwise isolated session keyring for the mount syscall.
+        "printf '%s\\n' 'set -e' 'keyctl show > /tmp/login-keyring' 'echo password | bcachefs unlock /dev/vdb1' 'mount -t bcachefs /dev/vdb1:/dev/vdb2 /tmp/mnt' 'bcachefs fs usage /tmp/mnt > /tmp/bcachefs-usage' 'exit' | script --quiet --return --command 'login -f root' /dev/null",
+        "grep -q '_uid.0' /tmp/login-keyring",
+        "test -s /tmp/bcachefs-usage",
         "udevadm settle",
-        "bcachefs fs usage /tmp/mnt",
         "umount /tmp/mnt",
         "udevadm settle",
     )

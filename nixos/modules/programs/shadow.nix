@@ -252,6 +252,7 @@ in
         groupdel.rootOK = true;
         login = {
           startSession = true;
+          keyinit.enable = true;
           allowNullPassword = true;
           showMotd = true;
           lastlog.enable = true;

@@ -462,6 +462,26 @@ let
           '';
         };
 
+        keyinit = {
+          enable =
+            lib.mkEnableOption ''
+              a private kernel session keyring for this PAM service
+            ''
+            // {
+              description = ''
+                Whether to replace the inherited kernel session keyring with a
+                new one owned by the authenticating user. The user's UID-wide
+                keyring is linked into the new session keyring. The new keyring
+                is revoked when the PAM session closes, making keys reachable
+                only through that keyring inaccessible.
+
+                This is intended for login entry points. It should not generally
+                be enabled for services such as {command}`su`, where the caller's
+                keyring is expected to remain available.
+              '';
+            };
+        };
+
         setEnvironment = lib.mkOption {
           type = lib.types.bool;
           default = true;
@@ -1527,6 +1547,16 @@ let
             ];
 
             session = utils.pam.autoOrderRules [
+              {
+                name = "keyinit";
+                enable = cfg.keyinit.enable;
+                control = "optional";
+                modulePath = "${package}/lib/security/pam_keyinit.so";
+                settings = {
+                  force = true;
+                  revoke = true;
+                };
+              }
               {
                 name = "env";
                 enable = cfg.setEnvironment;
