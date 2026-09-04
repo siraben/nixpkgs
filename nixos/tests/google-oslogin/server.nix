@@ -16,7 +16,11 @@ in
       SNAKEOIL_PUBLIC_KEY = snakeOilPublicKey;
     };
     wantedBy = [ "multi-user.target" ];
-    after = [ "network.target" ];
+    requires = [ "network-addresses-lo.service" ];
+    after = [
+      "network.target"
+      "network-addresses-lo.service"
+    ];
   };
 
   services.openssh.enable = true;
@@ -24,6 +28,11 @@ in
   services.openssh.settings.PasswordAuthentication = false;
 
   security.googleOsLogin.enable = true;
+
+  users.users.localuser = {
+    isNormalUser = true;
+    openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
+  };
 
   # Mock google service
   networking.interfaces.lo.ipv4.addresses = [

@@ -344,12 +344,19 @@ let
           default = false;
           type = lib.types.bool;
           description = ''
-            If set, will use the Google OS Login PAM modules
-            (`pam_oslogin_login`,
-            `pam_oslogin_admin`) to verify possible OS Login
-            users and set sudoers configuration accordingly.
-            This only makes sense to enable for the `sshd` PAM
-            service.
+            Whether to require every user of this PAM service to be authorized
+            by Google OS Login and update their sudo access according to the
+            `adminLogin` policy.
+
+            This enables the `pam_oslogin_login` and `pam_oslogin_admin`
+            account modules. Upstream only supports these modules for custom
+            PAM configurations that need to distinguish OS Login users. In
+            particular, the login module rejects local users, so this option
+            must not be enabled for a service shared with local accounts.
+
+            The standard {option}`security.googleOsLogin.enable` SSH setup does
+            not need these account modules: its authorized keys command checks
+            the `login` policy and updates sudo access.
           '';
         };
 

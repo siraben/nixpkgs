@@ -23,59 +23,63 @@ in
     maintainers = [ ];
   };
 
-  nodes = {
-    # the server provides both the the mocked google metadata server and the ssh server
-    server = ./server.nix;
-
-    client = { ... }: { };
-  };
+  nodes.server = ./server.nix;
   testScript = ''
+    LOCALUSER = "localuser"
     MOCKUSER = "mockuser_nixos_org"
     MOCKADMIN = "mockadmin_nixos_org"
+    MOCKDENIED = "mockdenied_nixos_org"
     start_all()
 
     server.wait_for_unit("mock-google-metadata.service")
     server.wait_for_open_port(80)
 
-    # mockserver should return a non-expired ssh key for both mockuser and mockadmin
+    # The mock server should return a non-expired SSH key only for authorized users.
     server.succeed(
         f'${pkgs.google-guest-oslogin}/bin/google_authorized_keys {MOCKUSER} | grep -q "${snakeOilPublicKey}"'
     )
     server.succeed(
         f'${pkgs.google-guest-oslogin}/bin/google_authorized_keys {MOCKADMIN} | grep -q "${snakeOilPublicKey}"'
     )
+    server.fail(
+        f'${pkgs.google-guest-oslogin}/bin/google_authorized_keys {MOCKDENIED} | grep -q "${snakeOilPublicKey}"'
+    )
 
-    # install snakeoil ssh key on the client, and provision .ssh/config file
-    client.succeed("mkdir -p ~/.ssh")
-    client.succeed(
+    # Ensure the SSH login below, rather than the direct command above, grants admin access.
+    server.succeed(f"rm -f /run/google-sudoers.d/{MOCKADMIN}")
+
+    # Install the snakeoil SSH key and provision the SSH client configuration.
+    server.succeed("mkdir -p ~/.ssh")
+    server.succeed(
         "cat ${snakeOilPrivateKey} > ~/.ssh/id_snakeoil"
     )
-    client.succeed("chmod 600 ~/.ssh/id_snakeoil")
-    client.succeed("cp ${ssh-config} ~/.ssh/config")
+    server.succeed("chmod 600 ~/.ssh/id_snakeoil")
+    server.succeed("cp ${ssh-config} ~/.ssh/config")
 
-    client.wait_for_unit("network.target")
     server.wait_for_unit("sshd.service")
 
-    # we should not be able to connect as non-existing user
-    client.fail("ssh ghost@server 'true'")
+    # The standard mixed local/OS Login SSH service must not use the strict
+    # custom-stack account modules.
+    server.fail("grep -E '^account .*pam_oslogin_(login|admin)\\.so' /etc/pam.d/sshd")
 
-    # we should be able to connect as mockuser
-    client.succeed(f"ssh {MOCKUSER}@server 'true'")
-    # but we shouldn't be able to sudo
-    client.fail(
-        f"ssh {MOCKUSER}@server '/run/wrappers/bin/sudo /run/current-system/sw/bin/id' | grep -q 'root'"
+    # A local account with a valid key must remain usable when OS Login is enabled.
+    server.succeed(f"ssh {LOCALUSER}@localhost 'true'")
+    server.fail(f"test -e /run/google-sudoers.d/{LOCALUSER}")
+
+    # Neither a nonexistent user nor an OS Login profile denied by IAM may connect.
+    server.fail("ssh ghost@localhost 'true'")
+    server.fail(f"ssh {MOCKDENIED}@localhost 'true'")
+
+    # An authorized OS Login user can connect, but cannot sudo without adminLogin.
+    server.succeed(f"ssh {MOCKUSER}@localhost 'true'")
+    server.fail(
+        f"ssh {MOCKUSER}@localhost '/run/wrappers/bin/sudo -n /run/current-system/sw/bin/id' | grep -q 'root'"
     )
 
-    # we should also be able to log in as mockadmin
-    client.succeed(f"ssh {MOCKADMIN}@server 'true'")
-    # pam_oslogin_admin.so should now have generated a sudoers file
+    # An authorized administrator can connect and receives sudo access.
     server.succeed(
-        f"find /run/google-sudoers.d | grep -q '/run/google-sudoers.d/{MOCKADMIN}'"
+        f"ssh {MOCKADMIN}@localhost '/run/wrappers/bin/sudo -n /run/current-system/sw/bin/id' | grep -q 'root'"
     )
-
-    # and we should be able to sudo
-    client.succeed(
-        f"ssh {MOCKADMIN}@server '/run/wrappers/bin/sudo /run/current-system/sw/bin/id' | grep -q 'root'"
-    )
+    server.succeed(f"test -e /run/google-sudoers.d/{MOCKADMIN}")
   '';
 }
