@@ -1,21 +1,21 @@
 {
   lib,
-  stdenvNoCC,
   fetchFromGitHub,
   buildDotnetModule,
   dotnetCorePackages,
   unstableGitUpdater,
+  writeShellScript,
 }:
 
 buildDotnetModule (finalAttrs: {
   pname = "formula-dotnet";
-  version = "2.0";
+  version = "2.0-unstable-2022-10-17";
 
   src = fetchFromGitHub {
     owner = "VUISIS";
     repo = "formula-dotnet";
-    rev = "8ee2e6abfd4ce038e1d9cb9c8602dec1ed6c0163";
-    hash = "sha256-2ulv//YV3OqrfFltgUCeDe4rOPC0qqJ+80/D2lIoih8=";
+    rev = "8d3b6e635ed94feb639aa843b1f0a33f86131f0f";
+    hash = "sha256-0oczQrDDaw2r3fsALBTHn1hCp1FPET1pjbgrNl14+mc=";
   };
 
   patches = [ ./dotnet-8-upgrade.patch ];
@@ -23,25 +23,30 @@ buildDotnetModule (finalAttrs: {
   dotnet-sdk = dotnetCorePackages.sdk_8_0;
   nugetDeps = ./nuget.json;
   projectFile = "Src/CommandLine/CommandLine.csproj";
+  dotnetFlags = [ "-p:Platform=x64" ];
 
-  postFixup =
-    lib.optionalString stdenvNoCC.hostPlatform.isLinux ''
-      mv $out/bin/CommandLine $out/bin/formula
-    ''
-    + lib.optionalString stdenvNoCC.hostPlatform.isDarwin ''
-      makeWrapper ${dotnetCorePackages.runtime_8_0}/bin/dotnet $out/bin/formula \
-        --add-flags "$out/lib/formula-dotnet/CommandLine.dll" \
-        --prefix DYLD_LIBRARY_PATH : $out/lib/formula-dotnet/runtimes/macos/native
+  postFixup = ''
+    mv $out/bin/CommandLine $out/bin/formula
+  '';
+
+  passthru.updateScript = unstableGitUpdater {
+    url = finalAttrs.meta.homepage;
+    tagConverter = writeShellScript "formula-version-converter" ''
+      read -r tag
+      if [ "$tag" = 0 ]; then
+        echo 2.0
+      else
+        echo "''${tag#v}"
+      fi
     '';
-
-  passthru.updateScript = unstableGitUpdater { url = finalAttrs.meta.homepage; };
+  };
 
   meta = {
     description = "Formal Specifications for Verification and Synthesis";
     homepage = "https://github.com/VUISIS/formula-dotnet";
     license = lib.licenses.mspl;
     maintainers = with lib.maintainers; [ siraben ];
-    platforms = lib.platforms.unix;
+    platforms = [ "x86_64-linux" ];
     mainProgram = "formula";
   };
 })
