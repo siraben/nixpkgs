@@ -22,10 +22,11 @@ in
         Whether to enable Google OS Login.
 
         The OS Login package enables the following components:
-        AuthorizedKeysCommand to authorize users, query valid SSH keys, and
-        grant sudo access according to Google Cloud IAM permissions.
-        NSS module to provide user and group information.
-        PAM module for the sshd service to support two-factor authentication.
+        AuthorizedKeysCommand to query valid SSH keys from the user's OS Login
+        profile during ssh authentication phase.
+        NSS Module to provide user and group information
+        PAM Module for the sshd service, providing authentication support.
+        Authorization and sudo access are handled by AuthorizedKeysCommand.
       '';
     };
 
