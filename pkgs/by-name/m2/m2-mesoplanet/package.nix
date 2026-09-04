@@ -3,24 +3,32 @@
   stdenv,
   fetchFromGitHub,
   m2libc,
+  m2-planet,
   mescc-tools,
+  mescc-tools-extra,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "m2-mesoplanet";
-  version = "1.11.0";
+  version = "1.13.0";
 
   src = fetchFromGitHub {
     owner = "oriansj";
     repo = "M2-Mesoplanet";
     rev = "Release_${finalAttrs.version}";
-    hash = "sha256-hE7xvX84q3tk0XakveYDJhrhfBnpoItQs456NCzFfws=";
+    hash = "sha256-GLvVU8+bbA/RpTCzfHq6xAScHlzi/SeVKMWUwfIS+tc=";
   };
 
   # Don't use vendored M2libc
   postPatch = ''
     rmdir M2libc
     ln -s ${m2libc}/include/M2libc M2libc
+
+    substituteInPlace makefile \
+      --replace-fail 'COMMIT=$(shell git describe --dirty)' 'COMMIT=Release_${finalAttrs.version}'
+    substituteInPlace test/test0004/run_test.sh \
+      --replace-fail 'TMPDIR="test/test0004/tmp"' 'TMPDIR="$PWD/test/test0004/tmp"'
   '';
 
   # Upstream overrides the optimisation to be -O0, which is incompatible with fortify. Let's disable it.
@@ -28,7 +36,16 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = true;
   checkTarget = "test";
-  nativeCheckInputs = [ mescc-tools ];
+  nativeCheckInputs = [
+    m2-planet
+    mescc-tools
+  ];
+
+  preCheck = ''
+    mkdir -p test-bin
+    ln -s ${mescc-tools-extra}/bin/catm test-bin/
+    export PATH="$PWD/test-bin:$PATH"
+  '';
 
   installPhase = ''
     runHook preInstall
@@ -37,6 +54,10 @@ stdenv.mkDerivation (finalAttrs: {
 
     runHook postInstall
   '';
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--version-regex=Release_(.*)" ];
+  };
 
   meta = {
     description = "Macro Expander Saving Our m2-PLANET";
