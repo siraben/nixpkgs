@@ -207,9 +207,11 @@ stdenv.mkDerivation (finalAttrs: {
     # Compress msgpack .dat files to stay under hydra output size limit
     # Relies on messagepack-compression-support.patch
     ''
-      for file in $out/lib/hipblaslt/library/*.dat; do
-        zstd -19 --long -f "$file" -o "$file.tmp" && mv "$file.tmp" "$file"
-      done
+      find $out/lib/hipblaslt/library -type f -name '*.dat' -print0 \
+        | xargs -0 -r -n1 -P "$NIX_BUILD_CORES" sh -c '
+          file="$1"
+          zstd -19 --long -f "$file" -o "$file.tmp" && mv "$file.tmp" "$file"
+        ' _
     ''
     # Move binaries to appropriate outputs and delete leftover /bin
     + ''
