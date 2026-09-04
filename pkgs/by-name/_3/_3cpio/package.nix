@@ -6,16 +6,19 @@
   nix-update-script,
   rustPlatform,
   stdenv,
+  versionCheckHook,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "3cpio";
   version = "0.14.0";
+
+  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "bdrung";
     repo = "3cpio";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-BKJ1DIKRcOviWyz6cituxSynzZSvVvR1muesL91cIAg=";
   };
 
@@ -23,6 +26,9 @@ rustPlatform.buildRustPackage rec {
 
   # Tests attempt to access arbitrary filepaths
   doCheck = false;
+
+  nativeInstallCheckInputs = [ versionCheckHook ];
+  doInstallCheck = true;
 
   passthru.updateScript = nix-update-script { };
 
@@ -36,4 +42,4 @@ rustPlatform.buildRustPackage rec {
     # https://github.com/rust-lang/libc/issues/4360
     broken = stdenv.hostPlatform.isDarwin;
   };
-}
+})
