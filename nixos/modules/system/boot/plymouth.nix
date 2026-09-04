@@ -180,14 +180,9 @@ in
         type = types.bool;
         default = true;
         description = ''
-          Whether Plymouth should immediately use the firmware framebuffer
-          exposed by simpledrm while waiting for a hardware-specific DRM
-          driver. This makes early prompts available without waiting for the
-          device timeout. Plymouth will switch renderers if a hardware driver
-          becomes available later.
-
-          Disable this if the firmware framebuffer selects an unusable display
-          or if the transition to the hardware driver does not work correctly.
+          Whether Plymouth should immediately use the simpledrm firmware
+          framebuffer while waiting for a hardware-specific DRM driver.
+          Disable if the firmware framebuffer or driver transition is unusable.
         '';
       };
 
