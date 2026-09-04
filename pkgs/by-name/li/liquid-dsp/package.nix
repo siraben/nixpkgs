@@ -7,15 +7,18 @@
   fixDarwinDylibNames,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "liquid-dsp";
   version = "1.8.2";
+
+  strictDeps = true;
+  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "jgaeddert";
     repo = "liquid-dsp";
-    rev = "v${version}";
-    sha256 = "sha256-WI0GLU/m3PVm1VjOTyPuKcopauiqdSullDyux9WUyKc=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-WI0GLU/m3PVm1VjOTyPuKcopauiqdSullDyux9WUyKc=";
   };
 
   patches = [
@@ -53,4 +56,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ iank ];
   };
-}
+})
