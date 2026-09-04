@@ -1753,6 +1753,12 @@ in
   systemd-initrd-luks-fido2 = runTest ./systemd-initrd-luks-fido2.nix;
   systemd-initrd-luks-keyfile = runTest ./systemd-initrd-luks-keyfile.nix;
   systemd-initrd-luks-password = runTest ./systemd-initrd-luks-password.nix;
+  systemd-initrd-luks-plymouth = runTestOn [ "x86_64-linux" ] {
+    imports = [ ./systemd-initrd-luks-plymouth.nix ];
+    # null exercises the production default; false is useful for reproducing
+    # the previous timeout-dependent behavior when running the test directly.
+    _module.args.useSimpledrmOverride = null;
+  };
   systemd-initrd-luks-tpm2 = runTest ./systemd-initrd-luks-tpm2.nix;
   systemd-initrd-luks-unl0kr = runTest ./systemd-initrd-luks-unl0kr.nix;
   systemd-initrd-modprobe = runTest ./systemd-initrd-modprobe.nix;

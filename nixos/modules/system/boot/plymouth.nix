@@ -70,6 +70,7 @@ let
     [Daemon]
     ShowDelay=${toString cfg.showDelay}
     DeviceTimeout=8
+    UseSimpledrm=${if cfg.useSimpledrm then "1" else "0"}
     Theme=${cfg.theme}
     ${cfg.extraConfig}
   '';
@@ -172,6 +173,21 @@ in
         example = 0.5;
         description = ''
           Time (in seconds) to delay the splash screen.
+        '';
+      };
+
+      useSimpledrm = mkOption {
+        type = types.bool;
+        default = true;
+        description = ''
+          Whether Plymouth should immediately use the firmware framebuffer
+          exposed by simpledrm while waiting for a hardware-specific DRM
+          driver. This makes early prompts available without waiting for the
+          device timeout. Plymouth will switch renderers if a hardware driver
+          becomes available later.
+
+          Disable this if the firmware framebuffer selects an unusable display
+          or if the transition to the hardware driver does not work correctly.
         '';
       };
 
