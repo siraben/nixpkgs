@@ -43,6 +43,12 @@ mkKdeDerivation {
     "-DKF5WindowSystem_DIR=${libsForQt5.__internalKF5.kwindowsystem.dev}/lib/cmake/KF5WindowSystem"
   ];
 
+  # The Qt5 libraries are moved to their own output before RPATH fixups. Add
+  # that location while linking; patchELF removes it from Qt6 binaries as unused.
+  preConfigure = ''
+    appendToVar NIX_LDFLAGS "-rpath $qt5/lib"
+  '';
+
   # Move Qt5 plugin to Qt5 plugin path
   postInstall = ''
     mkdir -p $qt5/${libsForQt5.qtbase.qtPluginPrefix}/styles
@@ -51,5 +57,31 @@ mkKdeDerivation {
     moveToOutput bin/oxygen-demo5 $qt5
     moveToOutput 'lib/liboxygenstyle5*' $qt5
     moveToOutput 'lib/liboxygenstyleconfig5*' $qt5
+  '';
+
+  installCheckPhase = ''
+    runHook preInstallCheck
+
+    checkElfDeps() {
+      local dependencies
+      dependencies="$(ldd "$1")"
+      if grep -Fq 'not found' <<< "$dependencies"; then
+        printf '%s\n' "$dependencies" >&2
+        echo "unresolved shared-library dependency in $1" >&2
+        return 1
+      fi
+    }
+
+    plugin="$qt5/${libsForQt5.qtbase.qtPluginPrefix}/styles/oxygen5.so"
+    demo="$qt5/bin/.oxygen-demo5-wrapped"
+
+    patchelf --print-needed "$plugin" | grep -Fx 'liboxygenstyle5.so.6'
+    ldd "$plugin" | grep -F "$qt5/lib/liboxygenstyle5.so.6"
+
+    checkElfDeps "$plugin"
+    checkElfDeps "$demo"
+    checkElfDeps "$qt5/lib/liboxygenstyleconfig5.so.6"
+
+    runHook postInstallCheck
   '';
 }
