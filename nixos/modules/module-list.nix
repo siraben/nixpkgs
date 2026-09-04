@@ -2069,6 +2069,7 @@
   ./testing/service-runner.nix
   ./virtualisation/amazon-options.nix
   ./virtualisation/appvm.nix
+  ./virtualisation/build-nspawn.nix
   ./virtualisation/build-vm.nix
   ./virtualisation/container-config.nix
   ./virtualisation/containerd.nix
@@ -2106,6 +2107,13 @@
   # keep-sorted end
   {
     documentation.nixos.extraModules = [
+      {
+        imports = [
+          ./virtualisation/guest-networking-options.nix
+          ./virtualisation/nspawn-container
+        ];
+        meta.buildDocsInSandbox = false;
+      }
       ./virtualisation/qemu-vm.nix
       ./image/repart.nix
     ];

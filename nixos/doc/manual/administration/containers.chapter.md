@@ -24,5 +24,6 @@ host system.
 ```{=include=} sections
 imperative-containers.section.md
 declarative-containers.section.md
+nspawn-closures.section.md
 container-networking.section.md
 ```

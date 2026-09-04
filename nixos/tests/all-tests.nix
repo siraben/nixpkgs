@@ -1269,6 +1269,13 @@ in
   novacomd = handleTestOn [ "x86_64-linux" ] ./novacomd.nix { };
   npmrc = runTest ./npmrc.nix;
   nscd = runTest ./nscd.nix;
+  nspawn-system-closure = runTest (
+    import ./nspawn-system-closure.nix {
+      inherit pkgs;
+      lib = pkgs.lib;
+    }
+  );
+  nspawn-variant = handleTest ./nspawn-variant.nix { };
   nsd = runTest ./nsd.nix;
   ntfy-sh = handleTest ./ntfy-sh.nix { };
   ntfy-sh-migration = handleTest ./ntfy-sh-migration.nix { };

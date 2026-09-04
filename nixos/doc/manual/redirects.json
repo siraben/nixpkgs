@@ -2925,5 +2925,8 @@
   ],
   "sec-release-13.10": [
     "release-notes.html#sec-release-13.10"
+  ],
+  "sec-nspawn-system-closure": [
+    "index.html#sec-nspawn-system-closure"
   ]
 }
