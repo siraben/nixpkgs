@@ -252,8 +252,16 @@ in
         groupdel.rootOK = true;
         login = {
           startSession = true;
-          keyinit.enable = true;
           allowNullPassword = true;
+          rules.session.keyinit = {
+            order = config.security.pam.services.login.rules.session.env.order - 10;
+            control = "optional";
+            modulePath = "${config.security.pam.package}/lib/security/pam_keyinit.so";
+            settings = {
+              force = true;
+              revoke = true;
+            };
+          };
           showMotd = true;
           lastlog.enable = true;
         };

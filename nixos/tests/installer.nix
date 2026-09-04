@@ -1678,8 +1678,6 @@ in
         "mkswap /dev/vda2 -L swap",
         "swapon -L swap",
         "echo password | mkfs.bcachefs -L root --encrypted /dev/vda3",
-        # Model the installation console's login session instead of placing the
-        # key directly in the test driver's private service keyring.
         "printf '%s\\n' 'set -e' 'echo password | bcachefs unlock /dev/vda3' 'mount -t bcachefs /dev/vda3 /mnt' 'exit' | script --quiet --return --command 'login -f root' /dev/null",
         "mkfs.ext3 -L boot /dev/vda1",
         "mkdir -p /mnt/boot",

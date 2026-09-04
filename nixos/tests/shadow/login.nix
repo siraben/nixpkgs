@@ -14,7 +14,11 @@ in
   nodes.shadow =
     { pkgs, ... }:
     {
-      environment.systemPackages = [ pkgs.shadow ];
+      environment.systemPackages = [
+        pkgs.keyutils
+        pkgs.shadow
+        pkgs.util-linux
+      ];
 
       users = {
         mutableUsers = true;
@@ -176,5 +180,48 @@ in
         output = shadow.succeed("grep -aoP '/nix/store/[a-z0-9]{32}-[^\\x00]+' /run/wrappers/bin/su | head -1").strip()
         assert "shadow" in output, \
             f"su should come from shadow, but points to: {output}"
+
+    with subtest("Login session keyring"):
+        shadow.succeed("grep -E '^session optional .*/pam_keyinit[.]so force revoke' /etc/pam.d/login")
+        shadow.fail("grep -E '^[^#].*pam_keyinit[.]so' /etc/pam.d/{su,systemd-user}")
+
+        uid = shadow.succeed("id -u emma").strip()
+        gid = shadow.succeed("id -g emma").strip()
+        shared = shadow.succeed(
+            f"setpriv --reuid={uid} --regid={gid} --clear-groups "
+            "keyctl add user login-shared-key payload @u"
+        ).strip()
+        shadow.fail(
+            "systemd-run --quiet --wait --collect --pipe --uid=emma "
+            "keyctl search @s user login-shared-key"
+        )
+        caller = shadow.succeed("keyctl add user caller-private-key payload @s").strip()
+        holder = shadow.succeed("keyctl newring login-test-holder @s").strip()
+        shadow.succeed(f"keyctl setperm {holder} 0x3f3f3f3f")
+        command = (
+            "keyctl id @s > /tmp/session; keyctl describe @s > /tmp/description; "
+            "keyctl setperm @s 0x3f3f3f3f; keyctl search @s user login-shared-key > /tmp/shared-key; "
+            "keyctl search @s user caller-private-key && touch /tmp/caller-visible || true; "
+            f"keyctl link @s {holder}; touch /tmp/ready; "
+            "while ! test -e /tmp/close-session; do sleep 0.1; done; exit"
+        )
+        shadow.succeed(
+            f"(printf '%s\\n' '{command}' | script --quiet --return "
+            "--command 'login -f emma' /dev/null; touch /tmp/closed) >/tmp/login.log 2>&1 &"
+        )
+        shadow.wait_for_file("/tmp/ready")
+
+        session = shadow.succeed("cat /tmp/session").strip()
+        shadow.succeed(f"grep -E ' {uid} +{gid} keyring: _ses$' /tmp/description")
+        shadow.succeed(f"grep -Fx {shared} /tmp/shared-key")
+        shadow.fail("test -e /tmp/caller-visible")
+        shadow.succeed(f"keyctl describe {session}")
+        shadow.succeed("touch /tmp/close-session")
+        shadow.wait_for_file("/tmp/closed")
+        shadow.fail(f"keyctl describe {session}")
+        shadow.succeed(
+            f"setpriv --reuid={uid} --regid={gid} --clear-groups keyctl describe {shared}"
+        )
+        shadow.succeed(f"keyctl describe {caller}")
   '';
 }
