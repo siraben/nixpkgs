@@ -7,15 +7,18 @@
   gtest,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ethash";
   version = "1.1.0";
+
+  strictDeps = true;
+  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "chfast";
     repo = "ethash";
-    rev = "v${version}";
-    sha256 = "sha256-sLa+lXC+UvqFEoC/ZfoRlotkNhUaqhLtDKHtbH2xa/k=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-sLa+lXC+UvqFEoC/ZfoRlotkNhUaqhLtDKHtbH2xa/k=";
   };
 
   nativeBuildInputs = [
@@ -35,8 +38,8 @@ stdenv.mkDerivation rec {
 
   # NOTE: disabling tests due to gtest issue
   cmakeFlags = [
-    "-DHUNTER_ENABLED=OFF"
-    "-DETHASH_BUILD_TESTS=OFF"
+    (lib.cmakeBool "HUNTER_ENABLED" false)
+    (lib.cmakeBool "ETHASH_BUILD_TESTS" false)
     #"-Dbenchmark_DIR=${gbenchmark}/lib/cmake/benchmark"
     #"-DGTest_DIR=${gtest.dev}/lib/cmake/GTest"
     #"-DGTest_DIR=${gtest.src}/googletest"
@@ -50,4 +53,4 @@ stdenv.mkDerivation rec {
     maintainers = [ ];
     license = lib.licenses.asl20;
   };
-}
+})
