@@ -33,11 +33,11 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "nsd";
-  version = "4.15.0";
+  version = "4.15.1";
 
   src = fetchurl {
     url = "https://www.nlnetlabs.nl/downloads/nsd/nsd-${finalAttrs.version}.tar.gz";
-    hash = "sha256-hPG+4ukqna20HZXsxkET5NPe+GIk3ndM2SADrdjE9XA=";
+    hash = "sha256-zkHhMxfTXXpbPzRgVIdCk5GkHsp3sgBu3RHpRTQyxgk=";
   };
 
   patches = [
