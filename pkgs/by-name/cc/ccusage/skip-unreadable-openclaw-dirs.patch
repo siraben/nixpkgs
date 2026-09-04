@@ -1,0 +1,18 @@
+diff --git a/rust/crates/ccusage/src/adapter/openclaw/paths.rs b/rust/crates/ccusage/src/adapter/openclaw/paths.rs
+index 3f482a1..63be743 100644
+--- a/rust/crates/ccusage/src/adapter/openclaw/paths.rs
++++ b/rust/crates/ccusage/src/adapter/openclaw/paths.rs
+@@ -51,7 +51,12 @@ pub(super) fn collect_session_files(root: &Path) -> Result<Vec<PathBuf>> {
+ fn collect_session_files_inner(path: &Path, files: &mut Vec<PathBuf>) -> Result<()> {
+-    for entry in fs::read_dir(path)? {
++    let entries = match fs::read_dir(path) {
++        Ok(entries) => entries,
++        Err(error) if error.kind() == std::io::ErrorKind::PermissionDenied => return Ok(()),
++        Err(error) => return Err(error.into()),
++    };
++    for entry in entries {
+         let entry = entry?;
+         let file_type = entry.file_type()?;
+         let path = entry.path();
+         if file_type.is_symlink() {
+             continue;

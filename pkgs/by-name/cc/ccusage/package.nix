@@ -48,6 +48,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoHash = "sha256-23l/BCCGcZ1i5mFBC6Q+FE7sQRHnPLbU4QoQe7TfoiQ=";
 
+  patches = [ ./skip-unreadable-openclaw-dirs.patch ];
+
   __structuredAttrs = true;
   strictDeps = true;
 
@@ -113,10 +115,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
     });
 
     tests = {
-      # With no agent data on disk, ccusage must still emit a valid, empty JSON
-      # report. --offline keeps it from reaching the network, exercising the
-      # pricing table baked in at build time. This guards the data discovery,
-      # JSON serialization, and offline-pricing paths without needing fixtures.
+      # With no usable agent data on disk, ccusage must still emit a valid,
+      # empty JSON report. The unreadable OpenClaw directory checks that a
+      # broken auto-discovered source does not abort the unified report.
+      # --offline keeps it from reaching the network, exercising the pricing
+      # table baked in at build time.
       smoke =
         runCommand "ccusage-smoke-test"
           {
@@ -127,6 +130,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
           }
           ''
             export HOME="$(mktemp -d)"
+            mkdir "$HOME/.openclaw"
+            chmod 000 "$HOME/.openclaw"
             ccusage daily --json --offline > report.json
             jq -e '.daily == [] and .totals.totalTokens == 0' report.json
             touch "$out"
