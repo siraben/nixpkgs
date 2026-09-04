@@ -68,6 +68,9 @@ lib.extendMkDerivation {
 
       ...
     }@args:
+    let
+      cgoEnabled = args.env.CGO_ENABLED or go.CGO_ENABLED;
+    in
     {
       inherit
         modRoot
@@ -216,26 +219,33 @@ lib.extendMkDerivation {
 
       nativeBuildInputs = [ go ] ++ nativeBuildInputs;
 
-      env = args.env or { } // {
-        inherit (go) GOOS GOARCH;
+      env =
+        args.env or { }
+        // {
+          inherit (go) GOOS GOARCH;
 
-        GO111MODULE = "on";
-        GOTOOLCHAIN = "local";
+          GO111MODULE = "on";
+          GOTOOLCHAIN = "local";
 
-        CGO_ENABLED = args.env.CGO_ENABLED or go.CGO_ENABLED;
+          CGO_ENABLED = cgoEnabled;
 
-        GOFLAGS = toString (
-          GOFLAGS
-          ++
-            lib.warnIf (lib.any (lib.hasPrefix "-mod=") GOFLAGS)
-              "use `proxyVendor` to control Go module/vendor behavior instead of setting `-mod=` in GOFLAGS"
-              (lib.optional (!finalAttrs.proxyVendor) "-mod=vendor")
-          ++
-            lib.warnIf (builtins.elem "-trimpath" GOFLAGS)
-              "`-trimpath` is added by default to GOFLAGS by buildGoModule when allowGoReference isn't set to true"
-              (lib.optional (!finalAttrs.allowGoReference) "-trimpath")
-        );
-      };
+          GOFLAGS = toString (
+            GOFLAGS
+            ++
+              lib.warnIf (lib.any (lib.hasPrefix "-mod=") GOFLAGS)
+                "use `proxyVendor` to control Go module/vendor behavior instead of setting `-mod=` in GOFLAGS"
+                (lib.optional (!finalAttrs.proxyVendor) "-mod=vendor")
+            ++
+              lib.warnIf (builtins.elem "-trimpath" GOFLAGS)
+                "`-trimpath` is added by default to GOFLAGS by buildGoModule when allowGoReference isn't set to true"
+                (lib.optional (!finalAttrs.allowGoReference) "-trimpath")
+          );
+        }
+        // lib.optionalAttrs (toString cgoEnabled == "0") {
+          # Cross Go toolchains default to external linking. Override that default
+          # for pure-Go builds so the linker does not implicitly pull in runtime/cgo.
+          GO_EXTLINK_ENABLED = args.env.GO_EXTLINK_ENABLED or "0";
+        };
 
       inherit enableParallelBuilding;
 
