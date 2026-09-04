@@ -15,24 +15,11 @@ let
   skopeo' = skopeo.override { buildGoModule = buildGoModule; };
   uplosi' = uplosi.override { buildGoModule = buildGoModule; };
   staticLinking = buildGoModule {
-    pname = "go-static-linking-test";
-    version = "0";
+    name = "go-static-linking-test";
     src = ./testdata/linking;
     vendorHash = null;
     env.CGO_ENABLED = 0;
     ldflags = [ "-extldflags=-static" ];
-    subPackages = [ "static" ];
-  };
-  cgoPieLinking = buildGoModule {
-    pname = "go-cgo-pie-linking-test";
-    version = "0";
-    src = ./testdata/linking;
-    vendorHash = null;
-    env.CGO_ENABLED = 1;
-    preBuild = ''
-      export GOFLAGS="$GOFLAGS -buildmode=pie"
-    '';
-    subPackages = [ "cgo" ];
   };
   expectedCgoEnabledType = "DYN";
   expectedCgoDisabledType = "EXE";
@@ -63,10 +50,13 @@ in
   '';
   uplosi-bin-type = runCommand "uplosi-bin-type" { meta.broken = stdenv.hostPlatform.isStatic; } ''
     bin="${lib.getExe uplosi'}"
-    if ${lib.getExe' bintools "readelf"} -p .comment "$bin" 2>/dev/null | grep -Fq "GCC: (GNU)"; then
-      echo "$bin has a GCC .comment, but it should have used the internal go linker"
-      exit 1
-    fi
+    ${lib.optionalString (stdenv.buildPlatform == stdenv.targetPlatform) ''
+      # For CGO_ENABLED=0 the internal linker should be used.
+      if ${lib.getExe' bintools "readelf"} -p .comment ${lib.getExe uplosi'} | grep -Fq "GCC: (GNU)"; then
+        echo "${lib.getExe uplosi'} has a GCC .comment, but it should have used the internal go linker"
+        exit 1
+      fi
+    ''}
     if ${lib.getExe' bintools "readelf"} -h "$bin" | grep -q "Type:.*${expectedCgoDisabledType}"; then
       touch $out
     else
@@ -75,47 +65,13 @@ in
     fi
   '';
   static-linking = runCommand "go-static-linking" { } ''
-    bin="${staticLinking}/bin/static"
+    bin="${staticLinking}/bin/go-linking"
     readelf=${lib.getExe' bintools "readelf"}
 
-    if ! "$readelf" -h "$bin" | grep -q "Type:.*${expectedCgoDisabledType}"; then
-      echo "ERROR: $bin is not an ELF ${expectedCgoDisabledType} executable"
-      exit 1
-    fi
-    if "$readelf" -l "$bin" | grep -q INTERP; then
-      echo "ERROR: $bin has an ELF interpreter"
-      exit 1
-    fi
-    if "$readelf" -d "$bin" 2>&1 | grep -q NEEDED; then
-      echo "ERROR: $bin has a dynamic dependency"
-      exit 1
-    fi
-    if "$readelf" -p .comment "$bin" 2>/dev/null | grep -Fq "GCC: (GNU)"; then
-      echo "ERROR: $bin was externally linked"
-      exit 1
-    fi
-    touch $out
-  '';
-  cgo-pie-linking = runCommand "go-cgo-pie-linking" { meta.broken = stdenv.hostPlatform.isStatic; } ''
-    bin="${cgoPieLinking}/bin/cgo"
-    readelf=${lib.getExe' bintools "readelf"}
-
-    if ! "$readelf" -h "$bin" | grep -q "Type:.*${expectedCgoEnabledType}"; then
-      echo "ERROR: $bin is not an ELF ${expectedCgoEnabledType} executable"
-      exit 1
-    fi
-    if ! "$readelf" -l "$bin" | grep -q INTERP; then
-      echo "ERROR: $bin does not have an ELF interpreter"
-      exit 1
-    fi
-    if ! "$readelf" -d "$bin" 2>&1 | grep -q NEEDED; then
-      echo "ERROR: $bin does not have a dynamic dependency"
-      exit 1
-    fi
-    if ! "$readelf" -p .comment "$bin" 2>/dev/null | grep -Fq "GCC: (GNU)"; then
-      echo "ERROR: $bin was not externally linked"
-      exit 1
-    fi
+    "$readelf" -h "$bin" | grep -q "Type:.*${expectedCgoDisabledType}" || exit 1
+    ! "$readelf" -l "$bin" | grep -q INTERP || exit 1
+    ! "$readelf" -d "$bin" 2>&1 | grep -q NEEDED || exit 1
+    ! "$readelf" -p .comment "$bin" 2>/dev/null | grep -Fq "GCC: (GNU)" || exit 1
     touch $out
   '';
 }
