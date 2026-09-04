@@ -6,7 +6,7 @@
   lib,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "bosch-alarm-mode2";
   version = "0.4.10";
   pyproject = true;
@@ -14,7 +14,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "mag1024";
     repo = "bosch-alarm-mode2";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-XpLMPFi3e6iTtKGfVXN4VbnPyNLVjSFrodyFK+zelF4=";
   };
 
@@ -34,4 +34,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ dotlambda ];
   };
-}
+})

@@ -8,14 +8,14 @@
   pathlib-abc,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "universal-pathlib";
   version = "0.3.8";
   pyproject = true;
 
   src = fetchPypi {
     pname = "universal_pathlib";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-6tK2W8o99uEcO3yzb8mEY0C8PC2071cTFVAmBCKwo+g=";
   };
 
@@ -34,8 +34,8 @@ buildPythonPackage rec {
   meta = {
     description = "Pathlib api extended to use fsspec backends";
     homepage = "https://github.com/fsspec/universal_pathlib";
-    changelog = "https://github.com/fsspec/universal_pathlib/releases/tag/v${version}";
+    changelog = "https://github.com/fsspec/universal_pathlib/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
     maintainers = [ ];
   };
-}
+})

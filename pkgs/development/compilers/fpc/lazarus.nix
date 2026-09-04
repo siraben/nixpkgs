@@ -48,12 +48,12 @@ let
 
   qtVersion = lib.versions.major qtbase.version;
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "lazarus-${LCL_PLATFORM}";
   inherit version;
 
   src = fetchurl {
-    url = "mirror://sourceforge/lazarus/Lazarus%20Zip%20_%20GZip/Lazarus%20${majorMinorPatch version}/lazarus-${version}.tar.gz";
+    url = "mirror://sourceforge/lazarus/Lazarus%20Zip%20_%20GZip/Lazarus%20${majorMinorPatch finalAttrs.version}/lazarus-${finalAttrs.version}.tar.gz";
     hash = "sha256-a0yeyU/nn+TlgCfde/ENm2w1ycsvkdtZMLdYC0ogGpk=";
   };
 
@@ -159,4 +159,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ raskin ];
     platforms = lib.platforms.linux;
   };
-}
+})

@@ -11,7 +11,7 @@
   hatch-vcs,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "python-izone";
   version = "1.3.9";
   pyproject = true;
@@ -19,7 +19,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "Swamp-Ig";
     repo = "pizone";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-4A89HG1Zlw9Cx/1I+DiJzLiOMBeINWQ1eSQ856favgU=";
   };
 
@@ -49,4 +49,4 @@ buildPythonPackage rec {
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ dotlambda ];
   };
-}
+})

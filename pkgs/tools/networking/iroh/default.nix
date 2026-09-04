@@ -10,14 +10,14 @@ let
       name,
       cargoFeatures ? [ ],
     }:
-    rustPlatform.buildRustPackage rec {
+    rustPlatform.buildRustPackage (finalAttrs: {
       pname = name;
       version = "1.1.0";
 
       src = fetchFromGitHub {
         owner = "n0-computer";
         repo = "iroh";
-        rev = "v${version}";
+        rev = "v${finalAttrs.version}";
         hash = "sha256-inEGT8MuNRlXwrFiQpFPybSOF+GkIJxMp2nv81xHhBI=";
       };
 
@@ -48,7 +48,7 @@ let
         ];
         mainProgram = name;
       };
-    };
+    });
 in
 {
   iroh-dns-server = mkIrohPackage {

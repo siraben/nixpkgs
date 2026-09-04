@@ -4,14 +4,14 @@
   fetchFromGitHub,
 }:
 
-buildFishPlugin rec {
+buildFishPlugin (finalAttrs: {
   pname = "forgit";
   version = "26.09.0";
 
   src = fetchFromGitHub {
     owner = "wfxr";
     repo = "forgit";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-2fj/nPP0LvDgMlD0s6ikxCSBxb20hohaZASPoljLM/c=";
   };
 
@@ -25,4 +25,4 @@ buildFishPlugin rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ happysalada ];
   };
-}
+})

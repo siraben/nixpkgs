@@ -4,14 +4,14 @@
   fetchFromGitHub,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "wiki-go";
   version = "1.8.13";
 
   src = fetchFromGitHub {
     owner = "leomoon-studios";
     repo = "wiki-go";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-o+sAaA48242hadFvBvE5nGxrUKdi2uQjwpGM5B/91pA=";
   };
 
@@ -29,4 +29,4 @@ buildGoModule rec {
     maintainers = with lib.maintainers; [ paepcke ];
     mainProgram = "wiki-go";
   };
-}
+})

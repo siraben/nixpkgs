@@ -46,14 +46,14 @@ let
     }
     .key or (throw "clarifai-protocol: unsupported system/python (${key}) version combination");
 in
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "clarifai-protocol";
   version = "0.0.14";
   pyproject = false;
 
   src = fetchPypi {
     pname = "clarifai_protocol";
-    inherit version;
+    inherit (finalAttrs) version;
     format = "wheel";
     python = "cp${pythonVersionNoDot}";
     abi = "cp${pythonVersionNoDot}";
@@ -82,4 +82,4 @@ buildPythonPackage rec {
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
     maintainers = with lib.maintainers; [ natsukium ];
   };
-}
+})

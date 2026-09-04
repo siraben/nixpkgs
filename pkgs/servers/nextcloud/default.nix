@@ -17,7 +17,7 @@ let
       extraVulnerabilities ? [ ],
       packages,
     }:
-    stdenvNoCC.mkDerivation rec {
+    stdenvNoCC.mkDerivation (finalAttrs: {
       pname = "nextcloud";
       inherit version;
 
@@ -25,7 +25,7 @@ let
       strictDeps = true;
 
       src = fetchurl {
-        url = "https://download.nextcloud.com/server/releases/nextcloud-${version}.tar.bz2";
+        url = "https://download.nextcloud.com/server/releases/nextcloud-${finalAttrs.version}.tar.bz2";
         inherit hash;
       };
 
@@ -38,22 +38,24 @@ let
 
       passthru = {
         tests = lib.filterAttrs (
-          key: _: (lib.hasSuffix (lib.versions.major version) key)
+          key: _: (lib.hasSuffix (lib.versions.major finalAttrs.version) key)
         ) nixosTests.nextcloud;
         inherit packages;
       };
 
       meta = {
-        changelog = "https://nextcloud.com/changelog/#${lib.replaceStrings [ "." ] [ "-" ] version}";
+        changelog = "https://nextcloud.com/changelog/#${
+          lib.replaceStrings [ "." ] [ "-" ] finalAttrs.version
+        }";
         description = "Sharing solution for files, calendars, contacts and more";
         homepage = "https://nextcloud.com";
         teams = [ lib.teams.nextcloud ];
         license = lib.licenses.agpl3Plus;
         platforms = lib.platforms.linux;
         knownVulnerabilities =
-          extraVulnerabilities ++ (lib.optional eol "Nextcloud version ${version} is EOL");
+          extraVulnerabilities ++ (lib.optional eol "Nextcloud version ${finalAttrs.version} is EOL");
       };
-    };
+    });
 in
 {
   nextcloud32 = generic {

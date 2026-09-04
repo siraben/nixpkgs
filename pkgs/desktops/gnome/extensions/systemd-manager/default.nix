@@ -16,7 +16,7 @@ assert lib.elem allowPolkitPolicy [
   "systemctl"
 ];
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "gnome-shell-extension-systemd-manager";
   version = "20";
 
@@ -25,7 +25,7 @@ stdenvNoCC.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "hardpixel";
     repo = "systemd-manager";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-vpqxx41oWEAeBbCoBb3/vW2OR4tw3Q43hIzRkmc+NTs=";
   };
 
@@ -64,4 +64,4 @@ stdenvNoCC.mkDerivation rec {
       doronbehar
     ];
   };
-}
+})

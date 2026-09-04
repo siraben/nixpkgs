@@ -12,7 +12,7 @@
   syrupy,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "connect-box";
   version = "0.4.0";
   pyproject = true;
@@ -20,7 +20,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "home-assistant-ecosystem";
     repo = "python-connect-box";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-zUvZRnxVzg9izvUbp7QVcyu6Bw3dUXHOr0kOQRWEZVc=";
   };
 
@@ -55,8 +55,8 @@ buildPythonPackage rec {
       Hub 3.0 (IE), Ziggo Connectbox (NL) or Unitymedia Connect Box (DE).
     '';
     homepage = "https://github.com/home-assistant-ecosystem/python-connect-box";
-    changelog = "https://github.com/home-assistant-ecosystem/python-connect-box/releases/tag/${version}";
+    changelog = "https://github.com/home-assistant-ecosystem/python-connect-box/releases/tag/${finalAttrs.version}";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

@@ -7,7 +7,7 @@
   baseline,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "exif";
   version = "1.6.0";
   format = "setuptools";
@@ -15,7 +15,7 @@ buildPythonPackage rec {
   src = fetchFromGitLab {
     owner = "TNThieding";
     repo = "exif";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-uiHL3m0C6+YnAHRLwzMCSzffrQsSyVcuem6FBtTLxek=";
   };
 
@@ -31,8 +31,8 @@ buildPythonPackage rec {
   meta = {
     description = "Read and modify image EXIF metadata using Python";
     homepage = "https://gitlab.com/TNThieding/exif";
-    changelog = "https://gitlab.com/TNThieding/exif/-/blob/v${version}/docs/release_notes.rst";
+    changelog = "https://gitlab.com/TNThieding/exif/-/blob/v${finalAttrs.version}/docs/release_notes.rst";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ dnr ];
   };
-}
+})

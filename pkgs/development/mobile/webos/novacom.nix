@@ -7,14 +7,14 @@
   pkg-config,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "novacom";
   version = "18";
 
   src = fetchFromGitHub {
     owner = "openwebos";
     repo = "novacom";
-    rev = "submissions/${version}";
+    rev = "submissions/${finalAttrs.version}";
     sha256 = "12s6g7l20kakyjlhqpli496miv2kfsdp17lcwhdrzdxvxl6hnf4n";
   };
 
@@ -41,4 +41,4 @@ stdenv.mkDerivation rec {
     maintainers = [ ];
     platforms = lib.platforms.linux;
   };
-}
+})

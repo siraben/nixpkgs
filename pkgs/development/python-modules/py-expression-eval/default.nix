@@ -4,7 +4,7 @@
   fetchFromGitHub,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "py-expression-eval";
   version = "0.3.14";
   format = "setuptools";
@@ -12,7 +12,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "axiacore";
     repo = "py-expression-eval";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "YxhZd8V6ofphcNdcbBbrT5mc37O9c6W1mfhsvFVC+KM=";
   };
 
@@ -23,4 +23,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ cynerd ];
   };
-}
+})

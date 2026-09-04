@@ -7,7 +7,7 @@
   setuptools,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pretix-servicefees";
   version = "1.15.1";
   pyproject = true;
@@ -15,7 +15,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "pretix";
     repo = "pretix-servicefees";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-gSxzZGokk498e9R8sPP3pVRkVvgjjHcvC8pxZFZHuU8=";
   };
 
@@ -39,4 +39,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ hexa ];
   };
-}
+})

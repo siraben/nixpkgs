@@ -12,7 +12,7 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "vmprof";
   version = "0.4.17";
   pyproject = true;
@@ -22,7 +22,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "vmprof";
     repo = "vmprof-python";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-7k6mtEdPmp1eNzB4l/k/ExSYtRJVmRxcx50ql8zR36k=";
   };
 
@@ -54,4 +54,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     homepage = "https://vmprof.readthedocs.org/";
   };
-}
+})

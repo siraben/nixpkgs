@@ -14,14 +14,14 @@
   setuptools,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pyspice";
   version = "1.5";
   format = "setuptools";
 
   src = fetchPypi {
     pname = "PySpice";
-    inherit version;
+    inherit (finalAttrs) version;
     sha256 = "d28448accad98959e0f5932af8736e90a1f3f9ff965121c6881d24cdfca23d22";
   };
 
@@ -52,4 +52,4 @@ buildPythonPackage rec {
     license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ matthuszagh ];
   };
-}
+})

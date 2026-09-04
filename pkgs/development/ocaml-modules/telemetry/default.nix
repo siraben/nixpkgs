@@ -4,14 +4,14 @@
   fetchurl,
 }:
 
-buildDunePackage rec {
+buildDunePackage (finalAttrs: {
   pname = "telemetry";
   version = "0.0.1";
 
   minimalOCamlVersion = "4.12";
 
   src = fetchurl {
-    url = "https://github.com/leostera/telemetry/releases/download/${version}/telemetry-${version}.tbz";
+    url = "https://github.com/leostera/telemetry/releases/download/${finalAttrs.version}/telemetry-${finalAttrs.version}.tbz";
     hash = "sha256-YEf7zC/F2zJBtQNfyJ2OznKmoFo1Ms9O2WgiOFkhp28=";
   };
 
@@ -23,4 +23,4 @@ buildDunePackage rec {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.vbgl ];
   };
-}
+})

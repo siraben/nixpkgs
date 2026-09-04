@@ -8,7 +8,7 @@
   untokenize,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "unify";
   version = "0.5";
   pyproject = true;
@@ -19,7 +19,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "myint";
     repo = "unify";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-cWV/Q+LbeIxnQNqyatRWQUF8X+HHlQdc10y9qJ7v3dA=";
   };
 
@@ -44,4 +44,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ FlorianFranzen ];
   };
-}
+})

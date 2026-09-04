@@ -28,15 +28,15 @@ let
     };
   };
 in
-python.pkgs.buildPythonApplication rec {
+python.pkgs.buildPythonApplication (finalAttrs: {
   pname = "odoo";
   version = "${odoo_version}.${odoo_release}";
   pyproject = true;
 
   # latest release is at https://github.com/odoo/docker/blob/master/17.0/Dockerfile
   src = fetchzip {
-    url = "https://nightly.odoo.com/${odoo_version}/nightly/src/odoo_${version}.zip";
-    name = "odoo-${version}";
+    url = "https://nightly.odoo.com/${odoo_version}/nightly/src/odoo_${finalAttrs.version}.zip";
+    name = "odoo-${finalAttrs.version}";
     hash = "sha256-V15Oe3AOBJ1agt5WmpFZnC7EkyoKyxTH8Iqdf2/9aec="; # odoo
   };
   patches = [
@@ -131,4 +131,4 @@ python.pkgs.buildPythonApplication rec {
       siriobalmelli
     ];
   };
-}
+})

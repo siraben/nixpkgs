@@ -6,14 +6,14 @@
   stdenv,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "elm-test-rs";
   version = "3.2.0";
 
   src = fetchFromGitHub {
     owner = "mpizenberg";
     repo = "elm-test-rs";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-RP0VTYMrQ8I/Szi1TFcYHmWpdDh1F1jAhWDYlYVoqyM=";
   };
 
@@ -35,4 +35,4 @@ rustPlatform.buildRustPackage rec {
       turbomack
     ];
   };
-}
+})

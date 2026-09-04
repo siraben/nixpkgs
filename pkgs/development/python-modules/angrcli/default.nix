@@ -11,7 +11,7 @@
   stdenv,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "angrcli";
   version = "1.3.0";
   pyproject = true;
@@ -19,7 +19,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "fmagin";
     repo = "angr-cli";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-egu7jlEk8/i36qQMHztGr959sBt9d5crW8mj6+sKaHI=";
   };
 
@@ -56,4 +56,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

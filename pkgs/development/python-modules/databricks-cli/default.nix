@@ -15,7 +15,7 @@
   tabulate,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "databricks-cli";
   version = "0.18.0";
   format = "setuptools";
@@ -23,7 +23,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "databricks";
     repo = "databricks-cli";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-dH95C2AY/B6F9BROr6rh+gVtKqxsg1gyEU5MzCd5aqs=";
   };
 
@@ -55,8 +55,8 @@ buildPythonPackage rec {
   meta = {
     description = "Command line interface for Databricks";
     homepage = "https://github.com/databricks/databricks-cli";
-    changelog = "https://github.com/databricks/databricks-cli/releases/tag/${version}";
+    changelog = "https://github.com/databricks/databricks-cli/releases/tag/${finalAttrs.version}";
     license = lib.licenses.asl20;
     maintainers = [ ];
   };
-}
+})

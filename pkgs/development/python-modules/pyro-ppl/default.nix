@@ -21,7 +21,7 @@
   wget,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pyro-ppl";
   version = "1.9.1";
   pyproject = true;
@@ -29,7 +29,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "pyro-ppl";
     repo = "pyro";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-Dvbl/80EGoGWGhWYVIf/xjovUJG1+3WtpMH+lx1oB2E=";
   };
 
@@ -73,11 +73,11 @@ buildPythonPackage rec {
   meta = {
     description = "Library for probabilistic modeling and inference";
     homepage = "http://pyro.ai";
-    changelog = "https://github.com/pyro-ppl/pyro/releases/tag/${version}";
+    changelog = "https://github.com/pyro-ppl/pyro/releases/tag/${finalAttrs.version}";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [
       teh
       georgewhewell
     ];
   };
-}
+})

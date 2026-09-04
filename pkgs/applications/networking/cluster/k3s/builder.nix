@@ -210,7 +210,7 @@ let
     stripRoot = false;
   };
   k3sCNIPlugins =
-    (buildGoModule rec {
+    (buildGoModule (finalAttrs: {
       pname = "k3s-cni-plugins";
       version = k3sCNIVersion;
       vendorHash = null;
@@ -220,7 +220,7 @@ let
       src = fetchFromGitHub {
         owner = "rancher";
         repo = "plugins";
-        rev = "v${version}";
+        rev = "v${finalAttrs.version}";
         sha256 = k3sCNISha256;
       };
 
@@ -231,7 +231,7 @@ let
       meta = baseMeta // {
         description = "CNI plugins, as patched by rancher for k3s";
       };
-    }).overrideAttrs
+    })).overrideAttrs
       overrideCniPluginsAttrs;
   # Grab this separately from a build because it's used by both stages of the
   # k3s build.

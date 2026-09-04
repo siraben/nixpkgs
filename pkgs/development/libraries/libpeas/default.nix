@@ -17,7 +17,7 @@
   wrapGAppsHook3,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "libpeas";
   version = "1.38.1";
 
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/libpeas/${lib.versions.majorMinor version}/libpeas-${version}.tar.xz";
+    url = "mirror://gnome/sources/libpeas/${lib.versions.majorMinor finalAttrs.version}/libpeas-${finalAttrs.version}.tar.xz";
     sha256 = "sha256-6C/TKK3KwaujS2QTa9/Lus8rMliovE5fSApyUCphGuk=";
   };
 
@@ -93,4 +93,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.unix;
     teams = [ lib.teams.gnome ];
   };
-}
+})

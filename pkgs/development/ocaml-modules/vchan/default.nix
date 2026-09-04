@@ -11,14 +11,14 @@
   xenstore_transport,
 }:
 
-buildDunePackage rec {
+buildDunePackage (finalAttrs: {
   pname = "vchan";
   version = "6.0.2";
 
   minimalOCamlVersion = "4.08";
 
   src = fetchurl {
-    url = "https://github.com/mirage/ocaml-vchan/releases/download/v${version}/vchan-${version}.tbz";
+    url = "https://github.com/mirage/ocaml-vchan/releases/download/v${finalAttrs.version}/vchan-${finalAttrs.version}.tbz";
     hash = "sha256-fki12lrWuIweGX/vSD2gbMX9qaM4KthiDZLeJYWcX+U=";
   };
 
@@ -43,4 +43,4 @@ buildDunePackage rec {
     maintainers = [ lib.maintainers.sternenseemann ];
     teams = [ lib.teams.xen ];
   };
-}
+})

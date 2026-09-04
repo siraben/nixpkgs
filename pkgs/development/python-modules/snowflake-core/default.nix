@@ -11,14 +11,14 @@
   hatchling,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "snowflake-core";
   version = "1.12.1";
   pyproject = true;
 
   src = fetchPypi {
     pname = "snowflake_core";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-bLECcQHXxtoS/vZQQf8qUahaOU27HwrAlQAMoFTyan4=";
   };
 
@@ -50,4 +50,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.vtimofeenko ];
   };
-}
+})

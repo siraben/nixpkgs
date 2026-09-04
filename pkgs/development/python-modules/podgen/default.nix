@@ -14,7 +14,7 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "podgen";
   version = "1.1.0";
   pyproject = true;
@@ -22,7 +22,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "tobinus";
     repo = "python-podgen";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-IlTbKWNdEHJmEPdslKphZLB5IVERxNL/wqCMbJDHkD4=";
   };
 
@@ -55,7 +55,7 @@ buildPythonPackage rec {
   meta = {
     description = "Python module to generate Podcast feeds";
     downloadPage = "https://github.com/tobinus/python-podgen";
-    changelog = "https://github.com/tobinus/python-podgen/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/tobinus/python-podgen/blob/v${finalAttrs.version}/CHANGELOG.md";
     homepage = "https://podgen.readthedocs.io/en/latest/";
     license = with lib.licenses; [
       bsd2
@@ -63,4 +63,4 @@ buildPythonPackage rec {
     ];
     maintainers = with lib.maintainers; [ ethancedwards8 ];
   };
-}
+})

@@ -12,14 +12,14 @@ builtins.mapAttrs
       mainProgram ? pname,
       subPackages,
     }:
-    buildGoModule rec {
+    buildGoModule (finalAttrs: {
       inherit pname;
       version = "3.32.1";
 
       src = fetchFromGitHub {
         owner = "projectcalico";
         repo = "calico";
-        rev = "v${version}";
+        rev = "v${finalAttrs.version}";
         hash = "sha256-5xC/QleaI1UhtKkDVOydb2QAhE3kCV54pOIxqU6Valw=";
       };
 
@@ -34,14 +34,14 @@ builtins.mapAttrs
 
       meta = {
         homepage = "https://projectcalico.docs.tigera.io";
-        changelog = "https://github.com/projectcalico/calico/releases/tag/v${version}";
+        changelog = "https://github.com/projectcalico/calico/releases/tag/v${finalAttrs.version}";
         description = "Cloud native networking and network security";
         license = lib.licenses.asl20;
         maintainers = [ ];
         platforms = lib.platforms.linux;
         inherit mainProgram;
       };
-    }
+    })
   )
   {
     calico-apiserver = {

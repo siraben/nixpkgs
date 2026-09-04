@@ -6,14 +6,14 @@
   ounit2,
 }:
 
-buildDunePackage rec {
+buildDunePackage (finalAttrs: {
   pname = "xenstore";
   version = "2.3.0";
 
   src = fetchFromGitHub {
     owner = "mirage";
     repo = "ocaml-xenstore";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-LaynsbCE/+2QfbQCOLZi8nw1rqmZtgrwAov9cSxYZw8=";
   };
 
@@ -29,4 +29,4 @@ buildDunePackage rec {
     teams = [ lib.teams.xen ];
     homepage = "https://github.com/mirage/ocaml-xenstore";
   };
-}
+})

@@ -10,7 +10,7 @@
   pytest,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "keepkey";
   version = "7.2.1";
   format = "setuptools";
@@ -18,7 +18,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "keepkey";
     repo = "python-keepkey";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "00hqppdj3s9y25x4ad59y8axq94dd4chhw9zixq32sdrd9v8z55a";
   };
 
@@ -45,4 +45,4 @@ buildPythonPackage rec {
     license = lib.licenses.gpl3;
     maintainers = with lib.maintainers; [ np ];
   };
-}
+})

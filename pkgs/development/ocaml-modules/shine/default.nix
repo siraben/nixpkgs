@@ -6,14 +6,14 @@
   shine,
 }:
 
-buildDunePackage rec {
+buildDunePackage (finalAttrs: {
   pname = "shine";
   version = "0.2.3";
 
   src = fetchFromGitHub {
     owner = "savonet";
     repo = "ocaml-shine";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     sha256 = "sha256-x/ubqPXT89GWYV9KIyzny0rJDB3TBurLX71i0DlvHLU=";
   };
 
@@ -26,4 +26,4 @@ buildDunePackage rec {
     license = lib.licenses.gpl2Only;
     maintainers = with lib.maintainers; [ dandellion ];
   };
-}
+})

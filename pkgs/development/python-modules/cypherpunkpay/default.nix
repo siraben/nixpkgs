@@ -28,7 +28,7 @@
   webtest,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "cypherpunkpay";
   version = "1.0.16";
   pyproject = true;
@@ -36,7 +36,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "CypherpunkPay";
     repo = "CypherpunkPay";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-X0DB0PVwR0gRnt3jixFzglWAOPKBMvqTOG6pK6OJ03w=";
   };
 
@@ -111,11 +111,11 @@ buildPythonPackage rec {
   meta = {
     description = "Modern self-hosted software for accepting Bitcoin";
     homepage = "https://github.com/CypherpunkPay/CypherpunkPay";
-    changelog = "https://github.com/CypherpunkPay/CypherpunkPay/releases/tag/v${version}";
+    changelog = "https://github.com/CypherpunkPay/CypherpunkPay/releases/tag/v${finalAttrs.version}";
     license = with lib.licenses; [
       mit # or
       unlicense
     ];
     maintainers = with lib.maintainers; [ prusnak ];
   };
-}
+})

@@ -9,7 +9,7 @@
   yagrc,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "starlink-grpc-core";
   version = "1.2.5";
   pyproject = true;
@@ -17,7 +17,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "sparky8512";
     repo = "starlink-grpc-tools";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-+KQ0zzgbqnzeQZXBTxnclJQbRioirK8Ym4EjJSQA3ZE=";
   };
 
@@ -42,8 +42,8 @@ buildPythonPackage rec {
   meta = {
     description = "Core functions for Starlink gRPC communication";
     homepage = "https://github.com/sparky8512/starlink-grpc-tools";
-    changelog = "https://github.com/sparky8512/starlink-grpc-tools/releases/tag/v${version}";
+    changelog = "https://github.com/sparky8512/starlink-grpc-tools/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.unlicense;
     maintainers = [ lib.maintainers.jamiemagee ];
   };
-}
+})

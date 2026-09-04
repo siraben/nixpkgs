@@ -5,11 +5,11 @@
   qmake,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   version = "3.26.4";
   pname = "dxflib";
   src = fetchurl {
-    url = "https://qcad.org/archives/dxflib/dxflib-${version}-src.tar.gz";
+    url = "https://qcad.org/archives/dxflib/dxflib-${finalAttrs.version}-src.tar.gz";
     sha256 = "0pwic33mj6bp4axai5jiyn4xqf31y0xmb1i0pcf55b2h9fav8zah";
   };
   nativeBuildInputs = [
@@ -45,4 +45,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.unix;
     description = "DXF file format library";
   };
-}
+})

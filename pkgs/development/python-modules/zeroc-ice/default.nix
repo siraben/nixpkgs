@@ -8,7 +8,7 @@
   openssl,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "zeroc-ice";
   version = "3.8.0.post1";
   pyproject = true;
@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   src = fetchPypi {
     pname = "zeroc_ice";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-SwR/4BSH/8+cYWVKA7aE3bnFOL52fWzynFehZr5VC9c=";
   };
 
@@ -40,4 +40,4 @@ buildPythonPackage rec {
     mainProgram = "slice2py";
     maintainers = [ ];
   };
-}
+})

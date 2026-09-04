@@ -8,14 +8,14 @@
   alsa-lib,
   mpv-unwrapped,
 }:
-flutter332.buildFlutterApplication rec {
+flutter332.buildFlutterApplication (finalAttrs: {
   pname = "jellyflix";
   version = "1.4.886";
 
   src = fetchFromGitHub {
     owner = "jellyflix-app";
     repo = "jellyflix";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-1kQIHUHDRKuJbqrYo40vjmcxSTPEi5uVUSi2MCKk6qA=";
   };
   pubspecLock = lib.importJSON ./pubspec.lock.json;
@@ -102,4 +102,4 @@ flutter332.buildFlutterApplication rec {
     mainProgram = "jellyflix";
     platforms = lib.platforms.linux;
   };
-}
+})

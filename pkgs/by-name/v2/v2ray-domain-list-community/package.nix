@@ -7,13 +7,13 @@
 }:
 
 let
-  generator = pkgsBuildBuild.buildGoModule rec {
+  generator = pkgsBuildBuild.buildGoModule (finalAttrs: {
     pname = "v2ray-domain-list-community";
     version = "20260705030346";
     src = fetchFromGitHub {
       owner = "v2fly";
       repo = "domain-list-community";
-      rev = version;
+      rev = finalAttrs.version;
       hash = "sha256-OA3OSniSHqbov8LcojKxyqepvPCLCAdQaU5ha8hKMZU=";
     };
     vendorHash = "sha256-9tXv+rDBowxDN9gH4zHCr4TRbic4kijco3Y6bojJKRk=";
@@ -23,7 +23,7 @@ let
       license = lib.licenses.mit;
       maintainers = with lib.maintainers; [ nickcao ];
     };
-  };
+  });
 in
 stdenv.mkDerivation {
   inherit (generator)

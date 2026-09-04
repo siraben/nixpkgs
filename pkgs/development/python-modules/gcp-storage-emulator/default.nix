@@ -11,7 +11,7 @@
   requests,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "gcp-storage-emulator";
   version = "2024.08.03";
   pyproject = true;
@@ -19,7 +19,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "oittaa";
     repo = "gcp-storage-emulator";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-Lp9Wvod0wSE2+cnvLXguhagT30ax9TivyR8gC/kB7w0=";
   };
 
@@ -54,4 +54,4 @@ buildPythonPackage rec {
     maintainers = [ ];
     mainProgram = "gcp-storage-emulator";
   };
-}
+})

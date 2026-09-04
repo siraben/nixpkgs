@@ -4,14 +4,14 @@
   fetchFromGitHub,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "npiperelay";
   version = "0.1.0";
 
   src = fetchFromGitHub {
     owner = "jstarks";
     repo = "npiperelay";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "sha256-cg4aZmpTysc8m1euxIO2XPv8OMnBk1DwhFcuIFHF/1o=";
   };
 
@@ -24,4 +24,4 @@ buildGoModule rec {
     maintainers = [ lib.maintainers.shlevy ];
     platforms = lib.platforms.windows;
   };
-}
+})

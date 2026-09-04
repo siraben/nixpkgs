@@ -9,12 +9,12 @@
   apacheHttpd,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "mod_itk";
   version = "2.4.7-04";
 
   src = fetchurl {
-    url = "http://mpm-itk.sesse.net/mpm-itk-${version}.tar.gz";
+    url = "http://mpm-itk.sesse.net/mpm-itk-${finalAttrs.version}.tar.gz";
     sha256 = "sha256:1kzgd1332pgpxf489kr0vdwsaik0y8wp3q282d4wa5jlk7l877v0";
   };
 
@@ -42,4 +42,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.asl20;
     platforms = lib.platforms.unix;
   };
-}
+})

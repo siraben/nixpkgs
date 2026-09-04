@@ -8,14 +8,14 @@
   fetchpatch,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "obs-multi-rtmp";
   version = "0.6.0.1";
 
   src = fetchFromGitHub {
     owner = "sorayuki";
     repo = "obs-multi-rtmp";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-MRBQY9m6rj8HVdn58mK/Vh07FSm0EglRUaP20P3FFO4=";
   };
 
@@ -52,10 +52,10 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "https://github.com/sorayuki/obs-multi-rtmp/";
-    changelog = "https://github.com/sorayuki/obs-multi-rtmp/releases/tag/${version}";
+    changelog = "https://github.com/sorayuki/obs-multi-rtmp/releases/tag/${finalAttrs.version}";
     description = "Multi-site simultaneous broadcast plugin for OBS Studio";
     license = lib.licenses.gpl2Only;
     maintainers = with lib.maintainers; [ jk ];
     inherit (obs-studio.meta) platforms;
   };
-}
+})

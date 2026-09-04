@@ -57,13 +57,13 @@ let
   ];
 in
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "julia";
 
   inherit version patches;
 
   src = fetchurl {
-    url = "https://github.com/JuliaLang/julia/releases/download/v${version}/julia-${version}-full.tar.gz";
+    url = "https://github.com/JuliaLang/julia/releases/download/v${finalAttrs.version}/julia-${finalAttrs.version}-full.tar.gz";
     inherit hash;
   };
 
@@ -90,7 +90,7 @@ stdenv.mkDerivation rec {
     libxml2
     zlib
   ]
-  ++ lib.optionals (lib.versionAtLeast version "1.11") [
+  ++ lib.optionals (lib.versionAtLeast finalAttrs.version "1.11") [
     cacert
   ];
 
@@ -99,22 +99,22 @@ stdenv.mkDerivation rec {
   postPatch = ''
     patchShebangs .
   ''
-  + lib.optionalString (lib.versionAtLeast version "1.11") ''
+  + lib.optionalString (lib.versionAtLeast finalAttrs.version "1.11") ''
     substituteInPlace deps/curl.mk \
       --replace-fail 'jxf $(notdir $<)' \
                      'jxf $(notdir $<) && sed -i "s|/usr/bin/env perl|${lib.getExe buildPackages.perl}|" curl-$(CURL_VER)/scripts/cd2nroff'
   ''
-  + lib.optionalString (lib.versionOlder version "1.12") ''
+  + lib.optionalString (lib.versionOlder finalAttrs.version "1.12") ''
     substituteInPlace deps/tools/common.mk \
       --replace-fail "CMAKE_COMMON := " "CMAKE_COMMON := ${lib.cmakeFeature "CMAKE_POLICY_VERSION_MINIMUM" "3.10"} "
   ''
-  + lib.optionalString (lib.versionAtLeast version "1.12") ''
+  + lib.optionalString (lib.versionAtLeast finalAttrs.version "1.12") ''
     substituteInPlace deps/openssl.mk \
       --replace-fail 'cd $(dir $<) && $(TAR) -zxf $<' \
                      'cd $(dir $<) && $(TAR) -zxf $< && sed -i "s|/usr/bin/env perl|${lib.getExe buildPackages.perl}|" openssl-$(OPENSSL_VER)/Configure'
   '';
 
-  preBuild = lib.optionalString (lib.versionAtLeast version "1.11") ''
+  preBuild = lib.optionalString (lib.versionAtLeast finalAttrs.version "1.11") ''
     # terminfo dirs normally inaccessible in build sandbox
     export TERMINFO="${ncurses.out}/share/terminfo/";
   '';
@@ -152,7 +152,7 @@ stdenv.mkDerivation rec {
   # some tests not working on aarch64-darwin for unrelated reasons
   doInstallCheck =
     stdenv.hostPlatform.isLinux
-    && (lib.versionAtLeast version "1.10" || !stdenv.hostPlatform.isAarch64);
+    && (lib.versionAtLeast finalAttrs.version "1.10" || !stdenv.hostPlatform.isAarch64);
 
   preInstallCheck = ''
     export JULIA_TEST_USE_MULTIPLE_WORKERS="true"
@@ -177,12 +177,14 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  env = lib.optionalAttrs (lib.versionOlder version "1.11" || stdenv.hostPlatform.isAarch64) {
-    NIX_CFLAGS_COMPILE = toString [
-      "-Wno-error=implicit-function-declaration"
-      "-Wno-error=incompatible-pointer-types"
-    ];
-  };
+  env =
+    lib.optionalAttrs (lib.versionOlder finalAttrs.version "1.11" || stdenv.hostPlatform.isAarch64)
+      {
+        NIX_CFLAGS_COMPILE = toString [
+          "-Wno-error=implicit-function-declaration"
+          "-Wno-error=incompatible-pointer-types"
+        ];
+      };
 
   meta = {
     description = "High-level performance-oriented dynamical language for technical computing";
@@ -201,4 +203,4 @@ stdenv.mkDerivation rec {
       "aarch64-darwin"
     ];
   };
-}
+})

@@ -23,7 +23,7 @@
   tf-keras,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "dm-sonnet";
   version = "2.0.2";
   pyproject = true;
@@ -31,7 +31,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "deepmind";
     repo = "sonnet";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-WkloUbqSyPG3cbLG8ktsjdluACkCbUZ7t6rYWst8rs8=";
   };
 
@@ -90,8 +90,8 @@ buildPythonPackage rec {
   meta = {
     description = "Library for building neural networks in TensorFlow";
     homepage = "https://github.com/deepmind/sonnet";
-    changelog = "https://github.com/google-deepmind/sonnet/releases/tag/v${version}";
+    changelog = "https://github.com/google-deepmind/sonnet/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ onny ];
   };
-}
+})

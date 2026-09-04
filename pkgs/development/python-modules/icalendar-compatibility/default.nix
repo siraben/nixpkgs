@@ -9,7 +9,7 @@
   git,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "icalendar-compatibility";
   version = "0.1.4";
   pyproject = true;
@@ -17,14 +17,14 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "niccokunzmann";
     repo = "icalendar_compatibility";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-h9rpbltNEPMteicPJ6oC32NsZS8QXQphLbC0Qiu7j5Q=";
   };
 
   # hatch-vcs tries to read the current git commit hash
   postPatch = ''
     substituteInPlace pyproject.toml \
-      --replace 'dynamic = ["urls", "version"]' 'version = "${version}"'
+      --replace 'dynamic = ["urls", "version"]' 'version = "${finalAttrs.version}"'
   '';
 
   build-system = [
@@ -53,4 +53,4 @@ buildPythonPackage rec {
     maintainers = with lib.maintainers; [ erictapen ];
   };
 
-}
+})

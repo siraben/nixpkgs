@@ -8,7 +8,7 @@
   gmp,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "gmpy";
   version = "2.2.2";
   pyproject = true;
@@ -21,7 +21,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "aleaxit";
     repo = "gmpy";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-joeHec/d82sovfASCU3nlNL6SaThnS/XYPqujiZ9h8s=";
   };
 
@@ -36,4 +36,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/aleaxit/gmpy/";
     license = lib.licenses.lgpl21Plus;
   };
-}
+})

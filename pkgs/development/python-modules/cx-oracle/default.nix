@@ -5,7 +5,7 @@
   odpic,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "cx-oracle";
   version = "8.3.0";
   format = "setuptools";
@@ -14,7 +14,7 @@ buildPythonPackage rec {
 
   src = fetchPypi {
     pname = "cx_Oracle";
-    inherit version;
+    inherit (finalAttrs) version;
     sha256 = "3b2d215af4441463c97ea469b9cc307460739f89fdfa8ea222ea3518f1a424d9";
   };
 
@@ -31,4 +31,4 @@ buildPythonPackage rec {
     homepage = "https://oracle.github.io/python-cx_Oracle";
     license = lib.licenses.bsd3;
   };
-}
+})

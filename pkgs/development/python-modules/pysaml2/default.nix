@@ -20,7 +20,7 @@
   zope-interface,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pysaml2";
   version = "7.5.4";
   pyproject = true;
@@ -28,7 +28,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "IdentityPython";
     repo = "pysaml2";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-DDs0jWONZ78995p7bbyIyZTWHnCI93SsbECqyeo0se8=";
   };
 
@@ -93,8 +93,8 @@ buildPythonPackage rec {
     broken = lib.versionAtLeast xmlschema.version "4.2.0";
     description = "Python implementation of SAML Version 2 Standard";
     homepage = "https://github.com/IdentityPython/pysaml2";
-    changelog = "https://github.com/IdentityPython/pysaml2/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/IdentityPython/pysaml2/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.asl20;
     maintainers = [ ];
   };
-}
+})

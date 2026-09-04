@@ -25,7 +25,7 @@ let
     self = python;
   };
 in
-python.pkgs.buildPythonApplication rec {
+python.pkgs.buildPythonApplication (finalAttrs: {
   pname = "sca2d";
   version = "0.2.2";
   pyproject = true;
@@ -33,7 +33,7 @@ python.pkgs.buildPythonApplication rec {
   src = fetchFromGitLab {
     owner = "bath_open_instrumentation_group";
     repo = "sca2d";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-p0Bv8jcnjcOLBAXN5A4GspSIEG4G4NPA4o0aEtwe/LU=";
   };
 
@@ -50,8 +50,8 @@ python.pkgs.buildPythonApplication rec {
     description = "Experimental static code analyser for OpenSCAD";
     mainProgram = "sca2d";
     homepage = "https://gitlab.com/bath_open_instrumentation_group/sca2d";
-    changelog = "https://gitlab.com/bath_open_instrumentation_group/sca2d/-/blob/v${version}/CHANGELOG.md";
+    changelog = "https://gitlab.com/bath_open_instrumentation_group/sca2d/-/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ traxys ];
   };
-}
+})

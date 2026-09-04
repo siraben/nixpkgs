@@ -5,13 +5,13 @@
   dmenu,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "dmenu-python";
   version = "0.2.1";
   format = "setuptools";
 
   src = fetchPypi {
-    inherit version;
+    inherit (finalAttrs) version;
     pname = "dmenu";
     sha256 = "06v2fq0ciallbib7sbk4kncj0n3gdqp1kz8n5k2669x49wyh34wm";
   };
@@ -27,4 +27,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.nico202 ];
   };
-}
+})

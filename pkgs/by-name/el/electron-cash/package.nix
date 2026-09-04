@@ -7,7 +7,7 @@
   secp256k1,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "electron-cash";
   version = "4.4.2";
   pyproject = true;
@@ -15,7 +15,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "Electron-Cash";
     repo = "Electron-Cash";
-    tag = version;
+    tag = finalAttrs.version;
     sha256 = "sha256-hqaPxetS6JONvlRMjNonXUGFpdmnuadD00gcPzY07x0=";
   };
 
@@ -116,4 +116,4 @@ python3Packages.buildPythonApplication rec {
     ];
     license = lib.licenses.mit;
   };
-}
+})

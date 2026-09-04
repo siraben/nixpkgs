@@ -11,7 +11,7 @@
   tensorboard,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "test-tube";
   version = "0.628";
   format = "setuptools";
@@ -19,7 +19,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "williamFalcon";
     repo = "test-tube";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "0w60xarmcw06gc4002sy7bjfykdz34gbgniswxkl0lw8a1v0xn2m";
   };
 
@@ -40,4 +40,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = [ ];
   };
-}
+})

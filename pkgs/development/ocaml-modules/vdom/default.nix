@@ -7,13 +7,13 @@
   ojs,
 }:
 
-buildDunePackage rec {
+buildDunePackage (finalAttrs: {
   pname = "vdom";
   version = "0.3";
   minimalOCamlVersion = "4.08";
 
   src = fetchzip {
-    url = "https://github.com/LexiFi/ocaml-vdom/archive/refs/tags/${version}.tar.gz";
+    url = "https://github.com/LexiFi/ocaml-vdom/archive/refs/tags/${finalAttrs.version}.tar.gz";
     hash = "sha256-mlXOb+KCdHWNL9PAppan7m7JaP83JEjq+tu14JI+NJo=";
   };
 
@@ -36,4 +36,4 @@ buildDunePackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ jayesh-bhoot ];
   };
-}
+})

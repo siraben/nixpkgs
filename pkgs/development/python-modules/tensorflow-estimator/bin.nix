@@ -7,14 +7,14 @@
   mock,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "tensorflow-estimator";
   version = "2.15.0";
   format = "wheel";
 
   src = fetchPypi {
     pname = "tensorflow_estimator";
-    inherit version;
+    inherit (finalAttrs) version;
     format = "wheel";
     hash = "sha256-rt8h7sf7LckRUPyRoc4SvETbtyJ4oItY55/4fJ4o8VM=";
   };
@@ -30,4 +30,4 @@ buildPythonPackage rec {
     homepage = "http://tensorflow.org";
     license = lib.licenses.asl20;
   };
-}
+})

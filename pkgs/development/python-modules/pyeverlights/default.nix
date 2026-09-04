@@ -5,7 +5,7 @@
   fetchFromGitHub,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pyeverlights";
   version = "0.1.0";
   format = "setuptools";
@@ -13,7 +13,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "joncar";
     repo = "pyeverlights";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "16xpq933j8yydq78fnf4f7ivyw5a45ix4mfycpmm91aj549p6pm0";
   };
 
@@ -29,4 +29,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

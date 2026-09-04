@@ -29,14 +29,14 @@ let
   };
 in
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "fastjet";
   version = "3.5.1.2";
   pyproject = true;
 
   src = fetchPypi {
     pname = "fastjet";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-dDvlFBZrTWhpNhngKuAvu9zpbcLWvz7IpRQsmctvaW0=";
   };
 
@@ -79,8 +79,8 @@ buildPythonPackage rec {
   meta = {
     description = "Jet-finding in the Scikit-HEP ecosystem";
     homepage = "https://github.com/scikit-hep/fastjet";
-    changelog = "https://github.com/scikit-hep/fastjet/releases/tag/v${version}";
+    changelog = "https://github.com/scikit-hep/fastjet/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ veprbl ];
   };
-}
+})

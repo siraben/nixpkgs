@@ -8,7 +8,7 @@
   re,
 }:
 
-buildDunePackage rec {
+buildDunePackage (finalAttrs: {
   pname = "tezt";
   version = "4.3.0";
 
@@ -17,7 +17,7 @@ buildDunePackage rec {
   src = fetchFromGitLab {
     owner = "nomadic-labs";
     repo = "tezt";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-BF+hNqTm9r2S3jGjmjrw+/SHrr87WSe4YUjkc9WRgNo=";
   };
 
@@ -34,4 +34,4 @@ buildDunePackage rec {
     license = lib.licenses.mit;
     broken = lib.versionAtLeast lwt.version "6.0.0";
   };
-}
+})

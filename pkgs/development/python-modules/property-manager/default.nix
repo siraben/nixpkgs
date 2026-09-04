@@ -9,7 +9,7 @@
   pytest-cov-stub,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "property-manager";
   version = "3.0";
   format = "setuptools";
@@ -17,7 +17,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "xolox";
     repo = "python-property-manager";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "1v7hjm7qxpgk92i477fjhpcnjgp072xgr8jrgmbrxfbsv4cvl486";
   };
 
@@ -37,4 +37,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ eyjhb ];
   };
-}
+})

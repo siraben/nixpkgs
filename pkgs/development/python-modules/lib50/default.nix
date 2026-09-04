@@ -13,7 +13,7 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "lib50";
   version = "3.2.1";
   pyproject = true;
@@ -21,7 +21,7 @@ buildPythonPackage rec {
   # latest GitHub release is several years old. Pypi is up to date.
   src = fetchPypi {
     pname = "lib50";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-p+g7rMxrpfMVmeWfzy9wh//dhF0L5H922dkqyqlWolM=";
   };
 
@@ -57,4 +57,4 @@ buildPythonPackage rec {
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ ethancedwards8 ];
   };
-}
+})

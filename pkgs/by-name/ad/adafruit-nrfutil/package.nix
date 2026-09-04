@@ -5,7 +5,7 @@
   fetchpatch,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "adafruit-nrfutil";
   version = "0.5.3.post17";
   pyproject = true;
@@ -13,7 +13,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "adafruit";
     repo = "Adafruit_nRF52_nrfutil";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-mHHKOQE9AGBX8RAyaPOy+JS3fTs98+AFdq9qsVy7go4=";
   };
 
@@ -62,4 +62,4 @@ python3Packages.buildPythonApplication rec {
     license = lib.licenses.unfreeRedistributable;
     maintainers = with lib.maintainers; [ stargate01 ];
   };
-}
+})

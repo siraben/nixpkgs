@@ -15,7 +15,7 @@ let
   };
 in
 
-python3'.pkgs.buildPythonApplication rec {
+python3'.pkgs.buildPythonApplication (finalAttrs: {
   pname = "opshin";
   version = "0.24.3";
 
@@ -24,7 +24,7 @@ python3'.pkgs.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "OpShin";
     repo = "opshin";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-2HfX4yNCVILGuztxwA1L+In+ZiSXLDaO+K9ccgHn3zw=";
   };
 
@@ -46,4 +46,4 @@ python3'.pkgs.buildPythonApplication rec {
     maintainers = with lib.maintainers; [ aciceri ];
     mainProgram = "opshin";
   };
-}
+})

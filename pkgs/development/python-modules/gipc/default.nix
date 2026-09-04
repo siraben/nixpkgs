@@ -8,7 +8,7 @@
   setuptools,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "gipc";
   version = "1.8.0";
   pyproject = true;
@@ -16,7 +16,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "jgehrcke";
     repo = "gipc";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-P3soMA/EBMuhkXQsiLv9gnDBfo9XGosKnSMi+EZ0gaM=";
   };
 
@@ -59,8 +59,8 @@ buildPythonPackage rec {
       anywhere within your gevent-powered application.
     '';
     homepage = "http://gehrcke.de/gipc";
-    changelog = "https://github.com/jgehrcke/gipc/blob/${version}/CHANGELOG.rst";
+    changelog = "https://github.com/jgehrcke/gipc/blob/${finalAttrs.version}/CHANGELOG.rst";
     license = lib.licenses.mit;
     maintainers = [ ];
   };
-}
+})

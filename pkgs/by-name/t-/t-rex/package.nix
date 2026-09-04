@@ -7,14 +7,14 @@
   openssl,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "t-rex";
   version = "0.15.0-alpha3";
 
   src = fetchFromGitHub {
     owner = "t-rex-tileserver";
     repo = "t-rex";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-oZZrR86/acoyMX3vC1JGrpc8G+DEuplqfEAnaP+TBGU=";
   };
 
@@ -33,11 +33,11 @@ rustPlatform.buildRustPackage rec {
   meta = {
     description = "Vector tile server specialized on publishing MVT tiles";
     homepage = "https://t-rex.tileserver.ch/";
-    changelog = "https://github.com/t-rex-tileserver/t-rex/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/t-rex-tileserver/t-rex/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.mit;
     teams = [ lib.teams.geospatial ];
     mainProgram = "t_rex";
     platforms = lib.platforms.unix;
     broken = true; # see https://github.com/t-rex-tileserver/t-rex/issues/320
   };
-}
+})

@@ -7,14 +7,14 @@
   lem,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ocaml${ocaml.version}-linksem";
   version = "0.8";
 
   src = fetchFromGitHub {
     owner = "rems-project";
     repo = "linksem";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-7/YfDK3TruKCckMzAPLRrwBkHRJcX1S+AzXHWRxkZPA=";
   };
 
@@ -35,4 +35,4 @@ stdenv.mkDerivation rec {
     platforms = ocaml.meta.platforms;
     broken = !(lib.versionAtLeast ocaml.version "4.07");
   };
-}
+})

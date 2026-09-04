@@ -8,14 +8,14 @@
   vaultwarden,
 }:
 
-buildNpmPackage rec {
+buildNpmPackage (finalAttrs: {
   pname = "vaultwarden-webvault";
   version = "2026.7.0+0";
 
   src = fetchFromGitHub {
     owner = "vaultwarden";
     repo = "vw_web_builds";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-yX6Lf+7q9ptVAlx0q0Z55GnKhvAIjYvvvKR1ZZroWeo=";
   };
 
@@ -70,4 +70,4 @@ buildNpmPackage rec {
     license = lib.licenses.gpl3Plus;
     inherit (vaultwarden.meta) maintainers;
   };
-}
+})

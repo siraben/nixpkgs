@@ -25,14 +25,14 @@ let
     };
 
 in
-python.pkgs.buildPythonApplication rec {
+python.pkgs.buildPythonApplication (finalAttrs: {
   pname = "nhentai";
   version = "0.5.25";
 
   src = fetchFromGitHub {
     owner = "RicterZ";
     repo = "doujinshi-dl";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-KwcaCeeGeR6qSfraSYyf4VEims9YWB6j3HmpT8XSePo=";
   };
 
@@ -68,4 +68,4 @@ python.pkgs.buildPythonApplication rec {
     maintainers = [ ];
     mainProgram = "nhentai";
   };
-}
+})

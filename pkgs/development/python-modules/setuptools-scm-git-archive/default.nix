@@ -7,13 +7,13 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "setuptools-scm-git-archive";
   version = "1.4.1";
   pyproject = true;
 
   src = fetchPypi {
-    inherit version;
+    inherit (finalAttrs) version;
     pname = "setuptools_scm_git_archive";
     hash = "sha256-xBi8d7OXTTrGXyaPBY8j4B3F+ZHyIzEosOFqad4iewk=";
   };
@@ -37,4 +37,4 @@ buildPythonPackage rec {
     # https://github.com/Changaco/setuptools_scm_git_archive/pull/22
     broken = lib.versionAtLeast setuptools-scm.version "8";
   };
-}
+})

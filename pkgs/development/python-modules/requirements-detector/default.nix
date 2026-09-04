@@ -11,7 +11,7 @@
   pythonOlder,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "requirements-detector";
   version = "1.3.2";
   pyproject = true;
@@ -21,7 +21,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "landscapeio";
     repo = "requirements-detector";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-IWVIYDE/5/9sFgOFftRE4nmY0IDJ0oOvvaGMODkozQg=";
   };
 
@@ -49,9 +49,9 @@ buildPythonPackage rec {
   meta = {
     description = "Python tool to find and list requirements of a Python project";
     homepage = "https://github.com/landscapeio/requirements-detector";
-    changelog = "https://github.com/landscapeio/requirements-detector/releases/tag/${version}";
+    changelog = "https://github.com/landscapeio/requirements-detector/releases/tag/${finalAttrs.version}";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ kamadorueda ];
     mainProgram = "detect-requirements";
   };
-}
+})

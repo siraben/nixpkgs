@@ -41,7 +41,7 @@
   versionCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "huggingface-hub";
   version = "0.36.2";
   pyproject = true;
@@ -49,7 +49,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "huggingface";
     repo = "huggingface_hub";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-cUp5Mm8vgJI/0N/9inQVedGWRde8lioduFoccq6b7UE=";
   };
 
@@ -114,11 +114,11 @@ buildPythonPackage rec {
     description = "Download and publish models and other files on the huggingface.co hub";
     mainProgram = "hf";
     homepage = "https://github.com/huggingface/huggingface_hub";
-    changelog = "https://github.com/huggingface/huggingface_hub/releases/tag/v${version}";
+    changelog = "https://github.com/huggingface/huggingface_hub/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [
       GaetanLepage
       osbm
     ];
   };
-}
+})

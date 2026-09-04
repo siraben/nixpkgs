@@ -12,14 +12,14 @@
   qttools,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "qtspell";
   version = "1.0.2";
 
   src = fetchFromGitHub {
     owner = "manisandro";
     repo = "qtspell";
-    rev = "${version}";
+    rev = "${finalAttrs.version}";
     hash = "sha256-OuEGY+0XJo3EUUcH8xAzlgE6zKPndBvG0arWhG/QO6Y=";
   };
 
@@ -46,9 +46,9 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Provides spell-checking to Qt's text widgets, using the enchant spell-checking library";
     homepage = "https://github.com/manisandro/qtspell";
-    changelog = "https://github.com/manisandro/qtspell/blob/${version}/NEWS";
+    changelog = "https://github.com/manisandro/qtspell/blob/${finalAttrs.version}/NEWS";
     maintainers = with lib.maintainers; [ dansbandit ];
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.all;
   };
-}
+})

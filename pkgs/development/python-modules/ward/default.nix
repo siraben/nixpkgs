@@ -13,7 +13,7 @@
   tomli,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "ward";
   version = "0.68.0b0";
   pyproject = true;
@@ -21,7 +21,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "darrenburns";
     repo = "ward";
-    tag = "release%2F${version}";
+    tag = "release%2F${finalAttrs.version}";
     hash = "sha256-4dEMEEPySezgw3dIcYMl56HrhyaYlql9JvtamOn7Y8g=";
   };
 
@@ -46,7 +46,7 @@ buildPythonPackage rec {
   meta = {
     description = "Test framework for Python";
     homepage = "https://github.com/darrenburns/ward";
-    changelog = "https://github.com/darrenburns/ward/releases/tag/release%2F${version}";
+    changelog = "https://github.com/darrenburns/ward/releases/tag/release%2F${finalAttrs.version}";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ fab ];
     mainProgram = "ward";
@@ -54,4 +54,4 @@ buildPythonPackage rec {
     # https://github.com/darrenburns/ward/issues/380
     broken = lib.versionAtLeast rich.version "13.0.0";
   };
-}
+})

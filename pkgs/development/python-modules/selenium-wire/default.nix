@@ -21,7 +21,7 @@
   zstandard,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "selenium-wire";
   version = "5.1.0";
   pyproject = true;
@@ -29,7 +29,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "wkeeling";
     repo = "selenium-wire";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-KgaDxHS0dAK6CT53L1qqx1aORMmkeaiXAUtGC82hiIQ=";
   };
 
@@ -67,9 +67,9 @@ buildPythonPackage rec {
   meta = {
     description = "Extends Selenium's Python bindings to give you the ability to inspect requests made by the browser";
     homepage = "https://github.com/wkeeling/selenium-wire";
-    changelog = "https://github.com/wkeeling/selenium-wire/blob/${version}/HISTORY.rst";
+    changelog = "https://github.com/wkeeling/selenium-wire/blob/${finalAttrs.version}/HISTORY.rst";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ fab ];
     broken = lib.versionAtLeast blinker.version "1.8";
   };
-}
+})

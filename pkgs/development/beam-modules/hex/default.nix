@@ -16,14 +16,14 @@ let
 
   pkg =
     self:
-    stdenv.mkDerivation rec {
+    stdenv.mkDerivation (finalAttrs: {
       pname = "hex";
       version = "2.5.1";
 
       src = fetchFromGitHub {
         owner = "hexpm";
         repo = "hex";
-        rev = "v${version}";
+        rev = "v${finalAttrs.version}";
         sha256 = "sha256-1xiv8FWX8fk9WBoJXCUfgFN9lo7ClMVUBYb1mmr6u9U=";
       };
 
@@ -63,6 +63,6 @@ let
       passthru = {
         env = shell self;
       };
-    };
+    });
 in
 lib.fix pkg

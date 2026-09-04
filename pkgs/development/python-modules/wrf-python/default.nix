@@ -12,7 +12,7 @@
   wrapt,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "wrf-python";
   version = "1.4.2";
   format = "setuptools";
@@ -20,7 +20,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "NCAR";
     repo = "wrf-python";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-4k0HsWIthFdkXQ5ld65vEcUtR1vqwKuH08lgQdcDh2E=";
   };
 
@@ -54,4 +54,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ mhaselsteiner ];
   };
-}
+})

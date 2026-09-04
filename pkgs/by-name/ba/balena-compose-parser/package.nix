@@ -3,7 +3,7 @@
   fetchFromGitHub,
   lib,
 }:
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   __structuredAttrs = true;
   pname = "balena-compose-parser";
   version = "0.4.0";
@@ -11,7 +11,7 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "balena-io-modules";
     repo = "balena-compose-parser";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-fEvLu2xZlYoILM4DThiSQHG2gbGOB5IQVgmwcLKsKwo=";
   };
 
@@ -21,11 +21,11 @@ buildGoModule rec {
   meta = {
     description = "compose-go wrapper for parsing balena-compatible docker-compose.yml files ";
     homepage = "https://github.com/balena-io-modules/balena-compose-parser";
-    changelog = "https://github.com/balena-io-modules/balena-compose-parser/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/balena-io-modules/balena-compose-parser/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [
       kalebpace
     ];
     mainProgram = "balena-compose-parser";
   };
-}
+})

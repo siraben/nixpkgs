@@ -15,7 +15,7 @@
   python,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pygobject";
   version = "3.56.3";
 
@@ -27,7 +27,7 @@ buildPythonPackage rec {
   pyproject = false;
 
   src = fetchurl {
-    url = "mirror://gnome/sources/pygobject/${lib.versions.majorMinor version}/pygobject-${version}.tar.gz";
+    url = "mirror://gnome/sources/pygobject/${lib.versions.majorMinor finalAttrs.version}/pygobject-${finalAttrs.version}.tar.gz";
     hash = "sha256-EnYOSg49BLbrleBveifjYsgm1WfqYTNzqSwAO2xw0tY=";
   };
 
@@ -79,4 +79,4 @@ buildPythonPackage rec {
     teams = [ lib.teams.gnome ];
     platforms = lib.platforms.unix;
   };
-}
+})

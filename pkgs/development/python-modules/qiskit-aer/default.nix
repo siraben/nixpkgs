@@ -17,7 +17,7 @@
   python-dateutil,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "qiskit-aer";
   version = "0.17.2";
   pyproject = true;
@@ -25,7 +25,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "Qiskit";
     repo = "qiskit-aer";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-aVmGoLMnDjV3iB9s4tvcL62zKvH/p70mqeGsxHzi3nc=";
   };
 
@@ -84,4 +84,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = [ ];
   };
-}
+})

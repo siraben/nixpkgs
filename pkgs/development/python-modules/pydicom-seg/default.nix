@@ -17,7 +17,7 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pydicom-seg";
   version = "0.4.1";
   pyproject = true;
@@ -25,7 +25,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "razorx89";
     repo = "pydicom-seg";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     fetchSubmodules = true;
     hash = "sha256-2Y3fZHKfZqdp5EU8HfVsmJ5JFfVGZuAR7+Kj7qaTiPM=";
   };
@@ -60,10 +60,10 @@ buildPythonPackage rec {
   meta = {
     description = "Medical segmentation file reading and writing";
     homepage = "https://github.com/razorx89/pydicom-seg";
-    changelog = "https://github.com/razorx89/pydicom-seg/releases/tag/v${version}";
+    changelog = "https://github.com/razorx89/pydicom-seg/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ bcdarwin ];
     # ModuleNotFoundError: No module named 'pydicom._storage_sopclass_uids'
     broken = true;
   };
-}
+})

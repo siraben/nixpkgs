@@ -4,7 +4,7 @@
   buildDunePackage,
 }:
 
-buildDunePackage rec {
+buildDunePackage (finalAttrs: {
   pname = "swhid_core";
   version = "0.1";
 
@@ -13,7 +13,7 @@ buildDunePackage rec {
   src = fetchFromGitHub {
     owner = "OCamlPro";
     repo = "swhid_core";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-uLnVbptCvmBeNbOjGjyAWAKgzkKLDTYVFY6SNH2zf0A=";
   };
 
@@ -23,4 +23,4 @@ buildDunePackage rec {
     license = lib.licenses.isc;
     maintainers = [ lib.maintainers.vbgl ];
   };
-}
+})

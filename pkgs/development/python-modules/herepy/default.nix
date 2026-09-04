@@ -8,7 +8,7 @@
   responses,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "herepy";
   version = "3.6.5";
   pyproject = true;
@@ -16,7 +16,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "abdullahselek";
     repo = "HerePy";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-8DwzzC0sTrGnMpuADc55HCIeH/KyWacv8X+Ubh+n7ZM=";
   };
 
@@ -32,10 +32,10 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "herepy" ];
 
   meta = {
-    changelog = "https://github.com/abdullahselek/HerePy/releases/tag/${version}";
+    changelog = "https://github.com/abdullahselek/HerePy/releases/tag/${finalAttrs.version}";
     description = "Library that provides a Python interface to the HERE APIs";
     homepage = "https://github.com/abdullahselek/HerePy";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ dotlambda ];
   };
-}
+})

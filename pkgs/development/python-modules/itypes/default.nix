@@ -5,7 +5,7 @@
   pytest,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "itypes";
   version = "1.2.0";
   format = "setuptools";
@@ -13,7 +13,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     repo = "itypes";
     owner = "tomchristie";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "1ljhjp9pacbrv2phs58vppz1dlxix01p98kfhyclvbml6dgjcr52";
   };
 
@@ -29,4 +29,4 @@ buildPythonPackage rec {
     license = lib.licenses.bsd3;
     maintainers = [ ];
   };
-}
+})

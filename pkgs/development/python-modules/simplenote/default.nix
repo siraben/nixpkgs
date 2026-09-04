@@ -4,7 +4,7 @@
   fetchFromGitHub,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "simplenote";
   version = "2.1.4";
   format = "setuptools";
@@ -12,7 +12,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "simplenote-vim";
     repo = "simplenote.py";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "1grvvgzdybhxjydalnsgh2aaz3f48idv5lqs48gr0cn7n18xwhd5";
   };
 
@@ -22,4 +22,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = [ ];
   };
-}
+})

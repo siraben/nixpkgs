@@ -7,7 +7,7 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pysigma-backend-loki";
   version = "0.13.0";
   pyproject = true;
@@ -15,7 +15,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "grafana";
     repo = "pySigma-backend-loki";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-36fdFuvUSAeGyV5z55/MGcdMiCNz12EbiRw87MjmaKY=";
   };
 
@@ -40,4 +40,4 @@ buildPythonPackage rec {
     license = lib.licenses.lgpl21Only;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

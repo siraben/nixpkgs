@@ -6,14 +6,14 @@
   beancount,
 }:
 
-python3.pkgs.buildPythonApplication rec {
+python3.pkgs.buildPythonApplication (finalAttrs: {
   pname = "beancount-ing-diba";
   version = "1.1.0";
 
   src = fetchFromGitHub {
     owner = "siddhantgoel";
     repo = "beancount-ing";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "sha256-zjwajl+0ix4wnW0bf4MAuO9Lr9F8sBv87TIL5Ghmlxg=";
   };
 
@@ -34,4 +34,4 @@ python3.pkgs.buildPythonApplication rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ matthiasbeyer ];
   };
-}
+})

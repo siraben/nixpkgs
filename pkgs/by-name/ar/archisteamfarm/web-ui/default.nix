@@ -5,7 +5,7 @@
   archisteamfarm,
 }:
 
-buildNpmPackage rec {
+buildNpmPackage (finalAttrs: {
   pname = "asf-ui";
   version = "5e028bc91dd3c0238b602714d96713a205600248";
 
@@ -14,7 +14,7 @@ buildNpmPackage rec {
     repo = "ASF-ui";
     # updated by the update script
     # this is always the commit that should be used with asf-ui from the latest asf version
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-HdUdSrwTXALoT7qmcAYwaeaw1POus8++TBeoqIuEMDM=";
   };
 
@@ -35,4 +35,4 @@ buildNpmPackage rec {
     homepage = "https://github.com/JustArchiNET/ASF-ui";
     inherit (archisteamfarm.meta) maintainers platforms;
   };
-}
+})

@@ -11,7 +11,7 @@
   setuptools-scm,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pytest-doctestplus";
   version = "1.7.0";
   pyproject = true;
@@ -19,7 +19,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "scientific-python";
     repo = "pytest-doctestplus";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-64I0K0+yYU1omGkVgfxeD9r9s9yHp0ik1HAsEc1NNtA=";
   };
 
@@ -64,4 +64,4 @@ buildPythonPackage rec {
     license = lib.licenses.bsd3;
     maintainers = [ ];
   };
-}
+})

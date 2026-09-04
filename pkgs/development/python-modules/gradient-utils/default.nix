@@ -11,7 +11,7 @@
   requests,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "gradient-utils";
   version = "0.5.0";
   pyproject = true;
@@ -19,7 +19,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "Paperspace";
     repo = "gradient-utils";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-swnl0phdOsBSP8AX/OySI/aYI9z60Ss3SsJox/mb9KY=";
   };
 
@@ -64,4 +64,4 @@ buildPythonPackage rec {
     maintainers = [ ];
     platforms = lib.platforms.unix;
   };
-}
+})

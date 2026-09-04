@@ -5,7 +5,7 @@
   setuptools,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pycoolmasternet-async";
   version = "0.2.4";
   pyproject = true;
@@ -13,7 +13,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "OnFreund";
     repo = "pycoolmasternet-async";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-C2JNAg7FdZ0Sfr7HGCQaBOQdWbeDtpBIIhCq3Htsx84=";
   };
 
@@ -30,4 +30,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ dotlambda ];
   };
-}
+})

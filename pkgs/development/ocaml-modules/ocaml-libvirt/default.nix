@@ -10,14 +10,14 @@
   perl,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ocaml-libvirt";
   version = "0.6.1.5";
 
   src = fetchFromGitLab {
     owner = "libvirt";
     repo = "libvirt-ocaml";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "0xpkdmknk74yqxgw8z2w8b7ss8hpx92xnab5fsqg2byyj55gzf2k";
   };
 
@@ -52,4 +52,4 @@ stdenv.mkDerivation rec {
     inherit (ocaml.meta) platforms;
     broken = !(lib.versionAtLeast ocaml.version "4.02");
   };
-}
+})

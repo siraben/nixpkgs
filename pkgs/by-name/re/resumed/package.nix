@@ -4,14 +4,14 @@
   fetchFromGitHub,
 }:
 
-buildNpmPackage rec {
+buildNpmPackage (finalAttrs: {
   pname = "resumed";
   version = "4.1.0";
 
   src = fetchFromGitHub {
     owner = "rbardini";
     repo = "resumed";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-kDv6kOVY8IfztmLeby2NgB5q0DtP1ajMselvr1EDQJ8=";
   };
 
@@ -24,4 +24,4 @@ buildNpmPackage rec {
     maintainers = with lib.maintainers; [ ambroisie ];
     mainProgram = "resumed";
   };
-}
+})

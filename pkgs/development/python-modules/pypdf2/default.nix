@@ -5,7 +5,7 @@
   lib,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pypdf2";
   version = "3.0.1";
 
@@ -13,7 +13,7 @@ buildPythonPackage rec {
 
   src = fetchPypi {
     pname = "PyPDF2";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-p0QI9pumJx9xuTUu9O0D3FOjGqQE0ptdMfU7/s/uFEA=";
   };
 
@@ -27,7 +27,7 @@ buildPythonPackage rec {
   meta = {
     description = "Pure-Python library built as a PDF toolkit";
     homepage = "https://pypdf2.readthedocs.io/";
-    changelog = "https://github.com/py-pdf/PyPDF2/raw/${version}/CHANGELOG.md";
+    changelog = "https://github.com/py-pdf/PyPDF2/raw/${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.bsd3;
     knownVulnerabilities = [
       "CVE-2026-27024"
@@ -38,4 +38,4 @@ buildPythonPackage rec {
       "CVE-2026-33699"
     ];
   };
-}
+})

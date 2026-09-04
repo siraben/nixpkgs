@@ -7,7 +7,7 @@
   setuptools,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "yappi";
   version = "1.7.3";
   pyproject = true;
@@ -15,7 +15,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "sumerc";
     repo = "yappi";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-YbWPx5Wf1s1UCCiDCInw66VnZ005LfON81MN3phT+fU=";
   };
 
@@ -40,4 +40,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = [ ];
   };
-}
+})

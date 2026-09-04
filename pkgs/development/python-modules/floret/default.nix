@@ -9,7 +9,7 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "floret";
   version = "0.10.5";
   pyproject = true;
@@ -17,7 +17,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "explosion";
     repo = "floret";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-7vkw6H0ZQoHEwNusY6QWh/vPbSCdP1ZaaqABHsZH6hQ=";
   };
 
@@ -44,4 +44,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ GaetanLepage ];
   };
-}
+})

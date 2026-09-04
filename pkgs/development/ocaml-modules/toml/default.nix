@@ -6,7 +6,7 @@
   menhir,
 }:
 
-buildDunePackage rec {
+buildDunePackage (finalAttrs: {
   pname = "toml";
   version = "7.1.0";
   minimalOCamlVersion = "4.08";
@@ -15,7 +15,7 @@ buildDunePackage rec {
   src = fetchFromGitHub {
     owner = "ocaml-toml";
     repo = "to.ml";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-uk14Py7lEEDJhFsRRtStXqKlJLtx0o8eS9DEIes4SHw=";
   };
 
@@ -28,4 +28,4 @@ buildDunePackage rec {
     license = lib.licenses.lgpl3;
     maintainers = [ lib.maintainers.vbgl ];
   };
-}
+})

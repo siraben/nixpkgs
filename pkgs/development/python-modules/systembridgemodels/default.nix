@@ -7,7 +7,7 @@
   syrupy,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "systembridgemodels";
   version = "5.1.1";
   pyproject = true;
@@ -15,7 +15,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "timmo001";
     repo = "system-bridge-models";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-Yh16la+3zk+igdMyHov4rf2M1yAT3JYYe/0IYu/SmVY=";
   };
 
@@ -47,10 +47,10 @@ buildPythonPackage rec {
   pytestFlags = [ "--snapshot-warn-unused" ];
 
   meta = {
-    changelog = "https://github.com/timmo001/system-bridge-models/releases/tag/${version}";
+    changelog = "https://github.com/timmo001/system-bridge-models/releases/tag/${finalAttrs.version}";
     description = "This is the models package used by the System Bridge project";
     homepage = "https://github.com/timmo001/system-bridge-models";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ dotlambda ];
   };
-}
+})

@@ -6,14 +6,14 @@
   cmake,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "obs-advanced-masks";
   version = "1.1.0";
 
   src = fetchFromGitHub {
     owner = "FiniteSingularity";
     repo = "obs-advanced-masks";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-NtmOWKk3eZeRa3TvclZpg4sj8lbOoY8hUhxs1z6kEW4=";
   };
 
@@ -40,4 +40,4 @@ stdenv.mkDerivation rec {
     mainProgram = "obs-advanced-masks";
     platforms = lib.platforms.linux;
   };
-}
+})

@@ -4,14 +4,14 @@
   fetchFromGitHub,
   git,
 }:
-buildDotnetModule rec {
+buildDotnetModule (finalAttrs: {
   pname = "min-ed-launcher";
   version = "0.13.0";
 
   src = fetchFromGitHub {
     owner = "rfvgyhn";
     repo = "min-ed-launcher";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-blqGq6PORBEtCLO007TR3xJ6UXX8nFSOIoFh8Dc/5B8=";
 
     leaveDotGit = true; # During build the current commit is appended to the version
@@ -33,4 +33,4 @@ buildDotnetModule rec {
     mainProgram = "MinEdLauncher";
     maintainers = with lib.maintainers; [ jiriks74 ];
   };
-}
+})

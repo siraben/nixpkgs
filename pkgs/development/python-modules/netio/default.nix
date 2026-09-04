@@ -7,7 +7,7 @@
   requests,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "netio";
   version = "1.0.13";
   pyproject = true;
@@ -15,7 +15,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "netioproducts";
     repo = "PyNetio";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-s/X2WGhQXYsbo+ZPpkVSF/vclaThYYNHu0UY0yCnfPA=";
   };
 
@@ -39,8 +39,8 @@ buildPythonPackage rec {
     description = "Module for interacting with NETIO devices";
     mainProgram = "Netio";
     homepage = "https://github.com/netioproducts/PyNetio";
-    changelog = "https://github.com/netioproducts/PyNetio/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/netioproducts/PyNetio/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

@@ -6,14 +6,14 @@
   soundtouch,
 }:
 
-buildDunePackage rec {
+buildDunePackage (finalAttrs: {
   pname = "soundtouch";
   version = "0.1.9";
 
   src = fetchFromGitHub {
     owner = "savonet";
     repo = "ocaml-soundtouch";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "sha256-81Mhk4PZx4jGrVIevzMslvVbKzipzDzHWnbtOjeZCI8=";
   };
 
@@ -26,4 +26,4 @@ buildDunePackage rec {
     license = lib.licenses.lgpl21Plus;
     maintainers = with lib.maintainers; [ dandellion ];
   };
-}
+})

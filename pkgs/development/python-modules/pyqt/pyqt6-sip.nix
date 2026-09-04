@@ -5,14 +5,14 @@
   mesa,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pyqt6-sip";
   version = "13.10.2";
   format = "setuptools";
 
   src = fetchPypi {
     pname = "pyqt6_sip";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-RkrRVr9SZQDOa9BcrHqCKAr2MJl02BZzm0qaYnFW+v4=";
   };
 
@@ -28,4 +28,4 @@ buildPythonPackage rec {
     inherit (mesa.meta) platforms;
     maintainers = with lib.maintainers; [ LunNova ];
   };
-}
+})

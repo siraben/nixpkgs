@@ -8,7 +8,7 @@
   typing-extensions,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "hikari-lightbulb";
   version = "3.2.3";
   pyproject = true;
@@ -16,7 +16,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "tandemdude";
     repo = "hikari-lightbulb";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-u8RrvHaawCIwVN9n7m3Ti29tPr66GNkwpKf/oo5eMUQ=";
   };
 
@@ -46,4 +46,4 @@ buildPythonPackage rec {
     license = lib.licenses.lgpl3Only;
     maintainers = with lib.maintainers; [ tomodachi94 ];
   };
-}
+})

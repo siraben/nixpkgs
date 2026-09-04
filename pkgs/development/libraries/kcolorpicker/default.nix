@@ -9,14 +9,14 @@
 let
   isQt6 = lib.versions.major qtbase.version == "6";
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "kcolorpicker";
   version = "0.3.1";
 
   src = fetchFromGitHub {
     owner = "ksnip";
     repo = "kColorPicker";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-FG/A4pDNuhGPOeJNZlsnX3paEy4ibJVWKxn8rVUGpN8=";
   };
 
@@ -38,4 +38,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ fliegendewurst ];
     platforms = lib.platforms.linux;
   };
-}
+})

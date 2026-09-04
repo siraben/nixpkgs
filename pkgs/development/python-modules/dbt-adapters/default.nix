@@ -13,7 +13,7 @@
   typing-extensions,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "dbt-adapters";
   version = "1.22.10";
   pyproject = true;
@@ -21,7 +21,7 @@ buildPythonPackage rec {
   # missing tags on GitHub
   src = fetchPypi {
     pname = "dbt_adapters";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-KPyp+cLzEHBs4CyPew8pftyhTWvZeteSiqxVr0zily8=";
   };
 
@@ -57,4 +57,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = [ ];
   };
-}
+})

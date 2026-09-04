@@ -9,12 +9,12 @@
   astring,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ocaml${ocaml.version}-ocb-stubblr";
   version = "0.1.1";
 
   src = fetchzip {
-    url = "https://github.com/pqwy/ocb-stubblr/releases/download/v${version}/ocb-stubblr-${version}.tbz";
+    url = "https://github.com/pqwy/ocb-stubblr/releases/download/v${finalAttrs.version}/ocb-stubblr-${finalAttrs.version}.tbz";
     name = "src.tar.bz";
     hash = "sha256-Zd9a2EFT5j944xCFmWD4Td21VB7uGHZoNE4yvgfI9y0=";
   };
@@ -45,4 +45,4 @@ stdenv.mkDerivation rec {
     inherit (ocaml.meta) platforms;
     maintainers = [ lib.maintainers.vbgl ];
   };
-}
+})

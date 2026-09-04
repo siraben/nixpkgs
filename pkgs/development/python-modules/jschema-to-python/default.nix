@@ -8,14 +8,14 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "jschema-to-python";
   version = "1.2.3";
   format = "setuptools";
 
   src = fetchPypi {
     pname = "jschema_to_python";
-    inherit version;
+    inherit (finalAttrs) version;
     sha256 = "76ff14fe5d304708ccad1284e4b11f96a658949a31ee7faed9e0995279549b91";
   };
 
@@ -35,4 +35,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = [ ];
   };
-}
+})

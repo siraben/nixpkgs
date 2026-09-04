@@ -8,7 +8,7 @@
   six,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "python-registry";
   version = "1.4";
   pyproject = true;
@@ -16,7 +16,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "williballenthin";
     repo = "python-registry";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-OgRPcyx+NJnbtETMakUT0p8Pb0Qfzgj+qvWtmJksnT8=";
   };
 
@@ -38,8 +38,8 @@ buildPythonPackage rec {
   meta = {
     description = "Module to parse the Windows Registry hives";
     homepage = "https://github.com/williballenthin/python-registry";
-    changelog = "https://github.com/williballenthin/python-registry/releases/tag/${version}";
+    changelog = "https://github.com/williballenthin/python-registry/releases/tag/${finalAttrs.version}";
     license = lib.licenses.asl20;
     maintainers = [ ];
   };
-}
+})

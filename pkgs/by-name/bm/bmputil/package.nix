@@ -9,14 +9,14 @@
   pkg-config,
   udev,
 }:
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "bmputil";
   version = "1.1.0";
 
   src = fetchFromCodeberg {
     owner = "blackmagic-debug";
     repo = "bmputil";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-ZD/JXsx52U+O3FazRc9xnShx34fxTXcD2zhW5mgSYtU=";
   };
 
@@ -53,4 +53,4 @@ rustPlatform.buildRustPackage rec {
       lib.maintainers.carlossless
     ];
   };
-}
+})

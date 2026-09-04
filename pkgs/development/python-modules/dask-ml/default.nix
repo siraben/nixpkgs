@@ -24,7 +24,7 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "dask-ml";
   version = "2025.1.0";
   pyproject = true;
@@ -32,7 +32,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "dask";
     repo = "dask-ml";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-DHxx0LFuJmGWYuG/WGHj+a5XHAEekBmlHUUb90rl2IY=";
   };
 
@@ -131,4 +131,4 @@ buildPythonPackage rec {
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ GaetanLepage ];
   };
-}
+})

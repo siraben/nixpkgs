@@ -4,7 +4,7 @@
   fetchFromGitLab,
 }:
 
-python3.pkgs.buildPythonPackage rec {
+python3.pkgs.buildPythonPackage (finalAttrs: {
   pname = "hid-tools";
   version = "0.7";
 
@@ -14,7 +14,7 @@ python3.pkgs.buildPythonPackage rec {
     domain = "gitlab.freedesktop.org";
     owner = "libevdev";
     repo = "hid-tools";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-h880jJcZDc9pIPf+nr30wu2i9y3saAKFZpooJ4MF67E=";
   };
 
@@ -51,4 +51,4 @@ python3.pkgs.buildPythonPackage rec {
     license = lib.licenses.mit;
     teams = [ lib.teams.freedesktop ];
   };
-}
+})

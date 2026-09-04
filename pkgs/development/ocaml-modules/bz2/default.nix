@@ -8,14 +8,14 @@
   autoreconfHook,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ocaml${ocaml.version}-bz2";
   version = "0.7.0";
 
   src = fetchFromGitLab {
     owner = "irill";
     repo = "camlbz2";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-jBFEkLN2fbC3LxTu7C0iuhvNg64duuckBHWZoBxrV/U=";
   };
 
@@ -46,4 +46,4 @@ stdenv.mkDerivation rec {
     broken = lib.versionOlder ocaml.version "4.02" || lib.versionAtLeast ocaml.version "5.0";
     maintainers = [ ];
   };
-}
+})

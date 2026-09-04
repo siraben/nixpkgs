@@ -33,14 +33,14 @@ let
   };
 in
 let
-  iscan-data = stdenv.mkDerivation rec {
+  iscan-data = stdenv.mkDerivation (finalAttrs: {
     pname = "iscan-data";
     version = "1.39.2-1";
 
     src = fetchurl {
       urls = [
-        "http://support.epson.net/linux/src/scanner/iscan/iscan-data_${version}.tar.gz"
-        "https://web.archive.org/web/http://support.epson.net/linux/src/scanner/iscan/iscan-data_${version}.tar.gz"
+        "http://support.epson.net/linux/src/scanner/iscan/iscan-data_${finalAttrs.version}.tar.gz"
+        "https://web.archive.org/web/http://support.epson.net/linux/src/scanner/iscan/iscan-data_${finalAttrs.version}.tar.gz"
       ];
       sha256 = "092qhlnjjgz11ifx6mng7mz20i44gc0nlccrbmw18xr5hipbqqka";
     };
@@ -50,7 +50,7 @@ let
     ];
 
     meta = common_meta;
-  };
+  });
 in
 stdenv.mkDerivation rec {
   pname = "iscan";

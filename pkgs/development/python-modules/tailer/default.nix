@@ -5,7 +5,7 @@
   python,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "tailer";
   version = "0.4.1";
   format = "setuptools";
@@ -13,7 +13,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "six8";
     repo = "pytailer";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "1s5p5m3q9k7r1m0wx5wcxf20xzs0rj14qwg1ydwhf6adr17y2w5y";
   };
 
@@ -32,4 +32,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

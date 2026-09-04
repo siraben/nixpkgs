@@ -7,7 +7,7 @@
   python,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "django-sites";
   version = "0.11";
   format = "setuptools";
@@ -15,7 +15,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "niwinz";
     repo = "django-sites";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-MQtQC+9DyS1ICXXovbqPpkKIQ5wpuJDgq3Lcd/1kORU=";
   };
 
@@ -38,4 +38,4 @@ buildPythonPackage rec {
     # has not been updated for django>=4.0
     broken = lib.versionAtLeast django.version "4";
   };
-}
+})

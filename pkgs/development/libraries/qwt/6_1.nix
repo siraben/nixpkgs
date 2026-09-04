@@ -8,12 +8,12 @@
   qmake,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "qwt";
   version = "6.1.6";
 
   src = fetchurl {
-    url = "mirror://sourceforge/qwt/qwt-${version}.tar.bz2";
+    url = "mirror://sourceforge/qwt/qwt-${finalAttrs.version}.tar.bz2";
     sha256 = "sha256-mUYNMcEV7kEXsBddiF9HwsWQ14QgbwmBXcBY++Xt4fY=";
   };
 
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     sed -e "s|QWT_INSTALL_PREFIX.*=.*|QWT_INSTALL_PREFIX = $out|g" -i qwtconfig.pri
   '';
 
-  qmakeFlags = [ "-after doc.path=$out/share/doc/qwt-${version}" ];
+  qmakeFlags = [ "-after doc.path=$out/share/doc/qwt-${finalAttrs.version}" ];
 
   dontWrapQtApps = true;
 
@@ -43,4 +43,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.unix;
     maintainers = [ lib.maintainers.bjornfor ];
   };
-}
+})

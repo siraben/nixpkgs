@@ -7,14 +7,14 @@
   robotframework-pythonlibcore,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "robotframework-assertion-engine";
   version = "3.0.3";
   pyproject = true;
 
   src = fetchPypi {
     pname = "robotframework_assertion_engine";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-HGCNTGnZZSCYah3cbe8Px/foSVIPHmiCpjO1HbuY/Yg=";
   };
 
@@ -37,4 +37,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ bjornfor ];
   };
-}
+})

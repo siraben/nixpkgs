@@ -13,13 +13,13 @@
   vala,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   version = "3.2.15";
   pname = "gmime";
 
   src = fetchurl {
     # https://github.com/jstedfast/gmime/releases
-    url = "https://github.com/jstedfast/gmime/releases/download/${version}/gmime-${version}.tar.xz";
+    url = "https://github.com/jstedfast/gmime/releases/download/${finalAttrs.version}/gmime-${finalAttrs.version}.tar.xz";
     sha256 = "sha256-hM0qSBonlw7Dm1yV9y2wJnIpBKLM8/29V7KAzy0CtcQ=";
   };
 
@@ -80,4 +80,4 @@ stdenv.mkDerivation rec {
     maintainers = [ ];
     platforms = lib.platforms.unix;
   };
-}
+})

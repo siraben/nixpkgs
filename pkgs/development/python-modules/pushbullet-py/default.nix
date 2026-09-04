@@ -11,13 +11,13 @@
   pythonAtLeast,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pushbullet-py";
   version = "0.12.0";
   pyproject = true;
 
   src = fetchPypi {
-    inherit version;
+    inherit (finalAttrs) version;
     pname = "pushbullet.py";
     sha256 = "917883e1af4a0c979ce46076b391e0243eb8fe0a81c086544bcfa10f53e5ae64";
   };
@@ -53,4 +53,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/randomchars/pushbullet.py";
     license = lib.licenses.mit;
   };
-}
+})

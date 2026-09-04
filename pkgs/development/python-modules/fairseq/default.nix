@@ -28,7 +28,7 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "fairseq";
   version = "0.12.3";
   pyproject = true;
@@ -36,7 +36,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "pytorch";
     repo = "fairseq";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-XX/grU5ljQCwx33miGoFc/7Uj9fZDtmhm4Fz7L4U+Bc=";
   };
 
@@ -120,4 +120,4 @@ buildPythonPackage rec {
     maintainers = with lib.maintainers; [ happysalada ];
     broken = true; # requires numpy1 which is incompatible with sacrebleu depending on numpy2
   };
-}
+})

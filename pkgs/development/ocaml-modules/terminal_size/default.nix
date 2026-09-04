@@ -6,14 +6,14 @@
   alcotest,
 }:
 
-buildDunePackage rec {
+buildDunePackage (finalAttrs: {
   pname = "terminal_size";
   version = "0.2.0";
 
   duneVersion = "3";
 
   src = fetchurl {
-    url = "https://github.com/cryptosense/terminal_size/releases/download/v${version}/terminal_size-${version}.tbz";
+    url = "https://github.com/cryptosense/terminal_size/releases/download/v${finalAttrs.version}/terminal_size-${finalAttrs.version}.tbz";
     hash = "sha256-1rYs0oxAcayFypUoCIdFwSTJCU7+rpFyJRRzb5lzsPs=";
   };
 
@@ -26,4 +26,4 @@ buildDunePackage rec {
     license = lib.licenses.bsd2;
     maintainers = [ lib.maintainers.sternenseemann ];
   };
-}
+})

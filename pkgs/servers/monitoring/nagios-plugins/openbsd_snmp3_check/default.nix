@@ -6,7 +6,7 @@
   python3Packages,
   testers,
 }:
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "openbsd_snmp3_check";
   version = "0.55";
   pyproject = false;
@@ -14,7 +14,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "alexander-naumov";
     repo = "openbsd_snmp3_check";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-qDYANMvQU72f9wz8os7S1PfBH08AAqhtWLHVuSmkub4=";
   };
 
@@ -30,7 +30,7 @@ python3Packages.buildPythonApplication rec {
   };
 
   meta = {
-    changelog = "https://github.com/alexander-naumov/openbsd_snmp3_check/releases/tag/v${version}";
+    changelog = "https://github.com/alexander-naumov/openbsd_snmp3_check/releases/tag/v${finalAttrs.version}";
     description = "SNMP v3 check for OpenBSD systems state monitoring";
     homepage = "https://github.com/alexander-naumov/openbsd_snmp3_check";
     license = lib.licenses.bsd3;
@@ -38,4 +38,4 @@ python3Packages.buildPythonApplication rec {
     maintainers = with lib.maintainers; [ jwillikers ];
     mainProgram = "openbsd_snmp3.py";
   };
-}
+})

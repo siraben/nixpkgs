@@ -14,14 +14,14 @@
   libxml2,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "wingpanel-indicator-nightlight";
   version = "2.1.3";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "wingpanel-indicator-nightlight";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-77+JGJ0/Y9UJwOuKfJAqjNnmZfBy/YiEwCybx6yoVwM=";
   };
 
@@ -51,4 +51,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     teams = [ lib.teams.pantheon ];
   };
-}
+})

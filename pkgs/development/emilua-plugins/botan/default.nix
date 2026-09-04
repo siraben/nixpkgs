@@ -18,14 +18,14 @@
   botan3,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "emilua-botan";
   version = "1.2.1";
 
   src = fetchFromGitLab {
     owner = "emilua";
     repo = "botan";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-b5yOkjXKnJBQWSKCqiHJcznH1QOmTVgBbS5IwP3VTXA=";
   };
 
@@ -59,4 +59,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ manipuladordedados ];
     platforms = lib.platforms.linux;
   };
-}
+})

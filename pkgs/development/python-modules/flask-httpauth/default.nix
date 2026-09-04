@@ -7,14 +7,14 @@
   flask,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "flask-httpauth";
   version = "4.8.0";
   pyproject = true;
 
   src = fetchPypi {
     pname = "Flask-HTTPAuth";
-    version = version;
+    version = finalAttrs.version;
     hash = "sha256-ZlaKBbxzlCxl8eIgGudGKVgW3ACe3YS0gsRMdY11CXo=";
   };
 
@@ -29,8 +29,8 @@ buildPythonPackage rec {
   meta = {
     description = "Extension that provides HTTP authentication for Flask routes";
     homepage = "https://github.com/miguelgrinberg/Flask-HTTPAuth";
-    changelog = "https://github.com/miguelgrinberg/Flask-HTTPAuth/blob/v${version}/CHANGES.md";
+    changelog = "https://github.com/miguelgrinberg/Flask-HTTPAuth/blob/v${finalAttrs.version}/CHANGES.md";
     license = lib.licenses.mit;
     maintainers = [ ];
   };
-}
+})

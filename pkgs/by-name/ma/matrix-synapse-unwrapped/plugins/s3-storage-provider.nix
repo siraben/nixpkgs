@@ -10,7 +10,7 @@
   psycopg2,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "matrix-synapse-s3-storage-provider";
   version = "1.7.0";
   format = "setuptools";
@@ -18,7 +18,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "matrix-org";
     repo = "synapse-s3-storage-provider";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-QeSzaxUQdwCiA4Mvc8ZQMFjyRFKcLRb8dQXykI5AFD4=";
   };
 
@@ -52,8 +52,8 @@ buildPythonPackage rec {
     description = "Synapse storage provider to fetch and store media in Amazon S3";
     mainProgram = "s3_media_upload";
     homepage = "https://github.com/matrix-org/synapse-s3-storage-provider";
-    changelog = "https://github.com/matrix-org/synapse-s3-storage-provider/releases/tag/v${version}";
+    changelog = "https://github.com/matrix-org/synapse-s3-storage-provider/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.asl20;
     maintainers = [ ];
   };
-}
+})

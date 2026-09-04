@@ -36,12 +36,12 @@
   systemdLibs,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "apache-httpd";
   version = "2.4.68";
 
   src = fetchurl {
-    url = "mirror://apache/httpd/httpd-${version}.tar.bz2";
+    url = "mirror://apache/httpd/httpd-${finalAttrs.version}.tar.bz2";
     hash = "sha256-aMdNTfOMJr7U372487rx61MvOHI1e+zBu6XRNva2PAY=";
   };
 
@@ -172,4 +172,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
     maintainers = with lib.maintainers; [ arcayr ];
   };
-}
+})

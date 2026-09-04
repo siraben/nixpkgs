@@ -5,7 +5,7 @@
   setuptools,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "cgroup-utils";
   version = "0.8";
   pyproject = true;
@@ -13,7 +13,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "peo3";
     repo = "cgroup-utils";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "0qnbn8cnq8m14s8s1hcv25xjd55dyb6yy54l5vc7sby5xzzp11fq";
   };
 
@@ -38,4 +38,4 @@ buildPythonPackage rec {
     platforms = lib.platforms.linux;
     license = lib.licenses.gpl2Plus;
   };
-}
+})

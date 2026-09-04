@@ -10,7 +10,7 @@
   poetry-core,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "django-mcp-server";
   version = "0.5.6";
   pyproject = true;
@@ -18,7 +18,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "omarbenhamid";
     repo = "django-mcp-server";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-HR4AzeDT/oWJe/exsV5AqwSebJPGT/vlzuk3qTgVb/M=";
   };
 
@@ -47,4 +47,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ mrmebelman ];
   };
-}
+})

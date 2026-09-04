@@ -11,14 +11,14 @@
   openvpn,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "openvpn-auth-ldap";
   version = "2.0.4";
 
   src = fetchFromGitHub {
     owner = "threerings";
     repo = "openvpn-auth-ldap";
-    rev = "auth-ldap-${version}";
+    rev = "auth-ldap-${finalAttrs.version}";
     sha256 = "1j30sygj8nm8wjqxzpb7pfzr3dxqxggswzxd7z5yk7y04c0yp1hb";
   };
 
@@ -79,4 +79,4 @@ stdenv.mkDerivation rec {
     maintainers = [ lib.maintainers.benley ];
     platforms = lib.platforms.unix;
   };
-}
+})

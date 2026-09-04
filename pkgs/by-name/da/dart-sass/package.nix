@@ -21,14 +21,14 @@ let
     hash = "sha256-yX30i1gbVZalVhefj9c37mpFOIDaQlsLeAh7UnY56ro=";
   };
 in
-buildDartApplication rec {
+buildDartApplication (finalAttrs: {
   pname = "dart-sass";
   version = "1.103.0";
 
   src = fetchFromGitHub {
     owner = "sass";
     repo = "dart-sass";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-ppJCpAR28gBiDMH6uq/gyVH5PsmdYszkmqPO+ycjPcY=";
   };
 
@@ -46,7 +46,7 @@ buildDartApplication rec {
     buf generate
   '';
 
-  dartCompileFlags = [ "--define=version=${version}" ];
+  dartCompileFlags = [ "--define=version=${finalAttrs.version}" ];
 
   postInstall = ''
     # dedupe identiall binaries
@@ -94,4 +94,4 @@ buildDartApplication rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ lelgenio ];
   };
-}
+})

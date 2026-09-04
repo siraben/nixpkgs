@@ -13,7 +13,7 @@
 let
   librusty_v8 = callPackage ./librusty_v8.nix { };
 in
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "obscura";
   __structuredAttrs = true;
   version = "0.2.0";
@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage rec {
   src = fetchFromGitHub {
     owner = "h4ckf0r0day";
     repo = "obscura";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-f09I77mKhQA1mCt8YmtVqbK/QIb9MrvhpYav+FJdkRI=";
   };
 
@@ -54,7 +54,7 @@ rustPlatform.buildRustPackage rec {
     # 0.1.0 at the v0.2.0 tag); obscura-cli/build.rs only reports the git tag
     # on GitHub Actions and otherwise falls back to CARGO_PKG_VERSION. Pin it
     # here so `obscura --version` matches the packaged release.
-    OBSCURA_VERSION = version;
+    OBSCURA_VERSION = finalAttrs.version;
   };
 
   passthru = {
@@ -78,4 +78,4 @@ rustPlatform.buildRustPackage rec {
     ];
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
   };
-}
+})

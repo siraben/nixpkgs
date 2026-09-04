@@ -8,7 +8,7 @@
   ordered-set,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pluthon";
   version = "1.3.5";
 
@@ -17,7 +17,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "OpShin";
     repo = "pluthon";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-9I4GLdaBxp1xG/3rFZvagugIhB0Vs21bMzPTI1/eKcE=";
   };
 
@@ -35,4 +35,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ aciceri ];
   };
-}
+})

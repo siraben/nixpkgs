@@ -327,14 +327,14 @@ let
 
   tests-go =
     let
-      pet_0_3_4 = pkgs.buildGoModule rec {
+      pet_0_3_4 = pkgs.buildGoModule (finalAttrs: {
         pname = "pet";
         version = "0.3.4";
 
         src = pkgs.fetchFromGitHub {
           owner = "knqyf263";
           repo = "pet";
-          rev = "v${version}";
+          rev = "v${finalAttrs.version}";
           hash = "sha256-Gjw1dRrgM8D3G7v6WIM2+50r4HmTXvx0Xxme2fH9TlQ=";
         };
 
@@ -346,16 +346,16 @@ let
           license = lib.licenses.mit;
           maintainers = with lib.maintainers; [ kalbasit ];
         };
-      };
+      });
 
-      pet_0_4_0 = pkgs.buildGoModule rec {
+      pet_0_4_0 = pkgs.buildGoModule (finalAttrs: {
         pname = "pet";
         version = "0.4.0";
 
         src = pkgs.fetchFromGitHub {
           owner = "knqyf263";
           repo = "pet";
-          rev = "v${version}";
+          rev = "v${finalAttrs.version}";
           hash = "sha256-gVTpzmXekQxGMucDKskGi+e+34nJwwsXwvQTjRO6Gdg=";
         };
 
@@ -367,7 +367,7 @@ let
           license = lib.licenses.mit;
           maintainers = with lib.maintainers; [ kalbasit ];
         };
-      };
+      });
 
       pet_0_4_0-overridden = pet_0_3_4.overrideAttrs (
         finalAttrs: previousAttrs: {

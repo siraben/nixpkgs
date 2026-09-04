@@ -8,7 +8,7 @@
   snowflake-connector-python,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "dbt-snowflake";
   version = "1.11.1";
   pyproject = true;
@@ -16,7 +16,7 @@ buildPythonPackage rec {
   # missing tags on GitHub
   src = fetchPypi {
     pname = "dbt_snowflake";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-C2uS13vwN9AuZ0XgrdRHMsunuzSwoM06HGFmJ45Bs0A=";
   };
 
@@ -49,4 +49,4 @@ buildPythonPackage rec {
     changelog = "https://github.com/dbt-labs/dbt-adapters/blob/main/dbt-snowflake/CHANGELOG.md";
     license = lib.licenses.asl20;
   };
-}
+})

@@ -6,7 +6,7 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "imapclient";
   version = "3.1.0";
 
@@ -15,7 +15,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "mjs";
     repo = "imapclient";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-J+pB+jXAoZItvaR8o+97sETFYxWj+uslmvsAe/Q0Gzc=";
   };
 
@@ -40,4 +40,4 @@ buildPythonPackage rec {
       dotlambda
     ];
   };
-}
+})

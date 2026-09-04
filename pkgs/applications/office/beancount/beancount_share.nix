@@ -6,14 +6,14 @@
   beancount-plugin-utils,
 }:
 
-python3.pkgs.buildPythonApplication rec {
+python3.pkgs.buildPythonApplication (finalAttrs: {
   pname = "beancount_share";
   version = "0.1.11";
 
   src = fetchFromGitHub {
     owner = "akuukis";
     repo = "beancount_share";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "sha256-BW2KEC0pmervT71FBixPcQciEuGcElCd2wW7BZL1xUg=";
   };
 
@@ -34,4 +34,4 @@ python3.pkgs.buildPythonApplication rec {
     license = lib.licenses.agpl3Plus;
     maintainers = with lib.maintainers; [ matthiasbeyer ];
   };
-}
+})

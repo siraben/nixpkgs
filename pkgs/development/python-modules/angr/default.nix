@@ -35,7 +35,7 @@
   unique-log-filter,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "angr";
   version = "9.2.193";
   pyproject = true;
@@ -43,7 +43,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "angr";
     repo = "angr";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-7wBfxHWD5FRin8pfKup4izJBQzFN5N5dQZqIto5y83k=";
   };
 
@@ -109,4 +109,4 @@ buildPythonPackage rec {
     license = lib.licenses.bsd2;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

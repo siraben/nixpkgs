@@ -13,7 +13,7 @@
   yarl,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "elgato";
   version = "5.1.2";
   pyproject = true;
@@ -21,14 +21,14 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "frenck";
     repo = "python-elgato";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-NAU4tr0oaAPPrOUZYl9WoGOM68MlrBqGewHBIiIv2XY=";
   };
 
   postPatch = ''
     # Upstream doesn't set a version for the pyproject.toml
     substituteInPlace pyproject.toml \
-      --replace "0.0.0" "${version}"
+      --replace "0.0.0" "${finalAttrs.version}"
   '';
 
   build-system = [ poetry-core ];
@@ -52,8 +52,8 @@ buildPythonPackage rec {
   meta = {
     description = "Python client for Elgato Key Lights";
     homepage = "https://github.com/frenck/python-elgato";
-    changelog = "https://github.com/frenck/python-elgato/releases/tag/v${version}";
+    changelog = "https://github.com/frenck/python-elgato/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

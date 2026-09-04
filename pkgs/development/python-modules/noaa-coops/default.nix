@@ -9,14 +9,14 @@
   zeep,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "noaa-coops";
   version = "0.4.0";
   pyproject = true;
 
   src = fetchPypi {
     pname = "noaa_coops";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-m3hTzUspYTMukwcj3uBbRahTmXbL1aJVD9NXfjwghB8=";
   };
 
@@ -42,4 +42,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.jamiemagee ];
   };
-}
+})

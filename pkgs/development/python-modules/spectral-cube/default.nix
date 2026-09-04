@@ -24,7 +24,7 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "spectral-cube";
   version = "0.6.7";
   pyproject = true;
@@ -32,7 +32,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "radio-astro-tools";
     repo = "spectral-cube";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-l5r7oeWr/JrmGOmUo4po2VlGldh8y7E3ufd+Gw1/JmM=";
   };
 
@@ -80,8 +80,8 @@ buildPythonPackage rec {
   meta = {
     description = "Library for reading and analyzing astrophysical spectral data cubes";
     homepage = "https://spectral-cube.readthedocs.io";
-    changelog = "https://github.com/radio-astro-tools/spectral-cube/releases/tag/v${version}";
+    changelog = "https://github.com/radio-astro-tools/spectral-cube/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ smaret ];
   };
-}
+})

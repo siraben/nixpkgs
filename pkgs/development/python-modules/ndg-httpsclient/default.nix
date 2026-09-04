@@ -6,7 +6,7 @@
   pyopenssl,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   version = "0.5.1";
   format = "setuptools";
   pname = "ndg-httpsclient";
@@ -14,7 +14,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "cedadev";
     repo = "ndg_httpsclient";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "0lhsgs4am4xyjssng5p0vkfwqncczj1dpa0vss4lrhzq86mnn5rz";
   };
 
@@ -33,4 +33,4 @@ buildPythonPackage rec {
     license = lib.licenses.bsd2;
     maintainers = [ ];
   };
-}
+})

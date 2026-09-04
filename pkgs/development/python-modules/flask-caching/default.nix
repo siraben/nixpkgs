@@ -11,14 +11,14 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "flask-caching";
   version = "2.3.1";
   format = "setuptools";
 
   src = fetchPypi {
     pname = "flask_caching";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-Zdf9G07r+BD4RN595iWCVLMkgpbuQpvcs/dBvL97mMk=";
   };
 
@@ -55,8 +55,8 @@ buildPythonPackage rec {
   meta = {
     description = "Caching extension for Flask";
     homepage = "https://github.com/pallets-eco/flask-caching";
-    changelog = "https://github.com/pallets-eco/flask-caching/blob/v${version}/CHANGES.rst";
+    changelog = "https://github.com/pallets-eco/flask-caching/blob/v${finalAttrs.version}/CHANGES.rst";
     maintainers = [ ];
     license = lib.licenses.bsd3;
   };
-}
+})

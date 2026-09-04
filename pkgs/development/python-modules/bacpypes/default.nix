@@ -7,7 +7,7 @@
   pythonAtLeast,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "bacpypes";
   version = "0.18.6";
   format = "setuptools";
@@ -18,7 +18,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "JoelBender";
     repo = "bacpypes";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-BHCHI36nTqBj2dkHB/Y5qkC4uJCmzbHGzSFWKNsIdbc=";
   };
 
@@ -42,8 +42,8 @@ buildPythonPackage rec {
   meta = {
     description = "Module for the BACnet application layer and network layer";
     homepage = "https://github.com/JoelBender/bacpypes";
-    changelog = "https://github.com/JoelBender/bacpypes/releases/tag/v${version}";
+    changelog = "https://github.com/JoelBender/bacpypes/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ bachp ];
   };
-}
+})

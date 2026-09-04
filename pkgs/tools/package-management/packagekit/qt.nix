@@ -7,14 +7,14 @@
   packagekit,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "packagekit-qt";
   version = "1.1.4";
 
   src = fetchFromGitHub {
     owner = "hughsie";
     repo = "PackageKit-Qt";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-D1LsEaxc6lA0ULmYQ9n2KEs6NpoHeTgOJsKzdEnImUM=";
   };
 
@@ -31,4 +31,4 @@ stdenv.mkDerivation rec {
   meta = packagekit.meta // {
     description = "System to facilitate installing and updating packages - Qt";
   };
-}
+})

@@ -6,14 +6,14 @@
   makeWrapper,
   nodejs,
 }:
-buildNpmPackage rec {
+buildNpmPackage (finalAttrs: {
   pname = "nextcloud-whiteboard-server";
   version = "1.3.0";
 
   src = fetchFromGitHub {
     owner = "nextcloud";
     repo = "whiteboard";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-fk+BiQ6jM/SvBioz56WHIhWGErgroCvagQq6/vMWCyk=";
   };
 
@@ -33,4 +33,4 @@ buildNpmPackage rec {
     maintainers = [ lib.maintainers.onny ];
     mainProgram = "nextcloud-whiteboard-server";
   };
-}
+})

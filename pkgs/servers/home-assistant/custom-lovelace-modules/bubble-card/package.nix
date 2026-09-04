@@ -4,14 +4,14 @@
   fetchFromGitHub,
 }:
 
-buildNpmPackage rec {
+buildNpmPackage (finalAttrs: {
   pname = "bubble-card";
   version = "3.2.5";
 
   src = fetchFromGitHub {
     owner = "Clooos";
     repo = "Bubble-Card";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-+h3VR9F6Gh+ZBjodNAl5LLQxfw5ScZhtPQsAiJNTy9w=";
   };
 
@@ -32,10 +32,10 @@ buildNpmPackage rec {
   '';
 
   meta = {
-    changelog = "https://github.com/Clooos/bubble-card/releases/tag/v${version}";
+    changelog = "https://github.com/Clooos/bubble-card/releases/tag/v${finalAttrs.version}";
     description = "Bubble Card is a minimalist card collection for Home Assistant with a nice pop-up touch";
     homepage = "https://github.com/Clooos/Bubble-Card";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ pta2002 ];
   };
-}
+})

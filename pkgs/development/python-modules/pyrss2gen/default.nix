@@ -4,14 +4,14 @@
   fetchPypi,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pyrss2gen";
   version = "1.1";
   format = "setuptools";
 
   src = fetchPypi {
     pname = "PyRSS2Gen";
-    inherit version;
+    inherit (finalAttrs) version;
     sha256 = "1rvf5jw9hknqz02rp1vg8abgb1lpa0bc65l7ylmlillqx7bswq3r";
   };
 
@@ -24,4 +24,4 @@ buildPythonPackage rec {
     license = lib.licenses.bsd2;
     maintainers = [ ];
   };
-}
+})

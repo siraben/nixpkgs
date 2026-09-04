@@ -18,7 +18,7 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "ezyrb";
   version = "1.3.3";
   pyproject = true;
@@ -26,7 +26,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "mathLab";
     repo = "EZyRB";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-dta8Vc7sUQEtcFEJaFbJUafSsjgZ7ZSLaFJTOMSfKmU=";
   };
 
@@ -70,4 +70,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ yl3dy ];
   };
-}
+})

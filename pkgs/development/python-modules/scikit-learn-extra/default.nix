@@ -10,7 +10,7 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "scikit-learn-extra";
   version = "0.3.0";
   format = "setuptools";
@@ -18,7 +18,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "scikit-learn-contrib";
     repo = "scikit-learn-extra";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     sha256 = "sha256-dHOwo6NIuhcvIehpuJQ621JEg5O3mnXycAhpTZKaxns=";
   };
 
@@ -72,4 +72,4 @@ buildPythonPackage rec {
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ yl3dy ];
   };
-}
+})

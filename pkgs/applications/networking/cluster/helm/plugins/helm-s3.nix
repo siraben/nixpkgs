@@ -4,14 +4,14 @@
   lib,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "helm-s3";
   version = "0.17.2";
 
   src = fetchFromGitHub {
     owner = "hypnoglow";
     repo = "helm-s3";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-ivaREH6IiNNfgah45jITzl50miDJ34BlzWwMEdKAbjg=";
   };
 
@@ -30,7 +30,7 @@ buildGoModule rec {
   ldflags = [
     "-s"
     "-w"
-    "-X main.version=${version}"
+    "-X main.version=${finalAttrs.version}"
   ];
 
   subPackages = [ "cmd/helm-s3" ];
@@ -47,4 +47,4 @@ buildGoModule rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ yurrriq ];
   };
-}
+})

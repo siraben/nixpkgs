@@ -19,7 +19,7 @@ let
       extraNativeInputs ? [ ],
       preBuild ? "",
     }:
-    ocamlPackages.buildDunePackage rec {
+    ocamlPackages.buildDunePackage (finalAttrs: {
       inherit pname preBuild;
       version = "1.8.1";
       duneVersion = "3";
@@ -29,7 +29,7 @@ let
       src = fetchFromGitHub {
         owner = "comby-tools";
         repo = "comby";
-        rev = version;
+        rev = finalAttrs.version;
         sha256 = "sha256-yQrfSzJgJm0OWJxhxst2XjZULIVHeEfPMvMIwH7BYDc=";
       };
 
@@ -60,7 +60,7 @@ let
         homepage = "https://comby.dev";
         broken = true; # Not compatible with ocamlPackages.tar ≥ 3
       };
-    };
+    });
 
   combyKernel = mkCombyPackage { pname = "comby-kernel"; };
   combySemantic = mkCombyPackage {

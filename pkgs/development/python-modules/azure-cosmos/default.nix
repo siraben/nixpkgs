@@ -7,14 +7,14 @@
   typing-extensions,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "azure-cosmos";
   version = "4.14.5";
   pyproject = true;
 
   src = fetchPypi {
     pname = "azure_cosmos";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-MjmmBf4pyUt3ORgmdzqj0Nm75Lk5A/zltkNLDzJ0K6c=";
   };
 
@@ -35,8 +35,8 @@ buildPythonPackage rec {
   meta = {
     description = "Azure Cosmos DB API";
     homepage = "https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/cosmos/azure-cosmos";
-    changelog = "https://github.com/Azure/azure-sdk-for-python/blob/azure-cosmos_${version}/sdk/cosmos/azure-cosmos/CHANGELOG.md";
+    changelog = "https://github.com/Azure/azure-sdk-for-python/blob/azure-cosmos_${finalAttrs.version}/sdk/cosmos/azure-cosmos/CHANGELOG.md";
     license = lib.licenses.mit;
     maintainers = [ ];
   };
-}
+})

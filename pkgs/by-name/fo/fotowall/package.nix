@@ -6,7 +6,7 @@
   qt6,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "fotowall";
   version = "1.1.3";
   strictDeps = true;
@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "fotowall";
     repo = "fotowall";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-u3EV8UzfESbhaIDLYimYnjDXiP0j04VKoqqO/NglFLA=";
   };
 
@@ -37,4 +37,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     mainProgram = "fotowall";
   };
-}
+})

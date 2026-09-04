@@ -5,14 +5,14 @@
   ocamlbuild,
 }:
 
-buildDunePackage rec {
+buildDunePackage (finalAttrs: {
   pname = "js_of_ocaml-ocamlbuild";
   version = "5.0";
 
   minimalOCamlVersion = "4.03";
 
   src = fetchurl {
-    url = "https://github.com/ocsigen/js_of_ocaml-ocamlbuild/releases/download/${version}/js_of_ocaml-ocamlbuild-${version}.tbz";
+    url = "https://github.com/ocsigen/js_of_ocaml-ocamlbuild/releases/download/${finalAttrs.version}/js_of_ocaml-ocamlbuild-${finalAttrs.version}.tbz";
     sha256 = "sha256-qlm8vxzie8sqPrd6iiwf8X6d2+DyQOOhmMoc67ChwHs=";
   };
 
@@ -24,4 +24,4 @@ buildDunePackage rec {
     license = lib.licenses.lgpl2Only;
     maintainers = [ lib.maintainers.vbgl ];
   };
-}
+})

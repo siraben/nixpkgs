@@ -6,7 +6,7 @@
   cppo,
 }:
 
-buildDunePackage rec {
+buildDunePackage (finalAttrs: {
   pname = "reanalyze";
   version = "2.25.1";
 
@@ -15,7 +15,7 @@ buildDunePackage rec {
   src = fetchFromGitHub {
     owner = "rescript-lang";
     repo = "reanalyze";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-cM39Gk4Ko7o/DyhrzgEHilobaB3h91Knltkcv2sglFw=";
   };
 
@@ -24,9 +24,9 @@ buildDunePackage rec {
   meta = {
     description = "Program analysis for ReScript and OCaml projects";
     homepage = "https://github.com/rescript-lang/reanalyze/";
-    changelog = "https://github.com/rescript-lang/reanalyze/blob/v${version}/Changes.md";
+    changelog = "https://github.com/rescript-lang/reanalyze/blob/v${finalAttrs.version}/Changes.md";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.vbgl ];
     broken = lib.versionAtLeast ocaml.version "5.3";
   };
-}
+})

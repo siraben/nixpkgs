@@ -17,14 +17,14 @@
   fmt,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "emilua-this-thread";
   version = "1.0.3";
 
   src = fetchFromGitLab {
     owner = "emilua";
     repo = "this-thread";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-3f2nB6KwNka0P7jnvMZF2+ExuTmICj2NswmRWB+YDKo=";
   };
 
@@ -57,4 +57,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ manipuladordedados ];
     platforms = lib.platforms.linux;
   };
-}
+})

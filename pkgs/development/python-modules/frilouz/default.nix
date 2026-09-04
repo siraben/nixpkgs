@@ -6,7 +6,7 @@
   isPy3k,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "frilouz";
   version = "0.0.2";
   format = "setuptools";
@@ -15,7 +15,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "QuantStack";
     repo = "frilouz";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "0w2qzi4zb10r9iw64151ay01vf0yzyhh0bsjkx1apxp8fs15cdiw";
   };
 
@@ -37,4 +37,4 @@ buildPythonPackage rec {
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ cpcloud ];
   };
-}
+})

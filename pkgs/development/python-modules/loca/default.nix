@@ -5,7 +5,7 @@
   flit-core,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "loca";
   version = "2.0.1";
   pyproject = true;
@@ -13,7 +13,7 @@ buildPythonPackage rec {
   src = fetchFromSourcehut {
     owner = "~cnx";
     repo = "loca";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "1l6jimw3wd81nz1jrzsfw1zzsdm0jm998xlddcqaq0h38sx69w8g";
   };
 
@@ -28,4 +28,4 @@ buildPythonPackage rec {
     license = lib.licenses.lgpl3Plus;
     maintainers = [ lib.maintainers.McSinyx ];
   };
-}
+})

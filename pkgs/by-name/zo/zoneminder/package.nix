@@ -87,14 +87,14 @@ let
   perlBin = "${perl}/bin/perl";
 
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "zoneminder";
   version = "1.38.4";
 
   src = fetchFromGitHub {
     owner = "ZoneMinder";
     repo = "zoneminder";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-bowVUTRtrTyS1zSaF+wKua6Wx5F7C5S40y7BKr6q9sE=";
     fetchSubmodules = true;
   };
@@ -277,4 +277,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ peat-psuwit ];
     platforms = lib.platforms.linux;
   };
-}
+})

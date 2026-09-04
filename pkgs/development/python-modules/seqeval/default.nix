@@ -7,7 +7,7 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "seqeval";
   version = "1.2.2";
   format = "setuptools";
@@ -15,13 +15,13 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "chakki-works";
     repo = "seqeval";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "0qv05gn54kc4wpmwnflmfqw4gwwb8lxqhkiihl0pvl7s2i7qzx2j";
   };
 
   postPatch = ''
     substituteInPlace setup.py \
-      --replace "use_scm_version=True," "version='${version}'," \
+      --replace "use_scm_version=True," "version='${finalAttrs.version}'," \
       --replace "setup_requires=['setuptools_scm']," "setup_requires=[],"
   '';
 
@@ -44,4 +44,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = [ ];
   };
-}
+})

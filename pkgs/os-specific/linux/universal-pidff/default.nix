@@ -6,14 +6,14 @@
   kernelModuleMakeFlags,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "universal-pidff";
   version = "0.2.2";
 
   src = fetchFromGitHub {
     owner = "JacKeTUs";
     repo = "universal-pidff";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-8kAoy2wcQbP6DOzSwp0Mg1aJ8R1ZQpc+OZfDUTEPHBo=";
   };
 
@@ -47,4 +47,4 @@ stdenv.mkDerivation rec {
     # Broken due to missing linux/minmax.h
     broken = kernel.kernelOlder "5.10";
   };
-}
+})

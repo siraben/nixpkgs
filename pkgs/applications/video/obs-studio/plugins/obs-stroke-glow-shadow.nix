@@ -6,14 +6,14 @@
   obs-studio,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "obs-stroke-glow-shadow";
   version = "v1.5.2";
 
   src = fetchFromGitHub {
     owner = "FiniteSingularity";
     repo = "obs-stroke-glow-shadow";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-+2hb4u+6UG7IV9pAvPjp4wvDYhYnxe98U5QQjUcdD/k=";
   };
 
@@ -32,4 +32,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2Only;
     inherit (obs-studio.meta) platforms;
   };
-}
+})

@@ -14,7 +14,7 @@
   simplejson,
   snapshot-restore-py,
 }:
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "awslambdaric";
   version = "4.0.2";
   pyproject = true;
@@ -22,7 +22,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "aws";
     repo = "aws-lambda-python-runtime-interface-client";
-    tag = version;
+    tag = finalAttrs.version;
     sha256 = "sha256-bEkaZUAAtilHLuUUvKloeF25DuesAr8RpKcxZq8Tqts=";
   };
 
@@ -61,4 +61,4 @@ buildPythonPackage rec {
     maintainers = with lib.maintainers; [ austinbutler ];
     platforms = lib.platforms.linux;
   };
-}
+})

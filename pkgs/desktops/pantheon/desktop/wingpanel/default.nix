@@ -22,14 +22,14 @@
   elementary-icon-theme,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "wingpanel";
   version = "8.0.4";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "wingpanel";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-+m1TydQtbXuA7uS6hZVC8z6JgOUxDh/QXL/4tROHhwk=";
   };
 
@@ -92,4 +92,4 @@ stdenv.mkDerivation rec {
     teams = [ lib.teams.pantheon ];
     mainProgram = "io.elementary.wingpanel";
   };
-}
+})

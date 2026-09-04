@@ -11,7 +11,7 @@
   tensorflow,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "gpt-2-simple";
   version = "0.8.1";
   pyproject = true;
@@ -19,7 +19,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "minimaxir";
     repo = "gpt-2-simple";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-WwD4sDcc28zXEOISJsq8e+rgaNrrgIy79Wa4J3E7Ovc=";
   };
 
@@ -42,4 +42,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = [ ];
   };
-}
+})

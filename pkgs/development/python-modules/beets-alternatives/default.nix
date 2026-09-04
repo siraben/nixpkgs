@@ -20,7 +20,7 @@
   writableTmpDirAsHomeHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "beets-alternatives";
   version = "0.14.1";
   pyproject = true;
@@ -28,7 +28,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     repo = "beets-alternatives";
     owner = "geigerzaehler";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-C4EVJwzLhwQJz/iUKrIKUjhYHIpPrETqyQi0DByZM3Y=";
   };
 
@@ -66,11 +66,11 @@ buildPythonPackage rec {
   meta = {
     description = "Beets plugin to manage external files";
     homepage = "https://github.com/geigerzaehler/beets-alternatives";
-    changelog = "https://github.com/geigerzaehler/beets-alternatives/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/geigerzaehler/beets-alternatives/blob/v${finalAttrs.version}/CHANGELOG.md";
     maintainers = with lib.maintainers; [
       aszlig
       lovesegfault
     ];
     license = lib.licenses.mit;
   };
-}
+})

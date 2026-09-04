@@ -45,14 +45,14 @@
 
   duckdb = duckdb-odbc;
 
-  mariadb = stdenv.mkDerivation rec {
+  mariadb = stdenv.mkDerivation (finalAttrs: {
     pname = "mariadb-connector-odbc";
     version = "3.2.6";
 
     src = fetchFromGitHub {
       owner = "mariadb-corporation";
       repo = "mariadb-connector-odbc";
-      rev = version;
+      rev = finalAttrs.version;
       hash = "sha256-FdnA3/xDxnk2910LCMPWQTcUUSYfUsnnZ3Hqj0uey5s=";
       # this driver only seems to build correctly when built against the mariadb-connect-c subrepo
       # (see https://github.com/NixOS/nixpkgs/issues/73258)
@@ -112,14 +112,14 @@
       license = lib.licenses.gpl2;
       platforms = lib.platforms.linux ++ lib.platforms.darwin;
     };
-  };
+  });
 
-  sqlite = stdenv.mkDerivation rec {
+  sqlite = stdenv.mkDerivation (finalAttrs: {
     pname = "sqlite-connector-odbc";
     version = "0.99991";
 
     src = fetchurl {
-      url = "http://www.ch-werner.de/sqliteodbc/sqliteodbc-${version}.tar.gz";
+      url = "http://www.ch-werner.de/sqliteodbc/sqliteodbc-${finalAttrs.version}.tar.gz";
       hash = "sha256-TZStuNPN4fqUoorrDfzHvnMUW8383z1eIlQ02zHcilw=";
     };
 
@@ -166,7 +166,7 @@
       platforms = lib.platforms.unix;
       maintainers = [ ];
     };
-  };
+  });
 
   msodbcsql17 = stdenv.mkDerivation rec {
     pname = "msodbcsql17";
@@ -322,12 +322,12 @@
     };
   });
 
-  redshift = stdenv.mkDerivation rec {
+  redshift = stdenv.mkDerivation (finalAttrs: {
     pname = "redshift-odbc";
     version = "1.4.49.1000";
 
     src = fetchurl {
-      url = "https://s3.amazonaws.com/redshift-downloads/drivers/odbc/${version}/AmazonRedshiftODBC-64-bit-${version}-1.x86_64.deb";
+      url = "https://s3.amazonaws.com/redshift-downloads/drivers/odbc/${finalAttrs.version}/AmazonRedshiftODBC-64-bit-${finalAttrs.version}-1.x86_64.deb";
       sha256 = "sha256-r5HvsZjB7+x+ClxtWoONkE1/NAbz90NbHfzxC6tf7jA=";
     };
 
@@ -366,7 +366,7 @@
       platforms = lib.platforms.linux;
       maintainers = with lib.maintainers; [ sir4ur0n ];
     };
-  };
+  });
 }
 // lib.optionalAttrs config.allowAliases {
   mysql = throw "unixodbcDrivers.mysql has been removed because it has been marked as broken since 2016."; # Added 2025-10-11

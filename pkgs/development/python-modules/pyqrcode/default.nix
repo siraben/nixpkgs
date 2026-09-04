@@ -4,14 +4,14 @@
   fetchPypi,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pyqrcode";
   version = "1.2.1";
   format = "setuptools";
 
   src = fetchPypi {
     pname = "PyQRCode";
-    inherit version;
+    inherit (finalAttrs) version;
     sha256 = "fdbf7634733e56b72e27f9bce46e4550b75a3a2c420414035cae9d9d26b234d5";
   };
 
@@ -24,4 +24,4 @@ buildPythonPackage rec {
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ dotlambda ];
   };
-}
+})

@@ -8,7 +8,7 @@
   nix-update-script,
 }:
 
-python3.pkgs.buildPythonApplication rec {
+python3.pkgs.buildPythonApplication (finalAttrs: {
   pname = "asahi-fwextract";
   version = "0.8.0";
   pyproject = true;
@@ -16,7 +16,7 @@ python3.pkgs.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "AsahiLinux";
     repo = "asahi-installer";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-UMzmQ3buXousCR8t0eSf6m+OTvqp3mEQ73aZ9UznuOI=";
   };
 
@@ -42,4 +42,4 @@ python3.pkgs.buildPythonApplication rec {
     mainProgram = "asahi-fwextract";
     platforms = [ "aarch64-linux" ];
   };
-}
+})

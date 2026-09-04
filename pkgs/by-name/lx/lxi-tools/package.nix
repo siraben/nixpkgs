@@ -22,14 +22,14 @@
   withGui ? false,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "lxi-tools";
   version = "2.8";
 
   src = fetchFromGitHub {
     owner = "lxi-tools";
     repo = "lxi-tools";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "sha256-lmWZpKI3TXwF76LDFfZcOGUtPeBmBu+0Lu/3eCMMb3Y=";
   };
 
@@ -78,4 +78,4 @@ stdenv.mkDerivation rec {
     maintainers = [ lib.maintainers.vq ];
     mainProgram = "lxi";
   };
-}
+})

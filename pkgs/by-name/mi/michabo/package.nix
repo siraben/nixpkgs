@@ -14,7 +14,7 @@ let
   };
 
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "michabo";
   version = "0.1";
 
@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     domain = "git.pleroma.social";
     owner = "kaniini";
     repo = "michabo";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "0pl4ymdb36r0kwlclfjjp6b1qml3fm9ql7ag5inprny5y8vcjpzn";
   };
 
@@ -52,4 +52,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ fgaz ];
     platforms = lib.platforms.all;
   };
-}
+})

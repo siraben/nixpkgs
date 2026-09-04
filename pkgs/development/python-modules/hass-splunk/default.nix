@@ -6,7 +6,7 @@
   aiohttp,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "hass-splunk";
   version = "0.1.4";
   pyproject = true;
@@ -14,7 +14,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "Bre77";
     repo = "hass_splunk";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-PvTmzMYlmZYjs9CnOPbjFneiZPgfDTlVqRtfl53uY78=";
   };
 
@@ -33,4 +33,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ dotlambda ];
   };
-}
+})

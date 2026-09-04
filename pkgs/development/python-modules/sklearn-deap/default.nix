@@ -10,7 +10,7 @@
   unittestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "sklearn-deap";
   version = "0.3.0";
   format = "setuptools";
@@ -19,7 +19,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "rsteca";
     repo = "sklearn-deap";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-bXBHlv1pIOyDLKCBeffyHaTZ7gNiZNl0soa73e8E4/M=";
   };
 
@@ -53,4 +53,4 @@ buildPythonPackage rec {
     maintainers = with lib.maintainers; [ psyanticy ];
     broken = true; # incompatible with scikit-learn >= 1.6
   };
-}
+})

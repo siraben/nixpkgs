@@ -11,7 +11,7 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "zamg";
   version = "0.4.1";
   pyproject = true;
@@ -19,7 +19,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "killer0071234";
     repo = "python-zamg";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-kWdSXaD7+c7UrlRP47DjKbmVTHqWUveDowIDFSK3Plk=";
   };
 
@@ -50,8 +50,8 @@ buildPythonPackage rec {
   meta = {
     description = "Library to read weather data from ZAMG Austria";
     homepage = "https://github.com/killer0071234/python-zamg";
-    changelog = "https://github.com/killer0071234/python-zamg/releases/tag/v${version}";
+    changelog = "https://github.com/killer0071234/python-zamg/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

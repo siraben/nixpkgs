@@ -36,7 +36,7 @@ let
     pythonImportsCheck = [ "cose" ];
   });
 in
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pycardano";
   version = "0.14.0";
   pyproject = true;
@@ -44,7 +44,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "Python-Cardano";
     repo = "pycardano";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-W5N254tND7mI0oR82YhMFWn4zVVs3ygYOqXOBMO3sXY=";
   };
 
@@ -93,4 +93,4 @@ buildPythonPackage rec {
     # more info: https://github.com/NixOS/nixpkgs/pull/402433#issuecomment-2916520286
     broken = cbor2.withCExtensions; # consider overriding cbor2 with cbor2WithoutCExtensions
   };
-}
+})

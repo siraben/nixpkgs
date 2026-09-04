@@ -13,7 +13,7 @@
   pytest-cov-stub,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "warcio";
   version = "1.7.5";
   format = "setuptools";
@@ -21,7 +21,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "webrecorder";
     repo = "warcio";
-    tag = "v${version}"; # Repo has no git tags, see https://github.com/webrecorder/warcio/issues/126
+    tag = "v${finalAttrs.version}"; # Repo has no git tags, see https://github.com/webrecorder/warcio/issues/126
     hash = "sha256-i1bVbXf1RQoWCADFwlVEnFhb3sVZ91vijUtzVLWMc2Q=";
   };
 
@@ -66,4 +66,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ Luflosi ];
   };
-}
+})

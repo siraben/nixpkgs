@@ -4,7 +4,7 @@
   fetchFromGitHub,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "upnpy";
   version = "1.1.8";
   format = "setuptools";
@@ -12,7 +12,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "5kyc0d3r";
     repo = "upnpy";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "17rqcmmwsl0m4722b1cr74f80kqwq7cgxsy7lq9c88zf6srcgjsf";
   };
 
@@ -26,4 +26,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

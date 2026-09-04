@@ -5,14 +5,14 @@
   uutf,
 }:
 
-buildDunePackage rec {
+buildDunePackage (finalAttrs: {
   pname = "tty";
   version = "0.0.2";
 
   minimalOCamlVersion = "5.1";
 
   src = fetchurl {
-    url = "https://github.com/leostera/tty/releases/download/${version}/tty-${version}.tbz";
+    url = "https://github.com/leostera/tty/releases/download/${finalAttrs.version}/tty-${finalAttrs.version}.tbz";
     hash = "sha256-eeD5Y+/QXZzFoEHvOSZj2Q74V8BK5j3Lu3Zsrj2YUUs=";
   };
 
@@ -25,8 +25,8 @@ buildDunePackage rec {
   meta = {
     description = "Library for interacting with teletype and terminal emulators";
     homepage = "https://github.com/leostera/tty";
-    changelog = "https://github.com/leostera/tty/blob/${version}/CHANGES.md";
+    changelog = "https://github.com/leostera/tty/blob/${finalAttrs.version}/CHANGES.md";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ sixstring982 ];
   };
-}
+})

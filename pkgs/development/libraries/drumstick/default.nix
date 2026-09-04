@@ -23,12 +23,12 @@
 let
   isQt6 = lib.versions.major qtbase.version == "6";
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "drumstick";
   version = "2.11.1";
 
   src = fetchurl {
-    url = "mirror://sourceforge/drumstick/${version}/drumstick-${version}.tar.bz2";
+    url = "mirror://sourceforge/drumstick/${finalAttrs.version}/drumstick-${finalAttrs.version}.tar.bz2";
     hash = "sha256-fVN67Kd0hvyPV6hK898b0N3dtAGmGTXotIIVQtFgtnc=";
   };
 
@@ -79,4 +79,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ wegank ];
     platforms = lib.platforms.linux;
   };
-}
+})

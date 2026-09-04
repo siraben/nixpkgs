@@ -13,7 +13,7 @@
   syrupy,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "systembridgeconnector";
   version = "5.4.3";
   pyproject = true;
@@ -21,7 +21,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "timmo001";
     repo = "system-bridge-connector";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-gkZRvS0abfXFEz2oRuaGJRmhFoxe92F3czNkahNdTm8=";
   };
 
@@ -65,10 +65,10 @@ buildPythonPackage rec {
   ];
 
   meta = {
-    changelog = "https://github.com/timmo001/system-bridge-connector/releases/tag/${version}";
+    changelog = "https://github.com/timmo001/system-bridge-connector/releases/tag/${finalAttrs.version}";
     description = "This is the connector package for the System Bridge project";
     homepage = "https://github.com/timmo001/system-bridge-connector";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ dotlambda ];
   };
-}
+})

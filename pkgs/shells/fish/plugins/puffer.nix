@@ -4,14 +4,14 @@
   fetchFromGitHub,
 }:
 
-buildFishPlugin rec {
+buildFishPlugin (finalAttrs: {
   pname = "puffer";
   version = "1.1.0";
 
   src = fetchFromGitHub {
     owner = "nickeb96";
     repo = "puffer-fish";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-MdeegvBu/AqvaMu0g1UHKBvfb6SHUiTUiA62h87r/Xg=";
   };
 
@@ -21,4 +21,4 @@ buildFishPlugin rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ quantenzitrone ];
   };
-}
+})

@@ -23,7 +23,7 @@
   qiskit-aer,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "qiskit-nature";
   version = "0.7.2";
   pyproject = true;
@@ -31,7 +31,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "Qiskit";
     repo = "qiskit-nature";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-SVzg3McB885RMyAp90Kr6/iVKw3Su9ucTob2jBckBo0=";
   };
 
@@ -77,4 +77,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = [ ];
   };
-}
+})

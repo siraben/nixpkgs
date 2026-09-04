@@ -6,7 +6,7 @@
   setuptools,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pretix-dbevent";
   version = "1.0.0";
   pyproject = true;
@@ -14,7 +14,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "pretix";
     repo = "pretix-dbevent";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-1WUTunDeRh0+hPOF/uLcPmRlUlHAOhOqeoYQNYv0ZLI=";
   };
 
@@ -38,4 +38,4 @@ buildPythonPackage rec {
       hexa
     ];
   };
-}
+})

@@ -7,7 +7,7 @@
   lxml,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "progettihwsw";
   version = "0.1.3";
   pyproject = true;
@@ -15,7 +15,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "ardaseremet";
     repo = "progettihwsw";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-9dpZyQ7i3WNdDVyEBLz4bJcWF1Ap7SH089PXWYI6UOA=";
   };
 
@@ -37,4 +37,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.jamiemagee ];
   };
-}
+})

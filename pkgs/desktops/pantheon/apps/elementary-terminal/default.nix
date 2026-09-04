@@ -17,14 +17,14 @@
   wrapGAppsHook4,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "elementary-terminal";
   version = "8.1.0";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "terminal";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-npPuanin2WKuIAVbvGwBf5fGHYp7LKGac+s+28apaLU=";
   };
 
@@ -62,4 +62,4 @@ stdenv.mkDerivation rec {
     teams = [ lib.teams.pantheon ];
     mainProgram = "io.elementary.terminal";
   };
-}
+})

@@ -5,7 +5,7 @@
   setuptools,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pretalx-downstream";
   version = "1.6.0";
   pyproject = true;
@@ -13,7 +13,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "pretalx";
     repo = "pretalx-downstream";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-exTfGUVQsPbv+oNmgM6e3Q+u3UjDbsjoCNbeOvyaEZo=";
   };
 
@@ -27,4 +27,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ wegank ];
   };
-}
+})

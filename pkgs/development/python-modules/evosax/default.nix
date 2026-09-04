@@ -22,7 +22,7 @@
   writableTmpDirAsHomeHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "evosax";
   version = "0.2.0";
   pyproject = true;
@@ -30,7 +30,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "RobertTLange";
     repo = "evosax";
-    tag = "v.${version}";
+    tag = "v.${finalAttrs.version}";
     hash = "sha256-ye5IHM8Pn/+BXI9kcB3W281Gna9hXV8DwsaJ9Xu06fU=";
   };
 
@@ -80,8 +80,8 @@ buildPythonPackage rec {
   meta = {
     description = "Evolution Strategies in JAX";
     homepage = "https://github.com/RobertTLange/evosax";
-    changelog = "https://github.com/RobertTLange/evosax/releases/tag/v.${version}";
+    changelog = "https://github.com/RobertTLange/evosax/releases/tag/v.${finalAttrs.version}";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ GaetanLepage ];
   };
-}
+})

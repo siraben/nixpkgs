@@ -9,7 +9,7 @@
   setuptools-scm,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "requests-http-signature";
   version = "0.7.1";
   format = "setuptools";
@@ -17,7 +17,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "pyauth";
     repo = "requests-http-signature";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-sW2vYqT/nY27DvEKHdptc3dUpuqKmD7PLMs+Xp+cpeU=";
   };
 
@@ -46,4 +46,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = [ ];
   };
-}
+})

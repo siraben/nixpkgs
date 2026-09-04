@@ -10,7 +10,7 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "libvirt-python";
   version = "12.7.0";
   pyproject = true;
@@ -18,7 +18,7 @@ buildPythonPackage rec {
   src = fetchFromGitLab {
     owner = "libvirt";
     repo = "libvirt-python";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-i26Ve2MZITOlrlVcykyI74K7ACKJr0bXloG88x6yZgA=";
   };
 
@@ -45,4 +45,4 @@ buildPythonPackage rec {
     license = lib.licenses.lgpl2;
     maintainers = [ lib.maintainers.fpletz ];
   };
-}
+})

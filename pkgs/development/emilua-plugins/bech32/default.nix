@@ -19,14 +19,14 @@
   range-v3,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "emilua-bech32";
   version = "1.1.1";
 
   src = fetchFromGitLab {
     owner = "emilua";
     repo = "bech32";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-DJUdwnX9jHKpVYRkP/UFYNefphbqCoUIjXLTNQ5umis=";
   };
 
@@ -61,4 +61,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ manipuladordedados ];
     platforms = lib.platforms.linux;
   };
-}
+})

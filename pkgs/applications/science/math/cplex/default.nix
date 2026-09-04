@@ -27,7 +27,7 @@
 # somewhat with the use of functions like requireFile as the hash will be
 # different for every user.
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "cplex";
   version = "22.11";
 
@@ -168,7 +168,7 @@ stdenv.mkDerivation rec {
 
   passthru = {
     libArch = "x86-64_linux";
-    libSuffix = "${version}0";
+    libSuffix = "${finalAttrs.version}0";
   };
 
   meta = {
@@ -180,4 +180,4 @@ stdenv.mkDerivation rec {
     platforms = [ "x86_64-linux" ];
     maintainers = with lib.maintainers; [ bfortz ];
   };
-}
+})

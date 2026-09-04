@@ -8,7 +8,7 @@
   setuptools,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "ds4drv";
   version = "0.5.1";
 
@@ -19,7 +19,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "chrippa";
     repo = "ds4drv";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "0vinpla0apizzykcyfis79mrm1i6fhns83nkzw85svypdhkx2g8v";
   };
 
@@ -41,4 +41,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/chrippa/ds4drv";
     license = lib.licenses.mit;
   };
-}
+})

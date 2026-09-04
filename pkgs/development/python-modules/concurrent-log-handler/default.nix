@@ -6,14 +6,14 @@
   portalocker,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "concurrent-log-handler";
   version = "0.9.29";
   pyproject = true;
 
   src = fetchPypi {
     pname = "concurrent_log_handler";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-vDenbT84TL9KmPaT69dwVD7cD0zVxqtrxw6eHX1YImU=";
   };
 
@@ -31,4 +31,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.bbjubjub ];
   };
-}
+})

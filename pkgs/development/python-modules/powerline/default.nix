@@ -13,7 +13,7 @@
 
 # TODO: bzr support is missing because nixpkgs switched to `breezy`
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   version = "2.8.4";
   pname = "powerline";
   format = "setuptools";
@@ -21,7 +21,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "powerline";
     repo = "powerline";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-snJrfUvP11lBIy6F0WtqJt9fiYm5jxMwm9u3u5XFO84=";
   };
 
@@ -55,4 +55,4 @@ buildPythonPackage rec {
     description = "Ultimate statusline/prompt utility";
     license = lib.licenses.mit;
   };
-}
+})

@@ -12,14 +12,14 @@
   alsa-lib,
   libxcb,
 }:
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "screen-pipe";
   version = "0.1.48";
 
   src = fetchFromGitHub {
     owner = "screenpipe";
     repo = "screenpipe";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-rWKRCqWFuPO84C52mMrrS4euD6XdJU8kqZsAz28+vWE=";
   };
 
@@ -69,4 +69,4 @@ rustPlatform.buildRustPackage rec {
     maintainers = [ ];
     mainProgram = "screen-pipe";
   };
-}
+})

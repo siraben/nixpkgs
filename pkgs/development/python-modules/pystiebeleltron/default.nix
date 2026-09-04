@@ -9,7 +9,7 @@
   pytest-mock,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pystiebeleltron";
   version = "0.6.2";
   pyproject = true;
@@ -17,7 +17,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "ThyMYthOS";
     repo = "python-stiebel-eltron";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-tX9n+ez6+ToK7nVxZfhjywdk4hjqi685kTboNxSW+Ag=";
   };
 
@@ -42,4 +42,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.jamiemagee ];
   };
-}
+})

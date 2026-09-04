@@ -34,14 +34,14 @@
 assert !blas.isILP64;
 assert !lapack.isILP64;
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "meep";
   version = "1.34.0";
 
   src = fetchFromGitHub {
     owner = "NanoComp";
     repo = "meep";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-k6RccmCO2of3ENW0ZEqmi5BoqE0SPgYId6VFYAAjOFA=";
   };
 
@@ -164,4 +164,4 @@ buildPythonPackage rec {
       markuskowa
     ];
   };
-}
+})

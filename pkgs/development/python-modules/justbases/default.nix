@@ -6,7 +6,7 @@
   hypothesis,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "justbases";
   version = "0.15.2";
   format = "setuptools";
@@ -14,7 +14,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "mulkieran";
     repo = "justbases";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-XraUh3beI2JqKPRHYN5W3Tn3gg0GJCwhnhHIOFdzh6U=";
   };
 
@@ -26,8 +26,8 @@ buildPythonPackage rec {
   meta = {
     description = "Conversion of ints and rationals to any base";
     homepage = "https://github.com/mulkieran/justbases";
-    changelog = "https://github.com/mulkieran/justbases/blob/v${version}/CHANGES.txt";
+    changelog = "https://github.com/mulkieran/justbases/blob/v${finalAttrs.version}/CHANGES.txt";
     license = lib.licenses.lgpl2Plus;
     maintainers = with lib.maintainers; [ nickcao ];
   };
-}
+})

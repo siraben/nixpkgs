@@ -12,7 +12,7 @@
   pythonAtLeast,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "trio-asyncio";
   version = "0.16.0";
   pyproject = true;
@@ -23,7 +23,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "python-trio";
     repo = "trio-asyncio";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-7kp99tdJhExjg8WsfBtXJyFrKnSAtTF1fhPFxCU7eI8=";
   };
 
@@ -62,7 +62,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "trio_asyncio" ];
 
   meta = {
-    changelog = "https://github.com/python-trio/trio-asyncio/blob/v${version}/docs/source/history.rst";
+    changelog = "https://github.com/python-trio/trio-asyncio/blob/v${finalAttrs.version}/docs/source/history.rst";
     description = "Re-implementation of the asyncio mainloop on top of Trio";
     homepage = "https://github.com/python-trio/trio-asyncio";
     license = with lib.licenses; [
@@ -71,4 +71,4 @@ buildPythonPackage rec {
     ];
     maintainers = with lib.maintainers; [ dotlambda ];
   };
-}
+})

@@ -6,7 +6,7 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "spacy-lookups-data";
   version = "1.0.5";
   format = "setuptools";
@@ -14,7 +14,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "explosion";
     repo = "spacy-lookups-data";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-6sKZ+GgCjLWYnV96nub4xEUFh1qpPQpbnoxyOVrvcD0=";
   };
 
@@ -31,4 +31,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ jboy ];
   };
-}
+})

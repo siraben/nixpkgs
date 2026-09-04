@@ -5,14 +5,14 @@
   ocamlPackages,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "rml";
   version = "1.09.07";
 
   src = fetchFromGitHub {
     owner = "reactiveml";
     repo = "rml";
-    rev = "rml-${version}-2021-07-26";
+    rev = "rml-${finalAttrs.version}-2021-07-26";
     hash = "sha256-UFqXQBeIQMSV4O439j9s06p1hh7xA98Tu79FsjK9PIY=";
   };
 
@@ -37,4 +37,4 @@ stdenv.mkDerivation rec {
     ];
     maintainers = with lib.maintainers; [ wegank ];
   };
-}
+})

@@ -11,7 +11,7 @@
   sensor-state-data,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "rapt-ble";
   version = "0.1.2";
   pyproject = true;
@@ -19,7 +19,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "sairon";
     repo = "rapt-ble";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-ozZwVgTV/xYl1nXLiybcPs6DQKocNdbxTEYDfYyQuvY=";
   };
 
@@ -42,8 +42,8 @@ buildPythonPackage rec {
   meta = {
     description = "Library for RAPT Pill hydrometer BLE devices";
     homepage = "https://github.com/sairon/rapt-ble";
-    changelog = "https://github.com/sairon/rapt-ble/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/sairon/rapt-ble/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

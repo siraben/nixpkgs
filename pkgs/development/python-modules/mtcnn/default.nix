@@ -17,7 +17,7 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "mtcnn";
   version = "1.0.0";
   pyproject = true;
@@ -25,7 +25,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "ipazc";
     repo = "mtcnn";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-gp+jfa1arD3PpJpuRFKIUznV0Lyjt3DPn/HHUviDXhk=";
   };
 
@@ -58,8 +58,8 @@ buildPythonPackage rec {
   meta = {
     description = "MTCNN face detection implementation for TensorFlow";
     homepage = "https://github.com/ipazc/mtcnn";
-    changelog = "https://github.com/ipazc/mtcnn/releases/tag/v${version}";
+    changelog = "https://github.com/ipazc/mtcnn/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ derdennisop ];
   };
-}
+})

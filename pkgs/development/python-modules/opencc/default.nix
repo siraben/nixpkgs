@@ -7,14 +7,14 @@
   wheel,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "opencc";
   version = "1.4.1";
   pyproject = true;
 
   src = fetchPypi {
     pname = "opencc";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-osWCFWJqxRMcXbJ3dmZ41VL8KW6eApnvGDy2fBp/MOc=";
   };
 
@@ -37,4 +37,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ siraben ];
   };
-}
+})

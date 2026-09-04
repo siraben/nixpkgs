@@ -11,14 +11,14 @@
   installShellFiles,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "mdcat";
   version = "2.7.1";
 
   src = fetchFromGitHub {
     owner = "swsnr";
     repo = "mdcat";
-    rev = "mdcat-${version}";
+    rev = "mdcat-${finalAttrs.version}";
     hash = "sha256-j6BFXx5cyjE3+fo1gGKlqpsxrm3i9HfQ9tJGNNjjLwo=";
   };
 
@@ -67,8 +67,8 @@ rustPlatform.buildRustPackage rec {
   meta = {
     description = "cat for markdown";
     homepage = "https://github.com/swsnr/mdcat";
-    changelog = "https://github.com/swsnr/mdcat/releases/tag/mdcat-${version}";
+    changelog = "https://github.com/swsnr/mdcat/releases/tag/mdcat-${finalAttrs.version}";
     license = lib.licenses.mpl20;
     maintainers = with lib.maintainers; [ SuperSandro2000 ];
   };
-}
+})

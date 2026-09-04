@@ -16,7 +16,7 @@
   sympy,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "atsim-potentials";
   version = "0.4.1";
   pyproject = true;
@@ -24,7 +24,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "mjdrushton";
     repo = "atsim-potentials";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-G7lNqwEUwAT0f7M2nUTCxpXOAl6FWKlh7tcsvbur1eM=";
   };
 
@@ -72,4 +72,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = [ ];
   };
-}
+})

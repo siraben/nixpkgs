@@ -12,12 +12,12 @@
 let
   isQt6 = lib.versions.major qtbase.version == "6";
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "qca";
   version = "2.3.10";
 
   src = fetchurl {
-    url = "mirror://kde/stable/qca/${version}/qca-${version}.tar.xz";
+    url = "mirror://kde/stable/qca/${finalAttrs.version}/qca-${finalAttrs.version}.tar.xz";
     sha256 = "sha256-HFtyLak9VZNlcZImuxIccm7DwNxMZ96jTx5Q5ODRSgI=";
   };
 
@@ -49,4 +49,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.lgpl21Plus;
     platforms = with lib.platforms; unix;
   };
-}
+})

@@ -18,7 +18,7 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "radios";
   version = "0.3.2";
   pyproject = true;
@@ -26,13 +26,13 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "frenck";
     repo = "python-radios";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-GXiLwwjZ/pN3HquzLLWq/2EfhmrJyCXq0sovIGRB3uQ=";
   };
 
   postPatch = ''
     substituteInPlace pyproject.toml \
-      --replace-fail 'version = "0.0.0"' 'version = "${version}"'
+      --replace-fail 'version = "0.0.0"' 'version = "${finalAttrs.version}"'
   '';
 
   pythonRelaxDeps = [ "pycountry" ];
@@ -65,10 +65,10 @@ buildPythonPackage rec {
   __darwinAllowLocalNetworking = true;
 
   meta = {
-    changelog = "https://github.com/frenck/python-radios/releases/tag/v${version}";
+    changelog = "https://github.com/frenck/python-radios/releases/tag/v${finalAttrs.version}";
     description = "Asynchronous Python client for the Radio Browser API";
     homepage = "https://github.com/frenck/python-radios";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ dotlambda ];
   };
-}
+})

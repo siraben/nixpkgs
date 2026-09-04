@@ -13,7 +13,7 @@
   pytest-cov-stub,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "proton-core";
   version = "0.7.0";
   pyproject = true;
@@ -21,7 +21,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "ProtonVPN";
     repo = "python-proton-core";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-ZT/LkppzeEDGs9aOCx561fA1EgAShPCnMs8c05mgF0k=";
   };
 
@@ -77,4 +77,4 @@ buildPythonPackage rec {
     license = lib.licenses.gpl3Only;
     maintainers = [ ];
   };
-}
+})

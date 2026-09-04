@@ -98,12 +98,12 @@ let
   );
 in
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "camlp4";
   inherit (param) version;
 
   src = fetchzip {
-    url = "https://github.com/ocaml/camlp4/archive/${version}.tar.gz";
+    url = "https://github.com/ocaml/camlp4/archive/${finalAttrs.version}.tar.gz";
     inherit (param) sha256;
   };
 
@@ -162,4 +162,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.WITH lib.licenses.lgpl2Only lib.licenses.ocamlLgplLinkingException;
     broken = !(params ? ${ocaml.meta.branch});
   };
-}
+})

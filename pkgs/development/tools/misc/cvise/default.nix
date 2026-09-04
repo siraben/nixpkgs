@@ -12,7 +12,7 @@
   cvise,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "cvise";
   version = "2.12.0";
   pyproject = false;
@@ -20,7 +20,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "marxin";
     repo = "cvise";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-ObnhFe7hAKUoUxNJ+9jo0Q4AE6jQqDgI1Ta/jsumqpI=";
   };
 
@@ -92,4 +92,4 @@ python3Packages.buildPythonApplication rec {
     maintainers = [ ];
     platforms = lib.platforms.linux;
   };
-}
+})

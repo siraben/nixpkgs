@@ -14,7 +14,7 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "confuse";
   version = "2.2.1";
   pyproject = true;
@@ -22,7 +22,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "beetbox";
     repo = "confuse";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-lux4tYf3QC4pd1VnSzpw70wwUD4ovsOqanq3IGhTBOU=";
   };
 
@@ -50,4 +50,4 @@ buildPythonPackage rec {
       doronbehar
     ];
   };
-}
+})

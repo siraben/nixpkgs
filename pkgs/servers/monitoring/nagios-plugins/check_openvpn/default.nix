@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "check-openvpn";
   version = "0.0.1";
   format = "setuptools";
@@ -12,7 +12,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "liquidat";
     repo = "nagios-icinga-openvpn";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "1vz3p7nckc5k5f06nm1xfzpykhyndh2dzyagmifrzg5k478p1lpm";
   };
 
@@ -26,4 +26,4 @@ python3Packages.buildPythonApplication rec {
     mainProgram = "check_openvpn";
     maintainers = with lib.maintainers; [ peterhoeg ];
   };
-}
+})

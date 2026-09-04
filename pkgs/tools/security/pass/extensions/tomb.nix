@@ -5,14 +5,14 @@
   tomb,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "pass-tomb";
   version = "1.3";
 
   src = fetchFromGitHub {
     owner = "roddhjav";
     repo = "pass-tomb";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "sha256-kbbMHmYmeyt7HM8YiNhknePm1vUaXWWXPWePKGpbU+o=";
   };
 
@@ -37,4 +37,4 @@ stdenv.mkDerivation rec {
     ];
     platforms = lib.platforms.unix;
   };
-}
+})

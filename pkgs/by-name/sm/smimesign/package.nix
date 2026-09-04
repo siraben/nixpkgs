@@ -4,14 +4,14 @@
   lib,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "smimesign";
   version = "0.2.0";
 
   src = fetchFromGitHub {
     owner = "github";
     repo = "smimesign";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-W9Hj/+snx+X6l95Gt9d8DiLnBPV9npKydc/zMN9G0vQ=";
   };
 
@@ -20,7 +20,7 @@ buildGoModule rec {
   ldflags = [
     "-s"
     "-w"
-    "-X main.versionString=v${version}"
+    "-X main.versionString=v${finalAttrs.version}"
   ];
 
   # Fails in sandbox
@@ -33,4 +33,4 @@ buildGoModule rec {
     platforms = lib.platforms.darwin ++ lib.platforms.windows;
     maintainers = [ lib.maintainers.enorris ];
   };
-}
+})

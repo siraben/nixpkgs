@@ -10,14 +10,14 @@
   makeWrapper,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "helm-git";
   version = "1.5.2";
 
   src = fetchFromGitHub {
     owner = "aslafy-z";
     repo = "helm-git";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "sha256-JSy6bI6XHW4JkXwffbfSFJj46BUqJvRG83sfOi8AcHM=";
   };
 
@@ -52,4 +52,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ flokli ];
   };
-}
+})

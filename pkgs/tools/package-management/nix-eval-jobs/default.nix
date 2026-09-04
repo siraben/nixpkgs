@@ -10,14 +10,14 @@
   stdenv,
   nixComponents,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "nix-eval-jobs";
   version = "2.35.2";
 
   src = fetchFromGitHub {
     owner = "NixOS";
     repo = "nix-eval-jobs";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-qHxk1wVKqz/UMtVC14ugkhySbqYcRQbwobyeO/fhAf0=";
   };
 
@@ -64,4 +64,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.unix;
     mainProgram = "nix-eval-jobs";
   };
-}
+})

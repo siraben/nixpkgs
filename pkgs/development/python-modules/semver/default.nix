@@ -8,7 +8,7 @@
   setuptools-scm,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "semver";
   version = "3.0.4";
   pyproject = true;
@@ -16,7 +16,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "python-semver";
     repo = "python-semver";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-ry6r2cY/DRTiPxT+ZiumgFbQyHNzL8i1QcQbLWjnDVE=";
   };
 
@@ -40,4 +40,4 @@ buildPythonPackage rec {
     maintainers = with lib.maintainers; [ np ];
     mainProgram = "pysemver";
   };
-}
+})

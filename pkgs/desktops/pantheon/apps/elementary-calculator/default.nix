@@ -15,14 +15,14 @@
   libgee,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "elementary-calculator";
   version = "8.0.1";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "calculator";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-XBOe3v6lKoICgEh78JoVH0Ojs8tr5PxKHQGk63MX6pQ=";
   };
 
@@ -62,4 +62,4 @@ stdenv.mkDerivation rec {
     teams = [ lib.teams.pantheon ];
     mainProgram = "io.elementary.calculator";
   };
-}
+})

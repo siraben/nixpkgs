@@ -23,12 +23,12 @@ let
   series = lib.replaceStrings [ "." ] [ "_" ] (lib.versions.majorMinor kafkaVersion);
   seriesFile = ./. + "/${series}.nix";
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   version = "${scalaVersion}-${kafkaVersion}";
   pname = "apache-kafka";
 
   src = fetchurl {
-    url = "mirror://apache/kafka/${kafkaVersion}/kafka_${version}.tgz";
+    url = "mirror://apache/kafka/${kafkaVersion}/kafka_${finalAttrs.version}.tgz";
     inherit hash;
   };
 
@@ -86,4 +86,4 @@ stdenv.mkDerivation rec {
     maintainers = [ lib.maintainers.ragge ];
     platforms = lib.platforms.unix;
   };
-}
+})

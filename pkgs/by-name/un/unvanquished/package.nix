@@ -45,13 +45,13 @@ let
     hash = "sha256-+3y9UJAMfMDIO4feHTyb5IWIelRSsH6KF6WAtx7rric=";
   };
 
-  unvanquished-binary-deps = stdenv.mkDerivation rec {
+  unvanquished-binary-deps = stdenv.mkDerivation (finalAttrs: {
     # DISCLAIMER: this is selected binary crap from the NaCl SDK
     pname = "unvanquished-binary-deps";
     version = binary-deps-version;
 
     src = fetchzip {
-      url = "https://dl.unvanquished.net/deps/linux-amd64-default_${version}.tar.xz";
+      url = "https://dl.unvanquished.net/deps/linux-amd64-default_${finalAttrs.version}.tar.xz";
       hash = "sha256-1PPqQYnMBFR7Jr48qiqQEduEjiFWx3XyvfPBwX/PzIY=";
     };
 
@@ -83,7 +83,7 @@ let
 
       runHook postInstall
     '';
-  };
+  });
 
   libstdcpp-preload-for-unvanquished-nacl = stdenv.mkDerivation {
     name = "libstdcpp-preload-for-unvanquished-nacl";

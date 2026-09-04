@@ -10,14 +10,14 @@
   fmt,
 }:
 
-buildDunePackage rec {
+buildDunePackage (finalAttrs: {
   pname = "terminal";
   version = "0.5.0";
 
   minimalOCamlVersion = "4.03";
 
   src = fetchurl {
-    url = "https://github.com/CraigFe/progress/releases/download/${version}/progress-${version}.tbz";
+    url = "https://github.com/CraigFe/progress/releases/download/${finalAttrs.version}/progress-${finalAttrs.version}.tbz";
     hash = "sha256-f4fwWXNjkoxFuoWa5aFDD2qjwp4lH/GlPPeG7Q4EWWE=";
   };
 
@@ -39,4 +39,4 @@ buildDunePackage rec {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.vbgl ];
   };
-}
+})

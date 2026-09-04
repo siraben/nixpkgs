@@ -14,14 +14,14 @@
   libmad,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "qlcplus";
   version = "5.0.0";
 
   src = fetchFromGitHub {
     owner = "mcallegari";
     repo = "qlcplus";
-    rev = "QLC+_${version}";
+    rev = "QLC+_${finalAttrs.version}";
     hash = "sha256-gEwcTIJhY78Ts0lUn4MVciV7sPIBkqlxPMa9I1nTHO0=";
   };
 
@@ -74,4 +74,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.all;
     homepage = "https://www.qlcplus.org/";
   };
-}
+})

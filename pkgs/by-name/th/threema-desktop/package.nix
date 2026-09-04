@@ -18,14 +18,14 @@ let
     hash = "sha256-SVVzrgK4VdkMEVRQ9PUftB4ktchTq7JgawVz8AxMSZs=";
   };
 
-  threema-web = buildNpmPackage rec {
+  threema-web = buildNpmPackage (finalAttrs: {
     pname = "threema-web";
     version = "2.6.4";
 
     src = fetchFromGitHub {
       owner = "threema-ch";
       repo = "threema-web";
-      tag = "v${version}";
+      tag = "v${finalAttrs.version}";
       hash = "sha256-yDJbTkeCsQ3ToEpLoPC9ow0fbJhrvyrkrtYqIFEuhBU=";
     };
 
@@ -43,11 +43,11 @@ let
 
     postInstall = ''
       # Content of ${electronSrc}/tools/patches/post-patch-threema-web.sh
-      export threema_web_version=threema-web-${version}
+      export threema_web_version=threema-web-${finalAttrs.version}
       sed -i.bak -E "s/IN_MEMORY_SESSION_PASSWORD:(true|false|0|1|\!0|\!1)/IN_MEMORY_SESSION_PASSWORD:true/g" -- release/$threema_web_version/*.bundle.js
       cp -r . "$out"
     '';
-  };
+  });
 
   consumer = buildNpmPackage rec {
     pname = "threema-desktop-consumer";

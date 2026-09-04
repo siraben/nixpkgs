@@ -5,7 +5,7 @@
   python,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pysvg-py3";
   version = "0.2.2-post3";
   format = "setuptools";
@@ -13,7 +13,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "alorence";
     repo = "pysvg-py3";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "1slync0knpcjgl4xpym8w4249iy6vmrwbarpnbjzn9xca8g1h2f0";
   };
 
@@ -32,4 +32,4 @@ buildPythonPackage rec {
     license = lib.licenses.bsd2;
     maintainers = with lib.maintainers; [ davidak ];
   };
-}
+})

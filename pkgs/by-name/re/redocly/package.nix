@@ -7,14 +7,14 @@
   testers,
 }:
 
-buildNpmPackage rec {
+buildNpmPackage (finalAttrs: {
   pname = "redocly";
   version = "2.17.0";
 
   src = fetchFromGitHub {
     owner = "Redocly";
     repo = "redocly-cli";
-    rev = "@redocly/cli@${version}";
+    rev = "@redocly/cli@${finalAttrs.version}";
     hash = "sha256-bhM8CIKmZ3p96DViHVieMmUXOtkhs0+nhQs4naIgQVY=";
   };
 
@@ -60,4 +60,4 @@ buildNpmPackage rec {
     mainProgram = "redocly";
     maintainers = with lib.maintainers; [ szlend ];
   };
-}
+})

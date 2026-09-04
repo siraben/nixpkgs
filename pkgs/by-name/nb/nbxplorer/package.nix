@@ -5,14 +5,14 @@
   dotnetCorePackages,
 }:
 
-buildDotnetModule rec {
+buildDotnetModule (finalAttrs: {
   pname = "nbxplorer";
   version = "2.6.10";
 
   src = fetchFromGitHub {
     owner = "btcpayserver";
     repo = "NBXplorer";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-bAAEB1wIaWgDygk79bCuvkNDiPvgsUhVDqIrR3LMp7Q=";
   };
 
@@ -38,4 +38,4 @@ buildDotnetModule rec {
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
     mainProgram = "nbxplorer";
   };
-}
+})

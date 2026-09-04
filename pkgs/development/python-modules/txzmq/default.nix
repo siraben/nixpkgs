@@ -8,7 +8,7 @@
   twisted,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "txzmq";
   version = "1.0.0";
   pyproject = true;
@@ -17,7 +17,7 @@ buildPythonPackage rec {
   strictDeps = true;
 
   src = fetchPypi {
-    inherit version;
+    inherit (finalAttrs) version;
     pname = "txZMQ";
     hash = "sha256-jWB9C/CcqUYAuOQvByHb5D7lOgRwGCNErHrOfljcYXc=";
   };
@@ -39,4 +39,4 @@ buildPythonPackage rec {
     license = lib.licenses.mpl20;
     maintainers = [ ];
   };
-}
+})

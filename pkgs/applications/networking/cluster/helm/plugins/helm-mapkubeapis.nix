@@ -4,14 +4,14 @@
   lib,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "helm-mapkubeapis";
   version = "0.6.1";
 
   src = fetchFromGitHub {
     owner = "helm";
     repo = "helm-mapkubeapis";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-RvyoqfhvoXESmc6M4B1XeUtal0zQt6LCKjByyBe6pUU=";
   };
 
@@ -35,4 +35,4 @@ buildGoModule rec {
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ aos ];
   };
-}
+})

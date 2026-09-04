@@ -5,7 +5,7 @@
   setuptools,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pretalx-pages";
   version = "1.10.0";
   pyproject = true;
@@ -13,7 +13,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "pretalx";
     repo = "pretalx-pages";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-eTsADpAaXLtgvrSo6Dm1z4xCXEslty+vIepkeg3ccjs=";
   };
 
@@ -27,4 +27,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ wegank ];
   };
-}
+})

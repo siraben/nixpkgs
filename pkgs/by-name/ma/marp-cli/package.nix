@@ -5,14 +5,14 @@
   nodejs,
 }:
 
-buildNpmPackage rec {
+buildNpmPackage (finalAttrs: {
   pname = "marp-cli";
   version = "4.5.0";
 
   src = fetchFromGitHub {
     owner = "marp-team";
     repo = "marp-cli";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-ZcidJIcZ3ZFsQFIGiY1sBeRE7GZkGPPQNHhRnti/EGY=";
   };
 
@@ -30,4 +30,4 @@ buildNpmPackage rec {
     platforms = nodejs.meta.platforms;
     mainProgram = "marp";
   };
-}
+})

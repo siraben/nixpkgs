@@ -7,7 +7,7 @@
   tqdm,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "angrop";
   version = "9.2.12.post3";
   pyproject = true;
@@ -15,7 +15,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "angr";
     repo = "angrop";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-t4JjI6mWX/Us4dHcVXPAUGms8SEE6MVhteQMPi8p5Zo=";
   };
 
@@ -38,4 +38,4 @@ buildPythonPackage rec {
     license = lib.licenses.bsd2;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

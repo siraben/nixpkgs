@@ -12,7 +12,7 @@
   lizard,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pydriller";
   version = "2.10";
   pyproject = true;
@@ -21,7 +21,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "ishepard";
     repo = "pydriller";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-Ooyn0Fjtz4J+BM+/LfknvRHTxnqDBxXVH4V9eNcDSTE=";
   };
 
@@ -45,4 +45,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ felbinger ];
   };
-}
+})

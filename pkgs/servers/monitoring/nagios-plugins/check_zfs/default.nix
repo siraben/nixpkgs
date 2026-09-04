@@ -7,14 +7,14 @@
   zfs,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "check-zfs";
   version = "2.0";
 
   src = fetchFromGitHub {
     owner = "zlacelle";
     repo = "nagios_check_zfs_linux";
-    tag = version;
+    tag = finalAttrs.version;
     sha256 = "gPLCNt6hp4E94s9/PRgsnBN5XXQQ+s2MGcgRFeknXg4=";
   };
 
@@ -46,4 +46,4 @@ stdenv.mkDerivation rec {
     mainProgram = "check_zfs";
     maintainers = with lib.maintainers; [ mariaa144 ];
   };
-}
+})

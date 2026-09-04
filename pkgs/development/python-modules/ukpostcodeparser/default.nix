@@ -4,14 +4,14 @@
   fetchPypi,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "ukpostcodeparser";
   version = "1.1.2";
   format = "setuptools";
 
   src = fetchPypi {
     pname = "UkPostcodeParser";
-    inherit version;
+    inherit (finalAttrs) version;
     sha256 = "930264efa293db80af0103a4fe9c161b06365598d24bb6fe5403f3f57c70530e";
   };
 
@@ -24,4 +24,4 @@ buildPythonPackage rec {
     maintainers = with lib.maintainers; [ siddharthist ];
     platforms = lib.platforms.unix;
   };
-}
+})

@@ -4,14 +4,14 @@
   fetchPypi,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "future-typing";
   version = "0.4.1";
   format = "setuptools";
 
   src = fetchPypi {
     pname = "future_typing";
-    inherit version;
+    inherit (finalAttrs) version;
     sha256 = "65fdc5034a95db212790fee5e977fb0a2df8deb60dccf3bac17d6d2b1a9bbacd";
   };
 
@@ -26,4 +26,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ kfollesdal ];
   };
-}
+})

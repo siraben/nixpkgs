@@ -6,7 +6,7 @@
   poetry-core,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "zhong-hong-hvac";
   version = "1.0.19";
   pyproject = true;
@@ -14,7 +14,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "crhan";
     repo = "ZhongHongHVAC";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-MRtjQ2l5w/iDungzfNNWPGC4lTkmz+aWiny4kqG/Y3A=";
   };
 
@@ -30,8 +30,8 @@ buildPythonPackage rec {
   meta = {
     description = "Python library for interfacing with ZhongHong HVAC controller";
     homepage = "https://github.com/crhan/ZhongHongHVAC";
-    changelog = "https://github.com/crhan/ZhongHongHVAC/releases/tag/v${version}";
+    changelog = "https://github.com/crhan/ZhongHongHVAC/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.jamiemagee ];
   };
-}
+})

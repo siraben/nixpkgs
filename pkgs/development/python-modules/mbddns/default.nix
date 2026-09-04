@@ -5,7 +5,7 @@
   fetchFromGitHub,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "mbddns";
   version = "0.1.2";
   format = "setuptools";
@@ -13,7 +13,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "thinkl33t";
     repo = "mb-ddns";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "13xzkprqk1v0zlzx4a0n9zzpnlb1g2h6pc62ms66fj72lsmjynj7";
   };
 
@@ -30,4 +30,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

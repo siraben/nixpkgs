@@ -5,7 +5,7 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "imaplib2";
   version = "3.6";
   format = "setuptools";
@@ -13,7 +13,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "jazzband";
     repo = "imaplib2";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "14asi3xnvf4bb394k5j8c3by6svvmrr75pawzy6kaax5jx0h793m";
   };
 
@@ -27,4 +27,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ dotlambda ];
   };
-}
+})

@@ -14,7 +14,7 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "yowsup";
   version = "3.3.0";
   pyproject = true;
@@ -26,7 +26,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "tgalal";
     repo = "yowsup";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     sha256 = "1pz0r1gif15lhzdsam8gg3jm6zsskiv2yiwlhaif5rl7lv3p0v7q";
   };
 
@@ -59,4 +59,4 @@ buildPythonPackage rec {
     license = lib.licenses.gpl3Plus;
     maintainers = [ ];
   };
-}
+})

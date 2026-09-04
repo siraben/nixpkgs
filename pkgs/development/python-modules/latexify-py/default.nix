@@ -8,7 +8,7 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "latexify-py";
   version = "0.4.4";
   pyproject = true;
@@ -20,7 +20,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "google";
     repo = "latexify_py";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-tyBIOIVRSNrhO1NOD7Zqmiksrvrm42DUY4w1IocVRl4=";
   };
 
@@ -39,8 +39,8 @@ buildPythonPackage rec {
   meta = {
     description = "Generates LaTeX math description from Python functions";
     homepage = "https://github.com/google/latexify_py";
-    changelog = "https://github.com/google/latexify_py/releases/tag/v${version}";
+    changelog = "https://github.com/google/latexify_py/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ prusnak ];
   };
-}
+})

@@ -9,14 +9,14 @@
   urllib3,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "netapp-ontap";
   version = "9.17.1.0";
   pyproject = true;
 
   src = fetchPypi {
     pname = "netapp_ontap";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-bzDGsKCEH3oszuz4OKnOg7WTMQTnJAGh7POmGhRCyzc=";
   };
 
@@ -46,4 +46,4 @@ buildPythonPackage rec {
     maintainers = with lib.maintainers; [ SuperSandro2000 ];
     mainProgram = "ontap-cli";
   };
-}
+})

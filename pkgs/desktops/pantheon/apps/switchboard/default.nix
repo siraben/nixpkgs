@@ -16,14 +16,14 @@
   wrapGAppsHook4,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "switchboard";
   version = "8.0.3";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "switchboard";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-pVXcY/QSjgBcTr0sFQnPxICoQ0tpy2fEJ687zHEDXA0=";
   };
 
@@ -61,4 +61,4 @@ stdenv.mkDerivation rec {
     teams = [ lib.teams.pantheon ];
     mainProgram = "io.elementary.settings";
   };
-}
+})

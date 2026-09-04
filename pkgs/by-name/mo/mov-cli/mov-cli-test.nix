@@ -8,7 +8,7 @@
   devgoldyutils,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "mov-cli-test";
   version = "1.1.7";
   pyproject = true;
@@ -16,7 +16,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "mov-cli";
     repo = "mov-cli-test";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-INdPAJxPxfo5bKg4Xn1r7bildxznXrTJxmDI21wylnI=";
   };
 
@@ -36,4 +36,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ youhaveme9 ];
   };
-}
+})

@@ -27,12 +27,12 @@ let
     openssl = openssl_3;
   };
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "intune-portal";
   version = "1.2607.4-noble";
 
   src = fetchurl {
-    url = "https://packages.microsoft.com/ubuntu/24.04/prod/pool/main/i/intune-portal/intune-portal_${version}_amd64.deb";
+    url = "https://packages.microsoft.com/ubuntu/24.04/prod/pool/main/i/intune-portal/intune-portal_${finalAttrs.version}_amd64.deb";
     hash = "sha256-bBhWI8U+QCynHaXJBtEGsZH7leW2AdavRJE7r5EcG9M=";
   };
 
@@ -117,4 +117,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ rhysmdnz ];
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
   };
-}
+})

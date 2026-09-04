@@ -33,7 +33,7 @@
   callPackage,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "xonsh";
   version = "0.24.2";
   pyproject = true;
@@ -42,7 +42,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "xonsh";
     repo = "xonsh";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-6dLl2VDUyfoFVbnSpDxXgEhp+GpYab3yewMuq6Nd6oQ=";
   };
 
@@ -157,7 +157,7 @@ buildPythonPackage rec {
   meta = {
     homepage = "https://xon.sh/";
     description = "Python-powered shell";
-    changelog = "https://github.com/xonsh/xonsh/blob/${version}/CHANGELOG.md";
+    changelog = "https://github.com/xonsh/xonsh/blob/${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.bsd3;
     mainProgram = "xonsh";
     maintainers = with lib.maintainers; [
@@ -165,4 +165,4 @@ buildPythonPackage rec {
       infinidoge
     ];
   };
-}
+})

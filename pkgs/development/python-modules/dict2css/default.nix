@@ -5,13 +5,13 @@
   cssutils,
   lib,
 }:
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "dict2css";
   version = "0.3.0.post1";
   pyproject = true;
 
   src = fetchPypi {
-    inherit version;
+    inherit (finalAttrs) version;
     pname = "dict2css";
     hash = "sha256-icVEwhxMp0csP/+50309km9gYymv23Udwd5npBG3Bxk=";
   };
@@ -28,4 +28,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = [ ];
   };
-}
+})

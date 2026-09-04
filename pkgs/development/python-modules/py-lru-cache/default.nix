@@ -4,13 +4,13 @@
   fetchPypi,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "py-lru-cache";
   version = "0.1.4";
   format = "setuptools";
 
   src = fetchPypi {
-    inherit version;
+    inherit (finalAttrs) version;
     pname = "py_lru_cache";
     sha256 = "1w3a8l3ckl1zz0f2vlfrawl9a402r458p7xzhy4sgq8k9rl37pq2";
   };
@@ -21,4 +21,4 @@ buildPythonPackage rec {
     license = lib.licenses.gpl3;
     maintainers = [ ];
   };
-}
+})

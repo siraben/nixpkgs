@@ -4,7 +4,7 @@
   buildDunePackage,
 }:
 
-buildDunePackage rec {
+buildDunePackage (finalAttrs: {
   pname = "syslog";
   version = "2.0.2";
 
@@ -13,7 +13,7 @@ buildDunePackage rec {
   src = fetchFromGitHub {
     owner = "geneanet";
     repo = "ocaml-syslog";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-WybNZBPhv4fhjzzb95E+6ZHcZUnfROLlNF3PMBGO9ys=";
   };
 
@@ -23,4 +23,4 @@ buildDunePackage rec {
     license = lib.licenses.lgpl21Plus;
     maintainers = [ lib.maintainers.rixed ];
   };
-}
+})

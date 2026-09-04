@@ -7,7 +7,7 @@
   setuptools,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "bizkaibus";
   version = "0.2.0";
   pyproject = true;
@@ -17,7 +17,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "UgaitzEtxebarria";
     repo = "BizkaibusRTPI";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-TM02pSSOELRGSwsKc5C+34W94K6mnS0C69aijsPqSWs=";
   };
 
@@ -33,8 +33,8 @@ buildPythonPackage rec {
   meta = {
     description = "Python module to get information about Bizkaibus buses";
     homepage = "https://github.com/UgaitzEtxebarria/BizkaibusRTPI";
-    changelog = "https://github.com/UgaitzEtxebarria/BizkaibusRTPI/releases/tag/${version}";
+    changelog = "https://github.com/UgaitzEtxebarria/BizkaibusRTPI/releases/tag/${finalAttrs.version}";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

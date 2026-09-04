@@ -13,14 +13,14 @@
   wrapGAppsHook3,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ibus-table";
   version = "1.17.19";
 
   src = fetchFromGitHub {
     owner = "kaio";
     repo = "ibus-table";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-2Bp6gxty6Bbdq9cr6y8gHiC9FkrDxWpq0Qt/3g/r8/k=";
   };
 
@@ -77,4 +77,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ mudri ];
   };
-}
+})

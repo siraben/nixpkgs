@@ -5,7 +5,7 @@
   pygtail,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "logster";
   version = "1.0.1";
   format = "setuptools";
@@ -13,7 +13,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "etsy";
     repo = "logster";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "06ac5hydas24h2cn8l5i69v1z0min5hwh6a1lcm1b08xnvpsi85q";
   };
 
@@ -25,4 +25,4 @@ buildPythonPackage rec {
     license = lib.licenses.gpl3Plus;
     homepage = "https://github.com/etsy/logster";
   };
-}
+})

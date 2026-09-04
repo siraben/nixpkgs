@@ -42,14 +42,14 @@ let
   };
 
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   version = "7.5";
   pname = "quantum-espresso";
 
   src = fetchFromGitLab {
     owner = "QEF";
     repo = "q-e";
-    rev = "qe-${version}";
+    rev = "qe-${finalAttrs.version}";
     hash = "sha256-8/7++v53VDfn2P/QcrFRjUSygik3gintVMQwLU4nE24=";
   };
 
@@ -137,4 +137,4 @@ stdenv.mkDerivation rec {
     ];
     maintainers = [ lib.maintainers.costrouc ];
   };
-}
+})

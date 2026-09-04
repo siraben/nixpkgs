@@ -10,7 +10,7 @@
   pyscard,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pysatochip";
   version = "0.17.0";
   format = "setuptools";
@@ -18,7 +18,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "toporin";
     repo = "pysatochip";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-9QenE9YpgrKwiN9kpS+KWdqFeba7AGXDneW5p+9/t1A=";
   };
 
@@ -40,4 +40,4 @@ buildPythonPackage rec {
     license = lib.licenses.lgpl3Only;
     maintainers = with lib.maintainers; [ oxalica ];
   };
-}
+})

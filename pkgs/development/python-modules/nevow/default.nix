@@ -6,7 +6,7 @@
   twisted,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "nevow";
   version = "0.14.5";
   format = "setuptools";
@@ -14,7 +14,7 @@ buildPythonPackage rec {
 
   src = fetchPypi {
     pname = "Nevow";
-    inherit version;
+    inherit (finalAttrs) version;
     sha256 = "afb6ba85a5351953578c018fcdb9dfbd62f29a8d46c58bc9652bc000a27223f3";
   };
 
@@ -48,4 +48,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/twisted/nevow";
     license = lib.licenses.mit;
   };
-}
+})

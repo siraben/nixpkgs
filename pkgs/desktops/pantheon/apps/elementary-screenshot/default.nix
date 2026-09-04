@@ -15,14 +15,14 @@
   nix-update-script,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "elementary-screenshot";
   version = "8.0.4";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "screenshot";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-hVYzriIRvBDBdRRZRiXZwEazu9ZPhPaVY/pOfw95ZkU=";
   };
 
@@ -54,4 +54,4 @@ stdenv.mkDerivation rec {
     teams = [ lib.teams.pantheon ];
     mainProgram = "io.elementary.screenshot";
   };
-}
+})

@@ -15,7 +15,7 @@
   ],
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   inherit pname;
   version = "2.12.3";
   tags = lib.optionals enableGateway [ "gateway" ];
@@ -23,7 +23,7 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "kumahq";
     repo = "kuma";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-C/q3fCcMMnqjXeoO/t/YOKHLq8HDNfF+x75nCcjwwvE=";
   };
 
@@ -60,16 +60,16 @@ buildGoModule rec {
     [
       "-s"
       "-w"
-      "-X ${prefix}.version=${version}"
-      "-X ${prefix}.gitTag=${version}"
-      "-X ${prefix}.gitCommit=${version}"
-      "-X ${prefix}.buildDate=${version}"
+      "-X ${prefix}.version=${finalAttrs.version}"
+      "-X ${prefix}.gitTag=${finalAttrs.version}"
+      "-X ${prefix}.gitCommit=${finalAttrs.version}"
+      "-X ${prefix}.buildDate=${finalAttrs.version}"
     ];
 
   meta = {
     description = "Service mesh controller";
     homepage = "https://kuma.io/";
-    changelog = "https://github.com/kumahq/kuma/blob/${version}/CHANGELOG.md";
+    changelog = "https://github.com/kumahq/kuma/blob/${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.asl20;
   };
-}
+})

@@ -8,7 +8,7 @@
   django-guardian,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "django-fsm";
   version = "3.0.0";
   pyproject = true;
@@ -16,7 +16,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "viewflow";
     repo = "django-fsm";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-woN0F4hTaPk8HTGNT6zQlZDJ9SCVRut9maKSlDmalUE=";
   };
 
@@ -39,4 +39,4 @@ buildPythonPackage rec {
     knownVulnerabilities = [ "Package is marked as discontinued upstream." ];
     maintainers = [ lib.maintainers.onny ];
   };
-}
+})

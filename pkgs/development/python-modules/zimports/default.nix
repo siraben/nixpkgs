@@ -10,7 +10,7 @@
   pythonAtLeast,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "zimports";
   version = "0.7.0";
   format = "setuptools";
@@ -21,7 +21,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "sqlalchemyorg";
     repo = "zimports";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-5RSVRI1sgCXkkkMQo4azKj8AlShxDWEF6qQoU3VfoI8=";
   };
 
@@ -42,4 +42,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ timokau ];
   };
-}
+})

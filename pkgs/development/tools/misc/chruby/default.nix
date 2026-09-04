@@ -13,7 +13,7 @@ let
   '';
 
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "chruby";
 
   version = "0.3.9";
@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "postmodern";
     repo = "chruby";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "1894g6fymr8kra9vwhbmnrcr58l022mcd7g9ans4zd3izla2j3gx";
   };
 
@@ -47,4 +47,4 @@ stdenv.mkDerivation rec {
     mainProgram = "chruby-exec";
     platforms = lib.platforms.unix;
   };
-}
+})

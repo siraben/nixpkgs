@@ -42,7 +42,7 @@ let
     };
   };
 in
-python.pkgs.buildPythonApplication rec {
+python.pkgs.buildPythonApplication (finalAttrs: {
   pname = "dbx";
   version = "0.8.19";
   pyproject = true;
@@ -50,7 +50,7 @@ python.pkgs.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "databrickslabs";
     repo = "dbx";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-DNVJcCDHyWCorTxNN6RR6TWNF2MrysXT44UbwegROTU=";
   };
 
@@ -154,8 +154,8 @@ python.pkgs.buildPythonApplication rec {
   meta = {
     description = "CLI tool for advanced Databricks jobs management";
     homepage = "https://github.com/databrickslabs/dbx";
-    changelog = "https://github.com/databrickslabs/dbx/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/databrickslabs/dbx/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.databricks-dbx;
     maintainers = [ ];
   };
-}
+})

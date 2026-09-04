@@ -23,13 +23,13 @@ let
   };
 
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "groove";
   version = "5.8.1";
 
   src = fetchurl {
-    url = "mirror://sourceforge/groove/groove/${version}/groove-${
-      builtins.replaceStrings [ "." ] [ "_" ] version
+    url = "mirror://sourceforge/groove/groove/${finalAttrs.version}/groove-${
+      builtins.replaceStrings [ "." ] [ "_" ] finalAttrs.version
     }-bin.zip";
     sha256 = "sha256-JwoUlO6F2+8NtCnLC+xm5q0Jm8RIyU1rnuKGmjgJhFU=";
   };
@@ -71,4 +71,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.all;
     maintainers = [ ];
   };
-}
+})

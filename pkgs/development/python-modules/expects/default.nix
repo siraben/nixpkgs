@@ -4,7 +4,7 @@
   fetchFromGitHub,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "expects";
   version = "0.9.0";
   format = "setuptools";
@@ -12,7 +12,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "jaimegildesagredo";
     repo = "expects";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "0mk1mhh8n9ly820krkhazn1w96f10vmgh21y2wr44sn8vwr4ngyy";
   };
 
@@ -27,4 +27,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

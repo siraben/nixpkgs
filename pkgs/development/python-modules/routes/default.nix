@@ -8,14 +8,14 @@
   webob,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "routes";
   version = "2.5.1";
   format = "setuptools";
 
   src = fetchPypi {
     pname = "Routes";
-    inherit version;
+    inherit (finalAttrs) version;
     sha256 = "b6346459a15f0cbab01a45a90c3d25caf980d4733d628b4cc1952b865125d053";
   };
 
@@ -37,4 +37,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = [ ];
   };
-}
+})

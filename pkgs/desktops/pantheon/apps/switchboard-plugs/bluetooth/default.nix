@@ -18,14 +18,14 @@
   wingpanel-indicator-bluetooth,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "switchboard-plug-bluetooth";
   version = "8.0.2";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "settings-bluetooth";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-D2kigdGdmDtFWt/hldzHm+QqlGl6RBExhcdurLtCM1Q=";
   };
 
@@ -60,4 +60,4 @@ stdenv.mkDerivation rec {
     teams = [ lib.teams.pantheon ];
   };
 
-}
+})

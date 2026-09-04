@@ -24,14 +24,14 @@
   dbusSupport ? !stdenv.hostPlatform.isDarwin,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pyqt5";
   version = "5.15.10";
   pyproject = true;
 
   src = fetchPypi {
     pname = "PyQt5";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-1Gt4BLGxCk/5F1P4ET5bVYDStEYvMiYoji2ESXM0iYo=";
   };
 
@@ -196,4 +196,4 @@ buildPythonPackage rec {
     license = lib.licenses.gpl3Only;
     inherit (mesa.meta) platforms;
   };
-}
+})

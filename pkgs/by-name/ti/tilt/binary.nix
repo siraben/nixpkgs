@@ -8,7 +8,7 @@
   installShellFiles,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "tilt";
   /*
     Do not use "dev" as a version. If you do, Tilt will consider itself
@@ -21,7 +21,7 @@ buildGoModule rec {
 
   subPackages = [ "cmd/tilt" ];
 
-  ldflags = [ "-X main.version=${version}" ];
+  ldflags = [ "-X main.version=${finalAttrs.version}" ];
 
   nativeBuildInputs = [ installShellFiles ];
 
@@ -47,4 +47,4 @@ buildGoModule rec {
       zacharyarnaise
     ];
   };
-}
+})

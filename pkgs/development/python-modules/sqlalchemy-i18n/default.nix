@@ -12,14 +12,14 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "sqlalchemy-i18n";
   version = "1.1.0";
   pyproject = true;
 
   src = fetchPypi {
     pname = "SQLAlchemy-i18n";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-3jM3ZIOlgcoUIY2PV6EURmxfcrZ0qVg5tsRWSm5neW8=";
   };
 
@@ -52,4 +52,4 @@ buildPythonPackage rec {
     # sqlalchemy.exc.InvalidRequestError: The 'sqlalchemy.orm.mapper()' function is removed as of SQLAlchemy 2.0.
     broken = lib.versionAtLeast sqlalchemy.version "2";
   };
-}
+})

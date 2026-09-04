@@ -8,7 +8,7 @@
   pytest,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "tunigo";
   version = "1.0.0";
   format = "setuptools";
@@ -18,7 +18,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "trygveaa";
     repo = "python-tunigo";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "07q9girrjjffzkn8xj4l3ynf9m4psi809zf6f81f54jdb330p2fs";
   };
 
@@ -37,4 +37,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/trygveaa/python-tunigo";
     license = lib.licenses.asl20;
   };
-}
+})

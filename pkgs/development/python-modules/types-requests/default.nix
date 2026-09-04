@@ -7,14 +7,14 @@
   urllib3,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "types-requests";
   version = "2.32.4.20260107";
   pyproject = true;
 
   src = fetchPypi {
     pname = "types_requests";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-AYoRrBWPgBv6hIV93sFlB1Djk9+KAEqKmuKpvsb8sk8=";
   };
 
@@ -36,4 +36,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

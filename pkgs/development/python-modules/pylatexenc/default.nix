@@ -5,7 +5,7 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pylatexenc";
   version = "2.11";
   format = "setuptools";
@@ -13,7 +13,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "phfaist";
     repo = "pylatexenc";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-Zv3Sjx0YpSCnoHHf3CSiGaFMS7FNgUUwvIxNX/k9tOg=";
   };
 
@@ -28,4 +28,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = [ ];
   };
-}
+})

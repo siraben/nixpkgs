@@ -30,14 +30,14 @@
 # users to get device access permission:
 #    services.udev.packages = [ pkgs.python3Packages.chipwhisperer ];
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "chipwhisperer";
   version = "5.7.0";
 
   src = fetchFromGitHub {
     owner = "newaetech";
     repo = "chipwhisperer";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-C7QP044QEP7vmz1lMseLtMTYoKn5SoFV/q9URY7yQ6I=";
   };
 
@@ -103,9 +103,9 @@ buildPythonPackage rec {
   meta = {
     description = "Toolchain for side-channel power analysis and glitching attacks";
     homepage = "https://github.com/newaetech/chipwhisperer";
-    changelog = "https://github.com/newaetech/chipwhisperer/releases/tag/${version}";
+    changelog = "https://github.com/newaetech/chipwhisperer/releases/tag/${finalAttrs.version}";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.krishnans2006 ];
     broken = true; # Requires NumPy 1.26.4 (unsupported by nixpkgs)
   };
-}
+})

@@ -14,12 +14,12 @@ let
   };
 in
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "lamdera";
   version = "1.4.0";
 
   src = fetchurl {
-    url = "https://static.lamdera.com/bin/lamdera-${version}-${os}-${arch}";
+    url = "https://static.lamdera.com/bin/lamdera-${finalAttrs.version}-${os}-${arch}";
     sha256 = hashes.${stdenv.system};
   };
 
@@ -40,4 +40,4 @@ stdenv.mkDerivation rec {
     ];
     maintainers = with lib.maintainers; [ Zimmi48 ];
   };
-}
+})

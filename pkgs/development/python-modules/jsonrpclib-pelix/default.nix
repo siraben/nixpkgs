@@ -5,7 +5,7 @@
   lib,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "jsonrpclib-pelix";
   version = "1.1.0";
   pyproject = true;
@@ -13,7 +13,7 @@ buildPythonPackage rec {
 
   src = fetchPypi {
     pname = "jsonrpclib_pelix";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-N5o8mz3UeHJ0GVh6p88Uu2/w5kMB3swP+pj3EPa/7B4=";
   };
 
@@ -25,4 +25,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = [ ];
   };
-}
+})

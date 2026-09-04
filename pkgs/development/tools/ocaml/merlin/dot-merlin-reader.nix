@@ -9,7 +9,7 @@
   result,
 }:
 
-buildDunePackage rec {
+buildDunePackage (finalAttrs: {
   pname = "dot-merlin-reader";
 
   inherit (merlin) version src;
@@ -20,7 +20,7 @@ buildDunePackage rec {
     findlib
   ]
   ++ (
-    if lib.versionAtLeast version "4.7-414" then
+    if lib.versionAtLeast finalAttrs.version "4.7-414" then
       [ merlin-lib ]
     else
       [
@@ -37,4 +37,4 @@ buildDunePackage rec {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.hongchangwu ];
   };
-}
+})

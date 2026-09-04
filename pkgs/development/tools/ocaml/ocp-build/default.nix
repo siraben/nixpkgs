@@ -10,14 +10,14 @@
   re,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ocaml${ocaml.version}-ocp-build";
   version = "1.99.21";
 
   src = fetchFromGitHub {
     owner = "OCamlPro";
     repo = "ocp-build";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "1641xzik98c7xnjwxpacijd6d9jzx340fmdn6i372z8h554jjlg9";
   };
 
@@ -58,4 +58,4 @@ stdenv.mkDerivation rec {
     broken = lib.versionAtLeast ocaml.version "5.0";
     inherit (ocaml.meta) platforms;
   };
-}
+})

@@ -13,12 +13,12 @@
   menhirSdk,
 }:
 
-buildDunePackage rec {
+buildDunePackage (finalAttrs: {
   pname = "merlin";
   version = "3.8.0";
 
   src = fetchurl {
-    url = "https://github.com/ocaml/merlin/releases/download/v${version}/merlin-${version}.tbz";
+    url = "https://github.com/ocaml/merlin/releases/download/v${finalAttrs.version}/merlin-${finalAttrs.version}.tbz";
     sha256 = "sha256-wmBGNwXL3BduF4o1sUXtAOUHJ4xmMvsWAxl/QdNj/28=";
   };
 
@@ -54,4 +54,4 @@ buildDunePackage rec {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.vbgl ];
   };
-}
+})

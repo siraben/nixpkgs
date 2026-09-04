@@ -7,7 +7,7 @@
   zip,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "uefitool";
   version = "0.28.0";
 
@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-StqrOMsKst2X2yQQ/Xl7iLAuA4QXEOyj2KtE7ZtoUNg=";
     owner = "LongSoft";
     repo = "uefitool";
-    tag = version;
+    tag = finalAttrs.version;
   };
 
   buildInputs = [ qt5.qtbase ];
@@ -45,4 +45,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     mainProgram = "UEFITool";
   };
-}
+})

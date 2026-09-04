@@ -45,12 +45,12 @@ let
   run = "ocaml -I ${findlib}/lib/ocaml/${ocaml.version}/site-lib/ pkg/pkg.ml";
 in
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ocaml${ocaml.version}-topkg";
   inherit (param) version;
 
   src = fetchurl {
-    url = "https://erratique.ch/software/topkg/releases/topkg-${version}.tbz";
+    url = "https://erratique.ch/software/topkg/releases/topkg-${finalAttrs.version}.tbz";
     inherit (param) hash;
   };
 
@@ -76,4 +76,4 @@ stdenv.mkDerivation rec {
     description = "Packager for distributing OCaml software";
     inherit (ocaml.meta) platforms;
   };
-}
+})

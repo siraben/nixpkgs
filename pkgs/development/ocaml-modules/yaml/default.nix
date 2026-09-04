@@ -14,12 +14,12 @@
   ezjsonm,
 }:
 
-buildDunePackage rec {
+buildDunePackage (finalAttrs: {
   pname = "yaml";
   version = "3.2.0";
 
   src = fetchurl {
-    url = "https://github.com/avsm/ocaml-yaml/releases/download/v${version}/yaml-${version}.tbz";
+    url = "https://github.com/avsm/ocaml-yaml/releases/download/v${finalAttrs.version}/yaml-${finalAttrs.version}.tbz";
     hash = "sha256-xQ0qyii5+WZ5K3HhYDNR5dJO2k39PkRT+9UDZqOggic=";
   };
 
@@ -49,4 +49,4 @@ buildDunePackage rec {
     maintainers = [ lib.maintainers.vbgl ];
   };
 
-}
+})

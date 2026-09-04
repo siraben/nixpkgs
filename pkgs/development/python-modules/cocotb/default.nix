@@ -15,7 +15,7 @@
   stdenv,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "cocotb";
   version = "2.0.1";
   format = "setuptools";
@@ -29,7 +29,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "cocotb";
     repo = "cocotb";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-LXQNqFlvP+WBaDGWPs5+BXBtW2dhDu+v+7lR/AMG21M=";
   };
 
@@ -82,7 +82,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "cocotb" ];
 
   meta = {
-    changelog = "https://github.com/cocotb/cocotb/releases/tag/v${version}";
+    changelog = "https://github.com/cocotb/cocotb/releases/tag/v${finalAttrs.version}";
     description = "Coroutine based cosimulation library for writing VHDL and Verilog testbenches in Python";
     mainProgram = "cocotb-config";
     homepage = "https://github.com/cocotb/cocotb";
@@ -93,4 +93,4 @@ buildPythonPackage rec {
       jleightcap
     ];
   };
-}
+})

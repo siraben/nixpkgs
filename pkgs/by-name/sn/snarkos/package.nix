@@ -7,14 +7,14 @@
   pkg-config,
   openssl,
 }:
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "snarkos";
   version = "2.2.7";
 
   src = fetchFromGitHub {
     owner = "ProvableHQ";
     repo = "snarkOS";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "sha256-+z9dgg5HdR+Gomug03gI1zdCU6t4SBHkl1Pxoq69wrc=";
   };
 
@@ -64,4 +64,4 @@ rustPlatform.buildRustPackage rec {
     platforms = lib.platforms.unix;
     mainProgram = "snarkos";
   };
-}
+})

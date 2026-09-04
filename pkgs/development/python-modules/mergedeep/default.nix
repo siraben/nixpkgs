@@ -5,7 +5,7 @@
   pytest,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "mergedeep";
   version = "1.3.4";
   format = "setuptools";
@@ -14,7 +14,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "clarketm";
     repo = "mergedeep";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "1msvvdzk33sxzgyvs4fs8dlsrsi7fjj038z83s0yw5h8m8d78469";
   };
 
@@ -28,4 +28,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ ris ];
   };
-}
+})

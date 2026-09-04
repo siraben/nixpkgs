@@ -60,12 +60,12 @@ let
       enableFeaturePinentry =
         f: lib.enableFeature (lib.elem f buildFlavors) ("pinentry-" + flavorInfo.${f}.flag);
     in
-    stdenv.mkDerivation rec {
+    stdenv.mkDerivation (finalAttrs: {
       pname = "pinentry-${pinentryExtraPname}";
       version = "1.3.2";
 
       src = fetchurl {
-        url = "mirror://gnupg/pinentry/pinentry-${version}.tar.bz2";
+        url = "mirror://gnupg/pinentry/pinentry-${finalAttrs.version}.tar.bz2";
         hash = "sha256-jphu2IVhtNpunv4MVPpMqJIwNcmSZN8LBGRJfF+5Tp4=";
       };
 
@@ -131,7 +131,7 @@ let
         maintainers = with lib.maintainers; [ fpletz ];
         mainProgram = "pinentry";
       };
-    };
+    });
 in
 {
   pinentry-curses = buildPinentry "curses" [

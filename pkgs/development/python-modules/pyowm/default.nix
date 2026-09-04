@@ -9,7 +9,7 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pyowm";
   version = "3.5.0";
   pyproject = true;
@@ -17,7 +17,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "csparpa";
     repo = "pyowm";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-D1Cl3uWoEIUqA0R+bjRL2YgsVKj5inuBAVLJYluADg0=";
   };
 
@@ -42,8 +42,8 @@ buildPythonPackage rec {
   meta = {
     description = "Python wrapper around the OpenWeatherMap web API";
     homepage = "https://pyowm.readthedocs.io/";
-    changelog = "https://github.com/csparpa/pyowm/releases/tag/${version}";
+    changelog = "https://github.com/csparpa/pyowm/releases/tag/${finalAttrs.version}";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

@@ -9,7 +9,7 @@
   pkg-config,
 }:
 
-buildDunePackage rec {
+buildDunePackage (finalAttrs: {
   pname = "ssl";
   version = "0.7.0";
 
@@ -18,7 +18,7 @@ buildDunePackage rec {
   src = fetchFromGitHub {
     owner = "savonet";
     repo = "ocaml-ssl";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-gi80iwlKaI4TdAVnCyPG03qRWFa19DHdTrA0KMFBAc4=";
   };
 
@@ -45,4 +45,4 @@ buildDunePackage rec {
       dandellion
     ];
   };
-}
+})

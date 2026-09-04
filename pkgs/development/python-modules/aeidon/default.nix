@@ -7,7 +7,7 @@
   charset-normalizer,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "aeidon";
   version = "1.15";
   pyproject = true;
@@ -15,7 +15,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "otsaloma";
     repo = "gaupol";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-lhNyeieeiBBm3rNDEU0BuWKeM6XYlOtv1voW8tR8cUM=";
   };
 
@@ -42,11 +42,11 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "aeidon" ];
 
   meta = {
-    changelog = "https://github.com/otsaloma/gaupol/releases/tag/${version}";
+    changelog = "https://github.com/otsaloma/gaupol/releases/tag/${finalAttrs.version}";
     description = "Reading, writing and manipulating text-based subtitle files";
     homepage = "https://github.com/otsaloma/gaupol";
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ erictapen ];
   };
 
-}
+})

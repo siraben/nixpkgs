@@ -7,7 +7,7 @@
   pkg-config,
   protobuf,
 }:
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "nearcore";
   version = "1.30.1";
 
@@ -16,7 +16,7 @@ rustPlatform.buildRustPackage rec {
     owner = "near";
     repo = "nearcore";
     # there is also a branch for this version number, so we need to be explicit
-    tag = version;
+    tag = finalAttrs.version;
 
     sha256 = "sha256-VjvHCiWjsx5Y7xxqck/O9gSNrL8mxCTosLwLqC85ywY=";
   };
@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage rec {
 
   postPatch = ''
     substituteInPlace neard/build.rs \
-      --replace 'get_git_version()?' '"nix:${version}"'
+      --replace 'get_git_version()?' '"nix:${finalAttrs.version}"'
   '';
 
   env = {
@@ -66,4 +66,4 @@ rustPlatform.buildRustPackage rec {
     # be also possible
     platforms = [ "x86_64-linux" ];
   };
-}
+})

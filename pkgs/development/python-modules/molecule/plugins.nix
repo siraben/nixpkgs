@@ -7,7 +7,7 @@
   docker,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "molecule-plugins";
   version = "25.8.12";
   pyproject = true;
@@ -15,7 +15,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "ansible-community";
     repo = "molecule-plugins";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-wTvJ+cjZMTOyaqqDZsA1wsKCpu2FEi69IBlSTxNs3/M=";
   };
 
@@ -42,4 +42,4 @@ buildPythonPackage rec {
     maintainers = [ ];
     license = lib.licenses.mit;
   };
-}
+})

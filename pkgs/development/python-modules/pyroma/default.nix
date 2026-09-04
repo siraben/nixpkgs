@@ -20,7 +20,7 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pyroma";
   version = "5.0.1";
   pyproject = true;
@@ -31,7 +31,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "regebro";
     repo = "pyroma";
-    tag = version;
+    tag = finalAttrs.version;
     sha256 = "sha256-J5+/1jc/Dvh7aPV9FgG/uhxWG4DbQISgx+kX4Ayd1cU=";
   };
 
@@ -63,4 +63,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ kamadorueda ];
   };
-}
+})

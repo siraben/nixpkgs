@@ -9,14 +9,14 @@
   python3,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "elementary-wallpapers";
   version = "8.0.0";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "wallpapers";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-qbqYr+3Vqwi1UBD0fRW6lI2rj5Iy51taZRGxDTpKfpg=";
   };
 
@@ -43,4 +43,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     teams = [ lib.teams.pantheon ];
   };
-}
+})

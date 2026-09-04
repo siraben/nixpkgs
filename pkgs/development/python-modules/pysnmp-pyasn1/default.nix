@@ -6,7 +6,7 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pysnmp-pyasn1";
   version = "1.1.3";
   pyproject = true;
@@ -14,7 +14,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "pysnmp";
     repo = "pyasn1";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-W74aWMqGlat+aZfhbP1cTKRz7SomHdGwfK5yJwxgyqI=";
   };
 
@@ -27,8 +27,8 @@ buildPythonPackage rec {
   meta = {
     description = "Python ASN.1 encoder and decoder";
     homepage = "https://github.com/pysnmp/pyasn1";
-    changelog = "https://github.com/pysnmp/pyasn1/releases/tag/v${version}";
+    changelog = "https://github.com/pysnmp/pyasn1/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.bsd2;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

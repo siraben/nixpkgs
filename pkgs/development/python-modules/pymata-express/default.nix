@@ -5,7 +5,7 @@
   pyserial,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pymata-express";
   version = "1.21";
   format = "setuptools";
@@ -13,7 +13,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "MrYsLab";
     repo = "pymata-express";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "1mibyn84kjahrv3kn51yl5mhkyig4piv6wanggzjflh5nm96bhy8";
   };
 
@@ -35,4 +35,4 @@ buildPythonPackage rec {
     license = lib.licenses.agpl3Plus;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

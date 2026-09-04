@@ -5,14 +5,14 @@
   oath-toolkit,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "pass-otp";
   version = "1.2.0";
 
   src = fetchFromGitHub {
     owner = "tadfisher";
     repo = "pass-otp";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "0cpqrf3939hcvwg7sd8055ghc8x964ilimlri16czzx188a9jx9v";
   };
 
@@ -40,4 +40,4 @@ stdenv.mkDerivation rec {
     ];
     platforms = lib.platforms.unix;
   };
-}
+})

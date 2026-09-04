@@ -11,14 +11,14 @@
   lib,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "brother-ql-next";
   version = "0.12.0";
   pyproject = true;
 
   src = fetchPypi {
     pname = "brother_ql_next";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-NTw5hlMJRoABvbteyCYF0Kopc9AjNyuwLSB+zS3RYRQ=";
   };
 
@@ -45,4 +45,4 @@ buildPythonPackage rec {
     license = lib.licenses.gpl3Only;
     mainProgram = "brother_ql";
   };
-}
+})

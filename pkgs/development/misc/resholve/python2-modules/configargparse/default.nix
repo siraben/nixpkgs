@@ -4,7 +4,7 @@
   fetchFromGitHub,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "configargparse";
   version = "1.5.3";
   format = "setuptools";
@@ -12,7 +12,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "bw2";
     repo = "ConfigArgParse";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "1dsai4bilkp2biy9swfdx2z0k4akw4lpvx12flmk00r80hzgbglz";
   };
 
@@ -25,4 +25,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/bw2/ConfigArgParse";
     license = lib.licenses.mit;
   };
-}
+})

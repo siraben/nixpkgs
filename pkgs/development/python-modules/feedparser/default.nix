@@ -7,7 +7,7 @@
   sgmllib3k,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "feedparser";
   version = "6.0.12";
   pyproject = true;
@@ -17,7 +17,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "kurtmckee";
     repo = "feedparser";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-ZLn4Naf0CQG04iXfVJVimrBQ7TGBEPcEPCF3XMjX/Mo=";
   };
 
@@ -45,4 +45,4 @@ buildPythonPackage rec {
     license = lib.licenses.bsd2;
     maintainers = [ ];
   };
-}
+})

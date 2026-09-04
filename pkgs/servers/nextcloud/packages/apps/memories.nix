@@ -56,12 +56,12 @@ let
     };
   };
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "nextcloud-app-memories";
   inherit (currentVersionInfo) version;
 
   src = fetchurl {
-    url = "https://github.com/pulsejet/memories/releases/download/v${version}/memories.tar.gz";
+    url = "https://github.com/pulsejet/memories/releases/download/v${finalAttrs.version}/memories.tar.gz";
     hash = currentVersionInfo.appHash;
   };
 
@@ -94,4 +94,4 @@ stdenv.mkDerivation rec {
       All settings related to required packages and installed programs are hardcoded in program code and cannot be changed.
     '';
   };
-}
+})

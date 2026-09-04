@@ -13,14 +13,14 @@
   wrapGAppsHook3,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ibus-m17n";
   version = "1.4.40";
 
   src = fetchFromGitHub {
     owner = "ibus";
     repo = "ibus-m17n";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-9ypwD/d6mHHbD3PjOH94Y+dlkccmQCo1wdmKyQ+Ed1c=";
   };
 
@@ -54,4 +54,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     maintainers = [ ];
   };
-}
+})

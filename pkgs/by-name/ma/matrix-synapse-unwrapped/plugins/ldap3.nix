@@ -12,7 +12,7 @@
   twisted,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "matrix-synapse-ldap3";
   version = "0.4.0";
   pyproject = true;
@@ -20,7 +20,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "matrix-org";
     repo = "matrix-synapse-ldap3";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-d3TRtPEhyc45dj7k2TpJlBn8fZgKFDZxocKdfAoeI2w=";
   };
 
@@ -47,4 +47,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ SuperSandro2000 ];
   };
-}
+})

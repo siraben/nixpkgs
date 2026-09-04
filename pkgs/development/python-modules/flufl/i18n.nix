@@ -9,14 +9,14 @@
   sybil,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "flufl-i18n";
   version = "4.1.1";
   pyproject = true;
 
   src = fetchPypi {
     pname = "flufl.i18n";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-wKz6aggkJ9YBJ+o75XjC4Ddnn+Zi9hlYDnliwTc7DNs=";
   };
 
@@ -37,8 +37,8 @@ buildPythonPackage rec {
   meta = {
     description = "High level API for internationalizing Python libraries and applications";
     homepage = "https://gitlab.com/warsaw/flufl.i18n";
-    changelog = "https://gitlab.com/warsaw/flufl.i18n/-/raw/${version}/docs/NEWS.rst";
+    changelog = "https://gitlab.com/warsaw/flufl.i18n/-/raw/${finalAttrs.version}/docs/NEWS.rst";
     license = lib.licenses.asl20;
     maintainers = [ ];
   };
-}
+})

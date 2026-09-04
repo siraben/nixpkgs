@@ -18,14 +18,14 @@
   wrapGAppsHook4,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "pantheon-agent-polkit";
   version = "8.1.0";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "pantheon-agent-polkit";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-ge/RZhzujI++ye7Gka/28W9CQjbmy+/5NstjqcVDUXw=";
   };
 
@@ -59,4 +59,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     teams = [ lib.teams.pantheon ];
   };
-}
+})

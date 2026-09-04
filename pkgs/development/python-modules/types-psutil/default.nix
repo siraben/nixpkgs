@@ -4,14 +4,14 @@
   fetchPypi,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "types-psutil";
   version = "7.2.1.20260116";
   format = "setuptools";
 
   src = fetchPypi {
     pname = "types_psutil";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-RmG+XV16zV2K+wKpLQUWCmy7LOdHIyRbUfe6ff25+YE=";
   };
 
@@ -26,4 +26,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = [ ];
   };
-}
+})

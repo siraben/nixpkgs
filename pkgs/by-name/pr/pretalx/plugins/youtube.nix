@@ -5,7 +5,7 @@
   setuptools,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pretalx-youtube";
   version = "3.0.0";
   pyproject = true;
@@ -13,7 +13,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "pretalx";
     repo = "pretalx-youtube";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-Vz09XXSLHEQkV1uUj8FVoA66u9b9yvbgu29a3unIkwY=";
   };
 
@@ -27,4 +27,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ wegank ];
   };
-}
+})

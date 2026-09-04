@@ -590,15 +590,15 @@ rec {
       };
     };
 
-  dvisvgm = stdenv.mkDerivation rec {
+  dvisvgm = stdenv.mkDerivation (finalAttrs: {
     pname = "dvisvgm";
     version = "3.6";
 
     src =
-      assert lib.assertMsg (version == texlive.pkgs.dvisvgm.version)
-        "dvisvgm: TeX Live version (${texlive.pkgs.dvisvgm.version}) different from source (${version}), please update dvisvgm";
+      assert lib.assertMsg (finalAttrs.version == texlive.pkgs.dvisvgm.version)
+        "dvisvgm: TeX Live version (${texlive.pkgs.dvisvgm.version}) different from source (${finalAttrs.version}), please update dvisvgm";
       fetchurl {
-        url = "https://github.com/mgieseki/dvisvgm/releases/download/${version}/dvisvgm-${version}.tar.gz";
+        url = "https://github.com/mgieseki/dvisvgm/releases/download/${finalAttrs.version}/dvisvgm-${finalAttrs.version}.tar.gz";
         hash = "sha256-JkRrs7EHOf8JJcnkFrdtLSIgdcnV3Pr+biFGCdBy7Ro=";
       };
 
@@ -628,7 +628,7 @@ rec {
     ];
 
     enableParallelBuilding = true;
-  };
+  });
 
   dvipng = stdenv.mkDerivation {
     pname = "dvipng";

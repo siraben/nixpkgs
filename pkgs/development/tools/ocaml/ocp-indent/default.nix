@@ -6,14 +6,14 @@
   findlib,
 }:
 
-buildDunePackage rec {
+buildDunePackage (finalAttrs: {
   version = "1.9.0";
   pname = "ocp-indent";
 
   src = fetchFromGitHub {
     owner = "OCamlPro";
     repo = "ocp-indent";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-71dbZ8c842MYZfHad6RT0E48JlgzJSHnQgLVA5dGLv8=";
   };
 
@@ -29,4 +29,4 @@ buildDunePackage rec {
     license = lib.licenses.gpl3;
     maintainers = [ lib.maintainers.jirkamarsik ];
   };
-}
+})

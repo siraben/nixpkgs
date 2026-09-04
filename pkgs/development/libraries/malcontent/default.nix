@@ -19,7 +19,7 @@
   malcontent-ui,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "malcontent";
   version = "0.13.1";
 
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     domain = "gitlab.freedesktop.org";
     owner = "pwithnall";
     repo = "malcontent";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-ekRi4yXu8u8t1AjyS3bD6tdqqnqtKyI6yZs+28LnfRY=";
   };
 
@@ -119,4 +119,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ jtojnar ];
     inherit (polkit.meta) platforms badPlatforms;
   };
-}
+})

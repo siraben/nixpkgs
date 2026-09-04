@@ -5,14 +5,14 @@
   fetchurl,
 }:
 
-buildDunePackage rec {
+buildDunePackage (finalAttrs: {
   pname = "stdcompat";
   version = "21.1";
 
   minimalOCamlVersion = "4.11";
 
   src = fetchurl {
-    url = "https://github.com/ocamllibs/stdcompat/archive/refs/tags/${version}.tar.gz";
+    url = "https://github.com/ocamllibs/stdcompat/archive/refs/tags/${finalAttrs.version}.tar.gz";
     sha256 = "sha256-RSJ9AgUEmt23QZCk60ETIXmkJhG7knQe+s8wNxxIHm4=";
   };
 
@@ -27,4 +27,4 @@ buildDunePackage rec {
     maintainers = [ lib.maintainers.vbgl ];
     broken = lib.versionAtLeast ocaml.version "5.4";
   };
-}
+})

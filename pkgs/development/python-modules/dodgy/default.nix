@@ -9,7 +9,7 @@
   setuptools,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "dodgy";
   version = "0.2.1";
   pyproject = true;
@@ -17,7 +17,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "prospector-dev";
     repo = "dodgy";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "0ywwjpz0p6ls3hp1lndjr9ql6s5lkj7dgpll1h87w04kwan70j0x";
   };
 
@@ -37,4 +37,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ kamadorueda ];
   };
-}
+})

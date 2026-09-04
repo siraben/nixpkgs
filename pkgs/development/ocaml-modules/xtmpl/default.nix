@@ -9,14 +9,14 @@
   uutf,
 }:
 
-buildDunePackage rec {
+buildDunePackage (finalAttrs: {
   pname = "xtmpl";
   version = "1.1.0";
   src = fetchFromGitLab {
     domain = "framagit.org";
     owner = "zoggy";
     repo = "xtmpl";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-CgVbSjHuRp+5IZdfkxGzaBP8p7pQdXu6S/MMgiPMw3E=";
   };
 
@@ -34,4 +34,4 @@ buildDunePackage rec {
     license = lib.licenses.lgpl3;
     maintainers = with lib.maintainers; [ regnat ];
   };
-}
+})

@@ -13,7 +13,7 @@
   six,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "oss2";
   version = "2.18.3";
   format = "setuptools";
@@ -21,7 +21,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "aliyun";
     repo = "aliyun-oss-python-sdk";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-jDSXPVyy8XvPgsGZXsdfavFPptq28pCwr9C63OZvNrY=";
   };
 
@@ -106,8 +106,8 @@ buildPythonPackage rec {
   meta = {
     description = "Alibaba Cloud OSS SDK for Python";
     homepage = "https://github.com/aliyun/aliyun-oss-python-sdk";
-    changelog = "https://github.com/aliyun/aliyun-oss-python-sdk/releases/tag/${version}";
+    changelog = "https://github.com/aliyun/aliyun-oss-python-sdk/releases/tag/${finalAttrs.version}";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

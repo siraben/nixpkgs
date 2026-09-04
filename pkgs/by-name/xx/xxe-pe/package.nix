@@ -28,7 +28,7 @@ let
     ];
   };
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "xxe-pe";
   version = "10.2.0";
 
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
       '';
     fetchurl {
       url = "https://www.xmlmind.com/xmleditor/_download/xxe-perso-${
-        builtins.replaceStrings [ "." ] [ "_" ] version
+        builtins.replaceStrings [ "." ] [ "_" ] finalAttrs.version
       }.zip";
       sha256 = "sha256-JZ9nQwMrQL/1HKGwvXoWlnTx55ZK/UYjMJAddCtm0rw=";
     };
@@ -84,4 +84,4 @@ stdenv.mkDerivation rec {
     maintainers = [ ];
     platforms = [ "x86_64-linux" ];
   };
-}
+})

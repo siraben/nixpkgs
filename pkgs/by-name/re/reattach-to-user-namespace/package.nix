@@ -4,14 +4,14 @@
   fetchFromGitHub,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "reattach-to-user-namespace";
   version = "2.9";
 
   src = fetchFromGitHub {
     owner = "ChrisJohnsen";
     repo = "tmux-MacOSX-pasteboard";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "1qgimh58hcx5f646gj2kpd36ayvrdkw616ad8cb3lcm11kg0ag79";
   };
 
@@ -35,4 +35,4 @@ stdenv.mkDerivation rec {
     maintainers = [ ];
     platforms = lib.platforms.darwin;
   };
-}
+})

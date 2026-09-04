@@ -8,7 +8,7 @@
   ounit,
 }:
 
-buildDunePackage rec {
+buildDunePackage (finalAttrs: {
   pname = "webmachine";
   version = "0.7.0";
   duneVersion = "3";
@@ -18,7 +18,7 @@ buildDunePackage rec {
   src = fetchFromGitHub {
     owner = "inhabitedtype";
     repo = "ocaml-webmachine";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "03ynb1l2jjqba88m9r8m5hwlm8izpfp617r4vcab5kmdim1l2ffx";
   };
 
@@ -39,4 +39,4 @@ buildDunePackage rec {
     maintainers = [ lib.maintainers.vbgl ];
   };
 
-}
+})

@@ -6,14 +6,14 @@
   jupyter-server,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "jupyter-lsp";
   version = "2.3.0";
   pyproject = true;
 
   src = fetchPypi {
     pname = "jupyter_lsp";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-RYqlkzncho+3hNczZPF9vOiDbpBs11/UcaMly6AuAkU=";
   };
 
@@ -31,4 +31,4 @@ buildPythonPackage rec {
     platforms = lib.platforms.all;
     maintainers = [ ];
   };
-}
+})

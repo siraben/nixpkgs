@@ -7,7 +7,7 @@
   pythonAtLeast,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "backports-strenum";
   version = "1.3.1";
   pyproject = true;
@@ -17,7 +17,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "clbarnes";
     repo = "backports.strenum";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-j5tALFrLeZ8k+GwAaq0ocmcQWvdWkRUHbOVq5Du4mu0=";
   };
 
@@ -33,4 +33,4 @@ buildPythonPackage rec {
     license = lib.licenses.psfl;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

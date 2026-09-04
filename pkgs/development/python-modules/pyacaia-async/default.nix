@@ -7,14 +7,14 @@
   wheel,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pyacaia-async";
   version = "0.1.2";
   pyproject = true;
 
   src = fetchPypi {
     pname = "pyacaia_async";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-RwiASn6mD6BhZByoHVqaCH7koVhN5wQorG2l51wFAcI=";
   };
 
@@ -39,4 +39,4 @@ buildPythonPackage rec {
     ];
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

@@ -24,14 +24,14 @@
   nix-update-script,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "appcenter";
   version = "8.4.0";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "appcenter";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-8OgGeht0K7MpV9o2MOOt/XvTWHvvQGH+4bLzsWCsFqg=";
   };
 
@@ -85,4 +85,4 @@ stdenv.mkDerivation rec {
     teams = [ lib.teams.pantheon ];
     mainProgram = "io.elementary.appcenter";
   };
-}
+})

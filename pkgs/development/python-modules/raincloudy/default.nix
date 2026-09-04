@@ -17,7 +17,7 @@
   urllib3,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "raincloudy";
   version = "1.2.0";
   format = "setuptools";
@@ -29,7 +29,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "vanstinator";
     repo = "raincloudy";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-qCkBVirM09iA1sXiOB9FJns8bHjQq7rRk8XbRWrtBDI=";
   };
 
@@ -77,8 +77,8 @@ buildPythonPackage rec {
   meta = {
     description = "Module to interact with Melnor RainCloud Smart Garden Watering Irrigation Timer";
     homepage = "https://github.com/vanstinator/raincloudy";
-    changelog = "https://github.com/vanstinator/raincloudy/releases/tag/${version}";
+    changelog = "https://github.com/vanstinator/raincloudy/releases/tag/${finalAttrs.version}";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

@@ -9,7 +9,7 @@
   makeWrapper,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "coz";
   version = "0.2.2";
   pyproject = false; # Built with make
@@ -17,7 +17,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "plasma-umass";
     repo = "coz";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-tvFXInxjodB0jEgEKgnOGapiVPomBG1hvrhYtG2X5jI=";
   };
 
@@ -53,4 +53,4 @@ python3Packages.buildPythonApplication rec {
       aleksana
     ];
   };
-}
+})

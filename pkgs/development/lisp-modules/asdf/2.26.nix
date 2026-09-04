@@ -7,12 +7,12 @@
   perl,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "asdf";
   version = "2.26";
 
   src = fetchurl {
-    url = "http://common-lisp.net/project/asdf/archives/asdf-${version}.tar.gz";
+    url = "http://common-lisp.net/project/asdf/archives/asdf-${finalAttrs.version}.tar.gz";
     sha256 = "sha256-tuUuIlZcS+a0izXeJl3Ckp+/PYAWkZ0+Cw7blwkh9+M=";
   };
 
@@ -42,4 +42,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ raskin ];
     platforms = lib.platforms.linux;
   };
-}
+})

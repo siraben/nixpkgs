@@ -13,12 +13,12 @@
   makeWrapper,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "mfcj470dw-cupswrapper";
   version = "3.0.0-1";
 
   src = fetchurl {
-    url = "https://download.brother.com/welcome/dlf006843/mfcj470dwlpr-${version}.i386.deb";
+    url = "https://download.brother.com/welcome/dlf006843/mfcj470dwlpr-${finalAttrs.version}.i386.deb";
     sha256 = "7202dd895d38d50bb767080f2995ed350eed99bc2b7871452c3c915c8eefc30a";
   };
 
@@ -75,4 +75,4 @@ stdenv.mkDerivation rec {
     downloadPage = "http://support.brother.com/g/b/downloadlist.aspx?c=us&lang=en&prod=mfcj470dw_us_eu_as&os=128";
     maintainers = [ lib.maintainers.yochai ];
   };
-}
+})

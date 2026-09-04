@@ -5,7 +5,7 @@
   setuptools,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "astropy-helpers";
   version = "4.0.1";
   pyproject = true;
@@ -13,7 +13,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "astropy";
     repo = "astropy-helpers";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-MjL/I+ApyoyoD2NmKuKWpDbyuEgvBb2OBhxqj/w/3lk=";
   };
 
@@ -32,4 +32,4 @@ buildPythonPackage rec {
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.smaret ];
   };
-}
+})

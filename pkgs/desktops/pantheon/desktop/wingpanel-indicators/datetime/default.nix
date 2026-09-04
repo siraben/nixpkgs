@@ -19,14 +19,14 @@
   elementary-calendar,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "wingpanel-indicator-datetime";
   version = "2.4.2";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "wingpanel-indicator-datetime";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-iR80pF3KUe0WboFm2/f1ZK9/wER2LfmRBd92e8jGTHs=";
   };
 
@@ -65,4 +65,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     teams = [ lib.teams.pantheon ];
   };
-}
+})

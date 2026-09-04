@@ -12,12 +12,12 @@
   minimal ? true,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ocaml${ocaml.version}-extlib";
   version = "1.7.7";
 
   src = fetchurl {
-    url = "https://ygrek.org/p/release/ocaml-extlib/extlib-${version}.tar.gz";
+    url = "https://ygrek.org/p/release/ocaml-extlib/extlib-${finalAttrs.version}.tar.gz";
     sha256 = "1sxmzc1mx3kg62j8kbk0dxkx8mkf1rn70h542cjzrziflznap0s1";
   };
 
@@ -41,4 +41,4 @@ stdenv.mkDerivation rec {
     maintainers = [ lib.maintainers.sternenseemann ];
     broken = lib.versionAtLeast ocaml.version "4.12";
   };
-}
+})

@@ -10,7 +10,7 @@
   isPy3k,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "stups-zign";
   version = "1.2";
   pyproject = true;
@@ -19,7 +19,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "zalando-stups";
     repo = "zign";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "1vk6pnprnd5lfx96hc2c1n7kwh99f260r730x4y2h7lamlv82fh4";
   };
 
@@ -50,4 +50,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.mschuwalow ];
   };
-}
+})

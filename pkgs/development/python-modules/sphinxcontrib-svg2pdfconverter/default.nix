@@ -15,13 +15,13 @@
 
 assert (withCairosvg || withInkscape || withLibrsvg);
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "sphinxcontrib-svg2pdfconverter";
   version = "2.0.0";
   pyproject = true;
 
   src = fetchPypi {
-    inherit version;
+    inherit (finalAttrs) version;
     pname = "sphinxcontrib_svg2pdfconverter";
     hash = "sha256-q5yPEIA5HiMYEtIKvyZXpp7jVXRWOxAUQU+VOWSpX6M=";
   };
@@ -56,4 +56,4 @@ buildPythonPackage rec {
     license = lib.licenses.bsd2;
     maintainers = with lib.maintainers; [ dansbandit ];
   };
-}
+})

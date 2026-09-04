@@ -9,7 +9,7 @@
   tzdata,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "jsons";
   version = "1.6.3";
   format = "setuptools";
@@ -17,7 +17,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "ramonhagenaars";
     repo = "jsons";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-7OIByHvsqhKFOkb1q2kuxmbkkleryavYgp/T4U5hvGk=";
   };
 
@@ -45,8 +45,8 @@ buildPythonPackage rec {
   meta = {
     description = "Turn Python objects into dicts or json strings and back";
     homepage = "https://github.com/ramonhagenaars/jsons";
-    changelog = "https://github.com/ramonhagenaars/jsons/releases/tag/v${version}";
+    changelog = "https://github.com/ramonhagenaars/jsons/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ fmoda3 ];
   };
-}
+})

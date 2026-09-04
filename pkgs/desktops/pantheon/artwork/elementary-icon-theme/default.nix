@@ -12,14 +12,14 @@
   librsvg,
 }:
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "elementary-icon-theme";
   version = "9.0.0";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "icons";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-WrZxhr7ybIx9CK5zG5Fq6udPt+0HRQIPSwxkCF2tPps=";
   };
 
@@ -67,4 +67,4 @@ stdenvNoCC.mkDerivation rec {
     platforms = lib.platforms.linux;
     teams = [ lib.teams.pantheon ];
   };
-}
+})

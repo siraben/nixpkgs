@@ -13,7 +13,7 @@
   clangStdenv,
 }:
 
-clangStdenv.mkDerivation rec {
+clangStdenv.mkDerivation (finalAttrs: {
   pname = "ios-cross-compile";
   version = "9.2";
   sdk = "iPhoneOS9.2.sdk";
@@ -76,10 +76,10 @@ clangStdenv.mkDerivation rec {
   alt_wrapper = ./alt_wrapper.c;
   builder = ./9.2_builder.sh;
   meta = {
-    description = "Provides an iOS cross compiler from 7.1 up to iOS-${version} and ldid";
+    description = "Provides an iOS cross compiler from 7.1 up to iOS-${finalAttrs.version} and ldid";
     platforms = lib.platforms.linux;
     hydraPlatforms = [ ];
     maintainers = with lib.maintainers; [ fxfactorial ];
     license = lib.licenses.gpl2;
   };
-}
+})

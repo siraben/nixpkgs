@@ -7,14 +7,14 @@
   ncurses,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "mod_wsgi";
   version = "5.0.2";
 
   src = fetchFromGitHub {
     owner = "GrahamDumpleton";
     repo = "mod_wsgi";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-FhOSU8/4QoWa73bNi/qkgKm3CeEEdboh2MgxgQxcYzE=";
   };
 
@@ -38,4 +38,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.asl20;
     platforms = lib.platforms.unix;
   };
-}
+})

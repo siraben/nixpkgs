@@ -7,14 +7,14 @@
   pyramid,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pyramid-beaker";
   version = "0.9";
   format = "setuptools";
 
   src = fetchPypi {
     pname = "pyramid_beaker";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-zMUT60z7W0Flfym25rKMor17O/n9qRMGoQKa7pLRz6U=";
   };
 
@@ -36,4 +36,4 @@ buildPythonPackage rec {
     license = lib.licenses.bsd3Modification;
     maintainers = [ ];
   };
-}
+})

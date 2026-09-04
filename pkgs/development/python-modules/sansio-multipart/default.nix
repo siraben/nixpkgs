@@ -4,7 +4,7 @@
   fetchPypi,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "sansio-multipart";
   version = "0.3";
 
@@ -12,7 +12,7 @@ buildPythonPackage rec {
 
   src = fetchPypi {
     pname = "sansio_multipart";
-    inherit version;
+    inherit (finalAttrs) version;
     sha256 = "6e95b2e64039a95d0f2cd8f3360eaf418d6b9018fb2215d82d399d62d6122dc3";
   };
 
@@ -27,4 +27,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ dotlambda ];
   };
-}
+})

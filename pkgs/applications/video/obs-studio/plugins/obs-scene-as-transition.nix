@@ -6,14 +6,14 @@
   obs-studio,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "obs-scene-as-transition";
   version = "1.1.1";
 
   src = fetchFromGitHub {
     owner = "andilippi";
     repo = "obs-scene-as-transition";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "sha256-qeiJR68MqvhpzvY7yNnR6w77SvavlZTdbnGBWrd7iZM=";
   };
 
@@ -31,4 +31,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2Plus;
     inherit (obs-studio.meta) platforms;
   };
-}
+})

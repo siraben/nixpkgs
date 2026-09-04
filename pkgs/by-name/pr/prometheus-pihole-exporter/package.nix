@@ -4,14 +4,14 @@
   fetchFromGitHub,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "pihole-exporter";
   version = "1.2.0";
 
   src = fetchFromGitHub {
     owner = "eko";
     repo = "pihole-exporter";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "sha256-ge4+sWQkJ2Zc7Y7+IYAq6OK6pYkaE3jjFo1rhTaDMu4=";
   };
 
@@ -24,4 +24,4 @@ buildGoModule rec {
     license = lib.licenses.mit;
     maintainers = [ ];
   };
-}
+})

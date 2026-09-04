@@ -24,14 +24,14 @@ let
     hash = "sha256-8VirKLRro0iST58Rfg17u4tTO57KNC/7F/NB43dZ7w4=";
   };
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "binaryen";
   version = "132";
 
   src = fetchFromGitHub {
     owner = "WebAssembly";
     repo = "binaryen";
-    rev = "version_${version}";
+    rev = "version_${finalAttrs.version}";
     hash = "sha256-di/M4QidDwa1doomy79yfN7chCng9VcDB2KgmaEunDc=";
   };
 
@@ -133,4 +133,4 @@ stdenv.mkDerivation rec {
       '';
     });
   };
-}
+})

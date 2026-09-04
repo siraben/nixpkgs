@@ -10,7 +10,7 @@
   wheel,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pylsl";
   version = "1.18.4.b1";
   pyproject = true;
@@ -18,7 +18,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "labstreaminglayer";
     repo = "pylsl";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-Glcx+G7CXMftAkyYqgTN8sK6M9u0ccZK9L7JID217Hk=";
   };
 
@@ -48,4 +48,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ abcsds ];
   };
-}
+})

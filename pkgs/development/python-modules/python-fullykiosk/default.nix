@@ -6,7 +6,7 @@
   setuptools,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "python-fullykiosk";
   version = "0.0.15";
   pyproject = true;
@@ -14,7 +14,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "cgarwood";
     repo = "python-fullykiosk";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-t/o4yRIh/r6cocEJ7c9oOa/C7RE3ZltkpzsCKS/dJHY=";
   };
 
@@ -30,8 +30,8 @@ buildPythonPackage rec {
   meta = {
     description = "Wrapper for Fully Kiosk Browser REST interface";
     homepage = "https://github.com/cgarwood/python-fullykiosk";
-    changelog = "https://github.com/cgarwood/python-fullykiosk/releases/tag/${version}";
+    changelog = "https://github.com/cgarwood/python-fullykiosk/releases/tag/${finalAttrs.version}";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

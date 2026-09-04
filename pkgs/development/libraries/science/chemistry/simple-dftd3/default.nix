@@ -22,14 +22,14 @@ assert (
   ]
 );
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "simple-dftd3";
   version = "1.6.0";
 
   src = fetchFromGitHub {
     owner = "dftd3";
     repo = "simple-dftd3";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-THl8sUY7pLxFz4mY7FMj/c1hwzqLaaNNMq0qkxWkUzw=";
   };
 
@@ -76,4 +76,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.sheepforce ];
   };
-}
+})

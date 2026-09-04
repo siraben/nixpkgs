@@ -12,7 +12,7 @@
   rkm-codes,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "quantiphy";
   version = "2.22.1";
   pyproject = true;
@@ -20,7 +20,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "KenKundert";
     repo = "quantiphy";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-k6EZJI+7a7qRAKIJkddGTaR3CE9VIbF4J/WXzE9C+7o=";
   };
 
@@ -44,8 +44,8 @@ buildPythonPackage rec {
   meta = {
     description = "Module for physical quantities (numbers with units)";
     homepage = "https://quantiphy.readthedocs.io";
-    changelog = "https://github.com/KenKundert/quantiphy/releases/tag/v${version}";
+    changelog = "https://github.com/KenKundert/quantiphy/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ jpetrucciani ];
   };
-}
+})

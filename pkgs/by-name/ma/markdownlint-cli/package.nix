@@ -4,14 +4,14 @@
   fetchFromGitHub,
 }:
 
-buildNpmPackage rec {
+buildNpmPackage (finalAttrs: {
   pname = "markdownlint-cli";
   version = "0.49.1";
 
   src = fetchFromGitHub {
     owner = "igorshubovych";
     repo = "markdownlint-cli";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-+zR/A7cp85ggX8MwidRzIPQ54Su4SyGOQtWy9c6fdk8=";
   };
 
@@ -26,4 +26,4 @@ buildNpmPackage rec {
     mainProgram = "markdownlint";
     maintainers = with lib.maintainers; [ ambroisie ];
   };
-}
+})

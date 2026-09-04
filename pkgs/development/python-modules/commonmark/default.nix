@@ -7,7 +7,7 @@
   python,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "commonmark";
   version = "0.9.1";
   pyproject = true;
@@ -15,7 +15,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "readthedocs";
     repo = "commonmark.py";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-Ui/G/VLdjWcm7YmVjZ5Q8h0DEEFqdDByre29g3zHUq4=";
   };
 
@@ -43,4 +43,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/readthedocs/commonmark.py";
     license = lib.licenses.bsd3;
   };
-}
+})

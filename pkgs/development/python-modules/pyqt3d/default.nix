@@ -10,14 +10,14 @@
   sip,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pyqt3d";
   version = "5.15.7";
   pyproject = true;
 
   src = fetchPypi {
     pname = "PyQt3D";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-6ng+tUbH2tLV6q+C6lBQ3eRSVamELgoddYSIHp4lqVE=";
   };
 
@@ -68,4 +68,4 @@ buildPythonPackage rec {
     license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ panicgh ];
   };
-}
+})

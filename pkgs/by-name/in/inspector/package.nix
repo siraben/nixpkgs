@@ -17,7 +17,7 @@
   pciutils,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "inspector";
   version = "0.2.0";
   pyproject = false;
@@ -25,7 +25,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "Nokse22";
     repo = "inspector";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-tjQCF2Tyv7/NWgrwHu+JPpnLECfDmQS77EVLBt+cRTs=";
   };
 
@@ -64,4 +64,4 @@ python3Packages.buildPythonApplication rec {
     mainProgram = "inspector";
     maintainers = with lib.maintainers; [ mksafavi ];
   };
-}
+})

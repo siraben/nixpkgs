@@ -20,14 +20,14 @@
   libx11,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "switchboard-plug-wacom";
   version = "8.0.2";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "settings-wacom";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-LA3sOY5ENaSO99AMLAqPryEfyPsKwcatzZoGOhbvCJY=";
   };
 
@@ -63,4 +63,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     teams = [ lib.teams.pantheon ];
   };
-}
+})

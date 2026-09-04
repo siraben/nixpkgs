@@ -13,7 +13,7 @@
   threadpoolctl,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "batchgenerators";
   version = "0.25.1";
   pyproject = true;
@@ -21,7 +21,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "MIC-DKFZ";
     repo = "batchgenerators";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-lvsen2AFRwFjLMgxXBQ9/xxmCOBx2D2PBIl0KpOzR70=";
   };
 
@@ -60,4 +60,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ bcdarwin ];
   };
-}
+})

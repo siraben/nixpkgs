@@ -24,14 +24,14 @@
   wrapGAppsHook3,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "elementary-photos";
   version = "8.0.2";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "photos";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-weJ061ofCwOzq5gFRNxoW1GgSkEkr68cBNbyBfgCECc=";
   };
 
@@ -78,4 +78,4 @@ stdenv.mkDerivation rec {
     teams = [ lib.teams.pantheon ];
     mainProgram = "io.elementary.photos";
   };
-}
+})

@@ -14,14 +14,14 @@
   writableTmpDirAsHomeHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "mkdocs-jupyter";
   version = "0.26.1";
   pyproject = true;
 
   src = fetchPypi {
     pname = "mkdocs_jupyter";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-fIDA05U96R5bQKDTIJIzeVyPgAJDqymOTsOOBQTtpjA=";
   };
 
@@ -57,8 +57,8 @@ buildPythonPackage rec {
   meta = {
     description = "Use Jupyter Notebook in mkdocs";
     homepage = "https://github.com/danielfrg/mkdocs-jupyter";
-    changelog = "https://github.com/danielfrg/mkdocs-jupyter/blob/${version}/CHANGELOG.md";
+    changelog = "https://github.com/danielfrg/mkdocs-jupyter/blob/${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ net-mist ];
   };
-}
+})

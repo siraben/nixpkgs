@@ -19,7 +19,7 @@ let
   stdenv = throw "Use effectiveStdenv instead";
   effectiveStdenv = if enableCuda then cudaPackages.backendStdenv else inputs.stdenv;
 in
-effectiveStdenv.mkDerivation rec {
+effectiveStdenv.mkDerivation (finalAttrs: {
   pname = "suitesparse";
   version = "5.13.0";
 
@@ -32,7 +32,7 @@ effectiveStdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "DrTimothyAldenDavis";
     repo = "SuiteSparse";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "sha256-Anen1YtXsSPhk8DpA4JtADIz9m8oXFl9umlkb4iImf8=";
   };
 
@@ -117,4 +117,4 @@ effectiveStdenv.mkDerivation rec {
     maintainers = [ ];
     platforms = with lib.platforms; unix;
   };
-}
+})

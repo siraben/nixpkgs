@@ -73,7 +73,7 @@ let
       };
     };
 in
-buildPythonApplication rec {
+buildPythonApplication (finalAttrs: {
   pname = "buildbot";
   version = "4.3.0";
   pyproject = true;
@@ -81,7 +81,7 @@ buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "buildbot";
     repo = "buildbot";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-yUtOJRI04/clCMImh5sokpj6MeBIXjEAdf9xnToqJZs=";
   };
 
@@ -164,8 +164,8 @@ buildPythonApplication rec {
   meta = {
     description = "Open-source continuous integration framework for automating software build, test, and release processes";
     homepage = "https://buildbot.net/";
-    changelog = "https://github.com/buildbot/buildbot/releases/tag/v${version}";
+    changelog = "https://github.com/buildbot/buildbot/releases/tag/v${finalAttrs.version}";
     teams = [ lib.teams.buildbot ];
     license = lib.licenses.gpl2Only;
   };
-}
+})

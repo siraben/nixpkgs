@@ -7,14 +7,14 @@
   sentence-transformers,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "llama-index-embeddings-huggingface";
   version = "0.7.0";
   pyproject = true;
 
   src = fetchPypi {
     pname = "llama_index_embeddings_huggingface";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-2ooqZd+UBBEsRDDfraCdT4RroWUZeiXb539zQBTFaoc=";
   };
 
@@ -36,4 +36,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

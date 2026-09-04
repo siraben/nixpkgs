@@ -17,7 +17,7 @@
   gsl,
 }:
 
-clangStdenv.mkDerivation rec {
+clangStdenv.mkDerivation (finalAttrs: {
   version = "1.0.1";
   pname = "d-SEAMS";
 
@@ -26,7 +26,7 @@ clangStdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "d-SEAMS";
     repo = "seams-core";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "03zhhl9vhi3rhc3qz1g3zb89jksgpdlrk15fcr8xcz8pkj6r5b1i";
   };
 
@@ -75,4 +75,4 @@ clangStdenv.mkDerivation rec {
     platforms = [ "x86_64-linux" ];
     maintainers = [ ];
   };
-}
+})

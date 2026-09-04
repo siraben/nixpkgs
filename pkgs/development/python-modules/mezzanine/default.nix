@@ -22,7 +22,7 @@
   tzlocal,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "mezzanine";
   version = "6.1.1";
   format = "setuptools";
@@ -32,7 +32,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "stephenmcd";
     repo = "mezzanine";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-TdGWlquS4hsnxIM0bhbWR7C0X4wyUcqC+YrBDSShRhg=";
   };
 
@@ -92,4 +92,4 @@ buildPythonPackage rec {
     maintainers = with lib.maintainers; [ prikhi ];
     platforms = lib.platforms.unix;
   };
-}
+})

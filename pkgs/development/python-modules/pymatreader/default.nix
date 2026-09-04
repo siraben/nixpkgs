@@ -10,7 +10,7 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pymatreader";
   version = "1.0.0";
   pyproject = true;
@@ -18,7 +18,7 @@ buildPythonPackage rec {
   src = fetchFromGitLab {
     owner = "obob";
     repo = "pymatreader";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-cDEGEvBSj3gmjA+8aXULwuBVk09BLQbA91CNAxgtiLA=";
   };
 
@@ -44,8 +44,8 @@ buildPythonPackage rec {
   meta = {
     description = "Python package to read all kinds and all versions of Matlab mat files";
     homepage = "https://gitlab.com/obob/pymatreader/";
-    changelog = "https://gitlab.com/obob/pymatreader/-/blob/v${version}/CHANGELOG.md";
+    changelog = "https://gitlab.com/obob/pymatreader/-/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.bsd2;
     maintainers = [ ];
   };
-}
+})

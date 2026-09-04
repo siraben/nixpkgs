@@ -17,7 +17,7 @@
   toml,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "ledgerwallet";
   version = "0.5.3";
   pyproject = true;
@@ -25,7 +25,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "LedgerHQ";
     repo = "ledgerctl";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-roDfj+igDBS+sTJL4hwYNg5vZzaq+F8QvDA9NucnrMA=";
   };
 
@@ -69,4 +69,4 @@ buildPythonPackage rec {
       erdnaxe
     ];
   };
-}
+})

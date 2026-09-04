@@ -5,14 +5,14 @@
   perl,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "urxvt-tabbedex";
   version = "26.16.1";
 
   src = fetchFromGitHub {
     owner = "mina86";
     repo = "urxvt-tabbedex";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "sha256-e/t7AnP7nXkkazK6Oe6mw2Adf5wxR31/nFKeSaCpy/4";
   };
 
@@ -27,4 +27,4 @@ stdenv.mkDerivation rec {
     platforms = with lib.platforms; unix;
     license = lib.licenses.gpl3Plus;
   };
-}
+})

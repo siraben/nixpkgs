@@ -7,14 +7,14 @@
   nebula3-python,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "llama-index-graph-stores-nebula";
   version = "0.5.1";
   pyproject = true;
 
   src = fetchPypi {
     pname = "llama_index_graph_stores_nebula";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-XTW6XrAbWx8DZgoEoOL2rP2WNuQqQO+hcCWpQSj98ks=";
   };
 
@@ -33,4 +33,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

@@ -6,14 +6,14 @@
   obs-studio,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "obs-mute-filter";
   version = "0.3.0";
 
   src = fetchFromGitHub {
     owner = "norihiro";
     repo = "obs-mute-filter";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-UVYN9R7TnwD3a+KIYTXvxOQWfNUtR8cSWUoKZuNoBJc=";
   };
 
@@ -34,4 +34,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2Plus;
     inherit (obs-studio.meta) platforms;
   };
-}
+})

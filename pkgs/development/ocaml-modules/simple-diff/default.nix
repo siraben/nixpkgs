@@ -9,14 +9,14 @@
   re,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ocaml${ocaml.version}-simple-diff";
   version = "0.3";
 
   src = fetchFromGitHub {
     owner = "gjaldon";
     repo = "simple_diff";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "sha256-OaKECUBCCt9KfdRJf3HcXTUJVxKKdYtnzOHpMPOllrk=";
   };
 
@@ -39,4 +39,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.isc;
     maintainers = with lib.maintainers; [ ulrikstrid ];
   };
-}
+})

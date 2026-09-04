@@ -4,14 +4,14 @@
   fetchFromGitHub,
 }:
 
-buildNpmPackage rec {
+buildNpmPackage (finalAttrs: {
   pname = "auto-entities";
   version = "2.6.1";
 
   src = fetchFromGitHub {
     owner = "Lint-Free-Technology";
     repo = "lovelace-auto-entities";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-hwNQwy93IE7cQnk8xyM8RiSeiqjP5Cju7UG7rPzy8As=";
   };
 
@@ -28,11 +28,11 @@ buildNpmPackage rec {
   meta = {
     description = "Automatically populate the entities-list of lovelace cards";
     homepage = "https://github.com/Lint-Free-Technology/lovelace-auto-entities";
-    changelog = "https://github.com/Lint-Free-Technology/lovelace-auto-entities/releases/tag/v${version}";
+    changelog = "https://github.com/Lint-Free-Technology/lovelace-auto-entities/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [
       kranzes
       SuperSandro2000
     ];
   };
-}
+})

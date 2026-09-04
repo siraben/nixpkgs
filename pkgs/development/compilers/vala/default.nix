@@ -41,16 +41,16 @@ let
       disableGraphviz = !withGraphviz;
 
     in
-    stdenv.mkDerivation rec {
+    stdenv.mkDerivation (finalAttrs: {
       pname = "vala";
       inherit version;
 
       setupHook = replaceVars ./setup-hook.sh {
-        apiVersion = lib.versions.majorMinor version;
+        apiVersion = lib.versions.majorMinor finalAttrs.version;
       };
 
       src = fetchurl {
-        url = "mirror://gnome/sources/vala/${lib.versions.majorMinor version}/vala-${version}.tar.xz";
+        url = "mirror://gnome/sources/vala/${lib.versions.majorMinor finalAttrs.version}/vala-${finalAttrs.version}.tar.xz";
         inherit hash;
       };
 
@@ -104,7 +104,7 @@ let
             let
               roundUpToEven = num: num + lib.mod num 2;
             in
-            "vala_${lib.versions.major version}_${toString (roundUpToEven (lib.toInt (lib.versions.minor version)))}";
+            "vala_${lib.versions.major finalAttrs.version}_${toString (roundUpToEven (lib.toInt (lib.versions.minor finalAttrs.version)))}";
           packageName = "vala";
           freeze = true;
         };
@@ -124,7 +124,7 @@ let
           lib.teams.pantheon
         ];
       };
-    }
+    })
   );
 
 in

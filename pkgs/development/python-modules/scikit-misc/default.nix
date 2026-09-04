@@ -12,7 +12,7 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "scikit-misc";
   version = "0.5.2";
   pyproject = true;
@@ -20,7 +20,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "has2k1";
     repo = "scikit-misc";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-G0zK13upo0tPd8x87X8cTBKWK63E5JPmAr1IVEijtaw=";
   };
 
@@ -34,7 +34,7 @@ buildPythonPackage rec {
 
     # provide a version to use when git fails to get the tag
     [[ -f skmisc/_version.py ]] || \
-      echo '__version__ = "${version}"' > skmisc/_version.py
+      echo '__version__ = "${finalAttrs.version}"' > skmisc/_version.py
   '';
 
   nativeBuildInputs = [
@@ -72,4 +72,4 @@ buildPythonPackage rec {
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ onny ];
   };
-}
+})

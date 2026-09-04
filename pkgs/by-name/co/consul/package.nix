@@ -6,7 +6,7 @@
   nix-update-script,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "consul";
   version = "2.0.3";
 
@@ -21,7 +21,7 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "hashicorp";
     repo = "consul";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-VhjTMHfsbo9MFw/YkQ3AGcxEIM2Cq4LoTbDI6se0xHY=";
   };
 
@@ -37,8 +37,8 @@ buildGoModule rec {
   doCheck = false;
 
   ldflags = [
-    "-X github.com/hashicorp/consul/version.GitDescribe=v${version}"
-    "-X github.com/hashicorp/consul/version.Version=${version}"
+    "-X github.com/hashicorp/consul/version.GitDescribe=v${finalAttrs.version}"
+    "-X github.com/hashicorp/consul/version.Version=${finalAttrs.version}"
     "-X github.com/hashicorp/consul/version.VersionPrerelease="
   ];
 
@@ -52,7 +52,7 @@ buildGoModule rec {
 
   meta = {
     description = "Tool for service discovery, monitoring and configuration";
-    changelog = "https://github.com/hashicorp/consul/releases/tag/v${version}";
+    changelog = "https://github.com/hashicorp/consul/releases/tag/v${finalAttrs.version}";
     homepage = "https://www.consul.io/";
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
     license = lib.licenses.bsl11;
@@ -63,4 +63,4 @@ buildGoModule rec {
     ];
     mainProgram = "consul";
   };
-}
+})

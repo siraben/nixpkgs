@@ -7,7 +7,7 @@
   six,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "jsonstreams";
   version = "0.6.0";
   format = "setuptools";
@@ -15,7 +15,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "dcbaker";
     repo = "jsonstreams";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "0qw74wz9ngz9wiv89vmilbifsbvgs457yn1bxnzhrh7g4vs2wcav";
   };
 
@@ -37,4 +37,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ chkno ];
   };
-}
+})

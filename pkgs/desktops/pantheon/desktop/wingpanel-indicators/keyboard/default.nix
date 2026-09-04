@@ -18,14 +18,14 @@
   ibus,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "wingpanel-indicator-keyboard";
   version = "2.4.2";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "wingpanel-indicator-keyboard";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-vPQ+Bt7ggeT3Zzsvbie8Wpu3D2WMEIh8GDOI3frnedM=";
   };
 
@@ -63,4 +63,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     teams = [ lib.teams.pantheon ];
   };
-}
+})

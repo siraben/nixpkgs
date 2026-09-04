@@ -9,12 +9,12 @@
   ctypes,
   cppo,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ocaml${ocaml.version}-hacl-star-raw";
   version = "0.7.2";
 
   src = fetchzip {
-    url = "https://github.com/cryspen/hacl-packages/releases/download/ocaml-v${version}/hacl-star.${version}.tar.gz";
+    url = "https://github.com/cryspen/hacl-packages/releases/download/ocaml-v${finalAttrs.version}/hacl-star.${finalAttrs.version}.tar.gz";
     hash = "sha256-6WPbdkT9IsX0Q8mF2vLBJMktEES8tU45JztOPepAL0o=";
     stripRoot = false;
   };
@@ -78,4 +78,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.ulrikstrid ];
   };
-}
+})

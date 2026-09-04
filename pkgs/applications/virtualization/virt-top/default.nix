@@ -10,13 +10,13 @@
   gettext,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "virt-top";
   version = "1.1.2";
 
   src = fetchgit {
     url = "git://git.annexia.org/virt-top.git";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-C1a47pWtjb38bnwmZ2Zq7/LlW3+BF5BGNMRFi97/ngU=";
   };
 
@@ -58,4 +58,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     mainProgram = "virt-top";
   };
-}
+})

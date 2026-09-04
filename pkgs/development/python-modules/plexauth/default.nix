@@ -5,7 +5,7 @@
   aiohttp,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "plexauth";
   version = "0.0.6";
   format = "setuptools";
@@ -13,7 +13,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "jjlawren";
     repo = "python-plexauth";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "1wy6syz3cgfw28zvigh2br4jabg8rzpi5l0bhfb6vjjc7aam13ag";
   };
 
@@ -31,4 +31,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = [ ];
   };
-}
+})

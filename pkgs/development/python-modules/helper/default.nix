@@ -7,7 +7,7 @@
   mock,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "helper";
   version = "2.5.0";
   format = "setuptools";
@@ -15,7 +15,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "gmr";
     repo = "helper";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "0zypjv8rncvrsgl200v7d3bn08gs48dwqvgamfqv71h07cj6zngp";
   };
 
@@ -36,4 +36,4 @@ buildPythonPackage rec {
     homepage = "https://helper.readthedocs.org/";
     license = lib.licenses.bsd3;
   };
-}
+})

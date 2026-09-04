@@ -18,7 +18,7 @@ let
     postInstall = "mv $out/bin/sshuttle $out/bin/sshuttle-telepresence";
   });
 in
-pythonPackages.buildPythonPackage rec {
+pythonPackages.buildPythonPackage (finalAttrs: {
   pname = "telepresence";
   version = "0.109";
   format = "setuptools";
@@ -26,7 +26,7 @@ pythonPackages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "telepresenceio";
     repo = "telepresence";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "1ccc8bzcdxp6rh6llk7grcnmyc05fq7dz5w0mifdzjv3a473hsky";
   };
 
@@ -61,4 +61,4 @@ pythonPackages.buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = [ ];
   };
-}
+})

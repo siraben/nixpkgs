@@ -10,13 +10,13 @@
   python3,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "clang-root";
   version = "20-20260616-01";
 
   src = fetchgit {
     url = "https://github.com/root-project/llvm-project";
-    tag = "ROOT-llvm${version}";
+    tag = "ROOT-llvm${finalAttrs.version}";
     hash = "sha256-WRgM1vuK2vQ5CC/QkKnLtq6d61rfo1bCV9fIxPYWKiU=";
   };
 
@@ -54,4 +54,4 @@ stdenv.mkDerivation rec {
     else
       lib.optional (stdenv.cc.libc != null) "-DC_INCLUDE_DIRS=${lib.getDev stdenv.cc.libc}/include"
   );
-}
+})

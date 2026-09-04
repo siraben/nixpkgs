@@ -65,7 +65,7 @@ let
     forceFetchGit = true;
   };
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "phosh-mobile-settings";
   version = "0.54.0";
 
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
     group = "World";
     owner = "Phosh";
     repo = "phosh-mobile-settings";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-TuwxzzalNhNJwPmmPJmxsHebzksPYv8jV6K0vYntQIw=";
     # Workaround for https://github.com/NixOS/nixpkgs/issues/485701
     forceFetchGit = true;
@@ -134,7 +134,7 @@ stdenv.mkDerivation rec {
     description = "Settings app for mobile specific things";
     mainProgram = "phosh-mobile-settings";
     homepage = "https://gitlab.gnome.org/World/Phosh/phosh-mobile-settings";
-    changelog = "https://gitlab.gnome.org/World/Phosh/phosh-mobile-settings/-/blob/v${version}/debian/changelog";
+    changelog = "https://gitlab.gnome.org/World/Phosh/phosh-mobile-settings/-/blob/v${finalAttrs.version}/debian/changelog";
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [
       rvl
@@ -142,4 +142,4 @@ stdenv.mkDerivation rec {
     ];
     platforms = lib.platforms.linux;
   };
-}
+})

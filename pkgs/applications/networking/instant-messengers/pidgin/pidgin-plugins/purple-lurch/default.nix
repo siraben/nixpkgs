@@ -10,14 +10,14 @@
   libgcrypt,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "purple-lurch";
   version = "0.7.0";
 
   src = fetchFromGitHub {
     owner = "gkdr";
     repo = "lurch";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-yyzotKL1Z4B2BxloJndJKemONMPLG9pVDVe2K5AL05g=";
     fetchSubmodules = true;
   };
@@ -49,4 +49,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ emmanuelrosa ];
   };
-}
+})

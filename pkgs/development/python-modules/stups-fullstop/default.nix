@@ -11,7 +11,7 @@
   isPy3k,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "stups-fullstop";
   version = "1.1.31";
   format = "setuptools";
@@ -20,7 +20,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "zalando-stups";
     repo = "fullstop-cli";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "1cpzz1b8g2mich7c1p74vfgw70vlxpgwi82a1ld82wv3srwqa0h3";
   };
 
@@ -45,4 +45,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.mschuwalow ];
   };
-}
+})

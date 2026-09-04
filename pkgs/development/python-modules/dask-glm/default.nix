@@ -21,7 +21,7 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "dask-glm";
   version = "0.3.2";
   pyproject = true;
@@ -29,7 +29,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "dask";
     repo = "dask-glm";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-q98QMmw1toashimS16of54cgZgIPqkua3xGD1FZ1nTc=";
   };
 
@@ -73,8 +73,8 @@ buildPythonPackage rec {
   meta = {
     description = "Generalized Linear Models with Dask";
     homepage = "https://github.com/dask/dask-glm/";
-    changelog = "https://github.com/dask/dask-glm/releases/tag/${version}";
+    changelog = "https://github.com/dask/dask-glm/releases/tag/${finalAttrs.version}";
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ GaetanLepage ];
   };
-}
+})

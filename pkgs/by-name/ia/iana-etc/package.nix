@@ -5,12 +5,12 @@
   writeText,
 }:
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "iana-etc";
   version = "20251215";
 
   src = fetchzip {
-    url = "https://github.com/Mic92/iana-etc/releases/download/${version}/iana-etc-${version}.tar.gz";
+    url = "https://github.com/Mic92/iana-etc/releases/download/${finalAttrs.version}/iana-etc-${finalAttrs.version}.tar.gz";
     sha256 = "sha256-BUGhVHvWSdFJdqaoPasLt87lTUFVF2B7X7sfigwrJss=";
   };
 
@@ -29,4 +29,4 @@ stdenvNoCC.mkDerivation rec {
     platforms = lib.platforms.unix;
     license = lib.licenses.mit;
   };
-}
+})

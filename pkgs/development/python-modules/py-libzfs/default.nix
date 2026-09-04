@@ -8,7 +8,7 @@
   zfs_2_3,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "py-libzfs";
   version = "25.10.1";
   format = "setuptools";
@@ -16,7 +16,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "truenas";
     repo = "py-libzfs";
-    rev = "TS-${version}";
+    rev = "TS-${finalAttrs.version}";
     hash = "sha256-kme5qUG0Nsya8HxU/oMHP1AidoMMOob/EON8sZMzKKI=";
   };
 
@@ -52,4 +52,4 @@ buildPythonPackage rec {
     # I don't have a machine to test out, thus only packaged for Linux
     platforms = lib.platforms.linux;
   };
-}
+})

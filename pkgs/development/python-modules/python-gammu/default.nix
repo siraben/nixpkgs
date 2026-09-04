@@ -7,7 +7,7 @@
   gammu,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "python-gammu";
   version = "3.2.4";
   format = "setuptools";
@@ -15,7 +15,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "gammu";
     repo = "python-gammu";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-lFQBrKWwdvUScwsBva08izZVeVDn1u+ldzixtL9YTpA=";
   };
 
@@ -36,4 +36,4 @@ buildPythonPackage rec {
     license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

@@ -11,13 +11,13 @@
   bigarray-compat,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ocaml${ocaml.version}-mlgmpidl";
   version = "1.3.0";
   src = fetchFromGitHub {
     owner = "nberth";
     repo = "mlgmpidl";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-ZmSDKZiHko8MCeIuZL53HjupfwO6PAm8QOCc9O3xJOk=";
   };
 
@@ -48,4 +48,4 @@ stdenv.mkDerivation rec {
     inherit (ocaml.meta) platforms;
     maintainers = [ lib.maintainers.vbgl ];
   };
-}
+})

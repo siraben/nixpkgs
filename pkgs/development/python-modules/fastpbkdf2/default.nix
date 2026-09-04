@@ -8,7 +8,7 @@
   six,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "fastpbkdf2";
   version = "0.2";
   format = "setuptools";
@@ -17,7 +17,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "Ayrx";
     repo = "python-fastpbkdf2";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "1hvvlk3j28i6nswb6gy3mq7278nq0mgfnpxh1rv6jvi7xhd7qmlc";
   };
 
@@ -35,4 +35,4 @@ buildPythonPackage rec {
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ jqueiroz ];
   };
-}
+})

@@ -9,13 +9,13 @@
   dotnetCorePackages,
 }:
 
-buildDotnetModule rec {
+buildDotnetModule (finalAttrs: {
   pname = "networkminer";
   version = "3.0";
 
   src =
     let
-      version' = lib.replaceString "." "-" version;
+      version' = lib.replaceString "." "-" finalAttrs.version;
     in
     fetchzip {
       # Upstream does not provide versioned releases, a mirror has been uploaded
@@ -84,4 +84,4 @@ buildDotnetModule rec {
     platforms = lib.platforms.linux;
     mainProgram = "NetworkMiner";
   };
-}
+})

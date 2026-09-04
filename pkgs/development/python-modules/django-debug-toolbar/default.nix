@@ -17,7 +17,7 @@
   pygments,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "django-debug-toolbar";
   version = "7.0.0";
   pyproject = true;
@@ -25,7 +25,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "jazzband";
     repo = "django-debug-toolbar";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-Xwl6LsNW3/VXJ59QaW4l6D+8VEbl45ysv5KaySbS4M4=";
   };
 
@@ -69,4 +69,4 @@ buildPythonPackage rec {
     license = lib.licenses.bsd3;
     maintainers = [ ];
   };
-}
+})

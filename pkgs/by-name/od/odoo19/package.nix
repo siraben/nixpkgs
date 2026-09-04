@@ -14,15 +14,15 @@ let
     self = python;
   };
 in
-python.pkgs.buildPythonApplication rec {
+python.pkgs.buildPythonApplication (finalAttrs: {
   pname = "odoo";
   version = "${odoo_version}.${odoo_release}";
   pyproject = true;
 
   src = fetchzip {
     # find latest version on https://nightly.odoo.com/${odoo_version}/nightly/src
-    url = "https://nightly.odoo.com/${odoo_version}/nightly/src/odoo_${version}.zip";
-    name = "odoo-${version}";
+    url = "https://nightly.odoo.com/${odoo_version}/nightly/src/odoo_${finalAttrs.version}.zip";
+    name = "odoo-${finalAttrs.version}";
     hash = "sha256-JsbJ39zPZm4eyRTXkvdCMHwYaA08yUxZXcLglRn3kWs="; # odoo
   };
 
@@ -112,4 +112,4 @@ python.pkgs.buildPythonApplication rec {
       siriobalmelli
     ];
   };
-}
+})

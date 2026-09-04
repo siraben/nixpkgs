@@ -5,14 +5,14 @@
   apacheHttpd,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "mod_fastcgi";
   version = "2.4.7.1";
 
   src = fetchFromGitHub {
     owner = "FastCGI-Archives";
     repo = "mod_fastcgi";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-ovir59kCjKkgbraX23nsmzlMzGdeNTyj3MQd8cgvLsg=";
   };
 
@@ -40,4 +40,4 @@ stdenv.mkDerivation rec {
 
     platforms = lib.platforms.linux;
   };
-}
+})

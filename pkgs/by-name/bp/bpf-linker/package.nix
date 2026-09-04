@@ -11,14 +11,14 @@
   zlib,
   libxml2,
 }:
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "bpf-linker";
   version = "0.11.0";
 
   src = fetchFromGitHub {
     owner = "aya-rs";
     repo = "bpf-linker";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-uMpLQR2FAI96MYfWo8lR9pUeWhswY6wMUOxQwq3hCdw=";
   };
 
@@ -49,4 +49,4 @@ rustPlatform.buildRustPackage rec {
     ];
     maintainers = with lib.maintainers; [ nickcao ];
   };
-}
+})

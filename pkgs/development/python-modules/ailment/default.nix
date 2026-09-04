@@ -7,7 +7,7 @@
   typing-extensions,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "ailment";
   version = "9.2.158";
   pyproject = true;
@@ -15,7 +15,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "angr";
     repo = "ailment";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-WnDtJaEpka6IhYOfOb2DZY0Hd8ghIn8mY5AuF/JktLg=";
   };
 
@@ -37,4 +37,4 @@ buildPythonPackage rec {
     license = lib.licenses.bsd2;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

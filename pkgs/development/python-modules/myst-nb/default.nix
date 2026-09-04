@@ -16,13 +16,13 @@
   ipykernel,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "myst-nb";
   version = "1.3.0";
   pyproject = true;
 
   src = fetchPypi {
-    inherit version;
+    inherit (finalAttrs) version;
     pname = "myst_nb";
     hash = "sha256-3zzUaA9Rpa9nP9RrOLVivjVZrvFHXpBu0PLmbkWHzks=";
   };
@@ -51,8 +51,8 @@ buildPythonPackage rec {
   meta = {
     description = "Jupyter Notebook Sphinx reader built on top of the MyST markdown parser";
     homepage = "https://github.com/executablebooks/MyST-NB";
-    changelog = "https://github.com/executablebooks/MyST-NB/raw/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/executablebooks/MyST-NB/raw/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.mit;
     maintainers = [ ];
   };
-}
+})

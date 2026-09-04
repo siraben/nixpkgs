@@ -34,14 +34,14 @@
   openssl,
 }:
 let
-  flutterRustBridge = rustPlatform.buildRustPackage rec {
+  flutterRustBridge = rustPlatform.buildRustPackage (finalAttrs: {
     pname = "flutter_rust_bridge_codegen";
     version = "1.80.1"; # https://github.com/rustdesk/rustdesk/blob/1.4.4/.github/workflows/bridge.yml#L10
 
     src = fetchFromGitHub {
       owner = "fzyzcjy";
       repo = "flutter_rust_bridge";
-      rev = "v${version}";
+      rev = "v${finalAttrs.version}";
       hash = "sha256-SbwqWapJbt6+RoqRKi+wkSH1D+Wz7JmnVbfcfKkjt8Q=";
     };
 
@@ -55,7 +55,7 @@ let
       "flutter_rust_bridge_codegen"
     ];
     doCheck = false;
-  };
+  });
 
   ffigen = callPackage ./ffigen {
     flutter = flutter329;

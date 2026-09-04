@@ -6,7 +6,7 @@
   setuptools,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pretix-mollie";
   version = "2.5.8";
   pyproject = true;
@@ -14,7 +14,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "pretix";
     repo = "pretix-mollie";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-92nlq5EGI/AQ5RxDK1go/p4ZMtTDtzTFlWXsnVPvsg0=";
   };
 
@@ -33,4 +33,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ hexa ];
   };
-}
+})

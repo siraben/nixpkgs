@@ -11,7 +11,7 @@
   setuptools,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "dbt-redshift";
   version = "1.9.0";
   pyproject = true;
@@ -19,7 +19,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "dbt-labs";
     repo = "dbt-redshift";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-ayt5KRH3jAoi7k+0yfk1ZSqG4qsM+zny8tDnWOWO5oA=";
   };
 
@@ -47,7 +47,7 @@ buildPythonPackage rec {
   meta = {
     description = "Plugin enabling dbt to work with Amazon Redshift";
     homepage = "https://github.com/dbt-labs/dbt-redshift";
-    changelog = "https://github.com/dbt-labs/dbt-redshift/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/dbt-labs/dbt-redshift/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.asl20;
   };
-}
+})

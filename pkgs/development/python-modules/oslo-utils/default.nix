@@ -33,14 +33,14 @@
   tzdata,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "oslo-utils";
   version = "10.0.1";
   pyproject = true;
 
   src = fetchPypi {
     pname = "oslo_utils";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-Ib/Cm7TBzZr7TvdB+445Ro+lSF5gcX9PkPOtPc6KHyI=";
   };
 
@@ -108,4 +108,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     teams = [ lib.teams.openstack ];
   };
-}
+})

@@ -10,7 +10,7 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "manimpango";
   version = "0.6.1";
   pyproject = true;
@@ -18,7 +18,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "ManimCommunity";
     repo = "manimpango";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-8eQmhVsW440/zxOwjngnPTGT7iFbdSvBV7tnI332piE=";
   };
 
@@ -50,8 +50,8 @@ buildPythonPackage rec {
   meta = {
     description = "Binding for Pango";
     homepage = "https://github.com/ManimCommunity/ManimPango";
-    changelog = "https://github.com/ManimCommunity/ManimPango/releases/tag/v${version}";
+    changelog = "https://github.com/ManimCommunity/ManimPango/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ emilytrau ];
   };
-}
+})

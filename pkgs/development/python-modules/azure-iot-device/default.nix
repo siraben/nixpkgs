@@ -14,13 +14,13 @@
   pysocks,
   typing-extensions,
 }:
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "azure-iot-device";
   version = "2.14.0";
   pyproject = true;
 
   src = fetchPypi {
-    inherit version;
+    inherit (finalAttrs) version;
     pname = "azure_iot_device";
     hash = "sha256-ttSNSTLCQAJXNqzlRMTnG8SaFXasmY6h3neK+CSW/84=";
   };
@@ -54,4 +54,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ mikut ];
   };
-}
+})

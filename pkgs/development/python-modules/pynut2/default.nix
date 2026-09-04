@@ -7,7 +7,7 @@
   setuptools,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pynut2";
   version = "2.1.2";
   pyproject = true;
@@ -15,7 +15,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "mezz64";
     repo = "python-nut2";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "1lg7n1frndfgw73s0ssl1h7kc6zxm7fpiwlc6v6d60kxzaj1dphx";
   };
 
@@ -37,4 +37,4 @@ buildPythonPackage rec {
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.luker ];
   };
-}
+})

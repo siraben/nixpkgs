@@ -8,7 +8,7 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "django-js-asset";
   version = "4.1";
   pyproject = true;
@@ -16,7 +16,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "matthiask";
     repo = "django-js-asset";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-ZfSO0S6NL8Jw1gynwHy3j6Em6nC5BYNNo9SEfoHmy0w=";
   };
 
@@ -36,10 +36,10 @@ buildPythonPackage rec {
   '';
 
   meta = {
-    changelog = "https://github.com/matthiask/django-js-asset/blob/${version}/CHANGELOG.rst";
+    changelog = "https://github.com/matthiask/django-js-asset/blob/${finalAttrs.version}/CHANGELOG.rst";
     description = "Script tag with additional attributes for django.forms.Media";
     homepage = "https://github.com/matthiask/django-js-asset";
     maintainers = with lib.maintainers; [ hexa ];
     license = lib.licenses.bsd3;
   };
-}
+})

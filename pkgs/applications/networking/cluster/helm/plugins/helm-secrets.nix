@@ -11,14 +11,14 @@
   sops,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "helm-secrets";
   version = "4.7.6";
 
   src = fetchFromGitHub {
     owner = "jkroepke";
     repo = "helm-secrets";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-gCsXnZCvQqc5PIQGheOdzZ1YSUNDhbMvJIROMGA65Jg=";
   };
 
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
 
   # NOTE: Fix version string
   postPatch = ''
-    sed -i 's/^version:.*/version: "${version}"/' plugin.yaml
+    sed -i 's/^version:.*/version: "${finalAttrs.version}"/' plugin.yaml
   '';
 
   installPhase = ''
@@ -64,4 +64,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ yurrriq ];
     platforms = lib.platforms.unix;
   };
-}
+})

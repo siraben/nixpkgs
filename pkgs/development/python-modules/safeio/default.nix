@@ -4,14 +4,14 @@
   fetchPypi,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "safeio";
   version = "1.2";
   format = "setuptools";
 
   src = fetchPypi {
     pname = "safeIO";
-    inherit version;
+    inherit (finalAttrs) version;
     sha256 = "d480a6dab01a390ebc24c12d6b774ad00cef3db5348ad07d8bd11d272a808cd3";
   };
 
@@ -23,4 +23,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = [ ];
   };
-}
+})

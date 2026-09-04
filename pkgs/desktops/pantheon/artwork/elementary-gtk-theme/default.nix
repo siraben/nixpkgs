@@ -10,14 +10,14 @@
   sassc,
 }:
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "elementary-gtk-theme";
   version = "8.2.2";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "stylesheet";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-ZjeufUC3Eg1do3GKN1kW/EceuWfAsFnOkSCmscL+vxg=";
   };
 
@@ -45,4 +45,4 @@ stdenvNoCC.mkDerivation rec {
     platforms = lib.platforms.linux;
     teams = [ lib.teams.pantheon ];
   };
-}
+})

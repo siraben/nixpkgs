@@ -7,12 +7,12 @@
   writeText,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ocaml${ocaml.version}-findlib";
   version = "1.9.8";
 
   src = fetchurl {
-    url = "https://download.camlcity.org/download/findlib-${version}.tar.gz";
+    url = "https://download.camlcity.org/download/findlib-${finalAttrs.version}.tar.gz";
     hash = "sha256-ZiyRD3dOn+46GcTgV/OAWBqy/E7lLaR2EwSsnDG4hp0=";
   };
 
@@ -94,4 +94,4 @@ stdenv.mkDerivation rec {
     mainProgram = "ocamlfind";
     platforms = ocaml.meta.platforms or [ ];
   };
-}
+})

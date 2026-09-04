@@ -17,14 +17,14 @@
   libadwaita,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "elementary-music";
   version = "8.1.0";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "music";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-ALAQh+iFhRhAMCwYDM0Bcww1K/xJ/AajZu/52baI3gQ=";
   };
 
@@ -72,4 +72,4 @@ stdenv.mkDerivation rec {
     teams = [ lib.teams.pantheon ];
     mainProgram = "io.elementary.music";
   };
-}
+})

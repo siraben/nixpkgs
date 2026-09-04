@@ -15,14 +15,14 @@
   python3,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ibus-hangul";
   version = "1.5.5";
 
   src = fetchFromGitHub {
     owner = "libhangul";
     repo = "ibus-hangul";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-x2oOW8eiEuwmdCGUo+r/KcsitfGccSyianwIEaOBS3M=";
   };
 
@@ -62,4 +62,4 @@ stdenv.mkDerivation rec {
     maintainers = [ ];
     platforms = lib.platforms.linux;
   };
-}
+})

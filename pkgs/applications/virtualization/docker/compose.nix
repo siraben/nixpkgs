@@ -4,14 +4,14 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "docker-compose";
   version = "5.4.0";
 
   src = fetchFromGitHub {
     owner = "docker";
     repo = "compose";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-BLApJ1RWI2nUM3EDFLWBPwIbT+wUUCqxCRjc7QlkFd4=";
   };
 
@@ -24,7 +24,7 @@ buildGoModule rec {
   '';
 
   ldflags = [
-    "-X github.com/docker/compose/v5/internal.Version=${version}"
+    "-X github.com/docker/compose/v5/internal.Version=${finalAttrs.version}"
     "-s"
     "-w"
   ];
@@ -47,4 +47,4 @@ buildGoModule rec {
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ airone01 ];
   };
-}
+})

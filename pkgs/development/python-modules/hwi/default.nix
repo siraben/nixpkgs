@@ -13,7 +13,7 @@
   typing-extensions,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "hwi";
   version = "3.1.0";
   format = "setuptools";
@@ -21,7 +21,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "bitcoin-core";
     repo = "HWI";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-sQqft+5M+X+91bFqpUrbDRrFzpe/l1+w+pnIHwqezR8=";
   };
 
@@ -45,8 +45,8 @@ buildPythonPackage rec {
   meta = {
     description = "Bitcoin Hardware Wallet Interface";
     homepage = "https://github.com/bitcoin-core/hwi";
-    changelog = "https://github.com/bitcoin-core/HWI/releases/tag/${version}";
+    changelog = "https://github.com/bitcoin-core/HWI/releases/tag/${finalAttrs.version}";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ prusnak ];
   };
-}
+})

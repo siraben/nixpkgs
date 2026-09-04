@@ -7,7 +7,7 @@
   requests-mock,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "simplehound";
   version = "0.6";
   format = "setuptools";
@@ -15,7 +15,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "robmarkcole";
     repo = "simplehound";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "1b5m3xjmk0l6ynf0yvarplsfsslgklalfcib7sikxg3v5hiv9qwh";
   };
 
@@ -34,4 +34,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

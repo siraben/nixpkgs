@@ -10,7 +10,7 @@
   serpent,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pyro4";
   version = "4.82";
   format = "setuptools";
@@ -21,7 +21,7 @@ buildPythonPackage rec {
 
   src = fetchPypi {
     pname = "Pyro4";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-UR9bCATpLdd9wzrfnJR3h+P56cWpaxIWLwVXp8TOIfs=";
   };
 
@@ -59,8 +59,8 @@ buildPythonPackage rec {
   meta = {
     description = "Distributed object middleware for Python (RPC)";
     homepage = "https://github.com/irmen/Pyro4";
-    changelog = "https://github.com/irmen/Pyro4/releases/tag/${version}";
+    changelog = "https://github.com/irmen/Pyro4/releases/tag/${finalAttrs.version}";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ prusnak ];
   };
-}
+})

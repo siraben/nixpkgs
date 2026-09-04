@@ -16,7 +16,7 @@
   webtest,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "nplusone";
   version = "1.0.0";
   format = "setuptools";
@@ -24,7 +24,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "jmcarp";
     repo = "nplusone";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "0qdwpvvg7dzmksz3vqkvb27n52lq5sa8i06m7idnj5xk2dgjkdxg";
   };
 
@@ -83,4 +83,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     broken = lib.versionAtLeast django.version "4";
   };
-}
+})

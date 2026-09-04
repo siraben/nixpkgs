@@ -5,14 +5,14 @@
   setuptools,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "zlib-wrapper";
   version = "0.1.3";
   pyproject = true;
 
   src = fetchPypi {
     pname = "zlib_wrapper";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-Yxqc7fSDdnAPlGLzTbgcEQxiTKJDSJmPgm0eV62JiGQ=";
   };
 
@@ -29,4 +29,4 @@ buildPythonPackage rec {
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

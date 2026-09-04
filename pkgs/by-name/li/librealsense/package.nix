@@ -36,7 +36,7 @@ let
   stdenv' = if cudaSupport then cudaPackages.backendStdenv else stdenv;
 in
 
-stdenv'.mkDerivation rec {
+stdenv'.mkDerivation (finalAttrs: {
   pname = "librealsense";
   version = "2.57.7";
 
@@ -48,7 +48,7 @@ stdenv'.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "realsenseai";
     repo = "librealsense";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "sha256-d/FkvnUa7CqW25ZG8PY9+cd7uRL4zC1Md/JT8B/qAKU=";
   };
 
@@ -193,4 +193,4 @@ stdenv'.mkDerivation rec {
     platforms = lib.platforms.unix;
     mainProgram = if enableGUI then "realsense-viewer" else "rs-enumerate-devices";
   };
-}
+})

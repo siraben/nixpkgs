@@ -4,7 +4,7 @@
   ocamlPackages,
 }:
 
-ocamlPackages.buildDunePackage rec {
+ocamlPackages.buildDunePackage (finalAttrs: {
   pname = "stanc";
   version = "2.39.0";
 
@@ -13,7 +13,7 @@ ocamlPackages.buildDunePackage rec {
   src = fetchFromGitHub {
     owner = "stan-dev";
     repo = "stanc3";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-ZAH9uFEZu75BC2xYGUXg62RHiADmKYBYP2Nt8bwEVRY=";
   };
 
@@ -38,4 +38,4 @@ ocamlPackages.buildDunePackage rec {
     maintainers = with lib.maintainers; [ wegank ];
     platforms = lib.platforms.unix;
   };
-}
+})

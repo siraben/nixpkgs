@@ -8,14 +8,14 @@
   which,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "libcommuni";
   version = "3.7.0";
 
   src = fetchFromGitHub {
     owner = "communi";
     repo = "libcommuni";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "sha256-9eYJpmjW1J48RD6wVJOHmsAgTbauNeeCrXe076ufq1I=";
   };
 
@@ -62,4 +62,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.bsd3;
     platforms = lib.platforms.all;
   };
-}
+})

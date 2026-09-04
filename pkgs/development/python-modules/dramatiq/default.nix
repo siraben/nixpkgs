@@ -16,7 +16,7 @@
   watchdog-gevent,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "dramatiq";
   version = "2.1.0";
   pyproject = true;
@@ -24,7 +24,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "Bogdanp";
     repo = "dramatiq";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-wUE3R/lFafP7P9tjKjFC+jwCc3jkvGeXunC8AhkBLbM=";
   };
 
@@ -103,4 +103,4 @@ buildPythonPackage rec {
     license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ traxys ];
   };
-}
+})

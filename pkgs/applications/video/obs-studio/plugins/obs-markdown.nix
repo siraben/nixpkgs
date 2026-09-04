@@ -6,14 +6,14 @@
   obs-studio,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "obs-markdown";
   version = "0.2.7";
 
   src = fetchFromGitHub {
     owner = "exeldro";
     repo = "obs-markdown";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-5ajX/cEa0n12Putx1k3ctl1v9wRzJRhyJNDlmjSMbeU=";
   };
 
@@ -31,4 +31,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2Only;
     inherit (obs-studio.meta) platforms;
   };
-}
+})

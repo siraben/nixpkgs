@@ -9,7 +9,7 @@
   python,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "tree-sitter-languages";
   version = "1.10.2";
   pyproject = true;
@@ -17,7 +17,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "grantjenks";
     repo = "py-tree-sitter-languages";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-wKU2c8QRBKFVFqg+DAeH5+cwm5jpDLmPZG3YBUsh/lM=";
     # Use git, to also fetch tree-sitter repositories that upstream puts their
     # hashes in the repository as well, in repos.txt.
@@ -61,4 +61,4 @@ buildPythonPackage rec {
     # https://github.com/grantjenks/py-tree-sitter-languages/issues/67
     broken = lib.versionAtLeast tree-sitter.version "0.22";
   };
-}
+})

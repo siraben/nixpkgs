@@ -8,7 +8,7 @@
   alure2,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "palace";
   version = "0.2.5";
   pyproject = true;
@@ -16,7 +16,7 @@ buildPythonPackage rec {
   src = fetchFromSourcehut {
     owner = "~cnx";
     repo = "palace";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "1z0m35y4v1bg6vz680pwdicm9ssryl0q6dm9hfpb8hnifmridpcj";
   };
 
@@ -47,4 +47,4 @@ buildPythonPackage rec {
     license = lib.licenses.lgpl3Plus;
     maintainers = [ lib.maintainers.McSinyx ];
   };
-}
+})

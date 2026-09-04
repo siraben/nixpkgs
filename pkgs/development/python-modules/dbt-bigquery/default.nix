@@ -19,7 +19,7 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "dbt-bigquery";
   version = "1.9.1";
   pyproject = true;
@@ -27,7 +27,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "dbt-labs";
     repo = "dbt-bigquery";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-YZA8lcUGoq5jMNS1GlbBd036X2F3khsZWr5Pv65zpPI=";
   };
 
@@ -59,7 +59,7 @@ buildPythonPackage rec {
   meta = {
     description = "Plugin enabling dbt to operate on a BigQuery database";
     homepage = "https://github.com/dbt-labs/dbt-bigquery";
-    changelog = "https://github.com/dbt-labs/dbt-bigquery/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/dbt-labs/dbt-bigquery/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.asl20;
   };
-}
+})

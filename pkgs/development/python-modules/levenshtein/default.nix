@@ -11,7 +11,7 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "levenshtein";
   version = "0.27.3";
   pyproject = true;
@@ -19,7 +19,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "rapidfuzz";
     repo = "Levenshtein";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-iKWS7gm0t3yPgeX5N09cTa3N1C6GXvIALueO8DlfLfE=";
   };
 
@@ -51,8 +51,8 @@ buildPythonPackage rec {
   meta = {
     description = "Functions for fast computation of Levenshtein distance and string similarity";
     homepage = "https://github.com/rapidfuzz/Levenshtein";
-    changelog = "https://github.com/rapidfuzz/Levenshtein/blob/v${version}/HISTORY.md";
+    changelog = "https://github.com/rapidfuzz/Levenshtein/blob/v${finalAttrs.version}/HISTORY.md";
     license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

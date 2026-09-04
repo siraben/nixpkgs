@@ -7,14 +7,14 @@
   ocamlbuild,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ocaml${ocaml.version}-sosa";
   version = "0.3.0";
 
   src = fetchFromGitHub {
     owner = "hammerlab";
     repo = "sosa";
-    rev = "sosa.${version}";
+    rev = "sosa.${finalAttrs.version}";
     sha256 = "053hdv6ww0q4mivajj4iyp7krfvgq8zajq9d8x4mia4lid7j0dyk";
   };
 
@@ -46,4 +46,4 @@ stdenv.mkDerivation rec {
     maintainers = [ ];
     broken = !(lib.versionOlder ocaml.version "4.02");
   };
-}
+})

@@ -4,7 +4,7 @@
   fetchFromGitHub,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "skytemple-icons";
   version = "1.3.2";
   format = "setuptools";
@@ -12,7 +12,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "SkyTemple";
     repo = "skytemple-icons";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "0wagdvzks9irdl5lj8sfqkkvfwwmdpvjyzx6424shvpp5mk28dcv";
   };
 
@@ -25,4 +25,4 @@ buildPythonPackage rec {
     license = lib.licenses.gpl3Plus;
     maintainers = [ ];
   };
-}
+})

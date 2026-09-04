@@ -17,7 +17,7 @@
   tensorflow,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "tf2onnx";
   version = "1.16.1";
   pyproject = true;
@@ -25,7 +25,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "onnx";
     repo = "tensorflow-onnx";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-qtRzckw/KHWm3gjFwF+cPuBhGbfktjhYIwImwHn2CFk=";
   };
 
@@ -62,7 +62,7 @@ buildPythonPackage rec {
   meta = {
     description = "Convert TensorFlow, Keras, Tensorflow.js and Tflite models to ONNX";
     homepage = "https://github.com/onnx/tensorflow-onnx";
-    changelog = "https://github.com/onnx/tensorflow-onnx/releases/tag/v${version}";
+    changelog = "https://github.com/onnx/tensorflow-onnx/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ happysalada ];
     badPlatforms = [
@@ -70,4 +70,4 @@ buildPythonPackage rec {
       lib.systems.inspect.patterns.isDarwin
     ];
   };
-}
+})

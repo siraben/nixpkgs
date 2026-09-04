@@ -12,7 +12,7 @@
   makeShellWrapper,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "grap";
   version = "1.3.1";
   pyproject = false;
@@ -20,7 +20,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "QuoSecGmbH";
     repo = "grap";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-zLIKoNOdrmTyZkQGRogeKfIRk4kpG0hmeN0519SJbbo=";
   };
 
@@ -83,4 +83,4 @@ python3Packages.buildPythonApplication rec {
     platforms = lib.platforms.linux;
     mainProgram = "grap";
   };
-}
+})

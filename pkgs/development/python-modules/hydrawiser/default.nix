@@ -9,7 +9,7 @@
   requests-mock,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "hydrawiser";
   version = "0.2";
   format = "setuptools";
@@ -17,7 +17,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "ptcryan";
     repo = "hydrawiser";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "161hazlpvd71xcl2ja86560wm5lnrjv210ki3ji37l6c6gwmhjdj";
   };
 
@@ -39,4 +39,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

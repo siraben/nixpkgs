@@ -5,14 +5,14 @@
   uutf,
 }:
 
-buildDunePackage rec {
+buildDunePackage (finalAttrs: {
   pname = "terml";
   version = "0.0.1";
 
   src = fetchFromGitHub {
     owner = "wllfaria";
     repo = "terml";
-    rev = "${version}";
+    rev = "${finalAttrs.version}";
     hash = "sha256-2ifMfUaYYsCFOACgXgJ5IuoSEicHyIqumLpun2ZqcDc=";
   };
 
@@ -21,10 +21,10 @@ buildDunePackage rec {
   minimalOCamlVersion = "4.13";
 
   meta = {
-    changelog = "https://github.com/wllfaria/terml/blob/${version}/CHANGES.md";
+    changelog = "https://github.com/wllfaria/terml/blob/${finalAttrs.version}/CHANGES.md";
     description = "Terminal manipulation library in pure Ocaml";
     homepage = "https://github.com/wllfaria/terml";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.PhilVoel ];
   };
-}
+})

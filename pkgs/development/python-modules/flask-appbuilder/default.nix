@@ -24,14 +24,14 @@
   sqlalchemy-utils,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "flask-appbuilder";
   version = "5.0.2";
   format = "setuptools";
 
   src = fetchPypi {
     pname = "Flask-AppBuilder";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-9Xe5gqGuQLwhMjjO25PDnGfPIZmqHgBuCH6hs1B9VFA=";
   };
 
@@ -76,10 +76,10 @@ buildPythonPackage rec {
   meta = {
     description = "Application development framework, built on top of Flask";
     homepage = "https://github.com/dpgaspar/flask-appbuilder/";
-    changelog = "https://github.com/dpgaspar/Flask-AppBuilder/blob/v${version}/CHANGELOG.rst";
+    changelog = "https://github.com/dpgaspar/Flask-AppBuilder/blob/v${finalAttrs.version}/CHANGELOG.rst";
     license = lib.licenses.bsd3;
     maintainers = [ ];
     # Support for flask-sqlalchemy >= 3.0 is missing, https://github.com/dpgaspar/Flask-AppBuilder/pull/1940
     broken = true;
   };
-}
+})

@@ -6,14 +6,14 @@
   versionCheckHook,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "kubectl-view-allocations";
   version = "3.0.2";
 
   src = fetchFromGitHub {
     owner = "davidB";
     repo = "kubectl-view-allocations";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-/rtHY5vgurdl9BviyLdZ/8Rii4OCRTZYRl8OXriD8NM=";
   };
 
@@ -29,4 +29,4 @@ rustPlatform.buildRustPackage rec {
     maintainers = with lib.maintainers; [ mrene ];
     platforms = lib.platforms.unix;
   };
-}
+})

@@ -5,13 +5,13 @@
   ffmpeg,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "ffmpeg-normalize";
   version = "1.41.1";
   pyproject = true;
 
   src = fetchPypi {
-    inherit version;
+    inherit (finalAttrs) version;
     pname = "ffmpeg_normalize";
     hash = "sha256-v5icrioELMBi2uJSdoojgY4EMnwHGxncanrT6GpSpSc=";
   };
@@ -49,4 +49,4 @@ python3Packages.buildPythonApplication rec {
     ];
     mainProgram = "ffmpeg-normalize";
   };
-}
+})

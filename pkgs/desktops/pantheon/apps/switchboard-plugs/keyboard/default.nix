@@ -23,14 +23,14 @@
   switchboard,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "switchboard-plug-keyboard";
   version = "8.1.1";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "settings-keyboard";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-JuFx0PkbB6ctXhqtORlgtSq9oigaLL2N4IKX7NQgHcU=";
   };
 
@@ -82,4 +82,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     teams = [ lib.teams.pantheon ];
   };
-}
+})

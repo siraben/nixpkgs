@@ -8,7 +8,7 @@
   pyyaml,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "tinydb";
   version = "4.8.2";
   pyproject = true;
@@ -16,7 +16,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "msiemens";
     repo = "tinydb";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-N/45XB7ZuZiq25v6DQx4K9NRVnBbUHPeiKKbxQ9YB3E=";
   };
 
@@ -39,4 +39,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ marcus7070 ];
   };
-}
+})

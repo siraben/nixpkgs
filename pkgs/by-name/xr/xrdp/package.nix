@@ -76,18 +76,18 @@ let
     passthru.updateScript = gitUpdater { rev-prefix = "v"; };
   };
 
-  xrdp = stdenv.mkDerivation rec {
+  xrdp = stdenv.mkDerivation (finalAttrs: {
     pname = "xrdp";
     version = "0.10.6";
 
     src = applyPatches {
-      inherit version;
+      inherit (finalAttrs) version;
       patches = [ ./dynamic_config.patch ];
-      name = "xrdp-patched-${version}";
+      name = "xrdp-patched-${finalAttrs.version}";
       src = fetchFromGitHub {
         owner = "neutrinolabs";
         repo = "xrdp";
-        rev = "v${version}";
+        rev = "v${finalAttrs.version}";
         fetchSubmodules = true;
         hash = "sha256-BoIpWafUWznRHN8BaZmld8vVbZtywaGiooGPnDtDCjM=";
       };
@@ -217,6 +217,6 @@ let
       ];
       platforms = lib.platforms.linux;
     };
-  };
+  });
 in
 xrdp

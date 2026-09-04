@@ -6,14 +6,14 @@
   addonDir,
 }:
 let
-  drv = stdenv.mkDerivation rec {
+  drv = stdenv.mkDerivation (finalAttrs: {
     pname = "controller-topology-project";
     version = "1.0.14";
 
     src = fetchFromGitHub {
       owner = "kodi-game";
       repo = "controller-topology-project";
-      rev = "v${version}";
+      rev = "v${finalAttrs.version}";
       sha256 = "sha256-GfEnCx1DewxHipzblMBtnl2dsLewr87qLEi6R3CYh6Q=";
     };
 
@@ -38,6 +38,6 @@ let
       license = lib.licenses.odbl;
       teams = [ lib.teams.kodi ];
     };
-  };
+  });
 in
 toKodiAddon drv

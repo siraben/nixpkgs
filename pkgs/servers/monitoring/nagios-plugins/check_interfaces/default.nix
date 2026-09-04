@@ -6,12 +6,12 @@
   stdenv,
   versionCheckHook,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "check_interfaces";
   version = "1.4.4";
 
   src = fetchurl {
-    url = "https://github.com/NETWAYS/check_interfaces/releases/download/v${version}/check_interfaces-${version}.tar.gz";
+    url = "https://github.com/NETWAYS/check_interfaces/releases/download/v${finalAttrs.version}/check_interfaces-${finalAttrs.version}.tar.gz";
     hash = "sha256-sQ2lee2gxyrl455tumMJ4EbKc8mYEDXl18Wik6daf5Q=";
   };
 
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = {
-    changelog = "https://github.com/NETWAYS/check_interfaces/releases/tag/v${version}";
+    changelog = "https://github.com/NETWAYS/check_interfaces/releases/tag/v${finalAttrs.version}";
     description = "Icinga check plugin for network hardware interfaces";
     homepage = "https://github.com/NETWAYS/check_interfaces/";
     license = lib.licenses.gpl2Only;
@@ -52,4 +52,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ jwillikers ];
     mainProgram = "check_interfaces";
   };
-}
+})

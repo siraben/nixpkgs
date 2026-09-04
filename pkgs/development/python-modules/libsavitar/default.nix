@@ -8,7 +8,7 @@
   distutils,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "libsavitar";
   version = "4.12.0";
   pyproject = false;
@@ -16,7 +16,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "Ultimaker";
     repo = "libSavitar";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-MAA1WtGED6lvU6N4BE6wwY1aYaFrCq/gkmQFz3VWqNA=";
   };
 
@@ -46,4 +46,4 @@ buildPythonPackage rec {
     platforms = lib.platforms.unix;
     maintainers = [ ];
   };
-}
+})

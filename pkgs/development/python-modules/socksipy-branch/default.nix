@@ -4,14 +4,14 @@
   fetchPypi,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "socksipy-branch";
   version = "1.01";
   format = "setuptools";
 
   src = fetchPypi {
     pname = "SocksiPy-branch";
-    inherit version;
+    inherit (finalAttrs) version;
     sha256 = "01l41v4g7fy9fzvinmjxy6zcbhgqaif8dhdqm4w90fwcw9h51a8p";
   };
 
@@ -20,4 +20,4 @@ buildPythonPackage rec {
     description = "This Python module allows you to create TCP connections through a SOCKS proxy without any special effort";
     license = lib.licenses.bsd3;
   };
-}
+})

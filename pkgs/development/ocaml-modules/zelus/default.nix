@@ -8,7 +8,7 @@
   menhirLib,
 }:
 
-buildDunePackage rec {
+buildDunePackage (finalAttrs: {
   pname = "zelus";
   version = "2.2";
 
@@ -26,7 +26,7 @@ buildDunePackage rec {
   src = fetchFromGitHub {
     owner = "INRIA";
     repo = "zelus";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-NcGX343LProADtzJwlq1kmihLaya1giY6xv9ScvdgTA=";
   };
 
@@ -50,4 +50,4 @@ buildDunePackage rec {
     mainProgram = "zeluc";
     maintainers = with lib.maintainers; [ wegank ];
   };
-}
+})

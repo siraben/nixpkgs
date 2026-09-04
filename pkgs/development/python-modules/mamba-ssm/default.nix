@@ -15,7 +15,7 @@
   which,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "mamba";
   version = "2.2.2";
   pyproject = true;
@@ -23,7 +23,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "state-spaces";
     repo = "mamba";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-R702JjM3AGk7upN7GkNK8u1q4ekMK9fYQkpO6Re45Ng=";
   };
 
@@ -73,4 +73,4 @@ buildPythonPackage rec {
     # been completed or tested, so broken if not using cuda.
     broken = !cudaSupport;
   };
-}
+})

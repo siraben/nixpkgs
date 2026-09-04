@@ -7,7 +7,7 @@
   six,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "paste";
   version = "3.10.1";
   pyproject = true;
@@ -15,7 +15,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "pasteorg";
     repo = "paste";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-NY/h6hbpluEu1XAv3o4mqoG+l0LXfM1dw7+G0Rm1E4o=";
   };
 
@@ -48,8 +48,8 @@ buildPythonPackage rec {
     broken = lib.versionAtLeast setuptools.version "82"; # pkg_resources at runtime
     description = "Tools for using a Web Server Gateway Interface stack";
     homepage = "https://pythonpaste.readthedocs.io/";
-    changelog = "https://github.com/pasteorg/paste/blob/${version}/docs/news.txt";
+    changelog = "https://github.com/pasteorg/paste/blob/${finalAttrs.version}/docs/news.txt";
     license = lib.licenses.mit;
     maintainers = [ ];
   };
-}
+})

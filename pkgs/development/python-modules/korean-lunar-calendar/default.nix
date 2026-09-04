@@ -4,13 +4,13 @@
   fetchPypi,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "korean-lunar-calendar";
   version = "0.3.1";
   format = "setuptools";
 
   src = fetchPypi {
-    inherit version;
+    inherit (finalAttrs) version;
     pname = "korean_lunar_calendar";
     hash = "sha256-6yxIUSSgYQFpJr3qbYnv35uf2/FttViVts8eW+wXuFc=";
   };
@@ -24,4 +24,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.ris ];
   };
-}
+})

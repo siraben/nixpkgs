@@ -10,7 +10,7 @@
   setuptools,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "motionblindsble";
   version = "0.1.3";
   pyproject = true;
@@ -18,7 +18,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "LennP";
     repo = "motionblindsble";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-1dA3YTjoAhe+p5vk6Xb42a+rE63m2mn5iHhVV/6tlQ0=";
   };
 
@@ -29,7 +29,7 @@ buildPythonPackage rec {
 
   postPatch = ''
     substituteInPlace setup.py \
-      --replace-fail "{{VERSION_PLACEHOLDER}}" "${version}"
+      --replace-fail "{{VERSION_PLACEHOLDER}}" "${finalAttrs.version}"
   '';
 
   build-system = [ setuptools ];
@@ -55,8 +55,8 @@ buildPythonPackage rec {
   meta = {
     description = "Module to interface with Motionblinds motors using Bluetooth Low Energy (BLE)";
     homepage = "https://github.com/LennP/motionblindsble";
-    changelog = "https://github.com/LennP/motionblindsble/releases/tag/${version}";
+    changelog = "https://github.com/LennP/motionblindsble/releases/tag/${finalAttrs.version}";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

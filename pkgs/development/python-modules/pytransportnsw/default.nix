@@ -5,14 +5,14 @@
   requests,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pytransportnsw";
   version = "0.1.1";
   format = "setuptools";
 
   src = fetchPypi {
     pname = "PyTransportNSW";
-    inherit version;
+    inherit (finalAttrs) version;
     sha256 = "00jklgjirmc58hiaqqc2n2rgixvx91bgrd6lv6hv28k51kid10f3";
   };
 
@@ -29,4 +29,4 @@ buildPythonPackage rec {
     license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

@@ -16,7 +16,7 @@
   wallet-py3k,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pretix-passbook";
   version = "1.14.1";
   pyproject = true;
@@ -24,7 +24,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "pretix";
     repo = "pretix-passbook";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-cTXgDr845TGMGWr9bSaFvRPQ0GynXn3CVnZxcf96orc=";
   };
 
@@ -56,4 +56,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ hexa ];
   };
-}
+})

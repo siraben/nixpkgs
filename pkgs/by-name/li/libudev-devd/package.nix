@@ -9,14 +9,14 @@
   freebsd,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "libudev-devd";
   version = "0.6.0";
 
   src = fetchFromGitHub {
     owner = "wulf7";
     repo = "libudev-devd";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-CrRPJMJRYiYyEIy5XPFk286S87/paf6OfGkEdRPv28I=";
   };
 
@@ -45,4 +45,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ artemist ];
     platforms = lib.platforms.freebsd;
   };
-}
+})

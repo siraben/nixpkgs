@@ -14,7 +14,7 @@
   which,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "causal-conv1d";
   version = "1.6.0";
   pyproject = true;
@@ -22,7 +22,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "Dao-AILab";
     repo = "causal-conv1d";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-hFaF/oMdScDpdq+zq8WppWe9GONWppEEx2pIcnaALiI=";
   };
 
@@ -89,4 +89,4 @@ buildPythonPackage rec {
     # It doesn't work without either, nor with both.
     broken = cudaSupport == rocmSupport;
   };
-}
+})

@@ -6,7 +6,7 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pyspellchecker";
   version = "0.9.0";
   pyproject = true;
@@ -14,7 +14,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "barrust";
     repo = "pyspellchecker";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-Ui1IPqvVqf7scMg+B1KmI5jWrHSsuaW6sCoWeiF2oMI=";
   };
 
@@ -28,4 +28,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ zendo ];
   };
-}
+})

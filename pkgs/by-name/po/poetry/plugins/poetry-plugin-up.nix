@@ -9,7 +9,7 @@
   writableTmpDirAsHomeHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "poetry-plugin-up";
   version = "0.9.0";
   pyproject = true;
@@ -17,7 +17,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "MousaZeidBaker";
     repo = "poetry-plugin-up";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-gVhx8Vhk+yT/QjcEme8w0F+6BBpnEZOqzCkUJgM9eck=";
   };
 
@@ -44,8 +44,8 @@ buildPythonPackage rec {
   meta = {
     description = "Poetry plugin to simplify package updates";
     homepage = "https://github.com/MousaZeidBaker/poetry-plugin-up";
-    changelog = "https://github.com/MousaZeidBaker/poetry-plugin-up/releases/tag/${version}";
+    changelog = "https://github.com/MousaZeidBaker/poetry-plugin-up/releases/tag/${finalAttrs.version}";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.k900 ];
   };
-}
+})

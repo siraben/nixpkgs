@@ -4,14 +4,14 @@
   fetchFromGitHub,
 }:
 
-buildFishPlugin rec {
+buildFishPlugin (finalAttrs: {
   pname = "async-prompt";
   version = "1.3.0";
 
   src = fetchFromGitHub {
     owner = "acomagu";
     repo = "fish-async-prompt";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-HWW9191RP//48HkAHOZ7kAAAPSBKZ+BW2FfCZB36Y+g=";
   };
 
@@ -24,4 +24,4 @@ buildFishPlugin rec {
       samasaur
     ];
   };
-}
+})

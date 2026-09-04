@@ -12,7 +12,7 @@
   joblib,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "mlxtend";
   version = "0.24.0";
   pyproject = true;
@@ -20,7 +20,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "rasbt";
     repo = "mlxtend";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-zDMFfm8VqEfAQd11PZNp7HsoLcqrj3nMqnvKhXaeA04=";
   };
 
@@ -68,4 +68,4 @@ buildPythonPackage rec {
     maintainers = with lib.maintainers; [ evax ];
     platforms = lib.platforms.unix;
   };
-}
+})

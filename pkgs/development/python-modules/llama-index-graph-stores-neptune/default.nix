@@ -7,14 +7,14 @@
   llama-index-core,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "llama-index-graph-stores-neptune";
   version = "0.5.0";
   pyproject = true;
 
   src = fetchPypi {
     pname = "llama_index_graph_stores_neptune";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-6lWkWHjo9KTZK+N6kc4kHv6kJuAqQKaidTaPEHQ9tQQ=";
   };
 
@@ -33,4 +33,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

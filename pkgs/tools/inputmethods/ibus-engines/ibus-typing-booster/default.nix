@@ -23,14 +23,14 @@ let
 
 in
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ibus-typing-booster";
   version = "2.30.11";
 
   src = fetchFromGitHub {
     owner = "mike-fabian";
     repo = "ibus-typing-booster";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-pI9Ncf7zdfzmIUT3m6sOwFGXGTsxaagaAhejW6qp3Q8=";
   };
 
@@ -60,4 +60,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     isIbusEngine = true;
   };
-}
+})

@@ -6,12 +6,12 @@
   mirage-block,
 }:
 
-buildDunePackage rec {
+buildDunePackage (finalAttrs: {
   pname = "mirage-block-ramdisk";
   version = "0.5";
 
   src = fetchurl {
-    url = "https://github.com/mirage/mirage-block-ramdisk/releases/download/${version}/mirage-block-ramdisk-${version}.tbz";
+    url = "https://github.com/mirage/mirage-block-ramdisk/releases/download/${finalAttrs.version}/mirage-block-ramdisk-${finalAttrs.version}.tbz";
     sha256 = "cc0e814fd54efe7a5b7a8c5eb1c04e2dece751b7d8dee2d95908a0768896e8af";
   };
 
@@ -35,4 +35,4 @@ buildDunePackage rec {
     homepage = "https://github.com/mirage/mirage-block-ramdisk";
     license = lib.licenses.isc;
   };
-}
+})

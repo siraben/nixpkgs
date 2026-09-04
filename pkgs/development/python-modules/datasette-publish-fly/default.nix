@@ -8,7 +8,7 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "datasette-publish-fly";
   version = "1.3.1";
   format = "setuptools";
@@ -16,7 +16,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "simonw";
     repo = "datasette-publish-fly";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-diaxr+fNNgkJvLGkLo+lK0ThTsXYDePFsvTetMbDRMk=";
   };
 
@@ -33,8 +33,8 @@ buildPythonPackage rec {
   meta = {
     description = "Datasette plugin for publishing data using Fly";
     homepage = "https://datasette.io/plugins/datasette-publish-fly";
-    changelog = "https://github.com/simonw/datasette-publish-fly/releases/tag/${version}";
+    changelog = "https://github.com/simonw/datasette-publish-fly/releases/tag/${finalAttrs.version}";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

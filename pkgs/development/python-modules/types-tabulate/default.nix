@@ -5,14 +5,14 @@
   setuptools,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "types-tabulate";
   version = "0.10.0.20260508";
   pyproject = true;
 
   src = fetchPypi {
     pname = "types_tabulate";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-jlHxWeiySXaElwauLtHcmtuo670ICxfklOu2aozJLHQ=";
   };
 
@@ -29,4 +29,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ jpetrucciani ];
   };
-}
+})

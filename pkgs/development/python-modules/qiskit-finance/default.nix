@@ -24,7 +24,7 @@
   qiskit-aer,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "qiskit-finance";
   version = "0.4.1";
   pyproject = true;
@@ -32,7 +32,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "qiskit";
     repo = "qiskit-finance";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-zYhYhojCzlENzgYSenwewjeVHUBX2X6eQbbzc9znBsk=";
   };
 
@@ -84,4 +84,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = [ ];
   };
-}
+})

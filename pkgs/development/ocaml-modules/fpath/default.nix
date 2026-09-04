@@ -9,12 +9,12 @@
   astring,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ocaml${ocaml.version}-fpath";
   version = "0.7.3";
 
   src = fetchurl {
-    url = "https://erratique.ch/software/fpath/releases/fpath-${version}.tbz";
+    url = "https://erratique.ch/software/fpath/releases/fpath-${finalAttrs.version}.tbz";
     sha256 = "03z7mj0sqdz465rc4drj1gr88l9q3nfs374yssvdjdyhjbqqzc0j";
   };
 
@@ -40,4 +40,4 @@ stdenv.mkDerivation rec {
     inherit (ocaml.meta) platforms;
     broken = lib.versionOlder ocaml.version "4.03";
   };
-}
+})

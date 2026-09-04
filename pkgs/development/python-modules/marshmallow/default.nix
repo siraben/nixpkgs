@@ -12,7 +12,7 @@
   simplejson,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "marshmallow";
   version = "4.3.0";
   pyproject = true;
@@ -20,7 +20,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "marshmallow-code";
     repo = "marshmallow";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-KNxR8AiEJ9S15G5l3rB48BvLdgB5s6q6L1I83V7iMv0=";
   };
 
@@ -41,8 +41,8 @@ buildPythonPackage rec {
   meta = {
     description = "Library for converting complex objects to and from simple Python datatypes";
     homepage = "https://github.com/marshmallow-code/marshmallow";
-    changelog = "https://github.com/marshmallow-code/marshmallow/blob/${version}/CHANGELOG.rst";
+    changelog = "https://github.com/marshmallow-code/marshmallow/blob/${finalAttrs.version}/CHANGELOG.rst";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ cript0nauta ];
   };
-}
+})

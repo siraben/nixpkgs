@@ -4,14 +4,14 @@
   fetchFromGitHub,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "protoc-gen-twirp";
   version = "8.1.3";
 
   src = fetchFromGitHub {
     owner = "twitchtv";
     repo = "twirp";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "sha256-p3gHVHGBHakOOQnJAuMK7vZumNXN15mOABuEHUG0wNs=";
   };
 
@@ -34,4 +34,4 @@ buildGoModule rec {
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ jojosch ];
   };
-}
+})

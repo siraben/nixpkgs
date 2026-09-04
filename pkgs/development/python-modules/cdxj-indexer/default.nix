@@ -10,7 +10,7 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "cdxj-indexer";
   version = "1.4.6";
   pyproject = true;
@@ -18,7 +18,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "webrecorder";
     repo = "cdxj-indexer";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-E3b/IfjngyXhWvRYP9CkQGvBFeC8pAm4KxZA9MwOo4s=";
   };
 
@@ -54,4 +54,4 @@ buildPythonPackage rec {
     maintainers = with lib.maintainers; [ zhaofengli ];
     mainProgram = "cdxj-indexer";
   };
-}
+})

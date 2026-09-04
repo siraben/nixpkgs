@@ -18,7 +18,7 @@
   pytest-asyncio,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "asgi-csrf";
   version = "0.11";
   pyproject = true;
@@ -27,7 +27,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "simonw";
     repo = "asgi-csrf";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-STitMWabAPz61AU+5gFJSHBBqf67Q8UtS6ks8Q/ZybY=";
   };
 
@@ -56,4 +56,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/simonw/asgi-csrf";
     maintainers = [ lib.maintainers.ris ];
   };
-}
+})

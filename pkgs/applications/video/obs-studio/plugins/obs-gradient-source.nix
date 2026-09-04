@@ -6,14 +6,14 @@
   obs-studio,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "obs-gradient-source";
   version = "0.3.3";
 
   src = fetchFromGitHub {
     owner = "exeldro";
     repo = "obs-gradient-source";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-Y9PTvaZr7ANwHhqgWsNIikRQLdKO8sA4OXI+mKyUnaM=";
   };
 
@@ -35,4 +35,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2Plus;
     inherit (obs-studio.meta) platforms;
   };
-}
+})

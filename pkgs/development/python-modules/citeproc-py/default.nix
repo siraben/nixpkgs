@@ -9,14 +9,14 @@
   setuptools,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "citeproc-py";
   version = "0.9.0";
   pyproject = true;
 
   src = fetchPypi {
     pname = "citeproc_py";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-WHgdilY+h8p8zrQ9CL6soQ3N+fPPd93zsXiUBx7cJ8g=";
   };
 
@@ -40,4 +40,4 @@ buildPythonPackage rec {
     license = lib.licenses.bsd2;
     maintainers = with lib.maintainers; [ bcdarwin ];
   };
-}
+})

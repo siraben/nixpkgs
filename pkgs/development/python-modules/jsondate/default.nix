@@ -5,7 +5,7 @@
   six,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   version = "0.1.3";
   format = "setuptools";
   pname = "jsondate";
@@ -13,7 +13,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "ilya-kolpakov";
     repo = "jsondate";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     sha256 = "0nhvi48nc0bmad5ncyn6c9yc338krs3xf10bvv55xgz25c5gdgwy";
     fetchSubmodules = true; # Fetching by tag does not work otherwise
   };
@@ -25,4 +25,4 @@ buildPythonPackage rec {
     description = "JSON with datetime handling";
     license = lib.licenses.mit;
   };
-}
+})

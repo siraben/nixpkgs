@@ -8,13 +8,13 @@
   fuse,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "fuse-python";
   version = "1.0.9";
   pyproject = true;
 
   src = fetchPypi {
-    inherit version;
+    inherit (finalAttrs) version;
     pname = "fuse_python";
     hash = "sha256-ntWVd8NqshjXAKooOfAh8SwlKzVxhgV1crmOGbwqhYk=";
   };
@@ -42,4 +42,4 @@ buildPythonPackage rec {
     license = lib.licenses.lgpl21;
     maintainers = with lib.maintainers; [ psyanticy ];
   };
-}
+})

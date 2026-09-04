@@ -12,12 +12,12 @@
   gnome,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "pangomm";
   version = "2.42.2";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/pangomm/${lib.versions.majorMinor version}/pangomm-${version}.tar.xz";
+    url = "mirror://gnome/sources/pangomm/${lib.versions.majorMinor finalAttrs.version}/pangomm-${finalAttrs.version}.tar.xz";
     sha256 = "sha256-GyTJJiSuEnXMtXdYF10198Oa0zQtjAtLpg8NmEnS0Io=";
   };
 
@@ -79,4 +79,4 @@ stdenv.mkDerivation rec {
       Pango forms the core of text and font handling for GTK.
     '';
   };
-}
+})

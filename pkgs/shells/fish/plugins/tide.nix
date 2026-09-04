@@ -6,14 +6,14 @@
 
 # Due to a quirk in tide breaking wrapFish, we need to add additional commands in the config.fish
 # Refer to the following comment to get you setup: https://github.com/NixOS/nixpkgs/pull/201646#issuecomment-1320893716
-buildFishPlugin rec {
+buildFishPlugin (finalAttrs: {
   pname = "tide";
   version = "6.2.0";
 
   src = fetchFromGitHub {
     owner = "IlanCosman";
     repo = "tide";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-1ApDjBUZ1o5UyfQijv9a3uQJ/ZuQFfpNmHiDWzoHyuw=";
   };
 
@@ -28,4 +28,4 @@ buildFishPlugin rec {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.jocelynthode ];
   };
-}
+})

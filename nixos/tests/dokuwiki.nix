@@ -3,28 +3,28 @@
 let
   pkgs = config.node.pkgs;
 
-  template-bootstrap3 = pkgs.stdenv.mkDerivation rec {
+  template-bootstrap3 = pkgs.stdenv.mkDerivation (finalAttrs: {
     name = "bootstrap3";
     version = "2024-02-06";
     src = pkgs.fetchFromGitHub {
       owner = "giterlizzi";
       repo = "dokuwiki-template-bootstrap3";
-      rev = "v${version}";
+      rev = "v${finalAttrs.version}";
       hash = "sha256-PSA/rHMkM/kMvOV7CP1byL8Ym4Qu7a4Rz+/aPX31x9k=";
     };
     installPhase = "mkdir -p $out; cp -R * $out/";
-  };
+  });
 
-  plugin-icalevents = pkgs.stdenv.mkDerivation rec {
+  plugin-icalevents = pkgs.stdenv.mkDerivation (finalAttrs: {
     name = "icalevents";
     version = "2017-06-16";
     src = pkgs.fetchzip {
       stripRoot = false;
-      url = "https://github.com/real-or-random/dokuwiki-plugin-icalevents/releases/download/${version}/dokuwiki-plugin-icalevents-${version}.zip";
+      url = "https://github.com/real-or-random/dokuwiki-plugin-icalevents/releases/download/${finalAttrs.version}/dokuwiki-plugin-icalevents-${finalAttrs.version}.zip";
       hash = "sha256-IPs4+qgEfe8AAWevbcCM9PnyI0uoyamtWeg4rEb+9Wc=";
     };
     installPhase = "mkdir -p $out; cp -R * $out/";
-  };
+  });
 
   acronymsFile = pkgs.writeText "acronyms.local.conf" ''
     r13y  reproducibility

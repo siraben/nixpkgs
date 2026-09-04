@@ -5,7 +5,7 @@
   requests,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "tahoma-api";
   version = "0.0.17";
   format = "setuptools";
@@ -13,7 +13,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "philklei";
     repo = "tahoma-api";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-YwOKSBlN4lNyS+hfdbQDUq1gc14FBof463ofxtUVLC4=";
   };
 
@@ -29,4 +29,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

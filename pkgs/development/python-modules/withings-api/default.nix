@@ -12,7 +12,7 @@
   typing-extensions,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "withings-api";
   version = "2.4.0";
   pyproject = true;
@@ -20,7 +20,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "vangorra";
     repo = "python_withings_api";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-8cOLHYnodPGk1b1n6xbVyW2iju3cG6MgnzYTKDsP/nw=";
   };
 
@@ -49,9 +49,9 @@ buildPythonPackage rec {
   meta = {
     description = "Library for the Withings Health API";
     homepage = "https://github.com/vangorra/python_withings_api";
-    changelog = "https://github.com/vangorra/python_withings_api/releases/tag/${version}";
+    changelog = "https://github.com/vangorra/python_withings_api/releases/tag/${finalAttrs.version}";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ kittywitch ];
     broken = lib.versionAtLeast pydantic.version "2";
   };
-}
+})

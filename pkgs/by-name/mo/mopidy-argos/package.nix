@@ -11,7 +11,7 @@
   wrapGAppsHook3,
   gobject-introspection,
 }:
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "mopidy-argos";
   version = "1.17.0";
   pyproject = false; # Built with meson
@@ -19,7 +19,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "orontee";
     repo = "argos";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-U6frnCor14dIDtgwn83dln+76NoIqBqPiwYLkVaa/x8=";
   };
   postPatch = ''
@@ -56,4 +56,4 @@ python3Packages.buildPythonApplication rec {
     maintainers = [ lib.maintainers.hufman ];
     mainProgram = "argos";
   };
-}
+})

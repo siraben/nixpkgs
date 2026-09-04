@@ -7,14 +7,14 @@
   gcc,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "jupyter-c-kernel";
   version = "1.2.2";
   pyproject = true;
 
   src = fetchPypi {
     pname = "jupyter_c_kernel";
-    inherit version;
+    inherit (finalAttrs) version;
     sha256 = "e4b34235b42761cfc3ff08386675b2362e5a97fb926c135eee782661db08a140";
   };
 
@@ -37,4 +37,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = [ ];
   };
-}
+})

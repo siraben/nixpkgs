@@ -8,14 +8,14 @@
   darwin,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "marmite";
   version = "0.3.0";
 
   src = fetchFromGitHub {
     owner = "rochacbruno";
     repo = "marmite";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-Q07xA/TYI2O+8C0/3cTpZx0bt47lS+ilhxck18hzzCw=";
   };
 
@@ -40,4 +40,4 @@ rustPlatform.buildRustPackage rec {
     maintainers = with lib.maintainers; [ matthewcroughan ];
     mainProgram = "marmite";
   };
-}
+})

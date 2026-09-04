@@ -6,7 +6,7 @@
   lib,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "pandoc-mustache";
   version = "0.1.0";
   pyproject = true;
@@ -14,7 +14,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "michaelstepner";
     repo = "pandoc-mustache";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-lgbQV4X2N4VuIEtjeSA542yqGdIs5QQ7+bdCoy/aloE=";
   };
 
@@ -38,10 +38,10 @@ python3Packages.buildPythonApplication rec {
   meta = {
     description = "Pandoc Mustache Filter";
     homepage = "https://github.com/michaelstepner/pandoc-mustache";
-    changelog = "https://github.com/michaelstepner/pandoc-mustache/releases/tag/${version}/CHANGELOG.md";
+    changelog = "https://github.com/michaelstepner/pandoc-mustache/releases/tag/${finalAttrs.version}/CHANGELOG.md";
     maintainers = with lib.maintainers; [ averdow ];
     license = with lib.licenses; [
       cc-by-10
     ];
   };
-}
+})

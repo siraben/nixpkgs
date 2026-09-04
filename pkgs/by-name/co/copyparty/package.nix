@@ -69,12 +69,12 @@ let
   runtimeDeps = ([ util-linux ] ++ extraPackages ++ lib.optional withMediaProcessing ffmpeg);
 in
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "copyparty${nameSuffix}";
   version = "1.20.21";
 
   src = fetchurl {
-    url = "https://github.com/9001/copyparty/releases/download/v${version}/copyparty-${version}.tar.gz";
+    url = "https://github.com/9001/copyparty/releases/download/v${finalAttrs.version}/copyparty-${finalAttrs.version}.tar.gz";
     hash = "sha256-ZU70dVW7QC4n2JBckAyZ9Ut/HW24dKdJ7/35qyPPQiM=";
   };
 
@@ -171,4 +171,4 @@ python3Packages.buildPythonApplication rec {
     mainProgram = "copyparty";
     platforms = lib.platforms.all;
   };
-}
+})

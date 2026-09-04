@@ -19,7 +19,7 @@
   sybil,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "lifelines";
   version = "0.30.3";
   pyproject = true;
@@ -27,7 +27,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "CamDavidsonPilon";
     repo = "lifelines";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-A9MsQN/JGCQ4cYNIZI5LBKpRb44uI/SM8eT4/nKpsXQ=";
   };
 
@@ -66,8 +66,8 @@ buildPythonPackage rec {
   meta = {
     description = "Survival analysis in Python";
     homepage = "https://lifelines.readthedocs.io";
-    changelog = "https://github.com/CamDavidsonPilon/lifelines/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/CamDavidsonPilon/lifelines/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ swflint ];
   };
-}
+})

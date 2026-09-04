@@ -7,13 +7,13 @@
   setuptools,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "clickhouse-cityhash";
   version = "1.0.2.5";
   pyproject = true;
 
   src = fetchPypi {
-    inherit version;
+    inherit (finalAttrs) version;
     pname = "clickhouse_cityhash";
     hash = "sha256-T5jvgbIfDU2tWCR76kC6/AmM9v+g7eaZiC1KQurD7Xk=";
   };
@@ -47,4 +47,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ breakds ];
   };
-}
+})

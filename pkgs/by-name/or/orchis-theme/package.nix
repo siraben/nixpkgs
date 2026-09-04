@@ -35,14 +35,14 @@ assert nordXorDracula;
 lib.checkListOfEnum "${pname}: theme tweaks" validTweaks tweaks
 
   stdenvNoCC.mkDerivation
-  rec {
+  (finalAttrs: {
     inherit pname;
     version = "2026-07-07";
 
     src = fetchFromGitHub {
       repo = "Orchis-theme";
       owner = "vinceliuice";
-      rev = version;
+      rev = finalAttrs.version;
       hash = "sha256-oX6+tPe0nGsl+OzFZCpbKvE00Z/xvP+NoHY7QZ9YAo0=";
     };
 
@@ -76,4 +76,4 @@ lib.checkListOfEnum "${pname}: theme tweaks" validTweaks tweaks
       platforms = lib.platforms.linux;
       maintainers = [ lib.maintainers.ncfavier ];
     };
-  }
+  })

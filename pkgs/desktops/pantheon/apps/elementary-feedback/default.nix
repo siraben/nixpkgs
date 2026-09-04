@@ -16,14 +16,14 @@
   appstream,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "elementary-feedback";
   version = "8.1.1";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "feedback";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-vg692o0OkEQqtKSLZDLztL/D0YO5WUOBVKe4RDxSEFM=";
   };
 
@@ -64,4 +64,4 @@ stdenv.mkDerivation rec {
     teams = [ lib.teams.pantheon ];
     mainProgram = "io.elementary.feedback";
   };
-}
+})

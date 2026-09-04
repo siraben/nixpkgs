@@ -11,7 +11,7 @@
   setuptools,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "cose";
   version = "1.1.0";
 
@@ -20,7 +20,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "TimothyClaeys";
     repo = "pycose";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-HgGGmOvBadLDTAEkUY6aLC7r0aGKGfQv/Zyl8Orh8U0=";
   };
 
@@ -41,4 +41,4 @@ buildPythonPackage rec {
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ t4ccer ];
   };
-}
+})

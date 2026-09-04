@@ -17,7 +17,7 @@
   pyobjc-framework-WebKit,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pywebview";
   version = "6.1";
   pyproject = true;
@@ -25,7 +25,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "r0x0r";
     repo = "pywebview";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-vqdJRxZbHNu2Sq318RnJjzDjYRRCSiO72WM+flKwW7g=";
   };
 
@@ -60,4 +60,4 @@ buildPythonPackage rec {
       binaryNativeCode
     ];
   };
-}
+})

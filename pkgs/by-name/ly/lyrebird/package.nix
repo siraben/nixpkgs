@@ -22,7 +22,7 @@ let
     ];
   };
 in
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "lyrebird";
   version = "1.2.0";
 
@@ -32,7 +32,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "lyrebird-voice-changer";
     repo = "lyrebird";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     sha256 = "sha256-VIYcOxvSpzRvJMzEv2i5b7t0WMF7aQxB4Y1jfvuZN/Y=";
   };
 
@@ -79,4 +79,4 @@ python3Packages.buildPythonApplication rec {
     maintainers = with lib.maintainers; [ OPNA2608 ];
     platforms = lib.platforms.linux;
   };
-}
+})

@@ -10,12 +10,12 @@
   libmagic,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "xapian-omega";
   inherit (xapian) version;
 
   src = fetchurl {
-    url = "https://oligarchy.co.uk/xapian/${version}/xapian-omega-${version}.tar.xz";
+    url = "https://oligarchy.co.uk/xapian/${finalAttrs.version}/xapian-omega-${finalAttrs.version}.tar.xz";
     hash = "sha256-p9+2CN2LPqU93oUjbUdXloJgacTRJhieozp5M0myMXo=";
   };
 
@@ -36,8 +36,8 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Indexer and CGI search front-end built on Xapian library";
     homepage = "https://xapian.org/";
-    changelog = "https://xapian.org/docs/xapian-omega-${version}/NEWS";
+    changelog = "https://xapian.org/docs/xapian-omega-${finalAttrs.version}/NEWS";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
   };
-}
+})

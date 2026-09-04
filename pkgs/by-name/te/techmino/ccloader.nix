@@ -6,14 +6,14 @@
   luajit,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ccloader";
   version = "11.4.2";
 
   src = fetchFromGitHub {
     owner = "26F-Studio";
     repo = "cold_clear_ai_love2d_wrapper";
-    rev = version;
+    rev = finalAttrs.version;
     fetchSubmodules = true;
     hash = "sha256-sguV+Dw+etZH43tXZYL46NAdsI/qvyvGWCPUiTEjhy4=";
   };
@@ -46,4 +46,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.mpl20;
     maintainers = with lib.maintainers; [ chayleaf ];
   };
-}
+})

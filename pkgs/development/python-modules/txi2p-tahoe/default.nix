@@ -10,7 +10,7 @@
   twisted,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "txi2p-tahoe";
   version = "0.3.7";
   pyproject = true;
@@ -18,7 +18,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "tahoe-lafs";
     repo = "txi2p";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-u/IOhxK9jWC/tTKKLsc4PexbCuki+yEtMNw7LuQKmuk=";
   };
 
@@ -50,4 +50,4 @@ buildPythonPackage rec {
     license = lib.licenses.isc;
     maintainers = with lib.maintainers; [ dotlambda ];
   };
-}
+})

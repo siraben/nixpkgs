@@ -7,14 +7,14 @@
   poetry-core,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pan-os-python";
   version = "1.12.5";
   pyproject = true;
 
   src = fetchPypi {
     pname = "pan_os_python";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-Zea0WMdFkZLEZi2aqU9woXFA3aAQBEYhf+D7s5ZaOro=";
   };
 
@@ -40,8 +40,8 @@ buildPythonPackage rec {
   meta = {
     description = "Palo Alto Networks PAN-OS SDK for Python";
     homepage = "https://github.com/PaloAltoNetworks/pan-os-python";
-    changelog = "https://github.com/PaloAltoNetworks/pan-os-python/releases/tag/v${version}";
+    changelog = "https://github.com/PaloAltoNetworks/pan-os-python/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.isc;
     maintainers = with lib.maintainers; [ jherland ];
   };
-}
+})

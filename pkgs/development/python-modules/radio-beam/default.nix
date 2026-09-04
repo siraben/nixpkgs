@@ -12,13 +12,13 @@
   pytest-astropy,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "radio-beam";
   version = "0.3.9";
   pyproject = true;
 
   src = fetchPypi {
-    inherit version;
+    inherit (finalAttrs) version;
     pname = "radio_beam"; # Tarball was uploaded with an underscore in this version
     hash = "sha256-m1/qe8ybJlQyE3hGM7MugWMMnAhVB3t6v0tGz42E5kQ=";
   };
@@ -43,8 +43,8 @@ buildPythonPackage rec {
   meta = {
     description = "Tools for Beam IO and Manipulation";
     homepage = "http://radio-astro-tools.github.io";
-    changelog = "https://github.com/radio-astro-tools/radio-beam/releases/tag/v${version}";
+    changelog = "https://github.com/radio-astro-tools/radio-beam/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ smaret ];
   };
-}
+})

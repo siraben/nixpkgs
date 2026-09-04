@@ -10,14 +10,14 @@
   python,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "allure-python-commons";
   version = "2.15.3";
   pyproject = true;
 
   src = fetchPypi {
     pname = "allure_python_commons";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-tCqW1gdvsyPJ5DZF37hMBXT2utCg4AXZJWQBXNFy1WQ=";
   };
 
@@ -39,4 +39,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ evanjs ];
   };
-}
+})

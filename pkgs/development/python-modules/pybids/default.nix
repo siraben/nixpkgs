@@ -18,7 +18,7 @@
   versioneer,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pybids";
   version = "0.21.0";
   pyproject = true;
@@ -26,13 +26,13 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "bids-standard";
     repo = "pybids";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-yCfEE142OQCfgKVJB2lw1Rweax1gakHPoD91SUtZpUs=";
   };
 
   postPatch = ''
     substituteInPlace pyproject.toml \
-      --replace-fail 'dynamic = ["version"]' 'version = "${version}"'
+      --replace-fail 'dynamic = ["version"]' 'version = "${finalAttrs.version}"'
   '';
 
   pythonRelaxDeps = [
@@ -77,9 +77,9 @@ buildPythonPackage rec {
   meta = {
     description = "Python tools for querying and manipulating BIDS datasets";
     homepage = "https://github.com/bids-standard/pybids";
-    changelog = "https://github.com/bids-standard/pybids/blob/${version}/CHANGELOG.rst";
+    changelog = "https://github.com/bids-standard/pybids/blob/${finalAttrs.version}/CHANGELOG.rst";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ wegank ];
     mainProgram = "pybids";
   };
-}
+})

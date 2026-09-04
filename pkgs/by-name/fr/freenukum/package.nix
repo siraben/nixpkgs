@@ -29,7 +29,7 @@ let
   };
 
 in
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   inherit pname;
   version = "0.4.0";
 
@@ -37,7 +37,7 @@ rustPlatform.buildRustPackage rec {
     domain = "salsa.debian.org";
     owner = "silwol";
     repo = "freenukum";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-Tk9n2gPwyPin6JZ4RSO8d/+xVpEz4rF8C2eGKwrAXU0=";
   };
 
@@ -72,9 +72,9 @@ rustPlatform.buildRustPackage rec {
   meta = {
     description = "Clone of the original Duke Nukum 1 Jump'n Run game";
     homepage = "https://salsa.debian.org/silwol/freenukum";
-    changelog = "https://salsa.debian.org/silwol/freenukum/-/blob/v${version}/CHANGELOG.md";
+    changelog = "https://salsa.debian.org/silwol/freenukum/-/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.agpl3Plus;
     maintainers = with lib.maintainers; [ _0x4A6F ];
     broken = stdenv.hostPlatform.isDarwin;
   };
-}
+})

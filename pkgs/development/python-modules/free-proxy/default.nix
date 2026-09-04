@@ -7,7 +7,7 @@
   requests,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "free-proxy";
   version = "1.2.2";
   pyproject = true;
@@ -15,7 +15,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "jundymek";
     repo = "free-proxy";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-5fvSla4F0epe9XWtvd++RS/IKDTfzgKgU1dYmoZkeZk=";
   };
 
@@ -36,4 +36,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ tochiaha ];
   };
-}
+})

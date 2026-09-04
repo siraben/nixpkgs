@@ -36,12 +36,12 @@ let
 
   common =
     { scalaVersion, hash }:
-    stdenv.mkDerivation rec {
+    stdenv.mkDerivation (finalAttrs: {
       pname = "ammonite";
       version = "3.0.9";
 
       src = fetchurl {
-        url = "https://github.com/${owner}/${repo}/releases/download/${version}/${scalaVersion}-${version}";
+        url = "https://github.com/${owner}/${repo}/releases/download/${finalAttrs.version}/${scalaVersion}-${finalAttrs.version}";
         inherit hash;
       };
 
@@ -203,7 +203,7 @@ let
           that may be familiar to people coming from IDEs or other REPLs such as IPython or Zsh.
         '';
         homepage = "https://github.com/${owner}/${repo}";
-        changelog = "https://github.com/${owner}/${repo}/releases/tag/${version}";
+        changelog = "https://github.com/${owner}/${repo}/releases/tag/${finalAttrs.version}";
         license = lib.licenses.mit;
         sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
         mainProgram = "amm";
@@ -214,6 +214,6 @@ let
         # a launcher script running a jar, so it runs wherever the jre does
         platforms = jre.meta.platforms;
       };
-    };
+    });
 in
 lib.mapAttrs (_: common) variants

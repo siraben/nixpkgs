@@ -28,7 +28,7 @@
   openssh,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "sfepy";
   version = "2025.4";
   pyproject = true;
@@ -36,7 +36,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "sfepy";
     repo = "sfepy";
-    tag = "release_${version}";
+    tag = "release_${finalAttrs.version}";
     hash = "sha256-rC/jqii2VpRbcvhsc6rLqlpki/y2R1lcGD7WMr41U0A=";
   };
 
@@ -117,4 +117,4 @@ buildPythonPackage rec {
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ wd15 ];
   };
-}
+})

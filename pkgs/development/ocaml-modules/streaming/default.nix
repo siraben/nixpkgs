@@ -5,14 +5,14 @@
   stdlib-shims,
 }:
 
-buildDunePackage rec {
+buildDunePackage (finalAttrs: {
   pname = "streaming";
   version = "0.8.0";
 
   minimalOCamlVersion = "4.08";
 
   src = fetchurl {
-    url = "https://github.com/odis-labs/streaming/releases/download/${version}/streaming-${version}.tbz";
+    url = "https://github.com/odis-labs/streaming/releases/download/${finalAttrs.version}/streaming-${finalAttrs.version}.tbz";
     hash = "sha256-W+3GYZpsLj1SnQhuSmjXdi/85fMajWpz4b7x5W0bnJs=";
   };
 
@@ -24,4 +24,4 @@ buildDunePackage rec {
     description = "Fast, safe and composable streaming abstractions";
     maintainers = [ lib.maintainers.vbgl ];
   };
-}
+})

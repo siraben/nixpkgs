@@ -20,14 +20,14 @@
   wrapGAppsHook4,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "elementary-shortcut-overlay";
   version = "8.1.0";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "shortcut-overlay";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-oGExG7eWiZqXEPBRuLRTnbgo3hRVKo8vO51vMBPoQb0=";
   };
 
@@ -64,4 +64,4 @@ stdenv.mkDerivation rec {
     teams = [ lib.teams.pantheon ];
     mainProgram = "io.elementary.shortcut-overlay";
   };
-}
+})

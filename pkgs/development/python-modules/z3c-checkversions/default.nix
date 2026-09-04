@@ -8,7 +8,7 @@
   zope-testrunner,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "z3c-checkversions";
   version = "3.0";
   format = "setuptools";
@@ -17,7 +17,7 @@ buildPythonPackage rec {
   disabled = pythonAtLeast "3.12";
 
   src = fetchPypi {
-    inherit version;
+    inherit (finalAttrs) version;
     pname = "z3c.checkversions";
     hash = "sha256-VMGSlocgEddBrUT0A4ihtCdhSbirWYe9FmQ0QyOGOEs=";
   };
@@ -32,9 +32,9 @@ buildPythonPackage rec {
 
   meta = {
     homepage = "https://github.com/zopefoundation/z3c.checkversions";
-    changelog = "https://github.com/zopefoundation/z3c.checkversions/blob/${version}/CHANGES.rst";
+    changelog = "https://github.com/zopefoundation/z3c.checkversions/blob/${finalAttrs.version}/CHANGES.rst";
     description = "Find newer package versions on PyPI";
     mainProgram = "checkversions";
     license = lib.licenses.zpl21;
   };
-}
+})

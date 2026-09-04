@@ -7,7 +7,7 @@
   poetry-dynamic-versioning,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "interface-meta";
   version = "1.3.0";
 
@@ -16,7 +16,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "matthewwardrop";
     repo = "interface_meta";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "0rzh11wnab33b11391vc2ynf8ncxn22b12wn46lmgkrc5mqza8hd";
   };
 
@@ -36,4 +36,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ swflint ];
   };
-}
+})

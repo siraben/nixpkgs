@@ -9,14 +9,14 @@
   pkg-config,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "obs-text-pthread";
   version = "2.1.0";
 
   src = fetchFromGitHub {
     owner = "norihiro";
     repo = "obs-text-pthread";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-Br7cX1/7VYIruLA5107+PjTMNEFAE2P/cvmu5EuXbWI=";
   };
 
@@ -44,4 +44,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2Plus;
     inherit (obs-studio.meta) platforms;
   };
-}
+})

@@ -4,7 +4,7 @@
   fetchFromGitHub,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "reparser";
   version = "1.4.3";
   format = "setuptools";
@@ -12,7 +12,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "xmikos";
     repo = "reparser";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "04v7h52wny0j2qj37501nk33j0s4amm134kagdicx2is49zylzq1";
   };
 
@@ -27,4 +27,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ dotlambda ];
   };
-}
+})

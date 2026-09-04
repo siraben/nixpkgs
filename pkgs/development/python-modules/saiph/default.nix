@@ -14,14 +14,14 @@
   toolz,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "saiph";
   version = "2.0.8";
 
   src = fetchFromGitHub {
     owner = "octopize";
     repo = "saiph";
-    tag = "saiph-v${version}";
+    tag = "saiph-v${finalAttrs.version}";
     hash = "sha256-3KcCiGgcJ+1WLQPvxDJyGrn8TEiBVIh/9TsCMkku3ls=";
   };
 
@@ -63,4 +63,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ b-rodrigues ];
   };
-}
+})

@@ -8,7 +8,7 @@
   lsof,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "daemonocle";
   version = "1.2.3";
   format = "setuptools";
@@ -16,7 +16,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "jnrbsn";
     repo = "daemonocle";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-K+IqpEQ4yhfSguPPm2Ult3kGNO/9H56B+kD5ntaCZdk=";
   };
 
@@ -56,4 +56,4 @@ buildPythonPackage rec {
     maintainers = [ ];
     platforms = lib.platforms.unix;
   };
-}
+})

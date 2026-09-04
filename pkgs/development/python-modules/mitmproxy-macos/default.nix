@@ -5,7 +5,7 @@
   mitmproxy-rs,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "mitmproxy-macos";
   inherit (mitmproxy-rs) version;
   format = "wheel";
@@ -13,7 +13,7 @@ buildPythonPackage rec {
   # Note: if this isn't downloading, its because mitmproxy-rs updated without also updating this.
   src = fetchPypi {
     pname = "mitmproxy_macos";
-    inherit version;
+    inherit (finalAttrs) version;
     format = "wheel";
     dist = "py3";
     python = "py3";
@@ -32,4 +32,4 @@ buildPythonPackage rec {
     platforms = lib.platforms.darwin;
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
   };
-}
+})

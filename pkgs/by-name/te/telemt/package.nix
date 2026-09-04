@@ -3,14 +3,14 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "telemt";
   version = "3.5.0";
 
   src = fetchFromGitHub {
     owner = "telemt";
     repo = "telemt";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-HbFWXhMe4LkHr+Wb5J9FTd4LvNmDnzrwufepW2bPyYI=";
   };
 
@@ -30,4 +30,4 @@ rustPlatform.buildRustPackage rec {
     maintainers = with lib.maintainers; [ r4v3n6101 ];
     platforms = lib.platforms.linux;
   };
-}
+})

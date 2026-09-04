@@ -8,7 +8,7 @@ let
   setoptconf-tmp = python3.pkgs.callPackage ./setoptconf.nix { };
 in
 
-python3.pkgs.buildPythonApplication rec {
+python3.pkgs.buildPythonApplication (finalAttrs: {
   pname = "prospector";
   version = "1.9.0";
   pyproject = true;
@@ -16,7 +16,7 @@ python3.pkgs.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "prospector-dev";
     repo = "prospector";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-94JGKX91d2kul+KMYohga9KCOj6RN/YKpD8e4nWSOOM=";
   };
 
@@ -71,8 +71,8 @@ python3.pkgs.buildPythonApplication rec {
   meta = {
     description = "Tool to analyse Python code and output information about errors, potential problems, convention violations and complexity";
     homepage = "https://github.com/prospector-dev/prospector";
-    changelog = "https://github.com/prospector-dev/prospector/blob/v${version}/CHANGELOG.rst";
+    changelog = "https://github.com/prospector-dev/prospector/blob/v${finalAttrs.version}/CHANGELOG.rst";
     license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [ kamadorueda ];
   };
-}
+})

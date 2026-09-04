@@ -16,12 +16,12 @@
 let
   inherit ((import ./sources.nix).aqbanking) hash releaseId version;
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "aqbanking";
   inherit version;
 
   src = fetchurl {
-    url = "https://www.aquamaniac.de/rdm/attachments/download/${releaseId}/aqbanking-${version}.tar.gz";
+    url = "https://www.aquamaniac.de/rdm/attachments/download/${releaseId}/aqbanking-${finalAttrs.version}.tar.gz";
     inherit hash;
   };
 
@@ -58,4 +58,4 @@ stdenv.mkDerivation rec {
     maintainers = [ ];
     platforms = lib.platforms.linux;
   };
-}
+})

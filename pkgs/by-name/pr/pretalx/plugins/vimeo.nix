@@ -5,7 +5,7 @@
   setuptools,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pretalx-vimeo";
   version = "2.8.0";
   pyproject = true;
@@ -13,7 +13,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "pretalx";
     repo = "pretalx-vimeo";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-ekQCqso1CJqXi7bpKlZwY1pADmbOJVN8lDr2l4ugaXs=";
   };
 
@@ -27,4 +27,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ wegank ];
   };
-}
+})

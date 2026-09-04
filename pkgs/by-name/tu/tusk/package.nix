@@ -24,11 +24,11 @@ let
   };
 
 in
-appimageTools.wrapType2 rec {
+appimageTools.wrapType2 (finalAttrs: {
   inherit pname version;
 
   src = fetchurl {
-    url = "https://github.com/klaussinani/tusk/releases/download/v${version}/tusk-${version}-x86_64.AppImage";
+    url = "https://github.com/klaussinani/tusk/releases/download/v${finalAttrs.version}/tusk-${finalAttrs.version}-x86_64.AppImage";
     sha256 = "02q7wsnhlyq8z74avflrm7805ny8fzlmsmz4bmafp4b4pghjh5ky";
   };
 
@@ -52,4 +52,4 @@ appimageTools.wrapType2 rec {
     platforms = [ "x86_64-linux" ];
     mainProgram = "tusk";
   };
-}
+})

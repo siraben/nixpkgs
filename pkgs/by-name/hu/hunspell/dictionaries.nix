@@ -291,12 +291,12 @@ let
       shortDescription,
       dictFileName,
     }:
-    stdenv.mkDerivation rec {
+    stdenv.mkDerivation (finalAttrs: {
       pname = "hunspell-dict-${shortName}-j3e";
       version = "20161207";
 
       src = fetchurl {
-        url = "https://j3e.de/ispell/igerman98/dict/igerman98-${version}.tar.bz2";
+        url = "https://j3e.de/ispell/igerman98/dict/igerman98-${finalAttrs.version}.tar.bz2";
         sha256 = "1a3055hp2bc4q4nlg3gmg0147p3a1zlfnc65xiv2v9pyql1nya8p";
       };
 
@@ -331,7 +331,7 @@ let
         maintainers = with lib.maintainers; [ timor ];
         platforms = lib.platforms.all;
       };
-    };
+    });
 
   mkDictFromLibreOffice =
     {

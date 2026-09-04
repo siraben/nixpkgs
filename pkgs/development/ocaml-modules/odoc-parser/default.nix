@@ -43,30 +43,30 @@ lib.throwIf (param ? max_version && lib.versionAtLeast ocaml.version param.max_v
   "odoc-parser ${version} is not available for OCaml ${ocaml.version}"
 
   buildDunePackage
-  rec {
+  (finalAttrs: {
     pname = "odoc-parser";
     inherit version;
 
     src = fetchurl {
       url =
-        if lib.versionAtLeast version "2.4" then
-          "https://github.com/ocaml/odoc/releases/download/${version}/odoc-${version}.tbz"
+        if lib.versionAtLeast finalAttrs.version "2.4" then
+          "https://github.com/ocaml/odoc/releases/download/${finalAttrs.version}/odoc-${finalAttrs.version}.tbz"
         else
-          "https://github.com/ocaml-doc/odoc-parser/releases/download/${version}/odoc-parser-${version}.tbz";
+          "https://github.com/ocaml-doc/odoc-parser/releases/download/${finalAttrs.version}/odoc-parser-${finalAttrs.version}.tbz";
       inherit (param) sha256;
     };
 
     propagatedBuildInputs = [
       astring
     ]
-    ++ lib.optional (!lib.versionAtLeast version "3.1.0") result
-    ++ lib.optional (lib.versionAtLeast version "1.0.1") camlp-streams;
+    ++ lib.optional (!lib.versionAtLeast finalAttrs.version "3.1.0") result
+    ++ lib.optional (lib.versionAtLeast finalAttrs.version "1.0.1") camlp-streams;
 
     meta = {
       description = "Parser for Ocaml documentation comments";
       license = lib.licenses.isc;
       maintainers = [ ];
       homepage = "https://github.com/ocaml-doc/odoc-parser";
-      changelog = "https://github.com/ocaml-doc/odoc-parser/raw/${version}/CHANGES.md";
+      changelog = "https://github.com/ocaml-doc/odoc-parser/raw/${finalAttrs.version}/CHANGES.md";
     };
-  }
+  })

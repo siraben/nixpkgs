@@ -8,7 +8,7 @@
   mkdocs,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "mkdocs-build-plantuml";
   version = "2.1.0";
   pyproject = true;
@@ -16,7 +16,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "christo-ph";
     repo = "mkdocs_build_plantuml";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-KTtZXeMZwbrx1M6Keu9BzT3GmarsVx9kEmn63rwHatI=";
   };
 
@@ -44,4 +44,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = [ ];
   };
-}
+})

@@ -15,14 +15,14 @@
   libx11,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "netmaker";
   version = "1.6.0";
 
   src = fetchFromGitHub {
     owner = "gravitl";
     repo = "netmaker";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-Zt6bQgmummfaC0cbW2GgSlu2TatHHrd8UEY/CZsJoDU=";
   };
 
@@ -44,11 +44,11 @@ buildGoModule rec {
   meta = {
     description = "WireGuard automation from homelab to enterprise";
     homepage = "https://netmaker.io";
-    changelog = "https://github.com/gravitl/netmaker/-/releases/v${version}";
+    changelog = "https://github.com/gravitl/netmaker/-/releases/v${finalAttrs.version}";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [
       qjoly
     ];
     mainProgram = "netmaker";
   };
-}
+})

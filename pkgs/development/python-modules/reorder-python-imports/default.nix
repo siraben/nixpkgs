@@ -7,7 +7,7 @@
   setuptools,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "reorder-python-imports";
   version = "3.17.0";
   pyproject = true;
@@ -15,7 +15,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "asottile";
     repo = "reorder_python_imports";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-xOHBIjdyrd1R2Iavkvsgk7wVE66YEYdbz29BEyFGtp8=";
   };
 
@@ -38,4 +38,4 @@ buildPythonPackage rec {
     maintainers = with lib.maintainers; [ gador ];
     mainProgram = "reorder-python-imports";
   };
-}
+})

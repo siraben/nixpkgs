@@ -4,7 +4,7 @@
   fetchFromGitHub,
 }:
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   # NOTE: this should be updated with linux_rpi
   pname = "raspberrypi-firmware";
   version = "1.20260521";
@@ -12,7 +12,7 @@ stdenvNoCC.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "raspberrypi";
     repo = "firmware";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-zoxAq2VewNqexO0MTknLdi/u3zVYGsS0mqlLyaAtJp8=";
   };
 
@@ -34,4 +34,4 @@ stdenvNoCC.mkDerivation rec {
     # Maybe due to https://github.com/NixOS/nix/issues/847
     broken = stdenvNoCC.hostPlatform.isDarwin;
   };
-}
+})

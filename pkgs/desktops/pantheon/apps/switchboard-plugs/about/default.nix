@@ -26,14 +26,14 @@
   elementary-settings-daemon,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "switchboard-plug-about";
   version = "8.2.3";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "settings-system";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-skuMgLZTkJEWrmDGwSuCivsJrvKIUYT2YISYj7/BVe4=";
   };
 
@@ -76,4 +76,4 @@ stdenv.mkDerivation rec {
     teams = [ lib.teams.pantheon ];
   };
 
-}
+})

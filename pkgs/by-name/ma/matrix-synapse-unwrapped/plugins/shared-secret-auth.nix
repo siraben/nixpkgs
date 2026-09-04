@@ -6,7 +6,7 @@
   twisted,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "matrix-synapse-shared-secret-auth";
   version = "2.0.3";
   format = "setuptools";
@@ -14,7 +14,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "devture";
     repo = "matrix-synapse-shared-secret-auth";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-ZMEUBC2Y4J1+4tHfsMxqzTO/P1ef3aB81OAhEs+Tdc4=";
   };
 
@@ -30,4 +30,4 @@ buildPythonPackage rec {
     license = lib.licenses.agpl3Plus;
     maintainers = with lib.maintainers; [ sumnerevans ];
   };
-}
+})

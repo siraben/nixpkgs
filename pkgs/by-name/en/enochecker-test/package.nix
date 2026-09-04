@@ -4,13 +4,13 @@
   fetchPypi,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "enochecker-test";
   version = "0.9.0";
   format = "setuptools";
 
   src = fetchPypi {
-    inherit version;
+    inherit (finalAttrs) version;
     pname = "enochecker_test";
     hash = "sha256-M0RTstFePU7O51YVEncVDuuR6F7R8mfdKbO0j7k/o8Q=";
   };
@@ -44,8 +44,8 @@ python3Packages.buildPythonApplication rec {
     description = "Automatically test services/checker using the enochecker API";
     mainProgram = "enochecker_test";
     homepage = "https://github.com/enowars/enochecker_test";
-    changelog = "https://github.com/enowars/enochecker_test/releases/tag/v${version}";
+    changelog = "https://github.com/enowars/enochecker_test/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ fwc ];
   };
-}
+})

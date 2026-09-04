@@ -21,7 +21,7 @@
   qiskit-aer,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "qiskit-machine-learning";
   version = "0.9.0";
   pyproject = true;
@@ -29,7 +29,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "qiskit";
     repo = "qiskit-machine-learning";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-l7lzdGSarj1DiC0igeyr6kP+GYYE+eGKdW9+IN+2uh8=";
   };
 
@@ -89,4 +89,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = [ ];
   };
-}
+})

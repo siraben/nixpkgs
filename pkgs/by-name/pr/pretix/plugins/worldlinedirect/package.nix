@@ -7,7 +7,7 @@
   onlinepayments-sdk-python3,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pretix-worldlinedirect";
   version = "1.1.1";
   pyproject = true;
@@ -15,7 +15,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "pretix";
     repo = "pretix-worldlinedirect";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-SqXXnYetz52OFPKM61mANA71hrCEK7FgsdEoxskR5bk=";
   };
 
@@ -39,4 +39,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ hexa ];
   };
-}
+})

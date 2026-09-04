@@ -11,7 +11,7 @@
   slixmpp,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "aioharmony";
   version = "1.0.8";
   pyproject = true;
@@ -19,7 +19,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "Harmony-Libs";
     repo = "aioharmony";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-7K/I71yonmAqLp12Hk8e72BBfF/sez1cFdQbnixDdbg=";
   };
 
@@ -49,4 +49,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ oro ];
   };
-}
+})

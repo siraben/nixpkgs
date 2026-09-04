@@ -4,14 +4,14 @@
   fetchFromGitHub,
 }:
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "zsh-autocomplete";
   version = "26.08.03";
 
   src = fetchFromGitHub {
     owner = "marlonrichert";
     repo = "zsh-autocomplete";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-NZLlRJZobUj3W94mRG245lGqDb1hE9x0nC9tRx58+Js=";
   };
 
@@ -29,4 +29,4 @@ stdenvNoCC.mkDerivation rec {
     platforms = lib.platforms.unix;
     maintainers = [ lib.maintainers.leona ];
   };
-}
+})

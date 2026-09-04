@@ -9,14 +9,14 @@
   stestr,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "oslo-i18n";
   version = "6.9.0";
   pyproject = true;
 
   src = fetchPypi {
     pname = "oslo_i18n";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-V0vPIYc7GFBovOyVHeHsCTFY/9/wWoBV/Rjdy2n2nmU=";
   };
 
@@ -53,4 +53,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     teams = [ lib.teams.openstack ];
   };
-}
+})

@@ -7,14 +7,14 @@
   fetchFromGitHub,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "pidgin-carbons";
   version = "0.2.3";
 
   src = fetchFromGitHub {
     owner = "gkdr";
     repo = "carbons";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "sha256-qiyIvmJbRmCrAi/93UxDVtO76nSdtzUVfT/sZGxxAh8=";
   };
 
@@ -33,4 +33,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     maintainers = [ ];
   };
-}
+})

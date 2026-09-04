@@ -9,12 +9,12 @@
   topkg,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "cmarkit";
   version = "0.3.0";
 
   src = fetchurl {
-    url = "https://erratique.ch/software/cmarkit/releases/cmarkit-${version}.tbz";
+    url = "https://erratique.ch/software/cmarkit/releases/cmarkit-${finalAttrs.version}.tbz";
     hash = "sha256-RouM5iU7VeTT0+4yhBgdEmxROeP/X31iqDjd1VI7z5c=";
   };
 
@@ -37,10 +37,10 @@ stdenv.mkDerivation rec {
   meta = {
     description = "CommonMark parser and renderer for OCaml";
     homepage = "https://erratique.ch/software/cmarkit";
-    changelog = "https://github.com/dbuenzli/cmarkit/blob/v${version}/CHANGES.md";
+    changelog = "https://github.com/dbuenzli/cmarkit/blob/v${finalAttrs.version}/CHANGES.md";
     license = lib.licenses.isc;
     maintainers = [ ];
     inherit (ocaml.meta) platforms;
     broken = lib.versionOlder ocaml.version "4.14.0";
   };
-}
+})

@@ -20,14 +20,14 @@
   stevedore,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "python-cinderclient";
   version = "9.9.0";
   pyproject = true;
 
   src = fetchPypi {
     pname = "python_cinderclient";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-aX5NEsJJ85tB7PT6b8uMOMvy1rLYTW9RXtVnuC3NC9E=";
   };
 
@@ -76,4 +76,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     teams = [ lib.teams.openstack ];
   };
-}
+})

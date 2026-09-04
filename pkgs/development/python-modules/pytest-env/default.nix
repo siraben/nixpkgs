@@ -8,14 +8,14 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pytest-env";
   version = "1.2.0";
   pyproject = true;
 
   src = fetchPypi {
     pname = "pytest_env";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-R14uvoYmzuAfSR8wSnSxITd0I5fWx4TqS8JY8GkjK4A=";
   };
 
@@ -34,4 +34,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ erikarvstedt ];
   };
-}
+})

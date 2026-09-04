@@ -8,14 +8,14 @@
   pkg-config,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "elementary-sound-theme";
   version = "1.1.0";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "sound-theme";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-fR6gtKx9J6o2R1vQZ5yx4kEX3Ak+q8I6hRVMZzyB2E8=";
   };
 
@@ -36,4 +36,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     teams = [ lib.teams.pantheon ];
   };
-}
+})

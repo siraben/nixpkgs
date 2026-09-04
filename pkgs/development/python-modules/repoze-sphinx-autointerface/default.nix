@@ -9,14 +9,14 @@
   sphinx,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "repoze-sphinx-autointerface";
   version = "1.0.0";
   pyproject = true;
 
   src = fetchPypi {
     pname = "repoze.sphinx.autointerface";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-SGvxQjpGlrkVPkiM750ybElv/Bbd6xSwyYh7RsYOKKE=";
   };
 
@@ -42,10 +42,10 @@ buildPythonPackage rec {
   meta = {
     homepage = "https://github.com/repoze/repoze.sphinx.autointerface";
     description = "Auto-generate Sphinx API docs from Zope interfaces";
-    changelog = "https://github.com/repoze/repoze.sphinx.autointerface/blob/${version}/CHANGES.rst";
+    changelog = "https://github.com/repoze/repoze.sphinx.autointerface/blob/${finalAttrs.version}/CHANGES.rst";
     license = lib.licenses.bsd0;
     maintainers = [ ];
     # https://github.com/repoze/repoze.sphinx.autointerface/issues/21
     broken = lib.versionAtLeast sphinx.version "7.2";
   };
-}
+})

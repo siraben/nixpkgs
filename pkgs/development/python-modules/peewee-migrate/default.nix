@@ -15,7 +15,7 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "peewee-migrate";
   version = "1.15.0";
   pyproject = true;
@@ -23,7 +23,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "klen";
     repo = "peewee_migrate";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-AFZW4vVHAuvdjA3t37YcOqVmwhZ1sU25L+YVP7BvMhQ=";
   };
 
@@ -54,4 +54,4 @@ buildPythonPackage rec {
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ hexa ];
   };
-}
+})

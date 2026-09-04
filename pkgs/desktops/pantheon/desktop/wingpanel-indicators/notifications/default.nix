@@ -15,14 +15,14 @@
   elementary-notifications,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "wingpanel-indicator-notifications";
   version = "7.1.1";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "wingpanel-indicator-notifications";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-fuC9ldDjKuy1kBeFOAIZ/Onhl2o45Xj+YjSrfYz1xvw=";
   };
 
@@ -53,4 +53,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     teams = [ lib.teams.pantheon ];
   };
-}
+})

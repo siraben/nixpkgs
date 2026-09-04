@@ -9,7 +9,7 @@
   websockets,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "tago";
   version = "3.1.1";
   format = "setuptools";
@@ -17,7 +17,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "tago-io";
     repo = "tago-sdk-python";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-q1xcPF+oeQsCAZjeYTVY2aaKFmb8rCTWVikGxdpPQ28=";
   };
 
@@ -39,8 +39,8 @@ buildPythonPackage rec {
   meta = {
     description = "Python module for interacting with Tago.io";
     homepage = "https://github.com/tago-io/tago-sdk-python";
-    changelog = "https://github.com/tago-io/tago-sdk-python/releases/tag/v${version}";
+    changelog = "https://github.com/tago-io/tago-sdk-python/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

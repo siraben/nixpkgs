@@ -15,14 +15,14 @@ let
   # of pycrypto will be fetched from the Debian project.
   # https://security-tracker.debian.org/tracker/source-package/python-crypto
 
-  pycrypto = python3Packages.buildPythonPackage rec {
+  pycrypto = python3Packages.buildPythonPackage (finalAttrs: {
     pname = "pycrypto";
     version = "2.6.1-13.1";
     format = "setuptools";
 
     src = fetchgit {
       url = "https://salsa.debian.org/sramacher/python-crypto.git";
-      rev = "debian/${version}";
+      rev = "debian/${finalAttrs.version}";
       sha256 = "1mahqmlgilgk0rn5hfkhza7kscfm7agdakkb6rqnif9g0qp3s52f";
     };
 
@@ -41,7 +41,7 @@ let
       sed -i 's,/usr/include,/no-such-dir,' configure
       sed -i "s!,'/usr/include/'!!" setup.py
     '';
-  };
+  });
 
   potr = python3Packages.potr.overridePythonAttrs (oldAttrs: {
     propagatedBuildInputs = [ pycrypto ];

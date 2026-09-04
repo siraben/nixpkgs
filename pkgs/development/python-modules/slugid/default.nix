@@ -4,7 +4,7 @@
   fetchFromGitHub,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "slugid";
   version = "2.0.0";
   format = "setuptools";
@@ -12,7 +12,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "taskcluster";
     repo = "slugid.py";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "McBxGRi8KqVhe2Xez5k4G67R5wBCCoh41dRsTKW4xMA=";
   };
 
@@ -26,4 +26,4 @@ buildPythonPackage rec {
     license = lib.licenses.mpl20;
     maintainers = [ ];
   };
-}
+})

@@ -17,7 +17,7 @@
   wheel,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pip-tools";
   version = "7.5.3";
   pyproject = true;
@@ -25,7 +25,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "jazzband";
     repo = "pip-tools";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-MkYGD/ropw+MLLrk4gRZZguOv5extzNNXwTy6NQnCu0=";
   };
 
@@ -112,8 +112,8 @@ buildPythonPackage rec {
   meta = {
     description = "Keeps your pinned dependencies fresh";
     homepage = "https://github.com/jazzband/pip-tools/";
-    changelog = "https://github.com/jazzband/pip-tools/releases/tag/${version}";
+    changelog = "https://github.com/jazzband/pip-tools/releases/tag/${finalAttrs.version}";
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ zimbatm ];
   };
-}
+})

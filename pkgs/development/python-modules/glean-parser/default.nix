@@ -13,14 +13,14 @@
   pyyaml,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "glean-parser";
   version = "20.0.1";
   pyproject = true;
 
   src = fetchPypi {
     pname = "glean_parser";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-e6d4QMqOR8/7F/Tstk7cH/aj1s4AZyI+BS5AnewePKk=";
   };
 
@@ -58,8 +58,8 @@ buildPythonPackage rec {
     description = "Tools for parsing the metadata for Mozilla's glean telemetry SDK";
     mainProgram = "glean_parser";
     homepage = "https://github.com/mozilla/glean_parser";
-    changelog = "https://github.com/mozilla/glean_parser/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/mozilla/glean_parser/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.mpl20;
     maintainers = [ ];
   };
-}
+})

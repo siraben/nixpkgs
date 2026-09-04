@@ -12,7 +12,7 @@
   pytest-mock,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   version = "5.0.0";
   pname = "fints";
   pyproject = true;
@@ -20,7 +20,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "raphaelm";
     repo = "python-fints";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-ll2+PtcGQiY5nbQTKVetd2ecDBVSXgzWP4Vzzri1Trs=";
   };
 
@@ -55,4 +55,4 @@ buildPythonPackage rec {
       dotlambda
     ];
   };
-}
+})

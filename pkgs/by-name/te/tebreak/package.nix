@@ -9,7 +9,7 @@
   samtools,
 }:
 
-python3.pkgs.buildPythonApplication rec {
+python3.pkgs.buildPythonApplication (finalAttrs: {
   pname = "tebreak";
   version = "1.1";
   pyproject = true;
@@ -17,7 +17,7 @@ python3.pkgs.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "adamewing";
     repo = "tebreak";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "13mgh775d8hkl340923lfwwm4r5ps70girn8d6wgfxzwzxylz8iz";
   };
 
@@ -63,4 +63,4 @@ python3.pkgs.buildPythonApplication rec {
     # - AssertionError: 6 != 0
     broken = true;
   };
-}
+})

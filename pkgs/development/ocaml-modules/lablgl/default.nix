@@ -9,14 +9,14 @@
   camlp-streams,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ocaml${ocaml.version}-lablgl";
   version = "1.07";
 
   src = fetchFromGitHub {
     owner = "garrigue";
     repo = "lablgl";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-GiQKHMn5zHyvDrA2ve12X5YTm3/RZp8tukIqifgVaW4=";
   };
 
@@ -75,4 +75,4 @@ stdenv.mkDerivation rec {
     mainProgram = "lablglut";
     broken = lib.versionOlder ocaml.version "4.06";
   };
-}
+})

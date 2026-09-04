@@ -16,12 +16,12 @@ let
   inherit (pkgsHostTarget.targetPackages.stdenv) cc;
 in
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "glsurf";
   version = "3.3.1";
 
   src = fetchurl {
-    url = "https://raffalli.eu/~christophe/glsurf/glsurf-${version}.tar.gz";
+    url = "https://raffalli.eu/~christophe/glsurf/glsurf-${finalAttrs.version}.tar.gz";
     sha256 = "0w8xxfnw2snflz8wdr2ca9f5g91w5vbyp1hwlx1v7vg83d4bwqs7";
   };
 
@@ -76,4 +76,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.all;
   };
-}
+})

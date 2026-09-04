@@ -20,7 +20,7 @@
   xtmpl,
 }:
 
-buildDunePackage rec {
+buildDunePackage (finalAttrs: {
   pname = "stog";
   version = "1.1.0";
   minimalOCamlVersion = "4.13";
@@ -28,7 +28,7 @@ buildDunePackage rec {
     domain = "framagit.org";
     owner = "zoggy";
     repo = "stog";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-seaVco5AoOxjEuw8zYsrA25vcyo1Un3eUJUU9FT57WU=";
   };
 
@@ -59,4 +59,4 @@ buildDunePackage rec {
     license = lib.licenses.lgpl3;
     maintainers = with lib.maintainers; [ regnat ];
   };
-}
+})

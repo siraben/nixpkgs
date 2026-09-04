@@ -20,7 +20,7 @@
   qiskit-aer,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "qiskit-optimization";
   version = "0.7.0";
   pyproject = true;
@@ -28,7 +28,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "qiskit";
     repo = "qiskit-optimization";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-aonL08avVZlpGQ/FCZnrsPMvu1lbhRiadzKf/oPndZk=";
   };
 
@@ -67,4 +67,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = [ ];
   };
-}
+})

@@ -6,14 +6,14 @@
   unzip,
   gauge-unwrapped,
 }:
-buildNpmPackage rec {
+buildNpmPackage (finalAttrs: {
   pname = "gauge-plugin-js";
   version = "5.0.6";
 
   src = fetchFromGitHub {
     owner = "getgauge";
     repo = "gauge-js";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-/hfsBoZ37A4W3uejmOnl6nZv0oCedkQFMNidqWb9DN8=";
     fetchSubmodules = true;
   };
@@ -29,8 +29,8 @@ buildNpmPackage rec {
   '';
 
   installPhase = ''
-    mkdir -p $out/share/gauge-plugins/js/${version}
-    unzip deploy/gauge-js-${version}.zip -d $out/share/gauge-plugins/js/${version}
+    mkdir -p $out/share/gauge-plugins/js/${finalAttrs.version}
+    unzip deploy/gauge-js-${finalAttrs.version}.zip -d $out/share/gauge-plugins/js/${finalAttrs.version}
   '';
 
   meta = {
@@ -40,4 +40,4 @@ buildNpmPackage rec {
     maintainers = [ ];
     inherit (gauge-unwrapped.meta) platforms;
   };
-}
+})

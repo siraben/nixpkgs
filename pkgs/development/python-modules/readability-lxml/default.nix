@@ -11,7 +11,7 @@
   timeout-decorator,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "readability-lxml";
   version = "0.8.4.1";
   pyproject = true;
@@ -19,7 +19,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "buriy";
     repo = "python-readability";
-    rev = "${version}";
+    rev = "${finalAttrs.version}";
     hash = "sha256-tL0OnvCrbrpBvcy+6RJ+u/BDdra+MnVT51DSAeYxJbc=";
   };
 
@@ -48,4 +48,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ siraben ];
   };
-}
+})

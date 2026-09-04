@@ -13,7 +13,7 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "sphinxcontrib-bibtex";
   version = "2.6.5";
   pyproject = true;
@@ -21,7 +21,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "mcmtroffaes";
     repo = "sphinxcontrib-bibtex";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-sT23DkIfJcb3cFBFdL31RRzlDoJRcCUYIdpUVuYjGuo=";
   };
 
@@ -58,4 +58,4 @@ buildPythonPackage rec {
     license = lib.licenses.bsd2;
     maintainers = [ ];
   };
-}
+})

@@ -8,14 +8,14 @@
   writableTmpDirAsHomeHook,
 }:
 
-buildNpmPackage rec {
+buildNpmPackage (finalAttrs: {
   pname = "vacuum-tube";
   version = "1.8.2";
 
   src = fetchFromGitHub {
     owner = "shy1132";
     repo = "VacuumTube";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-KgXV6fSvV6jl8V2YEjJm+CIG8ATvb1/iEhLog91DPY0=";
   };
 
@@ -73,4 +73,4 @@ buildNpmPackage rec {
     # https://github.com/NixOS/nixpkgs/pull/453698#issuecomment-3422020307
     broken = stdenv.hostPlatform.isDarwin;
   };
-}
+})

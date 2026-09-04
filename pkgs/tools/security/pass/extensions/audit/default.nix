@@ -7,7 +7,7 @@
   gnupg,
 }:
 
-python3.pkgs.buildPythonApplication rec {
+python3.pkgs.buildPythonApplication (finalAttrs: {
   pname = "pass-audit";
   version = "1.2";
   pyproject = true;
@@ -15,7 +15,7 @@ python3.pkgs.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "roddhjav";
     repo = "pass-audit";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-xigP8LxRXITLF3X21zhWx6ooFNSTKGv46yFSt1dd4vs=";
   };
 
@@ -73,4 +73,4 @@ python3.pkgs.buildPythonApplication rec {
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ ma27 ];
   };
-}
+})

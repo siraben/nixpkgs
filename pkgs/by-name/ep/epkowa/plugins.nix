@@ -468,7 +468,7 @@
       description = "Plugin to support " + passthru.hw + " scanner in sane";
     };
   };
-  network = stdenv.mkDerivation rec {
+  network = stdenv.mkDerivation (finalAttrs: {
     pname = "iscan-nt-bundle";
     # for the version, look for the driver of XP-750 in the search page
     version = "2.30.4";
@@ -478,8 +478,8 @@
 
     src = fetchurl {
       urls = [
-        "https://download2.ebz.epson.net/iscan/general/rpm/x64/iscan-bundle-${version}.x64.rpm.tar.gz"
-        "https://web.archive.org/web/https://download2.ebz.epson.net/iscan/general/rpm/x64/iscan-bundle-${version}.x64.rpm.tar.gz"
+        "https://download2.ebz.epson.net/iscan/general/rpm/x64/iscan-bundle-${finalAttrs.version}.x64.rpm.tar.gz"
+        "https://web.archive.org/web/https://download2.ebz.epson.net/iscan/general/rpm/x64/iscan-bundle-${finalAttrs.version}.x64.rpm.tar.gz"
       ];
       sha256 = "0jssigsgkxb9i7qa7db291a1gbvwl795i4ahvb7bnqp33czkj85k";
     };
@@ -501,5 +501,5 @@
     meta = common_meta // {
       description = "iscan network plugin";
     };
-  };
+  });
 }

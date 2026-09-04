@@ -16,14 +16,14 @@
   libgee,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "wingpanel-indicator-network";
   version = "8.0.1";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "wingpanel-indicator-network";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-tmtd+lV/7aofH1xsYy5oG82HwEE1TyzP0ZP6nGY0prA=";
   };
 
@@ -55,4 +55,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     teams = [ lib.teams.pantheon ];
   };
-}
+})

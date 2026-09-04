@@ -13,7 +13,7 @@
   six,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "rchitect";
   version = "0.4.10";
   pyproject = true;
@@ -21,7 +21,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "randy3k";
     repo = "rchitect";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-CTXvca687RL1aFxf7jptcNIKPUcugzFdVTSyApcaWS4=";
   };
 
@@ -58,8 +58,8 @@ buildPythonPackage rec {
   meta = {
     description = "Interoperate R with Python";
     homepage = "https://github.com/randy3k/rchitect";
-    changelog = "https://github.com/randy3k/rchitect/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/randy3k/rchitect/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ savyajha ];
   };
-}
+})

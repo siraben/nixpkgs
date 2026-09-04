@@ -8,14 +8,14 @@
   coreutils,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "surface-control";
   version = "0.5.0-1";
 
   src = fetchFromGitHub {
     owner = "linux-surface";
     repo = "surface-control";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-XPIHGDpq2x+P8i8b4nLlobR/BysdZX+7N9Pu2l/U4Gs=";
   };
 
@@ -42,4 +42,4 @@ rustPlatform.buildRustPackage rec {
     platforms = lib.platforms.linux;
     mainProgram = "surface";
   };
-}
+})

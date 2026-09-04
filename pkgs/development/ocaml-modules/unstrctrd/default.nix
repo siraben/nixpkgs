@@ -13,12 +13,12 @@
   uutf,
 }:
 
-buildDunePackage rec {
+buildDunePackage (finalAttrs: {
   pname = "unstrctrd";
   version = "0.4";
 
   src = fetchzip {
-    url = "https://github.com/dinosaure/unstrctrd/releases/download/v${version}/unstrctrd-${version}.tbz";
+    url = "https://github.com/dinosaure/unstrctrd/releases/download/v${finalAttrs.version}/unstrctrd-${finalAttrs.version}.tbz";
     hash = "sha256-CGcDqEr+VDTbDYkjxeYB6IFWiTkOTLJJl/Y2bHtv19g=";
   };
 
@@ -44,4 +44,4 @@ buildDunePackage rec {
     license = lib.licenses.mit;
     maintainers = [ ];
   };
-}
+})

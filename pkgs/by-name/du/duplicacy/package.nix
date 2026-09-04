@@ -4,14 +4,14 @@
   fetchFromGitHub,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "duplicacy";
   version = "3.2.5";
 
   src = fetchFromGitHub {
     owner = "gilbertchen";
     repo = "duplicacy";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-PS1vN5XkyihiiahIdzJmzdr1yyJMkzCpVbXgbZL2jHE=";
   };
 
@@ -29,4 +29,4 @@ buildGoModule rec {
       devusb
     ];
   };
-}
+})

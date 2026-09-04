@@ -9,7 +9,7 @@
   rich,
   tomli,
 }:
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "corallium";
   version = "2.1.1";
   pyproject = true;
@@ -17,7 +17,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "KyleKing";
     repo = "corallium";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-0P8qmX+1zigL4jaA4TTuqAzFkyhQUfdGmPLxkFnT0qE=";
   };
 
@@ -37,4 +37,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ yajo ];
   };
-}
+})

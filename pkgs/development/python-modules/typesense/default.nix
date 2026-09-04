@@ -14,7 +14,7 @@
   isort,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "typesense";
   version = "1.1.1";
   pyproject = true;
@@ -22,7 +22,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "typesense";
     repo = "typesense-python";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-vo9DW4kinb00zWW4yX8ibyelQxW3eVabn+oMddPEd18=";
   };
 
@@ -75,4 +75,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     teams = [ lib.teams.ngi ];
   };
-}
+})

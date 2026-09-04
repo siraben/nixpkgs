@@ -5,7 +5,7 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "sqlite-fts4";
   version = "1.0.3";
   format = "setuptools";
@@ -13,7 +13,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "simonw";
     repo = "sqlite-fts4";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-Ibiows3DSnzjIUv7U9tYNVnDaecBBxjXzDqxbIlNhhU=";
   };
 
@@ -27,4 +27,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ meatcar ];
   };
-}
+})

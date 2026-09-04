@@ -6,7 +6,7 @@
   lwt,
 }:
 
-buildDunePackage rec {
+buildDunePackage (finalAttrs: {
   pname = "xenstore_transport";
   version = "1.5.0";
 
@@ -16,7 +16,7 @@ buildDunePackage rec {
   src = fetchFromGitHub {
     owner = "xapi-project";
     repo = "ocaml-xenstore-clients";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "sha256-tnz+dZ3EdzDVTGAe4y7OveXuVEUSh1aJxJabHM4zHTI=";
   };
 
@@ -34,4 +34,4 @@ buildDunePackage rec {
     homepage = "https://github.com/xapi-project/ocaml-xenstore-clients";
     teams = [ lib.teams.xen ];
   };
-}
+})

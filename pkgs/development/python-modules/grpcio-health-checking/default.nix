@@ -9,14 +9,14 @@
 # This package should be updated together with the main grpc package and other
 # related python grpc packages.
 # nixpkgs-update: no auto update
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "grpcio-health-checking";
   version = "1.83.0";
   format = "setuptools";
 
   src = fetchPypi {
     pname = "grpcio_health_checking";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-rWvE1aEQOtcE0lzNgt7zAN+ieZaxhcqz5Mzu7yxoZ9Q=";
   };
 
@@ -38,4 +38,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ happysalada ];
   };
-}
+})

@@ -11,7 +11,7 @@
   six,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "jenkinsapi";
   version = "0.3.17";
   pyproject = true;
@@ -19,7 +19,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "pycontribs";
     repo = "jenkinsapi";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-1dTcT84cDpP9V4tVrgW2MTYx4jQj0/tZiAuakC+orUQ=";
   };
 
@@ -58,4 +58,4 @@ buildPythonPackage rec {
     ];
     license = lib.licenses.mit;
   };
-}
+})

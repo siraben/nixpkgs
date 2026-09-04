@@ -14,7 +14,7 @@
   aria2,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "tartube";
   version = "2.5.231";
   format = "setuptools";
@@ -22,7 +22,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "axcore";
     repo = "tartube";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     sha256 = "sha256-eeVzDvQn4uBD1lceEHq1fTEDS8cVi92z/ECY8OG4SbI=";
   };
 
@@ -78,4 +78,4 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://tartube.sourceforge.io/";
     mainProgram = "tartube";
   };
-}
+})

@@ -15,14 +15,14 @@ let
       hash,
       extraNativeBuildInputs ? [ ],
     }:
-    stdenv.mkDerivation rec {
+    stdenv.mkDerivation (finalAttrs: {
       pname = "${varnish.name}-modules";
       inherit version;
 
       src = fetchFromGitHub {
         owner = "varnish";
         repo = "varnish-modules";
-        tag = version;
+        tag = finalAttrs.version;
         inherit hash;
       };
 
@@ -48,7 +48,7 @@ let
         homepage = "https://github.com/varnish/varnish-modules";
         inherit (varnish.meta) license platforms;
       };
-    };
+    });
 in
 {
   modules27 = common {

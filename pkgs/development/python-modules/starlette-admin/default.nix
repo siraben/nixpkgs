@@ -39,7 +39,7 @@
   sqlmodel,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "starlette-admin";
   version = "0.17.1";
   pyproject = true;
@@ -47,7 +47,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "jowilf";
     repo = "starlette-admin";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-oywqivKpvGujk5VMAbNY7fg5evfec9rL+wUccPeCUoc=";
   };
 
@@ -144,4 +144,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ pbsds ];
   };
-}
+})

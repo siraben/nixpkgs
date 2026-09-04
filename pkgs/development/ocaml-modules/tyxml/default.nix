@@ -6,12 +6,12 @@
   uutf,
 }:
 
-buildDunePackage rec {
+buildDunePackage (finalAttrs: {
   pname = "tyxml";
   version = "4.6.0";
 
   src = fetchurl {
-    url = "https://github.com/ocsigen/tyxml/releases/download/${version}/tyxml-${version}.tbz";
+    url = "https://github.com/ocsigen/tyxml/releases/download/${finalAttrs.version}/tyxml-${finalAttrs.version}.tbz";
     hash = "sha256-v+tnPGtOEgpOykxIRIrdR9w/jQLCtA9j/9zMTpHJAt0=";
   };
 
@@ -30,4 +30,4 @@ buildDunePackage rec {
     ];
   };
 
-}
+})

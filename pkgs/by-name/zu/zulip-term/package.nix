@@ -27,7 +27,7 @@ let
 in
 with py.pkgs;
 
-buildPythonApplication rec {
+buildPythonApplication (finalAttrs: {
   pname = "zulip-term";
   version = "0.7.0-unstable-2026-02-10";
   pyproject = true;
@@ -97,11 +97,11 @@ buildPythonApplication rec {
   meta = {
     description = "Zulip's official terminal client";
     homepage = "https://github.com/zulip/zulip-terminal";
-    changelog = "https://github.com/zulip/zulip-terminal/releases/tag/${version}";
+    changelog = "https://github.com/zulip/zulip-terminal/releases/tag/${finalAttrs.version}";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [
       dotlambda
       erooke
     ];
   };
-}
+})

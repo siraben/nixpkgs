@@ -5,14 +5,14 @@
   zeroconf,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "envoy-utils";
   version = "0.0.1";
   format = "setuptools";
 
   src = fetchPypi {
     pname = "envoy_utils";
-    inherit version;
+    inherit (finalAttrs) version;
     sha256 = "13zn0d6k2a4nls9vp8cs0w07bgg4138vz18cadjadhm8p6r3bi0c";
   };
 
@@ -29,4 +29,4 @@ buildPythonPackage rec {
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

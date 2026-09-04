@@ -9,14 +9,14 @@
   openssl,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "acme-tiny";
   version = "5.0.3";
   pyproject = true;
 
   src = fetchPypi {
     pname = "acme_tiny";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-LV64B+JZhq69qbBJ2dFG8YW6/q1u+x6MxB1rQrm8pjw=";
   };
 
@@ -44,4 +44,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/diafygi/acme-tiny";
     license = lib.licenses.mit;
   };
-}
+})

@@ -6,14 +6,14 @@
   obs-studio,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "obs-command-source";
   version = "0.5.1";
 
   src = fetchFromGitHub {
     owner = "norihiro";
     repo = "obs-command-source";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-z5TKVA0WI/pqfca1VCXfDvYHxDG2EoD6PFCV7pSXe7c=";
   };
 
@@ -34,4 +34,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2Plus;
     inherit (obs-studio.meta) platforms;
   };
-}
+})

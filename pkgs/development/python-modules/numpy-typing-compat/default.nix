@@ -6,14 +6,14 @@
   numpy,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "numpy-typing-compat";
   version = "20251206.2.4";
   pyproject = true;
 
   src = fetchPypi {
     pname = "numpy_typing_compat";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-WYgtI6r/BUolNtqAVkASzc4zSHZXvk15xZJbuHBfyrw=";
   };
 
@@ -39,4 +39,4 @@ buildPythonPackage rec {
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ tm-drtina ];
   };
-}
+})

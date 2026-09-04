@@ -3,14 +3,14 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "re-plistbuddy";
   version = "1.1.0";
 
   src = fetchFromGitHub {
     owner = "viraptor";
     repo = "re-plistbuddy";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-Iumrj0JLpdrS3cg3jAj/Wrbx7PthlCnTuRMYsYdywyw=";
   };
 
@@ -23,4 +23,4 @@ rustPlatform.buildRustPackage rec {
     maintainers = with lib.maintainers; [ viraptor ];
     platforms = lib.platforms.darwin;
   };
-}
+})

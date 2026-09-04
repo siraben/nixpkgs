@@ -9,7 +9,7 @@
   pytest-randomly,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "mlrose";
   version = "1.3.0";
   pyproject = true;
@@ -17,7 +17,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "gkhayes";
     repo = "mlrose";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "1dn43k3rcypj58ymcj849b37w66jz7fphw8842v6mlbij3x0rxfl";
   };
 
@@ -56,4 +56,4 @@ buildPythonPackage rec {
     license = lib.licenses.bsd3;
     maintainers = [ ];
   };
-}
+})

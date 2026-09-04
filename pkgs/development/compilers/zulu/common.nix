@@ -75,7 +75,7 @@ let
 
   isJdk8 = lib.versions.major dist.jdkVersion == "8";
 
-  jdk = stdenv.mkDerivation rec {
+  jdk = stdenv.mkDerivation (finalAttrs: {
     pname = "zulu-${javaPackage}";
     version = dist.jdkVersion;
 
@@ -126,7 +126,7 @@ let
       mv * $out
     ''
     + lib.optionalString stdenv.hostPlatform.isDarwin ''
-      bundle=$out/Library/Java/JavaVirtualMachines/zulu-${lib.versions.major version}.jdk
+      bundle=$out/Library/Java/JavaVirtualMachines/zulu-${lib.versions.major finalAttrs.version}.jdk
       mkdir -p $bundle
       mv $out/Contents $bundle
       ln -sf $bundle/Contents/Home/* $out/
@@ -190,12 +190,15 @@ let
           package = jdk;
           command = "java -version";
           version = ''openjdk version \""${
-            if lib.versions.major version == "8" then "1.8" else lib.versions.major version
+            if lib.versions.major finalAttrs.version == "8" then
+              "1.8"
+            else
+              lib.versions.major finalAttrs.version
           }"'';
         };
       }
       // lib.optionalAttrs stdenv.hostPlatform.isDarwin {
-        bundle = "${jdk}/Library/Java/JavaVirtualMachines/zulu-${lib.versions.major version}.jdk";
+        bundle = "${jdk}/Library/Java/JavaVirtualMachines/zulu-${lib.versions.major finalAttrs.version}.jdk";
       };
 
     meta = {
@@ -214,6 +217,6 @@ let
         binaryNativeCode
       ];
     };
-  };
+  });
 in
 jdk

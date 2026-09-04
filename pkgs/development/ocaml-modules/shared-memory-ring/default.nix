@@ -8,14 +8,14 @@
   ounit,
 }:
 
-buildDunePackage rec {
+buildDunePackage (finalAttrs: {
   pname = "shared-memory-ring";
   version = "3.2.1";
 
   duneVersion = "3";
 
   src = fetchurl {
-    url = "https://github.com/mirage/shared-memory-ring/releases/download/v${version}/shared-memory-ring-${version}.tbz";
+    url = "https://github.com/mirage/shared-memory-ring/releases/download/v${finalAttrs.version}/shared-memory-ring-${finalAttrs.version}.tbz";
     hash = "sha256-qSdntsPQo0/8JlbOoO6NAYtoa86HJy5yWHUsWi/PGDM=";
   };
 
@@ -39,4 +39,4 @@ buildDunePackage rec {
     homepage = "https://github.com/mirage/shared-memory-ring";
     maintainers = [ lib.maintainers.sternenseemann ];
   };
-}
+})

@@ -9,12 +9,12 @@
   gnome,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "libxml++";
   version = "2.40.1";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/libxml++/${lib.versions.majorMinor version}/libxml++-${version}.tar.xz";
+    url = "mirror://gnome/sources/libxml++/${lib.versions.majorMinor finalAttrs.version}/libxml++-${finalAttrs.version}.tar.xz";
     sha256 = "1sb3akryklvh2v6m6dihdnbpf1lkx441v972q9hlz1sq6bfspm2a";
   };
 
@@ -54,4 +54,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.unix;
     maintainers = [ ];
   };
-}
+})

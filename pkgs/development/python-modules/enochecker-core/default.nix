@@ -4,13 +4,13 @@
   fetchPypi,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "enochecker-core";
   version = "0.10.0";
   format = "setuptools";
 
   src = fetchPypi {
-    inherit version;
+    inherit (finalAttrs) version;
     pname = "enochecker_core";
     hash = "sha256-N41p2XRCp55rcPXLpA4rPIARsva/dQzK8qafjzXtavI=";
   };
@@ -23,8 +23,8 @@ buildPythonPackage rec {
   meta = {
     description = "Base library for enochecker libs";
     homepage = "https://github.com/enowars/enochecker_core";
-    changelog = "https://github.com/enowars/enochecker_core/releases/tag/v${version}";
+    changelog = "https://github.com/enowars/enochecker_core/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ fwc ];
   };
-}
+})

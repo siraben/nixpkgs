@@ -8,7 +8,7 @@
   tlsh,
   setuptools,
 }:
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "telfhash";
   version = "0.9.8";
   pyproject = true;
@@ -16,7 +16,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "trendmicro";
     repo = "telfhash";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "124zajv43wx9l8rvdvmzcnbh0xpzmbn253pznpbjwvygfx16gq02";
   };
 
@@ -48,4 +48,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = [ ];
   };
-}
+})

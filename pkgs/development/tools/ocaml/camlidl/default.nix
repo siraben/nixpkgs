@@ -6,7 +6,7 @@
   writeText,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ocaml${ocaml.version}-camlidl";
   version = "1.12";
 
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     cat >$out/lib/ocaml/${ocaml.version}/site-lib/camlidl/META <<EOF
     # Courtesy of GODI
     description = "Stub generator"
-    version = "${version}"
+    version = "${finalAttrs.version}"
     archive(byte) = "com.cma"
     archive(native) = "com.cmxa"
     EOF
@@ -57,4 +57,4 @@ stdenv.mkDerivation rec {
     maintainers = [ lib.maintainers.roconnor ];
     broken = !(lib.versionAtLeast ocaml.version "4.03");
   };
-}
+})

@@ -5,7 +5,7 @@
   poetry-core,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "logging-journald";
   version = "0.6.7";
   pyproject = true;
@@ -13,7 +13,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "mosquito";
     repo = "logging-journald";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-RQ9opkAOZfhYuqOXJ2Mtnig8soL+lCveYH2YdXL1AGM=";
   };
 
@@ -30,4 +30,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

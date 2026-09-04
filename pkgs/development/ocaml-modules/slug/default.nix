@@ -8,7 +8,7 @@
   alcotest,
 }:
 
-buildDunePackage rec {
+buildDunePackage (finalAttrs: {
   pname = "slug";
   version = "1.0.1";
 
@@ -17,7 +17,7 @@ buildDunePackage rec {
   src = fetchFromGitHub {
     owner = "thangngoc89";
     repo = "ocaml-slug";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-pIk/0asSyibXbwmBSBuLwl2SS9aw6dNDDvwO+1VJGf8=";
   };
 
@@ -36,4 +36,4 @@ buildDunePackage rec {
     maintainers = [ lib.maintainers.niols ];
     homepage = "https://github.com/thangngoc89/ocaml-slug";
   };
-}
+})

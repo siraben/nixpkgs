@@ -44,12 +44,12 @@ in
 
 assert (ch4backend.pname == "ucx" || ch4backend.pname == "libfabric");
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "mpich";
   version = "5.0.1";
 
   src = fetchurl {
-    url = "https://www.mpich.org/static/downloads/${version}/mpich-${version}.tar.gz";
+    url = "https://www.mpich.org/static/downloads/${finalAttrs.version}/mpich-${finalAttrs.version}.tar.gz";
     hash = "sha256-jBgyoT3azwcWhQafX639Hyh3op4aYoZSiSxlIRsfMyc=";
   };
 
@@ -164,4 +164,4 @@ stdenv.mkDerivation rec {
     maintainers = [ lib.maintainers.markuskowa ];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
-}
+})

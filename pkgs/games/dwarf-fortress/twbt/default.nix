@@ -36,16 +36,16 @@ let
       throw "[TWBT] Unsupported Dwarf Fortress version: ${dfVersion}";
 in
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "twbt";
   version = release.twbtRelease;
 
   src = fetchurl {
     url =
-      if version == "6.xx" then
-        "https://github.com/thurin/df-twbt/releases/download/${release.dfhackRelease}/twbt-${version}-linux64-${release.dfhackRelease}.zip"
+      if finalAttrs.version == "6.xx" then
+        "https://github.com/thurin/df-twbt/releases/download/${release.dfhackRelease}/twbt-${finalAttrs.version}-linux64-${release.dfhackRelease}.zip"
       else
-        "https://github.com/mifki/df-twbt/releases/download/v${version}/twbt-${version}-linux.zip";
+        "https://github.com/mifki/df-twbt/releases/download/v${finalAttrs.version}/twbt-${finalAttrs.version}-linux.zip";
     inherit (release) hash;
   };
 
@@ -80,4 +80,4 @@ stdenvNoCC.mkDerivation rec {
     platforms = platforms.linux;
     homepage = "https://github.com/mifki/df-twbt";
   };
-}
+})

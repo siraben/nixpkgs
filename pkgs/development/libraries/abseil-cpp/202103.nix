@@ -8,14 +8,14 @@
   cxxStandard ? null,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "abseil-cpp";
   version = "20210324.2";
 
   src = fetchFromGitHub {
     owner = "abseil";
     repo = "abseil-cpp";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-fcxPhuI2eL/fnd6nT11p8DpUNwGNaXZmd03yOiZcOT0=";
   };
 
@@ -66,4 +66,4 @@ stdenv.mkDerivation rec {
     # Requires LFS64 APIs. 202401 and later are fine.
     broken = stdenv.hostPlatform.isMusl;
   };
-}
+})

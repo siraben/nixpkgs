@@ -7,13 +7,13 @@
   rst2pdf,
   lib,
 }:
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "sphinxcontrib-mermaid";
   version = "2.0.0";
   pyproject = true;
 
   src = fetchPypi {
-    inherit version;
+    inherit (finalAttrs) version;
     pname = "sphinxcontrib_mermaid";
     hash = "sha256-z099RT0AETLqul0f31PUIEnwLpEyE8+DN0J0g7/KJvQ=";
   };
@@ -34,4 +34,4 @@ buildPythonPackage rec {
     license = lib.licenses.bsd2;
     maintainers = [ ];
   };
-}
+})

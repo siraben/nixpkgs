@@ -7,7 +7,7 @@
   stdenv,
   versionCheckHook,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "manubulon-snmp-plugins";
   version = "2.1.0-unstable-2024-03-13";
 
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
   nativeInstallCheckInputs = [ versionCheckHook ];
   versionCheckProgram = "${placeholder "out"}/bin/check_snmp_int.pl";
   preVersionCheck = ''
-    version=${builtins.head (lib.splitString "-" version)}
+    version=${builtins.head (lib.splitString "-" finalAttrs.version)}
   '';
 
   passthru = {
@@ -57,11 +57,11 @@ stdenv.mkDerivation rec {
   };
 
   meta = {
-    changelog = "https://github.com/SteScho/manubulon-snmp/releases/tag/v${version}";
+    changelog = "https://github.com/SteScho/manubulon-snmp/releases/tag/v${finalAttrs.version}";
     description = "Set of Icinga/Nagios plugins to check hosts and hardware with the SNMP protocol";
     homepage = "https://github.com/SteScho/manubulon-snmp";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ jwillikers ];
   };
-}
+})

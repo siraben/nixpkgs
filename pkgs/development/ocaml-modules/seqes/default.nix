@@ -7,11 +7,11 @@
   alcotest,
 }:
 
-buildDunePackage rec {
+buildDunePackage (finalAttrs: {
   pname = "seqes";
   version = "0.4";
   src = fetchurl {
-    url = "https://gitlab.com/raphael-proust/seqes/-/archive/${version}/seqes-${version}.tar.gz";
+    url = "https://gitlab.com/raphael-proust/seqes/-/archive/${finalAttrs.version}/seqes-${finalAttrs.version}.tar.gz";
     hash = "sha256-E4BalN68CJP7u6NSC0XBooWvUeSNqV+3KEOtoJ4g/dM=";
   };
 
@@ -30,4 +30,4 @@ buildDunePackage rec {
     license = lib.licenses.lgpl2; # Same as OCaml
     maintainers = [ lib.maintainers.ulrikstrid ];
   };
-}
+})

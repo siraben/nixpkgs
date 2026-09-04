@@ -16,14 +16,14 @@
   gtksourceview5,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "elementary-iconbrowser";
   version = "8.1.0";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "iconbrowser";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-o73RtSkhH1s4dtIvPPuy+CSLChIPAkkXy5bQ8LloitQ=";
   };
 
@@ -64,4 +64,4 @@ stdenv.mkDerivation rec {
     teams = [ lib.teams.pantheon ];
     mainProgram = "io.elementary.iconbrowser";
   };
-}
+})

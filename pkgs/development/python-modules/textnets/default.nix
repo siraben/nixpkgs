@@ -27,7 +27,7 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "textnets";
   version = "0.10.5";
   pyproject = true;
@@ -35,7 +35,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "jboynyc";
     repo = "textnets";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-0KBKpA4nnHxem65tZTtZcXl/EVS1ifWOXGT7a/750Gk=";
   };
 
@@ -86,8 +86,8 @@ buildPythonPackage rec {
   meta = {
     description = "Text analysis with networks";
     homepage = "https://textnets.readthedocs.io";
-    changelog = "https://github.com/jboynyc/textnets/blob/v${version}/HISTORY.rst";
+    changelog = "https://github.com/jboynyc/textnets/blob/v${finalAttrs.version}/HISTORY.rst";
     license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ jboy ];
   };
-}
+})

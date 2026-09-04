@@ -10,14 +10,14 @@
   sybil,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "flufl-lock";
   version = "9.1.0";
   pyproject = true;
 
   src = fetchPypi {
     pname = "flufl_lock";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-jXPIjKt8mLeSZxApnBFivsfOJT+bnF8KLKgDf58kAjQ=";
   };
 
@@ -46,8 +46,8 @@ buildPythonPackage rec {
   meta = {
     description = "NFS-safe file locking with timeouts for POSIX and Windows";
     homepage = "https://flufllock.readthedocs.io/";
-    changelog = "https://gitlab.com/warsaw/flufl.lock/-/blob/${version}/docs/NEWS.rst";
+    changelog = "https://gitlab.com/warsaw/flufl.lock/-/blob/${finalAttrs.version}/docs/NEWS.rst";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ qyliss ];
   };
-}
+})

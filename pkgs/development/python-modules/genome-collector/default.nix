@@ -8,14 +8,14 @@
   setuptools,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "genome-collector";
   version = "0.1.6";
   pyproject = true;
 
   src = fetchPypi {
     pname = "genome_collector";
-    inherit version;
+    inherit (finalAttrs) version;
     sha256 = "0023ihrz0waxbhq28xh1ymvk51ih882y9psg4glm6s9d1zmqvdph";
   };
 
@@ -43,4 +43,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

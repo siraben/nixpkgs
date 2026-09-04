@@ -7,13 +7,13 @@
   lrcalc,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "lrcalc-python";
   version = "2.1";
   format = "setuptools";
 
   src = fetchPypi {
-    inherit version;
+    inherit (finalAttrs) version;
     pname = "lrcalc";
     sha256 = "e3a0509aeda487b412b391a52e817ca36b5c063a8305e09fd54d53259dd6aaa9";
   };
@@ -33,4 +33,4 @@ buildPythonPackage rec {
     teams = [ lib.teams.sage ];
     license = lib.licenses.gpl3;
   };
-}
+})

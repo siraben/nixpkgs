@@ -5,7 +5,7 @@
   uglify-js,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "zerobin";
   version = "1.0.5";
   format = "setuptools";
@@ -13,7 +13,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "Tygs";
     repo = "0bin";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "1dfy3h823ylz4w2vv3mrmnmiyvf6rvyvsp4j3llr074w9id0zy16";
   };
 
@@ -61,9 +61,9 @@ python3Packages.buildPythonApplication rec {
   meta = {
     description = "Client side encrypted pastebin";
     homepage = "https://github.com/Tygs/0bin";
-    changelog = "https://github.com/Tygs/0bin/releases/tag/v${version}";
+    changelog = "https://github.com/Tygs/0bin/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.wtfpl;
     platforms = lib.platforms.all;
     maintainers = with lib.maintainers; [ julm ];
   };
-}
+})

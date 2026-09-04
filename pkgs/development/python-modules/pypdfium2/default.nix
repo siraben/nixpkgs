@@ -34,7 +34,7 @@ let
   };
 
 in
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pypdfium2";
   version = "5.11.0";
   pyproject = true;
@@ -42,7 +42,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "pypdfium2-team";
     repo = "pypdfium2";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-b15g/FlB7lHiu19KotHXMvY1j+m0TZ4xVAy84wBXcbA=";
   };
 
@@ -95,7 +95,7 @@ buildPythonPackage rec {
   };
 
   meta = {
-    changelog = "https://github.com/pypdfium2-team/pypdfium2/releases/tag/${version}";
+    changelog = "https://github.com/pypdfium2-team/pypdfium2/releases/tag/${finalAttrs.version}";
     description = "Python bindings to PDFium";
     homepage = "https://pypdfium2.readthedocs.io/";
     license = with lib.licenses; [
@@ -104,4 +104,4 @@ buildPythonPackage rec {
     ];
     maintainers = with lib.maintainers; [ booxter ];
   };
-}
+})

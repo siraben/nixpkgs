@@ -6,7 +6,7 @@
   isPy3k,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "jieba";
   version = "0.42.1";
   format = "setuptools";
@@ -15,7 +15,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "fxsjy";
     repo = "jieba";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "028vmd6sj6wn9l1ilw7qfmlpyiysnlzdgdlhwxs6j4fvq0gyrwxk";
   };
 
@@ -35,4 +35,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     teams = [ lib.teams.tts ];
   };
-}
+})

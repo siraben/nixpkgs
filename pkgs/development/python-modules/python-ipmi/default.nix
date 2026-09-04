@@ -6,7 +6,7 @@
   setuptools,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "python-ipmi";
   version = "0.5.8";
   pyproject = true;
@@ -14,13 +14,13 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "kontron";
     repo = "python-ipmi";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-9xPnLNyHKvVebRM/mIoEVzhT2EwmgJxCTztLSZrnXVc=";
   };
 
   postPatch = ''
     substituteInPlace setup.py \
-      --replace-fail "version=version," "version='${version}',"
+      --replace-fail "version=version," "version='${finalAttrs.version}',"
   '';
 
   build-system = [ setuptools ];
@@ -36,4 +36,4 @@ buildPythonPackage rec {
     maintainers = with lib.maintainers; [ fab ];
     mainProgram = "ipmitool.py";
   };
-}
+})

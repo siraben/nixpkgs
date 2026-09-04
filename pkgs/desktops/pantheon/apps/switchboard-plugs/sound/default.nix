@@ -17,14 +17,14 @@
   switchboard,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "switchboard-plug-sound";
   version = "8.0.3";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "settings-sound";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-jiaxb8aQuGrPcIaR28L2i2J3z4eL+OdrbCJ/abuXvuY=";
   };
 
@@ -59,4 +59,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     teams = [ lib.teams.pantheon ];
   };
-}
+})

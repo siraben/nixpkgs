@@ -6,14 +6,14 @@
   obs-studio,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "pixel-art";
   version = "0.0.4";
 
   src = fetchFromGitHub {
     owner = "dspstanky";
     repo = "pixel-art";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-7o63e7nK/JsK2SQg0AzUYcc4ZsPx0lt8gtAQm8Zy+9w=";
   };
 
@@ -27,4 +27,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2Only;
     inherit (obs-studio.meta) platforms;
   };
-}
+})

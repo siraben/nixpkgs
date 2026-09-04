@@ -8,14 +8,14 @@
   zlib,
 }:
 
-buildDunePackage rec {
+buildDunePackage (finalAttrs: {
   pname = "taglib";
   version = "0.3.10";
 
   src = fetchFromGitHub {
     owner = "savonet";
     repo = "ocaml-taglib";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "sha256-tAvzVr0PW1o0kKFxdi/ks4obqnyBm8YfiiFupXZkUho=";
   };
 
@@ -37,4 +37,4 @@ buildDunePackage rec {
     ]; # GNU Library Public License 2 Linking Exception
     maintainers = with lib.maintainers; [ dandellion ];
   };
-}
+})

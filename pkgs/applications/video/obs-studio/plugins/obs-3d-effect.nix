@@ -6,14 +6,14 @@
   obs-studio,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "obs-3d-effect";
   version = "0.1.4";
 
   src = fetchFromGitHub {
     owner = "exeldro";
     repo = "obs-3d-effect";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "sha256-5cPXfEcKIATFQktjIN5lmYjvakYe/k26aHKlJz5FqPE=";
   };
 
@@ -35,4 +35,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2Plus;
     inherit (obs-studio.meta) platforms;
   };
-}
+})

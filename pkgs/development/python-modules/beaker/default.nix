@@ -16,7 +16,7 @@
   setuptools,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "beaker";
   version = "1.13.0";
   pyproject = true;
@@ -25,7 +25,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "bbangert";
     repo = "beaker";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-HzjhOPXElwKoJLrhGIbVn798tbX/kaS1EpQIX+vXCtE=";
   };
 
@@ -62,4 +62,4 @@ buildPythonPackage rec {
     maintainers = [ ];
     knownVulnerabilities = [ "CVE-2013-7489" ];
   };
-}
+})

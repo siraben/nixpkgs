@@ -6,7 +6,7 @@
   pytest-cov-stub,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "ratelimit";
   version = "2.2.1";
   format = "setuptools";
@@ -14,7 +14,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "tomasbasham";
     repo = "ratelimit";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "04hy3hhh5xdqcsz0lx8j18zbj88kh5ik4wyi5d3a5sfy2hx70in2";
   };
 
@@ -33,4 +33,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

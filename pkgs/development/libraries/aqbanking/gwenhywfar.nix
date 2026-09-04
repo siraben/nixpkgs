@@ -23,12 +23,12 @@
 let
   inherit ((import ./sources.nix).gwenhywfar) hash releaseId version;
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "gwenhywfar";
   inherit version;
 
   src = fetchurl {
-    url = "https://www.aquamaniac.de/rdm/attachments/download/${releaseId}/gwenhywfar-${version}.tar.gz";
+    url = "https://www.aquamaniac.de/rdm/attachments/download/${releaseId}/gwenhywfar-${finalAttrs.version}.tar.gz";
     inherit hash;
   };
 
@@ -93,4 +93,4 @@ stdenv.mkDerivation rec {
     maintainers = [ ];
     platforms = lib.platforms.linux;
   };
-}
+})

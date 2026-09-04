@@ -10,7 +10,7 @@
   zigpy,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "zigpy-xbee";
   version = "0.21.1";
   pyproject = true;
@@ -18,7 +18,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "zigpy";
     repo = "zigpy-xbee";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-ALwhl9WUDkv0POufF/G/rZrn+ITbMdh6y86lShy6ZTg=";
   };
 
@@ -52,11 +52,11 @@ buildPythonPackage rec {
   ];
 
   meta = {
-    changelog = "https://github.com/zigpy/zigpy-xbee/releases/tag/${version}";
+    changelog = "https://github.com/zigpy/zigpy-xbee/releases/tag/${finalAttrs.version}";
     description = "Library which communicates with XBee radios for zigpy";
     homepage = "https://github.com/zigpy/zigpy-xbee";
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ mvnetbiz ];
     platforms = lib.platforms.linux;
   };
-}
+})

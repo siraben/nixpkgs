@@ -5,14 +5,14 @@
   flask,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "flask-swagger-ui";
   version = "5.21.0";
   format = "setuptools";
 
   src = fetchPypi {
     pname = "flask_swagger_ui";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-hy0DjcEaaOrKuI9vBb48UzqjAEU+Jzd12tPgKbMeA9Q=";
   };
 
@@ -26,4 +26,4 @@ buildPythonPackage rec {
     description = "Swagger UI blueprint for Flask";
     maintainers = with lib.maintainers; [ vanschelven ];
   };
-}
+})

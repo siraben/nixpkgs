@@ -9,7 +9,7 @@
   hex,
 }:
 
-buildDunePackage rec {
+buildDunePackage (finalAttrs: {
   pname = "uecc";
   version = "0.4";
 
@@ -18,7 +18,7 @@ buildDunePackage rec {
   src = fetchFromGitLab {
     owner = "nomadic-labs";
     repo = "ocaml-uecc";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-o/DylUx+olRRloiCU6b1t/xOmW8A5IZB2n3U7fkMo80=";
   };
 
@@ -40,4 +40,4 @@ buildDunePackage rec {
     license = lib.licenses.isc;
     maintainers = [ lib.maintainers.ulrikstrid ];
   };
-}
+})

@@ -8,7 +8,7 @@
   setuptools,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "json-home-client";
   version = "1.1.1";
   pyproject = true;
@@ -16,12 +16,12 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "plinss";
     repo = "json_home_client";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-DhnvvY1nMe1sdRE+OgjBt4TsLmiqnD8If4rl700zW9E=";
   };
 
   postPatch = ''
-    sed -i -e 's/0.0.0/${version}/' setup.py
+    sed -i -e 's/0.0.0/${finalAttrs.version}/' setup.py
   '';
 
   build-system = [ setuptools ];
@@ -40,4 +40,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = [ ];
   };
-}
+})

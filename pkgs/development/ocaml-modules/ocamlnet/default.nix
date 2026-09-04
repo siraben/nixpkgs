@@ -13,12 +13,12 @@
   nettle,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ocaml${ocaml.version}-ocamlnet";
   version = "4.1.9";
 
   src = fetchurl {
-    url = "http://download.camlcity.org/download/ocamlnet-${version}.tar.gz";
+    url = "http://download.camlcity.org/download/ocamlnet-${finalAttrs.version}.tar.gz";
     sha256 = "1vlwxjxr946gdl61a1d7yk859cijq45f60dhn54ik3w4g6cx33pr";
   };
 
@@ -74,4 +74,4 @@ stdenv.mkDerivation rec {
     inherit (ocaml.meta) platforms;
     broken = lib.versionOlder ocaml.version "4.02" || lib.versionAtLeast ocaml.version "5.0";
   };
-}
+})

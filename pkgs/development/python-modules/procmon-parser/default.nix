@@ -8,7 +8,7 @@
   six,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "procmon-parser";
   version = "0.3.13";
   format = "setuptools";
@@ -16,7 +16,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "eronnen";
     repo = "procmon-parser";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-XkMf3MQK4WFRLl60XHDG/j2gRHAiz7XL9MmC6SRg9RE=";
   };
 
@@ -35,8 +35,8 @@ buildPythonPackage rec {
   meta = {
     description = "Parser to process monitor file formats";
     homepage = "https://github.com/eronnen/procmon-parser/";
-    changelog = "https://github.com/eronnen/procmon-parser/releases/tag/v${version}";
+    changelog = "https://github.com/eronnen/procmon-parser/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

@@ -18,7 +18,7 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pretix-sepadebit";
   version = "2.7.0";
   pyproject = true;
@@ -26,7 +26,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "pretix";
     repo = "pretix-sepadebit";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-Xnp7aic+Xf4wJzJbWqhsfMajT4AOQGQMIGIewJ5B37o=";
   };
 
@@ -67,4 +67,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ bbenno ];
   };
-}
+})

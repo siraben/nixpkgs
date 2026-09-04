@@ -8,14 +8,14 @@
   pkg-config,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "obs-livesplit-one";
   version = "0.4.1";
 
   src = fetchFromGitHub {
     owner = "LiveSplit";
     repo = "obs-livesplit-one";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "sha256-4Ar4ChSl226BVFyAnqpWDLxsZF63bxl++sWD+6aENW8=";
   };
 
@@ -45,4 +45,4 @@ rustPlatform.buildRustPackage rec {
     maintainers = [ lib.maintainers.Bauke ];
     inherit (obs-studio.meta) platforms;
   };
-}
+})

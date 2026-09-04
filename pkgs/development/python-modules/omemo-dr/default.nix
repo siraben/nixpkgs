@@ -8,7 +8,7 @@
   setuptools,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "omemo-dr";
   version = "1.2.0";
   pyproject = true;
@@ -17,7 +17,7 @@ buildPythonPackage rec {
     domain = "dev.gajim.org";
     owner = "gajim";
     repo = "omemo-dr";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-8+uBO7Nl6YcEwthWmChqCTLvUelF8QJl+dHzkqbPVqM=";
   };
 
@@ -35,8 +35,8 @@ buildPythonPackage rec {
   meta = {
     description = "OMEMO Double Ratchet";
     homepage = "https://dev.gajim.org/gajim/omemo-dr/";
-    changelog = "https://dev.gajim.org/gajim/omemo-dr/-/blob/v${version}/CHANGELOG.md";
+    changelog = "https://dev.gajim.org/gajim/omemo-dr/-/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.gpl3Only;
     maintainers = [ ];
   };
-}
+})

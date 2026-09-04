@@ -12,7 +12,7 @@
   vips,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pyvips";
   version = "3.1.1";
   pyproject = true;
@@ -20,7 +20,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "libvips";
     repo = "pyvips";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-BPQFndikPSsKU4HPauTAewab32IumckG/y3lhUUNbMU=";
   };
 
@@ -69,10 +69,10 @@ buildPythonPackage rec {
   meta = {
     description = "Python wrapper for libvips";
     homepage = "https://github.com/libvips/pyvips";
-    changelog = "https://github.com/libvips/pyvips/blob/v${version}/CHANGELOG.rst";
+    changelog = "https://github.com/libvips/pyvips/blob/v${finalAttrs.version}/CHANGELOG.rst";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [
       anthonyroussel
     ];
   };
-}
+})

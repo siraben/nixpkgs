@@ -5,14 +5,14 @@
   mesa,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pyqt5-sip";
   version = "12.17.0";
   format = "setuptools";
 
   src = fetchPypi {
     pname = "pyqt5_sip";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-aC2tzb0iOa+f3AwGKOJ3a4IOEovsiLSbjWkv5oL5C08=";
   };
 
@@ -27,4 +27,4 @@ buildPythonPackage rec {
     license = lib.licenses.gpl3Only;
     inherit (mesa.meta) platforms;
   };
-}
+})

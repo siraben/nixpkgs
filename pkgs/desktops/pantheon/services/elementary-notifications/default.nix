@@ -16,14 +16,14 @@
   wrapGAppsHook4,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "elementary-notifications";
   version = "8.1.2";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "notifications";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-qod76RSsCO9NvjnYTLRW6P1UyR1K6Uu9fEjU2WgHUWk=";
   };
 
@@ -63,4 +63,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     mainProgram = "io.elementary.notifications";
   };
-}
+})

@@ -5,7 +5,7 @@
   setuptools,
   unittestCheckHook,
 }:
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "giturlparse";
   version = "0.15.0";
   pyproject = true;
@@ -13,7 +13,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "nephila";
     repo = "giturlparse";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-EGhmWudQjzqw8xK/pIj5nZqosBX2lnYEgNRNQ/ePEmo=";
   };
 
@@ -32,4 +32,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ yajo ];
   };
-}
+})

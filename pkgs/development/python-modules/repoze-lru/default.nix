@@ -6,14 +6,14 @@
   pytestCheckHook,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "repoze-lru";
   version = "0.7";
   pyproject = true;
 
   src = fetchPypi {
     pname = "repoze.lru";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-BCmnXhk4Dk7VDAaU4mrIgZtOp4Ue4fx1g8hXLbgK/3c=";
   };
 
@@ -36,8 +36,8 @@ buildPythonPackage rec {
   meta = {
     description = "Tiny LRU cache implementation and decorator";
     homepage = "http://www.repoze.org/";
-    changelog = "https://github.com/repoze/repoze.lru/blob/${version}/CHANGES.rst";
+    changelog = "https://github.com/repoze/repoze.lru/blob/${finalAttrs.version}/CHANGES.rst";
     license = lib.licenses.bsd0;
     maintainers = [ ];
   };
-}
+})

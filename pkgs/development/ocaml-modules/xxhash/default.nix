@@ -9,7 +9,7 @@
   ppx_expect,
 }:
 
-buildDunePackage rec {
+buildDunePackage (finalAttrs: {
   pname = "xxhash";
   version = "0.2";
 
@@ -18,7 +18,7 @@ buildDunePackage rec {
   src = fetchFromGitHub {
     owner = "314eter";
     repo = "ocaml-xxhash";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-0+ac5EWV9DCVMT4wOcXC95GVEwsUIZzFn2laSzmK6jE=";
   };
 
@@ -48,4 +48,4 @@ buildDunePackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ toastal ];
   };
-}
+})

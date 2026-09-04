@@ -5,14 +5,14 @@
   setuptools,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "types-psycopg2";
   version = "2.9.21.20251012";
   pyproject = true;
 
   src = fetchPypi {
     pname = "types_psycopg2";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-TNr9OJJ9oM/eSYBPOauFr9nG6cSSgA5C8fDBobAxKTU=";
   };
 
@@ -28,4 +28,4 @@ buildPythonPackage rec {
     license = lib.licenses.asl20;
     maintainers = [ ];
   };
-}
+})

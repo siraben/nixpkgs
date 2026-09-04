@@ -34,7 +34,7 @@
   torch,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "gymnasium";
   version = "1.3.0";
 
@@ -43,7 +43,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "Farama-Foundation";
     repo = "gymnasium";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-asQ/RqnmGRoVdwBkp4RIkqzGtQ7PnISt8/mRcXrNbBc=";
   };
 
@@ -114,8 +114,8 @@ buildPythonPackage rec {
   meta = {
     description = "Standard API for reinforcement learning and a diverse set of reference environments (formerly Gym)";
     homepage = "https://github.com/Farama-Foundation/Gymnasium";
-    changelog = "https://github.com/Farama-Foundation/Gymnasium/releases/tag/v${version}";
+    changelog = "https://github.com/Farama-Foundation/Gymnasium/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ GaetanLepage ];
   };
-}
+})

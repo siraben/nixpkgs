@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "check-systemd";
   version = "5.0.0";
   pyproject = true;
@@ -12,7 +12,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "Josef-Friedrich";
     repo = "check_systemd";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-i9lMF8SZwTxVCQaHQcEWqdKiOQ4ghcp5H/S+frfZXRw=";
   };
 
@@ -47,4 +47,4 @@ python3Packages.buildPythonApplication rec {
     maintainers = with lib.maintainers; [ symphorien ];
     platforms = lib.platforms.linux;
   };
-}
+})

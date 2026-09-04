@@ -5,14 +5,14 @@
   cacert,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "matrix-commander";
   version = "8.0.5";
 
   src = fetchFromGitHub {
     owner = "8go";
     repo = "matrix-commander";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-eNgnjErPi5q9yA/2iEg3+CoN2xbopmFOpbgU/7GhoAQ=";
   };
 
@@ -53,4 +53,4 @@ python3Packages.buildPythonApplication rec {
     platforms = lib.platforms.unix;
     maintainers = [ lib.maintainers.seb314 ];
   };
-}
+})

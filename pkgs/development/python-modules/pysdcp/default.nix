@@ -4,14 +4,14 @@
   fetchPypi,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "pysdcp";
   version = "1";
   format = "setuptools";
 
   src = fetchPypi {
     pname = "pySDCP";
-    inherit version;
+    inherit (finalAttrs) version;
     sha256 = "07396lsn610izaravqc6j5f6m0wjrzgc0d1r9dwqzj15g5zfc7wm";
   };
 
@@ -26,4 +26,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

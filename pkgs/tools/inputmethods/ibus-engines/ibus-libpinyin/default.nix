@@ -22,14 +22,14 @@
   libnotify,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ibus-libpinyin";
   version = "1.16.5";
 
   src = fetchFromGitHub {
     owner = "libpinyin";
     repo = "ibus-libpinyin";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-3QZHovjzGifWLFVudCnJOwMn/M3Nzfn8CZ1HpQwzUVw=";
   };
 
@@ -85,4 +85,4 @@ stdenv.mkDerivation rec {
     ];
     platforms = lib.platforms.linux;
   };
-}
+})

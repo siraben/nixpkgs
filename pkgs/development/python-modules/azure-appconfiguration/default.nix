@@ -7,14 +7,14 @@
   setuptools,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "azure-appconfiguration";
   version = "1.8.0";
   pyproject = true;
 
   src = fetchPypi {
     pname = "azure_appconfiguration";
-    inherit version;
+    inherit (finalAttrs) version;
     hash = "sha256-Fo57AbNQ9dgGotk1qOw2lMWcY5TVocQJ6wX+8LVrGqA=";
   };
 
@@ -33,8 +33,8 @@ buildPythonPackage rec {
   meta = {
     description = "Microsoft App Configuration Data Library for Python";
     homepage = "https://github.com/Azure/azure-sdk-for-python/tree/master/sdk/appconfiguration/azure-appconfiguration";
-    changelog = "https://github.com/Azure/azure-sdk-for-python/blob/azure-appconfiguration_${version}/sdk/appconfiguration/azure-appconfiguration/CHANGELOG.md";
+    changelog = "https://github.com/Azure/azure-sdk-for-python/blob/azure-appconfiguration_${finalAttrs.version}/sdk/appconfiguration/azure-appconfiguration/CHANGELOG.md";
     license = lib.licenses.mit;
     maintainers = [ ];
   };
-}
+})

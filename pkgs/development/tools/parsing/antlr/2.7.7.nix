@@ -5,11 +5,11 @@
   jdk,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "antlr";
   version = "2.7.7";
   src = fetchurl {
-    url = "https://www.antlr2.org/download/antlr-${version}.tar.gz";
+    url = "https://www.antlr2.org/download/antlr-${finalAttrs.version}.tar.gz";
     sha256 = "1ffvcwdw73id0dk6pj2mlxjvbg0662qacx4ylayqcxgg381fnfl5";
   };
   patches = [ ./2.7.7-fixes.patch ];
@@ -32,4 +32,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.bsd3;
     platforms = lib.platforms.unix;
   };
-}
+})
