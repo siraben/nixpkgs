@@ -4,25 +4,30 @@
   perl,
   pandoc,
   fetchFromGitHub,
+  makeWrapper,
   xdotool,
   wmctrl,
   xprop,
   net-tools,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "jumpapp";
   version = "1.2";
+
+  strictDeps = true;
+  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "mkropat";
     repo = "jumpapp";
-    rev = "v${version}";
-    sha256 = "sha256-9sh0+zpDxwqRGC1jUgGTDdSDRdAFsL12mQ/Opwh/UBc=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-9sh0+zpDxwqRGC1jUgGTDdSDRdAFsL12mQ/Opwh/UBc=";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = [ "PREFIX=${placeholder "out"}" ];
   nativeBuildInputs = [
+    makeWrapper
     pandoc
     perl
   ];
@@ -33,19 +38,18 @@ stdenv.mkDerivation rec {
     net-tools
     perl
   ];
-  postFixup =
-    let
-      runtimePath = lib.makeBinPath buildInputs;
-    in
-    ''
-      sed -i "2 i export PATH=${runtimePath}:\$PATH" $out/bin/jumpapp
-      sed -i "2 i export PATH=${perl}/bin:\$PATH" $out/bin/jumpappify-desktop-entry
-    '';
+  postFixup = ''
+    wrapProgram $out/bin/jumpapp \
+      --prefix PATH : ${lib.makeBinPath finalAttrs.buildInputs}
+    wrapProgram $out/bin/jumpappify-desktop-entry \
+      --prefix PATH : ${lib.getBin perl}/bin
+  '';
 
   meta = {
     homepage = "https://github.com/mkropat/jumpapp";
     description = "Run-or-raise application switcher for any X11 desktop";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.matklad ];
+    mainProgram = "jumpapp";
   };
-}
+})
