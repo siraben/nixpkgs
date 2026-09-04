@@ -2,12 +2,10 @@ diff --git a/util/pandoc.go b/util/pandoc.go
 index 5dbc58d..5f32644 100644
 --- a/util/pandoc.go
 +++ b/util/pandoc.go
-@@ -97,6 +97,8 @@ var (
- )
- 
- func InitPandoc() {
-+    PandocBinPath = "@pandoc_path@"
-+    return
- 	if ContainerStd != Container {
- 		return
+@@ -150,7 +150,7 @@ func InitPandoc(customPandocBinPath string) {
  	}
+
+ 	tempPandocDir := filepath.Join(TempDir, "pandoc")
+-	installedPandocBinPath := pandocBinPath(filepath.Join(WorkingDir, "pandoc"))
++	installedPandocBinPath := "@pandoc_path@"
+ 	installedPandocVer := getPandocVer(installedPandocBinPath)

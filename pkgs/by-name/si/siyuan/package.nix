@@ -34,20 +34,20 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "siyuan";
-  version = "3.7.3";
+  version = "3.8.2";
 
   src = fetchFromGitHub {
     owner = "siyuan-note";
     repo = "siyuan";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-7Uoo8vYaci8ROk5pqs14dNrU3q7UsadDXyw1mW8Mx5I=";
+    hash = "sha256-MzsfeAWApHLDt4+aC9/O+5Dl8OD8p0l+/8tb2ZZyTos=";
   };
 
   kernel = buildGoModule {
     name = "${finalAttrs.pname}-${finalAttrs.version}-kernel";
     inherit (finalAttrs) src;
     sourceRoot = "${finalAttrs.src.name}/kernel";
-    vendorHash = "sha256-weg5MRidW8JId13Ug1VaVgaIcJqydGBR/EquFOS3QO4=";
+    vendorHash = "sha256-x8saxKDLeZdEbTBjNXnOBU9zkliZXm6D92Mom8CUCbs=";
 
     patches = [
       (replaceVars ./set-pandoc-path.patch {
@@ -71,8 +71,23 @@ stdenv.mkDerivation (finalAttrs: {
     ];
     tags = [ "fts5" ];
 
-    # filepath.ToSlash does not convert Windows path separators on Unix.
-    checkFlags = [ "-skip=^TestSyObjectBase/windows_backslash$" ];
+    checkFlags = [
+      (
+        "-skip="
+        + lib.concatStringsSep "|" [
+          # filepath.ToSlash does not convert Windows path separators on Unix.
+          "^TestSyObjectBase/windows_backslash$"
+          # The test asserts as a precondition that ".xyz" has no MIME type, but
+          # the build environment's mime.types maps it to chemical/x-xyz, so the
+          # precondition fails before the security behaviour is ever exercised.
+          "^TestSecureAssetContentHeadersForcesAttachmentOnUnknownExtension$"
+          # Asserts no pandoc is selected when none is bundled in the workspace.
+          # set-pandoc-path.patch deliberately points the built-in pandoc at the
+          # store, so one is always found and the assertion cannot hold here.
+          "^TestInitPandocDoesNotUseWorkspaceTemp$"
+        ]
+      )
+    ];
   };
 
   nativeBuildInputs = [
@@ -98,7 +113,7 @@ stdenv.mkDerivation (finalAttrs: {
       ;
     inherit pnpm;
     fetcherVersion = 4;
-    hash = "sha256-i7llORlVU1CCmyVCvJr7xCQffTmbmIA9rT68Raqg5y8=";
+    hash = "sha256-ACWwXIwuiLp/e+1dwlClzAi8ZC6oEQc3ETFK/WvVnGk=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/app";
@@ -108,6 +123,14 @@ stdenv.mkDerivation (finalAttrs: {
   postConfigure = ''
     # remove prebuilt pandoc archives
     rm -r pandoc
+
+    # ... which makes electron-builder's afterPack hook fail, as it insists on
+    # unpacking a bundled pandoc.zip. The kernel is patched to use pandoc from
+    # the store instead, so there is nothing to unpack.
+    substituteInPlace scripts/afterPack.js \
+      --replace-fail \
+        'await extractPackagedPandoc(appOutDir, packager, electronPlatformName, arch);' \
+        ""
 
     # link kernel into the correct starting place so that electron-builder can copy it to it's final location
     mkdir kernel-${platformId}
