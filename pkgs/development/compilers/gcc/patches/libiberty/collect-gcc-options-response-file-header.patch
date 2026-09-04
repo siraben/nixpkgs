@@ -1,0 +1,14 @@
+Backport of the libiberty header part of GCC commit
+619a5e5586759a3ed16baf1333728664b06b0451 (PR driver/111527).
+
+diff --git a/include/libiberty.h b/include/libiberty.h
+index 1af4fa8..bdb491b 100644
+--- a/include/libiberty.h
++++ b/include/libiberty.h
+@@ -96 +96,6 @@ extern int countargv (char * const *);
++/* Expand VAL as a response file if it begins with '@' and return the
++   result as a shell-quoted string.  */
++
++extern char *expandargstr (const char *, const char *);
++
+ /* Return the last component of a path name.  Note that we can't use a
