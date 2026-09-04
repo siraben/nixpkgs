@@ -5,24 +5,32 @@
   installShellFiles,
 }:
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "wd";
   version = "0.10.1";
+
+  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "mfaerevaag";
     repo = "wd";
-    rev = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-dlpkSKdWilNnz3dpRfN+EPx/vjIZpmZ/DMzeO9sh4z0=";
   };
+
+  strictDeps = true;
 
   nativeBuildInputs = [ installShellFiles ];
 
   installPhase = ''
+    runHook preInstall
+
     install -Dm755 wd.plugin.zsh $out/share/wd/wd.plugin.zsh
     install -Dm755 wd.sh $out/share/wd/wd.sh
     installManPage wd.1
     installShellCompletion --zsh _wd.sh
+
+    runHook postInstall
   '';
 
   meta = {
@@ -32,11 +40,11 @@ stdenvNoCC.mkDerivation rec {
       using `cd`. Why? Because `cd` seems inefficient when the folder is
       frequently visited or has a long path.
     '';
-    homepage = "https://github.com/mfaerevaag/wd";
-    changelog = "https://github.com/mfaerevaag/wd/releases/tag/v${version}";
+    homepage = finalAttrs.src.meta.homepage;
+    changelog = "https://github.com/mfaerevaag/wd/releases/tag/${finalAttrs.src.tag}";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.zimeg ];
     mainProgram = "wd";
     platforms = lib.platforms.unix;
   };
-}
+})
