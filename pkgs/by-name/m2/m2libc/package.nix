@@ -2,28 +2,19 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  fetchpatch,
+  unstableGitUpdater,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "m2libc";
-  version = "unstable-2023-05-22";
+  version = "0.2.1-unstable-2026-08-30";
 
   src = fetchFromGitHub {
     owner = "oriansj";
     repo = "M2libc";
-    rev = "de7c75f144176c3b9be77695d9bf94440445aeae";
-    hash = "sha256-248plvODhBRfmx7zOmf05ICbk8vzSbaceZJ0j+wPaAY=";
+    rev = "a65d93aaf4b439c4a12c093e15e3b253b151ba3f";
+    hash = "sha256-Bhe1+jiSxw2Q2wANd51yPY98aNF7/ImZaIgKkCLVBZg=";
   };
-
-  patches = [
-    # # aarch64: syscall: mkdir -> mkdirat
-    # https://github.com/oriansj/M2libc/pull/17
-    (fetchpatch {
-      url = "https://github.com/oriansj/M2libc/commit/ff7c3023b3ab6cfcffc5364620b25f8d0279e96b.patch";
-      hash = "sha256-QAKddv4TixIQHpFa9SVu9fAkeKbzhQaxjaWzW2yJy7A=";
-    })
-  ];
 
   installPhase = ''
     runHook preInstall
@@ -33,6 +24,11 @@ stdenv.mkDerivation (finalAttrs: {
 
     runHook postInstall
   '';
+
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://github.com/oriansj/M2libc";
+    tagPrefix = "Release_";
+  };
 
   meta = {
     description = "More standards compliant C library written in M2-Planet's C subset";
