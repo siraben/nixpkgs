@@ -549,6 +549,20 @@ in
                 default = true;
                 description = ''
                   Specifies whether password authentication is allowed.
+
+                  When PAM is enabled, this value is also used as the default for
+                  {option}`security.pam.services.sshd.unixAuth`.
+
+                  ::: {.warning}
+                  To enable password authentication only in a `Match` block, set
+                  this option and
+                  {option}`services.openssh.settings.KbdInteractiveAuthentication`
+                  to `false`, then set {option}`security.pam.services.sshd.unixAuth`
+                  to `true`. Enabling `unixAuth` makes passwords available to all
+                  SSH authentication methods that use PAM. In particular, leaving
+                  keyboard-interactive authentication enabled may allow password
+                  login outside the `Match` block.
+                  :::
                 '';
               };
               PermitRootLogin = lib.mkOption {
@@ -876,7 +890,7 @@ in
       security.pam.services.sshd = lib.mkIf (cfg.settings.UsePAM == true) {
         startSession = true;
         showMotd = true;
-        unixAuth = if cfg.settings.PasswordAuthentication == true then true else false;
+        unixAuth = lib.mkDefault (cfg.settings.PasswordAuthentication == true);
       };
 
       # These values are merged with the ones defined externally, see:
