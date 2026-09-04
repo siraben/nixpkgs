@@ -20,9 +20,9 @@
     "hash": "sha256-mBNDmPXNTW54XLnPAUwBRvkIORFM7/j0D0I2SyQPDEg="
   },
   {
-    "pname": "Microsoft.Z3.x64",
-    "version": "4.8.7",
-    "hash": "sha256-v1XK4bsYAvySTtScd9dsCC2exuTvaBEl36iX2pPgtPM="
+    "pname": "Microsoft.Z3",
+    "version": "4.8.11",
+    "hash": "sha256-77Cqvx09fOZvjCHF+1N+Kd8Jgc4yX0q0tggMVjkye3U="
   },
   {
     "pname": "NETStandard.Library",
