@@ -9,6 +9,8 @@
   installShellFiles,
   libmnl,
   libnftnl,
+  makeWrapper,
+  nixosTests,
   pkg-config,
   protobuf,
   rust-jemalloc-sys,
@@ -67,6 +69,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   nativeBuildInputs = [
     git
     installShellFiles
+    makeWrapper
     pkg-config
     protobuf
   ];
@@ -83,7 +86,14 @@ rustPlatform.buildRustPackage (finalAttrs: {
     darwin.libpcap
   ];
 
-  postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+  postInstall = ''
+    install -Dm444 dist-assets/ca.crt $out/share/mullvad/ca.crt
+    install -Dm444 dist-assets/relays/relays.json $out/share/mullvad/relays.json
+
+    wrapProgram $out/bin/mullvad-daemon \
+      --set-default MULLVAD_RESOURCE_DIR $out/share/mullvad
+  ''
+  + lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     compdir=$(mktemp -d)
     for shell in bash zsh fish; do
       $out/bin/mullvad shell-completions $shell $compdir
@@ -102,7 +112,19 @@ rustPlatform.buildRustPackage (finalAttrs: {
     versionCheckHook
   ];
 
-  passthru.hasMullvadDaemon = true;
+  preInstallCheck = ''
+    test -s $out/share/mullvad/ca.crt
+    test -s $out/share/mullvad/relays.json
+    grep -q '"wireguard"' $out/share/mullvad/relays.json
+  '';
+
+  passthru = {
+    hasMullvadDaemon = true;
+    mullvadResourceDir = "${finalAttrs.finalPackage}/share/mullvad";
+    tests = lib.optionalAttrs stdenv.hostPlatform.isLinux {
+      nixos = nixosTests.mullvad-vpn;
+    };
+  };
 
   meta = {
     description = "Mullvad VPN daemon and command-line interface";

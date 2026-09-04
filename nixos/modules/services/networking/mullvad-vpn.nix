@@ -16,6 +16,9 @@ let
     ;
 
   cfg = config.services.mullvad-vpn;
+  mullvadResourceEnvironment = lib.optionalAttrs (cfg.package ? mullvadResourceDir) {
+    MULLVAD_RESOURCE_DIR = toString cfg.package.mullvadResourceDir;
+  };
 in
 {
   options.services.mullvad-vpn = {
@@ -69,6 +72,7 @@ in
     systemd.services = {
       mullvad-early-boot-blocking = mkIf cfg.enableEarlyBootBlocking {
         description = "Mullvad early boot network blocker";
+        environment = mullvadResourceEnvironment;
         wantedBy = [ "mullvad-daemon.service" ];
         before = [
           "basic.target"
@@ -85,6 +89,7 @@ in
 
       mullvad-daemon = {
         description = "Mullvad VPN daemon";
+        environment = mullvadResourceEnvironment;
         wantedBy = [ "multi-user.target" ];
         wants = [
           "network.target"
