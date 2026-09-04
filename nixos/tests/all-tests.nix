@@ -1120,6 +1120,7 @@ in
   mpd = runTest ./mpd.nix;
   mpv = runTest ./mpv.nix;
   mtp = runTest ./mtp.nix;
+  mullvad-vpn = runTest ./mullvad-vpn.nix;
   mumble = runTest ./mumble.nix;
   munge = runTest ./munge.nix;
   munin = runTest ./munin.nix;
