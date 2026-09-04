@@ -3,15 +3,18 @@
   buildGoModule,
   fetchFromGitHub,
   nix-update-script,
+  versionCheckHook,
 }:
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "addchain";
   version = "0.4.0";
+
+  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "mmcloughlin";
     repo = "addchain";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     fetchSubmodules = false;
     hash = "sha256-msuZgNYqN1QldrbXJJ4BFXYhUsllAPt8W0KRrr8p6TM=";
   };
@@ -20,17 +23,16 @@ buildGoModule rec {
 
   ldflags = [
     "-s"
-    "-w"
-    "-X github.com/mmcloughlin/addchain/meta.buildversion=${version}"
+    "-X github.com/mmcloughlin/addchain/meta.buildversion=${finalAttrs.version}"
   ];
-
-  passthru = {
-    updateScript = nix-update-script { };
-  };
 
   subPackages = [ "cmd/addchain" ];
 
-  __structuredAttrs = true;
+  nativeInstallCheckInputs = [ versionCheckHook ];
+  versionCheckProgramArg = "version";
+  doInstallCheck = true;
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "addchain generates short addition chains for exponents of cryptographic interest with results rivaling the best hand-optimized chains";
@@ -41,4 +43,4 @@ buildGoModule rec {
     ];
     mainProgram = "addchain";
   };
-}
+})
