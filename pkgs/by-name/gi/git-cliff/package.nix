@@ -19,6 +19,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoHash = "sha256-zrk1yal5CnXAHxo9UdNgzlxU/QkLymkhTEXPylHYygI=";
 
+  # Version checks are unnecessary for software managed by Nix.
+  buildNoDefaultFeatures = true;
+  buildFeatures = [ "integrations" ];
+
   # attempts to run the program on .git in src which is not deterministic
   doCheck = false;
 
@@ -43,7 +47,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "Highly customizable Changelog Generator that follows Conventional Commit specifications";
     homepage = "https://github.com/orhun/git-cliff";
     changelog = "https://github.com/orhun/git-cliff/blob/v${finalAttrs.version}/CHANGELOG.md";
-    license = lib.licenses.gpl3Only;
+    license = with lib.licenses; [
+      asl20
+      mit
+    ];
     maintainers = with lib.maintainers; [
       siraben
       matthiasbeyer
