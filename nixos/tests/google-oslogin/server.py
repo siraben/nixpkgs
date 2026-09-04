@@ -13,6 +13,7 @@ from typing import Dict
 SNAKEOIL_PUBLIC_KEY = os.environ['SNAKEOIL_PUBLIC_KEY']
 MOCKUSER="mockuser_nixos_org"
 MOCKADMIN="mockadmin_nixos_org"
+MOCKDENIED="mockdenied_nixos_org"
 
 
 def w(msg: bytes):
@@ -89,13 +90,16 @@ class ReqHandler(BaseHTTPRequestHandler):
 
         # users endpoint
         if pu.path == "/computeMetadata/v1/oslogin/users":
-            # mockuser and mockadmin are allowed to login, both use the same snakeoil public key
+            # All mock OS Login profiles use the same snakeoil public key.
             if params.get('username') == [MOCKUSER] or params.get('uid') == ["1009719690"]:
                 username = MOCKUSER
                 uid = "1009719690"
             elif params.get('username') == [MOCKADMIN] or params.get('uid') == ["1009719691"]:
                 username = MOCKADMIN
                 uid = "1009719691"
+            elif params.get('username') == [MOCKDENIED] or params.get('uid') == ["1009719692"]:
+                username = MOCKDENIED
+                uid = "1009719692"
             else:
                 self._send_404()
                 return
