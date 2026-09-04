@@ -86,6 +86,12 @@ buildPythonPackage (finalAttrs: {
       echo 'pbc_tools_pbc_fft_engine = "NUMPY"' > pyscf/pyscf_config.py
       ulimit -s 20000
       export PYSCF_CONFIG_FILE=$(pwd)/pyscf/pyscf_config.py
+
+      # Keep numerical libraries from multiplying the xdist worker count.
+      export OMP_NUM_THREADS=1
+      export OPENBLAS_NUM_THREADS=1
+      export MKL_NUM_THREADS=1
+      pytestFlagsArray+=("-n" "$NIX_BUILD_CORES" "--dist=loadscope")
     '';
 
   disabledTests = [
