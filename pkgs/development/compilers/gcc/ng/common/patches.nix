@@ -1,4 +1,10 @@
 {
+  "gcc/collect-gcc-options-response-file.patch" = [ { path = ../../patches; } ];
+
+  "libiberty/collect-gcc-options-response-file.patch" = [ { path = ../../patches; } ];
+
+  "libiberty/collect-gcc-options-response-file-header.patch" = [ { path = ../../patches; } ];
+
   # TODO: fix up and send to upstream
   "gcc/fix-collect2-paths.diff" = [
     # GCC 16 spells one context line with the C++ `const_cast` operator rather

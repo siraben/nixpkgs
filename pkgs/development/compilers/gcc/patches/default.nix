@@ -46,7 +46,10 @@ in
 
 ## 1. Patches relevant on every platform ####################################
 
-optionals noSysDirs (
+# Avoid E2BIG when GCC copies a large argument list into the single
+# COLLECT_GCC_OPTIONS environment variable (PR driver/111527).
+[ ./gcc/collect-gcc-options-response-file.patch ]
+++ optionals noSysDirs (
   [
     # Do not try looking for binaries and libraries in /lib and /usr/lib
     ./gcc-12-no-sys-dirs.patch
@@ -56,21 +59,19 @@ optionals noSysDirs (
       "16" = [
         # Do not try looking for binaries and libraries in /lib and /usr/lib
         ./13/no-sys-dirs-riscv.patch
-        # Mangle the nix store hash in __FILE__ to prevent unneeded runtime references
-        #
-        # TODO: Remove these and the `useMacroPrefixMap` conditional
-        # in `cc-wrapper` once <https://gcc.gnu.org/PR111527>
-        # is fixed.
+        # Mangle the nix store hash in __FILE__ to prevent unneeded runtime references.
+        # The PR111527 backport fixes GCC's internal COLLECT_GCC_OPTIONS, but
+        # one -fmacro-prefix-map per input would still make the wrapper's
+        # NIX_CFLAGS_COMPILE environment variable grow without bound.
         ./13/mangle-NIX_STORE-in-__FILE__.patch
       ];
       "15" = [
         # Do not try looking for binaries and libraries in /lib and /usr/lib
         ./13/no-sys-dirs-riscv.patch
-        # Mangle the nix store hash in __FILE__ to prevent unneeded runtime references
-        #
-        # TODO: Remove these and the `useMacroPrefixMap` conditional
-        # in `cc-wrapper` once <https://gcc.gnu.org/PR111527>
-        # is fixed.
+        # Mangle the nix store hash in __FILE__ to prevent unneeded runtime references.
+        # The PR111527 backport fixes GCC's internal COLLECT_GCC_OPTIONS, but
+        # one -fmacro-prefix-map per input would still make the wrapper's
+        # NIX_CFLAGS_COMPILE environment variable grow without bound.
         ./13/mangle-NIX_STORE-in-__FILE__.patch
       ];
       "14" = [

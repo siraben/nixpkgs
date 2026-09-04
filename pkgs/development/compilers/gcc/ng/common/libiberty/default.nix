@@ -6,6 +6,7 @@
   version,
   monorepoSrc ? null,
   runCommand,
+  getVersionFile,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "libiberty";
@@ -21,6 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
 
       cp -r include "$out"
       cp -r libiberty "$out"
+      patch -d "$out" -p1 < ${getVersionFile "libiberty/collect-gcc-options-response-file-header.patch"}
 
       cp config.guess "$out"
       cp config.rpath "$out"
@@ -45,6 +47,8 @@ stdenv.mkDerivation (finalAttrs: {
   enableParallelBuilding = true;
 
   sourceRoot = "${finalAttrs.src.name}/libiberty";
+
+  patches = [ (getVersionFile "libiberty/collect-gcc-options-response-file.patch") ];
 
   preConfigure = ''
     mkdir ../../build

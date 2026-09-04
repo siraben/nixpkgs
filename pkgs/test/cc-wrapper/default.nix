@@ -40,6 +40,22 @@ stdenv.mkDerivation {
     ${CC} -o cc-check ${./cc-main.c}
     ${emulator} ./cc-check
 
+    ${lib.optionalString stdenv.cc.isGNU ''
+      echo "checking whether GCC handles a large option list... " >&2
+      for i in $(seq 1 2200); do
+        printf '%s\n' "-I/nix/store/00000000000000000000000000000000-argument-overflow-padding-$i/include"
+      done > long-options.rsp
+      printf '%s\n' -c ${./cc-main.c} -o long-options.o >> long-options.rsp
+      NIX_CC_USE_RESPONSE_FILE=1 ${CC} @long-options.rsp
+
+      echo "checking whether GCC spills COLLECT_GCC_OPTIONS to a response file... " >&2
+      for i in $(seq 1 50); do
+        printf '%s\n' "-DARGUMENT_OVERFLOW_PADDING_$i=1"
+      done > spill-options.rsp
+      NIX_CC_USE_RESPONSE_FILE=1 ${CC} -v @spill-options.rsp -c ${./cc-main.c} -o spill-options.o 2>&1 \
+        | grep -E 'COLLECT_GCC_OPTIONS=@[^[:space:]]+'
+    ''}
+
     echo "checking whether compiler builds valid C++ binaries... " >&2
     ${CXX} -o cxx-check ${./cxx-main.cc}
     ${emulator} ./cxx-check

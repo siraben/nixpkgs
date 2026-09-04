@@ -71,10 +71,14 @@ stdenv.mkDerivation (finalAttrs: {
       ./no-sys-dirs.patch
       ./no-sys-dirs-riscv.patch
 
+      # Avoid E2BIG when GCC copies a large argument list into the single
+      # COLLECT_GCC_OPTIONS environment variable (PR driver/111527).
+      (getVersionFile "gcc/collect-gcc-options-response-file.patch")
+
       # Keep store hashes out of `__FILE__`, which would otherwise put `-dev`
       # outputs in runtime closures. `cc-wrapper` leaves this to the compiler
-      # for GNU: it sets `useMacroPrefixMap = !isGNU`, so nothing else covers
-      # it. See <https://gcc.gnu.org/PR111527>.
+      # for GNU because one -fmacro-prefix-map per input would make its
+      # NIX_CFLAGS_COMPILE environment variable grow without bound.
       ./mangle-NIX_STORE-in-__FILE__.patch
 
       # `rs6000/sysv4.h` builds its own `INCLUDE_DEFAULTS` for musl, testing

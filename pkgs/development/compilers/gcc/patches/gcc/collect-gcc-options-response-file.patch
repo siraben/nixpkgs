@@ -1,0 +1,361 @@
+Backport of GCC commits 619a5e5586759a3ed16baf1333728664b06b0451 and
+f92e603f22924348b005d2acdebfda8a2c159773 (PR driver/111527).
+
+The gcc/doc/invoke.texi hunk is omitted because the Environment Variables
+section moved between supported release branches. The implementation, host
+configuration documentation, and regression test are unchanged from upstream.
+
+diff --git a/gcc/collect-utils.cc b/gcc/collect-utils.cc
+index ad37e7a..0af00a7 100644
+--- a/gcc/collect-utils.cc
++++ b/gcc/collect-utils.cc
+@@ -271 +271,20 @@ utils_cleanup (bool from_signal)
+ }
++
++/* Return COLLECT_GCC_OPTIONS, expanding an @file reference if present.
++   Returns nullptr if unset.  Result is owned by an internal cache.  */
++
++const char *
++read_collect_gcc_options (void)
++{
++  static char *cached;
++
++  if (cached)
++    return cached;
++
++  const char *raw = getenv ("COLLECT_GCC_OPTIONS");
++  if (raw == nullptr)
++    return nullptr;
++
++  cached = expandargstr (tool_name, raw);
++  return cached;
++}
+diff --git a/gcc/collect-utils.h b/gcc/collect-utils.h
+index 3ed8027..50b4bba 100644
+--- a/gcc/collect-utils.h
++++ b/gcc/collect-utils.h
+@@ -35,2 +35,2 @@ extern void fork_execute (const char *, char **, bool, const char *);
+ extern void utils_cleanup (bool);
+-
++extern const char *read_collect_gcc_options (void);
+diff --git a/gcc/collect2.cc b/gcc/collect2.cc
+index 4353be6..b6dcfd1 100644
+--- a/gcc/collect2.cc
++++ b/gcc/collect2.cc
+@@ -1010,3 +1010,3 @@ main (int argc, char **argv)
+        be unsuitable for ld (e.g. -save-temps).  */
+-    p = getenv ("COLLECT_GCC_OPTIONS");
++    p = read_collect_gcc_options ();
+     while (p && *p)
+@@ -1208,2 +1208,2 @@ main (int argc, char **argv)
+-  p = getenv ("COLLECT_GCC_OPTIONS");
++  p = read_collect_gcc_options ();
+   while (p && *p)
+@@ -1601,2 +1601,2 @@ main (int argc, char **argv)
+-      ptr = getenv ("COLLECT_GCC_OPTIONS");
++      ptr = read_collect_gcc_options ();
+       if (ptr)
+diff --git a/gcc/defaults.h b/gcc/defaults.h
+index 6364216..208470d 100644
+--- a/gcc/defaults.h
++++ b/gcc/defaults.h
+@@ -1465 +1465,7 @@ typedef TARGET_UNIT target_unit;
++/* Maximum length of COLLECT_GCC_OPTIONS before the driver spills it
++   to a response file.  Hosts with tighter limits may override this.  */
++#ifndef COLLECT2_OPTIONS_MAX_LENGTH
++#define COLLECT2_OPTIONS_MAX_LENGTH 1024
++#endif
++
+ #endif  /* ! GCC_DEFAULTS_H */
+diff --git a/gcc/doc/hostconfig.texi b/gcc/doc/hostconfig.texi
+index fc163c1..9682985 100644
+--- a/gcc/doc/hostconfig.texi
++++ b/gcc/doc/hostconfig.texi
+@@ -207 +207,6 @@ initialization when @code{collect2} is being initialized.
++@item COLLECT2_OPTIONS_MAX_LENGTH
++If defined, the maximum byte length of @env{COLLECT_GCC_OPTIONS}
++before the driver spills it to a response file.  The default is
++@code{1024}.
++
+ @item GCC_DRIVER_HOST_INITIALIZATION
+diff --git a/gcc/gcc.cc b/gcc/gcc.cc
+index 43b0158..765905b 100644
+--- a/gcc/gcc.cc
++++ b/gcc/gcc.cc
+@@ -5636 +5636,47 @@ process_command (unsigned int decoded_options_count,
++/* Set COLLECT_GCC_OPTIONS in the environment.  If the value would
++   exceed COLLECT2_OPTIONS_MAX_LENGTH, spill it to a temporary
++   response file and set the variable to @<path> instead.  */
++
++static void
++xsetenv_collect_gcc_options (char *string)
++{
++  if (strlen (string) <= COLLECT2_OPTIONS_MAX_LENGTH)
++    {
++      xputenv (string);
++      return;
++    }
++
++  static const char prefix[] = "COLLECT_GCC_OPTIONS=";
++  gcc_assert (startswith (string, prefix));
++
++  /* parse_options_from_collect_gcc_options expects argc to start
++     at 1, so push a placeholder argv[0].  */
++  struct obstack argv_obstack;
++  obstack_init (&argv_obstack);
++  obstack_ptr_grow (&argv_obstack, const_cast<char *> (progname));
++  int argc;
++  parse_options_from_collect_gcc_options (string + sizeof (prefix) - 1,
++					  &argv_obstack, &argc);
++  char **argv = XOBFINISH (&argv_obstack, char **);
++
++  char *temp_file = make_temp_file ("");
++  FILE *f = fopen (temp_file, "wb");
++  if (f == nullptr)
++    fatal_error (input_location,
++		 "cannot open response file %qs: %m", temp_file);
++  /* writeargv walks until NULL; skip our placeholder argv[0].  */
++  if (writeargv (argv + 1, f) != 0)
++    fatal_error (input_location,
++		 "cannot write response file %qs: %m", temp_file);
++  if (fclose (f) != 0)
++    fatal_error (input_location,
++		 "cannot close response file %qs: %m", temp_file);
++
++  char *env_val = concat (prefix, "@", temp_file, nullptr);
++  /* Delete on both success and failure unless -save-temps.  */
++  record_temp_file (temp_file, !save_temps_flag, !save_temps_flag);
++  obstack_free (&argv_obstack, nullptr);
++  xputenv (env_val);
++}
++
+ /* Store switches not filtered out by %<S in spec in COLLECT_GCC_OPTIONS
+@@ -5714,3 +5760,3 @@ set_collect_gcc_options (void)
+   obstack_grow (&collect_obstack, "\0", 1);
+-  xputenv (XOBFINISH (&collect_obstack, char *));
++  xsetenv_collect_gcc_options (XOBFINISH (&collect_obstack, char *));
+ }
+diff --git a/gcc/lto-wrapper.cc b/gcc/lto-wrapper.cc
+index c300655..1996514 100644
+--- a/gcc/lto-wrapper.cc
++++ b/gcc/lto-wrapper.cc
+@@ -1454,2 +1454,2 @@ run_gcc (unsigned argc, char *argv[])
+-  collect_gcc_options = getenv ("COLLECT_GCC_OPTIONS");
++  collect_gcc_options = const_cast<char *> (read_collect_gcc_options ());
+   if (!collect_gcc_options)
+diff --git a/gcc/testsuite/gcc.misc-tests/pr111527.exp b/gcc/testsuite/gcc.misc-tests/pr111527.exp
+new file mode 100644
+index 0000000..586bdb4
+--- /dev/null
++++ b/gcc/testsuite/gcc.misc-tests/pr111527.exp
+@@ -0,0 +1,88 @@
++# Copyright (C) 2026 Free Software Foundation, Inc.
++# This program is free software; you can redistribute it and/or modify
++# it under the terms of the GNU General Public License as published by
++# the Free Software Foundation; either version 3 of the License, or
++# (at your option) any later version.
++#
++# This program is distributed in the hope that it will be useful,
++# but WITHOUT ANY WARRANTY; without even the implied warranty of
++# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++# GNU General Public License for more details.
++#
++# You should have received a copy of the GNU General Public License
++# along with GCC; see the file COPYING3.  If not see
++# <http://www.gnu.org/licenses/>.
++
++# PR driver/111527 - very long COLLECT_GCC_OPTIONS exceeding
++# COLLECT2_OPTIONS_MAX_LENGTH.  The driver should spill
++# the option list to a response file when it would not fit.
++
++load_lib gcc-defs.exp
++load_lib target-supports.exp
++
++if { [is_remote host] } {
++    return
++}
++
++# This file doesn't use runtest_file_p, so disable parallelization
++# of this *.exp file.  The first parallel runtest to reach this
++# will run the tests.
++if { ![gcc_parallel_test_run_p pr111527] } {
++    return
++}
++gcc_parallel_test_enable 0
++
++global GCC_UNDER_TEST
++if { ![info exists GCC_UNDER_TEST] } {
++    set GCC_UNDER_TEST [find_gcc]
++}
++
++# Use @file rather than additional_flags: DejaGnu collapses very
++# long flag strings.  The driver still expands @file into argv and
++# builds COLLECT_GCC_OPTIONS from it, exercising the spill path.
++set work_dir [pwd]
++set src [file join $work_dir "pr111527.c"]
++set rsp [file join $work_dir "pr111527.rsp"]
++set obj [file join $work_dir "pr111527.o"]
++
++set f [open $src w]
++puts $f "int main (void) { return 0; }"
++close $f
++
++set f [open $rsp w]
++for { set i 0 } { $i < 50 } { incr i } {
++    puts $f "-DPR111527_PADDING_$i=1"
++}
++close $f
++
++# (1) Build must succeed.
++set cmd "$GCC_UNDER_TEST -c $src -o $obj @$rsp"
++verbose -log "Test 1: $cmd"
++set status [remote_exec host $cmd]
++set rc [lindex $status 0]
++set out [lindex $status 1]
++if { $rc == 0 } {
++    pass "PR111527: build with very long COLLECT_GCC_OPTIONS"
++} else {
++    fail "PR111527: build with very long COLLECT_GCC_OPTIONS"
++    verbose -log "compiler output: $out"
++}
++file delete -force $obj
++
++# (2) Confirm spill path engaged.
++set cmd "$GCC_UNDER_TEST -v -c $src -o $obj @$rsp"
++verbose -log "Test 2: $cmd"
++set status [remote_exec host $cmd]
++set out [lindex $status 1]
++if { [regexp {COLLECT_GCC_OPTIONS=@[^[:space:]]+} $out] } {
++    pass "PR111527: driver spilled to @file"
++} else {
++    fail "PR111527: driver spilled to @file"
++    verbose -log "compiler output: $out"
++}
++
++file delete -force $obj
++file delete -force $rsp
++file delete -force $src
++
++gcc_parallel_test_enable 1
+diff --git a/include/libiberty.h b/include/libiberty.h
+index 1af4fa8..bdb491b 100644
+--- a/include/libiberty.h
++++ b/include/libiberty.h
+@@ -96 +96,6 @@ extern int countargv (char * const *);
++/* Expand VAL as a response file if it begins with '@' and return the
++   result as a shell-quoted string.  */
++
++extern char *expandargstr (const char *, const char *);
++
+ /* Return the last component of a path name.  Note that we can't use a
+diff --git a/libiberty/argv.c b/libiberty/argv.c
+index 64127f7..35e2750 100644
+--- a/libiberty/argv.c
++++ b/libiberty/argv.c
+@@ -494 +494,76 @@ countargv (char * const *argv)
++/*
++
++@deftypefn Extension {char *} expandargstr @
++  (const char *@var{progname}, const char *@var{val})
++
++Expand @var{val} as a response file via @code{expandargv} if it begins
++with @samp{@@}, using @var{progname} as @code{argv[0]}, and return the
++expanded option list as a shell-quoted string.  Returns a newly
++allocated string.
++
++@end deftypefn
++
++*/
++
++char *
++expandargstr (const char *progname, const char *val)
++{
++  int argc = 2;
++  char **argv;
++  char **orig;
++  size_t len;
++  char *buf;
++  char *p;
++  int i;
++
++  if (val[0] != '@')
++    return xstrdup (val);
++
++  argv = (char **) xcalloc (3, sizeof (char *));
++  orig = argv;
++  argv[0] = xstrdup (progname);
++  argv[1] = xstrdup (val);
++  argv[2] = NULL;
++  expandargv (&argc, &argv);
++  if (argv != orig)
++    freeargv (orig);
++
++  len = 1;
++  for (i = 1; argv[i] != NULL; i++)
++    {
++      const char *q;
++      if (i > 1)
++	len++;
++      len += 2;
++      for (q = argv[i]; *q; q++)
++	len += (*q == '\'') ? 4 : 1;
++    }
++
++  buf = (char *) xmalloc (len);
++  p = buf;
++  for (i = 1; argv[i] != NULL; i++)
++    {
++      const char *q;
++      if (i > 1)
++	*p++ = ' ';
++      *p++ = '\'';
++      for (q = argv[i]; *q; q++)
++	{
++	  if (*q == '\'')
++	    {
++	      *p++ = '\'';
++	      *p++ = '\\';
++	      *p++ = '\'';
++	      *p++ = '\'';
++	    }
++	  else
++	    *p++ = *q;
++	}
++      *p++ = '\'';
++    }
++  *p = '\0';
++  freeargv (argv);
++  return buf;
++}
++
+ #ifdef MAIN
+diff --git a/lto-plugin/lto-plugin.c b/lto-plugin/lto-plugin.c
+index ee0be4c..f5944d2 100644
+--- a/lto-plugin/lto-plugin.c
++++ b/lto-plugin/lto-plugin.c
+@@ -1508 +1508,21 @@ negotiate_api_version (void)
++/* Return COLLECT_GCC_OPTIONS, expanding an @file reference if present.
++   Returns NULL if unset.  Result owned by an internal cache.  */
++
++static const char *
++read_collect_gcc_options (void)
++{
++  static char *cached;
++  const char *raw;
++
++  if (cached)
++    return cached;
++
++  raw = getenv ("COLLECT_GCC_OPTIONS");
++  if (raw == NULL)
++    return NULL;
++
++  cached = expandargstr ("lto-plugin", raw);
++  return cached;
++}
++
+ /* Called by a linker after loading the plugin. TV is the transfer vector. */
+@@ -1619,2 +1639,2 @@ onload (struct ld_plugin_tv *tv)
+-  char *collect_gcc_options = getenv ("COLLECT_GCC_OPTIONS");
++  const char *collect_gcc_options = read_collect_gcc_options ();
+   if (collect_gcc_options)

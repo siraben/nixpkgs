@@ -400,12 +400,10 @@ let
   # situations while keeping them in compiler diagnostics and debugging
   # and profiling output.
   #
-  # Unfortunately, doing this with GCC runs into issues with compiler
-  # argument length limits due to <https://gcc.gnu.org/PR111527>, so we
-  # disable it there in favour of our existing patch.
-  #
-  # TODO: Drop `mangle-NIX_STORE-in-__FILE__.patch` from GCC and make
-  # this unconditional once the upstream bug is fixed.
+  # GCC now spills its internal COLLECT_GCC_OPTIONS to a response file, but
+  # doing this in the wrapper would still add one option per input to
+  # NIX_CFLAGS_COMPILE. That environment variable can itself exceed execve
+  # limits before GCC starts, so keep using GCC's existing source patch.
   useMacroPrefixMap = !isGNU && !isFlang;
   systemIncludeFlag = if isFlang || isArocc then "-I" else "-idirafter";
   fortifyIncludeFlag = if isFlang then "-I" else "-isystem";
