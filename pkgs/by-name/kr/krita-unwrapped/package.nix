@@ -139,6 +139,15 @@ stdenv.mkDerivation (finalAttrs: {
 
   cmakeBuildType = "RelWithDebInfo";
 
+  # cmakeFlags is flattened into a whitespace-separated environment string;
+  # use the shell array so each value containing spaces remains one argument.
+  preConfigure = ''
+    cmakeFlagsArray+=(
+      "-DCMAKE_C_FLAGS_RELWITHDEBINFO:STRING=-O2 -DNDEBUG"
+      "-DCMAKE_CXX_FLAGS_RELWITHDEBINFO:STRING=-O2 -DNDEBUG"
+    )
+  '';
+
   cmakeFlags = [
     "-DBUILD_WITH_QT6=ON"
     "-DALLOW_UNSTABLE=QT6"
