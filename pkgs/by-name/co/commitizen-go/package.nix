@@ -4,9 +4,11 @@
   fetchFromGitHub,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "commitizen-go";
   version = "1.0.3";
+
+  __structuredAttrs = true;
 
   # we can't obtain the commit hash when using fetchFromGitHub
   commit_revision = "unspecified (nix build)";
@@ -14,7 +16,7 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "lintingzhen";
     repo = "commitizen-go";
-    rev = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-pAWdIQ3icXEv79s+sUVhQclsNcZg+PTZZ6I6JPo7pNg=";
   };
 
@@ -25,8 +27,8 @@ buildGoModule rec {
   env.CGO_ENABLED = 0;
 
   ldflags = [
-    "-X 'github.com/lintingzhen/commitizen-go/cmd.revision=${commit_revision}'"
-    "-X 'github.com/lintingzhen/commitizen-go/cmd.version=${version}'"
+    "-X 'github.com/lintingzhen/commitizen-go/cmd.revision=${finalAttrs.commit_revision}'"
+    "-X 'github.com/lintingzhen/commitizen-go/cmd.version=${finalAttrs.version}'"
   ];
 
   meta = {
@@ -36,4 +38,4 @@ buildGoModule rec {
     maintainers = with lib.maintainers; [ seanrmurphy ];
     mainProgram = "commitizen-go";
   };
-}
+})
