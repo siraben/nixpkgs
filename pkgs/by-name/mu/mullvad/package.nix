@@ -10,7 +10,6 @@
   libmnl,
   libnftnl,
   makeWrapper,
-  nixosTests,
   pkg-config,
   protobuf,
   rust-jemalloc-sys,
@@ -118,13 +117,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     grep -q '"wireguard"' $out/share/mullvad/relays.json
   '';
 
-  passthru = {
-    hasMullvadDaemon = true;
-    mullvadResourceDir = "${finalAttrs.finalPackage}/share/mullvad";
-    tests = lib.optionalAttrs stdenv.hostPlatform.isLinux {
-      nixos = nixosTests.mullvad-vpn;
-    };
-  };
+  passthru.hasMullvadDaemon = true;
 
   meta = {
     description = "Mullvad VPN daemon and command-line interface";
