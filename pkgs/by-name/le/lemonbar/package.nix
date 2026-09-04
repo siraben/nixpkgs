@@ -6,21 +6,23 @@
   libxcb,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "lemonbar";
   version = "1.5";
+
+  strictDeps = true;
+  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "LemonBoy";
     repo = "bar";
-    rev = "v${version}";
-    sha256 = "sha256-OLhgu0kmMZhjv/VST8AXvIH+ysMq72m4TEOypdnatlU=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-OLhgu0kmMZhjv/VST8AXvIH+ysMq72m4TEOypdnatlU=";
   };
 
-  buildInputs = [
-    libxcb
-    perl
-  ];
+  nativeBuildInputs = [ perl ];
+
+  buildInputs = [ libxcb ];
 
   installFlags = [
     "DESTDIR=$(out)"
@@ -38,4 +40,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     mainProgram = "lemonbar";
   };
-}
+})
