@@ -4,15 +4,17 @@
   fetchFromGitHub,
 }:
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "zsh-fast-syntax-highlighting";
   version = "1.56";
+
+  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "zdharma-continuum";
     repo = "fast-syntax-highlighting";
-    rev = "v${version}";
-    sha256 = "sha256-caVMOdDJbAwo8dvKNgwwidmxOVst/YDda7lNx2GvOjY=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-caVMOdDJbAwo8dvKNgwwidmxOVst/YDda7lNx2GvOjY=";
   };
 
   strictDeps = true;
@@ -20,16 +22,20 @@ stdenvNoCC.mkDerivation rec {
   dontBuild = true;
 
   installPhase = ''
+    runHook preInstall
+
     plugindir="$out/share/zsh/plugins/fast-syntax-highlighting"
 
     mkdir -p "$plugindir"
     cp -r -- {,_,-,.}fast-* *chroma themes "$plugindir"/
+
+    runHook postInstall
   '';
 
   meta = {
     description = "Syntax-highlighting for Zshell";
-    homepage = "https://github.com/zdharma-continuum/fast-syntax-highlighting";
+    homepage = finalAttrs.src.meta.homepage;
     license = lib.licenses.bsd3;
     platforms = lib.platforms.unix;
   };
-}
+})
