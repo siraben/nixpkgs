@@ -2,17 +2,18 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  unstableGitUpdater,
 }:
 
 stdenv.mkDerivation {
   pname = "exifprobe";
-  version = "2.0.1-unstable-2018-06-19";
+  version = "2.0.1-unstable-2020-12-30";
 
   src = fetchFromGitHub {
     owner = "hfiguiere";
     repo = "exifprobe";
-    rev = "ce1ea2bc3dbbe8092b26f41cd89831cafe633d69";
-    sha256 = "1c1fhc0v1m452lgnfcijnvrc0by06qfbhn3zkliqi60kv8l2isbp";
+    rev = "eee65ff3c62fed3fff35e690230820bd80c90381";
+    hash = "sha256-jALJ6odQqeJGfQjmL3JBzbcmlj35KGoV6+b+NsWAfuQ=";
   };
 
   env.CFLAGS = toString [ "-O2" ];
@@ -25,11 +26,16 @@ stdenv.mkDerivation {
     rm -r $out/usr
   '';
 
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://github.com/hfiguiere/exifprobe";
+  };
+
   meta = {
     description = "Tool for reading EXIF data from image files produced by digital cameras";
     homepage = "https://github.com/hfiguiere/exifprobe";
     license = lib.licenses.bsd2;
     maintainers = with lib.maintainers; [ siraben ];
+    mainProgram = "exifprobe";
     platforms = lib.platforms.unix;
   };
 }
