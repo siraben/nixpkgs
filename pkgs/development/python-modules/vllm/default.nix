@@ -616,9 +616,8 @@ buildPythonPackage.override { stdenv = torch.stdenv; } (finalAttrs: {
   };
 
   dontUseCmakeConfigure = true;
-  cmakeFlags = [
-  ]
-  ++ lib.optionals cudaSupport [
+  cmakeFlags =
+    lib.optionals cudaSupport [
     (lib.cmakeFeature "DEEPGEMM_SRC_DIR" "${lib.getDev deepgemm}")
     (lib.cmakeFeature "FETCHCONTENT_SOURCE_DIR_CUTLASS" "${lib.getDev cutlass}")
     (lib.cmakeFeature "FLASH_MLA_SRC_DIR" "${lib.getDev flashmla}")
@@ -638,6 +637,9 @@ buildPythonPackage.override { stdenv = torch.stdenv; } (finalAttrs: {
 
   env = {
     VLLM_REQUIRE_RUST_FRONTEND = "1";
+    # setup.py selects RelWithDebInfo, but normal fixup strips the extensions.
+    # Preserve its optimization and NDEBUG semantics without generating DWARF.
+    NIX_CFLAGS_COMPILE = "-g0";
   }
   // lib.optionalAttrs cudaSupport {
     VLLM_TARGET_DEVICE = "cuda";
