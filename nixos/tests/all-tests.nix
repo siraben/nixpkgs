@@ -1770,6 +1770,7 @@ in
     imports = [ ./switch-test.nix ];
     _module.args.part = "user";
   };
+  switch-to-configuration-recovery = runTest ./switch-to-configuration-recovery.nix;
   sx = runTest ./sx.nix;
   sympa = runTest ./sympa.nix;
   syncthing = runTest ./syncthing/main.nix;

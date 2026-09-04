@@ -1801,6 +1801,17 @@ fn do_system_switch(action: Action) -> anyhow::Result<()> {
         die();
     }
 
+    if matches!(action, Action::Switch | Action::Test | Action::DryActivate)
+        && !libsystemd::daemon::booted()
+    {
+        eprintln!(
+            "systemd is not running; cannot activate the NixOS configuration.\n\
+             If you are running in a nixos-enter or chroot recovery environment, \
+             use `nixos-rebuild boot` and reboot instead."
+        );
+        std::process::exit(1);
+    }
+
     std::fs::create_dir_all("/run/nixos").context("Failed to create /run/nixos directory")?;
     let perms = std::fs::Permissions::from_mode(0o755);
     std::fs::set_permissions("/run/nixos", perms)

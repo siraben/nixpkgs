@@ -36,6 +36,7 @@ rustPlatform.buildRustPackage {
       switchTest-basics
       switchTest-units
       switchTest-user
+      switch-to-configuration-recovery
       activation-template-dropin
       ;
   };
