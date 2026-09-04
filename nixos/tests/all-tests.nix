@@ -1336,7 +1336,6 @@ in
   opensmtpd-rspamd = handleTest ./opensmtpd-rspamd.nix { };
   opensnitch = runTest ./opensnitch.nix;
   openssh = runTest ./openssh.nix;
-  openssh-password-match = runTest ./openssh-password-match.nix;
   openstack-image-metadata =
     (handleTestOn [ "x86_64-linux" ] ./openstack-image.nix { }).metadata or { };
   openstack-image-userdata =

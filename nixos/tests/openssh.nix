@@ -40,11 +40,20 @@ in
       {
         services.openssh = {
           enable = true;
-          settings.AllowUsers = [
-            "alice"
-            "bob"
-          ];
+          settings = {
+            AllowUsers = [
+              "alice"
+              "bob"
+            ];
+            KbdInteractiveAuthentication = false;
+            PasswordAuthentication = false;
+          };
+          extraConfig = ''
+            Match User alice
+              PasswordAuthentication yes
+          '';
         };
+        security.pam.services.sshd.unixAuth = true;
         users.groups = {
           alice = { };
           bob = { };
@@ -54,11 +63,13 @@ in
           alice = {
             isNormalUser = true;
             group = "alice";
+            initialPassword = "correct-password";
             openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
           };
           bob = {
             isNormalUser = true;
             group = "bob";
+            initialPassword = "correct-password";
             openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
           };
           carol = {
@@ -301,6 +312,7 @@ in
     client =
       { ... }:
       {
+        environment.systemPackages = [ pkgs.sshpass ];
         virtualisation.vlans = [
           1
           2
@@ -395,6 +407,12 @@ in
 
     with subtest("match-rules"):
         server_match_rule.succeed("ss -nlt | grep '127.0.0.1:22'")
+
+    with subtest("password-authentication-match"):
+        password_options = "-o KbdInteractiveAuthentication=no -o PreferredAuthentications=password -o PubkeyAuthentication=no -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
+        server_allowed_users.succeed("grep -E '^auth +sufficient +.*/pam_unix\\.so ' /etc/pam.d/sshd")
+        client.succeed(f"sshpass -p correct-password ssh {password_options} alice@server-allowed-users true")
+        client.fail(f"sshpass -p correct-password ssh {password_options} bob@server-allowed-users true")
 
     with subtest("allowed-users"):
         client.succeed(
