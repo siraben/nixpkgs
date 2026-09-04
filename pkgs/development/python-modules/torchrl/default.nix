@@ -205,6 +205,11 @@ buildPythonPackage (finalAttrs: {
   ++ finalAttrs.passthru.optional-dependencies.llm
   ++ finalAttrs.passthru.optional-dependencies.rendering;
 
+  # The complete upstream suite contains over 22,000 tests and takes nearly two
+  # hours on Hydra. Keep a packaging smoke test here; the full suite is better
+  # suited to a separate passthru test.
+  pytestFlags = [ "test/smoke_test.py" ];
+
   disabledTests = [
     # mujoco.FatalError: an OpenGL platform library has not been loaded into this process, this most
     # likely means that a valid OpenGL context has not been created before mjr_makeContext was
