@@ -9,11 +9,11 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "checkbashisms";
-  version = "2.25.10";
+  version = "2.26.11";
 
   src = fetchurl {
     url = "mirror://debian/pool/main/d/devscripts/devscripts_${finalAttrs.version}.tar.xz";
-    hash = "sha256-pEzXrKV/bZbYG7j5QXjRDATZRGLt0fhdpwTDbCoKcus=";
+    hash = "sha256-TiFNv7gdBROj8HNx1NPh+8TlaF+Skjuacg9q3Em2jWo=";
   };
 
   nativeBuildInputs = [ installShellFiles ];
