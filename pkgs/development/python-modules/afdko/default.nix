@@ -16,6 +16,7 @@
   mypy,
   ninja,
   pytestCheckHook,
+  pytest-xdist,
   runAllTests ? false,
   scikit-build-core,
   setuptools-scm,
@@ -109,6 +110,7 @@ buildPythonPackage (finalAttrs: {
     addBinToPathHook
     mypy
     pytestCheckHook
+    pytest-xdist
     uharfbuzz
   ];
 
