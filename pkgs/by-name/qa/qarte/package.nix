@@ -1,10 +1,10 @@
 {
   lib,
   stdenv,
-  fetchbzr,
+  fetchurl,
+  ffmpeg-headless,
   libsForQt5,
   python3,
-  rtmpdump,
 }:
 
 let
@@ -15,14 +15,13 @@ let
     ]
   );
 in
-stdenv.mkDerivation {
+stdenv.mkDerivation rec {
   pname = "qarte";
-  version = "5.5.0";
+  version = "5.18.0";
 
-  src = fetchbzr {
-    url = "http://bazaar.launchpad.net/~vincent-vandevyvre/qarte/qarte-5";
-    rev = "88";
-    sha256 = "sha256-+Ixe4bWKubH/XBESwmP2NWS8bH0jq611c3MZn7W87Jw=";
+  src = fetchurl {
+    url = "https://launchpad.net/~vincent-vandevyvre/+archive/ubuntu/vvv/+sourcefiles/qarte/${version}-0ubuntu1/qarte_${version}.orig.tar.gz";
+    hash = "sha256-PLLyMxuyzODqLHkT0tJ0tErYE+ZcWK8jQwpywcVBjlQ=";
   };
 
   nativeBuildInputs = [ libsForQt5.wrapQtAppsHook ];
@@ -35,12 +34,16 @@ stdenv.mkDerivation {
     mkdir -p $out/bin
     mv qarte $out/bin/
     substituteInPlace $out/bin/qarte \
-      --replace '/usr/share' "$out/share"
+      --replace-fail '/usr/share' "$out/share"
 
-    mkdir -p $out/share/man/man1/
+    mkdir -p $out/share/{applications,man/man1,pixmaps,qarte}
     mv qarte.1 $out/share/man/man1/
+    mv q_arte.desktop $out/share/applications/
+    mv qarte.png $out/share/pixmaps/
+    mv locale $out/share/
 
-    mkdir -p $out/share/qarte
+    substituteInPlace core.py \
+      --replace-fail "'/usr/share/locale'" "'$out/share/locale'"
     mv * $out/share/qarte/
 
     runHook postInstall
@@ -48,13 +51,13 @@ stdenv.mkDerivation {
 
   postFixup = ''
     wrapQtApp $out/bin/qarte \
-      --prefix PATH : ${rtmpdump}/bin
+      --prefix PATH : ${ffmpeg-headless}/bin
   '';
 
   meta = {
     homepage = "https://launchpad.net/qarte";
     description = "Recorder for Arte TV Guide and Arte Concert";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ vbgl ];
     platforms = lib.platforms.linux;
     mainProgram = "qarte";
