@@ -3,7 +3,7 @@
   cimg,
   cmake,
   curl,
-  fetchFromGitHub,
+  fetchurl,
   fftw,
   gimp,
   gimpPlugins,
@@ -50,14 +50,13 @@ assert lib.assertMsg (builtins.all (d: d != null)
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gmic-qt${lib.optionalString (variant != "standalone") "-${variant}"}";
-  version = "3.5.0";
+  version = "4.0.5";
 
-  src = fetchFromGitHub {
-    owner = "GreycLab";
-    repo = "gmic-qt";
-    rev = "v.${finalAttrs.version}";
-    hash = "sha256-1fav1O75HBC7ySBgybn4goLFkX6HFbwRHARncfbkaoM=";
+  src = fetchurl {
+    url = "https://gmic.eu/files/source/gmic_${finalAttrs.version}.tar.gz";
+    hash = "sha256-xnccSGk+1hWy6F0dt6liY1jUYG6yx13PAJspJPOW2lk=";
   };
+  sourceRoot = "gmic-${finalAttrs.version}/gmic-qt";
 
   nativeBuildInputs = [
     cmake
@@ -91,9 +90,6 @@ stdenv.mkDerivation (finalAttrs: {
     patchShebangs \
       translations/filters/csv2ts.sh \
       translations/lrelease.sh
-
-    mkdir ../src
-    ln -s ${gmic.src}/src/gmic.cpp ../src/gmic.cpp
   '';
 
   cmakeFlags = [
@@ -123,8 +119,8 @@ stdenv.mkDerivation (finalAttrs: {
 
     updateScript = nix-update-script {
       extraArgs = [
-        "--version-regex"
-        "^v\\.(.*)"
+        "--url=https://github.com/GreycLab/gmic"
+        "--version-regex=^v\\.(.*)$"
       ];
     };
   };
