@@ -2,8 +2,6 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  makeWrapper,
-  perl,
   procps,
   bash,
 
@@ -21,43 +19,33 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "lesspipe";
-  version = "2.20";
+  version = "2.27";
 
   src = fetchFromGitHub {
     owner = "wofr06";
     repo = "lesspipe";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-yb3IzdaMiv1PwqHOfSyHvmWXyStvK/XXC49saXVAJFU=";
+    hash = "sha256-BgCeg0j0QTDma0refhQxwjv0olLauE4FoXyUyOUpIW4=";
   };
 
-  nativeBuildInputs = [
-    perl
-    makeWrapper
-  ];
-  buildInputs = [
-    perl
-    bash
-  ];
+  buildInputs = [ bash ];
   strictDeps = true;
 
   postPatch = ''
     patchShebangs --build configure
-    substituteInPlace configure --replace '/etc/bash_completion.d' '/share/bash-completion/completions'
   '';
 
   configureFlags = [
     "--shell=${bash}/bin/bash"
-    "--prefix=/"
+    "--bash-completion-dir=${placeholder "out"}/share/bash-completion/completions"
   ];
   configurePlatforms = [ ];
 
   dontBuild = true;
 
-  installFlags = [ "DESTDIR=$(out)" ];
-
   postInstall = ''
     # resholve doesn't see strings in an array definition
-    substituteInPlace $out/bin/lesspipe.sh --replace 'nodash strings' "nodash ${binutils-unwrapped}/bin/strings"
+    substituteInPlace $out/bin/lesspipe.sh --replace-fail 'nodash strings' "nodash ${binutils-unwrapped}/bin/strings"
 
     ${resholve.phraseSolution "lesspipe.sh" {
       scripts = [ "bin/lesspipe.sh" ];
@@ -96,10 +84,13 @@ stdenv.mkDerivation (finalAttrs: {
           "ar"
           "unrar"
           "rar"
-          "7zr"
+          "7z"
           "7za"
+          "7zr"
+          "7zz"
           "isoinfo"
           "gzip"
+          "pigz"
           "bzip2"
           "lzip"
           "lzma"
@@ -111,8 +102,12 @@ stdenv.mkDerivation (finalAttrs: {
           "archive_color"
           "bat"
           "batcat"
+          "e2ansi-cat"
+          "nvimpager"
+          "nvim"
           "pygmentize"
           "source-highlight"
+          "vim"
           "vimcolor"
           "code2color"
 
@@ -127,6 +122,8 @@ stdenv.mkDerivation (finalAttrs: {
           "pdfinfo"
           "ps2ascii"
           "procyon"
+          "sqlite3"
+          "tspin"
           "ccze"
           "mdcat"
           "pandoc"
@@ -171,7 +168,7 @@ stdenv.mkDerivation (finalAttrs: {
       ];
     }}
     ${resholve.phraseSolution "lesscomplete" {
-      scripts = [ "bin/lesscomplete" ];
+      scripts = [ "libexec/lesspipe/lesscomplete" ];
       interpreter = "${bash}/bin/bash";
       inputs = [
         coreutils
@@ -202,10 +199,13 @@ stdenv.mkDerivation (finalAttrs: {
           "ar"
           "unrar"
           "rar"
-          "7zr"
+          "7z"
           "7za"
+          "7zr"
+          "7zz"
           "isoinfo"
           "gzip"
+          "pigz"
           "bzip2"
           "lzip"
           "lzma"
@@ -239,7 +239,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "lesspipe.sh";
     homepage = "https://github.com/wofr06/lesspipe";
     platforms = lib.platforms.all;
-    license = lib.licenses.gpl2Only;
+    license = lib.licenses.gpl2Plus;
     maintainers = [ lib.maintainers.martijnvermaat ];
   };
 })
