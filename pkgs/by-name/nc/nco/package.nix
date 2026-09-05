@@ -16,13 +16,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "nco";
-  version = "5.3.2";
+  version = "5.3.9";
 
   src = fetchFromGitHub {
     owner = "nco";
     repo = "nco";
     rev = finalAttrs.version;
-    hash = "sha256-p7GUUgMlZFnJ5kA3x4QpcVmQUQNsjMr2Q8Mrzf6k54Q=";
+    hash = "sha256-xoJCVRnBsxkWTvHONpCByesjMDa6b1gB0cmWim+jP0s=";
   };
 
   nativeBuildInputs = [
@@ -39,6 +39,8 @@ stdenv.mkDerivation (finalAttrs: {
     netcdfcxx4
     udunits
   ];
+
+  env.NIX_LDFLAGS = "-lm";
 
   postPatch = ''
     substituteInPlace src/nco/nco_fl_utl.c \
