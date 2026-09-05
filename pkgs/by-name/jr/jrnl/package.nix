@@ -8,50 +8,35 @@
 
 python3.pkgs.buildPythonApplication (finalAttrs: {
   pname = "jrnl";
-  version = "4.2";
+  version = "4.6";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "jrnl-org";
     repo = "jrnl";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-x0JoYJzD6RnuHbRsQMgrhHsNW6nVEVeoDjtPop2eg+w=";
+    hash = "sha256-g75/XY5ET09z87yogI2Jd3kRvexxBxulQdus+OjT0ck=";
   };
-
-  postPatch = ''
-    # Support pytest_bdd 7.1.2 and later, https://github.com/jrnl-org/jrnl/pull/1878
-    substituteInPlace tests/lib/when_steps.py \
-      --replace-fail "from pytest_bdd.steps import inject_fixture" "from pytest_bdd.compat import inject_fixture"
-  '';
-
-  disabledTests = [
-    "test_override_configured_linewrap_with_a_value_of_23"
-  ];
 
   build-system = with python3.pkgs; [ poetry-core ];
 
   dependencies = with python3.pkgs; [
-    asteval
     colorama
     cryptography
     keyring
     parsedatetime
     python-dateutil
-    pytz
     pyxdg
-    pyyaml
-    tzlocal
     ruamel-yaml
+    ruamel-yaml-clib
     rich
+    tzlocal
   ];
-
-  pythonRelaxDeps = [ "rich" ];
 
   nativeCheckInputs = with python3.pkgs; [
     pytest-bdd
     pytest-xdist
-    (pytestCheckHook.override { pytest = pytest_7; })
-    toml
+    pytest8_3CheckHook
   ];
 
   preCheck = ''

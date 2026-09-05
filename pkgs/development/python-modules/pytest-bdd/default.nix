@@ -2,25 +2,27 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
+  gherkin-official,
   mako,
+  packaging,
   parse,
   parse-type,
   poetry-core,
   pytest,
-  pytest7CheckHook,
+  pytestCheckHook,
   typing-extensions,
 }:
 
 buildPythonPackage rec {
   pname = "pytest-bdd";
-  version = "7.1.2";
+  version = "8.1.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "pytest-dev";
     repo = "pytest-bdd";
     tag = version;
-    hash = "sha256-PC4VSsUU5qEFp/C/7OTgHINo8wmOo0w2d1Hpe0EnFzE=";
+    hash = "sha256-jxrjUXmyDEfw1sxwnlSUAfz3Kkv/4TwKFx7cone0Eyw=";
   };
 
   build-system = [ poetry-core ];
@@ -28,14 +30,15 @@ buildPythonPackage rec {
   buildInputs = [ pytest ];
 
   dependencies = [
+    gherkin-official
     mako
+    packaging
     parse
     parse-type
     typing-extensions
   ];
 
-  # requires an update for pytest 8.4 compat
-  nativeCheckInputs = [ pytest7CheckHook ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   preCheck = ''
     export PATH=$PATH:$out/bin
