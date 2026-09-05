@@ -29,13 +29,13 @@ in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "suil";
-  version = "0.10.20";
+  version = "0.10.26";
 
   src = fetchFromGitLab {
     owner = "lv2";
     repo = "suil";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-rP8tq+zmHrAZeuNttakPPfraFXNvnwqbhtt+LtTNV/k=";
+    hash = "sha256-SH4PN+CMz9efggVF4+k55B3A6P5FFABh2IKuWYfeVIE=";
   };
 
   nativeBuildInputs = [
@@ -52,6 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
     (mesonEnable "gtk2" false)
     (mesonEnable "gtk3" withGtk3)
     (mesonEnable "qt5" withQt5)
+    (mesonEnable "qt6" false)
     (mesonEnable "x11" withX11)
   ];
 
