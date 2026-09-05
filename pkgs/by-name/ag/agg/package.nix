@@ -1,7 +1,8 @@
 {
   lib,
   gccStdenv,
-  fetchurl,
+  fetchFromGitHub,
+  nix-update-script,
   autoconf,
   automake,
   libtool,
@@ -15,11 +16,16 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "agg";
-  version = "2.5";
-  src = fetchurl {
-    url = "https://www.antigrain.com/agg-${finalAttrs.version}.tar.gz";
-    sha256 = "07wii4i824vy9qsvjsgqxppgqmfdxq0xa87i5yk53fijriadq7mb";
+  version = "2.8.42";
+
+  src = fetchFromGitHub {
+    owner = "cppfw";
+    repo = "agg";
+    tag = finalAttrs.version;
+    hash = "sha256-AADWEn3heNUkZzADUU8cFRczeyES5BPeyXLuan93y4k=";
   };
+
+  sourceRoot = "source/src/agg";
   nativeBuildInputs = [
     pkg-config
     autoconf
@@ -35,15 +41,15 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   postPatch = ''
-    substituteInPlace include/agg_renderer_outline_aa.h \
-      --replace-fail 'line_profile_aa& profile() {' 'const line_profile_aa& profile() {'
+    # The maintained build uses headers from include/agg, while the bundled
+    # autotools files still expect them directly under include.
+    cp -r include/agg/. include/
+
+    substituteInPlace configure.ac \
+      --replace-fail 'AC_INIT(agg, 2.7.0)' 'AC_INIT(agg, ${finalAttrs.version})'
   '';
 
-  # fix build with new automake, from Gentoo ebuild
-  preConfigure = ''
-    sed -i '/^AM_C_PROTOTYPES/d' configure.in
-    sh autogen.sh
-  '';
+  preConfigure = "sh autogen.sh";
 
   configureFlags = [
     (lib.enableFeature stdenv.hostPlatform.isLinux "platform")
@@ -57,9 +63,21 @@ stdenv.mkDerivation (finalAttrs: {
 
   env.NIX_CFLAGS_COMPILE = toString [ "-fpermissive" ];
 
-  # libtool --tag=CXX --mode=link g++ -g -O2 libexamples.la ../src/platform/X11/libaggplatformX11.la ../src/libagg.la -o alpha_mask2 alpha_mask2.o
-  # libtool: error: cannot find the library 'libexamples.la'
-  enableParallelBuilding = false;
+  doCheck = true;
+
+  checkPhase = ''
+    runHook preCheck
+
+    for test in ../../tests/*/main.cpp; do
+      test_bin="$TMPDIR/$(basename "$(dirname "$test")")"
+      $CXX -std=c++11 -Iinclude "$test" -Lsrc/.libs -lagg -o "$test_bin"
+      LD_LIBRARY_PATH=src/.libs "$test_bin"
+    done
+
+    runHook postCheck
+  '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "High quality rendering engine for C++";
@@ -74,8 +92,9 @@ stdenv.mkDerivation (finalAttrs: {
       of course, AGG can do much more than that.
     '';
 
-    license = lib.licenses.gpl2Plus;
-    homepage = "https://agg.sourceforge.net/antigrain.com/index.html";
+    license = lib.licenses.mit;
+    homepage = "https://github.com/cppfw/agg";
+    changelog = "https://github.com/cppfw/agg/blob/${finalAttrs.version}/build/debian/changelog";
     platforms = lib.platforms.unix;
     hydraPlatforms = lib.platforms.linux; # build hangs on both Darwin platforms, needs investigation
   };
