@@ -8,11 +8,11 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = if withoutInitTools then "sysvtools" else "sysvinit";
-  version = "3.04";
+  version = "3.18";
 
   src = fetchurl {
-    url = "mirror://savannah/sysvinit/sysvinit-${finalAttrs.version}.tar.xz";
-    sha256 = "sha256-KmIf5uRSi8kTCLdIZ92q6733dT8COVwMW66Be9K346U=";
+    url = "https://codeberg.org/thejessesmith/sysvinit/releases/download/${finalAttrs.version}/sysvinit-${finalAttrs.version}.tar.xz";
+    hash = "sha256-eT10J+IZ8czxIufFVlXO9fNBmtxiDsLuDtVX6MlLQ48=";
   };
 
   prePatch = ''
@@ -25,12 +25,8 @@ stdenv.mkDerivation (finalAttrs: {
   makeFlags = [
     "SULOGINLIBS=-lcrypt"
     "ROOT=$(out)"
-    "MANDIR=/share/man"
+    "usrdir="
   ];
-
-  preInstall = ''
-    substituteInPlace src/Makefile --replace /usr /
-  '';
 
   postInstall = ''
     mv $out/sbin/killall5 $out/bin
@@ -46,7 +42,8 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   meta = {
-    homepage = "https://www.nongnu.org/sysvinit/";
+    homepage = "https://codeberg.org/thejessesmith/sysvinit";
+    changelog = "https://codeberg.org/thejessesmith/sysvinit/raw/tag/${finalAttrs.version}/doc/Changelog";
     description = "Utilities related to booting and shutdown";
     platforms = lib.platforms.linux;
     license = lib.licenses.gpl2Plus;
