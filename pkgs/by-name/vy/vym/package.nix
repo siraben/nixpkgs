@@ -1,9 +1,10 @@
 {
   lib,
   cmake,
+  dbus,
   fetchFromGitHub,
   pkg-config,
-  qt5,
+  qt6,
   stdenv,
   replaceVars,
   unzip,
@@ -11,22 +12,23 @@
 }:
 
 let
-  inherit (qt5)
+  inherit (qt6)
     qtbase
-    qtscript
+    qtdeclarative
     qtsvg
+    qttools
     wrapQtAppsHook
     ;
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "vym";
-  version = "2.9.26";
+  version = "3.0.0";
 
   src = fetchFromGitHub {
     owner = "insilmaril";
     repo = "vym";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-5cHhv9GDjJvSqGJ+7fI0xaWCiXw/0WP0Bem/ZRV8Y7M=";
+    hash = "sha256-GS97QtBEkTTAwN54sk1BUQ79sFrz6tED9KfWTESi1vk=";
   };
 
   outputs = [
@@ -44,12 +46,14 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     cmake
     pkg-config
+    qttools
     wrapQtAppsHook
   ];
 
   buildInputs = [
+    dbus
     qtbase
-    qtscript
+    qtdeclarative
     qtsvg
   ];
 
