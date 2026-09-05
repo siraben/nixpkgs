@@ -6,31 +6,44 @@
 
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "mutmut";
-  version = "3.2.0";
+  version = "3.7.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     repo = "mutmut";
     owner = "boxed";
     tag = finalAttrs.version;
-    hash = "sha256-+e2FmfpGtK401IW8LNqeHk0v8Hh5rF3LbZJkSOJ3yPY=";
+    hash = "sha256-jqJWFEYXVA6WizDO34iiyUmElGUBqsqPPyKS8AUJ7ZY=";
   };
 
   postPatch = ''
-    substituteInPlace requirements.txt --replace-fail 'junit-xml==1.8' 'junit-xml==1.9'
+    substituteInPlace pyproject.toml \
+      --replace-fail "uv_build>=0.9.5,<0.10.0" uv_build
   '';
 
-  doCheck = false;
+  build-system = with python3Packages; [ uv-build ];
 
-  build-system = with python3Packages; [ setuptools ];
+  dependencies =
+    with python3Packages;
+    [
+      click
+      coverage
+      libcst
+      pytest
+      setproctitle
+      textual
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [ toml ];
 
-  dependencies = with python3Packages; [
-    click
-    parso
-    junit-xml
-    setproctitle
-    textual
+  nativeCheckInputs = with python3Packages; [
+    inline-snapshot
+    mypy
+    pytest-asyncio
+    pytestCheckHook
   ];
+
+  # The snapshot is incompatible with the newer pyrefly in nixpkgs.
+  disabledTests = [ "test_type_checking_pyrefly_result_snapshot" ];
 
   pythonImportsCheck = [ "mutmut" ];
 
