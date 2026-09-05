@@ -8,11 +8,13 @@
   pkg-config,
   strace,
   python3,
+  xxhash,
+  xz,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libabigail";
-  version = "2.5";
+  version = "2.10";
 
   outputs = [
     "bin"
@@ -22,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchurl {
     url = "https://mirrors.kernel.org/sourceware/libabigail/libabigail-${finalAttrs.version}.tar.xz";
-    hash = "sha256-fPxOmwCuONh/sMY76rsyucv5zkEOUs7rWtWzxb6xEfM=";
+    hash = "sha256-DMEOZHE5gzDgAbn+N/HoxRCKmrYysIypY01sZLw4C3g=";
   };
 
   nativeBuildInputs = [
@@ -34,6 +36,8 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs = [
     elfutils
     libxml2
+    xxhash
+    xz
   ];
 
   nativeCheckInputs = [
@@ -42,7 +46,6 @@ stdenv.mkDerivation (finalAttrs: {
 
   configureFlags = [
     "--enable-bash-completion=yes"
-    "--enable-cxx11=yes"
   ];
 
   enableParallelBuilding = true;
