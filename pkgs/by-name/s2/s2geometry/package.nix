@@ -1,7 +1,9 @@
 {
-  abseil-cpp_202407,
+  abseil-cpp_202508,
   cmake,
   fetchFromGitHub,
+  gbenchmark,
+  gtest,
   stdenv,
   lib,
   pkg-config,
@@ -13,14 +15,21 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "s2geometry";
-  version = "0.12.0";
+  version = "0.14.0";
 
   src = fetchFromGitHub {
     owner = "google";
     repo = "s2geometry";
     tag = "v${finalAttrs.version}";
-    sha256 = "sha256-stH1iO4AEL+VZizntUzhvADNOKX333o3QSOz+WOBZ5Q=";
+    hash = "sha256-mdwxHgpnyyBX/hYiK43b8Qae5ffEZQZ9fVQlerX43VA=";
   };
+
+  patches = [ ./use-system-test-dependencies.patch ];
+
+  postPatch = ''
+    substituteInPlace CMakeLists.txt \
+      --replace-fail "VERSION 0.12.0" "VERSION ${finalAttrs.version}"
+  '';
 
   nativeBuildInputs = [
     cmake
@@ -29,17 +38,20 @@ stdenv.mkDerivation (finalAttrs: {
 
   cmakeFlags = [
     (lib.cmakeFeature "CMAKE_CXX_STANDARD" cxxStandard)
-    # incompatible with our version of gtest
-    (lib.cmakeBool "BUILD_TESTS" false)
+    (lib.cmakeBool "BUILD_TESTS" finalAttrs.finalPackage.doCheck)
   ];
 
-  buildInputs = [
+  checkInputs = [
+    gbenchmark
+    gtest
     openssl
   ];
 
   propagatedBuildInputs = [
-    (abseil-cpp_202407.override { inherit cxxStandard; })
+    (abseil-cpp_202508.override { inherit cxxStandard; })
   ];
+
+  doCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
 
   meta = {
     changelog = "https://github.com/google/s2geometry/releases/tag/v${finalAttrs.version}";

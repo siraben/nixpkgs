@@ -1,0 +1,39 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 0a7c578..c9a4050 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -298,32 +298,8 @@ set_target_properties(s2 PROPERTIES
+ if (BUILD_TESTS)
+   find_package(OpenSSL REQUIRED)
+
+-  # We could use a pre-installed benchmark with
+-  # `find_package(benchmark QUIET)` then, `if (NOT benchmark_FOUND)`, but
+-  # that could run into trouble if benchmark isn't PIC, but
+-  # s2geometry is.  benchmark isn't PIC by default, but s2geometry is
+-  # when building a shared lib.  Always build benchmark for simplicity.
+-  message(STATUS "Downloading and building benchmark...")
+-  FetchContent_Declare(
+-      benchmark
+-      # https://github.com/google/benchmark/releases/tag/v1.9.4
+-      URL https://github.com/google/benchmark/archive/eddb0241389718a23a42db6af5f0164b6e0139af.zip
+-      DOWNLOAD_EXTRACT_TIMESTAMP TRUE
+-  )
+-  # Don't install benchmark when s2geometry is installed.
+-  set(BENCHMARK_ENABLE_INSTALL OFF CACHE BOOL "" FORCE)
+-  set(BENCHMARK_ENABLE_TESTING OFF CACHE BOOL "" FORCE)
+-  FetchContent_MakeAvailable(benchmark)
+-
+-  # https://google.github.io/googletest/quickstart-cmake.html#set-up-a-project
+-  message(STATUS "Downloading googletest...")
+-  FetchContent_Declare(
+-      googletest
+-      # https://github.com/google/googletest/releases/tag/v1.17.0
+-      URL https://github.com/google/googletest/archive/52eb8108c5bdec04579160ae17225d66034bd723.zip
+-      DOWNLOAD_EXTRACT_TIMESTAMP TRUE
+-  )
+-  FetchContent_MakeAvailable(googletest)
++  find_package(benchmark REQUIRED)
++  find_package(GTest REQUIRED)
+   include(GoogleTest)
+
+   add_library(s2testing STATIC
