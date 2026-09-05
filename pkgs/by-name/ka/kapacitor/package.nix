@@ -3,14 +3,13 @@
   lib,
   rustPlatform,
   fetchFromGitHub,
-  fetchpatch,
   libiconv,
   buildGoModule,
   pkg-config,
 }:
 
 let
-  libflux_version = "0.171.0";
+  libflux_version = "0.191.0";
   flux = rustPlatform.buildRustPackage rec {
     pname = "libflux";
     version = "${libflux_version}";
@@ -18,33 +17,18 @@ let
       owner = "influxdata";
       repo = "flux";
       tag = "v${libflux_version}";
-      hash = "sha256-v9MUR+PcxAus91FiHYrMN9MbNOTWewh7MT6/t/QWQcM=";
+      hash = "sha256-l70Vs1aSes8FYs20J95diy8HxoLc+pG6CCGTce+3q3w=";
     };
-    patches = [
-      # This fixes a linting error due to an unneeded call to `.clone()`
-      # that gets enforced by a strict `deny(warnings)` build config.
-      # This is already fixed with newer versions of `libflux`, but it
-      # has been changed in a giant commit with a lot of automated changes:
-      # https://github.com/influxdata/flux/commit/e7f7023848929e16ad5bd3b41d217847bd4fd72b#diff-96572e971d9e19b54290a434debbf7db054b21c9ce19035159542756ffb8ab87
-      #
-      # Can be removed as soon as kapacitor depends on a newer version of `libflux`, cf:
-      # https://github.com/influxdata/kapacitor/blob/v1.7.0/go.mod#L26
-      ./fix-linting-error-on-unneeded-clone.patch
-      # https://github.com/influxdata/flux/commit/68c831c40b396f0274f6a9f97d77707c39970b02
-      ./0001-fix-build.patch
 
-      # https://github.com/influxdata/flux/pull/5273
-      # fix compile error with Rust 1.64
-      (fetchpatch {
-        url = "https://github.com/influxdata/flux/commit/20ca62138a0669f2760dd469ca41fc333e04b8f2.patch";
-        stripLen = 2;
-        extraPrefix = "";
-        hash = "sha256-Fb4CuH9ZvrPha249dmLLI8MqSNQRKqKPxPbw2pjqwfY=";
-      })
-    ];
+    # Don't fail on warnings introduced by newer Rust compilers.
+    postPatch = ''
+      substituteInPlace flux-core/src/lib.rs flux/src/lib.rs \
+        --replace-fail "deny(warnings, missing_docs))]" \
+          "deny(warnings), allow(dead_code, hidden_glob_reexports, mismatched_lifetime_syntaxes))]"
+    '';
     sourceRoot = "${src.name}/libflux";
 
-    cargoHash = "sha256-kbI1uUDE8JyFFtwV5k0EeeNGCZFQLXLobW/MilHX2Sg=";
+    cargoHash = "sha256-HotrRXwjdU4f++z5/77oBJztGVjEeAi2N/Q1vZx7Rzc=";
     nativeBuildInputs = [ rustPlatform.bindgenHook ];
     buildInputs = lib.optional stdenv.hostPlatform.isDarwin libiconv;
     pkgcfg = ''
@@ -70,20 +54,27 @@ let
 in
 buildGoModule rec {
   pname = "kapacitor";
-  version = "1.7.5";
+  version = "1.8.6";
 
   src = fetchFromGitHub {
     owner = "influxdata";
     repo = "kapacitor";
     tag = "v${version}";
-    hash = "sha256-vxaLfJq0NFAJst0/AEhNJUl9dAaZY3blZAFthseMSX0=";
+    hash = "sha256-X6wVlAgQhy3+/26TVDMdMDEHQM8tnJt4JB/cR4fExZk=";
   };
 
-  vendorHash = "sha256-myToEgta8R5R4v2/nZqtQQvNdy1kWgwklbQeFxzIdgs=";
+  vendorHash = "sha256-+D9Uhw3SKDfApWK3jCtjnb9Q/I6YW0PECsszKY9gXb8=";
 
   nativeBuildInputs = [ pkg-config ];
 
   env.PKG_CONFIG_PATH = "${flux}/pkgconfig";
+
+  ldflags = [
+    "-X main.version=${version}"
+    "-X main.branch=NixOS"
+    "-X main.commit=v${version}"
+    "-X main.platform=OSS"
+  ];
 
   # Check that libflux is at the right version
   preBuild = ''
@@ -97,7 +88,6 @@ buildGoModule rec {
   # Remove failing server tests
   preCheck = ''
     rm server/server_test.go
-    rm pipeline/tick/*test.go
   '';
 
   checkFlags =
@@ -121,7 +111,7 @@ buildGoModule rec {
     homepage = "https://influxdata.com/time-series-platform/kapacitor/";
     downloadPage = "https://github.com/influxdata/kapacitor/releases";
     license = lib.licenses.mit;
-    changelog = "https://github.com/influxdata/kapacitor/blob/master/CHANGELOG.md";
+    changelog = "https://github.com/influxdata/kapacitor/blob/v${version}/CHANGELOG.md";
     maintainers = with lib.maintainers; [
       totoroot
     ];
