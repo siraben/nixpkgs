@@ -2,6 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  fetchurl,
   cmake,
   kernel,
   installShellFiles,
@@ -29,11 +30,11 @@
 }:
 
 let
-  # Compare with https://github.com/draios/sysdig/blob/0.40.1/cmake/modules/falcosecurity-libs.cmake
-  libsRev = "0.20.0";
-  libsHash = "sha256-G5MMVNceNa1y7CczfoaRBektc//uUN6ijmcTMnnKMRA=";
+  # Compare with https://github.com/draios/sysdig/blob/0.41.4/cmake/modules/falcosecurity-libs.cmake
+  libsRev = "0.21.0";
+  libsHash = "sha256-2iJk7vAw9JaHeVqejmLj8mmcY9kn5NKPe1oax1tCWAs=";
 
-  # Compare with https://github.com/falcosecurity/libs/blob/0.17.2/cmake/modules/valijson.cmake
+  # Compare with https://github.com/falcosecurity/libs/blob/0.21.0/cmake/modules/valijson.cmake
   valijson = fetchFromGitHub {
     owner = "tristanpenman";
     repo = "valijson";
@@ -41,15 +42,30 @@ let
     hash = "sha256-wvFdjsDtKH7CpbEpQjzWtLC4RVOU9+D2rSK0Xo1cJqo=";
   };
 
-  # https://github.com/draios/sysdig/blob/0.40.1/cmake/modules/driver.cmake
+  # https://github.com/draios/sysdig/blob/0.41.4/cmake/modules/driver.cmake
   driver = fetchFromGitHub {
     owner = "falcosecurity";
     repo = "libs";
-    rev = "8.0.0+driver";
-    hash = "sha256-G5MMVNceNa1y7CczfoaRBektc//uUN6ijmcTMnnKMRA=";
+    rev = "8.1.0+driver";
+    hash = "sha256-Nr4mMIIkRkb5aQs6NJmmRM0+Sr3/8p4jNFMg1XoIdRA=";
   };
 
-  version = "0.40.1";
+  containerPluginSupported =
+    stdenv.hostPlatform.isLinux && (stdenv.hostPlatform.isx86_64 || stdenv.hostPlatform.isAarch64);
+
+  containerPlugin = fetchurl {
+    url =
+      "https://download.falco.org/plugins/stable/container-0.6.0-linux-"
+      + (if stdenv.hostPlatform.isx86_64 then "x86_64" else "aarch64")
+      + ".tar.gz";
+    hash =
+      if stdenv.hostPlatform.isx86_64 then
+        "sha256-+cMi3Cqky9pJKl5iWFMvdx6WDbRVCaU7waUooB9LYWg="
+      else
+        "sha256-8gFaXHWLXreYaewVkzUq31yVWZDljggEe0wTRMawdnY=";
+  };
+
+  version = "0.41.4";
 in
 stdenv.mkDerivation {
   pname = "sysdig";
@@ -59,8 +75,20 @@ stdenv.mkDerivation {
     owner = "draios";
     repo = "sysdig";
     tag = version;
-    hash = "sha256-MPiNfxGePtQvh3l9RA6Vg+glB9RiR3ia1vv06MAw9do=";
+    hash = "sha256-FmKXHB2i9sZmVi+4m5FCZCQT62XBBEHAQeG9kOVHbjQ=";
   };
+
+  postPatch =
+    lib.optionalString containerPluginSupported ''
+      substituteInPlace cmake/modules/container_plugin.cmake \
+        --replace-fail 'URL "https://download.falco.org/plugins/stable/container-''${CONTAINER_VERSION}-''${PLUGINS_SYSTEM_NAME}-''${CMAKE_HOST_SYSTEM_PROCESSOR}.tar.gz"' \
+        'URL "${containerPlugin}"'
+    ''
+    + lib.optionalString (!containerPluginSupported) ''
+      # Upstream only publishes the bundled plugin for x86_64 and aarch64 Linux.
+      substituteInPlace CMakeLists.txt \
+        --replace-fail "include(container_plugin)" ""
+    '';
 
   nativeBuildInputs = [
     cmake
@@ -109,7 +137,10 @@ stdenv.mkDerivation {
     } libs
     chmod -R +w libs
 
-    substituteInPlace libs/userspace/libscap/libscap.pc.in libs/userspace/libsinsp/libsinsp.pc.in \
+    substituteInPlace \
+      libs/userspace/libpman/libpman.pc.in \
+      libs/userspace/libscap/libscap.pc.in \
+      libs/userspace/libsinsp/libsinsp.pc.in \
       --replace-fail "\''${prefix}/@CMAKE_INSTALL_LIBDIR@" "@CMAKE_INSTALL_FULL_LIBDIR@" \
       --replace-fail "\''${prefix}/@CMAKE_INSTALL_INCLUDEDIR@" "@CMAKE_INSTALL_FULL_INCLUDEDIR@"
 
