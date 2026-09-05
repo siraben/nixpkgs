@@ -1,25 +1,34 @@
 {
   lib,
   stdenv,
-  boost,
+  catch2_3,
   cmake,
-  fetchFromGitHub,
   eigen,
+  fast-float,
+  fetchFromGitHub,
+  pcre2,
+  pkg-config,
+  sqlite,
   zlib,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libcifpp";
-  version = "8.0.1";
+  version = "10.0.4";
 
   src = fetchFromGitHub {
     owner = "PDB-REDO";
     repo = "libcifpp";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-cfyou+R0VrAfYM8ez5myZkDKO5VfB9WAQF+amy3oRzU=";
+    hash = "sha256-+lD543SYLoHrds97en4zfDHkQBf4wL0NOg2LcshJI8k=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
+
+  checkInputs = [ catch2_3 ];
 
   cmakeFlags = [
     # disable network access
@@ -27,15 +36,17 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   buildInputs = [
-    boost
     eigen
+    fast-float
+  ];
+
+  propagatedBuildInputs = [
+    pcre2
+    sqlite
     zlib
   ];
 
-  # cmake requires the existence of this directory when building dssp
-  postInstall = ''
-    mkdir -p $out/share/libcifpp
-  '';
+  doCheck = true;
 
   meta = {
     description = "Manipulate mmCIF and PDB files";
