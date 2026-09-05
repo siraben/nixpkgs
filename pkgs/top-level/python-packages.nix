@@ -9489,6 +9489,8 @@ self: super: with self; {
     }
   );
 
+  lhafile = callPackage ../development/python-modules/lhafile { };
+
   lhapdf = toPythonModule (pkgs.lhapdf.override { python3 = python; });
 
   lhpapi = callPackage ../development/python-modules/lhpapi { };

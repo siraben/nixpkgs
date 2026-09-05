@@ -6,15 +6,16 @@
   python3Packages,
   stdenv,
   libsForQt5,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "fs-uae-launcher";
-  version = "3.1.70";
+  version = "3.2.35";
 
   src = fetchurl {
-    url = "https://fs-uae.net/files/FS-UAE-Launcher/Stable/${finalAttrs.version}/fs-uae-launcher-${finalAttrs.version}.tar.xz";
-    hash = "sha256-yvJ8sa44V13SEUJ6C9SgS+N2ZFH5+20TTL2ICY9A36c=";
+    url = "https://github.com/FrodeSolheim/fs-uae-launcher/releases/download/v${finalAttrs.version}/fs-uae-launcher-${finalAttrs.version}.tar.xz";
+    hash = "sha256-zf10zZkoGTGpBDQNQUx+vETdvdDQ1Zmz65gY1YEF3CU=";
   };
 
   nativeBuildInputs = [
@@ -24,6 +25,9 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   buildInputs = with python3Packages; [
+    lhafile
+    pillow
+    pyopengl
     pyqt5
     requests
     setuptools
@@ -38,6 +42,8 @@ stdenv.mkDerivation (finalAttrs: {
   postPatch = ''
     substituteInPlace setup.py \
       --replace-fail "distutils.core" "setuptools"
+    substituteInPlace fsbc/seven_zip_file.py \
+      --replace-fail "from distutils.spawn import find_executable" "from shutil import which as find_executable"
   '';
 
   preFixup = ''
@@ -50,6 +56,8 @@ stdenv.mkDerivation (finalAttrs: {
     ln -s ${fsuae}/bin/fs-uae-device-helper $out/bin
     ln -s ${fsuae}/share/fs-uae $out/share/fs-uae
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     homepage = "https://fs-uae.net";
