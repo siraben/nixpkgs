@@ -18,11 +18,11 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "virtualgl-lib";
-  version = "3.0.2";
+  version = "3.1.5";
 
   src = fetchurl {
-    url = "mirror://sourceforge/virtualgl/VirtualGL-${finalAttrs.version}.tar.gz";
-    sha256 = "sha256-OIEbwAQ71yOuHIzM+iaK7QkUJrKg6sXpGuFQOUPjM2w=";
+    url = "https://github.com/VirtualGL/virtualgl/releases/download/${finalAttrs.version}/VirtualGL-${finalAttrs.version}.tar.gz";
+    hash = "sha256-ijJJxPqO6pKDYsqXuP4W5bNW46GM0W2H4++nKocHULY=";
   };
 
   postPatch = ''
