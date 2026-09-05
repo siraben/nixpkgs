@@ -10,24 +10,20 @@
   openjpeg,
   onetbb,
   blend2d,
+  sane-backends,
   nix-update-script,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "pdf4qt";
-  version = "1.5.2.0";
+  version = "1.6.0.0";
 
   src = fetchFromGitHub {
     owner = "JakubMelka";
     repo = "PDF4QT";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-pY1PM3H9vANxogRzQvuIohIi9d8TL093kMAl49trTho=";
+    hash = "sha256-c0XeJOsr8q8DG1BWqi61ZbZmJ8VkRG8EnGJMqRwEsPA=";
   };
-
-  patches = [
-    # https://github.com/JakubMelka/PDF4QT/pull/322
-    ./migrated_to_blend2d_0.21.x.patch
-  ];
 
   nativeBuildInputs = [
     cmake
@@ -47,6 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
     openjpeg
     onetbb
     blend2d
+    sane-backends
   ];
 
   # `blend2d.h` moved to `blend2d/blend2d.h` in blend2d >= 0.21.2
@@ -55,6 +52,8 @@ stdenv.mkDerivation (finalAttrs: {
   cmakeFlags = [
     (lib.cmakeBool "PDF4QT_INSTALL_TO_USR" false)
   ];
+
+  doCheck = true;
 
   dontWrapGApps = true;
 
