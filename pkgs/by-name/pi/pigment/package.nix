@@ -2,6 +2,7 @@
   lib,
   python3Packages,
   fetchFromGitHub,
+  blueprint-compiler,
   ninja,
   meson,
   pkg-config,
@@ -15,7 +16,7 @@
   nix-update-script,
 }:
 let
-  version = "0.5.1";
+  version = "0.5.6";
 in
 python3Packages.buildPythonApplication {
   pname = "pigment";
@@ -26,10 +27,11 @@ python3Packages.buildPythonApplication {
     owner = "Jeffser";
     repo = "Pigment";
     tag = version;
-    hash = "sha256-tWWDX1njnI1FOZhTUE1i+5pqZeLZFzHBrfoGFHCKnX0=";
+    hash = "sha256-sxO2UHNewMlS+lrwI0iNchmj3cF0bESLMWKMprVPfoI=";
   };
 
   nativeBuildInputs = [
+    blueprint-compiler
     meson
     ninja
     pkg-config
