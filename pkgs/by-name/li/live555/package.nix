@@ -1,7 +1,6 @@
 {
   buildPackages,
   cctools,
-  fetchpatch,
   fetchurl,
   lib,
   live555,
@@ -19,25 +18,17 @@ in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "live555";
-  version = "2026.01.12";
+  version = "2026.08.25";
 
   src = fetchurl {
     urls = [
-      "http://www.live555.com/liveMedia/public/live.${finalAttrs.version}.tar.gz"
+      "https://download.live555.com/live.${finalAttrs.version}.tar.gz"
       "https://src.rrz.uni-hamburg.de/files/src/live555/live.${finalAttrs.version}.tar.gz"
       "https://download.videolan.org/contrib/live555/live.${finalAttrs.version}.tar.gz"
       "mirror://sourceforge/slackbuildsdirectlinks/live.${finalAttrs.version}.tar.gz"
     ];
-    hash = "sha256-LFTC4JAGWEnQq4zHsGlC9OZt3hfyoMgK4guQfVYsk34=";
+    hash = "sha256-Xz0VE1gRfHpADGGuAmAypG8UD74agKEtox7wJffG6T0=";
   };
-
-  patches = [
-    (fetchpatch {
-      name = "0000-cflags-when-darwin.patch";
-      url = "https://github.com/rgaufman/live555/commit/16701af5486bb3a2d25a28edaab07789c8a9ce57.patch?full_index=1";
-      hash = "sha256-IDSdByBu/EBLsUTBe538rWsDwH61RJfAEhvT68Nb9rU=";
-    })
-  ];
 
   nativeBuildInputs = lib.optionals stdenv.hostPlatform.isDarwin [
     cctools
@@ -55,10 +46,6 @@ stdenv.mkDerivation (finalAttrs: {
     "LIBRARY_LINK=${if isStatic then "$(AR) cr " else "$(CC) -o "}"
   ];
 
-  # Since NIX_CFLAGS_COMPILE affects both C and C++ toolchains, we set CXXFLAGS
-  # directly
-  env.CXXFLAGS = "-std=c++20";
-
   strictDeps = true;
 
   enableParallelBuilding = true;
@@ -67,9 +54,12 @@ stdenv.mkDerivation (finalAttrs: {
   __structuredAttrs = true;
 
   postPatch = ''
+    # The Darwin configs do not honor standard build flag variables.
     substituteInPlace config.macosx-catalina \
-      --replace '/usr/lib/libssl.46.dylib' "${lib.getLib openssl}/lib/libssl.dylib" \
-      --replace '/usr/lib/libcrypto.44.dylib' "${lib.getLib openssl}/lib/libcrypto.dylib"
+      --replace-fail 'C_FLAGS =		$(COMPILE_OPTS)' 'C_FLAGS =		$(COMPILE_OPTS) $(CPPFLAGS) $(CFLAGS)' \
+      --replace-fail 'CPLUSPLUS_FLAGS =	$(COMPILE_OPTS) -std=c++20 -Wall' 'CPLUSPLUS_FLAGS =	$(COMPILE_OPTS) -std=c++20 -Wall $(CPPFLAGS) $(CXXFLAGS)' \
+      --replace-fail '/usr/lib/libssl.46.dylib' "${lib.getLib openssl}/lib/libssl.dylib" \
+      --replace-fail '/usr/lib/libcrypto.44.dylib' "${lib.getLib openssl}/lib/libcrypto.dylib"
     sed -i -e 's|/bin/rm|rm|g' genMakefiles
     sed -i \
       -e 's/$(INCLUDES) -I. -O2 -DSOCKLEN_T/$(INCLUDES) -I. -O2 -I. -fPIC -DRTSPCLIENT_SYNCHRONOUS_INTERFACE=1 -DSOCKLEN_T/g' \
@@ -139,16 +129,16 @@ stdenv.mkDerivation (finalAttrs: {
     #!/usr/bin/env nix-shell
     #!nix-shell -i bash -p curl common-updater-scripts
 
-    # Expect the text in format of '2025.05.24:'
-    new_version="$(curl -s http://www.live555.com/liveMedia/public/changelog.txt |
-      head -n1 | tr -d ':')"
+    # Expect the first line in the format 'YYYY.MM.DD:'
+    new_version="$(curl -fsS https://download.live555.com/changelog.txt |
+      sed -n '1s/:$//p')"
     update-source-version live555 "$new_version"
   '';
 
   meta = {
     homepage = "http://www.live555.com/liveMedia/";
     description = "Set of C++ libraries for multimedia streaming, using open standard protocols (RTP/RTCP, RTSP, SIP)";
-    changelog = "http://www.live555.com/liveMedia/public/changelog.txt";
+    changelog = "https://download.live555.com/changelog.txt";
     license = lib.licenses.lgpl21Plus;
     maintainers = [ ];
     platforms = lib.platforms.unix;
