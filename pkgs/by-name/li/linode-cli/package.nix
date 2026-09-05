@@ -8,12 +8,11 @@
 }:
 
 let
-  hash = "sha256-QQxadKVEIh1PvD8FdYgJ/U1iyWdy6FvO+LUELQ70KKw=";
-  # specVersion taken from: https://www.linode.com/docs/api/openapi.yaml at `info.version`.
-  specVersion = "4.176.0";
-  specHash = "sha256-P1E8Ga5ckrsw/CX0kxFef5fe8/p/pDCLuleX9wR5l48=";
+  hash = "sha256-w68dxhf4vBZLqp6YAg6XmyDF7mttNUFCdvPCaB2YNQc=";
+  specVersion = "release-20260527";
+  specHash = "sha256-ShXQt4pp8rJNmfNFy1+QgRKWM3xJHiGDuN0FkAVuFtc=";
   spec = fetchurl {
-    url = "https://raw.githubusercontent.com/linode/linode-api-docs/v${specVersion}/openapi.yaml";
+    url = "https://raw.githubusercontent.com/linode/linode-api-openapi/${specVersion}/openapi.json";
     hash = specHash;
   };
 
@@ -21,7 +20,7 @@ in
 
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "linode-cli";
-  version = "5.56.2";
+  version = "5.68.0";
   pyproject = true;
 
   src = fetchPypi {
@@ -36,12 +35,6 @@ python3Packages.buildPythonApplication (finalAttrs: {
 
   patches = [ ./remove-update-check.patch ];
 
-  # remove need for git history
-  prePatch = ''
-    substituteInPlace setup.py \
-      --replace "version = get_version()" "version='${finalAttrs.version}',"
-  '';
-
   postConfigure = ''
     python3 -m linodecli bake ${spec} --skip-config
     cp data-3 linodecli/
@@ -51,13 +44,14 @@ python3Packages.buildPythonApplication (finalAttrs: {
   nativeBuildInputs = [ installShellFiles ];
 
   dependencies = [
-    python3Packages.colorclass
     python3Packages.linode-metadata
+    python3Packages.openapi3
+    python3Packages.packaging
+    python3Packages.pytimeparse
     python3Packages.pyyaml
     python3Packages.requests
     python3Packages.rich
-    python3Packages.openapi3
-    python3Packages.packaging
+    python3Packages.urllib3
   ];
 
   doInstallCheck = true;
