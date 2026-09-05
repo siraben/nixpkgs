@@ -3,27 +3,43 @@
   fetchFromGitHub,
   makeDesktopItem,
   makeWrapper,
-  maven,
+  gradle_8,
   jdk17,
   jre,
   libxxf86vm,
   gitUpdater,
   libGL,
+  stdenvNoCC,
 }:
 
-maven.buildMavenPackage rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "runelite";
-  version = "2.7.2";
+  version = "2.8.0";
 
   src = fetchFromGitHub {
     owner = "runelite";
     repo = "launcher";
-    rev = version;
-    hash = "sha256-ckeZ/7rACyZ5j+zzC5hv1NaXTi9q/KvOzMPTDd1crHQ=";
+    tag = finalAttrs.version;
+    hash = "sha256-1IUjbZEvoHb2Fer16rIvi6shMsol+hiPLQleXHRVLEU=";
   };
 
-  mvnJdk = jdk17;
-  mvnHash = "sha256-OI+m2xJZPnyPXM/HlAsaBJ/z/NCcRSP7+PW5CQOsPiY=";
+  gradle = gradle_8.override { java = jdk17; };
+
+  nativeBuildInputs = [
+    finalAttrs.gradle
+    makeWrapper
+  ];
+
+  mitmCache = finalAttrs.gradle.fetchDeps {
+    inherit (finalAttrs) pname;
+    data = ./deps.json;
+  };
+
+  gradleBuildTask = "shadowJar";
+  # UpdaterTest fetches Apple's external plist DTD.
+  gradleCheckTask = "checkstyleMain checkstyleTest test --tests net.runelite.launcher.VersionTest";
+  gradleFlags = [ "-PRUNELITE_BUILD=runelite" ];
+  doCheck = true;
 
   desktop = makeDesktopItem {
     name = "RuneLite";
@@ -34,21 +50,19 @@ maven.buildMavenPackage rec {
     desktopName = "RuneLite";
     genericName = "Oldschool Runescape";
     categories = [ "Game" ];
-    startupWMClass = "net-runelite-client-RuneLite";
+    startupWMClass = "net-runelite-launcher-Launcher";
   };
 
-  # tests require internet :(
-  mvnParameters = "-Dmaven.test.skip";
-  nativeBuildInputs = [ makeWrapper ];
-
   installPhase = ''
+    runHook preInstall
+
     mkdir -p $out/share/icons
     mkdir -p $out/share/applications
 
-    cp target/RuneLite.jar $out/share
+    cp build/libs/RuneLite.jar $out/share
     cp appimage/runelite.png $out/share/icons
 
-    ln -s ${desktop}/share/applications/RuneLite.desktop $out/share/applications/RuneLite.desktop
+    ln -s ${finalAttrs.desktop}/share/applications/RuneLite.desktop $out/share/applications/RuneLite.desktop
 
     makeWrapper ${jre}/bin/java $out/bin/runelite \
       --prefix LD_LIBRARY_PATH : "${
@@ -58,6 +72,8 @@ maven.buildMavenPackage rec {
         ]
       }" \
       --add-flags "-jar $out/share/RuneLite.jar"
+
+    runHook postInstall
   '';
 
   passthru.updateScript = gitUpdater { };
@@ -66,8 +82,8 @@ maven.buildMavenPackage rec {
     description = "Open source Old School RuneScape client";
     homepage = "https://runelite.net/";
     sourceProvenance = with lib.sourceTypes; [
+      fromSource
       binaryBytecode
-      binaryNativeCode
     ];
     license = lib.licenses.bsd2;
     maintainers = with lib.maintainers; [
@@ -77,4 +93,4 @@ maven.buildMavenPackage rec {
     platforms = [ "x86_64-linux" ];
     mainProgram = "runelite";
   };
-}
+})
