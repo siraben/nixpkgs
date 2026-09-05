@@ -16,6 +16,11 @@ let
   llvmMajor = lib.versions.major llvm.version;
 
   versions = {
+    "23" = rec {
+      version = "23.1.1";
+      rev = "v${version}";
+      hash = "sha256-+OrwuDZzvC1TmPKOO7vecTKjyXOx1zSZOThJ4x4LoBg=";
+    };
     "22" = rec {
       version = "22.1.3";
       rev = "v${version}";
@@ -107,7 +112,7 @@ stdenv.mkDerivation {
   '';
 
   passthru.tests = lib.genAttrs (lib.attrNames versions) (
-    version: pkgs.spirv-llvm-translator.override { llvm = pkgs."llvm_${version}"; }
+    version: pkgs.spirv-llvm-translator.override { llvm = pkgs."llvmPackages_${version}".llvm; }
   );
 
   meta = {
