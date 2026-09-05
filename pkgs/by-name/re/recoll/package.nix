@@ -17,6 +17,7 @@
   gnutar,
   groff,
   gzip,
+  jsoncpp,
   libiconv,
   libwpd,
   libxslt,
@@ -73,11 +74,11 @@ in
 
 stdenv.mkDerivation rec {
   pname = "recoll";
-  version = "1.43.9";
+  version = "1.44.1";
 
   src = fetchurl {
     url = "https://www.recoll.org/${pname}-${version}.tar.gz";
-    hash = "sha256-irloDtMO9CBvtI+oEicUOy2myrGskieWoqNk5eapzU8=";
+    hash = "sha256-D3f17zpuo6a5XjMF6rb/TEByRM7EkO3ogVChsCm+En4=";
   };
 
   mesonFlags = [
@@ -132,6 +133,7 @@ stdenv.mkDerivation rec {
     aspell
     bison
     chmlib
+    jsoncpp
   ]
   ++ lib.optionals withPython [
     python3Packages.python
