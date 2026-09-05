@@ -50,24 +50,25 @@ let
       regex-compat
       syb
       split
+      strict-concurrency
     ])
   );
 
 in
 stdenv.mkDerivation rec {
   pname = "bluespec";
-  version = "2024.07";
+  version = "2026.01";
 
   src = fetchFromGitHub {
     owner = "B-Lang-org";
     repo = "bsc";
     tag = version;
-    sha256 = "sha256-gA/vfAkkM2cuArN99JZVYEWTIJqg82HlC+BHNVS5Ot0=";
+    sha256 = "sha256-X/aJmBWevtRqJV9E7YqCR9jH91qot6N3o8aoaQKuOoQ=";
   };
 
   yices-src = fetchurl {
     url = "https://github.com/B-Lang-org/bsc/releases/download/${version}/yices-src-for-bsc-${version}.tar.gz";
-    sha256 = "sha256-pyEdCJvmgwOYPMZEtw7aro76tSn/Y/2GcKTyARmIh4E=";
+    sha256 = "sha256-pRFMjx4Ep1oGWYrJdjki+RhlVLbxMmwUVLLgber9VXU=";
   };
 
   enableParallelBuilding = true;
