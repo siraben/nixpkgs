@@ -53,6 +53,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
   '';
 
   doCheck = true;
+
+  # Release checks inherit fat LTO and a single codegen unit, which makes
+  # compiling the test harnesses disproportionately expensive.
+  checkType = "debug";
+
   checkFlags = [
     "--skip=test_google"
     "--skip=test_proxy"
