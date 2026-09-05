@@ -1,40 +1,38 @@
 {
   lib,
   stdenv,
-  autoconf,
-  automake,
-  autoreconfHook,
   cairo,
+  cmake,
   fetchFromGitHub,
   gettext,
   gtk2-x11,
-  libtool,
+  ninja,
   pkg-config,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gerbv";
-  version = "2.10.0";
+  version = "2.13.0";
 
   src = fetchFromGitHub {
     owner = "gerbv";
     repo = "gerbv";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-sr48RGLYcMKuyH9p+5BhnR6QpKBvNOqqtRryw3+pbBk=";
+    hash = "sha256-TByqekKlHLt9F4lQMtxmmLtlbvY2rmk2D39LZXOJpe4=";
   };
 
-  patches = [
-    ./0001-fix-invalid-function-signatures.patch
-  ];
-
   postPatch = ''
-    sed -i '/AC_INIT/s/m4_esyscmd.*/${finalAttrs.version}])/' configure.ac
+    substituteInPlace CMakeLists.txt \
+      --replace-fail 'VERSION 4.0' 'VERSION ${finalAttrs.version}'
+    substituteInPlace src/libgerbv.pc.in \
+      --replace-fail 'libdir=@libdir@' 'libdir=@CMAKE_INSTALL_FULL_LIBDIR@' \
+      --replace-fail 'includedir=@includedir@' 'includedir=@CMAKE_INSTALL_FULL_INCLUDEDIR@'
   '';
 
   nativeBuildInputs = [
-    autoconf
-    automake
-    autoreconfHook
+    cmake
+    gettext
+    ninja
     pkg-config
   ];
 
@@ -42,12 +40,14 @@ stdenv.mkDerivation (finalAttrs: {
     (cairo.override { x11Support = true; })
     gettext
     gtk2-x11
-    libtool
   ];
 
-  configureFlags = [
-    "--disable-update-desktop-database"
-  ];
+  # Upstream's platform presets define this, but nixpkgs invokes CMake directly.
+  env.NIX_CFLAGS_COMPILE = "-D_GNU_SOURCE";
+
+  # The tests compare rendered output pixel-for-pixel and vary by Cairo version.
+  # Upstream runs them non-blockingly for the same reason.
+  doCheck = false;
 
   meta = {
     description = "Gerber (RS-274X) viewer";
