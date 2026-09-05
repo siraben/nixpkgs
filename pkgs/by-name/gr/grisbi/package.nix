@@ -15,13 +15,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "grisbi";
-  version = "3.0.4";
+  version = "3.90.1";
 
   src = fetchFromGitHub {
     owner = "grisbi";
     repo = "grisbi";
     tag = "upstream_version_${lib.replaceStrings [ "." ] [ "_" ] finalAttrs.version}";
-    hash = "sha256-3E57M/XE4xyo3ppVceDA4OFDnVicosCY8ikE2gDJoUQ=";
+    hash = "sha256-jt1F5EyFV9nHYpjh9I0waBKr8j5uG/5p25GOs9ZQcAE=";
   };
 
   nativeBuildInputs = [
