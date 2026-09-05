@@ -2,26 +2,38 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  pkg-config,
   protobuf,
   isStatic ? stdenv.hostPlatform.isStatic,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "protoc-gen-grpc-web";
-  version = "1.5.0";
+  version = "2.1.1";
 
   src = fetchFromGitHub {
     owner = "grpc";
     repo = "grpc-web";
     rev = finalAttrs.version;
-    sha256 = "sha256-yqiSuqan4vynE3AS8OnYdzA+3AVlVFTBkxTuJe17114=";
+    hash = "sha256-5AM1oAFGIgARn7+CLNJox4g9VAI/z+5N5DDGVmawwK0=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/javascript/net/grpc/web/generator";
 
+  postPatch = ''
+    substituteInPlace Makefile \
+      --replace-fail "-std=c++11" "-std=c++17" \
+      --replace-fail \
+        "-lprotoc -lprotobuf" \
+        '-lprotoc $(shell pkg-config ${lib.optionalString isStatic "--static"} --libs protobuf)'
+  '';
+
   enableParallelBuilding = true;
   strictDeps = true;
-  nativeBuildInputs = [ protobuf ];
+  nativeBuildInputs = [
+    pkg-config
+    protobuf
+  ];
   buildInputs = [ protobuf ];
 
   makeFlags = [

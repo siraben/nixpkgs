@@ -367,7 +367,7 @@ with pkgs;
   mumps-mpi = callPackage ../by-name/mu/mumps/package.nix { mpiSupport = true; };
 
   protoc-gen-grpc-web = callPackage ../development/tools/protoc-gen-grpc-web {
-    protobuf = protobuf_21;
+    protobuf = protobuf_29;
   };
 
   deviceTree = callPackage ../os-specific/linux/device-tree { };
