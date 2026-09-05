@@ -5,8 +5,8 @@ Subject: [PATCH] substitute udevadm
 
 ---
  src/umockdev-record.vala     | 2 +-
- tests/test-umockdev-run.vala | 4 ++--
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ tests/test-umockdev-run.vala | 6 +++---
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/src/umockdev-record.vala b/src/umockdev-record.vala
 index 2d49bc8..272f25e 100644
@@ -36,6 +36,14 @@ index cd00a08..94616cb 100644
              out sout, out serr, out exit));
  
      assert_cmpstr (serr, CompareOperator.EQ, "");
+@@ -219,6 +219,6 @@ A: size=1048576\n
+     // ls end-to-end
+     assert (get_program_out (
+-            "udevadm",
++            "ls",
+             umockdev_run_command + "-d " + umockdev_file + " -- ls -l /dev/loop23",
+             out sout, out serr, out exit));
+     assert_cmpint (exit, CompareOperator.EQ, 0);
 -- 
 2.43.0
 
