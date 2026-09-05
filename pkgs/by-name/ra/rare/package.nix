@@ -1,43 +1,69 @@
 {
   lib,
   fetchFromGitHub,
-  qt5,
+  qt6,
   legendary-gl,
   python3Packages,
 }:
 
+let
+  rare-legendary = legendary-gl.overridePythonAttrs (oldAttrs: {
+    version = "0.20.35";
+
+    src = fetchFromGitHub {
+      owner = "RareDevs";
+      repo = "legendary";
+      tag = "rare-1.12.0.155";
+      hash = "sha256-3HBeIGNPwoCLQyirmU1j73emLpiJaYix6hqpIsN9dQ8=";
+    };
+
+    dependencies = oldAttrs.dependencies ++ [ python3Packages.requests-futures ];
+  });
+in
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "rare";
-  version = "1.10.11";
+  version = "1.12.0.155";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "RareDevs";
     repo = "Rare";
     tag = finalAttrs.version;
-    hash = "sha256-2DtI5iaK4bYdGfIEhPy52WaEqh+IJMZ6qo/348lMnLY=";
+    hash = "sha256-sqLBYzOgqGFHwbcvHiP8boh/ZQAgjQygkWsQ+M+Zj24=";
   };
 
   nativeBuildInputs = [
-    qt5.wrapQtAppsHook
+    qt6.wrapQtAppsHook
   ];
 
-  propagatedBuildInputs = [
-    legendary-gl
+  buildInputs = [
+    qt6.qtbase
+    qt6.qtwayland
   ];
 
   build-system = with python3Packages; [
     setuptools
+    setuptools-scm
   ];
 
   dependencies = with python3Packages; [
     orjson
     pypresence
-    pyqt5
+    pyside6
+    qstylizer
     qtawesome
+    rare-legendary
     requests
-    typing-extensions
+    vdf
   ];
+
+  postPatch = ''
+    # PySide6-Essentials is the PyPI subset of the full pyside6 package.
+    substituteInPlace pyproject.toml \
+      --replace-fail '"PySide6-Essentials >= 6.8.1"' '"PySide6 >= 6.8.1"'
+  '';
+
+  env.SETUPTOOLS_SCM_PRETEND_VERSION = finalAttrs.version;
 
   dontWrapQtApps = true;
 
@@ -53,11 +79,13 @@ python3Packages.buildPythonApplication (finalAttrs: {
   # Project has no tests
   doCheck = false;
 
+  pythonImportsCheck = [ "rare.widgets.rare_app" ];
+
   meta = {
     description = "GUI for Legendary, an Epic Games Launcher open source alternative";
     homepage = "https://github.com/RareDevs/Rare";
     maintainers = [ ];
-    license = lib.licenses.gpl3Only;
+    license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
     mainProgram = "rare";
   };
