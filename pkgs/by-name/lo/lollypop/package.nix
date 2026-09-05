@@ -11,7 +11,7 @@
   libhandy,
   libsecret,
   libsoup_3,
-  appstream-glib,
+  appstream,
   desktop-file-utils,
   totem-pl-parser,
   gobject-introspection,
@@ -28,7 +28,7 @@
 
 python3.pkgs.buildPythonApplication (finalAttrs: {
   pname = "lollypop";
-  version = "1.4.40";
+  version = "1.4.45";
 
   pyproject = false;
 
@@ -38,11 +38,11 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
     repo = "lollypop";
     rev = finalAttrs.version;
     fetchSubmodules = true;
-    hash = "sha256-hdReviNgcigXuNqJns6aPW+kixlpmRXtqrLlm/LGHBo=";
+    hash = "sha256-GB8lZybx/SWvCmtfeT6jK/4/X7o9yX9r+mkVxOSyv+I=";
   };
 
   nativeBuildInputs = [
-    appstream-glib
+    appstream
     desktop-file-utils
     gobject-introspection
     meson
