@@ -2,76 +2,65 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  onetbb,
-  libgit2,
-  curl,
-  fmt_11,
-  nlohmann_json,
+  clang-tools,
+  installShellFiles,
+  ninja,
   pkg-config,
+  rustPlatform,
+  zlib,
 }:
 
-let
-  toml11 = fetchFromGitHub rec {
-    owner = "ToruNiina";
-    repo = "toml11";
-    version = "4.2.0";
-    tag = "v${version}";
-    sha256 = "sha256-NUuEgTpq86rDcsQnpG0IsSmgLT0cXhd1y32gT57QPAw=";
-  };
-in
-stdenv.mkDerivation rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cabinpkg";
-  version = "0.11.1";
+  version = "0.17.0";
 
   src = fetchFromGitHub {
     owner = "cabinpkg";
     repo = "cabin";
-    tag = version;
-    sha256 = "sha256-qMmfViu3ol8+Tpyy8hn0j5r+bql0SFeKPVVj/ox4AGQ=";
+    tag = finalAttrs.version;
+    hash = "sha256-YJ5wGtidhwi6o02l+p/+TzWY0s0IxJx5V7ECtptQwsY=";
   };
 
-  strictDeps = true;
+  cargoHash = "sha256-mSG4Pf8oFhfQ+kdWwJj77zNfRaW3l2ijXVuaHeyL5DI=";
 
-  nativeBuildInputs = [
+  patches = [ ./limit-builtin-exclusions-to-project.patch ];
+
+  nativeBuildInputs = [ installShellFiles ];
+
+  nativeCheckInputs = [
+    clang-tools
+    ninja
     pkg-config
   ];
 
-  buildInputs = [
-    libgit2
-    fmt_11
-    onetbb
-    nlohmann_json
-    curl
+  checkInputs = [ zlib ];
+
+  cargoTestFlags = [
+    "--workspace"
+    "--all-targets"
+    "--all-features"
   ];
 
-  # Skip git cloning toml11
-  preConfigure = ''
-    substituteInPlace Makefile \
-       --replace-fail "git clone https://github.com/ToruNiina/toml11.git \$@" ":" \
-       --replace-fail "git -C \$@ reset --hard v4.2.0" ":"
+  # nixpkgs' clang-tools does not include LLVM's run-clang-tidy.py script.
+  checkFlags = [ "--skip=external_tool_smoke::cabin_tidy_reaches_real_tidy" ];
+
+  postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+    installShellCompletion --cmd cabin \
+      --bash <($out/bin/cabin compgen bash) \
+      --fish <($out/bin/cabin compgen fish) \
+      --zsh <($out/bin/cabin compgen zsh)
+
+    $out/bin/cabin mangen --output-dir man
+    installManPage man/*.1
   '';
-
-  preBuild = ''
-    mkdir -p build/DEPS/
-    cp -rf ${toml11} build/DEPS/toml11
-  '';
-
-  makeFlags = [
-    "RELEASE=1"
-    "COMMIT_HASH="
-    "COMMIT_SHORT_HASH="
-    "COMMIT_DATE="
-  ];
-
-  installFlags = [ "PREFIX=${placeholder "out"}" ];
 
   meta = {
-    broken = (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isx86_64);
     homepage = "https://cabinpkg.com";
+    changelog = "https://github.com/cabinpkg/cabin/releases/tag/${finalAttrs.version}";
     description = "Package manager and build system for C++";
     license = lib.licenses.asl20;
     maintainers = [ ];
     platforms = lib.platforms.unix;
     mainProgram = "cabin";
   };
-}
+})

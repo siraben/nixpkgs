@@ -1,0 +1,24 @@
+--- a/crates/cabin-source-discovery/src/lib.rs
++++ b/crates/cabin-source-discovery/src/lib.rs
+@@ -235 +235 @@
+-            || path_under_any_builtin_name(path)
++            || path_under_any_builtin_name(path, root)
+@@ -253,8 +253,11 @@
+-fn path_under_any_builtin_name(path: &Path) -> bool {
+-    path.ancestors().any(|ancestor| {
+-        ancestor
+-            .file_name()
+-            .and_then(|n| n.to_str())
+-            .is_some_and(|n| BUILTIN_EXCLUDED_DIR_NAMES.contains(&n))
+-    })
++fn path_under_any_builtin_name(path: &Path, root: &Path) -> bool {
++    path.strip_prefix(root)
++        .unwrap_or(path)
++        .ancestors()
++        .any(|ancestor| {
++            ancestor
++                .file_name()
++                .and_then(|n| n.to_str())
++                .is_some_and(|n| BUILTIN_EXCLUDED_DIR_NAMES.contains(&n))
++        })
+ }
