@@ -8,12 +8,12 @@
 
 stdenvNoLibc.mkDerivation (finalAttrs: {
   pname = "avr-libc";
-  version = "2.2.1";
+  version = "2.3.2";
 
   tag_version = builtins.replaceStrings [ "." ] [ "_" ] finalAttrs.version;
   src = fetchurl {
     url = "https://github.com/avrdudes/avr-libc/releases/download/avr-libc-${finalAttrs.tag_version}-release/avr-libc-${finalAttrs.version}.tar.bz2";
-    hash = "sha256-AGpjBsu8k4w721g6xU+T/n18jPl/nN6R+RxvsCc6tGU=";
+    hash = "sha256-kuslPTDOyU8oYagtQNCxetecDZX84yt0/8zCanCvsVA=";
   };
 
   nativeBuildInputs = [
@@ -34,7 +34,7 @@ stdenvNoLibc.mkDerivation (finalAttrs: {
   meta = {
     description = "C runtime library for AVR microcontrollers";
     homepage = "https://github.com/avrdudes/avr-libc";
-    changelog = "https://github.com/avrdudes/avr-libc/blob/avr-libc-${finalAttrs.tag_version}-release/NEWS";
+    changelog = "https://github.com/avrdudes/avr-libc/blob/avr-libc-${finalAttrs.tag_version}-release/NEWS.md";
     license = lib.licenses.bsd3;
     platforms = [ "avr-none" ];
     maintainers = with lib.maintainers; [
