@@ -86276,8 +86276,8 @@ self: {
     }:
     mkDerivation {
       pname = "asciidoc";
-      version = "0.1.0.2";
-      sha256 = "0djdvr06xs77c5gp57s13r96zpgbdglb6ay53ql4mlm4120d1v4p";
+      version = "0.1.0.5";
+      sha256 = "1rn26dj2d55xcgx69syn5syxkshs143zymqswwn2r77lk9q5jggc";
       isLibrary = true;
       isExecutable = true;
       libraryHaskellDepends = [
@@ -143376,8 +143376,8 @@ self: {
     }:
     mkDerivation {
       pname = "citeproc";
-      version = "0.9.0.1";
-      sha256 = "1s1gdd7piwssp5b6bwbfyp9sfna052v3rayav7di44yapm5dazmr";
+      version = "0.13.0.1";
+      sha256 = "1xjd7ga44w1crs9xqymdsawidxd9anmcg80s45ca3dc0jgd2ybb6";
       isLibrary = true;
       isExecutable = true;
       libraryHaskellDepends = [
@@ -155300,8 +155300,8 @@ self: {
     }:
     mkDerivation {
       pname = "commonmark";
-      version = "0.2.6.1";
-      sha256 = "0wwh0smqdmyb1qa992d0jva24yml4lxmmwr3av3c8s0xh3z7vkpv";
+      version = "0.3";
+      sha256 = "1szf81x8nmkzksj14yq44yd2h6rnf9464nx7v26lpahxk8a95j6b";
       libraryHaskellDepends = [
         base
         bytestring
@@ -155389,8 +155389,8 @@ self: {
     }:
     mkDerivation {
       pname = "commonmark-extensions";
-      version = "0.2.6";
-      sha256 = "1qhd6q00ccdr0l9zv1vknpc2fx0p4avdf9zcd27q20q3fdp0phsz";
+      version = "0.2.7.1";
+      sha256 = "1bgyrqfs6l8k4qm1j5k1vws3xcvx9f062mifjx8bn48p7wxrc4bk";
       libraryHaskellDepends = [
         base
         commonmark
@@ -155468,8 +155468,8 @@ self: {
     }:
     mkDerivation {
       pname = "commonmark-pandoc";
-      version = "0.2.3";
-      sha256 = "187gkvv0pp7bb8np8nns80aqprd2zpw7hxp9knvylckayysgig5l";
+      version = "0.3";
+      sha256 = "0xfxha6jkfl4i5jdyj30j2ghnkmi0n5d5mqb84gyacwymdiw62dw";
       libraryHaskellDepends = [
         base
         commonmark
@@ -203902,8 +203902,8 @@ self: {
     }:
     mkDerivation {
       pname = "djot";
-      version = "0.1.4";
-      sha256 = "03qlk8r62j6nsjbbyp8510gn29vg3i2s4vq0p0qyr2679y5i6v8h";
+      version = "0.1.4.2";
+      sha256 = "0rsgkhk6qp16gc23k9iyh2z3v45rcccn8c0n4iv7qanwrwikdmcn";
       isLibrary = true;
       isExecutable = true;
       libraryHaskellDepends = [
@@ -205634,8 +205634,8 @@ self: {
     }:
     mkDerivation {
       pname = "doclayout";
-      version = "0.5.0.1";
-      sha256 = "01vh5j9w0xprh2p9njnrmfj2lpivbfg4r1rksshgaj8b9fqdh8b5";
+      version = "0.5.0.3";
+      sha256 = "1sa8gm9iilwmmhdabdgjv2l3cqsp33gszyz6997ldr3kh4kydpsj";
       enableSeparateDataOutput = true;
       libraryHaskellDepends = [
         base
@@ -220730,8 +220730,8 @@ self: {
     }:
     mkDerivation {
       pname = "emojis";
-      version = "0.1.4.1";
-      sha256 = "1r8a8xjnsqbyzg96fla2s1cg6804297w6487rnrvjhqxgccxc040";
+      version = "0.1.5";
+      sha256 = "1p3x068qg6vr77j3z54795qhaqk0726nf8qwijzkbvkb8ks7fw9p";
       libraryHaskellDepends = [
         base
         containers
@@ -363109,7 +363109,6 @@ self: {
       mkDerivation,
       base,
       bytestring,
-      containers,
       exceptions,
       hslua-aeson,
       hslua-classes,
@@ -363118,11 +363117,6 @@ self: {
       hslua-objectorientation,
       hslua-packaging,
       hslua-typing,
-      lua,
-      lua-arbitrary,
-      mtl,
-      QuickCheck,
-      quickcheck-instances,
       tasty,
       tasty-hslua,
       tasty-hunit,
@@ -363130,13 +363124,12 @@ self: {
     }:
     mkDerivation {
       pname = "hslua";
-      version = "2.3.1";
-      sha256 = "096x45rz1czsnilpn3my5vyafw9dn8qdnmf0apz0q3y3wa4840j9";
+      version = "2.5.0";
+      sha256 = "13wj85dhb6zkn98y9ddg9fgqrvw12cz3r91cxnlhhqlajjm5iawx";
+      isLibrary = true;
+      isExecutable = true;
       libraryHaskellDepends = [
         base
-        bytestring
-        containers
-        exceptions
         hslua-aeson
         hslua-classes
         hslua-core
@@ -363144,26 +363137,12 @@ self: {
         hslua-objectorientation
         hslua-packaging
         hslua-typing
-        mtl
-        text
       ];
       testHaskellDepends = [
         base
         bytestring
-        containers
         exceptions
-        hslua-aeson
-        hslua-classes
         hslua-core
-        hslua-marshalling
-        hslua-objectorientation
-        hslua-packaging
-        hslua-typing
-        lua
-        lua-arbitrary
-        mtl
-        QuickCheck
-        quickcheck-instances
         tasty
         tasty-hslua
         tasty-hunit
@@ -363552,8 +363531,8 @@ self: {
     }:
     mkDerivation {
       pname = "hslua-module-doclayout";
-      version = "1.2.0.1";
-      sha256 = "139l4sh9pllm0zjgv3w7scbpd0cgn23r95fdlchavsdfwkpvcx17";
+      version = "1.2.1.1";
+      sha256 = "06bbpxcpsrlxrf59appi49qq6qd8nfqgspfp0dx2xyzczgk5h863";
       libraryHaskellDepends = [
         base
         doclayout
@@ -363625,8 +363604,8 @@ self: {
     }:
     mkDerivation {
       pname = "hslua-module-path";
-      version = "1.1.1";
-      sha256 = "035q8ll2bkm25m4q24zby35gy6ihrg21qlqmmk6af8rz09kjyal0";
+      version = "1.2.0";
+      sha256 = "03xqvg0278lvc644yzbc8gafdm1nmhm56h29gsvmx7yqki31h97j";
       libraryHaskellDepends = [
         base
         filepath
@@ -363637,14 +363616,11 @@ self: {
       ];
       testHaskellDepends = [
         base
-        filepath
         hslua-core
-        hslua-marshalling
         hslua-packaging
         tasty
         tasty-hunit
         tasty-lua
-        text
       ];
       description = "Lua module to work with file paths";
       license = lib.meta.getLicenseFromSpdxId "MIT";
@@ -363694,9 +363670,11 @@ self: {
     {
       mkDerivation,
       base,
+      bytestring,
       directory,
       exceptions,
       hslua-core,
+      hslua-list,
       hslua-marshalling,
       hslua-packaging,
       process,
@@ -363705,21 +363683,25 @@ self: {
       tasty-lua,
       temporary,
       text,
+      time,
     }:
     mkDerivation {
       pname = "hslua-module-system";
-      version = "1.1.3";
-      sha256 = "0skdgb21x2zdyv1m3ai4n8axnk85i3s08pvsrkjwwsfcr7v3r432";
+      version = "1.3.0";
+      sha256 = "1fwglklhxb56135ki8c6rf61c0pq28m1myrfkdb8wvi51hhyb5pf";
       libraryHaskellDepends = [
         base
+        bytestring
         directory
         exceptions
         hslua-core
+        hslua-list
         hslua-marshalling
         hslua-packaging
         process
         temporary
         text
+        time
       ];
       testHaskellDepends = [
         base
@@ -363728,7 +363710,6 @@ self: {
         tasty
         tasty-hunit
         tasty-lua
-        text
       ];
       description = "Lua module wrapper around Haskell's System module";
       license = lib.meta.getLicenseFromSpdxId "MIT";
@@ -363800,8 +363781,8 @@ self: {
     }:
     mkDerivation {
       pname = "hslua-module-text";
-      version = "1.1.1";
-      sha256 = "16635kdanaiwn5rdmkaga6d9jhw8zrvhpnqsyqm0zap98n6b146b";
+      version = "1.2.0";
+      sha256 = "0bnnmi165msx79rp50d429h4cfmar4x1j6adk17hxjm6ph2nzb0m";
       libraryHaskellDepends = [
         base
         hslua-core
@@ -363816,7 +363797,6 @@ self: {
         tasty
         tasty-hunit
         tasty-lua
-        text
       ];
       description = "Lua module for text";
       license = lib.meta.getLicenseFromSpdxId "MIT";
@@ -363864,7 +363844,6 @@ self: {
     {
       mkDerivation,
       base,
-      filepath,
       hslua-core,
       hslua-marshalling,
       hslua-packaging,
@@ -363875,11 +363854,10 @@ self: {
     }:
     mkDerivation {
       pname = "hslua-module-version";
-      version = "1.1.1";
-      sha256 = "0h0a4gk17bi7hh34yh5dva7zz1pyc5b8lm8kij5ri3jnsm259r29";
+      version = "1.2.0.1";
+      sha256 = "1aakzdk1jvvwx0caa8nbvfwp2ysqhd5nvanyqy8xjz5cj5jwk0l5";
       libraryHaskellDepends = [
         base
-        filepath
         hslua-core
         hslua-marshalling
         hslua-packaging
@@ -363887,14 +363865,11 @@ self: {
       ];
       testHaskellDepends = [
         base
-        filepath
         hslua-core
-        hslua-marshalling
         hslua-packaging
         tasty
         tasty-hunit
         tasty-lua
-        text
       ];
       description = "Lua module to work with version specifiers";
       license = lib.meta.getLicenseFromSpdxId "MIT";
@@ -363947,7 +363922,6 @@ self: {
       hslua-marshalling,
       hslua-module-system,
       hslua-packaging,
-      hslua-typing,
       tasty,
       tasty-hunit,
       tasty-lua,
@@ -363957,17 +363931,14 @@ self: {
     }:
     mkDerivation {
       pname = "hslua-module-zip";
-      version = "1.1.4";
-      sha256 = "1ij2rmy8m4pw7k7w5vvb3g934kms60vhzhhp8kryknbi6bsg8lsy";
-      revision = "1";
-      editedCabalFile = "0i3cvy1g1byx3ajrc608ixz7crgbxmdngabwlrkyp899m6pmlv1i";
+      version = "1.2.1";
+      sha256 = "0nv665shbsg8v27gvlgz18y0cgvy20aflkdqlcs89sm5lxw8wjnq";
       libraryHaskellDepends = [
         base
         hslua-core
         hslua-list
         hslua-marshalling
         hslua-packaging
-        hslua-typing
         text
         time
         zip-archive
@@ -364037,52 +364008,33 @@ self: {
       base,
       bytestring,
       containers,
-      exceptions,
       hslua-core,
       hslua-marshalling,
       hslua-typing,
-      lua-arbitrary,
-      mtl,
-      QuickCheck,
-      quickcheck-instances,
       tasty,
       tasty-hslua,
-      tasty-hunit,
-      tasty-quickcheck,
       text,
     }:
     mkDerivation {
       pname = "hslua-objectorientation";
-      version = "2.3.1";
-      sha256 = "1avxiqcr2k4wdi3da1h4qwis589xvvdz0abggcklbigjc08vf90q";
+      version = "2.5.0";
+      sha256 = "1rj2ciyvp2b5bnkv0059cjc9358n5dy6whzsyri33qs85zza2bq3";
       libraryHaskellDepends = [
         base
-        bytestring
         containers
-        exceptions
         hslua-core
         hslua-marshalling
         hslua-typing
-        mtl
         text
       ];
       testHaskellDepends = [
         base
         bytestring
-        containers
-        exceptions
         hslua-core
         hslua-marshalling
         hslua-typing
-        lua-arbitrary
-        mtl
-        QuickCheck
-        quickcheck-instances
         tasty
         tasty-hslua
-        tasty-hunit
-        tasty-quickcheck
-        text
       ];
       description = "Object orientation tools for HsLua";
       license = lib.meta.getLicenseFromSpdxId "MIT";
@@ -364139,7 +364091,6 @@ self: {
       hslua-marshalling,
       hslua-objectorientation,
       hslua-typing,
-      mtl,
       tasty,
       tasty-hslua,
       tasty-hunit,
@@ -364147,8 +364098,8 @@ self: {
     }:
     mkDerivation {
       pname = "hslua-packaging";
-      version = "2.3.1";
-      sha256 = "0wr1az0mq0q4xk0x4an0sxsnnjvpcfhcgqdlmp23yylzkbbaxp1n";
+      version = "2.4.1";
+      sha256 = "1kg6fn70zpq44zabca1d4mijqqfpyn3lp6zacbhcbmk67109yxll";
       libraryHaskellDepends = [
         base
         containers
@@ -364156,7 +364107,6 @@ self: {
         hslua-marshalling
         hslua-objectorientation
         hslua-typing
-        mtl
         text
       ];
       testHaskellDepends = [
@@ -364164,13 +364114,9 @@ self: {
         bytestring
         hslua-core
         hslua-marshalling
-        hslua-objectorientation
-        hslua-typing
-        mtl
         tasty
         tasty-hslua
         tasty-hunit
-        text
       ];
       description = "Utilities to build Lua modules";
       license = lib.meta.getLicenseFromSpdxId "MIT";
@@ -364262,18 +364208,16 @@ self: {
       tasty,
       tasty-hunit,
       tasty-quickcheck,
-      text,
     }:
     mkDerivation {
       pname = "hslua-typing";
-      version = "0.1.1";
-      sha256 = "0k09g97ysi5db6a3rdfj2j6wsb12dbhvnbcgqvy686mpa6rwg6j4";
+      version = "0.2.0";
+      sha256 = "0wsvvfdpca6chd0y9birzylg2ljv2a5p4zb4nl4xgra426lzmkh4";
       libraryHaskellDepends = [
         base
         containers
         hslua-core
         hslua-marshalling
-        text
       ];
       testHaskellDepends = [
         base
@@ -517648,6 +517592,7 @@ self: {
       aeson,
       aeson-pretty,
       array,
+      asciidoc,
       attoparsec,
       base,
       base64-bytestring,
@@ -517715,6 +517660,7 @@ self: {
       tls,
       typst,
       unicode-collation,
+      unicode-data,
       unicode-transforms,
       unix,
       vector,
@@ -517727,14 +517673,15 @@ self: {
     }:
     mkDerivation {
       pname = "pandoc";
-      version = "3.7.0.2";
-      sha256 = "1l33amh5dkbxbgicvk4hh231b8x36fb90jlpxmgqwfqldk7j3lmz";
+      version = "3.11";
+      sha256 = "1a7qg552jlcdff06nxvaqkldfqq2g9p1ms25dia92i14idz4z82h";
       configureFlags = [ "-f-trypandoc" ];
       enableSeparateDataOutput = true;
       libraryHaskellDepends = [
         aeson
         aeson-pretty
         array
+        asciidoc
         attoparsec
         base
         base64-bytestring
@@ -517796,6 +517743,7 @@ self: {
         tls
         typst
         unicode-collation
+        unicode-data
         unicode-transforms
         unix
         vector
@@ -518242,8 +518190,8 @@ self: {
     }:
     mkDerivation {
       pname = "pandoc-cli";
-      version = "3.7.0.2";
-      sha256 = "0g9x7h2aimiffnv03pcvai64kpwxykz18kd126x92lpsdjwclkgz";
+      version = "3.11";
+      sha256 = "0ag954bjxyf322i3dzcl3qg58m65qww25k3rndw8fb4ncj6grwx9";
       isLibrary = false;
       isExecutable = true;
       executableHaskellDepends = [
@@ -518365,10 +518313,8 @@ self: {
     }:
     mkDerivation {
       pname = "pandoc-crossref";
-      version = "0.3.21";
-      sha256 = "1srfkh987jx3ha8p5yrvy4pxkkypcajb4wvzbnf8sbd4wc2vichh";
-      revision = "2";
-      editedCabalFile = "1j9s9r6xmw8wq48y73q6w87v92wc5p9va38k5csy28hyix9xf32i";
+      version = "0.3.25";
+      sha256 = "0nnaknva1kp040g9v651d6g2rg1wmmg18pl583cyzn4acdvkgyxv";
       isLibrary = true;
       isExecutable = true;
       enableSeparateDataOutput = true;
@@ -519125,10 +519071,8 @@ self: {
     }:
     mkDerivation {
       pname = "pandoc-lua-engine";
-      version = "0.4.3";
-      sha256 = "1s5g1mvl13pa411kyd2jp5jz0lw8alxqpv984nnfnq17d2nj4mkw";
-      revision = "2";
-      editedCabalFile = "0a00gmr5ymp5jl6dp6f1qcmyxcqz1nqp2d4y6x1342zhqsi1zs8s";
+      version = "0.5.4";
+      sha256 = "026fivji7m0q4gc53wars249gkzlsxc2l6xz8m6672hqnbafvshy";
       libraryHaskellDepends = [
         aeson
         base
@@ -519515,10 +519459,8 @@ self: {
     }:
     mkDerivation {
       pname = "pandoc-plot";
-      version = "1.9.1";
-      sha256 = "0d6lknjnlzg4a7sx311kpdi94yq7fp19lhvwbsf7rvc3ykx0hjm3";
-      revision = "1";
-      editedCabalFile = "0ykgv0cxiwvcx0pkkmx841cdwv2sas033mq928mg6dlcbvw32nx1";
+      version = "1.9.2";
+      sha256 = "1bdfb6w4xw76xl8fdc7iniw5prcyy1gs5bnx982jj86l5y75551y";
       isLibrary = true;
       isExecutable = true;
       libraryHaskellDepends = [
@@ -519730,8 +519672,8 @@ self: {
     }:
     mkDerivation {
       pname = "pandoc-server";
-      version = "0.1.0.11";
-      sha256 = "1686kl05pr6bqrmg5dda1d7m9dmk0c087fpg54r9v5iy1x732gws";
+      version = "0.1.4";
+      sha256 = "00j46j8si74k6z65s137diavz8k5lczn6h15s2674nacr7ypw81j";
       libraryHaskellDepends = [
         aeson
         base
@@ -519972,8 +519914,8 @@ self: {
     }:
     mkDerivation {
       pname = "pandoc-types";
-      version = "1.23.1.1";
-      sha256 = "17zhzimkk27s0mx4h752jzhxqqr7nklj1mnrkx86faq816qx1hc9";
+      version = "1.23.1.2";
+      sha256 = "16si06wlmk7x8br8nzd628pdgk72k0jl552xrkkdq965m2yavpc1";
       libraryHaskellDepends = [
         aeson
         base
@@ -697031,8 +696973,8 @@ self: {
     }:
     mkDerivation {
       pname = "texmath";
-      version = "0.12.10.3";
-      sha256 = "0xpv5zxaixn2kkc3kn547jg7rkg6bl2mrmxiwvxf2r0qgj4kmr2p";
+      version = "0.13.2.2";
+      sha256 = "04cfz8qnal09ymi86bd34vg859szwln66pyz993bhxbd8f31j8i7";
       isLibrary = true;
       isExecutable = true;
       libraryHaskellDepends = [
@@ -723778,6 +723720,7 @@ self: {
       cassava,
       containers,
       directory,
+      erf,
       filepath,
       mtl,
       ordered-containers,
@@ -723798,8 +723741,8 @@ self: {
     }:
     mkDerivation {
       pname = "typst";
-      version = "0.8.0.2";
-      sha256 = "1q17vy9x5g64zzw5156bdh3mippin6ygkc3yqk0mbffkrfdcn21m";
+      version = "0.11.0.1";
+      sha256 = "15xcvby24cc5km0wd776ih74417qjsc43qxwy9f46wada7c7simh";
       isLibrary = true;
       isExecutable = true;
       libraryHaskellDepends = [
@@ -723810,6 +723753,7 @@ self: {
         cassava
         containers
         directory
+        erf
         filepath
         mtl
         ordered-containers
@@ -723923,8 +723867,8 @@ self: {
     }:
     mkDerivation {
       pname = "typst-symbols";
-      version = "0.1.8.1";
-      sha256 = "1va29x72r0w0bms7wfsrhbnfn8cha1ghbaj33y62kflm50k9hwrg";
+      version = "0.3";
+      sha256 = "09rnm274bwivyqhnlbby6i7bjkv5s8k5x86qhp83il7mnxb5la04";
       libraryHaskellDepends = [
         base
         text

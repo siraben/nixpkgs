@@ -884,47 +884,10 @@ with haskellLib;
   }) super.xml-picklers;
 
   pandoc-crossref = lib.pipe super.pandoc-crossref [
+    # 0.3.25 works with pandoc 3.11, but still declares pandoc == 3.10.*.
     # https://github.com/lierdakil/pandoc-crossref/issues/492
     doJailbreak
-    # We are still using pandoc == 3.7.*
-    (appendPatch (
-      lib.warnIf (lib.versionAtLeast self.pandoc.version "3.8")
-        "haskellPackages.pandoc-crossref: remove revert of pandoc-3.8 patch"
-        pkgs.fetchpatch
-        {
-          name = "pandoc-crossref-revert-pandoc-3.8-highlight.patch";
-          url = "https://github.com/lierdakil/pandoc-crossref/commit/b0c35a59d5a802f6525407bfeb31699ffd0b4671.patch";
-          hash = "sha256-MIITL9Qr3+1fKf1sTwHzXPcYTt3YC+vr9CpMgqsBXlc=";
-          revert = true;
-        }
-    ))
   ];
-
-  pandoc = overrideCabal (drv: {
-    patches = drv.patches or [ ] ++ [
-      # Adjust test fixtures for djot >= 0.1.2.3, patch extracted from unrelated change.
-      (pkgs.fetchpatch {
-        name = "pandoc-djot-0.1.2.3.patch";
-        url = "https://github.com/jgm/pandoc/commit/643712ca70b924c0edcc059699aa1ee42234be34.patch";
-        hash = "sha256-khDkb1PzC0fTaWTq3T04UvgoI+XefOJMaTV1d3Du8BU=";
-        includes = [ "test/djot-reader.native" ];
-      })
-      # Adjust tests for skylighting-format-blaze-html >= 0.1.2
-      (pkgs.fetchpatch {
-        name = "pandoc-skylighting-format-blaze-html-0.1.2.patch";
-        url = "https://github.com/jgm/pandoc/commit/cab682ba58f2eb7e940d1af508e196ff6b1c1112.patch";
-        hash = "sha256-lpddKGa8xs+Lhi62HhBgV04fUq2kkippA1xX2/b2ukM=";
-        includes = [ "test/Tests/Writers/HTML.hs" ];
-      })
-      # Resolve test suite race condition(s) due to tasty >= 1.5.4 and
-      # inDirectory, https://github.com/jgm/pandoc/issues/11566 krank:ignore-line
-      (pkgs.fetchpatch {
-        name = "pandoc-tests-fix-race-condition.patch";
-        url = "https://github.com/jgm/pandoc/commit/134296c54145ef8ea7de523774837055239e0b3d.patch";
-        hash = "sha256-s3v6ukoVZm8cvh9mAp0U+cQDT3p8QSu1F0oQD4Ks9F8=";
-      })
-    ];
-  }) super.pandoc;
 
   # Too strict upper bound on data-default-class (< 0.2)
   # https://github.com/stackbuilders/dotenv-hs/issues/203
