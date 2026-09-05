@@ -2,7 +2,6 @@
   stdenv,
   lib,
   fetchFromGitHub,
-  fetchurl,
   fetchpatch,
   meson,
   ninja,
@@ -40,13 +39,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "elogind";
-  version = "255.27";
+  version = "257.16";
 
   src = fetchFromGitHub {
     owner = "elogind";
     repo = "elogind";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-zPKVD8gXgnjgquHgZ3F8VNIngGGN0i4lQckHokTqtP4=";
+    hash = "sha256-Ej0ba9+Y4+SsWVqmURpB1M/XewWx1+XLvSXawep+b2k=";
   };
 
   nativeBuildInputs = [
@@ -91,21 +90,13 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace ./rules.d/71-seat.rules.in --replace-fail "{{BINDIR}}/udevadm" "${eudev}/bin/udevadm"
   '';
 
-  patches = [
-    (fetchurl {
-      url = "https://github.com/chimera-linux/cports/raw/49d65fe38be815b9918a15ac2d2ff2b123fc559a/main/elogind/patches/strerror_r.patch";
-      hash = "sha256-amqXP12mLtrkWuAURb3/aoQeeTSRYlYqL2q2zrKbhxk=";
-    })
+  patches = lib.optionals stdenv.hostPlatform.isMusl [
     (fetchpatch {
       url = "https://github.com/chimera-linux/cports/raw/49d65fe38be815b9918a15ac2d2ff2b123fc559a/main/elogind/patches/xxx-musl-fixes.patch";
       includes = [ "src/libelogind/sd-journal/journal-file.h" ];
       hash = "sha256-3tNz0M8PNTxISDaLP5f3Ldy5z1a+F85P6NZWpGe71Nc=";
     })
-    (fetchurl {
-      url = "https://github.com/chimera-linux/cports/raw/49d65fe38be815b9918a15ac2d2ff2b123fc559a/main/elogind/patches/gshadow.patch";
-      hash = "sha256-YBy1OeWD1EluLTeUvqUvZKyrZyoUbGg1mxwqG5+VNO0=";
-    })
-    ./errno-list-filter-out-EFSBADCRC-and-EFSCORRUPTED.patch
+    ./musl-gshadow.patch
   ];
 
   # Inspired by the systemd `preConfigure`.

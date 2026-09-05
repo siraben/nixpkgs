@@ -1,0 +1,49 @@
+Subject: [PATCH] add a gshadow compatibility header for musl
+
+Based on systemd's src/include/musl/gshadow.h:
+https://github.com/systemd/systemd/blob/main/src/include/musl/gshadow.h
+
+Upstream issue: https://github.com/elogind/elogind/issues/362
+---
+ src/basic/gshadow.h          | 22 ++++++++++++++++++++++
+ src/shared/user-record-nss.h |  2 +-
+ 2 files changed, 23 insertions(+), 1 deletion(-)
+ create mode 100644 src/basic/gshadow.h
+
+diff --git a/src/basic/gshadow.h b/src/basic/gshadow.h
+new file mode 100644
+index 0000000..cfc50e2
+--- /dev/null
++++ b/src/basic/gshadow.h
+@@ -0,0 +1,22 @@
++/* SPDX-License-Identifier: LGPL-2.1-or-later */
++#pragma once
++
++#include <errno.h>
++#include <stddef.h>
++
++struct sgrp {
++        char *sg_namp;
++        char *sg_passwd;
++        char **sg_adm;
++        char **sg_mem;
++};
++
++static inline int getsgnam_r(
++                const char *__name,
++                struct sgrp *__result_buf,
++                char *__buffer,
++                size_t __buflen,
++                struct sgrp **__result) {
++
++        return EOPNOTSUPP; /* this function returns positive errno in case of error. */
++}
+diff --git a/src/shared/user-record-nss.h b/src/shared/user-record-nss.h
+index 7a41be7..047c3a7 100644
+--- a/src/shared/user-record-nss.h
++++ b/src/shared/user-record-nss.h
+@@ -4,3 +4,3 @@
+ #include <grp.h>
+-#include <gshadow.h>
++#include "gshadow.h"
+ #include <pwd.h>
