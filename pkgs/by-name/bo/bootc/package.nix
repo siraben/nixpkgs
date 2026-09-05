@@ -2,7 +2,7 @@
   lib,
   rustPlatform,
   fetchFromGitHub,
-  fetchpatch2,
+  libselinux,
   libz,
   zstd,
   pkg-config,
@@ -14,28 +14,28 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "bootc";
-  version = "1.6.0";
+  version = "1.16.11";
 
-  cargoHash = "sha256-KGwXQ6+/w3uHuPqSADsqJSip+SMdC104dfW7tNxGwnc=";
+  cargoHash = "sha256-YiUC9fL11FA/527Lfp6N6gvNyJY1m+sdygbtndgcdVI=";
+
+  env.SELINUX_LIB_DIR = "${lib.getLib libselinux}/lib";
+
   doInstallCheck = true;
 
   src = fetchFromGitHub {
     owner = "bootc-dev";
     repo = "bootc";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-TztsiC+DwD9yEAmjTuiuOi+Kf8WEYMsOVVnMKpSM3/g=";
+    hash = "sha256-k8FwFxisFpFUdiKild1i8Ool2G3pLiyDRbhp89JAW0U=";
   };
 
-  patches = [
-    (fetchpatch2 {
-      url = "https://github.com/bootc-dev/bootc/commit/ff8b1b411270275c49ee512d54b27ed7a2fca112.patch";
-      hash = "sha256-7UKquq6ZargQUDGZk22X9Co92v8e995bL+tuAjvh/7c=";
-    })
+  nativeBuildInputs = [
+    pkg-config
+    rustPlatform.bindgenHook
   ];
 
-  nativeBuildInputs = [ pkg-config ];
-
   buildInputs = [
+    libselinux
     libz
     zstd
     openssl
