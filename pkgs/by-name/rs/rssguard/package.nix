@@ -1,37 +1,48 @@
 {
   lib,
   stdenv,
-  fetchFromGitHub,
+  fetchurl,
+  go,
   cmake,
   qt6,
-  kdePackages,
+  mpv-unwrapped,
   wrapGAppsHook4,
 }:
 
+let
+  version = "5.2.5";
+  src = fetchurl {
+    url = "https://github.com/martinrotter/rssguard/releases/download/${version}/rssguard-${version}-src.tar.gz";
+    hash = "sha256-UFEwiq/4VOWxlI4jsChxzY1PtLhwvbaIqLmOkH5qBhQ=";
+  };
+in
 stdenv.mkDerivation (finalAttrs: {
   pname = "rssguard";
-  version = "4.8.6";
-
-  src = fetchFromGitHub {
-    owner = "martinrotter";
-    repo = "rssguard";
-    tag = finalAttrs.version;
-    sha256 = "sha256-2gwzk23t9WRHrXlASzba9HQRijHjH0nfWsBjMcqgq68=";
-  };
+  inherit version src;
 
   buildInputs = [
     qt6.qtbase
     qt6.qtmultimedia
     qt6.qtwebengine
     qt6.qttools
-    qt6.qt5compat
-    kdePackages.mpvqt
+    mpv-unwrapped
   ];
   nativeBuildInputs = [
     cmake
+    go
     wrapGAppsHook4
     qt6.wrapQtAppsHook
   ];
+
+  cmakeFlags = [ (lib.cmakeBool "ENABLE_TESTING" true) ];
+
+  preConfigure = ''
+    export GOCACHE=$TMPDIR/go-cache
+    export GOPATH=$TMPDIR/go
+    export GOPROXY=off
+  '';
+
+  doCheck = true;
 
   dontWrapGApps = true;
 
