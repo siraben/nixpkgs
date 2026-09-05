@@ -1,70 +1,76 @@
 {
   lib,
-  stdenv,
-  fetchurl,
+  buildGoModule,
+  fetchFromGitLab,
   makeWrapper,
-  asciidoc,
-  docbook_xml_dtd_45,
-  docbook_xsl,
-  coreutils,
+  asciidoctor,
   cvs,
   diffutils,
   findutils,
   git,
   python3,
+  rcs,
   rsync,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+buildGoModule (finalAttrs: {
   pname = "cvs-fast-export";
-  version = "1.63";
+  version = "2.4";
 
-  src = fetchurl {
-    url = "http://www.catb.org/~esr/cvs-fast-export/cvs-fast-export-${finalAttrs.version}.tar.gz";
-    sha256 = "sha256-YZF2QebWbvn/N9pLpccudZsFHzocJp/3M0Gx9p7fQ5Y=";
+  src = fetchFromGitLab {
+    owner = "esr";
+    repo = "cvs-fast-export";
+    rev = finalAttrs.version;
+    hash = "sha256-FaMyqhfKqT07/VGURwqSBmmOKZtPtqHqNZWVKiqK7Hs=";
   };
 
-  strictDeps = true;
+  vendorHash = "sha256-Jaf6UFsO5JBeoASO8RRLh+8CcMAzfnnqNeh8EMHygU4=";
+
   nativeBuildInputs = [
+    asciidoctor
     makeWrapper
-    asciidoc
   ];
+
   buildInputs = [ python3 ];
 
+  nativeCheckInputs = [ git ];
+
   postPatch = ''
-    patchShebangs .
+    patchShebangs cvssync cvsconvert cvsstrip
   '';
 
-  preBuild = ''
-    makeFlagsArray=(
-      XML_CATALOG_FILES="${docbook_xml_dtd_45}/xml/dtd/docbook/catalog.xml ${docbook_xsl}/xml/xsl/docbook/catalog.xml"
-      LIBS=""
-      prefix="$out"
-    )
-  '';
+  ldflags = [ "-X main.version=${finalAttrs.version}" ];
 
-  env = lib.optionalAttrs stdenv.cc.isClang {
-    NIX_CFLAGS_COMPILE = "-Wno-implicit-function-declaration";
-  };
+  postBuild = ''
+    for page in cvs-fast-export cvssync cvsconvert; do
+      asciidoctor -D . -a nofooter -b manpage "$page.adoc"
+    done
+  '';
 
   postInstall = ''
+    install -Dm755 cvssync cvsconvert cvsstrip -t $out/bin
+    install -Dm644 cvs-fast-export.1 cvssync.1 cvsconvert.1 -t $out/share/man/man1
+
     wrapProgram $out/bin/cvssync --prefix PATH : ${lib.makeBinPath [ rsync ]}
     wrapProgram $out/bin/cvsconvert --prefix PATH : $out/bin:${
       lib.makeBinPath [
-        coreutils
         cvs
         diffutils
         findutils
         git
+        rcs
       ]
     }
+    wrapProgram $out/bin/cvsstrip --prefix PATH : $out/bin
   '';
 
   meta = {
     description = "Export an RCS or CVS history as a fast-import stream";
+    homepage = "https://gitlab.com/esr/cvs-fast-export";
+    changelog = "https://gitlab.com/esr/cvs-fast-export/-/blob/${finalAttrs.src.rev}/NEWS.adoc";
     license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [ dfoxfranke ];
-    homepage = "http://www.catb.org/esr/cvs-fast-export/";
     platforms = lib.platforms.unix;
+    mainProgram = "cvs-fast-export";
   };
 })
