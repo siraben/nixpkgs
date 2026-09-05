@@ -11,11 +11,11 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gpsprune";
-  version = "25";
+  version = "27";
 
   src = fetchurl {
     url = "https://activityworkshop.net/software/gpsprune/gpsprune_${finalAttrs.version}.jar";
-    hash = "sha256-8FGOigjHIvj+CZwq0Lht7UZjtmrE5l2Aqx92gZjau44=";
+    hash = "sha256-pJ3Hnr34zT/9bK3dsY7VaHwLvF06k71ajD5B57AjvhI=";
   };
 
   dontUnpack = true;
