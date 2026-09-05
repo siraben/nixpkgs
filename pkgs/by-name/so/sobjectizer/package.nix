@@ -3,7 +3,6 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  fetchpatch,
   cmake,
   withStatic ? stdenv.hostPlatform.isStatic,
   withShared ? !withStatic,
@@ -15,22 +14,14 @@ assert buildExamples -> withStatic;
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "sobjectizer";
-  version = "5.8.4";
+  version = "5.8.6";
 
   src = fetchFromGitHub {
     owner = "Stiffstream";
     repo = "sobjectizer";
-    tag = "v.${finalAttrs.version}";
-    hash = "sha256-tIqWgd6TppHfqZk3XHzhG0t+Nn8BQCTP81UD7ls67UE=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-PsdI9QoqaxT8CUmxo1SaeqvoN7eRh/FcWNrGSP1BG/A=";
   };
-
-  patches = [
-    (fetchpatch {
-      name = "tests-do-not-require-static-library.patch";
-      url = "https://github.com/Stiffstream/sobjectizer/commit/10eb34c65ccdaa4fea62d0c4354b83104256370d.patch";
-      hash = "sha256-a2g6jDGDC/y8cmbAD0KtVQKhVS5ZAjKtMhbAUyoQIvg=";
-    })
-  ];
 
   nativeBuildInputs = [ cmake ];
 
@@ -43,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.cmakeBool "BUILD_TESTS" (finalAttrs.finalPackage.doCheck && withShared))
   ];
 
-  # The tests require the shared library thanks to the patch.
+  # The tests require the shared library.
   doCheck = withShared;
 
   # Receive semi-automated updates.
@@ -51,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     homepage = "https://github.com/Stiffstream/sobjectizer/tree/master";
-    changelog = "https://github.com/Stiffstream/sobjectizer/releases/tag/v.${finalAttrs.version}";
+    changelog = "https://github.com/Stiffstream/sobjectizer/releases/tag/v${finalAttrs.version}";
     description = "Implementation of Actor, Publish-Subscribe, and CSP models in one rather small C++ framework";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.ivalery111 ];
