@@ -7,12 +7,12 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "objconv";
-  version = "2.54.1";
+  version = "2.57";
 
   src = fetchurl {
-    # Versioned archive of objconv sources maintained by orivej.
-    url = "https://archive.org/download/objconv/objconv-${finalAttrs.version}.zip";
-    sha256 = "sha256-DFyo+8fvHEr+PMfMkBhxGliFr6y+i868SAKNHskMzHw=";
+    # Versioned archive maintained by the FreeBSD port maintainer.
+    url = "http://fuz.ooo/pub/objconv/objconv-${finalAttrs.version}.zip";
+    hash = "sha256-D2BPk/l/aJr9dhXIYXbrFbyVAB6t+DF/F+vQmcUMWeE=";
   };
 
   nativeBuildInputs = [ unzip ];
@@ -41,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Object and executable file converter, modifier and disassembler";
     mainProgram = "objconv";
     homepage = "https://www.agner.org/optimize/";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl3Only;
     maintainers = [ ];
     platforms = lib.platforms.unix;
   };
