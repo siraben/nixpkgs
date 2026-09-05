@@ -10,13 +10,13 @@
 
 llvmPackages.stdenv.mkDerivation (finalAttrs: {
   pname = "clazy";
-  version = "1.15";
+  version = "1.17.1";
 
   src = fetchFromGitHub {
     owner = "KDE";
     repo = "clazy";
-    tag = finalAttrs.version;
-    hash = "sha256-i/tqH2RHU+LwvMFI8ft92j0i04mQxLVIyrGXlqzMGWs=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-Gjrex6UwlkAAvmyfsYWOD2s9mIq4zqnidGRj9f+slaI=";
   };
 
   buildInputs = [
@@ -50,17 +50,21 @@ llvmPackages.stdenv.mkDerivation (finalAttrs: {
     versionCheckHook
   ];
   doInstallCheck = true;
+  versionCheckProgram = "${placeholder "out"}/bin/clazy-standalone";
+  versionCheckProgramArg = "--version";
+  preVersionCheck = "version=${lib.versions.majorMinor finalAttrs.version}";
 
   passthru = {
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater { rev-prefix = "v"; };
   };
 
   meta = {
     description = "Qt-oriented static code analyzer based on the Clang framework";
     homepage = "https://github.com/KDE/clazy";
-    changelog = "https://github.com/KDE/clazy/blob/${finalAttrs.version}/Changelog";
+    changelog = "https://github.com/KDE/clazy/blob/v${finalAttrs.version}/Changelog";
     license = lib.licenses.lgpl2Plus;
     maintainers = [ lib.maintainers.cadkin ];
+    mainProgram = "clazy";
     platforms = lib.platforms.linux;
   };
 })
