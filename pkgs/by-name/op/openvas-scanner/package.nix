@@ -6,12 +6,14 @@
   curl,
   doxygen,
   fetchFromGitHub,
+  file,
   git,
   glib,
   gnutls,
   gpgme,
   gvm-libs,
   json-glib,
+  krb5,
   libbsd,
   libclang,
   libgcrypt,
@@ -31,14 +33,16 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "openvas-scanner";
-  version = "23.28.0";
+  version = "23.50.24";
 
   src = fetchFromGitHub {
     owner = "greenbone";
     repo = "openvas-scanner";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-ggmex/BmAVgdE1JNM3kybEmr/uKqrIl8JdSoBnsg+40=";
+    hash = "sha256-WXrAE2p7gSwjdK3Qy6dW3/stnhWgM86a7vvlP+Vkaks=";
   };
+
+  patches = [ ./fix-gcc-15-build.patch ];
 
   nativeBuildInputs = [
     cmake
@@ -51,11 +55,13 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs = [
     bison
     curl
+    file
     glib
     gnutls
     gpgme
     gvm-libs
     json-glib
+    krb5
     libbsd
     libclang
     libgcrypt
@@ -72,11 +78,11 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   cmakeFlags = [
-    "-DGVM_RUN_DIR=$out/run/gvm"
-    "-DLOCALSTATEDIR=$out/var"
-    "-DSYSCONFDIR=$out/etc"
-    "-DOPENVAS_RUN_DIR=$out/run/ospd"
-    "-DOPENVAS_FEED_LOCK_PATH=$out/var/lib/openvas/feed-update.lock"
+    "-DGVM_RUN_DIR=${placeholder "out"}/run/gvm"
+    "-DLOCALSTATEDIR=${placeholder "out"}/var"
+    "-DSYSCONFDIR=${placeholder "out"}/etc"
+    "-DOPENVAS_RUN_DIR=${placeholder "out"}/run/ospd"
+    "-DOPENVAS_FEED_LOCK_PATH=${placeholder "out"}/var/lib/openvas/feed-update.lock"
   ];
 
   meta = {

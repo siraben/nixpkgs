@@ -1,0 +1,19 @@
+Fix signedness warnings which are fatal because upstream enables -Werror.
+
+--- a/nasl/nasl_packet_forgery.c
++++ b/nasl/nasl_packet_forgery.c
+@@ -578 +578 @@
+-  if (ipsz > ip->ip_hl * 4)
++  if (ipsz > (size_t) ip->ip_hl * 4)
+@@ -677 +677 @@
+-  if (ip->ip_hl * 4 > ipsz)
++  if ((size_t) ip->ip_hl * 4 > ipsz)
+@@ -1021 +1021 @@
+-  if (ip->ip_hl * 4 > pktsz)
++  if ((size_t) ip->ip_hl * 4 > pktsz)
+@@ -1293 +1293 @@
+-  if (ip->ip_hl * 4 > pktsz)
++  if ((size_t) ip->ip_hl * 4 > pktsz)
+@@ -1907 +1907 @@
+-  if (ip->ip_hl * 4 > ip_sz)
++  if ((size_t) ip->ip_hl * 4 > ip_sz)
