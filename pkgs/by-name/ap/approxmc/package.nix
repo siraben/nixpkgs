@@ -2,35 +2,44 @@
   stdenv,
   fetchFromGitHub,
   cmake,
+  pkg-config,
   zlib,
   gmp,
+  mpfr,
   cryptominisat,
-  boost,
   arjun-cnf,
-  louvain-community,
   lib,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "approxmc";
-  version = "4.1.24";
+  version = "4.3.2";
 
   src = fetchFromGitHub {
     owner = "meelgroup";
     repo = "approxmc";
-    rev = finalAttrs.version;
-    hash = "sha256-rADPC7SVwzjUN5jb7Wt341oGfr6+LszIaBUe8QgmpRU=";
+    rev = "release/v${finalAttrs.version}";
+    hash = "sha256-cemZVrBQ92uQ1LBdKpJlSgEkjc8tfgMoT9gqKP2GDqQ=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   buildInputs = [
     zlib
     gmp
+    mpfr
     cryptominisat
-    boost
     arjun-cnf
-    louvain-community
+  ];
+
+  cmakeFlags = [
+    "-Dcadical_DIR=${cryptominisat}/lib/cmake/cadical"
+    "-Dcadiback_DIR=${cryptominisat}/lib/cmake/cadiback"
+    "-Dcryptominisat5_DIR=${cryptominisat}/lib/cmake/cryptominisat5"
+    "-Darjun_DIR=${arjun-cnf}/lib/cmake/arjun"
   ];
 
   meta = {
