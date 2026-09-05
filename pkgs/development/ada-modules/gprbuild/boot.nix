@@ -9,14 +9,14 @@
 }:
 
 let
-  version = "25.0.0";
+  version = "26.0.0";
 
   gprConfigKbSrc = fetchFromGitHub {
     name = "gprconfig-kb-${version}-src";
     owner = "AdaCore";
     repo = "gprconfig_kb";
     rev = "v${version}";
-    sha256 = "09x1njq0i0z7fbwg0mg39r5ghy7369avbqvdycfj67lpmw17gb1r";
+    sha256 = "sha256-Ugzn03z93ZoRRkgq3XSeIsvCb2IKh2WWj7TWzqTos70=";
   };
 in
 
@@ -29,7 +29,7 @@ stdenv.mkDerivation {
     owner = "AdaCore";
     repo = "gprbuild";
     rev = "v${version}";
-    sha256 = "1mqsmc0q5bzg8223ls18kbvaz6mhzjz7ik8d3sqhhn24c0j6wjaw";
+    sha256 = "sha256-j9UQw275cfCkYdmDyc4g2LuFSrqXmWGV66AaykctKSA=";
   };
 
   nativeBuildInputs = [
@@ -43,11 +43,6 @@ stdenv.mkDerivation {
     (fetchpatch2 {
       url = "https://github.com/AdaCore/gprbuild/commit/6421e350274b3018a26bd058b1c90d033b053f71.patch?full_index=1";
       hash = "sha256-u9bmr8abmthlyHoeqW5nS2CnaxXmbx6WVwhemxVtw+0=";
-    })
-    # gpr-compilation-protocol.adb:981:13: error: "time_t" is undefined
-    (fetchpatch2 {
-      url = "https://github.com/AdaCore/gprbuild/commit/6b6be939d69d534beb7faca17664d7a1ffa9c81e.patch?full_index=1";
-      hash = "sha256-YUjBvA4bBsrCB46o5WVHOZR6qOf2bkMg+A9qlystDbc=";
     })
   ];
 
