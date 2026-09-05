@@ -1,0 +1,10 @@
+diff --git a/configure.ac b/configure.ac
+index aae90c7..6a995a9 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -526,4 +526,4 @@
+            fi
+-        fi
+             ])
++        fi
+ LIBS="$save_LIBS"

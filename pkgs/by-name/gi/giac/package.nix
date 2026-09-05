@@ -38,15 +38,18 @@ assert (!blas.isILP64) && (!lapack.isILP64);
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "giac${lib.optionalString enableGUI "-with-xcas"}";
-  version = "2.0.0-19"; # TODO try to remove preCheck phase on upgrade
+  version = "2.0.0-21"; # TODO try to remove preCheck phase on upgrade
 
   src = fetchurl {
     url = "https://www-fourier.univ-grenoble-alpes.fr/~parisse/debian/dists/stable/main/source/giac_${finalAttrs.version}.tar.gz";
-    hash = "sha256-7fuKV8xNlDyN9ha1+NNHUjFPhEP0NZ3thwRXL1kcA5E=";
+    hash = "sha256-Pn+hwoGiGrdO1m7yR/r/5aEFvBG+H3cV8xtDaM6Ny8g=";
   };
 
   patches = [
     ./fix-fltk-guard.patch
+
+    # Fix malformed shell nesting when regenerating configure.
+    ./fix-fltk-configure.patch
 
     (fetchpatch {
       name = "pari_2_15.patch";
