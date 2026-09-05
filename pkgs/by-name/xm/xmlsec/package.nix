@@ -1,7 +1,6 @@
 {
   stdenv,
   fetchurl,
-  fetchpatch,
   libxml2,
   gnutls,
   libxslt,
@@ -19,7 +18,7 @@ lib.fix (
   self:
   stdenv.mkDerivation (finalAttrs: {
     pname = "xmlsec";
-    version = "1.3.7";
+    version = "1.3.12";
 
     src = fetchurl {
       urls = [
@@ -28,17 +27,12 @@ lib.fix (
         # for when the ${finalAttrs.version} gets older than the last two
         "https://www.aleksey.com/xmlsec/download/older-releases/xmlsec1-${finalAttrs.version}.tar.gz"
       ];
-      hash = "sha256-2C6TtpuKogWmFrYpF6JpMiv2Oj6q+zd1AU5hdSsgE+o=";
+      hash = "sha256-JARRma8S2T/l/bu/fjhugj5IQgcelDLiuQrBCLiJqSM=";
     };
 
     patches = [
       ./lt_dladdsearchdir.patch
       ./remove_bsd_base64_decode_flag.patch
-      (fetchpatch {
-        # xmlDoc.encoding is no longer const in libxml 2.15, so fetch the fix
-        url = "https://github.com/lsh123/xmlsec/commit/ef0e3b5cac04db13ce070b1e5bcad7dd7b0eb49b.patch?full_index=1";
-        hash = "sha256-Hv8PaJXkXLq++NuCAJ4IvsYBPj8wkN7dBTniYucq18o=";
-      })
     ];
 
     postPatch = ''
@@ -74,9 +68,14 @@ lib.fix (
       substituteInPlace tests/testrun.sh --replace 'timestamp=`date +%Y%m%d_%H%M%S`' 'timestamp=19700101_000000'
     '';
 
-    # enable deprecated soap headers required by lasso
-    # https://dev.entrouvert.org/issues/18771
-    configureFlags = [ "--enable-soap" ];
+    configureFlags = [
+      # enable deprecated soap headers required by lasso
+      # https://dev.entrouvert.org/issues/18771
+      "--enable-soap"
+
+      # Keep the gcrypt backend tested below, which upstream disables by default.
+      "--with-gcrypt"
+    ];
 
     # otherwise libxmlsec1-gnutls.so won't find libgcrypt.so, after #909
     env.NIX_LDFLAGS = "-lgcrypt";
