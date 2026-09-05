@@ -19,13 +19,13 @@
 
 let
   pname = "zerotierone";
-  version = "1.16.0";
+  version = "1.16.2";
 
   src = fetchFromGitHub {
     owner = "zerotier";
     repo = "ZeroTierOne";
     tag = version;
-    hash = "sha256-bFfRz695sbdZJd5DIfF7j8lbEqWHSaIqHq/AfXZgZ4s=";
+    hash = "sha256-obOY9Ms+GnFxBOOrTr9cUDd+eje2bdU8Ll8ovlYLTL8=";
   };
 
 in
@@ -35,7 +35,7 @@ stdenv.mkDerivation {
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit src;
     sourceRoot = "${src.name}/rustybits";
-    hash = "sha256-u3gqETbn4I+mtUeSkSym4s+qhA3eDb4Qaq7bl58M+AY=";
+    hash = "sha256-cenDnt20Mmz77SRPKS72h83rK+Ybk4cdYLbbqDGkHlE=";
   };
 
   patches = [
