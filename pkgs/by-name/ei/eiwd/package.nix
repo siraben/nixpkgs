@@ -12,13 +12,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "eiwd";
-  version = "2.22-1";
+  version = "3.12-1";
 
   src = fetchFromGitHub {
-    owner = "illiliti";
+    owner = "ioraff";
     repo = "eiwd";
     tag = finalAttrs.version;
-    hash = "sha256-rmkXR4RZbtD6lh8cGrHLWVGTw4fQqP9+Z9qaftG1ld0=";
+    hash = "sha256-9GG4Q6WCPcmoECXX6NYjeROm1/5d2Z/vmgB78gBPQ7w=";
     fetchSubmodules = true;
   };
 
@@ -82,7 +82,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   meta = {
-    homepage = "https://github.com/illiliti/eiwd/";
+    homepage = "https://github.com/ioraff/eiwd/";
     description = "Fork of iwd (wifi daemon) which does not require dbus";
     license = lib.licenses.lgpl21Plus;
     platforms = lib.platforms.linux;
