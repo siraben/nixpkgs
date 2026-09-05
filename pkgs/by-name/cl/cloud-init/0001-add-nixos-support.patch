@@ -2,7 +2,7 @@ diff --git a/cloudinit/distros/__init__.py b/cloudinit/distros/__init__.py
 index 79e26235..bdc32c52 100644
 --- a/cloudinit/distros/__init__.py
 +++ b/cloudinit/distros/__init__.py
-@@ -91,6 +91,7 @@ OSFAMILIES = {
+@@ -98,6 +98,7 @@ OSFAMILIES = {
      ],
      "openeuler": ["openeuler"],
      "OpenCloudOS": ["OpenCloudOS", "TencentOS"],

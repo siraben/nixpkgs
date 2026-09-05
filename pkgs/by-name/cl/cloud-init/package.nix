@@ -1,24 +1,27 @@
 {
   lib,
   nixosTests,
+  busybox,
   cloud-utils,
+  coreutils,
   dmidecode,
   fetchFromGitHub,
+  gitUpdater,
   iproute2,
+  meson,
+  ninja,
   openssh,
+  pkg-config,
+  procps,
   python3,
   shadow,
   systemd,
-  coreutils,
-  gitUpdater,
-  busybox,
-  procps,
 }:
 
 python3.pkgs.buildPythonApplication (finalAttrs: {
   pname = "cloud-init";
-  version = "25.2";
-  pyproject = true;
+  version = "26.2";
+  pyproject = false;
 
   namePrefix = "";
 
@@ -26,7 +29,7 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
     owner = "canonical";
     repo = "cloud-init";
     tag = finalAttrs.version;
-    hash = "sha256-Ww76dhfoGrIbxPiXHxDjpgPsinmfrs42NnGmzhBeGC0=";
+    hash = "sha256-OFgn1zOoWivNB5JPszFjhSzmILDRJ9aR9A9y81oBwMk=";
   };
 
   patches = [
@@ -35,29 +38,43 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
   ];
 
   prePatch = ''
-    substituteInPlace setup.py \
-      --replace /lib/systemd $out/lib/systemd
+    substituteInPlace meson.build \
+      --replace-fail "systemd_unit_dir = systemd.get_variable(pkgconfig: 'systemdsystemunitdir')" "systemd_unit_dir = get_option('prefix') / 'lib/systemd/system'" \
+      --replace-fail "systemd_generator_dir = systemd.get_variable(pkgconfig: 'systemdsystemgeneratordir')" "systemd_generator_dir = get_option('prefix') / 'lib/systemd/system-generators'" \
+      --replace-fail "udev_dir = udev.get_variable(pkgconfig: 'udevdir')" "udev_dir = get_option('prefix') / 'lib/udev'"
 
     substituteInPlace cloudinit/net/networkd.py \
-      --replace '["/usr/sbin", "/bin"]' '["/usr/sbin", "/bin", "${iproute2}/bin", "${systemd}/bin"]'
+      --replace-fail '["/usr/sbin", "/bin"]' '["/usr/sbin", "/bin", "${iproute2}/bin", "${systemd}/bin"]'
 
     substituteInPlace tests/unittests/test_net_activators.py \
-      --replace '["/usr/sbin", "/bin"]' \
+      --replace-fail '["/usr/sbin", "/bin"]' \
         '["/usr/sbin", "/bin", "${iproute2}/bin", "${systemd}/bin"]'
+  '';
 
-    substituteInPlace tests/unittests/cmd/test_clean.py \
-      --replace "/bin/bash" "/bin/sh"
+  postPatch = ''
+    patchShebangs scripts tools
   '';
 
   postInstall = ''
-    install -D -m755 ./tools/write-ssh-key-fingerprints $out/libexec/write-ssh-key-fingerprints
-    for i in $out/libexec/*; do
-      wrapProgram $i --prefix PATH : "${lib.makeBinPath [ openssh ]}"
-    done
+    install -D -m644 ../bash_completion/cloud-init \
+      $out/share/bash-completion/completions/cloud-init
+    install -D -m755 ../tools/write-ssh-key-fingerprints $out/libexec/write-ssh-key-fingerprints
+    wrapProgram $out/libexec/write-ssh-key-fingerprints \
+      --prefix PATH : "${lib.makeBinPath [ openssh ]}"
   '';
 
-  build-system = with python3.pkgs; [
-    setuptools
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+  ];
+
+  buildInputs = [ systemd ];
+
+  mesonFlags = [
+    "--sysconfdir=${placeholder "out"}/etc"
+    "-Dbash_completion=false"
+    "-Dpython.install_env=prefix"
   ];
 
   propagatedBuildInputs = with python3.pkgs; [
@@ -81,12 +98,16 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
     shadow
     responses
     pytest-mock
+    pyfakefs
     coreutils
     procps
   ];
 
   makeWrapperArgs = [
-    "--prefix PATH : ${
+    "--prefix"
+    "PATH"
+    ":"
+    "${
       lib.makeBinPath [
         dmidecode
         cloud-utils.guest
@@ -95,7 +116,11 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
     }/bin"
   ];
 
+  pytestFlags = [ "../tests/unittests" ];
+
   disabledTests = [
+    # Nix build sandbox does not permit setting the setuid bit
+    "test_special_permission_bits"
     # tries to create /var
     "test_dhclient_run_with_tmpdir"
     "test_dhcp_client_failover"
