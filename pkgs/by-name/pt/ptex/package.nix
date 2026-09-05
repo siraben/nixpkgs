@@ -2,20 +2,29 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  zlib,
+  libdeflate,
   cmake,
+  doxygen,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "ptex";
-  version = "2.4.2";
+  version = "2.5.4";
 
   src = fetchFromGitHub {
     owner = "wdas";
     repo = "ptex";
     rev = "v${finalAttrs.version}";
-    sha256 = "sha256-PR1ld9rXmL6BK4llznAsD5PNvi3anFMz2i9NDsG95DQ=";
+    sha256 = "sha256-DeOwigjCh6dMuGQCAR/+x+zMWqks5QhhNu+0LPDx6dY=";
   };
+
+  postPatch = ''
+    substituteInPlace src/build/ptex-config.cmake \
+      --replace-fail "find_package(ZLIB REQUIRED)" "find_dependency(libdeflate REQUIRED)"
+    substituteInPlace src/build/ptex.pc.in \
+      --replace-fail "Requires.private: @pc_req_private@" "Requires.private: libdeflate" \
+      --replace-fail "Version: @PROJECT_VERSION@" "Version: @PTEX_VER_STRIPPED@"
+  '';
 
   outputs = [
     "bin"
@@ -24,8 +33,15 @@ stdenv.mkDerivation (finalAttrs: {
     "lib"
   ];
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ zlib ];
+  nativeBuildInputs = [
+    cmake
+    doxygen
+  ];
+  propagatedBuildInputs = [ libdeflate ];
+
+  cmakeFlags = [ (lib.cmakeFeature "PTEX_VER" "v${finalAttrs.version}") ];
+
+  doCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
 
   meta = {
     description = "Per-Face Texture Mapping for Production Rendering";
