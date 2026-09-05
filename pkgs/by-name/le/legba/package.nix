@@ -2,41 +2,32 @@
   lib,
   rustPlatform,
   fetchFromGitHub,
-  cmake,
   pkg-config,
   openssl,
-  samba,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "legba";
-  version = "0.11.0";
+  version = "1.3.0";
 
   src = fetchFromGitHub {
     owner = "evilsocket";
     repo = "legba";
-    rev = "v${finalAttrs.version}";
-    hash = "sha256-iynUReIWebfBkmWxbajsKbdfWSy+fzqF3NNssjtshYY=";
+    rev = finalAttrs.version;
+    hash = "sha256-FrmPR9K/Ci+fm0IzmczgfRHVa1tYYNuaNnlfO9bQwDU=";
   };
 
-  cargoHash = "sha256-clqOTFUOxZ1yt2YVgVDvsq2MhwMH7/s+jHSwt3buXgU=";
+  cargoHash = "sha256-G/O8no8yIYqpAhEA6r7qYckpTQb/PtV0U+Ysl5R/f9k=";
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
-  buildInputs = [
-    openssl.dev
-    samba
-  ];
+  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [ openssl ];
 
-  # Paho C test fails due to permission issue
-  doCheck = false;
+  env.OPENSSL_NO_VENDOR = true;
 
   meta = {
     description = "Multiprotocol credentials bruteforcer / password sprayer and enumerator";
     homepage = "https://github.com/evilsocket/legba";
-    changelog = "https://github.com/evilsocket/legba/releases/tag/v${finalAttrs.version}";
+    changelog = "https://github.com/evilsocket/legba/releases/tag/${finalAttrs.version}";
     license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ mikaelfangel ];
     mainProgram = "legba";
