@@ -25,9 +25,9 @@ assert cvc4Support -> cvc4 != null && cln != null && gmp != null;
 let
   pname = "solc";
 
-  version = "0.8.33";
-  linuxHash = "sha256-sWCV0GOUW5GPNX1flk+UOrdwoHZHnx4MsZMGDDBxx6M=";
-  darwinHash = "sha256-gyQoBZHOOY1+JyKEa8EOzxd5sToyjvl7aHySzZxwgBo=";
+  version = "0.8.36";
+  linuxHash = "sha256-qIChFkTTmHklgj06fYvn6Ghi9ZW4rlyY/lvfMWxyVlk=";
+  darwinHash = "sha256-1KvPCz4kt5SN39ZMN00mwyFGSHF3d3kOy5NpeQVKEp0=";
 
   nativeInstallCheckInputs = [
     versionCheckHook
