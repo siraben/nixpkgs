@@ -93,6 +93,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
       }
   '';
 
+  # Avoid optimizing the large test-only target set; installed artifacts still
+  # come from the release build performed before checks.
+  checkType = "debug";
+
   nativeCheckInputs = [
     writableTmpDirAsHomeHook
     cacert
