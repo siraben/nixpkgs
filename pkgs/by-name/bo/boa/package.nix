@@ -30,6 +30,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "boa_cli"
   ];
 
+  # The test target set is much larger than the installed CLI, so compiling
+  # test harnesses without release optimization avoids disproportionate work.
+  checkType = "debug";
+
   nativeBuildInputs = [ pkg-config ];
 
   buildInputs = [
