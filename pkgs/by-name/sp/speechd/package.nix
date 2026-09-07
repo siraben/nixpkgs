@@ -1,6 +1,7 @@
 {
   stdenv,
   lib,
+  callPackage,
   replaceVars,
   pkg-config,
   fetchurl,
@@ -151,6 +152,20 @@ stdenv.mkDerivation (finalAttrs: {
       '';
 
   enableParallelBuilding = true;
+
+  passthru.tests =
+    lib.optionalAttrs
+      (stdenv.hostPlatform.isLinux && stdenv.buildPlatform.canExecute stdenv.hostPlatform && !libsOnly)
+      {
+        generic-execute = callPackage ./generic-execute-test.nix {
+          # Keep the test focused and ensure the fix is independent of optional synths.
+          speechd = callPackage ./package.nix {
+            withFlite = false;
+            withEspeak = false;
+            withPico = false;
+          };
+        };
+      };
 
   meta = {
     description =
