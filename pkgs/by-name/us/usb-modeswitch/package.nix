@@ -53,6 +53,24 @@ stdenv.mkDerivation (finalAttrs: {
       }
   '';
 
+  doInstallCheck = true;
+
+  installCheckPhase = ''
+    runHook preInstallCheck
+
+    unit="$out/lib/systemd/system/usb_modeswitch@.service"
+    helper="$out/lib/udev/usb_modeswitch"
+
+    test -f "$unit"
+    test -x "$helper"
+    test -x "$out/sbin/usb_modeswitch_dispatcher"
+    grep -Fqx "ExecStart=$out/sbin/usb_modeswitch_dispatcher --switch-mode %i" "$unit"
+    grep -Fqx "SBINDIR=$out/sbin" "$helper"
+    ! grep -Eq '(^|[^[:alnum:]_])(readlink|basename)([^[:alnum:]_]|$)' "$helper"
+
+    runHook postInstallCheck
+  '';
+
   buildInputs = [
     libusb1
     tcl
