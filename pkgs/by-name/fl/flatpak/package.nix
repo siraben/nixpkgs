@@ -275,6 +275,14 @@ stdenv.mkDerivation (finalAttrs: {
     tests = {
       cross-aarch64 = pkgsCross.aarch64-multiplatform.flatpak;
 
+      nixos-font-remap = runCommand "test-flatpak-nixos-font-remap" { } ''
+        grep -F -A1 \
+          '+                              "\t<remap-dir as-path=\"%s\">/run/host/fonts</remap-dir>\n",' \
+          ${./fix-fonts-icons.patch} > remap-code
+        grep -Fx '+                              "/usr/share/fonts");' remap-code
+        touch $out
+      '';
+
       pkg-config = testers.hasPkgConfigModules { package = finalAttrs.finalPackage; };
 
       validate-icon = runCommand "test-icon-validation" { } ''
