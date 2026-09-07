@@ -1961,6 +1961,7 @@ in
   watchdogd = runTest ./watchdogd.nix;
   watt = runTest ./watt.nix;
   webhook = runTest ./webhook.nix;
+  websurfx = runTest ./websurfx.nix;
   weblate = runTest ./web-apps/weblate.nix;
   wg-access-server = runTest ./wg-access-server.nix;
   whisparr = runTest ./whisparr.nix;

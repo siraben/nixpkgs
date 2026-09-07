@@ -4,6 +4,7 @@
   rustPlatform,
   openssl,
   pkg-config,
+  nixosTests,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "websurfx";
@@ -35,6 +36,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
     cp -r websurfx $out/etc/xdg
     cp -r public $out/opt/websurfx
   '';
+
+  passthru.tests.nixos = nixosTests.websurfx;
 
   meta = {
     description = "Open source alternative to searx";
