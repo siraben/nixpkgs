@@ -6,6 +6,17 @@
 }:
 let
   cfg = config.services.beszel.agent;
+  gpuCollector = lib.trim (cfg.environment.GPU_COLLECTOR or "");
+  needsIntelGpuTop =
+    (cfg.environment.SKIP_GPU or "false") != "true"
+    && (
+      if gpuCollector == "" then
+        builtins.elem "intel" config.services.xserver.videoDrivers
+      else
+        builtins.elem "intel_gpu_top" (
+          map (collector: lib.toLower (lib.trim collector)) (lib.splitString "," gpuCollector)
+        )
+    );
 in
 {
   meta.maintainers = with lib.maintainers; [
@@ -165,15 +176,21 @@ in
         DynamicUser = true;
         User = "beszel-agent";
 
-        # Capabilities needed for SMART monitoring
-        AmbientCapabilities = lib.mkIf cfg.smartmon.enable [
-          "CAP_SYS_RAWIO"
-          "CAP_SYS_ADMIN"
-        ];
-        CapabilityBoundingSet = lib.mkIf cfg.smartmon.enable [
-          "CAP_SYS_RAWIO"
-          "CAP_SYS_ADMIN"
-        ];
+        # Capabilities needed for SMART and Intel GPU monitoring
+        AmbientCapabilities = lib.mkIf (cfg.smartmon.enable || needsIntelGpuTop) (
+          lib.optionals cfg.smartmon.enable [
+            "CAP_SYS_RAWIO"
+            "CAP_SYS_ADMIN"
+          ]
+          ++ lib.optionals needsIntelGpuTop [ "CAP_PERFMON" ]
+        );
+        CapabilityBoundingSet = lib.mkIf (cfg.smartmon.enable || needsIntelGpuTop) (
+          lib.optionals cfg.smartmon.enable [
+            "CAP_SYS_RAWIO"
+            "CAP_SYS_ADMIN"
+          ]
+          ++ lib.optionals needsIntelGpuTop [ "CAP_PERFMON" ]
+        );
 
         # Device access for SMART monitoring
         DeviceAllow = lib.mkIf (cfg.smartmon.enable && cfg.smartmon.deviceAllow != [ ]) (
@@ -182,9 +199,9 @@ in
 
         LockPersonality = true;
         NoNewPrivileges = !cfg.smartmon.enable;
-        PrivateDevices = !cfg.smartmon.enable;
+        PrivateDevices = !cfg.smartmon.enable && !needsIntelGpuTop;
         PrivateTmp = true;
-        PrivateUsers = !cfg.smartmon.enable && !cfg.environment.SKIP_SYSTEMD;
+        PrivateUsers = !cfg.smartmon.enable && !cfg.environment.SKIP_SYSTEMD && !needsIntelGpuTop;
         ProtectClock = true;
         ProtectControlGroups = "strict";
         ProtectHome = "read-only";
@@ -199,7 +216,7 @@ in
         RestrictSUIDSGID = true;
         SystemCallArchitectures = "native";
         SystemCallErrorNumber = "EPERM";
-        SystemCallFilter = [ "@system-service" ];
+        SystemCallFilter = [ "@system-service" ] ++ lib.optionals needsIntelGpuTop [ "perf_event_open" ];
         Type = "simple";
         UMask = 27;
       };

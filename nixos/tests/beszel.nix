@@ -1,4 +1,41 @@
 { pkgs, lib, ... }:
+let
+  perfEventProbe = pkgs.runCommandCC "perf-event-probe" { } ''
+    mkdir -p $out/bin
+    $CC -Wall -Werror -o $out/bin/perf-event-probe ${pkgs.writeText "perf-event-probe.c" ''
+      #include <linux/perf_event.h>
+      #include <stdio.h>
+      #include <string.h>
+      #include <sys/syscall.h>
+      #include <unistd.h>
+
+      int main(void) {
+        struct perf_event_attr event;
+        memset(&event, 0, sizeof(event));
+        event.type = PERF_TYPE_SOFTWARE;
+        event.size = sizeof(event);
+        event.config = PERF_COUNT_SW_TASK_CLOCK;
+
+        int fd = syscall(SYS_perf_event_open, &event, 0, -1, -1, 0);
+        if (fd == -1) {
+          perror("perf_event_open");
+          return 1;
+        }
+        close(fd);
+        puts("perf_event_open succeeded");
+        return 0;
+      }
+    ''}
+  '';
+
+  probeAgent = pkgs.writeShellApplication {
+    name = "beszel-agent";
+    text = ''
+      ${perfEventProbe}/bin/perf-event-probe
+      exec ${pkgs.coreutils}/bin/sleep infinity
+    '';
+  };
+in
 {
   name = "beszel";
   meta.maintainers = with lib.maintainers; [ h7x4 ];
@@ -32,6 +69,15 @@
           config.services.beszel.hub.package
         ];
       };
+
+    intelAgent = {
+      boot.kernel.sysctl."kernel.perf_event_paranoid" = 4;
+      services.beszel.agent = {
+        enable = true;
+        package = probeAgent;
+        environment.GPU_COLLECTOR = "intel_gpu_top";
+      };
+    };
 
     agentHost =
       { config, pkgs, ... }:
@@ -70,8 +116,23 @@
     in
     ''
       import json
+      from datetime import timedelta
 
       start_all()
+
+      with subtest("Intel GPU collector service permissions"):
+        intelAgent.execute("systemctl start beszel-agent.service")
+        intelAgent.wait_until_succeeds(
+          "journalctl -u beszel-agent.service --grep 'perf_event_open succeeded'",
+          timeout=timedelta(seconds=30),
+        )
+        intelAgent.wait_for_unit("beszel-agent.service")
+        assert "cap_perfmon" in intelAgent.succeed("systemctl show beszel-agent.service -p AmbientCapabilities --value").split()
+        assert "cap_perfmon" in intelAgent.succeed("systemctl show beszel-agent.service -p CapabilityBoundingSet --value").split()
+        assert intelAgent.succeed("systemctl show beszel-agent.service -p NoNewPrivileges --value").strip() == "yes"
+        assert intelAgent.succeed("systemctl show beszel-agent.service -p PrivateDevices --value").strip() == "no"
+        assert intelAgent.succeed("systemctl show beszel-agent.service -p PrivateUsers --value").strip() == "no"
+        assert "perf_event_open" in intelAgent.succeed("systemctl show beszel-agent.service -p SystemCallFilter --value").split()
 
       with subtest("Start hub"):
         hubHost.wait_for_unit("beszel-hub.service")
