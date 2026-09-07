@@ -1986,6 +1986,9 @@ in
   workout-tracker = runTest ./workout-tracker.nix;
   wpa_supplicant = import ./wpa_supplicant.nix { inherit pkgs runTest; };
   wrappers = runTest ./wrappers.nix;
+  wrappers-invalid-capabilities = pkgs.callPackage ./wrappers-invalid-capabilities.nix {
+    inherit evalSystem;
+  };
   writefreely = import ./web-apps/writefreely.nix { inherit pkgs runTest; };
   wstunnel = runTest ./wstunnel.nix;
   xandikos = runTest ./xandikos.nix;
