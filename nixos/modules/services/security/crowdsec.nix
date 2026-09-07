@@ -426,11 +426,11 @@ in
               options = {
                 credentialsFile = lib.mkOption {
                   type = lib.types.nullOr lib.types.path;
+                  default = "${stateDir}/local_api_credentials.yaml";
                   example = "/run/crowdsec/lapi.yaml";
                   description = ''
-                    The LAPI credential file to use.
+                    The LAPI credential file to use. If it does not exist, CrowdSec generates it during setup.
                   '';
-                  default = null;
                 };
               };
             };
@@ -651,7 +651,7 @@ in
             credentials_path = cfg.settings.lapi.credentialsFile;
           };
           server = {
-            enable = lib.mkDefault false;
+            enable = lib.mkDefault true;
             listen_uri = lib.mkDefault "127.0.0.1:8080";
 
             console_path = lib.mkDefault consoleFile;
