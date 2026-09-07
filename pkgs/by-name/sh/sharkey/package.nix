@@ -15,7 +15,7 @@
   pango,
   pixman,
   pkg-config,
-  pnpm_10_34_0,
+  pnpm_10,
   fetchPnpmDeps,
   pnpmConfigHook,
   python3,
@@ -24,7 +24,7 @@
 }:
 
 let
-  pnpm = pnpm_10_34_0.override { nodejs-slim = nodejs-slim_22; };
+  pnpm = pnpm_10.override { nodejs-slim = nodejs-slim_22; };
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "sharkey";
@@ -39,11 +39,18 @@ stdenv.mkDerivation (finalAttrs: {
     fetchSubmodules = true;
   };
 
+  patches = [ ./add-pnpm-tarball-integrities.patch ];
+
   pnpmDeps = fetchPnpmDeps {
-    inherit (finalAttrs) pname version src;
-    pnpm = pnpm;
+    inherit (finalAttrs)
+      pname
+      version
+      src
+      patches
+      ;
+    inherit pnpm;
     fetcherVersion = 3;
-    hash = "sha256-wrA5Huv7b/P+5MNbScN9KzNwdHMtuceHu+Lw/C9lKlI=";
+    hash = "sha256-zB8Ho0mRr5Zc72zkqwDbmy2D7DrpdxQ5fG0Fv6YVbHE=";
   };
 
   nativeBuildInputs = [

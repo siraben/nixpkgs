@@ -5,7 +5,7 @@
   fetchPnpmDeps,
   electron_40,
   nodejs-slim,
-  pnpm_10_29_2,
+  pnpm_10,
   pnpmConfigHook,
   makeWrapper,
   writableTmpDirAsHomeHook,
@@ -27,7 +27,7 @@
 
 let
   electron = electron_40;
-  pnpm = pnpm_10_29_2;
+  pnpm = pnpm_10;
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "cherry-studio";
@@ -40,6 +40,8 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-NbjFPHMh8LSqUv3wpXI/hBU9aJFe76l5UyoZ2XqX0hg=";
   };
 
+  patches = [ ./add-pnpm-tarball-integrity.patch ];
+
   postPatch = ''
     substituteInPlace src/main/services/ConfigManager.ts \
       --replace-fail "ConfigKeys.AutoUpdate, true" "ConfigKeys.AutoUpdate, false" \
@@ -51,11 +53,24 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   pnpmDeps = fetchPnpmDeps {
-    inherit (finalAttrs) pname version src;
+    inherit (finalAttrs)
+      pname
+      version
+      src
+      patches
+      ;
     inherit pnpm;
     fetcherVersion = 3;
-    hash = "sha256-9Vx4WzQjwNxPAkz+FjjqnMQxJviP4e0EhkQBN9Y+ujo=";
+    hash = "sha256-8RWK7nKd/tCofGLyUhaK9q5ZqqHmIbYLEGkiQX1L/Nk=";
   };
+
+  # pnpm 10.29.3 changed the shape of deduplicated dependencies returned by
+  # `pnpm list`. Backport the electron-builder 26.8.2 collector fix.
+  preBuild = ''
+    pushd node_modules/.pnpm/app-builder-lib@26.8.1*/node_modules/app-builder-lib
+    patch -p1 < ${./electron-builder-pnpm-10.29.3.patch}
+    popd
+  '';
 
   nativeBuildInputs = [
     nodejs-slim
