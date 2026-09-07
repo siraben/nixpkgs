@@ -62,9 +62,11 @@ let
       }
     }
   '';
-  nvidia-container-toolkit = {
-    enable = true;
-    package = pkgs.stdenv.mkDerivation {
+  mkNvidiaContainerToolkit =
+    {
+      requireDriver ? false,
+    }:
+    pkgs.stdenv.mkDerivation {
       pname = "nvidia-ctk-dummy";
       version = "1.0.0";
       dontUnpack = true;
@@ -76,15 +78,25 @@ let
       installPhase = ''
         mkdir -p $out/bin $out/share/nvidia-container-toolkit
         cp "$emptyCDISpecPath" "$out/share/nvidia-container-toolkit/spec.json"
-        echo -n "$emptyCDISpec" > "$out/bin/nvidia-ctk";
         cat << EOF > "$out/bin/nvidia-ctk"
         #!${pkgs.runtimeShell}
+        echo invocation >> /run/nvidia-ctk-invocations
+        ${lib.optionalString requireDriver ''
+          set -- /sys/bus/pci/drivers/nvidia/????:??:??.?
+          if [ ! -e "\$1" ] || [ -e /run/nvidia-ctk-fail ]; then
+            echo "failed to initialize NVML: Driver Not Loaded" >&2
+            exit 1
+          fi
+        ''}
         cat "$out/share/nvidia-container-toolkit/spec.json"
         EOF
         chmod +x $out/bin/nvidia-ctk
       '';
       meta.mainProgram = "nvidia-ctk";
     };
+  nvidia-container-toolkit = {
+    enable = true;
+    package = mkNvidiaContainerToolkit { };
     suppressNvidiaDriverAssertion = true;
   };
 in
@@ -134,8 +146,66 @@ in
         }
       ];
     };
+
+    hotplugged-gpu =
+      { config, pkgs, ... }:
+      let
+        kernel = config.boot.kernelPackages.kernel;
+        fakeNvidiaDriver =
+          pkgs.runCommandCC "fake-nvidia-driver"
+            {
+              hardeningDisable = [ "pic" ];
+              nativeBuildInputs = kernel.moduleBuildDependencies;
+            }
+            ''
+              cat > Makefile <<'EOF'
+              obj-m += fake_nvidia.o
+              EOF
+              cat > fake_nvidia.c <<'EOF'
+              #include <linux/module.h>
+              #include <linux/pci.h>
+
+              static int fake_nvidia_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+              {
+                  return 0;
+              }
+
+              static const struct pci_device_id fake_nvidia_ids[] = {
+                  { PCI_DEVICE(0x1b36, 0x0005) },
+                  { }
+              };
+              MODULE_DEVICE_TABLE(pci, fake_nvidia_ids);
+
+              static struct pci_driver fake_nvidia_driver = {
+                  .name = "nvidia",
+                  .id_table = fake_nvidia_ids,
+                  .probe = fake_nvidia_probe,
+              };
+              module_pci_driver(fake_nvidia_driver);
+
+              MODULE_LICENSE("GPL");
+              EOF
+              make -C ${kernel.dev}/lib/modules/${kernel.modDirVersion}/build M="$PWD" modules
+              install -D fake_nvidia.ko "$out/lib/modules/${kernel.modDirVersion}/fake_nvidia.ko"
+            '';
+      in
+      {
+        boot = {
+          extraModulePackages = [ fakeNvidiaDriver ];
+          kernelModules = [ "fake_nvidia" ];
+        };
+        hardware.nvidia-container-toolkit.package = lib.mkForce (mkNvidiaContainerToolkit {
+          requireDriver = true;
+        });
+        virtualisation = {
+          containers.enable = false;
+          qemu.options = [ "-device pcie-root-port,id=nvidia-port" ];
+        };
+      };
   };
   testScript = ''
+    from datetime import timedelta
+
     start_all()
 
     with subtest("Generate an empty CDI spec for a machine with no Nvidia GPUs"):
@@ -152,5 +222,54 @@ in
     with subtest("The generated CDI spec skips specified non-existant paths in the host"):
       one_gpu_invalid_host_paths.wait_for_unit("nvidia-container-toolkit-cdi-generator.service")
       one_gpu_invalid_host_paths.fail("grep 'non-existant-path' /var/run/cdi/nvidia-container-toolkit.json")
+
+    with subtest("Regenerate the CDI spec after an Nvidia driver binds to a GPU"):
+      hotplugged_gpu.wait_for_unit("multi-user.target")
+      hotplugged_gpu.wait_until_succeeds(
+          "systemctl is-failed nvidia-container-toolkit-cdi-generator.service",
+          timeout=timedelta(seconds=30),
+      )
+      hotplugged_gpu.succeed("journalctl -u nvidia-container-toolkit-cdi-generator.service | grep -F 'Driver Not Loaded'")
+      hotplugged_gpu.fail("test -s /var/run/cdi/nvidia-container-toolkit.json")
+
+      hotplugged_gpu.send_monitor_command("device_add pci-testdev,id=nvidia-egpu,bus=nvidia-port")
+      hotplugged_gpu.wait_until_succeeds(
+          "test -e /sys/bus/pci/drivers/nvidia/0000:*", timeout=timedelta(seconds=30)
+      )
+      hotplugged_gpu.wait_until_succeeds(
+          "systemctl is-active nvidia-container-toolkit-cdi-generator.service",
+          timeout=timedelta(seconds=30),
+      )
+      hotplugged_gpu.succeed("jq -e '.kind == \"nvidia.com/gpu\"' /var/run/cdi/nvidia-container-toolkit.json")
+
+      runtime_inode = hotplugged_gpu.succeed("stat -c %i /run/cdi").strip()
+      active_enter = hotplugged_gpu.succeed(
+          "systemctl show -P ActiveEnterTimestampMonotonic nvidia-container-toolkit-cdi-generator.service"
+      ).strip()
+      generation_count = int(hotplugged_gpu.succeed("wc -l < /run/nvidia-ctk-invocations"))
+      hotplugged_gpu.send_monitor_command("device_del nvidia-egpu")
+      hotplugged_gpu.wait_until_fails(
+          "test -e /sys/bus/pci/drivers/nvidia/0000:*", timeout=timedelta(seconds=30)
+      )
+      hotplugged_gpu.send_monitor_command("device_add pci-testdev,id=nvidia-egpu,bus=nvidia-port")
+      hotplugged_gpu.wait_until_succeeds(
+          f"test $(wc -l < /run/nvidia-ctk-invocations) -gt {generation_count} "
+          "&& test $(systemctl show -P SubState nvidia-container-toolkit-cdi-generator.service) = exited",
+          timeout=timedelta(seconds=30),
+      )
+      hotplugged_gpu.succeed(f"test $(stat -c %i /run/cdi) -eq {runtime_inode}")
+      hotplugged_gpu.succeed(
+          "test $(systemctl show -P ActiveEnterTimestampMonotonic "
+          f"nvidia-container-toolkit-cdi-generator.service) = {active_enter}"
+      )
+
+      spec_hash = hotplugged_gpu.succeed(
+          "sha256sum /var/run/cdi/nvidia-container-toolkit.json | cut -d ' ' -f 1"
+      ).strip()
+      hotplugged_gpu.succeed("touch /run/nvidia-ctk-fail")
+      hotplugged_gpu.fail("systemctl reload nvidia-container-toolkit-cdi-generator.service")
+      hotplugged_gpu.succeed(
+          f"test $(sha256sum /var/run/cdi/nvidia-container-toolkit.json | cut -d ' ' -f 1) = {spec_hash}"
+      )
   '';
 }

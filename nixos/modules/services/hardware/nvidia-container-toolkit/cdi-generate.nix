@@ -5,6 +5,7 @@
   mounts,
   disable-hooks,
   enable-hooks,
+  coreutils,
   glibc,
   jq,
   lib,
@@ -60,6 +61,11 @@ writeScriptBin "nvidia-cdi-generator" ''
     fi
   }
 
+  output="$RUNTIME_DIRECTORY/.nvidia-container-toolkit.json.tmp"
+  trap '${lib.getExe' coreutils "rm"} -f "$output"' EXIT
+
   cdiGenerate |
-    ${mountsToCommands mounts} > $RUNTIME_DIRECTORY/nvidia-container-toolkit.json
+    ${mountsToCommands mounts} > "$output"
+  ${lib.getExe' coreutils "mv"} "$output" "$RUNTIME_DIRECTORY/nvidia-container-toolkit.json"
+  trap - EXIT
 ''

@@ -219,8 +219,9 @@
         ])
       ];
 
-      services.udev.extraRules = ''
-        KERNEL=="nvidia", RUN+="${lib.getExe' config.systemd.package "systemctl"} --no-block restart nvidia-container-toolkit-cdi-generator.service'"
+      services.udev.extraRules = lib.mkAfter ''
+        KERNEL=="nvidia", RUN+="${lib.getExe' config.systemd.package "systemctl"} --no-block reload-or-restart nvidia-container-toolkit-cdi-generator.service"
+        ACTION=="bind", SUBSYSTEM=="pci", DRIVER=="nvidia", RUN+="${lib.getExe' config.systemd.package "systemctl"} --no-block reload-or-restart nvidia-container-toolkit-cdi-generator.service"
       '';
 
       virtualisation = {
@@ -325,33 +326,30 @@
           (lib.mkIf config.virtualisation.podman.enable [ "podman.service" ])
         ];
         wantedBy = [ "multi-user.target" ];
-        serviceConfig = {
-          RuntimeDirectory = "cdi";
-          RemainAfterExit = true;
-          # We wait for the udev events queue to empty in the *hope* that the
-          # devices needed here become available. This is terribly broken and
-          # essentially no better than a random sleep(). See PR #452645 for
-          # an attempt to fix this issue.
-          ExecStartPre = "-${lib.getExe' config.systemd.package "udevadm"} settle --timeout=180";
-          ExecStart =
-            let
-              script = pkgs.callPackage ./cdi-generate.nix {
-                inherit (config.hardware.nvidia-container-toolkit)
-                  csv-files
-                  device-name-strategy
-                  discovery-mode
-                  mounts
-                  disable-hooks
-                  enable-hooks
-                  extraArgs
-                  ;
-                nvidia-container-toolkit = config.hardware.nvidia-container-toolkit.package;
-                nvidia-driver = config.hardware.nvidia.package;
-              };
-            in
-            lib.getExe script;
-          Type = "oneshot";
-        };
+        serviceConfig =
+          let
+            script = pkgs.callPackage ./cdi-generate.nix {
+              inherit (config.hardware.nvidia-container-toolkit)
+                csv-files
+                device-name-strategy
+                discovery-mode
+                mounts
+                disable-hooks
+                enable-hooks
+                extraArgs
+                ;
+              nvidia-container-toolkit = config.hardware.nvidia-container-toolkit.package;
+              nvidia-driver = config.hardware.nvidia.package;
+            };
+          in
+          {
+            RuntimeDirectory = "cdi";
+            RuntimeDirectoryPreserve = "restart";
+            RemainAfterExit = true;
+            ExecStart = lib.getExe script;
+            ExecReload = lib.getExe script;
+            Type = "oneshot";
+          };
       };
     })
   ];
