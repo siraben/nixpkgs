@@ -1337,6 +1337,7 @@ in
   ntpd-rs = runTest ./ntpd-rs.nix;
   nullmailer = runTest ./nullmailer.nix;
   nushell = runTest ./nushell.nix;
+  nvidia = pkgs.callPackage ../modules/hardware/video/nvidia-test.nix { inherit evalSystem; };
   nvidia-container-toolkit = runTest ./nvidia-container-toolkit.nix;
   nvme-rs = runTest ./nvme-rs.nix;
   nvmetcfg = runTest ./nvmetcfg.nix;
