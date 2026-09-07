@@ -46,6 +46,14 @@
           };
         };
 
+        instances."tcp-unix-metrics" = {
+          settings = {
+            TARGET = "http://localhost:8080";
+            BIND = "127.0.0.1:9002";
+            BIND_NETWORK = "tcp";
+          };
+        };
+
         instances."another-unix-listen" = {
           settings = {
             TARGET = "http://localhost:8080";
@@ -104,6 +112,13 @@
           "/metrics".proxyPass = "http://${config.services.anubis.instances."tcp".settings.METRICS_BIND}";
         };
 
+        virtualHosts."tcp-unix-metrics.localhost".locations = {
+          "/".proxyPass = "http://${config.services.anubis.instances."tcp-unix-metrics".settings.BIND}";
+          "/metrics".proxyPass = "http://unix:${
+            config.services.anubis.instances."tcp-unix-metrics".settings.METRICS_BIND
+          }";
+        };
+
         virtualHosts."another-unix-listen".locations = {
           "/".proxyPass = "http://unix:${
             config.services.anubis.instances."another-unix-listen".settings.BIND
@@ -139,14 +154,24 @@
     };
 
   testScript = ''
-    for unit in ["nginx", "anubis", "anubis-another-unix-listen", "anubis-tcp", "anubis-unix-upstream"]:
+    for unit in [
+      "nginx",
+      "anubis",
+      "anubis-another-unix-listen",
+      "anubis-tcp",
+      "anubis-tcp-unix-metrics",
+      "anubis-unix-upstream",
+    ]:
       machine.wait_for_unit(unit + ".service")
 
-    for port in [9000, 9001]:
+    for port in [9000, 9001, 9002]:
       machine.wait_for_open_port(port)
 
     machine.wait_for_open_unix_socket("/run/anubis/anubis/anubis.sock")
     machine.wait_for_open_unix_socket("/run/anubis/anubis/anubis-metrics.sock")
+    machine.wait_for_open_unix_socket(
+      "/run/anubis/anubis-tcp-unix-metrics/anubis-metrics.sock"
+    )
     for instance in ["another-unix-listen", "unix-upstream"]:
       machine.wait_for_open_unix_socket(f"/run/anubis/anubis-{instance}/anubis.sock")
       machine.wait_for_open_unix_socket(f"/run/anubis/anubis-{instance}/anubis-metrics.sock")
@@ -154,6 +179,9 @@
     machine.succeed('curl -f http://basic.localhost | grep "it works"')
     machine.succeed('curl -f http://basic.localhost -H "User-Agent: Mozilla" | grep anubis')
     machine.succeed('curl -f http://basic.localhost/metrics | grep anubis_challenges_issued')
+
+    machine.succeed('curl -f http://tcp-unix-metrics.localhost -H "User-Agent: Mozilla" | grep anubis')
+    machine.succeed('curl -f http://tcp-unix-metrics.localhost/metrics | grep anubis_challenges_issued')
 
     machine.succeed('curl -f http://another-unix-listen.localhost -H "User-Agent: Mozilla" | grep anubis')
     machine.succeed('curl -f http://another-unix-listen.localhost/metrics | grep anubis_challenges_issued')
