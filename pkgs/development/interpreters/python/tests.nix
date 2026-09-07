@@ -127,6 +127,10 @@ let
       tkinter = callPackage ./tests/test_tkinter {
         interpreter = python;
       };
+
+      pythonpath-propagation = callPackage ./tests/test_pythonpath_propagation {
+        inherit python;
+      };
     }
     // lib.optionalAttrs (python.isPy3k && python.pythonOlder "3.13" && !stdenv.hostPlatform.isDarwin) {
       # darwin has no split-debug

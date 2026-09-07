@@ -31,6 +31,9 @@ buildPythonPackage (finalAttrs: {
   format = "wheel";
   __structuredAttrs = true;
 
+  # The server and job runner start Python subprocesses which import mlflow and its dependencies.
+  propagatePythonPath = true;
+
   # We build from the PyPI wheel rather than fetchFromGitHub, because the mlflow-server
   # JS UI is absent from GitHub but provided in the wheel.
   src = fetchPypi {
@@ -41,14 +44,6 @@ buildPythonPackage (finalAttrs: {
     python = "py3";
     hash = "sha256-eqWWZDUaqm9jR4zzwml3wYXbpg0ovKi5pRJb46K0MRw=";
   };
-
-  # Nix-wrapped python populates sys.path via NIX_PYTHONPATH/site hooks,
-  # but PYTHONPATH stays unset in os.environ. mlflow spawns the server
-  # in a subprocess with a curated env, so without this patch the child
-  # interpreter cannot import uvicorn / mlflow itself.
-  postInstall = ''
-    patch -p1 -d "$out/lib/python"*/site-packages < ${./subprocess-pythonpath.patch}
-  '';
 
   pythonRelaxDeps = [
     "cryptography"

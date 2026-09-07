@@ -176,6 +176,9 @@ lib.extendMkDerivation {
       # Skip wrapping of python programs altogether
       dontWrapPythonPrograms ? false,
 
+      # Make the Python module closure available to Python subprocesses
+      propagatePythonPath ? false,
+
       # Don't use Pip to install a wheel
       # Note this is actually a variable for the pipInstallPhase in pip's setupHook.
       # It's included here to prevent an infinite recursion.
@@ -211,6 +214,9 @@ lib.extendMkDerivation {
     }@attrs:
 
     let
+      wrapPythonHook =
+        if propagatePythonPath then wrapPython.override { inherit propagatePythonPath; } else wrapPython;
+
       getFinalPassthru =
         let
           pos = unsafeGetAttrPos "passthru" finalAttrs;
@@ -301,7 +307,7 @@ lib.extendMkDerivation {
 
       nativeBuildInputs = [
         python
-        wrapPython
+        wrapPythonHook
         ensureNewerSourcesForZipFilesHook # move to wheel installer (pip) or builder (setuptools, flit, ...)?
         pythonRemoveTestsDirHook
       ]

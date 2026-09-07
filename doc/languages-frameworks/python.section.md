@@ -146,8 +146,8 @@ The `buildPythonPackage` mainly does four things:
   build a wheel binary zipfile.
 * In the [`installPhase`](#ssec-install-phase), it installs the wheel file using `${python.pythonOnBuildForHost.interpreter} -m installer *.whl`.
 * In the [`postFixup`](#var-stdenv-postFixup) phase, the `wrapPythonPrograms` bash function is called to
-  wrap all programs in the `$out/bin/*` directory to include `$PATH`
-  environment variable and add dependent libraries to script's `sys.path`.
+  wrap all programs in the `$out/bin/*` directory to include the dependency executables in `$PATH`
+  and add dependent libraries to the script's `sys.path`.
 * In the [`installCheck`](#ssec-installCheck-phase) phase, `${python.interpreter} -m pytest` is run.
 
 By default tests are run because [`doCheck = true`](#var-stdenv-doCheck). Test dependencies, like
@@ -168,6 +168,11 @@ following are specific to `buildPythonPackage`:
 * `dontWrapPythonPrograms ? false`: Skip wrapping of Python programs.
 * `permitUserSite ? false`: Skip setting the `PYTHONNOUSERSITE` environment
   variable in wrapped programs.
+* `propagatePythonPath ? false`: Make the wrapped program's effective `sys.path` available to Python
+  subprocesses through `PYTHONPATH`, including paths loaded from `.pth` files and an existing
+  `PYTHONPATH`. This is disabled by default because it can leak dependencies into unrelated Python
+  applications. Enable it only for applications whose Python subprocesses need to import the
+  application's modules or dependencies.
 * `pyproject`: Whether the pyproject format should be used. As all other formats
   are deprecated, you are recommended to set this to `true`. When you do so,
   `pypaBuildHook` will be used, and you can add the required build dependencies
@@ -180,9 +185,10 @@ following are specific to `buildPythonPackage`:
   compatibility.
 * `makeWrapperArgs ? []`: A list of strings. Arguments to be passed to
   [`makeWrapper`](#fun-makeWrapper), which wraps generated binaries. By default, the arguments to
-  [`makeWrapper`](#fun-makeWrapper) set `PATH` and `PYTHONPATH` environment variables before calling
-  the binary. Additional arguments here can allow a developer to set environment
-  variables which will be available when the binary is run. For example,
+  [`makeWrapper`](#fun-makeWrapper) add dependency executables to `PATH` before calling the binary;
+  Python dependencies are added directly to the script's `sys.path`. Additional arguments here can
+  allow a developer to set environment variables which will be available when the binary is run. For
+  example,
   `makeWrapperArgs = ["--set" "FOO" "BAR" "--set" "BAZ" "QUX"]`.
 
   ::: {.note}

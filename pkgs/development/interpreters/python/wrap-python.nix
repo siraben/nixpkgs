@@ -3,6 +3,7 @@
   python,
   makePythonHook,
   makeWrapper,
+  propagatePythonPath ? false,
 }:
 
 makePythonHook {
@@ -41,16 +42,21 @@ makePythonHook {
           }
         '';
 
-      # This preamble does two things:
+      # This preamble does two things and can optionally do a third:
       # * Sets argv[0] to the original application's name; otherwise it would be .foo-wrapped.
       #   Python doesn't support `exec -a`.
       # * Adds all required libraries to sys.path via `site.addsitedir`. It also handles *.pth files.
+      # * Optionally propagates those libraries through PYTHONPATH for subprocesses.
       preamble = ''
         import sys
         import site
         import functools
         sys.argv[0] = '"'$(readlink -f "$f")'"'
         functools.reduce(lambda k, p: site.addsitedir(p, k), ['"$([ -n "$program_PYTHONPATH" ] && (echo "'$program_PYTHONPATH'" | sed "s|:|','|g") || true)"'], site._init_pathinfo())
+      ''
+      + lib.optionalString propagatePythonPath ''
+        import os
+        os.environ["PYTHONPATH"] = os.pathsep.join(sys.path)
       '';
 
     in
