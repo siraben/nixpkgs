@@ -71,6 +71,12 @@
         client.wait_for_unit("connman.service")
         client.wait_until_succeeds("connmanctl state | grep -q ready")
 
+    with subtest("Interactive client"):
+        output = client.succeed(
+            "(sleep 1; echo exit) | timeout 10 script --quiet --return --command connmanctl /dev/null"
+        )
+        assert "connmanctl> " in output
+
     with subtest("Wired interface is configured"):
         client.wait_until_succeeds("ip -6 route | grep -q fd12::/64")
         client.wait_until_succeeds("ping -c 1 fd12::1")
