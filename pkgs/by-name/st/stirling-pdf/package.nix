@@ -25,11 +25,12 @@
   nixosTests,
 
   isDesktopVariant ? false,
-  withAdditionalFeatures ? !isDesktopVariant,
+  withAdditionalFeatures ? false,
   buildWithFrontend ? !isDesktopVariant,
 }:
 
-# you may only toggle this when building the server
+# you may only toggle these when building the server
+assert isDesktopVariant -> !withAdditionalFeatures;
 assert isDesktopVariant -> !buildWithFrontend;
 
 let
@@ -39,7 +40,11 @@ in
 stdenv.mkDerivation (finalAttrs: {
   __structuredAttrs = true;
 
-  pname = "stirling-pdf" + lib.optionalString isDesktopVariant "-desktop";
+  pname =
+    if isDesktopVariant then
+      "stirling-pdf-desktop"
+    else
+      "stirling-pdf" + lib.optionalString withAdditionalFeatures "-unfree";
   version = "2.14.3";
 
   src = fetchFromGitHub {
@@ -107,6 +112,7 @@ stdenv.mkDerivation (finalAttrs: {
   ++ lib.optionals buildWithFrontend [ "-PbuildWithFrontend=true" ];
 
   doCheck = true;
+  doInstallCheck = !isDesktopVariant;
 
   nativeBuildInputs = [
     go-task
@@ -167,6 +173,25 @@ stdenv.mkDerivation (finalAttrs: {
     makeWrapper "$out/Applications/Stirling PDF.app/Contents/MacOS/Stirling-PDF" "$out/bin/stirling-pdf"
   '';
 
+  installCheckPhase = lib.optionalString (!isDesktopVariant) ''
+    runHook preInstallCheck
+
+    proprietaryJar="BOOT-INF/lib/proprietary-${finalAttrs.version}-plain.jar"
+    if jar --list --file "$out/share/stirling-pdf/Stirling-PDF.jar" \
+      | grep --fixed-strings --line-regexp "$proprietaryJar" >/dev/null; then
+      hasAdditionalFeatures=true
+    else
+      hasAdditionalFeatures=false
+    fi
+
+    if [[ "$hasAdditionalFeatures" != "${lib.boolToString withAdditionalFeatures}" ]]; then
+      echo "Expected withAdditionalFeatures=${lib.boolToString withAdditionalFeatures}, but $proprietaryJar presence was $hasAdditionalFeatures" >&2
+      exit 1
+    fi
+
+    runHook postInstallCheck
+  '';
+
   passthru = {
     tests = {
       inherit (nixosTests) stirling-pdf-desktop; # TODO: fix or remove
@@ -180,10 +205,13 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     changelog = "https://github.com/Stirling-Tools/Stirling-PDF/releases/tag/v${finalAttrs.version}";
     description =
-      "Powerful, open-source PDF editing platform "
+      "Powerful "
+      + lib.optionalString (!(withAdditionalFeatures || isDesktopVariant)) "open-source "
+      + "PDF editing platform "
       + (if isDesktopVariant then "runnable as a desktop app" else "hostable as a web app");
     homepage = "https://github.com/Stirling-Tools/Stirling-PDF";
-    license = lib.licenses.mit; # TODO: figure out what proper licensing should be
+    license =
+      if withAdditionalFeatures || isDesktopVariant then lib.licenses.unfree else lib.licenses.mit;
     mainProgram = if isDesktopVariant then "stirling-pdf" else "Stirling-PDF";
     maintainers = with lib.maintainers; [
       tomasajt

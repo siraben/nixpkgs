@@ -12,7 +12,14 @@ in
   options.services.stirling-pdf = {
     enable = lib.mkEnableOption "the stirling-pdf service";
 
-    package = lib.mkPackageOption pkgs "stirling-pdf" { };
+    package = lib.mkPackageOption pkgs "stirling-pdf" {
+      extraDescription = ''
+        The default package excludes login and other additional features because
+        those features have a proprietary license. To use them, set this option
+        to `pkgs.stirling-pdf-unfree` and add `"stirling-pdf-unfree"` to
+        `nixpkgs.config.allowUnfreePackages`.
+      '';
+    };
 
     environment = lib.mkOption {
       type = lib.types.attrsOf (
@@ -29,7 +36,7 @@ in
       };
       description = ''
         Environment variables for the stirling-pdf app.
-        See <https://github.com/Stirling-Tools/Stirling-PDF#customisation> for available options.
+        See <https://docs.stirlingpdf.com/Configuration/> for available options.
       '';
     };
 

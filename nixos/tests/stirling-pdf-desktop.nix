@@ -14,16 +14,17 @@ in
 
   enableOCR = true;
   globalTimeout = 600;
+  node.pkgsReadOnly = false;
   nodes = {
     server =
       { config, pkgs, ... }:
       {
+        nixpkgs.config.allowUnfreePackages = [ "stirling-pdf-unfree" ];
         services.stirling-pdf = {
           enable = true;
-          package = pkgs.stirling-pdf;
+          package = pkgs.stirling-pdf-unfree;
           environment = {
             SERVER_PORT = port;
-            DISABLE_ADDITIONAL_FEATURES = false;
             SECURITY_ENABLELOGIN = true;
           };
         };
@@ -32,6 +33,7 @@ in
     client =
       { config, pkgs, ... }:
       {
+        nixpkgs.config.allowUnfreePackages = [ "stirling-pdf-desktop" ];
         virtualisation = {
           memorySize = 4096;
           cores = 4;
