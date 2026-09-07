@@ -1634,6 +1634,7 @@ in
   sing-box = runTest ./sing-box.nix;
   sks = runTest ./sks.nix;
   slimserver = runTest ./slimserver.nix;
+  squeezelite-pulseaudio = runTest ./squeezelite-pulseaudio.nix;
   slipshow = runTest ./slipshow.nix;
   slurm = runTest ./slurm.nix;
   slurm-pam = runTest ./slurm-pam.nix;

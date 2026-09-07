@@ -7,13 +7,14 @@
 
 let
   cfg = config.services.squeezelite;
+  usePulseAudioServer = config.services.pulseaudio.enable && config.services.pulseaudio.systemWide;
 
   serviceDeps = [
     "network.target"
     "sound.target"
   ]
   ++ lib.optionals cfg.pulseaudio.enable (
-    if config.services.pulseaudio.systemWide then
+    if usePulseAudioServer then
       [ "pulseaudio.service" ]
     else
       [
@@ -60,9 +61,11 @@ in
       enable = lib.mkEnableOption "pulseaudio support";
       group = lib.mkOption {
         type = lib.types.str;
-        description = "group for accessing to pulseaudio socket";
-        default = if config.services.pulseaudio.systemWide then "pulse-access" else "pipewire";
-        defaultText = lib.literalExpression ''if config.services.pulseaudio.systemWide then "pulse-access" else "pipewire"'';
+        description = "primary group used to access the PulseAudio socket";
+        default = if usePulseAudioServer then "pulse-access" else "pipewire";
+        defaultText = lib.literalExpression ''
+          if config.services.pulseaudio.enable && config.services.pulseaudio.systemWide then "pulse-access" else "pipewire"
+        '';
       };
     };
 
@@ -85,7 +88,7 @@ in
         assertion =
           !cfg.pulseaudio.enable
           || (
-            (config.services.pulseaudio.enable && config.services.pulseaudio.systemWide)
+            usePulseAudioServer
             || (
               config.services.pipewire.enable
               && config.services.pipewire.pulse.enable
@@ -131,16 +134,14 @@ in
         }${lib.optionalString cfg.mutableName "-N %S/squeezelite/player-name "}${cfg.extraArgs}";
 
         DynamicUser = true;
+        # PulseAudio checks the peer's primary GID or its NSS group membership.
+        # A dynamic user cannot be added to a group through the NSS database.
+        Group = lib.mkIf cfg.pulseaudio.enable cfg.pulseaudio.group;
         RuntimeDirectory = "squeezelite";
         RuntimeDirectoryMode = "0700";
         StateDirectory = "squeezelite";
         StateDirectoryMode = "0700";
-        SupplementaryGroups = [
-          "audio"
-        ]
-        ++ lib.optionals cfg.pulseaudio.enable [
-          cfg.pulseaudio.group
-        ];
+        SupplementaryGroups = [ "audio" ];
         TimeoutStopSec = "5";
       };
     };

@@ -9,7 +9,7 @@
       services.slimserver.enable = true;
       services.squeezelite = {
         enable = true;
-        extraArguments = "-s 127.0.0.1 -d slimproto=info";
+        extraArgs = "-s 127.0.0.1 -d slimproto=info";
       };
       boot.kernelModules = [ "snd-dummy" ];
     };
