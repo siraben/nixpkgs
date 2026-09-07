@@ -54,15 +54,15 @@ in
         enable = mkDefault cfg.enable;
         enableNginx = mkDefault cfg.enableNginx;
       }
-      // (optionalAttrs cfg.coturn.enable rec {
-        turnDomain = cfg.domain;
-        turnPort = config.services.coturn.listening-port;
+      // (optionalAttrs cfg.coturn.enable {
+        turnDomain = mkDefault cfg.domain;
+        turnPort = mkDefault config.services.coturn.listening-port;
         # We cannot merge a list of attrsets so we have to redefine the whole list
         settings = {
           TURNConfig.Turns = mkDefault [
             {
               Proto = "udp";
-              URI = "turn:${turnDomain}:${toString turnPort}";
+              URI = "turn:${cfg.management.turnDomain}:${toString cfg.management.turnPort}";
               Username = "netbird";
               Password =
                 if (cfg.coturn.password != null) then
