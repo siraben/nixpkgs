@@ -1,7 +1,7 @@
-import unittest
-import tempfile
-import shutil
 from pathlib import Path
+
+import pytest
+
 from nix_required_mounts import (
     PathString,
     Pattern,
@@ -11,9 +11,6 @@ from nix_required_mounts import (
     symlink_targets,
     symlink_targets_deep,
 )
-import os
-import pytest
-from pathlib import Path
 
 
 class TreeBuilder:
@@ -56,6 +53,29 @@ def test_symlink_chain(tree):
     assert symlink_targets(root / "a") == []
     assert symlink_targets(root / "b") == [root / "a"]
     assert symlink_targets(root / "c") == [root / "b", root / "a"]
+
+
+def test_mount_closure_relative_directory_symlink(tree):
+    root = tree.build(
+        {
+            "lib": "dir",
+            "lib64": "-> lib",
+        }
+    )
+    pattern: Pattern = {
+        "onFeatures": ["test"],
+        "paths": [str(root / "lib64")],
+        "unsafeFollowSymlinks": True,
+        "safePrefixes": [],
+    }
+
+    mounts = mount_closure(pattern)
+
+    assert mounts == [
+        (str(root / "lib"), str(root / "lib")),
+        (str(root / "lib64"), str(root / "lib64")),
+    ]
+    assert all(Path(host).exists() for _, host in mounts)
 
 
 def test_far_up_relative_links(tree):
@@ -185,9 +205,7 @@ def test_path_discovery(tree):
     ss = lambda unsorted_paths: sorted(map(str, unsorted_paths))
 
     assert ss(
-        symlink_targets_deep(
-            [root / "c", root / "f"], follow_symlinks=True
-        )
+        symlink_targets_deep([root / "c", root / "f"], follow_symlinks=True)
     ) == ss(
         # fmt: off
         [

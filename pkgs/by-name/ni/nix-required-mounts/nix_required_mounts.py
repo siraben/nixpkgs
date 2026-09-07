@@ -293,7 +293,9 @@ def entrypoint() -> None:
     with open(args.patterns, "r") as f:
         patterns = json.load(f)
 
-    parsed_drv: dict | None = parse_derivation(args.derivation_path, args.nix_exe)
+    parsed_drv: dict | None = parse_derivation(
+        args.derivation_path, args.nix_exe
+    )
     if parsed_drv is None:
         # Details are already logged in parse_derivation
         return
