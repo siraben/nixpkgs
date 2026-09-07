@@ -1,4 +1,5 @@
 let
+  host = "127.0.0.2";
   port = 1234;
 in
 {
@@ -9,7 +10,7 @@ in
     {
       services.scanservjs = {
         enable = true;
-        settings.host = "0.0.0.0";
+        settings.host = host;
         settings.port = port;
       };
     };
@@ -17,7 +18,12 @@ in
   testScript = ''
     machine.wait_for_unit("scanservjs.service")
     machine.wait_until_succeeds(
-        "curl --silent --fail --show-error --location http://localhost:${toString port}"
+        "curl --ipv4 --noproxy '*' --silent --fail --show-error --location "
+        "http://${host}:${toString port}"
+    )
+    machine.fail(
+        "curl --ipv4 --noproxy '*' --silent --fail --show-error --max-time 2 "
+        "http://127.0.0.1:${toString port}"
     )
   '';
 }
