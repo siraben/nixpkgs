@@ -987,6 +987,9 @@ in
   mate-wayland = runTest ./mate-wayland.nix;
   matomo = runTest ./matomo.nix;
   matrix-alertmanager = runTest ./matrix/matrix-alertmanager.nix;
+  matrix-appservice-discord = pkgs.callPackage ./matrix/appservice-discord.nix {
+    inherit evalSystem;
+  };
   matrix-appservice-irc = runTest ./matrix/appservice-irc.nix;
   matrix-conduit = runTest ./matrix/conduit.nix;
   matrix-continuwuity = runTest ./matrix/continuwuity.nix;
