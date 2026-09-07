@@ -6,9 +6,44 @@
   buildGoModule,
   go,
   makeWrapper,
+  testers,
   viceroy,
+  wasm-tools,
+  writeShellScriptBin,
 }:
 
+let
+  fakeCargo = writeShellScriptBin "cargo" ''
+    case "$*" in
+      "locate-project --quiet")
+        printf '{"root":"%s/Cargo.toml"}\n' "$PWD"
+        ;;
+      "version --quiet")
+        echo "cargo 1.90.0 (fake)"
+        ;;
+      "build "*)
+        case " $* " in
+          *" --target wasm32-wasip1 "*) ;;
+          *)
+            echo "cargo build did not target wasm32-wasip1: $*" >&2
+            exit 1
+            ;;
+        esac
+        printf '%s\n' "$*" > cargo-build-args
+        mkdir -p target/wasm32-wasip1/release
+        printf '\x00\x61\x73\x6d\x01\x00\x00\x00' \
+          > target/wasm32-wasip1/release/nixpkgs-fastly-rust-test.wasm
+        ;;
+      "metadata --quiet --format-version 1")
+        printf '{"packages":[],"target_directory":"%s/target"}\n' "$PWD"
+        ;;
+      *)
+        echo "unexpected cargo invocation: $*" >&2
+        exit 1
+        ;;
+    esac
+  '';
+in
 buildGoModule (finalAttrs: {
   pname = "fastly";
   version = "16.0.0";
@@ -67,6 +102,44 @@ buildGoModule (finalAttrs: {
       --bash <($out/bin/fastly --completion-script-bash) \
       --zsh <($out/bin/fastly --completion-script-zsh)
   '';
+
+  passthru.tests.rust-compute-build = testers.runCommand {
+    name = "fastly-rust-compute-build-test";
+    nativeBuildInputs = [
+      finalAttrs.finalPackage
+      wasm-tools
+    ];
+    script = ''
+      export HOME="$TMPDIR/home"
+      export PATH=${fakeCargo}/bin:$PATH
+      mkdir -p "$HOME" project/src
+      cd project
+
+      cat > fastly.toml <<'EOF'
+      manifest_version = "0.2.0"
+      name = "nixpkgs-fastly-rust-test"
+      description = "Regression test"
+      authors = ["Nixpkgs"]
+      language = "rust"
+      EOF
+
+      cat > Cargo.toml <<'EOF'
+      [package]
+      name = "nixpkgs-fastly-rust-test"
+      version = "0.1.0"
+      edition = "2021"
+      EOF
+      touch src/main.rs
+
+      fastly --non-interactive compute build --metadata-disable
+
+      grep -F -- "--target wasm32-wasip1" cargo-build-args
+      test -f pkg/nixpkgs-fastly-rust-test.tar.gz
+      tar -tzf pkg/nixpkgs-fastly-rust-test.tar.gz \
+        | grep -Fx "nixpkgs-fastly-rust-test/bin/main.wasm"
+      touch "$out"
+    '';
+  };
 
   meta = {
     description = "Command line tool for interacting with the Fastly API";
