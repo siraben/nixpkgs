@@ -232,11 +232,48 @@ clangStdenv.mkDerivation (finalAttrs: {
     EOF
   '';
 
-  preFixup = ''
-    gappsWrapperArgs+=(
-      --prefix LD_LIBRARY_PATH : "$out/lib"
-    )
-  '';
+  # Native Wayland loses key events in emboss text fields (#428462).
+  preFixup =
+    if clangStdenv.hostPlatform.isLinux && finalAttrs.pname == "prusa-slicer" then
+      ''
+        gappsWrapperArgs+=(
+          --prefix LD_LIBRARY_PATH : "$out/lib"
+          --set-default GDK_BACKEND x11
+        )
+      ''
+    else
+      ''
+        gappsWrapperArgs+=(
+          --prefix LD_LIBRARY_PATH : "$out/lib"
+        )
+      '';
+
+  # Exercise the generated wrapper without starting the GUI.
+  postInstallCheck =
+    if clangStdenv.hostPlatform.isLinux && finalAttrs.pname == "prusa-slicer" then
+      ''
+        wrapped="$out/bin/.prusa-slicer-wrapped"
+        original="$wrapped.original"
+        mv "$wrapped" "$original"
+        restorePrusaSlicer() {
+          mv -f "$original" "$wrapped"
+        }
+        trap restorePrusaSlicer EXIT
+
+        cat > "$wrapped" <<'EOF'
+        #!${clangStdenv.shell}
+        printf '%s\n' "''${GDK_BACKEND-<unset>}"
+        EOF
+        chmod +x "$wrapped"
+
+        test "$(env -u GDK_BACKEND "$out/bin/prusa-slicer")" = x11
+        test "$(GDK_BACKEND=wayland "$out/bin/prusa-slicer")" = wayland
+
+        restorePrusaSlicer
+        trap - EXIT
+      ''
+    else
+      null;
 
   doCheck = true;
   nativeCheckInputs = [ ctestCheckHook ];
