@@ -11,6 +11,7 @@
   writeShellApplication,
   curl,
   common-updater-scripts,
+  callPackage,
 }:
 let
   pname = "beeper";
@@ -115,8 +116,11 @@ let
         pname
         version
         meta
-        passthru
         ;
+
+      passthru = passthru // {
+        tests.timezone = callPackage ./timezone.test.nix { beeper = linux; };
+      };
 
       src = appimageContents;
 

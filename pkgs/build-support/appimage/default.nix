@@ -74,6 +74,8 @@ rec {
       // {
         targetPkgs = pkgs: [ appimage-exec ] ++ defaultFhsEnvArgs.targetPkgs pkgs ++ extraPkgs pkgs;
 
+        profile = defaultFhsEnvArgs.profile + (prev.profile or "");
+
         runScript = "appimage-exec.sh -w ${finalAttrs.contents or prev.src} --";
 
         meta = {
@@ -110,6 +112,17 @@ rec {
   };
 
   defaultFhsEnvArgs = {
+    profile = ''
+      # buildFHSEnv exposes /etc/localtime through /.host-etc, which prevents
+      # Chromium's ICU from identifying some time zones from the symlink.
+      if [ -z "''${TZ+x}" ]; then
+        localtime="$(readlink -f /etc/localtime)"
+        case "$localtime" in
+          */zoneinfo/*) export TZ="''${localtime#*/zoneinfo/}" ;;
+        esac
+      fi
+    '';
+
     # Most of the packages were taken from the Steam chroot
     targetPkgs =
       pkgs: with pkgs; [
