@@ -238,6 +238,8 @@ let
         # use the name given by the DHCP server
         system.name = "client";
         networking.hostName = lib.mkForce "";
+        # Only the DHCPv4 reservation provides the dynamic hostname.
+        systemd.network.networks."40-enp1s0".dhcpV6Config.UseHostname = lib.mkIf networkd false;
         # Ensure zsh does not evaluate fqdnOrHostName before DHCP sets the hostname.
         networking.domain = "example.test";
         networking.hosts."192.168.1.2" = [
