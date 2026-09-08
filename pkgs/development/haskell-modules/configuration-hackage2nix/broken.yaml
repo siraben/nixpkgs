@@ -3976,7 +3976,6 @@ broken-packages:
   - matrix-market # failure in job https://hydra.nixos.org/build/233237011 at 2023-09-02
   - matrix-sized # failure in job https://hydra.nixos.org/build/233211908 at 2023-09-02
   - matroid # failure in job https://hydra.nixos.org/build/233244169 at 2023-09-02
-  - mattermost-api # failure in job https://hydra.nixos.org/build/295095261 at 2025-04-22
   - maude # failure in job https://hydra.nixos.org/build/233204879 at 2023-09-02
   - maxent-learner-hw # failure in job https://hydra.nixos.org/build/233239586 at 2023-09-02
   - maybench # failure in job https://hydra.nixos.org/build/233239576 at 2023-09-02

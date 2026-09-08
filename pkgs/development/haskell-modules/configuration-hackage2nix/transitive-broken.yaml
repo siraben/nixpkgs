@@ -2175,8 +2175,6 @@ dont-distribute-packages:
  - mathblog
  - mathlink
  - matsuri
- - matterhorn
- - mattermost-api-qc
  - maxent
  - maxent-learner-hw-gui
  - maxsharing

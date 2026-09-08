@@ -841,6 +841,19 @@ with haskellLib;
     } super.mbox
   );
 
+  # 2026-09-07: Hackage release has stale dependency bounds.
+  matterhorn = doJailbreak super.matterhorn;
+
+  # 2026-09-07: Support crypton-connection >= 0.4.0 before the upstream fix is released.
+  mattermost-api = lib.pipe (warnAfterVersion "90000.1.1" super.mattermost-api) [
+    (appendPatch (fetchpatch {
+      name = "mattermost-api-crypton-connection-0.4.patch";
+      url = "https://github.com/matterhorn-chat/mattermost-api/commit/ad37a58b8edf0e0eb00e0db22509bd107b983e0c.patch";
+      hash = "sha256-dhd3VWHZ857tUsHYLWwldQ/5LYM5a0Ag/mYfNsAQ7mE=";
+    }))
+    (addBuildDepend self.tls)
+  ];
+
   # https://github.com/techtangents/ablist/issues/1
   ABList = dontCheck super.ABList;
 

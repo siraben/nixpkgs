@@ -455797,7 +455797,6 @@ self: {
       ];
       description = "Terminal client for the Mattermost chat system";
       license = lib.licenses.bsd3;
-      hydraPlatforms = lib.platforms.none;
       mainProgram = "matterhorn";
     }
   ) { };
@@ -455883,8 +455882,6 @@ self: {
       ];
       description = "Client API for Mattermost chat system";
       license = lib.licenses.bsd3;
-      hydraPlatforms = lib.platforms.none;
-      broken = true;
     }
   ) { };
 
@@ -455912,7 +455909,6 @@ self: {
       ];
       description = "QuickCheck instances for the Mattermost client API library";
       license = lib.licenses.isc;
-      hydraPlatforms = lib.platforms.none;
     }
   ) { };
 
