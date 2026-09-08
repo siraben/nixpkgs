@@ -238,6 +238,13 @@ let
         # use the name given by the DHCP server
         system.name = "client";
         networking.hostName = lib.mkForce "";
+        # Ensure zsh does not evaluate fqdnOrHostName before DHCP sets the hostname.
+        networking.domain = "example.test";
+        networking.hosts."192.168.1.2" = [
+          "client1.example.test"
+          "client1"
+        ];
+        programs.zsh.enable = true;
         security.polkit.enable = true;
         virtualisation.interfaces.enp1s0.vlan = 1;
         networking.interfaces.enp1s0.useDHCP = true;
@@ -251,7 +258,11 @@ let
         client.wait_for_unit("network.target")
 
         with subtest("Wait until we have received the hostname"):
-            client.wait_until_succeeds("hostname | grep -q 'client1'")
+            client.wait_until_succeeds('test "$(hostname)" = client1')
+
+        with subtest("zsh uses the dynamic FQDN"):
+            client.succeed('test "$(hostname --fqdn)" = client1.example.test')
+            client.succeed("env -u HOST zsh -ic '[[ $HOST = client1.example.test ]]'")
       '';
     };
     dhcpOneIf = {
