@@ -1,8 +1,13 @@
 {
   appimageTools,
   fetchurl,
+  gtk3,
+  hicolor-icon-theme,
   lib,
   makeWrapper,
+  pkg-config,
+  stdenv,
+  testers,
 }:
 
 let
@@ -14,7 +19,7 @@ let
   };
 in
 
-appimageTools.wrapType2 {
+appimageTools.wrapType2 (finalAttrs: {
   inherit pname version src;
 
   nativeBuildInputs = [ makeWrapper ];
@@ -42,6 +47,24 @@ appimageTools.wrapType2 {
       libxkbfile
     ];
 
+  passthru.tests.icon-lookup = testers.runCommand {
+    name = "wootility-icon-lookup";
+    nativeBuildInputs = [
+      gtk3
+      pkg-config
+      stdenv.cc
+    ];
+    script = ''
+      cc -Wall -Wextra -Werror \
+        $(pkg-config --cflags gtk+-3.0) \
+        ${./icon-lookup.c} \
+        $(pkg-config --libs gtk+-3.0) \
+        -o icon-lookup
+      ./icon-lookup ${finalAttrs.finalPackage} ${hicolor-icon-theme}
+      touch $out
+    '';
+  };
+
   meta = {
     homepage = "https://wooting.io/wootility";
     description = "Customization and management software for Wooting keyboards";
@@ -53,4 +76,4 @@ appimageTools.wrapType2 {
     ];
     mainProgram = "wootility";
   };
-}
+})
