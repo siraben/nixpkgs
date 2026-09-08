@@ -6,11 +6,13 @@ let
   lts_kernel = pkgs.linuxPackages.kernel;
 
   # to see the result once the module transformed the lose structured config
-  getConfig =
+  getModuleConfig =
     structuredConfig:
     (lts_kernel.override {
       structuredExtraConfig = structuredConfig;
-    }).configfile.structuredConfig;
+    }).configfile.moduleStructuredConfig;
+
+  getConfig = structuredConfig: (getModuleConfig structuredConfig).settings;
 
   mandatoryVsOptionalConfig = lib.mkMerge [
     { NIXOS_FAKE_USB_DEBUG = lib.kernel.yes; }
@@ -56,6 +58,21 @@ let
     testAllOptionalRemainOptional = {
       expr = (getConfig allOptionalRemainOptional)."NIXOS_FAKE_USB_DEBUG".optional;
       expected = true;
+    };
+
+    testEmptyFreeform = {
+      expr = lib.filter (lib.hasPrefix "NIXOS_FAKE_") (
+        lib.splitString "\n" (
+          (getModuleConfig {
+            NIXOS_FAKE_OPTIONAL_EMPTY = lib.kernel.option (lib.kernel.freeform "");
+            NIXOS_FAKE_REQUIRED_EMPTY = lib.kernel.freeform "";
+          }).intermediateNixConfig
+        )
+      );
+      expected = [
+        "NIXOS_FAKE_OPTIONAL_EMPTY?"
+        "NIXOS_FAKE_REQUIRED_EMPTY"
+      ];
     };
 
     # check that freeform options are unique
