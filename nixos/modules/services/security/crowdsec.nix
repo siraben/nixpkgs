@@ -12,6 +12,7 @@ let
   stateDir = "${rootDir}/state";
   confDir = "/etc/crowdsec/";
   hubDir = "${stateDir}/hub/";
+  hubIndex = "${hubDir}.index.json";
   notificationsDir = "${confDir}/notifications/";
   pluginDir = "${confDir}/plugins/";
   parsersDir = "${confDir}/parsers/";
@@ -553,7 +554,14 @@ in
       scriptArray = [
         "set -euo pipefail"
         "${lib.getExe' pkgs.coreutils "mkdir"} -p '${hubDir}'"
-        "${lib.getExe cscli} hub update"
+        ''
+          if ! ${lib.getExe cscli} hub update; then
+            echo "crowdsec-setup: warning: unable to update the hub index; continuing with local hub state" >&2
+            if [ ! -e '${hubIndex}' ]; then
+              printf '{}\n' > '${hubIndex}'
+            fi
+          fi
+        ''
       ]
       ++ lib.optionals (cfg.hub.collections != [ ]) [
         "${lib.getExe cscli} collections install ${
@@ -632,7 +640,7 @@ in
           data_dir = stateDir;
           simulation_path = simulationFile;
           hub_dir = hubDir;
-          index_path = lib.strings.normalizePath "${stateDir}/hub/.index.json";
+          index_path = hubIndex;
           notification_dir = notificationsDir;
           plugin_dir = pluginDir;
           pattern_dir = patternsDir;
@@ -769,6 +777,12 @@ in
           serviceConfig = {
             User = cfg.user;
             Group = cfg.group;
+
+            # The user is statically allocated below and shares its state with
+            # cscli and bouncers, so the state must remain publicly accessible.
+            DynamicUser = false;
+            StateDirectory = "crowdsec";
+
             Type = "notify";
             RestartSec = 60;
             LimitNOFILE = 65536;
@@ -819,7 +833,6 @@ in
             DevicePolicy = "closed";
             ProtectKernelLogs = true;
             SystemCallArchitectures = "native";
-            DynamicUser = true;
             RestrictNamespaces = true;
             RestrictRealtime = true;
             RestrictSUIDSGID = true;

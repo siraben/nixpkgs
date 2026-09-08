@@ -259,7 +259,15 @@ in
 
             StateDirectory = "crowdsec-firewall-bouncer-register crowdsec";
 
-            DynamicUser = true;
+            # The registration service shares the statically allocated crowdsec
+            # user and its state. DynamicUser would move that state below
+            # /var/lib/private, making it inaccessible to other crowdsec processes.
+            DynamicUser = false;
+            NoNewPrivileges = true;
+            PrivateTmp = true;
+            ProtectSystem = "strict";
+            RestrictSUIDSGID = true;
+
             LockPersonality = true;
             PrivateDevices = true;
             ProcSubset = "pid";
