@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
 
   postInstall = lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
     install -Dm644 ${desktopItem}/share/applications/xpdf.desktop -t $out/share/applications
-    install -Dm644 $src/xpdf-qt/xpdf-icon.svg $out/share/pixmaps/xpdf.svg
+    install -Dm644 $src/xpdf-qt/xpdf-icon.svg $out/share/icons/xpdf.svg
   '';
 
   meta = {

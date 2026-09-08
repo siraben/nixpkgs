@@ -48,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
   makeFlags = [
     "PREFIX=$(out)"
     "APPL=$(out)/share/applications"
-    "PIXMAPS=$(out)/share/pixmaps"
+    "PIXMAPS=$(out)/share/icons"
     "UDEVBIN=$(out)/bin"
     "UDEVDIR=$(out)/etc/udev/rules.d"
     "UDEVD=${systemd}/sbin/udevd"
@@ -80,7 +80,7 @@ stdenv.mkDerivation (finalAttrs: {
     mkdir -pv $out/{etc/udev/rules.d,lib/udev/rules.d,etc/hotplug/usb}
     mkdir -pv $out/share/foomatic/db/source/{opt,printer,driver}
     mkdir -pv $out/share/cups/model
-    mkdir -pv $out/share/{applications,pixmaps}
+    mkdir -pv $out/share/{applications,icons}
 
     mkdir -pv "$out/bin"
     cp -v getweb arm2hpdl "$out/bin"

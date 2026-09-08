@@ -41,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
     mkdir -p $out/bin
     cp ./dsda-launcher $out/bin
     install -Dm444 ../icons/dsda-Launcher.desktop $out/share/applications/dsda-Launcher.desktop
-    install -Dm444 ../icons/dsda-launcher.png $out/share/pixmaps/dsda-launcher.png
+    install -Dm444 ../icons/dsda-launcher.png $out/share/icons/dsda-launcher.png
     runHook postInstall
   '';
 

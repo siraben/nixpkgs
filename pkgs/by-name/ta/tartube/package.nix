@@ -58,10 +58,10 @@ python3Packages.buildPythonApplication rec {
   '';
 
   postInstall = ''
-    mkdir -p $out/share/{man/man1,applications,pixmaps}
+    mkdir -p $out/share/{man/man1,applications,icons}
     cp pack/tartube.1 $out/share/man/man1
     cp pack/tartube.desktop $out/share/applications
-    cp pack/tartube.{png,xpm} $out/share/pixmaps
+    cp pack/tartube.{png,xpm} $out/share/icons
   '';
 
   doCheck = false;

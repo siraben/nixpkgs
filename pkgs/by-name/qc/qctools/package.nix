@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     install -Dm644 qctools.metainfo.xml $out/share/metainfo/qctools.metainfo.xml
     cd ../../../Source/Resource
     install -Dm 0644 Logo.png $out/share/icons/hicolor/256x256/apps/qctools.png
-    install -Dm 0644 Logo.png $out/share/pixmaps/qctools.png
+    install -Dm 0644 Logo.png $out/share/icons/qctools.png
     cd ../../Project/QtCreator
 
     runHook postInstall

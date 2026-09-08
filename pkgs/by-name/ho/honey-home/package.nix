@@ -65,14 +65,14 @@ stdenv.mkDerivation (finalAttrs: {
 
   installPhase = ''
     runHook preInstall
-    mkdir -p $out/share/pixmaps
+    mkdir -p $out/share/icons
     # generate a logo as the title logo in the readme is too wide for an app icon
     magick \
       res/tree_hive.png \
       res/hud_bee.png -gravity Center -geometry -8+15 -composite \
       res/hud_bee.png -gravity Center -geometry -24+8 -composite \
       honey-home-logo.png
-    install -Dm644 honey-home-logo.png $out/share/pixmaps/honey-home.png
+    install -Dm644 honey-home-logo.png $out/share/icons/honey-home.png
     rm honey-home-logo.png
     zip -9 -r honey-home.love ./*
     strip-nondeterminism --type zip honey-home.love

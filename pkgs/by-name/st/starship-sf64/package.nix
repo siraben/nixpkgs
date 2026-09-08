@@ -213,7 +213,7 @@ stdenv.mkDerivation (finalAttrs: {
     mkdir -p $out/share/starship-sf64/
     cp -r assets $out/share/starship-sf64/
     install -Dm644 -t $out/share/starship-sf64 {starship.o2r,config.yml,gamecontrollerdb.txt}
-    install -Dm644 ../logo.png $out/share/pixmaps/starship-sf64.png
+    install -Dm644 ../logo.png $out/share/icons/starship-sf64.png
     install -Dm644 -t $out/share/licenses/starship-sf64 ../LICENSE.md
     install -Dm644 -t $out/share/licenses/starship-sf64/libgfxd ${libgfxd}/LICENSE
     install -Dm644 -t $out/share/licenses/starship-sf64/libultraship ../libultraship/LICENSE

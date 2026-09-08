@@ -115,7 +115,7 @@ stdenv.mkDerivation (finalAttrs: {
     install -dm755 $out/share/cudatext
     cp -r app/{data,py,settings_default} $out/share/cudatext
 
-    install -Dm644 setup/debfiles/cudatext-512.png -t $out/share/pixmaps
+    install -Dm644 setup/debfiles/cudatext-512.png -t $out/share/icons
     install -Dm644 setup/debfiles/cudatext.desktop -t $out/share/applications
   ''
   + lib.concatMapStringsSep "\n" (lexer: ''

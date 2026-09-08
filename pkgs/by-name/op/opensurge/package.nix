@@ -39,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   cmakeFlags = [
     "-DGAME_BINDIR=${placeholder "out"}/bin"
-    "-DDESKTOP_ICON_PATH=${placeholder "out"}/share/pixmaps"
+    "-DDESKTOP_ICON_PATH=${placeholder "out"}/share/icons"
     "-DDESKTOP_METAINFO_PATH=${placeholder "out"}/share/metainfo"
     "-DDESKTOP_ENTRY_PATH=${placeholder "out"}/share/applications"
     "-DWANT_BUILD_DATE=OFF"

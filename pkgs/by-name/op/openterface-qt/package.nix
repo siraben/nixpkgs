@@ -65,8 +65,8 @@ stdenv.mkDerivation (finalAttrs: {
     runHook preInstall
     mkdir -p $out/bin
     cp ./openterfaceQT $out/bin/
-    mkdir -p $out/share/pixmaps
-    cp ./images/icon_256.png $out/share/pixmaps/openterface-qt.png
+    mkdir -p $out/share/icons
+    cp ./images/icon_256.png $out/share/icons/openterface-qt.png
     mkdir -p $out/etc/udev/rules.d
     cp ${udevRules} $out/etc/udev/rules.d/60-openterface.rules
     runHook postInstall

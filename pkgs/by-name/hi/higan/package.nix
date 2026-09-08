@@ -122,11 +122,11 @@ stdenv.mkDerivation (finalAttrs: {
         install higan-ui/resource/higan.desktop -t $out/share/applications/
         install icarus/resource/icarus.desktop -t $out/share/applications/
 
-        install -d $out/share/pixmaps
-        install higan/higan/resource/higan.svg $out/share/pixmaps/higan-icon.svg
-        install higan/higan/resource/logo.png $out/share/pixmaps/higan-icon.png
-        install icarus/resource/icarus.svg $out/share/pixmaps/icarus-icon.svg
-        install icarus/resource/icarus.png $out/share/pixmaps/icarus-icon.png
+        install -d $out/share/icons
+        install higan/higan/resource/higan.svg $out/share/icons/higan-icon.svg
+        install higan/higan/resource/logo.png $out/share/icons/higan-icon.png
+        install icarus/resource/icarus.svg $out/share/icons/icarus-icon.svg
+        install icarus/resource/icarus.png $out/share/icons/icarus-icon.png
       ''
   )
   + ''

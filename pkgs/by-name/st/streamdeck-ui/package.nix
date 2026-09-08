@@ -88,8 +88,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
       mkdir -p "$out/etc/udev/rules.d"
       cp ${writeText "70-streamdeck.rules" udevRules} $out/etc/udev/rules.d/70-streamdeck.rules
 
-      mkdir -p "$out/share/pixmaps"
-      cp streamdeck_ui/logo.png $out/share/pixmaps/streamdeck-ui.png
+      mkdir -p "$out/share/icons"
+      cp streamdeck_ui/logo.png $out/share/icons/streamdeck-ui.png
     '';
 
   desktopItems =

@@ -144,8 +144,8 @@ buildNpmPackage (finalAttrs: {
       --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}}" \
       --inherit-argv0
 
-    mkdir -p $out/share/pixmaps
-    ln -s $phome/res/logo.png $out/share/pixmaps/musicfree-desktop.png
+    mkdir -p $out/share/icons
+    ln -s $phome/res/logo.png $out/share/icons/musicfree-desktop.png
 
     ${lib.optionalString stdenv.hostPlatform.isDarwin ''
       mkdir -p $out/Applications/MusicFree.app/Contents/{MacOS,Resources}

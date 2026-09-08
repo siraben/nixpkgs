@@ -115,8 +115,8 @@ stdenv.mkDerivation rec {
         makeWrapper "$pgm" "$out/bin/$(basename "$pgm")" "''${makeWrapperArgs[@]}"
       done
 
-      mkdir -p $out/share/pixmaps
-      ln -s $out/opl/oplide/icon.xpm $out/share/pixmaps/oplide.xpm
+      mkdir -p $out/share/icons
+      ln -s $out/opl/oplide/icon.xpm $out/share/icons/oplide.xpm
 
       mkdir -p $out/share/doc
       mv $out/doc $out/share/doc/$name

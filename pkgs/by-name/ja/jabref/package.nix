@@ -148,7 +148,7 @@ stdenv.mkDerivation rec {
 
     install -dm755 $out/share/java/jabref
     install -Dm644 LICENSE $out/share/licenses/jabref/LICENSE
-    install -Dm644 jabgui/src/main/resources/icons/jabref.svg $out/share/pixmaps/jabref.svg
+    install -Dm644 jabgui/src/main/resources/icons/jabref.svg $out/share/icons/jabref.svg
 
     # script to support browser extensions
     install -Dm755 jabgui/buildres/linux/jabrefHost.py $out/lib/jabrefHost.py

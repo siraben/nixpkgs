@@ -90,7 +90,7 @@ rustPlatform.buildRustPackage (
       install -Dm644 daemon/resources/icons/pipeweaver.svg \
         $out/share/icons/hicolor/scalable/apps/pipeweaver.svg
       install -Dm644 daemon/resources/icons/pipeweaver-large.png \
-        $out/share/pixmaps/pipeweaver.png
+        $out/share/icons/pipeweaver.png
       install -Dm644 daemon/resources/desktop/pipeweaver.desktop \
         $out/share/applications/pipeweaver.desktop
 

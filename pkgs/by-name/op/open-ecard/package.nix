@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     desktopName = "Open eCard App";
     genericName = "eCard App";
     comment = "Client side implementation of the eCard-API-Framework";
-    icon = "oec_logo_bg-transparent.svg";
+    icon = "oec_logo_bg-transparent";
     exec = pname;
     categories = [
       "Utility"
@@ -53,9 +53,9 @@ stdenv.mkDerivation rec {
     cp ${srcs.richclient} $out/share/java/richclient-${version}.jar
     cp ${srcs.cifs} $out/share/java/cifs-${version}.jar
 
-    mkdir -p $out/share/applications $out/share/pixmaps
+    mkdir -p $out/share/applications $out/share/icons
     cp $desktopItem/share/applications/* $out/share/applications
-    cp ${srcs.logo} $out/share/pixmaps/oec_logo_bg-transparent.svg
+    cp ${srcs.logo} $out/share/icons/oec_logo_bg-transparent.svg
 
     mkdir -p $out/bin
     makeWrapper ${jre}/bin/java $out/bin/${pname} \

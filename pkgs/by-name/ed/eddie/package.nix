@@ -113,8 +113,12 @@ buildDotnetModule (finalAttrs: {
     chmod +x $out/lib/eddie-ui/App.Forms.Linux.exe
 
     cp -r resources/* $out/share/eddie-ui
-    cp -r repository/linux_arch/bundle/eddie-ui/usr/share/{applications,pixmaps,polkit-1} $out/share
+    cp -r repository/linux_arch/bundle/eddie-ui/usr/share/{applications,polkit-1} $out/share
+    mkdir -p $out/share/icons
+    cp -r repository/linux_arch/bundle/eddie-ui/usr/share/pixmaps/. $out/share/icons/
 
+    substituteInPlace $out/share/applications/eddie-ui.desktop \
+      --replace-fail /usr/share/pixmaps/eddie-ui.png eddie-ui
     substituteInPlace \
       $out/share/{applications/eddie-ui.desktop,polkit-1/actions/org.airvpn.eddie.ui.elevated.policy} \
       --replace-fail /usr $out

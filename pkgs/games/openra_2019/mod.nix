@@ -102,7 +102,7 @@ stdenv.mkDerivation (
       [[ -e mods/${mod.name}/icon.png ]] && mod_icon=mods/${mod.name}/icon.png || {
         [[ -e mods/${mod.name}/logo.png ]] && mod_icon=mods/${mod.name}/logo.png || mod_icon=packaging/linux/mod_256x256.png
       }
-      cp "$mod_icon" $(mkdirp $out/share/pixmaps)/${pname}.png
+      cp "$mod_icon" $(mkdirp $out/share/icons)/${pname}.png
 
       for size in 16 32 48 64 128 256; do
         size=''${size}x''${size}

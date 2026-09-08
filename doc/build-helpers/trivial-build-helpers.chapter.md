@@ -226,6 +226,8 @@ The following fields are either required, are of a different type than in the sp
 
 : A list of attribute sets {name, exec?, icon?}
 
+When `icon` is an icon name rather than an absolute path, install the icon in an icon-theme directory such as `$out/share/icons/hicolor/48x48/apps`, or in the unthemed fallback directory `$out/share/icons`. Do not install it in `$out/share/pixmaps`: the icon-theme specification searches `/usr/share/pixmaps`, but not the per-package `$XDG_DATA_DIRS/pixmaps` paths used by Nixpkgs.
+
 `extraConfig` (Attribute set; _optional_)
 
 : Additional key/value pairs to be added verbatim to the desktop file. Attributes need to be prefixed with 'X-'.

@@ -79,7 +79,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   postInstall = ''
-    install -Dm644 $src/src/resources/icons/icon.png $out/share/pixmaps/skyemu.png
+    install -Dm644 $src/src/resources/icons/icon.png $out/share/icons/skyemu.png
   '';
 
   meta = {

@@ -121,7 +121,7 @@ stdenv.mkDerivation (finalAttrs: {
         ]
       }"
 
-    install -Dm444 dist/unix/armitage-logo.png $out/share/pixmaps/armitage.png
+    install -Dm444 dist/unix/armitage-logo.png $out/share/icons/armitage.png
     ${lib.optionalString stdenv.hostPlatform.isDarwin ''
       mkdir -p "$out/Applications/Armitage.app/Contents/MacOS"
       mkdir -p "$out/Applications/Armitage.app/Contents/Resources"

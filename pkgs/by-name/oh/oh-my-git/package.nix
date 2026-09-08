@@ -113,8 +113,8 @@ stdenv.mkDerivation rec {
       --set-rpath ${lib.makeLibraryPath buildInputs} \
       $out/share/oh-my-git/oh-my-git
 
-    mkdir -p $out/share/pixmaps
-    cp images/oh-my-git.png $out/share/pixmaps/oh-my-git.png
+    mkdir -p $out/share/icons
+    cp images/oh-my-git.png $out/share/icons/oh-my-git.png
 
     runHook postInstall
   '';

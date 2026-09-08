@@ -20,6 +20,11 @@ stdenv.mkDerivation {
 
   patches = [ ./prefer-dynamic.patch ];
 
+  postPatch = ''
+    substituteInPlace install.sh \
+      --replace-fail '"$1/share/pixmaps"' '"$1/share/icons"'
+  '';
+
   nativeBuildInputs = [
     pkg-config
   ];
@@ -33,7 +38,7 @@ stdenv.mkDerivation {
     NIX_CFLAGS_COMPILE=$(pkg-config --cflags sparrow3d zlib)
 
     # build and install are one step, and inseparable without patching
-    mkdir -p $out/{bin,share/applications,share/pixmaps}
+    mkdir -p $out/{bin,share/applications,share/icons}
     ./install.sh $out
   '';
 

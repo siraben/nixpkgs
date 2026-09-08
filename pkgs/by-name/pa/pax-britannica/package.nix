@@ -92,9 +92,9 @@ stdenv.mkDerivation {
   desktopItems = [ "pax-britannica.desktop" ];
 
   installPhase = ''
-    mkdir -p $out/{bin,share/pax-britannica,share/pixmaps}
+    mkdir -p $out/{bin,share/pax-britannica,share/icons}
     cp -ar *.lua audio components dokidoki scripts sprites $out/share/pax-britannica/
-    cp pax-britannica.png $out/share/pixmaps/
+    cp pax-britannica.png $out/share/icons/
     cp pax-britannica $out/bin/
   '';
 

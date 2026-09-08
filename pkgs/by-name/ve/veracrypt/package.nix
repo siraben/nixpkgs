@@ -63,12 +63,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   installPhase = ''
     install -Dm 755 Main/veracrypt "$out/bin/veracrypt"
-    install -Dm 444 Resources/Icons/VeraCrypt-256x256.xpm "$out/share/pixmaps/veracrypt.xpm"
+    install -Dm 444 Resources/Icons/VeraCrypt-256x256.xpm "$out/share/icons/veracrypt.xpm"
     install -Dm 444 License.txt -t "$out/share/doc/veracrypt/"
     install -d $out/share/applications
     substitute Setup/Linux/veracrypt.desktop $out/share/applications/veracrypt.desktop \
-      --replace-fail "Exec=/usr/bin/veracrypt" "Exec=$out/bin/veracrypt" \
-      --replace-fail "Icon=veracrypt" "Icon=veracrypt.xpm"
+      --replace-fail "Exec=/usr/bin/veracrypt" "Exec=$out/bin/veracrypt"
   '';
 
   meta = {

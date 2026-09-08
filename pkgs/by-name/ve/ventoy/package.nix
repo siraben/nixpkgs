@@ -175,8 +175,8 @@ stdenv.mkDerivation (finalAttrs: {
     makeWrapper "$VENTOY_PATH/VentoyGUI.$ARCH" "$out/bin/ventoy-gui" \
                 --prefix PATH : "${lib.makeBinPath finalAttrs.buildInputs}" \
                 --chdir "$VENTOY_PATH"
-    mkdir "$out"/share/{applications,pixmaps}
-    ln -s "$VENTOY_PATH"/WebUI/static/img/VentoyLogo.png "$out"/share/pixmaps/
+    mkdir "$out"/share/{applications,icons}
+    ln -s "$VENTOY_PATH"/WebUI/static/img/VentoyLogo.png "$out"/share/icons/
   ''
   + optionalString (!withGtk3) ''
     rm "$VENTOY_PATH"/tool/{"$ARCH"/Ventoy2Disk.gtk3,VentoyGTK.glade}

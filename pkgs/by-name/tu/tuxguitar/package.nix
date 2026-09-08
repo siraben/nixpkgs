@@ -200,7 +200,8 @@ maven.buildMavenPackage {
     ln -s $out/lib/tuxguitar/tuxguitar.sh $out/bin/tuxguitar
 
     mkdir -p $out/share
-    ln -s $out/lib/tuxguitar/share/{applications,man,metainfo,mime,pixmaps} -t $out/share/
+    ln -s $out/lib/tuxguitar/share/{applications,man,metainfo,mime} -t $out/share/
+    ln -s $out/lib/tuxguitar/share/pixmaps $out/share/icons
 
     # See https://github.com/helge17/tuxguitar/issues/961
     mkdir -p $out/share/templates/.source

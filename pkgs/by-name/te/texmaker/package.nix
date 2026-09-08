@@ -39,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   qmakeFlags = [
     "DESKTOPDIR=${placeholder "out"}/share/applications"
-    "ICONDIR=${placeholder "out"}/share/pixmaps"
+    "ICONDIR=${placeholder "out"}/share/icons"
     "METAINFODIR=${placeholder "out"}/share/metainfo"
   ];
 

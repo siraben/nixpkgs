@@ -104,8 +104,8 @@ stdenv.mkDerivation (finalAttrs: {
     # Create desktop item.
     mkdir -p $out/share/applications
     cp ${finalAttrs.desktopItem}/share/applications/* $out/share/applications
-    mkdir -p $out/share/pixmaps
-    ln -s $out/eclipse/icon.xpm $out/share/pixmaps/eclipse.xpm
+    mkdir -p $out/share/icons
+    ln -s $out/eclipse/icon.xpm $out/share/icons/eclipse.xpm
 
     # ensure eclipse.ini does not try to use a justj jvm, as those aren't compatible with nix
     perl -i -p0e 's|-vm\nplugins/org.eclipse.justj.*/jre/bin.*\n||' $out/eclipse/eclipse.ini

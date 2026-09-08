@@ -115,16 +115,13 @@ stdenv.mkDerivation {
     else
       ''
         runHook preInstall
-        mkdir -p "$out/share"
-        cp -r usr/share/pixmaps "$out/share/pixmaps"
+        mkdir -p "$out/share/icons"
+        cp -r usr/share/pixmaps/. "$out/share/icons/"
         cp -r usr/share/positron "$out/share/positron"
 
         mkdir -p "$out/share/applications"
         install -m 444 -D usr/share/applications/positron.desktop "$out/share/applications/positron.desktop"
         substituteInPlace "$out/share/applications/positron.desktop" \
-          --replace-fail \
-          "Icon=co.posit.positron" \
-          "Icon=$out/share/pixmaps/co.posit.positron.png" \
           --replace-fail \
           "Exec=/usr/share/positron/positron %F" \
           "Exec=$out/share/positron/.positron-wrapped %F" \

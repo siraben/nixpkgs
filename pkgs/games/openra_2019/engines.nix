@@ -34,7 +34,7 @@ let
         postInstall = ''
           ${origAttrs.postInstall}
           cp -r mods/ts $out/lib/openra/mods/
-          cp mods/ts/icon.png $(mkdirp $out/share/pixmaps)/openra-ts.png
+          cp mods/ts/icon.png $(mkdirp $out/share/icons)/openra-ts.png
           ( cd $out/share/applications; sed -e 's/Dawn/Sun/g' -e 's/cnc/ts/g' openra-cnc.desktop > openra-ts.desktop )
         '';
       });

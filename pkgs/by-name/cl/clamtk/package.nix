@@ -52,7 +52,7 @@ perlPackages.buildPerlPackage rec {
       --replace /usr/bin/sigtool ${lib.getBin clamav}/bin/sigtool \
       --replace /usr/bin/clamscan ${lib.getBin clamav}/bin/clamscan \
       --replace /usr/bin/clamdscan ${lib.getBin clamav}/bin/clamdscan \
-      --replace /usr/share/pixmaps $out/share/pixmaps
+      --replace /usr/share/pixmaps $out/share/icons
 
     # We want to catch the crontab wrapper on NixOS and the
     # System crontab on non-NixOS so we don't give a full path.
@@ -67,7 +67,7 @@ perlPackages.buildPerlPackage rec {
     install -Dm755 clamtk -t $out/bin
     install -Dm444 lib/*.pm -t $out/lib/perl5/site_perl/ClamTk
     install -Dm444 clamtk.desktop -t $out/share/applications
-    install -Dm444 images/* -t $out/share/pixmaps
+    install -Dm444 images/* -t $out/share/icons
     install -Dm444 clamtk.1.gz -t $out/share/man/man1
     install -Dm444 {CHANGES,LICENSE,*.md} -t $out/share/doc/clamtk
 

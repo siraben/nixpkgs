@@ -58,10 +58,10 @@ let
     installPhase = ''
       runHook preInstall
 
-      mkdir -p $out/{bin,share/pixmaps}
+      mkdir -p $out/{bin,share/icons}
       rm -rf opt/${program}${year}/jre
       cp -r opt/${program}${year} $out/share/
-      ln -s $out/share/${program}${year}/.install4j/${program}${year}.png  $out/share/pixmaps/${pname}.png
+      ln -s $out/share/${program}${year}/.install4j/${program}${year}.png  $out/share/icons/${pname}.png
       ln -s $out/share/${program}${year}/${program}${year} $out/bin/
 
       runHook postInstall
@@ -83,9 +83,9 @@ buildFHSEnv {
   # link desktop item and icon into FHS user environment
   extraInstallCommands = ''
     mkdir -p "$out/share/applications"
-    mkdir -p "$out/share/pixmaps"
+    mkdir -p "$out/share/icons"
     ln -s ${thisPackage}/share/applications/*.desktop "$out/share/applications/"
-    ln -s ${thisPackage}/share/pixmaps/*.png "$out/share/pixmaps/"
+    ln -s ${thisPackage}/share/icons/*.png "$out/share/icons/"
   '';
 
   meta = {

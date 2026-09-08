@@ -20,9 +20,9 @@ appimageTools.wrapType2 {
   inherit pname version src;
 
   extraInstallCommands = ''
-    mkdir -p $out/share/{applications,pixmaps}
+    mkdir -p $out/share/{applications,icons}
     install -Dm644 ${appimageContents}/${appId}.desktop -t $out/share/applications
-    install -Dm644 ${appimageContents}/${appId}.png -t $out/share/pixmaps
+    install -Dm644 ${appimageContents}/${appId}.png -t $out/share/icons
 
     substituteInPlace $out/share/applications/${appId}.desktop \
       --replace-fail 'Exec=AppRun' "Exec=$pname"

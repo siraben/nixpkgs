@@ -2,6 +2,7 @@
   rustPlatform,
   fetchFromGitHub,
   lib,
+  runCommand,
 
   installShellFiles,
   rust-jemalloc-sys,
@@ -39,9 +40,15 @@ rustPlatform.buildRustPackage (finalAttrs: {
     installManPage ../${finalAttrs.passthru.srcs.man_src.name}/yazi{.1,-config.5}
 
     install -Dm444 assets/yazi.desktop -t $out/share/applications
-    install -Dm444 assets/logo.png $out/share/pixmaps/yazi.png
+    install -Dm444 assets/logo.png $out/share/icons/yazi.png
   '';
 
+  passthru.tests.desktop-icon = runCommand "${finalAttrs.pname}-desktop-icon-test" { } ''
+    test -f ${finalAttrs.finalPackage}/share/icons/yazi.png
+    test ! -e ${finalAttrs.finalPackage}/share/pixmaps
+    grep -qx 'Icon=yazi' ${finalAttrs.finalPackage}/share/applications/yazi.desktop
+    touch $out
+  '';
   passthru.updateScript.command = [ ./update.sh ];
   passthru.srcs = {
     code_src = fetchFromGitHub {

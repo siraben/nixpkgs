@@ -340,9 +340,9 @@ stdenv.mkDerivation (
           ''
           # These are named vscode.png, vscode-insiders.png, etc to match the name in upstream *.deb packages.
           + ''
-            mkdir -p "$out/share/pixmaps"
+            mkdir -p "$out/share/icons"
             icon_file="$out/lib/${libraryName}/resources/app/resources/linux/code.png"
-            cp "$icon_file" "$out/share/pixmaps/${iconName}.png"
+            cp "$icon_file" "$out/share/icons/${iconName}.png"
 
             # Dynamically determine size of icon and place in appropriate directory
             size=$(identify -format "%wx%h" "$icon_file")

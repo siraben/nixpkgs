@@ -113,8 +113,8 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   postInstall = ''
-    mkdir -p $out/share/pixmaps
-    cp $src/resources/lg-logo.png $out/share/pixmaps
+    mkdir -p $out/share/icons
+    cp $src/resources/lg-logo.png $out/share/icons
   '';
 
   meta = {

@@ -107,13 +107,13 @@ stdenv.mkDerivation rec {
     ln -s $out/opt/google/earth/pro/gpsbabel $out/bin/gpsbabel
 
     # Add desktop config file and icons
-    mkdir -p $out/share/{applications,icons/hicolor/{16x16,22x22,24x24,32x32,48x48,64x64,128x128,256x256}/apps,pixmaps}
+    mkdir -p $out/share/{applications,icons/hicolor/{16x16,22x22,24x24,32x32,48x48,64x64,128x128,256x256}/apps}
     ln -s $out/opt/google/earth/pro/google-earth-pro.desktop $out/share/applications/google-earth-pro.desktop
     sed -i -e "s|Exec=.*|Exec=$out/bin/googleearth-pro|g" $out/opt/google/earth/pro/google-earth-pro.desktop
     for size in 16 22 24 32 48 64 128 256; do
       ln -s $out/opt/google/earth/pro/product_logo_"$size".png $out/share/icons/hicolor/"$size"x"$size"/apps/google-earth-pro.png
     done
-    ln -s $out/opt/google/earth/pro/product_logo_256.png $out/share/pixmaps/google-earth-pro.png
+    ln -s $out/opt/google/earth/pro/product_logo_256.png $out/share/icons/google-earth-pro.png
 
     runHook postInstall
   '';

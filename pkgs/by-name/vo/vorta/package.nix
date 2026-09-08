@@ -53,7 +53,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
 
   postInstall = ''
     install -Dm644 src/vorta/assets/metadata/com.borgbase.Vorta.desktop $out/share/applications/com.borgbase.Vorta.desktop
-    install -Dm644 src/vorta/assets/icons/icon.svg $out/share/pixmaps/com.borgbase.Vorta-symbolic.svg
+    install -Dm644 src/vorta/assets/icons/icon.svg $out/share/icons/com.borgbase.Vorta-symbolic.svg
   '';
 
   preFixup = ''

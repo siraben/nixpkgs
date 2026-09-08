@@ -70,7 +70,7 @@ stdenv.mkDerivation (finalAttrs: {
         install -Dm644 ../51-vna.rules -t $out/etc/udev/rules.d
         install -Dm644 resources/librevna.desktop -t $out/share/applications
         install -Dm644 resources/librevna.png $out/share/icons/hicolor/256x256/apps/librevna.png
-        install -Dm644 resources/librevna.png -t $out/share/pixmaps
+        install -Dm644 resources/librevna.png -t $out/share/icons
 
         runHook postInstall
       '';

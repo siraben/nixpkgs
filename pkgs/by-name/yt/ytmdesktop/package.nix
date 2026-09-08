@@ -113,7 +113,7 @@ stdenv.mkDerivation (finalAttrs: {
     mkdir -p "$out"/share/ytmdesktop
     cp -r out/*/{locales,resources{,.pak}} "$out"/share/ytmdesktop
 
-    install -Dm644 src/assets/icons/ytmd.png "$out"/share/pixmaps/ytmdesktop.png
+    install -Dm644 src/assets/icons/ytmd.png "$out"/share/icons/ytmdesktop.png
 
     makeWrapper ${lib.getExe electron} "$out"/bin/ytmdesktop \
       --add-flags "$out"/share/ytmdesktop/resources/app.asar \

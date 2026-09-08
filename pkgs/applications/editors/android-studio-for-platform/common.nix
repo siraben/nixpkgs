@@ -200,11 +200,11 @@ runCommand "${pname}-${version}"
     };
   }
   ''
-    mkdir -p $out/{bin,share/pixmaps}
+    mkdir -p $out/{bin,share/icons}
 
     echo -n "$startScript" > $out/bin/${pname}
     chmod +x $out/bin/${pname}
 
-    ln -s ${androidStudioForPlatform}/bin/studio.png $out/share/pixmaps/${pname}.png
+    ln -s ${androidStudioForPlatform}/bin/studio.png $out/share/icons/${pname}.png
     ln -s ${desktopItem}/share/applications $out/share/applications
   ''

@@ -105,14 +105,9 @@ runCommand "${wrappedPkgName}-with-extensions-${wrappedPkgVersion}"
       ''
         mkdir -p "$out/bin"
         mkdir -p "$out/share/applications"
-        mkdir -p "$out/share/pixmaps"
 
-        ln -sT "${vscode}/share/pixmaps/${iconName}.png" "$out/share/pixmaps/${iconName}.png"
-        # Carry over the themed icons too; the .desktop entry's `Icon=` is
-        # resolved against the icon theme before falling back to pixmaps.
-        if [ -d "${vscode}/share/icons" ]; then
-          ln -sT "${vscode}/share/icons" "$out/share/icons"
-        fi
+        # Carry over both themed icons and the unthemed fallback.
+        ln -sT "${vscode}/share/icons" "$out/share/icons"
         ln -sT "${vscode}/share/applications/${executableName}.desktop" "$out/share/applications/${executableName}.desktop"
         ln -sT "${vscode}/share/applications/${executableName}-url-handler.desktop" "$out/share/applications/${executableName}-url-handler.desktop"
         makeWrapper "${vscode}/bin/${executableName}" "$out/bin/${executableName}" ${extensionsFlag}

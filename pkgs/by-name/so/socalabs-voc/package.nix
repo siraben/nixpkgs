@@ -125,7 +125,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     install -Dm555 Voc_artefacts/Release/Standalone/Voc $out/bin
 
-    install -Dm444 $src/plugin/Resources/logo.png $out/share/pixmaps/Voc.png
+    install -Dm444 $src/plugin/Resources/logo.png $out/share/icons/Voc.png
 
     runHook postInstall
   '';

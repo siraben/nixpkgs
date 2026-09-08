@@ -89,7 +89,8 @@ let
       cp -r --parents bin $out
       cp -r --parents share/vk $out
       cp -r --parents share/applications $out
-      cp -r --parents share/pixmaps $out
+      mkdir -p $out/share/icons
+      cp -r share/pixmaps/. $out/share/icons/
     '';
   };
 

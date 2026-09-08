@@ -43,7 +43,7 @@ let
         makeWrapper ${jre}/bin/java $out/bin/${pname} --add-flags \
           "-jar $jar"
 
-        install -Dm644 ${./icon.png} $out/share/pixmaps/${pname}.png
+        install -Dm644 ${./icon.png} $out/share/icons/${pname}.png
         cp -r ${desktopItem}/share/applications $out/share
       '';
 

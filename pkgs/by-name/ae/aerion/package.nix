@@ -79,7 +79,7 @@ buildGoModule {
 
   postInstall = lib.optionalString stdenv.hostPlatform.isLinux (
     ''
-      install -Dm644 build/linux/aerion.png $out/share/pixmaps/io.github.hkdb.Aerion.png
+      install -Dm644 build/linux/aerion.png $out/share/icons/io.github.hkdb.Aerion.png
       install -Dm644 build/linux/aerion.desktop $out/share/applications/io.github.hkdb.Aerion.desktop
     ''
     + lib.optionalString withOAuth ''

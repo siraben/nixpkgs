@@ -71,8 +71,8 @@ buildDotnetModule rec {
   '';
 
   postInstall = ''
-    mkdir -p $out/share/pixmaps
-    cp src/XIVLauncher.Core/Resources/logo.png $out/share/pixmaps/xivlauncher.png
+    mkdir -p $out/share/icons
+    cp src/XIVLauncher.Core/Resources/logo.png $out/share/icons/xivlauncher.png
   '';
 
   postFixup =

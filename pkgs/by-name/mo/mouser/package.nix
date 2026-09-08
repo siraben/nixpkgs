@@ -72,7 +72,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     cp -r main_qml.py core ui images $out/share/mouser/
   ''
   + lib.optionalString stdenv.hostPlatform.isLinux ''
-    install -Dm644 images/logo_icon.png $out/share/pixmaps/mouser.png
+    install -Dm644 images/logo_icon.png $out/share/icons/mouser.png
     install -Dm444 packaging/linux/69-mouser-logitech.rules \
       -t $out/lib/udev/rules.d
   ''

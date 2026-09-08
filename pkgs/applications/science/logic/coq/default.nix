@@ -314,8 +314,8 @@ let
         ln -s $out/lib/coqide-server $OCAMLFIND_DESTDIR/coqide-server
       ''
       + lib.optionalString buildIde ''
-        mkdir -p "$out/share/pixmaps"
-        ln -s "$out/share/coq/coq.png" "$out/share/pixmaps/"
+        mkdir -p "$out/share/icons"
+        ln -s "$out/share/coq/coq.png" "$out/share/icons/"
       '';
 
     meta = {

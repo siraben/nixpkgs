@@ -111,11 +111,11 @@ let
       extraInstallCommands = ''
         ln -s ${pname} $out/bin/anki
 
-        mkdir -p $out/share
+        mkdir -p $out/share/icons
         cp -R ${unpacked}/share/applications \
           ${unpacked}/share/man \
-          ${unpacked}/share/pixmaps \
           $out/share/
+        cp -R ${unpacked}/share/pixmaps/. $out/share/icons/
       '';
 
       inherit meta passthru;

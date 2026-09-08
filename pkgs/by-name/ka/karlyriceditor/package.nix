@@ -44,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     install -Dm755 bin/karlyriceditor $out/bin/karlyriceditor
     install -Dm644 packages/karlyriceditor.desktop $out/share/applications/karlyriceditor.desktop
-    install -Dm644 packages/karlyriceditor.png $out/share/pixmaps/karlyriceditor.png
+    install -Dm644 packages/karlyriceditor.png $out/share/icons/karlyriceditor.png
 
     substituteInPlace $out/share/applications/karlyriceditor.desktop \
       --replace-fail 'Icon=/usr/share/pixmaps/karlyriceditor.png' 'Icon=karlyriceditor'

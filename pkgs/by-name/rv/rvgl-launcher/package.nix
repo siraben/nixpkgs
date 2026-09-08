@@ -33,7 +33,7 @@ let
     ];
 
     postInstall = ''
-      install -Dm644 icons/icon.png $out/share/pixmaps/rvgl-launcher.png
+      install -Dm644 icons/icon.png $out/share/icons/rvgl-launcher.png
     '';
 
     nativeBuildInputs = [ copyDesktopItems ];
@@ -83,9 +83,9 @@ in
     ];
 
   extraInstallCommands = ''
-    mkdir -p $out/share/applications $out/share/pixmaps
+    mkdir -p $out/share/applications $out/share/icons
     ln -s ${unwrapped}/share/applications/rvgl-launcher.desktop $out/share/applications/rvgl-launcher.desktop
-    ln -s ${unwrapped}/share/pixmaps/rvgl-launcher.png $out/share/pixmaps/rvgl-launcher.png
+    ln -s ${unwrapped}/share/icons/rvgl-launcher.png $out/share/icons/rvgl-launcher.png
   '';
 
   passthru = {

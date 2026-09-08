@@ -109,7 +109,6 @@ stdenv.mkDerivation (finalAttrs: {
     qtWrapperArgs+=(--prefix GST_PLUGIN_SYSTEM_PATH_1_0 : "$GST_PLUGIN_SYSTEM_PATH_1_0")
 
     install -m 444 data/pragha.desktop $out/share/applications
-    install -d $out/share/pixmaps
     installManPage data/pragha.1
   '';
 
