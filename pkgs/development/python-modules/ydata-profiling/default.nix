@@ -127,6 +127,8 @@ buildPythonPackage (finalAttrs: {
   pythonImportsCheck = [ "ydata_profiling" ];
 
   meta = {
+    # Requires older versions of multiple core dependencies than Nixpkgs provides.
+    broken = true;
     description = "Create HTML profiling reports from Pandas DataFrames";
     homepage = "https://ydata-profiling.ydata.ai";
     changelog = "https://github.com/ydataai/ydata-profiling/releases/tag/${finalAttrs.src.tag}";
