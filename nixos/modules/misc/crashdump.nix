@@ -8,6 +8,8 @@ let
   crashdump = config.boot.crashDump;
 
   kernelParams = lib.concatStringsSep " " crashdump.kernelParams;
+  # These options are only implemented by the kexec-tools x86 backends.
+  vgaOptions = lib.optionalString pkgs.stdenv.hostPlatform.isx86 "--reset-vga --console-vga";
 
 in
 ###### interface
@@ -55,9 +57,8 @@ in
     boot = {
       postBootCommands = ''
         echo "loading crashdump kernel...";
-        ${pkgs.kexec-tools}/sbin/kexec -p /run/current-system/kernel \
+        ${pkgs.kexec-tools}/sbin/kexec -p ${vgaOptions} /run/current-system/kernel \
         --initrd=/run/current-system/initrd \
-        --reset-vga --console-vga \
         --command-line="init=$(readlink -f /run/current-system/init) irqpoll maxcpus=1 reset_devices ${kernelParams}"
       '';
       kernelParams = [
