@@ -171,7 +171,9 @@ luarocks-packages-updater add [--maintainers "<maintainer>"] <package-name>
 ```
 
 The optional `--maintainers` argument accepts a space-separated list of nixpkgs maintainer names.
-When omitted, the package is added without maintainers.
+When omitted, the package is added without maintainers. Pass `--neovim` when the Lua package should also be exposed in the `vimPlugins` set.
+
+The `manual` column in `luarocks-packages.csv` is reserved for package metadata that the updater needs, but whose Lua derivation is maintained outside `generated-packages.nix`. Rows marked `manual=true` are omitted from that generated file.
 
 [luarocks2nix](https://github.com/nix-community/luarocks) is a tool capable of generating nix derivations from both rockspec and src.rock (and favors the src.rock).
 The automation only goes so far though and some packages need to be customized.

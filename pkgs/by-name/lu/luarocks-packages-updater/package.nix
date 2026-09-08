@@ -45,6 +45,15 @@ python3Packages.buildPythonApplication {
     python3Packages.nixpkgs-plugin-update
   ];
 
+  nativeCheckInputs = [
+    python3Packages.pytestCheckHook
+  ];
+
+  preCheck = ''
+    export NIXPKGS_LUAROCKS_PACKAGES=${../../../../maintainers/scripts/luarocks-packages.csv}
+    export NIXPKGS_NEOVIM_PLUGINS=${../../../applications/editors/vim/plugins/luaPackagePlugins.nix}
+  '';
+
   postFixup = ''
     wrapProgram $out/bin/luarocks-packages-updater \
      --prefix PATH : "${path}"

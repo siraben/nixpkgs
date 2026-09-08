@@ -165,9 +165,16 @@ For instance:
   rtp-nvim = neovimUtils.buildNeovimPlugin { luaAttr = luaPackages.rtp-nvim; };
 }
 ```
-To update these packages, you should use the lua updater rather than vim's.
+To update these packages, you should use the Lua updater rather than Vim's.
 
-To add a lua package to the `vimPlugins` set, add it to the `luarocksPackageNames` list in [luaPackagePlugins.nix](https://github.com/nixos/nixpkgs/blob/master/pkgs/applications/editors/vim/plugins/luaPackagePlugins.nix).
+To add a LuaRocks package and expose it in the `vimPlugins` set, run:
+
+```sh
+nix-shell -p luarocks-packages-updater
+luarocks-packages-updater add --neovim [--maintainers "<maintainer>"] <package-name>
+```
+
+The `neovim` column in [luarocks-packages.csv](https://github.com/NixOS/nixpkgs/blob/master/maintainers/scripts/luarocks-packages.csv) is the source of truth for this mapping. The updater derives [luaPackagePlugins.nix](https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/editors/vim/plugins/luaPackagePlugins.nix) from it.
 
 ## Treesitter {#neovim-plugin-treesitter}
 

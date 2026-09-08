@@ -1,3 +1,8 @@
+/*
+  pkgs/applications/editors/vim/plugins/luaPackagePlugins.nix is an auto-generated file -- DO NOT EDIT!
+  Regenerate it with: nix run nixpkgs#luarocks-packages-updater
+  Mark packages in maintainers/scripts/luarocks-packages.csv with neovim=true to expose them as Vim plugins.
+*/
 {
   lib,
   buildNeovimPlugin,
@@ -8,7 +13,6 @@ let
   luaPackages = neovim-unwrapped.lua.pkgs;
 
   luarocksPackageNames = [
-    # # keep-sorted start case=no
     "canola-nvim"
     "fidget-nvim"
     "fzf-lua"
@@ -49,7 +53,6 @@ let
     "rustaceanvim"
     "telescope-manix"
     "telescope-nvim"
-    # keep-sorted end
   ];
 in
 lib.genAttrs luarocksPackageNames (

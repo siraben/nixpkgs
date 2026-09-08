@@ -18,6 +18,7 @@ import textwrap
 from dataclasses import dataclass
 from multiprocessing.dummy import Pool
 from pathlib import Path
+from typing import ClassVar
 
 import nixpkgs_plugin_update  # type: ignore
 from nixpkgs_plugin_update import FetchConfig, Redirects, commit, retry, update_plugins
@@ -25,7 +26,7 @@ from nixpkgs_plugin_update import FetchConfig, Redirects, commit, retry, update_
 
 class ColoredFormatter(logging.Formatter):
     # Define color codes
-    COLORS = {
+    COLORS: ClassVar = {
         "DEBUG": "\033[94m",  # Blue
         "INFO": "\033[92m",  # Green
         "WARNING": "\033[93m",  # Yellow
@@ -50,13 +51,32 @@ ROOT = Path(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe
 PKG_LIST = "maintainers/scripts/luarocks-packages.csv"
 TMP_FILE = "$(mktemp)"
 GENERATED_NIXFILE = "pkgs/development/lua-modules/generated-packages.nix"
+NEOVIM_PLUGINS_NIXFILE = "pkgs/applications/editors/vim/plugins/luaPackagePlugins.nix"
+CSV_FIELDNAMES = [
+    "name",
+    "rockspec",
+    "ref",
+    "server",
+    "version",
+    "luaversion",
+    "maintainers",
+    "neovim",
+    "manual",
+]
 
-HEADER = """/*
+HEADER = f"""/*
   {GENERATED_NIXFILE} is an auto-generated file -- DO NOT EDIT!
   Regenerate it with: nix run nixpkgs#luarocks-packages-updater
   You can customize the generated packages in pkgs/development/lua-modules/overrides.nix
 */
-""".format(GENERATED_NIXFILE=GENERATED_NIXFILE)
+"""
+
+NEOVIM_PLUGINS_HEADER = f"""/*
+  {NEOVIM_PLUGINS_NIXFILE} is an auto-generated file -- DO NOT EDIT!
+  Regenerate it with: nix run nixpkgs#luarocks-packages-updater
+  Mark packages in {PKG_LIST} with neovim=true to expose them as Vim plugins.
+*/
+"""
 
 FOOTER = (
     textwrap.dedent("""
@@ -124,10 +144,104 @@ class LuaPlugin:
     """lua version if a package is available only for a specific lua version"""
     maintainers: str | None
     """Optional string listing maintainers separated by spaces"""
+    neovim: bool
+    """Whether to expose the Lua package in vimPlugins"""
+    manual: bool
+    """Whether the Lua package is maintained outside generated-packages.nix"""
 
     @property
     def normalized_name(self) -> str:
         return self.name.replace(".", "-")
+
+
+def parse_csv_bool(value: str, *, default: bool, field: str, package: str) -> bool:
+    if value == "":
+        return default
+    if value == "true":
+        return True
+    if value == "false":
+        return False
+    raise ValueError(f"Invalid {field} value for {package}: {value!r}; expected true, false, or an empty value")
+
+
+def load_package_specs(input_file: str | Path) -> list[LuaPlugin]:
+    log.info("Loading package descriptions from %s", input_file)
+
+    with open(input_file, newline="") as csvfile:
+        reader = csv.DictReader(csvfile)
+        if reader.fieldnames != CSV_FIELDNAMES:
+            raise ValueError(f"Unexpected CSV columns: {reader.fieldnames!r}; expected {CSV_FIELDNAMES!r}")
+
+        packages = []
+        normalized_names = set()
+        for row in reader:
+            name = row["name"]
+            plugin = LuaPlugin(
+                name=name,
+                rockspec=row["rockspec"],
+                ref=row["ref"] or None,
+                server=row["server"] or None,
+                version=row["version"] or None,
+                luaversion=row["luaversion"] or None,
+                maintainers=row["maintainers"] or None,
+                neovim=parse_csv_bool(row["neovim"], default=False, field="neovim", package=name),
+                manual=parse_csv_bool(row["manual"], default=False, field="manual", package=name),
+            )
+            if plugin.normalized_name in normalized_names:
+                raise ValueError(f"Duplicate normalized package name: {plugin.normalized_name}")
+            normalized_names.add(plugin.normalized_name)
+            packages.append(plugin)
+
+    return packages
+
+
+def generated_package_specs(specs: list[LuaPlugin]) -> list[LuaPlugin]:
+    return [spec for spec in specs if not spec.manual]
+
+
+def render_neovim_plugins(specs: list[LuaPlugin]) -> str:
+    names = sorted((spec.normalized_name for spec in specs if spec.neovim), key=str.lower)
+    quoted_names = "\n".join(f'    "{name}"' for name in names)
+    return (
+        NEOVIM_PLUGINS_HEADER
+        + """{
+  lib,
+  buildNeovimPlugin,
+  neovim-unwrapped,
+}:
+final: prev:
+let
+  luaPackages = neovim-unwrapped.lua.pkgs;
+
+  luarocksPackageNames = [
+"""
+        + quoted_names
+        + """
+  ];
+in
+lib.genAttrs luarocksPackageNames (
+  name:
+  buildNeovimPlugin {
+    luaAttr = luaPackages.${name};
+  }
+)
+"""
+    )
+
+
+def write_neovim_plugins(specs: list[LuaPlugin], outfilename: str | Path) -> None:
+    output = Path(outfilename)
+    rendered = render_neovim_plugins(specs)
+    if output.exists() and output.read_text() == rendered:
+        return
+
+    with tempfile.NamedTemporaryFile("w+") as f:
+        f.write(rendered)
+        f.flush()
+        shutil.copy(f.name, output)
+
+    print(f"updated {output}")
+    subprocess.run(["nixfmt", str(output)], check=True)
 
 
 def extract_version(nix_expr: str) -> str | None:
@@ -189,24 +303,17 @@ class LuaEditor(nixpkgs_plugin_update.Editor):
             default="",
             help="Space-separated nixpkgs maintainer names to add to each package",
         )
+        parser.add_argument(
+            "--neovim",
+            action="store_true",
+            help="Expose the Lua package in vimPlugins",
+        )
 
     def get_current_plugins(self, _config: FetchConfig, _nixpkgs: str):
         return []
 
     def load_plugin_spec(self, _config: FetchConfig, input_file) -> list[LuaPlugin]:
-        luaPackages = []
-        csvfilename = input_file
-        log.info("Loading package descriptions from %s", csvfilename)
-
-        with open(csvfilename, newline="") as csvfile:
-            reader = csv.DictReader(
-                csvfile,
-            )
-            for row in reader:
-                # name,server,version,luaversion,maintainers
-                plugin = LuaPlugin(**row)
-                luaPackages.append(plugin)
-        return luaPackages
+        return load_package_specs(input_file)
 
     def update(self, args):
         if args.no_commit:
@@ -215,7 +322,7 @@ class LuaEditor(nixpkgs_plugin_update.Editor):
 
         fetch_config = FetchConfig(args.proc, args.github_token)
         specs = self.load_plugin_spec(fetch_config, args.input_file)
-        specs = sorted(specs, key=lambda v: v.name.lower())
+        specs = sorted(generated_package_specs(specs), key=lambda v: v.name.lower())
 
         if args.update_only:
             specs = [p for p in specs if p.normalized_name in args.update_only or p.name in args.update_only]
@@ -240,7 +347,11 @@ class LuaEditor(nixpkgs_plugin_update.Editor):
                 else:
                     msg = f"{self.attr_path}.{name}: {old_ver} -> {new_ver}"
 
-                commit_files(self.nixpkgs_repo, msg, [args.outfile])
+                commit_files(
+                    self.nixpkgs_repo,
+                    msg,
+                    [args.outfile, Path(NEOVIM_PLUGINS_NIXFILE), args.input_file],
+                )
 
     def generate_nix(self, results: list[tuple[LuaPlugin, str]], outfilename: str):
         with tempfile.NamedTemporaryFile("w+") as f:
@@ -326,7 +437,6 @@ class LuaEditor(nixpkgs_plugin_update.Editor):
         if not args.add_plugins:
             return
 
-        fieldnames = ["name", "rockspec", "ref", "server", "version", "luaversion", "maintainers"]
         fetch_config = FetchConfig(args.proc, args.github_token)
 
         for plugin_name in args.add_plugins:
@@ -345,18 +455,20 @@ class LuaEditor(nixpkgs_plugin_update.Editor):
                 "version": "",
                 "luaversion": "",
                 "maintainers": args.maintainers,
+                "neovim": "true" if args.neovim else "",
+                "manual": "",
             }
             existing_entries.append(new_entry)
 
             existing_entries.sort(key=lambda x: x["name"].lower())
 
             with open(self.default_in, "w", newline="") as csvfile:
-                writer = csv.DictWriter(csvfile, fieldnames=fieldnames, lineterminator="\n")
+                writer = csv.DictWriter(csvfile, fieldnames=CSV_FIELDNAMES, lineterminator="\n")
                 writer.writeheader()
                 writer.writerows(existing_entries)
 
             update = self.get_update(str(self.default_in), str(args.outfile), fetch_config, to_update=[plugin_name])
-            redirects, updated_plugins = update()
+            _redirects, updated_plugins = update()
 
             if not args.no_commit and updated_plugins:
                 for name, old_ver, new_ver in updated_plugins:
@@ -365,7 +477,11 @@ class LuaEditor(nixpkgs_plugin_update.Editor):
                     else:
                         msg = f"{self.attr_path}.{name}: {old_ver} -> {new_ver}"
 
-                    commit(self.nixpkgs_repo, msg, [args.outfile, self.default_in])
+                    commit(
+                        self.nixpkgs_repo,
+                        msg,
+                        [args.outfile, Path(NEOVIM_PLUGINS_NIXFILE), self.default_in],
+                    )
 
     def get_update(
         self,
@@ -376,7 +492,7 @@ class LuaEditor(nixpkgs_plugin_update.Editor):
     ):
         def update() -> tuple[Redirects, list[tuple[str, str, str]]]:
             all_plugin_specs = self.load_plugin_spec(config, input_file)
-            sorted_all_specs = sorted(all_plugin_specs, key=lambda v: v.name.lower())
+            sorted_all_specs = sorted(generated_package_specs(all_plugin_specs), key=lambda v: v.name.lower())
 
             specs_to_process = sorted_all_specs
             if to_update:
@@ -436,6 +552,7 @@ class LuaEditor(nixpkgs_plugin_update.Editor):
                     track_version_change(plug, final_expr, old_versions, updated_plugins)
 
             self.generate_nix(successful_results, output_file)
+            write_neovim_plugins(all_plugin_specs, NEOVIM_PLUGINS_NIXFILE)
 
             if errors:
                 log.error("The following plugins failed to update:")
@@ -501,7 +618,7 @@ def generate_pkg_nix(plug: LuaPlugin):
 
         if plug.rockspec != "":
             if plug.ref or plug.version:
-                msg = "'version' and 'ref' will be ignored as the rockspec is hardcoded for package %s" % plug.name
+                msg = f"'version' and 'ref' will be ignored as the rockspec is hardcoded for package {plug.name}"
                 log.warning(msg)
 
             log.debug("Updating from rockspec %s", plug.rockspec)
