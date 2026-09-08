@@ -245,7 +245,7 @@ buildGoModule (finalAttrs: {
   '';
 
   passthru.tests = {
-    inherit (nixosTests) headscale;
+    inherit (nixosTests) headscale tailscale;
     inherit tailscale-nginx-auth;
     tests = finalAttrs.finalPackage.overrideAttrs { doCheck = true; };
   };
