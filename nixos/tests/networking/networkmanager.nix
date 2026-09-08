@@ -31,6 +31,18 @@ let
       -subj "/CN=client1.example.com"
     openssl x509 -req -in client1.csr -CA $out/ca.cert -CAkey $out/ca.key \
       -days 365000 -set_serial 101 -out $out/client1.cert
+
+    # The system CA bundle is larger than 64 KiB and contains many certificates.
+    # Put the CA needed by the EAP server last to ensure the whole bundle is used.
+    openssl genrsa -out unrelated-ca.key 2048
+    : > $out/ca-bundle.cert
+    for serial in $(seq 1 64); do
+      openssl req -x509 -new -key unrelated-ca.key -days 365000 \
+        -set_serial "$serial" -subj "/CN=Unrelated CA $serial" \
+        >> $out/ca-bundle.cert
+    done
+    cat $out/ca.cert >> $out/ca-bundle.cert
+    test "$(stat --format=%s $out/ca-bundle.cert)" -gt 65536
   '';
   eapWifiSsid = "NixOS EAP";
   vwifiPort = 8212;
@@ -228,7 +240,7 @@ let
               "802-1x" = {
                 eap = "tls";
                 identity = "client1.example.com";
-                ca-cert = toBase64Blob "${eapCerts}/ca.cert";
+                ca-cert = toBase64Blob "${eapCerts}/ca-bundle.cert";
                 client-cert = toBase64Blob "${eapCerts}/client1.cert";
                 private-key = toBase64Blob "${eapCerts}/client1.key";
                 private-key-password-flags = "4";
@@ -244,12 +256,20 @@ let
         };
 
         testScript = ''
+          from datetime import timedelta
+
           start_all()
           client.wait_for_unit("NetworkManager.service")
           router.wait_for_unit("freeradius.service")
           router.wait_for_unit("hostapd.service")
-          router.wait_until_succeeds("journalctl -b --unit freeradius.service --grep='Sent Access-Accept'")
-          router.wait_until_succeeds("journalctl -b --unit freeradius.service --grep='TLS-Client-Cert-Common-Name = \"client1.example.com\"'")
+          router.wait_until_succeeds(
+              "journalctl -b --unit freeradius.service --grep='Sent Access-Accept'",
+              timeout=timedelta(seconds=30),
+          )
+          router.wait_until_succeeds(
+              "journalctl -b --unit freeradius.service --grep='TLS-Client-Cert-Common-Name = \"client1.example.com\"'",
+              timeout=timedelta(seconds=30),
+          )
         '';
       };
     eapFiles = {

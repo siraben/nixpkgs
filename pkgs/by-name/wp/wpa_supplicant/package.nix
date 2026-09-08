@@ -44,6 +44,11 @@ stdenv.mkDerivation (finalAttrs: {
       url = "https://git.w1.fi/cgit/hostap/patch/?id=1ce37105da371c8b9cf3f349f78f5aac77d40836";
       hash = "sha256-leCk0oexNBZyVK5Q5gR4ZcgWxa0/xt/aU+DssTa0UwE=";
     })
+    (fetchpatch {
+      name = "support-pem-encoded-chain-from-ca-cert-blob.patch";
+      url = "https://w1.fi/cgit/hostap/patch/?id=9bb25b01fe843924113883a93236d43bb77d4cb1";
+      hash = "sha256-JXHyUZz7kljnFyCOaf4wE9rjK3HX90tAPC1SyAXrxr8=";
+    })
     ./unsurprising-ext-password.patch
     ./multiple-configs.patch
   ]
