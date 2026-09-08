@@ -198,6 +198,35 @@ let
       runHook postBuild
     '';
 
+    doCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
+
+    checkPhase = ''
+      runHook preCheck
+
+      test_src=${./wemeet-camera-fix-test.c}
+      $CC $CFLAGS -Wall -Wextra -fPIC -shared \
+        -DTEST_BACKEND -o libcamera-test-backend.so "$test_src"
+      $CC $CFLAGS -Wall -Wextra -fPIC -shared \
+        -DTEST_CALLER -fno-optimize-sibling-calls \
+        -Wl,-soname,libxcast.so -o libxcast.so "$test_src" -lEGL
+      $CC $CFLAGS -Wall -Wextra -fPIC -shared \
+        -DTEST_CALLER -fno-optimize-sibling-calls \
+        -Wl,-soname,libother.so -o libother.so "$test_src" -lEGL
+      $CC $CFLAGS -Wall -Wextra -DTEST_MAIN \
+        -o camera-test "$test_src" -ldl
+
+      LD_PRELOAD="$PWD/libcamera-test-backend.so" \
+        ./camera-test "$PWD/libxcast.so" passthrough
+      env XDG_SESSION_TYPE=wayland WAYLAND_DISPLAY=wayland-test \
+        LD_PRELOAD="$PWD/libwemeet-camera-fix.so:$PWD/libcamera-test-backend.so" \
+        ./camera-test "$PWD/libxcast.so" forced
+      env XDG_SESSION_TYPE=wayland WAYLAND_DISPLAY=wayland-test \
+        LD_PRELOAD="$PWD/libwemeet-camera-fix.so:$PWD/libcamera-test-backend.so" \
+        ./camera-test "$PWD/libother.so" passthrough
+
+      runHook postCheck
+    '';
+
     installPhase = ''
       runHook preInstall
 
@@ -207,7 +236,7 @@ let
     '';
 
     meta = {
-      description = "Fix for WeMeet Wayland camera preview rendering";
+      description = "Workaround for WeMeet camera crashes on Wayland";
       license = lib.licenses.mit;
     };
   };
