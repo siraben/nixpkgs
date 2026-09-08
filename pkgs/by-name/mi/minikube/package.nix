@@ -1,9 +1,11 @@
 {
   lib,
   stdenv,
+  buildEnv,
   buildGoModule,
   fetchFromGitHub,
   installShellFiles,
+  kubectl,
   pkg-config,
   which,
   libvirt,
@@ -109,11 +111,24 @@ buildGoModule (finalAttrs: {
   versionCheckProgramArg = "version";
   doInstallCheck = true;
 
+  passthru.tests.kubectl-build-env = buildEnv {
+    name = "minikube-kubectl-build-env";
+    paths = [
+      kubectl
+      finalAttrs.finalPackage
+    ];
+    postBuild = ''
+      test "$(readlink "$out/bin/kubectl")" = "${lib.getExe kubectl}"
+    '';
+  };
+
   meta = {
     homepage = "https://minikube.sigs.k8s.io";
     description = "Tool that makes it easy to run Kubernetes locally";
     mainProgram = "minikube";
     license = lib.licenses.asl20;
+    # Prefer the standalone kubectl over minikube's convenience symlink.
+    priority = (kubectl.meta.priority or lib.meta.defaultPriority) + 1;
     maintainers = with lib.maintainers; [
       vdemeester
       atkinschang
