@@ -13,7 +13,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchFromGitHub {
     owner = "OCamlPro";
-    repo = finalAttrs.pname;
+    repo = "ocplib-simplex";
     rev = "v${finalAttrs.version}";
     hash = "sha256-bhlTBpJg031x2lUjwuVrhQgOGmDLW/+0naN8wRjv6i4=";
   };

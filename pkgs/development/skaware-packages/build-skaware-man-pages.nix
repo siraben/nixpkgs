@@ -11,16 +11,19 @@ lib.extendMkDerivation {
     "maintainers"
     "license"
     "owner"
+    "repo"
     "rev"
   ];
   extendDrvArgs =
     finalAttrs:
     {
+      pname,
       sha256,
       description,
       maintainers,
       license ? lib.licenses.isc,
       owner ? "~humm",
+      repo ? pname,
       rev ? "v${finalAttrs.version}",
       meta ? { },
       ...
@@ -28,8 +31,12 @@ lib.extendMkDerivation {
     let
       manDir = "${placeholder "out"}/share/man";
       src = fetchFromSourcehut {
-        inherit owner rev sha256;
-        repo = finalAttrs.pname;
+        inherit
+          owner
+          repo
+          rev
+          sha256
+          ;
       };
     in
     {

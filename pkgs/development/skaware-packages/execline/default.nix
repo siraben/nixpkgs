@@ -23,6 +23,7 @@ skawarePackages.buildPackage {
   manpages = skawarePackages.buildManPages {
     pname = "execline-man-pages";
     version = "2.9.9.1.1";
+    repo = "execline-man-pages";
     sha256 = "sha256-SMQLeiS03fW9HGDmk+MMfUbnvRGqTzXc/4CuS5LW18U=";
     description = "Port of the documentation for the execline suite to mdoc";
     maintainers = [ lib.maintainers.sternenseemann ];

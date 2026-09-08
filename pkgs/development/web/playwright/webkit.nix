@@ -64,7 +64,7 @@ let
       version = "1.12.0";
       src = fetchFromGitHub {
         owner = "webmproject";
-        repo = finalAttrs.pname;
+        repo = "libvpx";
         rev = "v${finalAttrs.version}";
         sha256 = "sha256-9SFFE2GfYYMgxp1dpmL3STTU2ea1R5vFKA1L0pZwIvQ=";
       };

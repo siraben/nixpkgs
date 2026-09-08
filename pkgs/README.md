@@ -552,6 +552,10 @@ Other fetchers which end up relying on `fetchurl` may also support mirroring.
 
 The preferred source hash type is `sha256`.
 
+A source forge's `repo` attribute _must not_ refer to `finalAttrs.pname`.
+The package name and the upstream repository name are independent: overriding `pname` must not change which repository is fetched.
+Use a string literal for a fixed upstream repository name, or a dedicated build-helper argument when the repository is configurable.
+
 Examples going from bad to best practices:
 
 - Bad: Uses `git://` which won't be proxied.

@@ -17,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchFromGitHub {
     owner = "KDAB";
-    repo = finalAttrs.pname;
+    repo = "gammaray";
     tag = "v${finalAttrs.version}";
     hash = "sha256-sxzYp6+x06cb67f+Mi2hc4kGhYGvIctLGJdjjyGTrjs=";
   };

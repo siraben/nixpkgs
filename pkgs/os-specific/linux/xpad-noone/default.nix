@@ -13,7 +13,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchFromGitHub {
     owner = "medusalix";
-    repo = finalAttrs.pname;
+    repo = "xpad-noone";
     tag = "c3d1610";
     hash = "sha256-jDRyvbU9GsnM1ARTuwnoD7ZXlfBxne13UpSKRo7HHSY=";
   };

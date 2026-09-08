@@ -18,7 +18,7 @@ buildGoModule (finalAttrs: {
 
   src = fetchFromGitHub {
     owner = "getsops";
-    repo = finalAttrs.pname;
+    repo = "sops";
     tag = "v${finalAttrs.version}";
     hash = "sha256-TLThUgoJKcqqzQBIPzXLK+4VznMEf1wEkDUbz2pijiE=";
   };

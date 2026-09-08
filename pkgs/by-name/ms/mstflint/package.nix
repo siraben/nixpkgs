@@ -31,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchFromGitHub {
     owner = "Mellanox";
-    repo = finalAttrs.pname;
+    repo = "mstflint";
     tag = "v${finalAttrs.version}";
     hash = "sha256-E6Z/MkDdWH9jQFB/fFPsEz4kxU6DCGnO/4DU6RPu7dM=";
   };

@@ -13,6 +13,7 @@ skawarePackages.buildPackage {
   manpages = skawarePackages.buildManPages {
     pname = "s6-man-pages";
     version = "2.14.0.1.4";
+    repo = "s6-man-pages";
     sha256 = "sha256-c77NwS4x5L1nLmtWVz64izzanTfc0hohvFMOi77uMh4=";
     description = "Port of the documentation for the s6 supervision suite to mdoc";
     maintainers = [ lib.maintainers.sternenseemann ];

@@ -10,7 +10,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchFromGitHub {
     owner = "diegonehab";
-    repo = finalAttrs.pname;
+    repo = "rply";
     rev = "v${finalAttrs.version}";
     hash = "sha256-WkUgb6WeYp1OpV3/+EcEJkxEXYP0e7inQZQM87tGOGo=";
   };

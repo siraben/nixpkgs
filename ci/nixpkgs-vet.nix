@@ -57,5 +57,13 @@ runCommand "nixpkgs-vet"
       exit 1
     fi
 
+    badFinalAttrsPnameRepos=$(find ${filteredHead}/pkgs -type f -name '*.nix' -exec grep -lEz 'repo[[:space:]]*=[[:space:]]*finalAttrs\.pname[[:space:]]*;' {} + || true)
+    if [[ -n $badFinalAttrsPnameRepos ]]; then
+      echo 'Source repository names must not refer to finalAttrs.pname.'
+      echo 'The offending files:'
+      echo "$badFinalAttrsPnameRepos"
+      exit 1
+    fi
+
     touch $out
   ''

@@ -35,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchFromGitHub {
     owner = "tpm2-software";
-    repo = finalAttrs.pname;
+    repo = "tpm2-tss";
     rev = finalAttrs.version;
     hash = "sha256-MNrVKoA2sW3wKaQsq27UtakzdKmfirtDCoPWu0EEndw=";
   };
