@@ -45,10 +45,14 @@ makePythonHook {
       # * Sets argv[0] to the original application's name; otherwise it would be .foo-wrapped.
       #   Python doesn't support `exec -a`.
       # * Adds all required libraries to sys.path via `site.addsitedir`. It also handles *.pth files.
+      # * Removes wrapper-provided user-site controls after interpreter startup so they do not leak.
       preamble = ''
         import sys
         import site
+        import os
         import functools
+        nix_no_user_site = os.environ.pop("NIX_PYTHONNOUSERSITE", None)
+        nix_no_user_site is not None and os.environ.get("PYTHONNOUSERSITE") == nix_no_user_site and os.environ.pop("PYTHONNOUSERSITE")
         sys.argv[0] = '"'$(readlink -f "$f")'"'
         functools.reduce(lambda k, p: site.addsitedir(p, k), ['"$([ -n "$program_PYTHONPATH" ] && (echo "'$program_PYTHONPATH'" | sed "s|:|','|g") || true)"'], site._init_pathinfo())
       '';

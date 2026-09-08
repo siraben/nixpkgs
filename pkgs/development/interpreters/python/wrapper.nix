@@ -51,9 +51,9 @@ let
                   makeWrapper "${python.interpreter}" "$out/bin/$prg" \
                     --inherit-argv0 \
                     --resolve-argv0 \
-                    ${lib.optionalString (!permitUserSite) ''--set PYTHONNOUSERSITE "true"''} \
+                    ${lib.optionalString (!permitUserSite) ''--add-flag "-s"''} \
                     ${lib.concatStringsSep " " makeWrapperArgs}
-                elif [ "$(readlink "$prg")" = "${python.executable}" ]; then
+                elif [ "$(readlink -f "$prg")" = "${python.interpreter}" ]; then
                   ln -s "${python.executable}" "$out/bin/$prg"
                 else
                   makeWrapper "$path/bin/$prg" "$out/bin/$prg" \
@@ -61,6 +61,7 @@ let
                     --set NIX_PYTHONEXECUTABLE ${pythonExecutable} \
                     --set NIX_PYTHONPATH ${pythonPath} \
                     ${lib.optionalString (!permitUserSite) ''--set PYTHONNOUSERSITE "true"''} \
+                    ${lib.optionalString (!permitUserSite) ''--set NIX_PYTHONNOUSERSITE "true"''} \
                     ${lib.concatStringsSep " " makeWrapperArgs}
                 fi
               fi

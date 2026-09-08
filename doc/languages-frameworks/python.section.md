@@ -166,8 +166,7 @@ following are specific to `buildPythonPackage`:
 * `disabled ? false`: If `true`, package is not built for the particular Python
   interpreter version.
 * `dontWrapPythonPrograms ? false`: Skip wrapping of Python programs.
-* `permitUserSite ? false`: Skip setting the `PYTHONNOUSERSITE` environment
-  variable in wrapped programs.
+* `permitUserSite ? false`: Allow Python user site-packages in wrapped programs.
 * `pyproject`: Whether the pyproject format should be used. As all other formats
   are deprecated, you are recommended to set this to `true`. When you do so,
   `pypaBuildHook` will be used, and you can add the required build dependencies
@@ -509,8 +508,8 @@ specified packages in its path.
 * `extraLibs`: List of packages installed inside the environment.
 * `postBuild`: Shell command executed after the build of environment.
 * `ignoreCollisions`: Ignore file collisions inside the environment (default is `false`).
-* `permitUserSite`: Skip setting the `PYTHONNOUSERSITE` environment variable in
-  wrapped binaries in the environment.
+* `permitUserSite`: Allow Python user site-packages in wrapped programs in the
+  environment.
 
 #### `python.withPackages` function {#python.withpackages-function}
 

@@ -77,6 +77,7 @@ wrapPythonProgramsIn() {
 
                     if [ -z "$permitUserSite" ]; then
                         wrap_args+=(--set PYTHONNOUSERSITE "true")
+                        wrap_args+=(--set NIX_PYTHONNOUSERSITE "true")
                     fi
 
                     # Add any additional arguments provided by makeWrapperArgs

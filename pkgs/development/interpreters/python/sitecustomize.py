@@ -10,12 +10,17 @@ will be added before the entries we add here and thus take precedence.
 Note the `NIX_PYTHONPATH` environment variable is unset in order to prevent leakage.
 
 Similarly, this module listens to the environment variable `NIX_PYTHONEXECUTABLE`
-and sets `sys.executable` to its value.
+and sets `sys.executable` to its value. `NIX_PYTHONNOUSERSITE` identifies a
+wrapper-provided `PYTHONNOUSERSITE`, which is removed after Python has used it.
 """
 import site
 import sys
 import os
 import functools
+
+nix_no_user_site = os.environ.pop('NIX_PYTHONNOUSERSITE', None)
+if nix_no_user_site is not None and os.environ.get('PYTHONNOUSERSITE') == nix_no_user_site:
+    os.environ.pop('PYTHONNOUSERSITE')
 
 paths = os.environ.pop('NIX_PYTHONPATH', None)
 if paths:

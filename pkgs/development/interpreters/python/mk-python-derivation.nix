@@ -181,7 +181,7 @@ lib.extendMkDerivation {
       # It's included here to prevent an infinite recursion.
       dontUsePipInstall ? false,
 
-      # Skip setting the PYTHONNOUSERSITE environment variable in wrapped programs
+      # Allow Python user site-packages in wrapped programs
       permitUserSite ? false,
 
       # Remove bytecode from bin folder.
