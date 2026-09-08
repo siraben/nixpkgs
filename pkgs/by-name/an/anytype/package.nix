@@ -19,9 +19,18 @@
   makeDesktopItem,
   copyDesktopItems,
   writableTmpDirAsHomeHook,
+  writeShellApplication,
+  callPackage,
   commandLineArgs ? "",
 }:
 
+let
+  migrateDesktopEntry = writeShellApplication {
+    name = "anytype-migrate-desktop-entry";
+    runtimeInputs = [ coreutils ];
+    text = builtins.readFile ./migrate-desktop-entry.sh;
+  };
+in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "anytype";
   version = "0.56.5";
@@ -191,7 +200,11 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
     cp LICENSE.md $out/share
 
+    mkdir -p $out/libexec
+    ln -s ${lib.getExe migrateDesktopEntry} $out/libexec/anytype-migrate-desktop-entry
+
     makeWrapper '${lib.getExe electron}' $out/bin/anytype \
+      --run "$out/libexec/anytype-migrate-desktop-entry || true" \
       --set-default ELECTRON_IS_DEV 0 \
       --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}}" \
       --add-flags $out/lib/anytype/ \
@@ -203,25 +216,46 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "anytype";
-      exec = "anytype %U";
-      icon = "anytype";
-      desktopName = "Anytype";
-      comment = finalAttrs.meta.description;
-      mimeTypes = [ "x-scheme-handler/anytype" ];
-      categories = [
-        "Utility"
-        "Office"
-        "Calendar"
-        "ProjectManagement"
+  # A legacy user-local anytype.desktop can shadow this package. Keep that
+  # desktop ID as a hidden compatibility alias and use the app ID for the
+  # visible launcher.
+  desktopItems =
+    map
+      (
+        {
+          name,
+          noDisplay ? null,
+        }:
+        makeDesktopItem {
+          inherit name noDisplay;
+          exec = "anytype %U";
+          icon = "anytype";
+          desktopName = "Anytype";
+          comment = finalAttrs.meta.description;
+          mimeTypes = [ "x-scheme-handler/anytype" ];
+          categories = [
+            "Utility"
+            "Office"
+            "Calendar"
+            "ProjectManagement"
+          ];
+          startupWMClass = "anytype";
+        }
+      )
+      [
+        { name = "com.anytype.anytype"; }
+        {
+          name = "anytype";
+          noDisplay = true;
+        }
       ];
-      startupWMClass = "anytype";
-    })
-  ];
 
-  passthru.updateScript = ./update.sh;
+  passthru = {
+    updateScript = ./update.sh;
+    tests.desktop-entry = callPackage ./tests/desktop-entry.nix {
+      package = finalAttrs.finalPackage;
+    };
+  };
 
   meta = {
     description = "P2P note-taking tool";
