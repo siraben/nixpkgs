@@ -1,0 +1,71 @@
+#!/bin/sh
+set -eu
+
+export BUNDLE_WITHOUT=test
+
+# Erubis cannot process BeEF's JavaScript templates with an ASCII locale.
+effective_locale="${LC_ALL:-${LC_CTYPE:-${LANG:-}}}"
+case "$effective_locale" in
+  *[Uu][Tt][Ff]8* | *[Uu][Tt][Ff]-8*) ;;
+  *)
+    export LANG=C.UTF-8
+    export LC_ALL=C.UTF-8
+    ;;
+esac
+
+# Help only needs the immutable program tree and should not create user state.
+case "${1-}" in
+  -h|--help)
+    exec @ruby@ @app@/beef "$@"
+    ;;
+esac
+
+: "${HOME:?HOME must be set}"
+
+state_dir="${BEEF_XSS_STATE_DIR:-${XDG_STATE_HOME:-$HOME/.local/state}/beef-xss}"
+config_dir="${BEEF_XSS_CONFIG_DIR:-${XDG_CONFIG_HOME:-$HOME/.config}/beef-xss}"
+runtime_dir="$state_dir/runtime-@version@"
+config_file="$config_dir/config.yaml"
+marker="$runtime_dir/.nix-beef-xss-@version@"
+
+# BeEF generates assets and payloads below its application root, so it cannot
+# run directly from the read-only Nix store. Create an atomic, versioned,
+# user-writable runtime copy on first use.
+if [ ! -f "$marker" ]; then
+  @mkdir@ -p "$state_dir"
+  tmp_dir="$(@mktemp@ -d "$state_dir/.runtime-@version@.XXXXXX")"
+  trap '@rm@ -rf "$tmp_dir"' EXIT HUP INT TERM
+  @cp@ -a @app@/. "$tmp_dir/"
+  @chmod@ -R u+w "$tmp_dir"
+  : > "$tmp_dir/.nix-beef-xss-@version@"
+
+  if [ ! -e "$runtime_dir" ]; then
+    @mv@ -T "$tmp_dir" "$runtime_dir" 2>/dev/null || true
+  fi
+  if [ -d "$tmp_dir" ]; then
+    @rm@ -rf "$tmp_dir"
+  fi
+  if [ ! -f "$marker" ]; then
+    echo "beef-xss: could not initialize $runtime_dir" >&2
+    exit 1
+  fi
+  trap - EXIT HUP INT TERM
+fi
+
+if [ ! -f "$config_file" ]; then
+  @mkdir@ -p "$config_dir"
+  tmp_config="$(@mktemp@ "$config_dir/.config.yaml.XXXXXX")"
+  trap '@rm@ -f "$tmp_config"' EXIT HUP INT TERM
+  @cp@ @app@/config.yaml "$tmp_config"
+  @chmod@ u+w "$tmp_config"
+  @mv@ "$tmp_config" "$config_file"
+  trap - EXIT HUP INT TERM
+  echo "beef-xss: initialized configuration at $config_file" >&2
+  echo "beef-xss: change the default credentials before starting BeEF" >&2
+fi
+
+cd "$runtime_dir"
+export BEEF_XSS_DATA_DIR="$state_dir"
+export PATH=@runtimePath@${PATH:+:$PATH}
+
+exec @ruby@ ./beef --config "$config_file" "$@"
