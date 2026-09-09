@@ -1,0 +1,8 @@
+diff --git a/third_party/smali/src/main/antlr/smaliParser.g b/third_party/smali/src/main/antlr/smaliParser.g
+index 3a15c10..ccb7cc8 100644
+--- a/third_party/smali/src/main/antlr/smaliParser.g
++++ b/third_party/smali/src/main/antlr/smaliParser.g
+@@ -764 +764,2 @@ register_range
+-  : (startreg=REGISTER (DOTDOT endreg=REGISTER)?)? -> ^(I_REGISTER_RANGE[$start, "I_REGISTER_RANGE"] $startreg? $endreg?);
++  : REGISTER (DOTDOT REGISTER)? -> ^(I_REGISTER_RANGE[$start, "I_REGISTER_RANGE"] REGISTER*)
++  | -> ^(I_REGISTER_RANGE[$start, "I_REGISTER_RANGE"]);
