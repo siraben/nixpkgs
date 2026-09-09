@@ -5,8 +5,9 @@ Converts old aliases to warnings, converts old warnings to throws, and removes o
 Example usage:
 ./maintainers/scripts/remove-old-aliases.py --year 2018 --file ./pkgs/top-level/aliases.nix
 
-Check this file with mypy after every change!
+Check this file with mypy and the unit tests after every change!
 $ mypy --strict maintainers/scripts/remove-old-aliases.py
+$ python3 maintainers/scripts/tests/test_remove_old_aliases.py
 """
 import argparse
 import shutil
@@ -117,11 +118,42 @@ def get_date_lists(
     )
 
 
-def convert(lines: list[str], convert_to: str) -> list[tuple[str, str]]:
+def split_nix_string(value: str) -> tuple[str, str]:
+    """Split a double-quoted Nix string from the expression following it."""
+    if not value.startswith('"'):
+        raise ValueError("expected a double-quoted Nix string")
+
+    escaped = False
+    for index, character in enumerate(value[1:], start=1):
+        if character == '"' and not escaped:
+            return value[: index + 1], value[index + 1 :].strip()
+        if character == "\\":
+            escaped = not escaped
+        else:
+            escaped = False
+
+    raise ValueError("unterminated Nix string")
+
+
+def parse_warn_alias(value: str) -> tuple[str, str]:
+    """Return the message and target from a simple warnAlias application."""
+    prefix = "warnAlias "
+    if not value.startswith(prefix):
+        raise ValueError("expected a warnAlias application")
+
+    message, remainder = split_nix_string(value.removeprefix(prefix).lstrip())
+    replacement, separator, _comment = remainder.partition(";")
+    if not separator or not replacement.strip():
+        raise ValueError("expected a warnAlias target followed by a semicolon")
+    return message, replacement.strip()
+
+
+def convert(lines: list[str], convert_to: str) -> dict[str, str]:
     """convert a list of lines to either "throws" or "warnings"."""
-    converted_lines = {}
+    converted_lines: dict[str, str] = {}
     for line in lines.copy():
         indent: str = " " * (len(line) - len(line.lstrip()))
+        warning_message = None
 
         if "=" not in line:
             assert "inherit (" in line
@@ -138,25 +170,31 @@ def convert(lines: list[str], convert_to: str) -> list[tuple[str, str]]:
             after_equal = ""
             try:
                 before_equal, after_equal = (
-                    x.strip() for x in line.split("=", maxsplit=2)
+                    x.strip() for x in line.split("=", maxsplit=1)
                 )
                 if after_equal.startswith("warnAlias"):
-                    after_equal = after_equal.split("\"", maxsplit=3)[2].strip()
-            except ValueError as err:
+                    warning_message, replacement = parse_warn_alias(after_equal)
+                else:
+                    replacement = next(
+                        x.strip(";:") for x in after_equal.split()
+                    )
+            except (StopIteration, ValueError) as err:
                 print(err, line, "\n")
                 lines.remove(line)
                 continue
 
             alias = before_equal
-            replacement = next(x.strip(";:") for x in after_equal.split())
 
         alias_unquoted = alias.strip('"')
-        replacement = replacement.removeprefix("pkgs.")
 
         if convert_to == "throws":
+            if warning_message is None:
+                warning_message = (
+                    f"\"'{alias_unquoted}' has been renamed to/replaced by"
+                    f" '{replacement}'\""
+                )
             converted = (
-                f"{indent}{alias} = throw \"'{alias_unquoted}' has been"
-                f" renamed to/replaced by '{replacement}'\";"
+                f"{indent}{alias} = throw {warning_message};"
                 f" # Converted to throw {datetime.today().strftime('%Y-%m-%d')}"
             )
             converted_lines[line] = converted
@@ -175,7 +213,7 @@ def convert(lines: list[str], convert_to: str) -> list[tuple[str, str]]:
 
 def generate_text_to_write(
     txt: list[str],
-    converted_lines: dict[str, str],
+    converted_lines: dict[str, str | None],
 ) -> list[str]:
     """generate a list of text to be written to the aliasfile"""
     text_to_write: list[str] = []
@@ -246,7 +284,7 @@ def main() -> None:
         date_older_warning_list,
     ) = get_date_lists(txt, cutoffdate)
 
-    converted_lines: dict[str, str] = {}
+    converted_lines: dict[str, str | None] = {}
 
     if date_older_list and "aliases" in args.operate_on:
         converted_lines.update(convert(date_older_list, "warnings"))
