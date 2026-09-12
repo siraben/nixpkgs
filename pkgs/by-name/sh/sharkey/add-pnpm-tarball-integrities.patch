@@ -1,0 +1,11 @@
+--- a/pnpm-lock.yaml
++++ b/pnpm-lock.yaml
+@@ -1493 +1493 @@
+-    resolution: {tarball: https://github.com/aiscript-dev/aiscript-languageserver/releases/download/0.1.6/aiscript-dev-aiscript-languageserver-0.1.6.tgz}
++    resolution: {integrity: sha512-DBcHPHTeAVthlVi4lR4uFBYQU8AakaTYGMMVecGA8s8jFJPxscjkOgQ8/oOnJTcxbQx71V59ECQcoKahXMKcDw==, tarball: https://github.com/aiscript-dev/aiscript-languageserver/releases/download/0.1.6/aiscript-dev-aiscript-languageserver-0.1.6.tgz}
+@@ -4666 +4666 @@
+-    resolution: {tarball: https://codeload.github.com/aiscript-dev/aiscript-vscode/tar.gz/c3cde89e79a41d93540cf8a48cd619c3f2dcb1b7}
++    resolution: {integrity: sha512-/FSsUbkA8LbNY+6Sv2FFpFWQF8T7jNlVQIBNDUYRQLKqjpDPq0trkT/fu/hacqZ/xhKNOH4Q+e8rxspqQeYaUA==, tarball: https://codeload.github.com/aiscript-dev/aiscript-vscode/tar.gz/c3cde89e79a41d93540cf8a48cd619c3f2dcb1b7}
+@@ -9600 +9600 @@
+-    resolution: {tarball: https://codeload.github.com/misskey-dev/storybook-addon-misskey-theme/tar.gz/cf583db098365b2ccc81a82f63ca9c93bc32b640}
++    resolution: {integrity: sha512-QaH1uZSlApQ2CZPkHfhmNm89I92L02s3MdbUPG66TmAyqMaqzxd/AvobORBjtTZ0ymUSa3ii482dRXi+fFb19w==, tarball: https://codeload.github.com/misskey-dev/storybook-addon-misskey-theme/tar.gz/cf583db098365b2ccc81a82f63ca9c93bc32b640}
