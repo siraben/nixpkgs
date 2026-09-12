@@ -1,0 +1,88 @@
+--- a/out/node-module-collector/moduleManager.js
++++ b/out/node-module-collector/moduleManager.js
+@@ -8,6 +8,7 @@
+ var LogMessageByKey;
+ (function (LogMessageByKey) {
+     LogMessageByKey["PKG_DUPLICATE_REF"] = "duplicate dependency references";
++    LogMessageByKey["PKG_DUPLICATE_REF_UNRESOLVED"] = "unresolved duplicate dependency references";
+     LogMessageByKey["PKG_NOT_FOUND"] = "cannot find path for dependency";
+     LogMessageByKey["PKG_NOT_ON_DISK"] = "dependency not found on disk";
+     LogMessageByKey["PKG_SELF_REF"] = "self-referential dependencies";
+@@ -16,6 +17,7 @@
+ })(LogMessageByKey || (exports.LogMessageByKey = LogMessageByKey = {}));
+ exports.logMessageLevelByKey = {
+     [LogMessageByKey.PKG_DUPLICATE_REF]: "info",
++    [LogMessageByKey.PKG_DUPLICATE_REF_UNRESOLVED]: "warn",
+     [LogMessageByKey.PKG_NOT_FOUND]: "warn",
+     [LogMessageByKey.PKG_NOT_ON_DISK]: "warn",
+     [LogMessageByKey.PKG_SELF_REF]: "debug",
+--- a/out/node-module-collector/pnpmNodeModulesCollector.js
++++ b/out/node-module-collector/pnpmNodeModulesCollector.js
+@@ -1,7 +1,7 @@
+ "use strict";
+ Object.defineProperty(exports, "__esModule", { value: true });
+ exports.PnpmNodeModulesCollector = void 0;
+-const builder_util_1 = require("builder-util");
++const moduleManager_1 = require("./moduleManager");
+ const nodeModulesCollector_1 = require("./nodeModulesCollector");
+ const packageManager_1 = require("./packageManager");
+ class PnpmNodeModulesCollector extends nodeModulesCollector_1.NodeModulesCollector {
+@@ -16,10 +16,22 @@
+         return ["list", "--prod", "--json", "--depth", "Infinity", "--silent", "--loglevel=error"];
+     }
+     async extractProductionDependencyGraph(tree, dependencyId) {
++        var _a;
+         if (this.productionGraph[dependencyId]) {
+             return;
+         }
+         this.productionGraph[dependencyId] = { dependencies: [] };
++        if (((_a = tree.dedupedDependenciesCount) !== null && _a !== void 0 ? _a : 0) > 0) {
++            const realDep = this.allDependencies.get(dependencyId);
++            if (realDep) {
++                this.cache.logSummary[moduleManager_1.LogMessageByKey.PKG_DUPLICATE_REF].push(dependencyId);
++                tree = realDep;
++            }
++            else {
++                this.cache.logSummary[moduleManager_1.LogMessageByKey.PKG_DUPLICATE_REF_UNRESOLVED].push(dependencyId);
++                return;
++            }
++        }
+         const packageName = tree.name || tree.from;
+         const { packageJson } = (await this.cache.locatePackageVersion({ pkgName: packageName, parentDir: this.rootDir, requiredRange: tree.version })) || {};
+         const all = packageJson ? { ...packageJson.dependencies, ...packageJson.optionalDependencies } : { ...tree.dependencies, ...tree.optionalDependencies };
+@@ -35,7 +47,7 @@
+             if (optional[packageName]) {
+                 const pkg = await this.cache.locatePackageVersion({ pkgName: packageName, parentDir: this.rootDir, requiredRange: dependency.version });
+                 if (!pkg) {
+-                    builder_util_1.log.debug({ name: packageName, version: dependency.version, path: dependency.path }, `optional dependency doesn't exist, skipping - likely not installed`);
++                    this.cache.logSummary[moduleManager_1.LogMessageByKey.PKG_OPTIONAL_NOT_INSTALLED].push(`${packageName}@${dependency.version}`);
+                     return undefined;
+                 }
+             }
+@@ -53,17 +65,23 @@
+         this.productionGraph[dependencyId] = { dependencies: collectedDependencies };
+     }
+     async collectAllDependencies(tree) {
+-        var _a, _b;
++        var _a, _b, _c, _d;
+         // Collect regular dependencies
+         for (const [key, value] of Object.entries(tree.dependencies || {})) {
++            if (((_a = value === null || value === void 0 ? void 0 : value.dedupedDependenciesCount) !== null && _a !== void 0 ? _a : 0) > 0) {
++                continue;
++            }
+             const pkg = await this.cache.locatePackageVersion({ pkgName: key, parentDir: this.rootDir, requiredRange: value.version });
+-            this.allDependencies.set(`${key}@${value.version}`, { ...value, path: (_a = pkg === null || pkg === void 0 ? void 0 : pkg.packageDir) !== null && _a !== void 0 ? _a : value.path });
++            this.allDependencies.set(`${key}@${value.version}`, { ...value, path: (_b = pkg === null || pkg === void 0 ? void 0 : pkg.packageDir) !== null && _b !== void 0 ? _b : value.path });
+             await this.collectAllDependencies(value);
+         }
+         // Collect optional dependencies if they exist
+         for (const [key, value] of Object.entries(tree.optionalDependencies || {})) {
++            if (((_c = value === null || value === void 0 ? void 0 : value.dedupedDependenciesCount) !== null && _c !== void 0 ? _c : 0) > 0) {
++                continue;
++            }
+             const pkg = await this.cache.locatePackageVersion({ pkgName: key, parentDir: this.rootDir, requiredRange: value.version });
+-            this.allDependencies.set(`${key}@${value.version}`, { ...value, path: (_b = pkg === null || pkg === void 0 ? void 0 : pkg.packageDir) !== null && _b !== void 0 ? _b : value.path });
++            this.allDependencies.set(`${key}@${value.version}`, { ...value, path: (_d = pkg === null || pkg === void 0 ? void 0 : pkg.packageDir) !== null && _d !== void 0 ? _d : value.path });
+             await this.collectAllDependencies(value);
+         }
+     }
