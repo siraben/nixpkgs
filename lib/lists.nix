@@ -1452,9 +1452,27 @@ rec {
       1
     else
       let
-        rel = cmp (head a) (head b);
+        first = cmp (head a) (head b);
       in
-      if rel == 0 then compareLists cmp (tail a) (tail b) else rel;
+      if first != 0 then
+        first
+      else
+        let
+          lenA = length a;
+          lenB = length b;
+          compareAt =
+            i:
+            if i == lenA then
+              if i == lenB then 0 else -1
+            else if i == lenB then
+              1
+            else
+              let
+                rel = cmp (elemAt a i) (elemAt b i);
+              in
+              if rel == 0 then compareAt (i + 1) else rel;
+        in
+        compareAt 1;
 
   /**
     Sort list using "Natural sorting".

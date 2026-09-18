@@ -1887,6 +1887,30 @@ runTests {
       expected = 100000;
     };
 
+  testCompareLists = testAllTrue [
+    (lists.compareLists lib.compare [ ] [ ] == 0)
+    (lists.compareLists lib.compare [ ] [ 1 ] == -1)
+    (lists.compareLists lib.compare [ 1 ] [ ] == 1)
+    (lists.compareLists lib.compare [ 1 2 ] [ 1 2 ] == 0)
+    (lists.compareLists lib.compare [ 1 2 ] [ 1 2 3 ] == -1)
+    (lists.compareLists lib.compare [ 1 2 3 ] [ 1 2 ] == 1)
+    (lists.compareLists lib.compare [ 1 2 ] [ 1 3 ] == -1)
+    (lists.compareLists lib.compare [ 1 3 ] [ 1 2 ] == 1)
+  ];
+
+  testCompareListsLazy = {
+    expr = [
+      (lists.compareLists (throw "comparator forced") [ ] [ (throw "element forced") ])
+      (lists.compareLists lib.compare [ 0 (throw "tail forced") ] [ 1 (throw "tail forced") ])
+      (lists.compareLists (_: _: 7) [ (throw "element forced") ] [ (throw "element forced") ])
+    ];
+    expected = [
+      (-1)
+      (-1)
+      7
+    ];
+  };
+
   testSort = {
     expr = sort builtins.lessThan [
       40
