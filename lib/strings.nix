@@ -729,18 +729,15 @@ rec {
     :::
   */
   normalizePath =
-    let
-      startsWithSlash = hasSuffix "/";
-    in
     s:
     if isPath s then
       throw ''
         lib.strings.normalizePath: The argument (${toString s}) is a path value, but only strings are supported.
             Path values are always normalised in Nix, so there's no need to call this function on them.''
+    else if s == "" then
+      ""
     else
-      builtins.foldl' (x: y: if y == "/" && startsWithSlash x then x else x + y) "" (
-        stringToCharacters s
-      );
+      addContextFrom s (concatMapStrings (part: if isList part then "/" else part) (split "/+" s));
 
   /**
     Depending on the boolean `cond`, return either the given string

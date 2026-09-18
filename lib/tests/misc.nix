@@ -1123,6 +1123,41 @@ runTests {
     expected = "/a/b/c/d/";
   };
 
+  testNormalizePathBoundaries = {
+    expr = map strings.normalizePath [
+      ""
+      "/"
+      "////"
+      "a"
+      "a//b/"
+      "./a//../b"
+      "é//\n//b"
+    ];
+    expected = [
+      ""
+      "/"
+      "/"
+      "a"
+      "a/b/"
+      "./a/../b"
+      "é/\n/b"
+    ];
+  };
+
+  testNormalizePathContext =
+    let
+      s = "${builtins.toFile "normalize-path-context" ""}//a///b/";
+    in
+    {
+      expr = builtins.getContext (strings.normalizePath s);
+      expected = builtins.getContext s;
+    };
+
+  testNormalizePathRejectsPath = {
+    expr = (builtins.tryEval (strings.normalizePath ./.)).success;
+    expected = false;
+  };
+
   testCharToInt = {
     expr = strings.charToInt "A";
     expected = 65;
