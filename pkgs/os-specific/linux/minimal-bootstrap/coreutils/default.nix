@@ -99,8 +99,9 @@ kaem.runCommand "${pname}-${version}"
     cp lib/search_.h lib/search.h
     rm src/dircolors.h
 
+    # Keep the shipped false.c: untar does not preserve timestamps and sed is not available yet.
     # Build
-    make -f ${makefile} \
+    make -f ${makefile} --assume-old=src/false.c \
       CC="tcc -B ${tinycc.libs}/lib" \
       PREFIX=''${out}
 
@@ -109,5 +110,5 @@ kaem.runCommand "${pname}-${version}"
 
     # Install
     ./src/mkdir -p ''${out}/bin
-    make -f ${makefile} install PREFIX=''${out}
+    make -f ${makefile} --assume-old=src/false.c install PREFIX=''${out}
   ''
