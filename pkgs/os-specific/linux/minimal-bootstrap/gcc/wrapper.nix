@@ -15,7 +15,7 @@
 }:
 let
   pname = "gcc-wrapper";
-  extraFlags = "-static-libgcc ";
+  extraFlags = "-static-libgcc -mmusl -fno-gnu-unique ";
   # only supports musl for now
   dynamicLinkerGlob = "${libc}/lib/libc.so";
 in
@@ -42,7 +42,7 @@ bash-build.runCommand "${pname}-${gcc-unwrapped.version}"
     esac
 
     mkdir -p "$out/bin"
-    for orig in ${gcc-unwrapped}/bin/*gcc ${gcc-unwrapped}/bin/*gcc-${gcc-unwrapped.version}; do
+    for orig in ${gcc-unwrapped}/bin/*gcc ${gcc-unwrapped}/bin/*gcc-${gcc-unwrapped.version} ${gcc-unwrapped}/bin/*cpp; do
       sed \
         -e 's,@bash@,${lib.getExe bash},' \
         -e "s,@gcc@,$orig," \
@@ -75,7 +75,7 @@ bash-build.runCommand "${pname}-${gcc-unwrapped.version}"
         '${./wrappercxx.sh}' > "$out/bin/$(basename "$orig")"
         chmod +x "$out/bin/$(basename "$orig")"
     done
-    for orig in ${gcc-unwrapped}/bin/*cpp ${gcc-unwrapped}/bin/*-ar ${gcc-unwrapped}/bin/*-nm ${gcc-unwrapped}/bin/*-ranlib; do
+    for orig in ${gcc-unwrapped}/bin/*-ar ${gcc-unwrapped}/bin/*-nm ${gcc-unwrapped}/bin/*-ranlib; do
       ln -s "$orig" "$out/bin/$(basename "$orig")"
     done
   ''

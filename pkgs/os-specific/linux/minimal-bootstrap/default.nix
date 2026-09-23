@@ -484,10 +484,16 @@ lib.makeScope
         test = tests.full;
       }
       // (lib.optionalAttrs (hostPlatform.libc == "glibc")) {
-        gcc-glibc = callPackage ./gcc/glibc.nix {
-          gcc = gcc-latest;
+        gcc-glibc-runtimes = callPackage ./gcc/runtimes.nix {
+          gcc = gcc-latest-unwrapped;
+          gcc-buildbuild = gcc-latest;
           gnumake = gnumake-musl;
           gnutar = gnutar-latest;
+        };
+
+        gcc-glibc = callPackage ./gcc/glibc-wrapper.nix {
+          gcc = gcc-latest-unwrapped;
+          inherit (gcc-glibc-runtimes) libgcc libstdcxx libgccSpec;
         };
 
         glibc = callPackage ./glibc {

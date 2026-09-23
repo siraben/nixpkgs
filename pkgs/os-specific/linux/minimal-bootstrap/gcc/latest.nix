@@ -49,6 +49,7 @@ in
 bash.runCommand "${pname}-${version}"
   {
     inherit pname version;
+    outputs = [ "out" "support" ];
 
     nativeBuildInputs = [
       gcc
@@ -118,8 +119,8 @@ bash.runCommand "${pname}-${version}"
     export CXX="g++ -Wl,-dynamic-linker -Wl,${musl}/lib/libc.so"
     export CFLAGS="-O1"
     export CXXFLAGS="-O1"
-    export CFLAGS_FOR_TARGET="-O0 -Wl,-dynamic-linker -Wl,${musl}/lib/libc.so"
-    export CXXFLAGS_FOR_TARGET="$CFLAGS_FOR_TARGET"
+    export CFLAGS_FOR_TARGET="-O0 -mmusl -Wl,-dynamic-linker -Wl,${musl}/lib/libc.so"
+    export CXXFLAGS_FOR_TARGET="$CFLAGS_FOR_TARGET -fno-gnu-unique"
     export LIBRARY_PATH="${musl}/lib"
 
     bash ./configure \
@@ -130,6 +131,8 @@ bash.runCommand "${pname}-${version}"
       --with-sysroot=/ \
       --enable-languages=c,c++ \
       --enable-checking=release \
+      --with-glibc-version=2.42 \
+      --enable-gnu-unique-object \
       --enable-static \
       --disable-shared \
       --disable-bootstrap \
@@ -153,6 +156,16 @@ bash.runCommand "${pname}-${version}"
 
     # Install
     make -j $NIX_BUILD_CORES install-strip
+
+    # Export immutable host libraries for the separate runtime build generators.
+    hostSubdir=$(sed -n 's/^HOST_SUBDIR = //p' Makefile)
+    test -n "$hostSubdir"
+    mkdir -p $support/{lib,include,configuration}
+    cp "$hostSubdir/gmp/.libs/libgmp.a" "$hostSubdir/mpfr/src/.libs/libmpfr.a" "$hostSubdir/mpc/src/.libs/libmpc.a" "$hostSubdir/libiberty/libiberty.a" $support/lib/
+    cp -L "$hostSubdir/gmp/gmp.h" mpfr/src/mpfr.h "$hostSubdir/mpc/src/mpc.h" $support/include/
+    for header in auto-host.h config.h tconfig.h tm.h options.h libgcc.mvars; do
+      cp "$hostSubdir/gcc/$header" $support/configuration/
+    done
 
     # libstdc++ gdb pretty-printers + man pages are unused downstream.
     rm -rf $out/share/gcc-*/python $out/share/man $out/share/info

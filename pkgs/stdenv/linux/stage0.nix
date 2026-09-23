@@ -143,7 +143,11 @@ if minbootSupported then
     ];
     disallowedInFinalStdenv = lib.attrsets.catAttrs "out" (
       builtins.filter (drv: lib.attrsets.isDerivation drv) (builtins.attrValues minimal-bootstrap)
-    );
+    ) ++ [
+      minimal-bootstrap.gcc-latest-unwrapped.support
+      minimal-bootstrap.gcc-glibc-runtimes.libgcc
+      minimal-bootstrap.gcc-glibc-runtimes.libstdcxx
+    ];
   }
 else
   let
