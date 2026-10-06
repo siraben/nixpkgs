@@ -305,7 +305,8 @@ let
       XDP_SOCKETS = yes;
       XDP_SOCKETS_DIAG = yes;
       WAN = yes;
-      TCP_AO = whenAtLeast "6.7" yes;
+      # TCP-AO's sequence-number extension requires 64-bit WRITE_ONCE.
+      TCP_AO = lib.mkIf stdenv.hostPlatform.is64bit (whenAtLeast "6.7" yes);
       TCP_CONG_ADVANCED = yes;
       TCP_CONG_CUBIC = yes; # This is the default congestion control algorithm since 2.6.19
       # Required by systemd per-cgroup firewalling
