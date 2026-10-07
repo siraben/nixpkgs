@@ -46,7 +46,9 @@ stdenv.mkDerivation (finalAttrs: {
   ];
   # Unity only auto-enables 64-bit integer assertions on 64-bit targets.
   # Both the test runner and the Unity library need them for get{u,}int64.
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.is32bit "-DUNITY_SUPPORT_64";
+  env = lib.optionalAttrs stdenv.hostPlatform.is32bit {
+    NIX_CFLAGS_COMPILE = "-DUNITY_SUPPORT_64";
+  };
 
   doCheck = true;
   nativeCheckInputs = [
@@ -60,7 +62,9 @@ stdenv.mkDerivation (finalAttrs: {
       }).overrideAttrs
         {
           doCheck = false;
-          env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.is32bit "-DUNITY_SUPPORT_64";
+          env = lib.optionalAttrs stdenv.hostPlatform.is32bit {
+            NIX_CFLAGS_COMPILE = "-DUNITY_SUPPORT_64";
+          };
         }
     )
   ];
