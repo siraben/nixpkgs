@@ -43,7 +43,8 @@ stdenv.mkDerivation (finalAttrs: {
   postPatch = ''
     substituteInPlace Makefile.in \
       --replace-fail 'T_ACL_OBJ = t_acl.o lib/acl.o' 'T_ACL_OBJ = t_acl.o lib/acl.o lib/snprintf.o'
-  '' + lib.optionalString (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.is32bit) ''
+  ''
+  + lib.optionalString (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.is32bit) ''
     # Match rsync's large-file ABI in the LD_PRELOAD security regression test.
     # Otherwise open64/openat64 bypass the hook and its positive control fails.
     substituteInPlace testsuite/partial-protected-regular-retry-linux_test.py \

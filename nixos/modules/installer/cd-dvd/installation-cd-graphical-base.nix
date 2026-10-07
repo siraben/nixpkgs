@@ -39,19 +39,21 @@
   # Enable plymouth
   boot.plymouth.enable = true;
 
-  environment.defaultPackages = with pkgs; [
-    # Include gparted for partitioning disks.
-    gparted
+  environment.defaultPackages =
+    with pkgs;
+    [
+      # Include gparted for partitioning disks.
+      gparted
 
-    # Include some editors.
-    vim
-    nano
+      # Include some editors.
+      vim
+      nano
 
-    mesa-demos
-  ]
-  # Firefox for reading the manual, or a lightweight browser on 32-bit
-  # platforms where Firefox is unavailable.
-  ++ lib.optional stdenv.hostPlatform.is64bit firefox
-  ++ lib.optional (!stdenv.hostPlatform.is64bit) dillo;
+      mesa-demos
+    ]
+    # Firefox for reading the manual, or a lightweight browser on 32-bit
+    # platforms where Firefox is unavailable.
+    ++ lib.optional stdenv.hostPlatform.is64bit firefox
+    ++ lib.optional (!stdenv.hostPlatform.is64bit) dillo;
 
 }
