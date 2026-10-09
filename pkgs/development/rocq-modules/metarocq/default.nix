@@ -105,6 +105,10 @@ let
             patchShebangs ./configure.sh
             patchShebangs ./template-rocq/update_plugin.sh
             patchShebangs ./template-rocq/gen-src/to-lower.sh
+            # This executable has no shebang. Avoid Bash's ENOEXEC fallback,
+            # which segfaults on Darwin and leaves partially renamed modules.
+            substituteInPlace ./template-rocq/update_plugin.sh \
+              --replace-fail './to-lower.sh' 'bash ./to-lower.sh'
             patchShebangs ./safechecker-plugin/clean_extraction.sh
             patchShebangs ./erasure-plugin/clean_extraction.sh
             echo "CAMLFLAGS+=-w -60 # Unused module" >> ./safechecker/Makefile.plugin.local
