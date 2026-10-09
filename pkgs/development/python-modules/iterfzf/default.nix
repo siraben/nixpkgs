@@ -39,7 +39,15 @@ buildPythonPackage (finalAttrs: {
 
   dependencies = [ fzf ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [
+    (pytestCheckHook.overrideAttrs (old: {
+      buildCommand = old.buildCommand + ''
+        substituteInPlace "$out/nix-support/setup-hook" \
+          --replace-fail '${old.pythonCheckInterpreter} "''${flagsArray[@]}"' \
+            '${old.pythonCheckInterpreter} ${./run-tests-with-pty.py} "''${flagsArray[@]}"'
+      '';
+    }))
+  ];
 
   disabledTests = [
     # AttributeError
