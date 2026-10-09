@@ -413,7 +413,19 @@ makeScopeWithSplicing' {
           stdenv =
             # Darwin needs to use a bootstrap stdenv to avoid an infinite recursion when cross-compiling.
             if args.stdenv.hostPlatform.isDarwin then
-              overrideCC darwin.bootstrapStdenv buildLlvmPackages.clangWithLibcAndBasicRtAndLibcxx
+              overrideCC darwin.bootstrapStdenv (
+                if lib.versions.major metadata.release_version == "18" then
+                  # SDK libc++21 headers require builtins unavailable in Clang18.
+                  # Use matching headers, retaining the SDK's runtime ABI and
+                  # avoiding a dependency on the runtime being built here.
+                  buildLlvmPackages.clangWithLibcAndBasicRtAndLibcxx.override {
+                    libcxx = buildLlvmPackages.clangWithLibcAndBasicRtAndLibcxx.libcxx // {
+                      dev = buildLlvmPackages.libcxx.dev;
+                    };
+                  }
+                else
+                  buildLlvmPackages.clangWithLibcAndBasicRtAndLibcxx
+              )
             else if args.stdenv.hostPlatform.useLLVM or false then
               overrideCC args.stdenv buildLlvmPackages.clangWithLibcAndBasicRtAndLibcxx
             else
