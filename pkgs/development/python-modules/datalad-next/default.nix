@@ -35,6 +35,13 @@ buildPythonPackage {
     hash = "sha256-47cRxaxOGzR6hDfiW2hS3MNHp2aP9rxtWNxV+33PPfs=";
   };
 
+  # Tests imported from newer datalad-core use additional markers. Register
+  # them without disabling --strict-markers or skipping the imported tests.
+  postPatch = ''
+    substituteInPlace pyproject.toml \
+      --replace-fail 'markers = [' 'markers = ["flaky", "ai_generated",'
+  '';
+
   env.SETUPTOOLS_SCM_PRETEND_VERSION = "1.6.0";
 
   nativeBuildInputs = [ git ];
