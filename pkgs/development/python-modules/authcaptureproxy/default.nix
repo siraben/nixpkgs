@@ -31,6 +31,9 @@ buildPythonPackage rec {
     hash = "sha256-3osyh4Er0bZ8dvOtDV1w66zOWuzECIWeL8M90gqi+D8=";
   };
 
+  # Match aiohttp's StreamReader flow-control protocol in the test fixture.
+  patches = [ ./aiohttp-mock-protocol.patch ];
+
   nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
@@ -53,9 +56,6 @@ buildPythonPackage rec {
     "test_return_timer_countdown_refresh_html"
     # AttributeError: 'NoneType' object has no attribute 'get'
     "test_replace_empty_action_urls"
-    # AttributeError: 'MockProtocol' object has no attribute 'resume_reading'
-    "test_cross_request_header_contamination"
-    "test_json_parsing"
   ];
 
   pythonImportsCheck = [ "authcaptureproxy" ];
