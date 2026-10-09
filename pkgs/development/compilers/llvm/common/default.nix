@@ -508,9 +508,14 @@ makeScopeWithSplicing' {
         flangUnwrapped = callPackage ./flang {
           libclang = flangLibclang;
         };
-        flangRt = callPackage ./flang-rt {
-          buildFlang = buildLlvmPackages.flang-unwrapped;
-        };
+        # LLVM 20 bundles the runtime in flang; standalone flang-rt starts with LLVM 21.
+        flangRt =
+          if lib.versionOlder metadata.release_version "21" then
+            flangUnwrapped
+          else
+            callPackage ./flang-rt {
+              buildFlang = buildLlvmPackages.flang-unwrapped;
+            };
       in
       {
         flang-unwrapped = flangUnwrapped;
@@ -521,18 +526,38 @@ makeScopeWithSplicing' {
               cc = flangUnwrapped;
               bintools = bintools';
               extraPackages = [ targetLlvmPackages.flang-rt ];
-              extraBuildCommands = mkExtraBuildCommands0 cc + ''
-                # triplet however is not used in darwin
-                PLATFORM_DIR="${if stdenv.targetPlatform.isDarwin then "darwin" else stdenv.targetPlatform.config}"
-                RT_LIB_PATH="${targetLlvmPackages.flang-rt}/lib/clang/${clangVersion}/lib/$PLATFORM_DIR"
-                if [ -d "$RT_LIB_PATH" ]; then
-                  ln -s "$RT_LIB_PATH" "$rsrc"/lib
-                  echo "-L$rsrc/lib" >> $out/nix-support/cc-ldflags
-                else
-                  ln -s "${targetLlvmPackages.flang-rt}/lib" "$rsrc"/lib
-                  echo "-L$rsrc/lib" >> $out/nix-support/cc-ldflags
-                fi
-              '';
+              extraBuildCommands =
+                mkExtraBuildCommands0 cc
+                + ''
+                  # triplet however is not used in darwin
+                  PLATFORM_DIR="${if stdenv.targetPlatform.isDarwin then "darwin" else stdenv.targetPlatform.config}"
+                  RT_LIB_PATH="${targetLlvmPackages.flang-rt}/lib/clang/${clangVersion}/lib/$PLATFORM_DIR"
+                  if [ -d "$RT_LIB_PATH" ]; then
+                    ln -s "$RT_LIB_PATH" "$rsrc"/lib
+                    echo "-L$rsrc/lib" >> $out/nix-support/cc-ldflags
+                  else
+                    ln -s "${targetLlvmPackages.flang-rt}/lib" "$rsrc"/lib
+                    echo "-L$rsrc/lib" >> $out/nix-support/cc-ldflags
+                  fi
+                ''
+                +
+                  lib.optionalString
+                    (
+                      lib.versionOlder metadata.release_version "21"
+                      && stdenv.targetPlatform.isLinux
+                      && stdenv.targetPlatform.isx86
+                    )
+                    ''
+                      # LLVM 20's Fortran driver does not accept clang's TLS dialect option.
+                      substituteInPlace $out/nix-support/add-local-cc-cflags-before.sh \
+                        --replace-fail "'-mtls-dialect=gnu2'" ""
+                      # Keep GCC/libc startup-object search paths because the Fortran wrapper isolates C flags.
+                      for flag in $(<$out/nix-support/cc-cflags) $(<$out/nix-support/libc-crt1-cflags); do
+                        if [[ "$flag" == -B* ]]; then
+                          echo "extraBefore+=('$flag')" >> $out/nix-support/add-local-cc-cflags-before.sh
+                        fi
+                      done
+                    '';
             };
             tests = callPackage ./flang/tests.nix {
               flang = wrapped;
