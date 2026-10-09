@@ -1,0 +1,6 @@
+--- a/lib/Data/GI/CodeGen/Signal.hs
++++ b/lib/Data/GI/CodeGen/Signal.hs
+@@ -232 +232,2 @@
+-  convert name' $ fToH (argType arg) (transfer arg)
++  let c = convert name' $ fToH (argType arg) (transfer arg)
++  wrapMaybe arg >>= bool c (convertNullable name' c (argType arg))

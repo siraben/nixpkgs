@@ -29,6 +29,10 @@ with haskellLib;
 
 # To avoid merge conflicts, consider adding your item at an arbitrary place in the list instead.
 {
+  # Handle nullable inout callbacks introduced by recent GStreamer GIR data.
+  # https://github.com/haskell-gi/haskell-gi/pull/483
+  haskell-gi = appendPatch ./patches/haskell-gi-nullable-inout.patch super.haskell-gi;
+
   # Make sure that Cabal_* can be built as-is
   Cabal_3_10_3_0 = doDistribute (
     super.Cabal_3_10_3_0.override {
