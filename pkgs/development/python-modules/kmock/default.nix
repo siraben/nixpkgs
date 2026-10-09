@@ -37,6 +37,10 @@ buildPythonPackage (finalAttrs: {
     hash = "sha256-XXJEqAIK+k+6M0mfClboQLP3D/l1u06DTJzAH10LFps=";
   };
 
+  # Like the existing no-address skip, unavailable sandbox hostname lookup
+  # should skip only the non-loopback interface-binding fixture.
+  patches = [ ./skip-unresolvable-hostname.patch ];
+
   build-system = [
     setuptools
     setuptools-scm

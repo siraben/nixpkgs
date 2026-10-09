@@ -1,0 +1,15 @@
+diff --git a/tests/networking/test_listening.py b/tests/networking/test_listening.py
+--- a/tests/networking/test_listening.py
++++ b/tests/networking/test_listening.py
+@@ -34,7 +34,10 @@ def local_ip(request: pytest.FixtureRequest, family: socket.AddressFamily) -> str:
+     index: int = request.param
+     hostname = socket.gethostname()
+ 
+-    ips = {ip for *_, (ip, *_) in socket.getaddrinfo(host=hostname, port=None, family=family)}
++    try:
++        ips = {ip for *_, (ip, *_) in socket.getaddrinfo(host=hostname, port=None, family=family)}
++    except socket.gaierror:
++        pytest.skip("Local hostname cannot be resolved; no suitable host IPs available.")
+     ips -= {'127.0.0.1'}  # the hard-coded default, testing it makes no sense
+     ips = {ip for ip in ips if not ip.endswith('.0')}  # MacOS includes these useless IPs
+     if not ips:
