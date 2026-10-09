@@ -24,6 +24,10 @@ self: super:
 
     double-conversion = addExtraLibrary pkgs.libcxx super.double-conversion;
 
+    # SIGWINCH is outside POSIX's strict namespace but is required for resize
+    # notifications. Request Darwin's extensions when compiling the C shim.
+    termbox-bindings-c = appendConfigureFlag "--ghc-option=-optc=-D_DARWIN_C_SOURCE" super.termbox-bindings-c;
+
     # darwin doesn't have sub-second resolution
     # https://github.com/hspec/mockery/issues/11
     mockery = overrideCabal (drv: {
