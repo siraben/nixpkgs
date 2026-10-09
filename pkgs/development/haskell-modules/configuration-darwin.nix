@@ -24,6 +24,11 @@ self: super:
 
     double-conversion = addExtraLibrary pkgs.libcxx super.double-conversion;
 
+    # Clang's traditional CPP does not substitute macro parameters inside
+    # apostrophe-delimited promoted Haskell constructors. Expand the test
+    # instances explicitly without dropping any of the Hashable checks.
+    exinst-base = appendPatch ./patches/exinst-base-clang-cpp.patch super.exinst-base;
+
     # darwin doesn't have sub-second resolution
     # https://github.com/hspec/mockery/issues/11
     mockery = overrideCabal (drv: {

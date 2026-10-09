@@ -1,0 +1,66 @@
+--- a/tests/Main.hs
++++ b/tests/Main.hs
+@@ -77,31 +76,0 @@
+-#define INSTANCETRON(c) \
+-  instance c (X1 'False); \
+-  instance c (X1 'True); \
+-  instance c (X2 'False 'False); \
+-  instance c (X2 'False 'True); \
+-  instance c (X2 'True 'False); \
+-  instance c (X2 'True 'True); \
+-  instance c (X3 'False 'False 'False); \
+-  instance c (X3 'False 'False 'True); \
+-  instance c (X3 'False 'True 'False); \
+-  instance c (X3 'False 'True 'True); \
+-  instance c (X3 'True 'False 'False); \
+-  instance c (X3 'True 'False 'True); \
+-  instance c (X3 'True 'True 'False); \
+-  instance c (X3 'True 'True 'True); \
+-  instance c (X4 'False 'False 'False 'False); \
+-  instance c (X4 'False 'False 'False 'True); \
+-  instance c (X4 'False 'False 'True 'False); \
+-  instance c (X4 'False 'False 'True 'True); \
+-  instance c (X4 'False 'True 'False 'False); \
+-  instance c (X4 'False 'True 'False 'True); \
+-  instance c (X4 'False 'True 'True 'False); \
+-  instance c (X4 'False 'True 'True 'True); \
+-  instance c (X4 'True 'False 'False 'False); \
+-  instance c (X4 'True 'False 'False 'True); \
+-  instance c (X4 'True 'False 'True 'False); \
+-  instance c (X4 'True 'False 'True 'True); \
+-  instance c (X4 'True 'True 'False 'False); \
+-  instance c (X4 'True 'True 'False 'True); \
+-  instance c (X4 'True 'True 'True 'False); \
+-  instance c (X4 'True 'True 'True 'True)
+@@ -225 +194,30 @@
+-INSTANCETRON(Hashable)
++instance Hashable (X1 'False);
++instance Hashable (X1 'True);
++instance Hashable (X2 'False 'False);
++instance Hashable (X2 'False 'True);
++instance Hashable (X2 'True 'False);
++instance Hashable (X2 'True 'True);
++instance Hashable (X3 'False 'False 'False);
++instance Hashable (X3 'False 'False 'True);
++instance Hashable (X3 'False 'True 'False);
++instance Hashable (X3 'False 'True 'True);
++instance Hashable (X3 'True 'False 'False);
++instance Hashable (X3 'True 'False 'True);
++instance Hashable (X3 'True 'True 'False);
++instance Hashable (X3 'True 'True 'True);
++instance Hashable (X4 'False 'False 'False 'False);
++instance Hashable (X4 'False 'False 'False 'True);
++instance Hashable (X4 'False 'False 'True 'False);
++instance Hashable (X4 'False 'False 'True 'True);
++instance Hashable (X4 'False 'True 'False 'False);
++instance Hashable (X4 'False 'True 'False 'True);
++instance Hashable (X4 'False 'True 'True 'False);
++instance Hashable (X4 'False 'True 'True 'True);
++instance Hashable (X4 'True 'False 'False 'False);
++instance Hashable (X4 'True 'False 'False 'True);
++instance Hashable (X4 'True 'False 'True 'False);
++instance Hashable (X4 'True 'False 'True 'True);
++instance Hashable (X4 'True 'True 'False 'False);
++instance Hashable (X4 'True 'True 'False 'True);
++instance Hashable (X4 'True 'True 'True 'False);
++instance Hashable (X4 'True 'True 'True 'True)
