@@ -12,7 +12,7 @@ let
   '';
 in
 {
-  compile-smoke = runCommand "flang-compile-smoke" { } ''
+  compile-smoke = runCommand "flang-compile-smoke" { nativeBuildInputs = [ flang ]; } ''
     set -euo pipefail
 
     ${writeHello}
@@ -33,7 +33,7 @@ in
     touch $out
   '';
 
-  driver-flags = runCommand "flang-driver-flags" { } ''
+  driver-flags = runCommand "flang-driver-flags" { nativeBuildInputs = [ flang ]; } ''
     set -euo pipefail
 
     ${writeHello}
@@ -80,8 +80,13 @@ in
       echo "expected -complex-range=full to fail at the driver layer" >&2
       exit 1
     fi
-    grep -F -- "error: unknown argument '-complex-range=full'" suggestion.log
-    grep -F -- "did you mean '-Xflang -complex-range=full'" suggestion.log
+    grep -E -- "error: unknown argument:? '-complex-range=full'" suggestion.log
+    # Only expect a forwarding suggestion if this compiler's frontend knows
+    # the option. LLVM 20 rejects it but does not expose it in frontend help.
+    ${flangExe} -fc1 --help > frontend-help.log 2>&1
+    if grep -F -- "-complex-range=" frontend-help.log; then
+      grep -F -- "did you mean '-Xflang -complex-range=full'" suggestion.log
+    fi
     if grep -F -- "-Xclang -complex-range=full" suggestion.log; then
       echo "driver suggested -Xclang instead of -Xflang" >&2
       exit 1
