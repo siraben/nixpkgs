@@ -40,6 +40,7 @@ let
       });
       cl-gtk2-glib = super.cl-gtk2-glib.overrideLispAttrs (o: {
         nativeLibs = [ pkgs.glib ];
+        patches = (o.patches or [ ]) ++ [ ./patches/cl-gtk2-glib-pointer-sized-gsize.patch ];
       });
       cl-gtk2-pango = super.cl-gtk2-pango.overrideLispAttrs (o: {
         nativeLibs = [ pkgs.pango ];

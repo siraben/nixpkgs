@@ -1,0 +1,16 @@
+--- a/glib/glib.lisp
++++ b/glib/glib.lisp
+@@ -156,8 +156,7 @@
+-;; TODO: not sure about these: for amd64 they are ok
++;; gsize is an unsigned integer with the same width as a pointer.
++;; Use the ABI size rather than an incomplete list of CPU architectures.
+ (eval-when (:compile-toplevel :load-toplevel :execute)
+   (cond
+-    ((cffi-features:cffi-feature-p :x86-64) (defctype gsize :uint64))
+-    ((cffi-features:cffi-feature-p :x86) (defctype gsize :ulong))
+-    ((cffi-features:cffi-feature-p :ppc32) (defctype gsize :uint32))
+-    ((cffi-features:cffi-feature-p :ppc64) (defctype gsize :uint64))
+-    (t (error "Can not define 'gsize', unknown CPU architecture (known are x86 and x86-64)"))))
++    ((= (foreign-type-size :pointer) 8) (defctype gsize :uint64))
++    ((= (foreign-type-size :pointer) 4) (defctype gsize :uint32))
++    (t (error "Can not define 'gsize', unsupported pointer size"))))
