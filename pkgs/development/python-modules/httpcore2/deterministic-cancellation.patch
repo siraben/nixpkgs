@@ -1,0 +1,30 @@
+--- a/tests/httpcore2/test_cancellations.py
++++ b/tests/httpcore2/test_cancellations.py
+@@ -33,0 +34 @@
++        self.blocked = anyio.Event()
+@@ -38,0 +40 @@
++            self.blocked.set()
+@@ -52,0 +55 @@
++        self.blocked = anyio.Event()
+@@ -58,0 +62 @@
++            self.blocked.set()
+@@ -219,2 +223,7 @@
+-        with anyio.move_on_after(0.01):
+-            await conn.request("GET", "http://example.com")
++        # Cancel only after the intended request/response I/O is blocked.
++        # A 10ms deadline may instead hit the handshake on a loaded builder.
++        async with anyio.create_task_group() as tasks:
++            tasks.start_soon(conn.request, "GET", "http://example.com")
++            with anyio.fail_after(10):
++                await stream.blocked.wait()
++            tasks.cancel_scope.cancel()
+@@ -254,2 +263,7 @@
+-        with anyio.move_on_after(0.01):
+-            await conn.request("GET", "http://example.com")
++        # Cancel only after the intended request/response I/O is blocked.
++        # A 10ms deadline may instead hit the handshake on a loaded builder.
++        async with anyio.create_task_group() as tasks:
++            tasks.start_soon(conn.request, "GET", "http://example.com")
++            with anyio.fail_after(10):
++                await stream.blocked.wait()
++            tasks.cancel_scope.cancel()

@@ -40,6 +40,8 @@ buildPythonPackage (finalAttrs: {
     hash = "sha256-XgjFiSwc4xCyPJcTB/Exh838fUOKsT0JRrha7s70C50=";
   };
 
+  patches = [ ./deterministic-cancellation.patch ];
+
   postPatch = ''
     pushd src/httpcore2
   '';
