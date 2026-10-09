@@ -12,6 +12,7 @@
   rapidgzip,
   rarfile,
   setuptools,
+  wheel,
   zstandard, # Python bindings
   zstd, # System tool
 }:
@@ -31,13 +32,18 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/core";
 
+  patches = [ ./modern-license-metadata.patch ];
+
   postPatch = ''
     substituteInPlace tests/test_AutoMountLayer.py \
       --replace-fail 'f"tests/{name}.tgz.tgz.gz"' 'os.path.join(os.path.dirname(__file__), f"../../tests/{name}.tgz.tgz.gz")' \
       --replace-fail 'copy_test_file("tests/double-compressed-nested-tar.tgz.tgz")' 'copy_test_file(os.path.join(os.path.dirname(__file__), "../../tests/double-compressed-nested-tar.tgz.tgz"))'
   '';
 
-  build-system = [ setuptools ];
+  build-system = [
+    setuptools
+    wheel
+  ];
 
   optional-dependencies = {
     full = [

@@ -1,0 +1,17 @@
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -13,3 +13 @@
+-# Use setuptools <= 82 because the license specification changes backward-incompatible in 2026-02.
+-# https://github.com/pypa/setuptools/issues/4903#issuecomment-2923109576
+-requires = ["setuptools >= 61, <= 82", "wheel"]
++requires = ["setuptools >= 77", "wheel"]
+@@ -22 +20,2 @@
+-license = {text = "MIT"}
++license = "MIT"
++license-files = ["LICENSE", "ratarmountcore/_external/pyfatfs/LICENSE"]
+@@ -24 +22,0 @@
+-    "License :: OSI Approved :: MIT License",
+@@ -233,3 +230,0 @@
+-[tool.setuptools]
+-license-files = ["LICENSE", "ratarmountcore/_external/pyfatfs/LICENSE"]
+-
