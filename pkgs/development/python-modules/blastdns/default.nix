@@ -53,8 +53,8 @@ buildPythonPackage (finalAttrs: {
   # Run tests outside the source package path so imports resolve to the
   # installed wheel, which contains the compiled _native extension.
   preCheck = ''
+    cp -r blastdns/tests "$TMPDIR/tests"
     cd "$TMPDIR"
-    cp -r /build/source/blastdns/tests ./tests
   '';
 
   pytestFlags = [
@@ -69,6 +69,9 @@ buildPythonPackage (finalAttrs: {
     "test_mock_matches_real_client"
     "test_zone_transfer_success"
     "test_zone_transfer_nonexistent_zone"
+    # Sends DNS traffic to TEST-NET; the sandbox/network may redirect or block
+    # it without the resolver error this integration test expects.
+    "test_unreachable_resolver_raises_resolver_error"
   ];
 
   pythonImportsCheck = [ "blastdns" ];
