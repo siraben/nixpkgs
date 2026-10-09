@@ -170,6 +170,7 @@ let
           ;
         nativeBuildInputs = [ pkgs.fuse ];
         nativeLibs = [ pkgs.fuse ];
+        patches = [ ./patches/cl-fuse-use-cc.patch ];
       };
 
       cl-containers = build-asdf-system {
