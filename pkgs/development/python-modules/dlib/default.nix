@@ -26,13 +26,13 @@ buildPythonPackage.override { inherit (dlib) stdenv; } {
     setuptools
   ];
 
-  # Pass CMake flags through to the build script
-  preConfigure = ''
-    for flag in $cmakeFlags; do
-      if [[ "$flag" == -D* ]]; then
-        setupPyBuildFlags+=" --set ''${flag#-D}"
-      fi
-    done
+  # PEP 517 does not use setupPyBuildFlags. Pass the same options as the
+  # native library directly to setup.py's CMake invocation (notably disabling
+  # the 32-bit ARM NEON flags on aarch64-darwin).
+  postPatch = ''
+    substituteInPlace setup.py \
+      --replace-fail '_cmake_extra_options = []' \
+        '_cmake_extra_options = ${builtins.toJSON dlib.cmakeFlags}'
   '';
 
   dontUseCmakeConfigure = true;
