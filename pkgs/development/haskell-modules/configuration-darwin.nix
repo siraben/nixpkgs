@@ -24,6 +24,15 @@ self: super:
 
     double-conversion = addExtraLibrary pkgs.libcxx super.double-conversion;
 
+    # Darwin has no timer_t, so base does not export CTimer there. This list
+    # only omits types from generated roundtrip tests; do not name absent ones.
+    store = overrideCabal (drv: {
+      postPatch = (drv.postPatch or "") + ''
+        substituteInPlace test/Data/StoreSpec.hs \
+          --replace-fail ', [t| CTimer |]' ""
+      '';
+    }) super.store;
+
     # darwin doesn't have sub-second resolution
     # https://github.com/hspec/mockery/issues/11
     mockery = overrideCabal (drv: {
