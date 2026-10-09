@@ -11,7 +11,8 @@ let
     self = python;
     packageOverrides = self: super: {
       lark = super.lark.overridePythonAttrs (old: rec {
-        # gdtoolkit needs exactly this lark version
+        # gdtoolkit needs exactly this lark version, before its distribution rename.
+        pname = "lark-parser";
         version = "0.8.0";
         src = fetchFromGitHub {
           owner = "lark-parser";
