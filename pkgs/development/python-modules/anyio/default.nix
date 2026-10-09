@@ -42,6 +42,9 @@ buildPythonPackage rec {
     hash = "sha256-MEU0c8/NI1vlyNtBsg/hGLv6DR619ZqoZzNY1eJLEWM=";
   };
 
+  # Python 3.12 rejects server_hostname in server mode; retain it for client verification.
+  patches = [ ./tls-connectable-server-hostname.patch ];
+
   build-system = [ setuptools-scm ];
 
   dependencies = [
