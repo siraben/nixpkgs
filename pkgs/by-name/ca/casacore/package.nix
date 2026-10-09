@@ -89,6 +89,10 @@ stdenv.mkDerivation (finalAttrs: {
     # Cflags (which would embed /nix/store paths from the build environment).
     ./casacore-pkgconfig.patch
 
+    # libc++ has additional std::abs overloads; resolve the call inside a
+    # lambda, as the neighboring complex-array operations already do.
+    ./complex-abs-lambda.patch
+
     # Fix undefined Dysco encoder template symbols with GCC 16
     (fetchpatch {
       url = "https://github.com/casacore/casacore/commit/60923a924d6380de04ee32042290c7e7426e3509.patch";
