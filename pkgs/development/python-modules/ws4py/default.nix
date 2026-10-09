@@ -21,6 +21,8 @@ buildPythonPackage rec {
     hash = "sha256-n4exm3c/CgdEo486+jaoAyht0xl/C7Ndm3UpPscALRk=";
   };
 
+  patches = [ ./deterministic-poll-timeouts.patch ];
+
   nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [

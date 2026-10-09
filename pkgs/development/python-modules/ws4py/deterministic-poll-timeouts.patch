@@ -1,0 +1,30 @@
+--- a/test/test_manager.py
++++ b/test/test_manager.py
+@@ -169,10 +169,6 @@
+-    def test_timeout_when_no_registered_fds(self):
++    @patch('ws4py.manager.time')
++    def test_timeout_when_no_registered_fds(self, time):
+         poller = SelectPoller(timeout=0.5)
+-        a = time.time()
+         fd = poller.poll()
+-        b = time.time()
+         self.assertEqual(fd, [])
+-
+-        d = b - a 
+-        if not (0.48 < d < 0.52):
+-            self.fail("Did not wait for the appropriate amount of time: %f" % d)
++        time.sleep.assert_called_once_with(0.5)
+@@ -251,11 +247,5 @@
+-        select.epoll.return_value = FakeEpoll()
++        select.epoll.return_value.poll.return_value = []
+         poller = EPollPoller(timeout=0.5)
+-        
+-        a = time.time()
+         fd = list(poller.poll())
+-        b = time.time()
+         self.assertEqual(fd, [])
+-
+-        d = b - a
+-        if not (0.48 < d < 0.52):
+-            self.fail("Did not wait for the appropriate amount of time: %f" % d)
++        select.epoll.return_value.poll.assert_called_once_with(timeout=0.5)
