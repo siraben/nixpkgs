@@ -24,6 +24,14 @@ self: super:
 
     double-conversion = addExtraLibrary pkgs.libcxx super.double-conversion;
 
+    # Modern SDKs require linking vecLib through its Accelerate umbrella.
+    llvm-tf = overrideCabal (drv: {
+      postPatch = (drv.postPatch or "") + ''
+        substituteInPlace llvm-tf.cabal \
+          --replace-fail 'Frameworks: vecLib' 'Frameworks: Accelerate'
+      '';
+    }) super.llvm-tf;
+
     # darwin doesn't have sub-second resolution
     # https://github.com/hspec/mockery/issues/11
     mockery = overrideCabal (drv: {
