@@ -46,12 +46,16 @@ buildPythonPackage {
       url = "https://github.com/mindsdb/type_infer/commit/d09f88d5ddbe55125b1fff4506b03165d019d88b.patch";
       hash = "sha256-wNBzb+RxoZC8zn5gdOrtJeXJIIH3DTt1gTZfgN/WnQQ=";
     })
+    # pandas 3 no longer implicitly upcasts columns or permits chained
+    # assignment. Preserve the mixed-type fixture that exercises inference.
+    ./pandas-3-test-fixture.patch
   ];
 
   pythonRelaxDeps = [
     "psutil"
     "py3langid"
     "numpy"
+    "pandas"
   ];
 
   build-system = [ poetry-core ];
