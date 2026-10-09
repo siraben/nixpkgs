@@ -8,6 +8,7 @@
   monorepoSrc ? null,
   fetchpatch,
   autoreconfHook269,
+  perl,
   runCommand,
   gettext,
   libgcc,
@@ -154,7 +155,9 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     autoreconfHook269
     gettext
-  ];
+  ]
+  # Darwin creates its exported-symbol list with scripts/make_exports.pl.
+  ++ lib.optional stdenv.hostPlatform.isDarwin perl;
 
   preConfigure = ''
     cd "$buildRoot"

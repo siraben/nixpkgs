@@ -337,8 +337,8 @@ stdenv.mkDerivation (finalAttrs: {
   # This should kill all the stdinc frameworks that gcc and friends like to
   # insert into default search paths.
   + lib.optionalString hostPlatform.isDarwin ''
-    substituteInPlace gcc/config/darwin-c.c \
-      --replace 'if (stdinc)' 'if (0)'
+    substituteInPlace gcc/config/darwin-c.cc \
+      --replace-fail 'if (stdinc)' 'if (0)'
   '';
 
   preConfigure =
@@ -425,7 +425,8 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.withFeature (isl != null) "isl")
     "--without-headers"
     "--with-gnu-as"
-    "--with-gnu-ld"
+    # Darwin uses the platform Mach-O linker, not GNU ld.
+    (if stdenv.targetPlatform.isDarwin then "--without-gnu-ld" else "--with-gnu-ld")
     # Deliberately no `--with-as` / `--with-ld`. Those bake
     # `DEFAULT_ASSEMBLER` and `DEFAULT_LINKER` -- absolute store paths -- into
     # the compiler, so the driver runs exactly those binaries and stops

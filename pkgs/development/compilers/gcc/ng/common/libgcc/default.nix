@@ -54,7 +54,11 @@
 
   # Whether the compiler has a libc that can actually be linked against, as
   # opposed to nothing at all or a headers-only stand-in.
-  __haveLinkableLibc ? (stdenv.cc.libc or null) != null && !(stdenv.cc.libc.headersOnly or false),
+  # Darwin's libSystem comes from the compiler wrapper's SDK rather than
+  # cc.libc. It is available even in the nominal no-libc bootstrap stage.
+  __haveLinkableLibc ?
+    stdenv.hostPlatform.isDarwin
+    || ((stdenv.cc.libc or null) != null && !(stdenv.cc.libc.headersOnly or false)),
 }:
 let
   # A libc needs libgcc to build, and a libgcc that can use the libc's threads
@@ -94,7 +98,9 @@ let
   #
   # A `threads` package wins over the libc: that is the point of asking for
   # one, and it is only passed to the builds that come after the libc.
-  threadModel = threads.threadModel or (libc.threadModel or "single");
+  threadModel =
+    threads.threadModel
+      or (libc.threadModel or (if stdenv.hostPlatform.isDarwin then "posix" else "single"));
 in
 
 assert enableShared -> __defaultEnableShared;
@@ -121,7 +127,8 @@ stdenv.mkDerivation (finalAttrs: {
     autoreconfHook269
     which
     python3
-  ];
+  ]
+  ++ lib.optional stdenv.hostPlatform.isDarwin buildPackages.darwin.cctools;
 
   # The `gthr-<model>.h` header for a non-libc threading model includes that
   # library's own headers, and `libgcc_s` links against it.
@@ -145,24 +152,39 @@ stdenv.mkDerivation (finalAttrs: {
     # makes `cfi_startproc-reorder-label` above redundant on Darwin: it drops
     # `STARTFN` for an `ENTRY` macro that already writes the label ahead of
     # `.cfi_startproc`.
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [
-      ./darwin-fix-reexport.patch
-      (getVersionFile "libgcc/darwin-detection.patch")
-      (fetchpatch {
-        name = "darwin-aarch64-support.patch";
-        url =
-          if lib.versionAtLeast release_version "16" then
-            "https://raw.githubusercontent.com/Homebrew/homebrew-core/70e2a9e1d072fa3bc34cf41d97f4b65bede2b01e/Patches/gcc/gcc-16.1.0.diff"
-          else
-            "https://raw.githubusercontent.com/Homebrew/homebrew-core/70e2a9e1d072fa3bc34cf41d97f4b65bede2b01e/Patches/gcc/gcc-15.3.0.diff";
-        includes = [ "libgcc/*" ];
-        hash =
-          if lib.versionAtLeast release_version "16" then
-            "sha256-hDtEL/xAtavikWa1JYNbJLkyydc5H/iu2W7lvz+mRG0="
-          else
-            "sha256-5ctdSqxRJ445SSNao29WVurZsPbmgrCN+RmCAIEyUXw=";
-      })
-    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin (
+      [ ./darwin-fix-reexport.patch ]
+      # GCC15's detection patch expects the Homebrew patch to have removed
+      # the x86-only case. GCC16 uses the older detection patch, which must
+      # instead be applied before that removal.
+      ++ lib.optional (lib.versionAtLeast release_version "16") (
+        getVersionFile "libgcc/darwin-detection.patch"
+      )
+      ++ [
+        (fetchpatch {
+          name = "darwin-aarch64-support.patch";
+          url =
+            if lib.versionAtLeast release_version "16" then
+              "https://raw.githubusercontent.com/Homebrew/homebrew-core/70e2a9e1d072fa3bc34cf41d97f4b65bede2b01e/Patches/gcc/gcc-16.1.0.diff"
+            else
+              "https://raw.githubusercontent.com/Homebrew/homebrew-core/70e2a9e1d072fa3bc34cf41d97f4b65bede2b01e/Patches/gcc/gcc-15.3.0.diff";
+          # preConfigure also runs gcc/configure to generate target headers.
+          # It needs the Darwin backend configuration, not only libgcc sources.
+          includes = [
+            "libgcc/*"
+            "gcc/*"
+          ];
+          hash =
+            if lib.versionAtLeast release_version "16" then
+              "sha256-tV9uoeIouraah/L7Bn9WjmA1qgZ6zWkmDKA5Ibhcq/U="
+            else
+              "sha256-u/N2wPsgbfdSZLlSbgvY1GTv0QwDKHmdJOX2f1EjVgc=";
+        })
+      ]
+      ++ lib.optional (lib.versionOlder release_version "16") (
+        getVersionFile "libgcc/darwin-detection.patch"
+      )
+    )
     # Backports of commits that are in the GCC 16 release branch already.
     ++ lib.optionals (lib.versionOlder release_version "16") [
       (fetchpatch {
@@ -292,7 +314,7 @@ stdenv.mkDerivation (finalAttrs: {
     # installs when configured against no libc, so nothing is invented here.
     # The compiler keeps shipping the chained header either way, which is what
     # has to stay correct for everything compiled against a real libc later.
-    + lib.optionalString (libc == null) ''
+    + lib.optionalString (libc == null && !stdenv.hostPlatform.isDarwin) ''
       mkdir -p "$NIX_BUILD_TOP/freestanding-include"
       cp gcc/glimits.h "$NIX_BUILD_TOP/freestanding-include/limits.h"
       export NIX_CFLAGS_COMPILE="-isystem $NIX_BUILD_TOP/freestanding-include ''${NIX_CFLAGS_COMPILE-}"
@@ -432,7 +454,9 @@ stdenv.mkDerivation (finalAttrs: {
     # pre-libc stage would come out `false` and compile every file against a
     # libc that is not there yet. A value given here wins, since configure only
     # defaults it, with `: ${inhibit_libc=false}`.
-    "inhibit_libc=${if libc == null then "true" else "false"}"
+    # Darwin's implicit SDK also supplies these headers. Inhibiting them
+    # defines an abort() macro that conflicts with crt3.c's stdlib.h include.
+    "inhibit_libc=${if libc == null && !stdenv.hostPlatform.isDarwin then "true" else "false"}"
   ]
   # `gcc/configure` sets `inhibit_libc=true` when host != target and
   # `$target_header_dir/stdio.h` does not exist. `inhibit_libc` makes
@@ -481,10 +505,24 @@ stdenv.mkDerivation (finalAttrs: {
     NIX_CFLAGS_COMPILE=$NIX_CFLAGS_COMPILE_OLD
   '';
 
-  makeFlags = [ "MULTIBUILDTOP:=../" ];
+  makeFlags =
+    if stdenv.hostPlatform.isDarwin then
+      # A nonempty MULTIBUILDTOP selects Darwin's multilib-only branch,
+      # which builds but does not install the shared runtime. Keep its
+      # top-level install rules and override the header lookup separately.
+      [
+        "MULTIBUILDTOP:="
+        "gcc_objdir:=../../../gcc"
+      ]
+    else
+      [ "MULTIBUILDTOP:=../" ];
 
   postInstall = ''
     install -c -m 644 gthr-default.h "$dev/include"
+  ''
+  + lib.optionalString (stdenv.hostPlatform.isDarwin && enableShared) ''
+    # The Darwin compiler's -shared-libgcc spec requires this installed name.
+    test -f "$out/lib/libgcc_s.1.1.dylib"
   '';
 
   doCheck = true;

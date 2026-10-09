@@ -11,6 +11,7 @@
   version ? null,
   patchesFn ? lib.id,
   wrapCCWith,
+  bintools,
   binutilsNoLibc,
   binutils,
   buildGccPackages,
@@ -28,6 +29,11 @@ assert lib.assertMsg (lib.xor (gitRelease != null) (officialRelease != null)) (
 
 let
   monorepoSrc' = monorepoSrc;
+
+  # GNU binutils on Darwin does not supply as/ld. Use the platform tools,
+  # which also carry the implicit SDK needed by the bootstrap stages.
+  binutils = if stdenv.targetPlatform.isDarwin then bintools else args.binutils;
+  binutilsNoLibc = if stdenv.targetPlatform.isDarwin then bintools else args.binutilsNoLibc;
 
   # libgomp is OpenMP on top of pthreads, and will refuse to build with
   # any other threading model.
