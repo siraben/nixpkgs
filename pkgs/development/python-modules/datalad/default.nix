@@ -58,6 +58,8 @@ buildPythonPackage (finalAttrs: {
     hash = "sha256-5PAHHN+dgMAxqUZn3vXWsoesw3lQMy6Q8nUJYa4SofM=";
   };
 
+  patches = [ ./check-backoff-mock.patch ];
+
   postPatch = ''
     # Remove vendorized versioneer.py
     rm versioneer.py
