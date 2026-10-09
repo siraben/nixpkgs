@@ -32,6 +32,13 @@ buildPythonPackage (finalAttrs: {
     hash = "sha256-SzvYiZWnknGdJexYnGEWQaVQpHo1520RaNjuzCA4xtQ=";
   };
 
+  # pytest 9.1 rejects generators in parametrize when warnings are errors.
+  postPatch = ''
+    substituteInPlace tests/test_docs/test_docs.py \
+      --replace-fail 'find_examples(str(SOURCES_ROOT))' 'list(find_examples(str(SOURCES_ROOT)))' \
+      --replace-fail 'find_examples("docs")' 'list(find_examples("docs"))'
+  '';
+
   build-system = [
     hatch-vcs
     hatchling
