@@ -25,6 +25,13 @@ stdenv.mkDerivation {
 
   postUnpack = "find -type f -exec sed -i 's@/bin/cp@cp@' {} +";
 
+  # The bundled hsc2hs hardcodes gcc. Clang stdenvs provide cc instead;
+  # failing this preprocessing step silently skips the entire base library.
+  postPatch = ''
+    substituteInPlace hsc2hs/Main.hs \
+      --replace-fail 'default_compiler = "gcc"' 'default_compiler = "cc"'
+  '';
+
   preConfigure = "unset STRIP";
 
   configureFlags = [
@@ -42,6 +49,18 @@ stdenv.mkDerivation {
     "--enable-ffi"
     "--enable-pthreads" # build Hugs using POSIX threads C library
   ];
+
+  # The legacy library builder can continue after individual package failures.
+  # Do not accept an interpreter whose installed base/Prelude is incomplete:
+  # microhs uses runhugs as its bootstrap compiler.
+  doInstallCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
+  installCheckPhase = ''
+    runHook preInstallCheck
+    printf 'main = putStrLn "Hugs bootstrap OK"\n' > "$TMPDIR/hugs-smoke.hs"
+    "$out/bin/runhugs" -98 "$TMPDIR/hugs-smoke.hs" | tee "$TMPDIR/hugs-smoke.out"
+    grep -Fx 'Hugs bootstrap OK' "$TMPDIR/hugs-smoke.out"
+    runHook postInstallCheck
+  '';
 
   meta = {
     mainProgram = "hugs";
