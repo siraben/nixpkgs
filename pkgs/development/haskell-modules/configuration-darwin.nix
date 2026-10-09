@@ -24,6 +24,15 @@ self: super:
 
     double-conversion = addExtraLibrary pkgs.libcxx super.double-conversion;
 
+    # Modern Apple SDKs define TARGET_OS_MAC but no longer provide Byte.
+    # Keep the bundled zlib's unsigned-char typedef on modern Darwin.
+    freetype2 = overrideCabal (drv: {
+      postPatch = (drv.postPatch or "") + ''
+        substituteInPlace freetype2/src/gzip/ftzconf.h \
+          --replace-fail '#if !defined(MACOS) && !defined(TARGET_OS_MAC)' '#if !defined(MACOS)'
+      '';
+    }) super.freetype2;
+
     # darwin doesn't have sub-second resolution
     # https://github.com/hspec/mockery/issues/11
     mockery = overrideCabal (drv: {
