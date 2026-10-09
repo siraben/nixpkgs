@@ -61,6 +61,8 @@ buildPythonPackage (finalAttrs: {
     ./5.2/disable-failing-test.patch
     # skip flaky performnace test
     ./6.0/skip-flaky-tests.patch
+    # Avoid shared file storage being deleted by parallel image field tests.
+    ./5.2/isolate-filefield-storage.patch
   ]
   ++ lib.optionals withGdal [
     (replaceVars ./5.2/gdal.patch {

@@ -1,0 +1,36 @@
+diff --git a/tests/model_fields/test_filefield.py b/tests/model_fields/test_filefield.py
+--- a/tests/model_fields/test_filefield.py
++++ b/tests/model_fields/test_filefield.py
+@@ -4,6 +4,7 @@
+ import tempfile
+ import unittest
+ from pathlib import Path
++from unittest import mock
+ 
+ from django.core.exceptions import FieldError, SuspiciousFileOperation
+ from django.core.files import File, temp
+@@ -10,4 +11,5 @@
+ from django.core.files.base import ContentFile
++from django.core.files.storage import FileSystemStorage
+ from django.core.files.uploadedfile import TemporaryUploadedFile
+ from django.db import IntegrityError, models
+ from django.test import TestCase, override_settings
+@@ -18,6 +20,18 @@
+ 
+ 
+ class FileFieldTests(TestCase):
++    def setUp(self):
++        # The image field tests remove models.temp_storage_dir. It must not be
++        # shared with this class when the test runner uses multiple workers.
++        directory = self.enterContext(tempfile.TemporaryDirectory())
++        self.enterContext(
++            mock.patch.object(
++                Document._meta.get_field("myfile"),
++                "storage",
++                FileSystemStorage(directory),
++            )
++        )
++
+     def test_clearable(self):
+         """
+         FileField.save_form_data() will clear its instance attribute value if
