@@ -65,6 +65,11 @@ buildPythonPackage rec {
     xvfb
   ];
 
+  # Five seconds also covers launching i3/Xvfb and discovering its socket;
+  # cold startup can exceed it on loaded Darwin builders. Keep a bounded
+  # deadline and all existing integration tests.
+  pytestFlags = [ "--timeout=30" ];
+
   disabledTestPaths = [
     # Timeout
     "test/test_shutdown_event.py::TestShutdownEvent::test_shutdown_event_reconnect"
