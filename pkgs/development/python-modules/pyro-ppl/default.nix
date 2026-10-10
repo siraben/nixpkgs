@@ -37,6 +37,9 @@ buildPythonPackage (finalAttrs: {
     hash = "sha256-P33neKtdBoIjKjv8KvoECOtlyaLEyb1spDwyGhPAVHk=";
   };
 
+  # Keep serialization isolated and benchmark collection safe across workers.
+  patches = [ ./pyro-isolated-parallel-tests.patch ];
+
   build-system = [ setuptools ];
 
   dependencies = [

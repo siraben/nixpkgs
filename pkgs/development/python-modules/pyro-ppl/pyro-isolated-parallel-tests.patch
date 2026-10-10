@@ -1,0 +1,36 @@
+--- a/tests/nn/test_module.py
++++ b/tests/nn/test_module.py
+@@ -728,7 +728,7 @@
+             assert_equal(actual.y, module2.y)
+ 
+ 
+-def test_pyro_serialize():
++def test_pyro_serialize(tmp_path):
+     class MyModule(PyroModule):
+         def __init__(self):
+             super().__init__()
+@@ -751,10 +751,10 @@
+     assert_equal(pyro.param("x").detach(), module.x.detach())
+     assert_equal(pyro.param("y").detach(), module.y.detach())
+ 
+-    pyro.get_param_store().save("/tmp/pyro_module.pt")
++    pyro.get_param_store().save(str(tmp_path / "pyro_module.pt"))
+     pyro.clear_param_store()
+     assert len(pyro.get_param_store()) == 0
+-    pyro.get_param_store().load("/tmp/pyro_module.pt")
++    pyro.get_param_store().load(str(tmp_path / "pyro_module.pt"))
+     assert set(pyro.get_param_store().keys()) == {"x", "y"}
+     actual = MyModule()
+     actual()
+--- a/tests/perf/test_benchmark.py
++++ b/tests/perf/test_benchmark.py
+@@ -31,8 +31,7 @@
+     os.path.join(os.path.dirname(__file__), os.pardir, os.pardir)
+ )
+ PROF_DIR = os.path.join(ROOT_DIR, ".benchmarks")
+-if not os.path.exists(PROF_DIR):
+-    os.makedirs(PROF_DIR)
++os.makedirs(PROF_DIR, exist_ok=True)
+ 
+ 
+ def register_model(**model_kwargs):
