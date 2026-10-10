@@ -1,0 +1,39 @@
+--- a/asmcomp/arm64/emit.mlp
++++ b/asmcomp/arm64/emit.mlp
+@@ -751,18 +751,15 @@
+           `	bl	{emit_symbol "caml_c_call"}\n`;
+           `{record_frame env i.live (Dbg_other i.dbg)}\n`
+         end else begin
+-          (* Push frame pointer (x29) onto stack and restore later. *)
+-          `	str	x29, [sp, -16]!\n`;
+-          (* Store OCaml stack in the frame pointer register. *)
+-          `	mov	x29, sp\n`;
++          (* Store OCaml stack in x19 register and restore later. *)
++          `	mov	x19, sp\n`;
+           cfi_remember_state ();
+-          cfi_def_cfa_register ~reg:29;
++          cfi_def_cfa_register ~reg:19;
+           let offset = Domainstate.(idx_of_field Domain_c_stack) * 8 in
+           `	ldr	{emit_reg reg_tmp1}, [{emit_reg reg_domain_state_ptr}, {emit_int offset}]\n`;
+           `	mov	sp, {emit_reg reg_tmp1}\n`;
+           `	bl	{emit_symbol func}\n`;
+-          `	mov	sp, x29\n`;
+-          `	ldr	x29, [sp], 16\n`;
++          `	mov	sp, x19\n`;
+           cfi_restore_state ()
+         end
+     | Lop(Istackoffset n) ->
+--- a/asmcomp/arm64/proc.ml
++++ b/asmcomp/arm64/proc.ml
+@@ -252,9 +252,9 @@
+ (* Registers destroyed by operations *)
+ 
+ let destroyed_at_c_noalloc_call =
+-  (* x19-x28, d8-d15 preserved *)
++  (* x20-x28, d8-d15 preserved *)
+   Array.of_list (List.map phys_reg
+-    [0;1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;
++    [0;1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;
+      100;101;102;103;104;105;106;107;
+      116;117;118;119;120;121;122;123;
+      124;125;126;127;128;129;130;131])
