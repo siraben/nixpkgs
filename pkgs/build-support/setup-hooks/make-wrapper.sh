@@ -200,8 +200,8 @@ makeShellWrapper() {
         fi
     done
 
-    echo exec ${argv0:+-a \"$argv0\"} \""$original"\" \
-         "${flagsBefore-}" '"$@"' "${flagsAfter-}" >> "$wrapper"
+    printf 'exec %s%s %s "$@" %s\n' "${argv0:+-a \"$argv0\" }" "${original@Q}" \
+        "${flagsBefore-}" "${flagsAfter-}" >> "$wrapper"
 
     chmod +x "$wrapper"
 }
