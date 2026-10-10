@@ -11,6 +11,42 @@
   ...
 }:
 let
+  testPartialDownload =
+    partialAttempts:
+    testers.invalidateFetcherByDrvHash
+      (fetchurl.override (previousArgs: {
+        hashedMirrors = [ ];
+        curl = writeShellScriptBin "curl" ''
+          set -eu
+          url= target=
+          while [[ "$#" -gt 0 ]]; do
+            case "$1" in
+              -V|--version) exec ${lib.getExe previousArgs.curl} "$1" ;;
+              --output) target="$2"; shift ;;
+              http://*) url="$1" ;;
+            esac
+            shift
+          done
+          attempts=0
+          if [[ -f "$TMPDIR/attempts" ]]; then attempts=$(< "$TMPDIR/attempts"); fi
+          if [[ "$url" == http://partial ]]; then
+            attempts=$((attempts + 1))
+            printf '%s' "$attempts" > "$TMPDIR/attempts"
+            if [[ "$attempts" -le ${toString partialAttempts} ]]; then exit 18; fi
+            if [[ ${toString partialAttempts} == 5 ]]; then exit 22; fi
+          else
+            [[ "$url" == http://fallback && ${toString partialAttempts} == 5 && "$attempts" == 5 ]]
+          fi
+          touch "$target"
+        '';
+      }))
+      {
+        name = "test-fetchurl-partial-${toString partialAttempts}";
+        urls = [ "http://partial" "http://fallback" ];
+        hash = emptyFile.outputHash;
+        recursiveHash = true;
+      };
+
   testFlagAppending =
     args:
     testers.invalidateFetcherByDrvHash
@@ -61,6 +97,9 @@ let
       );
 in
 {
+  partial-download-resume = testPartialDownload 2;
+  partial-download-fallback = testPartialDownload 5;
+
   # Tests that we can add curl flags via curlOpts (space separated)
   flag-appending-curlOpts = testFlagAppending {
     name = "test-fetchurl-flag-appending-curlOpts";

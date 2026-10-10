@@ -56,12 +56,13 @@ tryDownload() {
     local target="$2"
     echo
     echo "trying $url"
-    local curlexit=18;
+    local curlexit=18 attempts=0
 
     success=
 
-    # if we get error code 18, resume partial download
-    while [ "$curlexit" -eq 18 ]; do
+    # Bound partial-download retries so broken mirrors cannot prevent fallback.
+    while [ "$curlexit" -eq 18 ] && [ "$attempts" -lt 5 ]; do
+       attempts=$((attempts + 1))
        # keep this inside an if statement, since on failure it doesn't abort the script
        if "${curl[@]}" -C - --fail "$url" --output "$target" 2> >(tr '\r' '\n'); then
           success=1
