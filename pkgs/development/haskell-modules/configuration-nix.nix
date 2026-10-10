@@ -2319,22 +2319,31 @@ builtins.intersectAttrs super {
   openssl-streams = appendPatch ./patches/openssl-streams-cert.patch super.openssl-streams;
 
   libtorch-ffi =
-    appendConfigureFlags
+    overrideCabal
+      (drv: {
+        # Use the declared library, not Setup's download/cache sandbox heuristic.
+        env = drv.env or { } // {
+          LIBTORCH_SKIP_DOWNLOAD = "1";
+        };
+      })
       (
-        [
-          "--extra-include-dirs=${lib.getDev pkgs.libtorch-bin}/include/torch/csrc/api/include"
-        ]
-        ++ (lib.optionals pkgs.config.cudaSupport [
-          "-f"
-          "cuda"
-        ])
-      )
-      (
-        super.libtorch-ffi.override {
-          c10 = pkgs.libtorch-bin;
-          torch = pkgs.libtorch-bin;
-          torch_cpu = pkgs.libtorch-bin;
-        }
+        appendConfigureFlags
+          (
+            [
+              "--extra-include-dirs=${lib.getDev pkgs.libtorch-bin}/include/torch/csrc/api/include"
+            ]
+            ++ (lib.optionals pkgs.config.cudaSupport [
+              "-f"
+              "cuda"
+            ])
+          )
+          (
+            super.libtorch-ffi.override {
+              c10 = pkgs.libtorch-bin;
+              torch = pkgs.libtorch-bin;
+              torch_cpu = pkgs.libtorch-bin;
+            }
+          )
       );
 
   # Upper bounds of text and bytestring too strict: https://github.com/zsedem/haskell-cpython/pull/24

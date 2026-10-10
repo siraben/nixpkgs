@@ -106,6 +106,10 @@ stdenv.mkDerivation {
       for f in $out/lib/*.dylib; do
           otool -L $f
       done
+    ''
+    # The aarch64 2.9.0 distribution uses a Homebrew absolute install name.
+    + lib.optionalString stdenv.hostPlatform.isDarwin ''
+      install_name_tool -change /opt/homebrew/opt/libomp/lib/libomp.dylib ${llvmPackages.openmp}/lib/libomp.dylib "$out/lib/libtorch_cpu.dylib"
     '';
 
   outputs = [
