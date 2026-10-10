@@ -138,7 +138,9 @@ stdenv.mkDerivation (
     # Reverts this patch: https://sourceware.org/git/?p=glibc.git;a=commit;h=55d63e731253de82e96ed4ddca2e294076cd0bc5
     # This revert enables [CET] (Control-flow Enforcement Technology) by default
     # [CET]: https://en.wikipedia.org/wiki/Control-flow_integrity#Intel_Control-flow_Enforcement_Technology
-    ++ lib.optional enableCETRuntimeDefault ./2.39-revert-cet-default-disable.patch;
+    ++ lib.optional enableCETRuntimeDefault ./2.39-revert-cet-default-disable.patch
+    # New top-level prerequisites must use the existing Darwin stamp renaming.
+    ++ lib.optional stdenv.buildPlatform.isDarwin ./glibc-complete-stamp-rename.patch;
 
     postPatch = ''
       # Needed for glibc to build with the gnumake 3.82

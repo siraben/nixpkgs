@@ -1,0 +1,11 @@
+--- a/Makefile
++++ b/Makefile
+@@ -586,7 +586,7 @@
+ # stamps.  Create the top-level ones before the fan-out.
+ $(foreach t,$(+elf_last_subdir_targets),$(eval \
+   $(addsuffix /$(t),$(subdirs)): \
+-    $(foreach o,$(object-suffixes-for-libc),$(common-objpfx)stamp$(o))))
++    $(foreach o,$(object-suffixes-for-libc),$(common-objpfx)stamp$(subst .oS,.o_S,$(o)))))
+ 
+ # Pass barriers: a subdirectory 'others' build links programs against
+ # the libraries, so the 'lib' pass (including the top-level libc.so
