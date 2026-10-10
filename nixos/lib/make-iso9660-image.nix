@@ -80,6 +80,8 @@ stdenv.mkDerivation {
   # to the closure that was used to build it
   unsafeDiscardReferences.out = true;
 
+  passthru.tests.hardlink-independence = callPackage ../tests/iso-image-reproducibility.nix { };
+
   buildCommandPath = ./make-iso9660-image.sh;
   nativeBuildInputs = [
     xorriso
