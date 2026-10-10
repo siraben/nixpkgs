@@ -256,8 +256,35 @@ in
     assert stdenv.hostPlatform.isDarwin -> pkgs.libiconv == pkgs.darwin.libiconv;
     pkgs.emptyFile;
 
-  outputs-no-out =
-    runCommand "outputs-no-out-assert"
+  unpack-xz-errors = runCommand "unpack-xz-errors" { nativeBuildInputs = [ earlierPkgs.xz ]; } ''
+    mkdir src valid corrupt padded
+    printf payload > src/payload
+    tar cf source.tar src
+    xz -k source.tar
+    head -c -1 source.tar.xz > corrupt.tar.xz
+    cp source.tar padded.tar
+    dd if=/dev/zero bs=1M count=8 >> padded.tar
+    xz padded.tar
+    archiveRoot=$PWD
+    (cd valid; _defaultUnpack "$archiveRoot/source.tar.xz"; cmp src/payload "$archiveRoot/src/payload")
+    (cd padded; _defaultUnpack "$archiveRoot/padded.tar.xz"; cmp src/payload "$archiveRoot/src/payload")
+    if (cd corrupt; _defaultUnpack "$archiveRoot/corrupt.tar.xz"); then
+      echo "accepted a truncated xz archive" >&2
+      exit 1
+    fi
+    xz() { cat "$archiveRoot/source.tar"; return "$xzStatus"; }
+    for xzStatus in 1 2 141; do
+      mkdir "status-$xzStatus"
+      if (cd "status-$xzStatus"; _defaultUnpack "$archiveRoot/source.tar.xz"); then
+        [[ "$xzStatus" == 141 ]]
+      else
+        [[ "$xzStatus" != 141 ]]
+      fi
+    done
+    touch "$out"
+  '';
+
+  outputs-no-out =    runCommand "outputs-no-out-assert"
       {
         result = earlierPkgs.testers.testBuildFailure (
           bootStdenv.mkDerivation {
