@@ -23,6 +23,14 @@ let
   CC = "PATH= ${lib.getExe' stdenv.cc "${stdenv.cc.targetPrefix}cc"}";
   CXX = "PATH= ${lib.getExe' stdenv.cc "${stdenv.cc.targetPrefix}c++"}";
   READELF = "PATH= ${lib.getExe' stdenv.cc "${stdenv.cc.targetPrefix}readelf"}";
+  rpathLibrary = stdenv.mkDerivation {
+    name = "cc-wrapper-rpath-library";
+    buildCommand = ''
+      mkdir -p "$out/lib"
+      ${CC} -shared -DVALUE=42 -o "$out/lib/libfoo.so" ${./foo.c}
+      ln -s lib "$out/alias"
+    '';
+  };
 in
 stdenv.mkDerivation {
   pname = "cc-wrapper-test-${stdenv.cc.cc.pname}${libcxxStdenvSuffix}";
@@ -150,6 +158,20 @@ stdenv.mkDerivation {
 
     NIX_LDFLAGS="-L$NIX_BUILD_TOP/foo/lib -rpath $NIX_BUILD_TOP/foo/lib" ${CC} -lfoo -o ldflags-check ${./ldflags-main.c}
     ${emulator} ./ldflags-check
+
+    ${lib.optionalString stdenv.hostPlatform.isLinux ''
+      ln -s ${rpathLibrary}/lib rpath-absolute
+      ln -s "$(realpath --relative-to="$PWD" ${rpathLibrary}/lib)" rpath-relative
+      ln -s rpath-relative rpath-chain
+      for dir in ${rpathLibrary}/lib rpath-absolute rpath-relative rpath-chain ${rpathLibrary}/alias; do
+        dir=$(realpath -s "$dir")
+        ${CC} -L "$dir" -lfoo -o rpath-check ${./ldflags-main.c}
+        ${emulator} ./rpath-check
+        expected=${rpathLibrary}/lib
+        if [[ "$dir" == ${rpathLibrary}/alias ]]; then expected="$dir"; fi
+        ${READELF} -d rpath-check | grep -F "$expected"
+      done
+    ''}
 
     echo "Check whether -nostdinc and -nostdinc++ is handled correctly" >&2
     mkdir -p std-include
