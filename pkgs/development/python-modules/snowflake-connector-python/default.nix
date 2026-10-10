@@ -45,6 +45,9 @@ buildPythonPackage rec {
     hash = "sha256-bJK6U5lomcPMGeKEmv+9m+uM5+3GJKKUA3dEwP/ynVo=";
   };
 
+  # Preserve permission diagnostics and create async test auth on a running loop.
+  patches = [ ./snowflake-python314-fixtures.patch ];
+
   build-system = [
     cython
     setuptools

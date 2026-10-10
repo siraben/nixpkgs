@@ -1,0 +1,68 @@
+--- a/src/snowflake/connector/config_manager.py
++++ b/src/snowflake/connector/config_manager.py
+@@ -329,8 +329,9 @@
+             if sliceoptions.only_in_slice:
+                 del read_config_file[section]
+             try:
+-                if not filep.exists():
+-                    continue
++                filep.stat()
++            except (FileNotFoundError, NotADirectoryError):
++                continue
+             except PermissionError:
+                 LOGGER.debug(
+                     f"Fail to read configuration file from {str(filep)} due to no permission on its parent directory"
+--- a/test/unit/aio/test_connection_async_unit.py
++++ b/test/unit/aio/test_connection_async_unit.py
+@@ -229,29 +229,30 @@
+     "auth_class",
+     (
+         pytest.param(
+-            type("auth_class", (AuthByDefault,), {})("my_secret_password"),
++            lambda: type("auth_class", (AuthByDefault,), {})("my_secret_password"),
+             id="AuthByDefault",
+         ),
+         pytest.param(
+-            type("auth_class", (AuthByOAuth,), {})("my_token"),
++            lambda: type("auth_class", (AuthByOAuth,), {})("my_token"),
+             id="AuthByOAuth",
+         ),
+         pytest.param(
+-            type("auth_class", (AuthByOkta,), {})("Python connector"),
++            lambda: type("auth_class", (AuthByOkta,), {})("Python connector"),
+             id="AuthByOkta",
+         ),
+         pytest.param(
+-            type("auth_class", (AuthByUsrPwdMfa,), {})("password", "mfa_token"),
++            lambda: type("auth_class", (AuthByUsrPwdMfa,), {})("password", "mfa_token"),
+             id="AuthByUsrPwdMfa",
+         ),
+         pytest.param(
+-            type("auth_class", (AuthByWebBrowser,), {})(None, None),
++            lambda: type("auth_class", (AuthByWebBrowser,), {})(None, None),
+             id="AuthByWebBrowser",
+         ),
+     ),
+ )
+ async def test_negative_custom_auth(auth_class):
+     """Tests that non-AuthByKeyPair custom auth is not allowed."""
++    auth_class = auth_class()
+     with pytest.raises(
+         TypeError,
+         match="auth_class must be a child class of AuthByKeyPair",
+--- a/test/unit/test_configmanager.py
++++ b/test/unit/test_configmanager.py
+@@ -837,3 +837,13 @@
+     finally:
+         CONFIG_MANAGER.file_path = old_path
+         CONFIG_MANAGER.conf_file_cache = None
++
++
++@pytest.mark.parametrize("parent_is_file", [False, True])
++def test_read_config_missing_parent(tmp_path, parent_is_file):
++    parent = tmp_path / "parent"
++    if parent_is_file:
++        parent.write_text("not a directory")
++    manager = ConfigManager(file_path=parent / "config.toml", name="root_parser")
++    manager.read_config()
++    assert not manager.conf_file_cache
