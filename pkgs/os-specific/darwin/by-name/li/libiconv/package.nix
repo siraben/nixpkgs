@@ -25,6 +25,8 @@ mkAppleDerivation (finalAttrs: {
     ./patches/0001-Support-static-module-loading.patch
     # Avoid out of bounds write with ISO-2022
     ./patches/0002-Fix-ISO-2022-out-of-bounds-write-with-encoded-charac.patch
+    # Preserve persistent shift state when a small output buffer fills.
+    ./patches/0003-Preserve-shift-state-in-scalar-conversion.patch
   ];
 
   # Propagate `out` only when there are dylibs to link (i.e., don’t propagate when doing a static build).

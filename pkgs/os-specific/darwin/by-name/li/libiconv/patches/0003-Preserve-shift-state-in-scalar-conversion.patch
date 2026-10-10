@@ -1,0 +1,22 @@
+--- a/libiconv_modules/iconv_std/citrus_iconv_std.c
++++ b/libiconv_modules/iconv_std/citrus_iconv_std.c
+@@ -321,6 +321,19 @@
+ 			assert(*s >= last);
+ 			n -= *s - last;
+ 			delta[i] = *s - first;
++
++			/* A stable, non-initial state includes persistent shift
++			 * sequences. Do not read ahead: a partially emitted batch
++			 * can only rewind by resetting to the initial state.
++			 * Stateless fallback codecs retain their existing batching.
++			 */
++			struct _stdenc_state_desc state;
++			if (_stdenc_get_state_desc(se->se_handle, se->se_ps,
++			    _STDENC_SDID_GENERIC, &state) == 0 &&
++			    state.u.generic.state == _STDENC_SDGEN_STABLE) {
++				i++;
++				break;
++			}
+ 		}
+ 
+ 		if (i < *cnt)

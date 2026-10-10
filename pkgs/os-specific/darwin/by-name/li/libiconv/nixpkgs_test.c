@@ -1,6 +1,8 @@
 #include <atf-c.h>
 #include <iconv.h>
 #include <stdint.h>
+#include <errno.h>
+#include <string.h>
 
 // The following tests were failing in libarchive due to libiconv issues.
 //   218: test_read_format_cab_filename (4 failures)
@@ -106,11 +108,39 @@ ATF_TC_BODY(test_iso2022_crash, tc)
     ATF_CHECK_STREQ(expected, output);
 }
 
+ATF_TC_WITHOUT_HEAD(test_iso2022_incremental_shift_state);
+ATF_TC_BODY(test_iso2022_incremental_shift_state, tc)
+{
+    char input[] = "\x1b$B$3$s$K$A$O\x1b(BABC\x1b$B@$3&\x1b(B\n";
+    uint32_t expected[] = {0x3053, 0x3093, 0x306b, 0x3061, 0x306f,
+                           0x41, 0x42, 0x43, 0x4e16, 0x754c, 0xa};
+    iconv_t cd = iconv_open("UTF-32LE", "ISO-2022-JP");
+    ATF_REQUIRE(cd != (iconv_t)-1);
+    char *inptr = input;
+    size_t left = strlen(input), index = 0;
+    while (left != 0) {
+        uint32_t output[2] = {0};
+        char *outptr = (char *)output;
+        size_t available = sizeof(output);
+        size_t res = iconv(cd, &inptr, &left, &outptr, &available);
+        ATF_REQUIRE(res != (size_t)-1 || errno == E2BIG);
+        size_t produced = (sizeof(output) - available) / sizeof(output[0]);
+        ATF_REQUIRE(produced != 0);
+        for (size_t j = 0; j < produced; j++, index++) {
+            ATF_REQUIRE(index < sizeof(expected) / sizeof(expected[0]));
+            ATF_CHECK_INTEQ(expected[index], output[j]);
+        }
+    }
+    ATF_CHECK_INTEQ(sizeof(expected) / sizeof(expected[0]), index);
+    iconv_close(cd);
+}
+
 ATF_TP_ADD_TCS(tp)
 {
     ATF_TP_ADD_TC(tp, test_cp932_eucjp);
     ATF_TP_ADD_TC(tp, test_cp932_cp932);
     ATF_TP_ADD_TC(tp, test_iso2022_crash);
+    ATF_TP_ADD_TC(tp, test_iso2022_incremental_shift_state);
 
     return atf_no_error();
 }
