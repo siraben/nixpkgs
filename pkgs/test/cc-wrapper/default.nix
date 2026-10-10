@@ -33,6 +33,14 @@ stdenv.mkDerivation {
     echo "With libc: ${stdenv.cc.libc.name}" >&2
     set -o pipefail
 
+    source ${../../build-support/wrapper-common/utils.bash}
+    for linkType in dynamic static static-pie; do
+      for flag in -e -E -n; do
+        [[ "$(filterRpathFlags "$linkType" "$flag" entry)" == "$flag"$'\n'entry ]]
+      done
+    done
+    [[ "$(filterRpathFlags static-pie -rpath /example -e entry)" == $'-e\nentry' ]]
+
     NIX_DEBUG=1 ${CC} -v
     NIX_DEBUG=1 ${CXX} -v
 

@@ -182,5 +182,5 @@ filterRpathFlags() {
     else
         ret=("$@")
     fi
-    echo "${ret[@]}"
+    printf '%s\n' "${ret[@]}"
 }
