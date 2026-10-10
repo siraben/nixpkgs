@@ -57,8 +57,13 @@ let
     python3Packages.buildPythonPackage (
       args
       // {
-        inherit src version;
-        name = "datadog-integration-${pname}-${version}";
+        inherit src;
+        version = args.version or version;
+        name = "datadog-integration-${lib.removePrefix "datadog-" pname}-${args.version or version}";
+        # Unlisted extra integrations retain the repository snapshot version.
+        # Core integrations below have their actual distribution versions and
+        # retain the metadata check.
+        dontCheckPythonMetadata = !(args ? version);
         pyproject = true;
 
         sourceRoot = "${src.name}/${args.sourceRoot or pname}";
@@ -72,7 +77,8 @@ let
 
   # Base package depended on by all other integrations.
   datadog_checks_base = buildIntegration {
-    pname = "checks-base";
+    pname = "datadog-checks-base";
+    version = "37.18.1";
     sourceRoot = "datadog_checks_base";
 
     dependencies = with python3Packages; [
@@ -82,6 +88,8 @@ let
       immutables
       jellyfish
       lazy-loader
+      mmh3
+      packaging
       prometheus-client
       protobuf
       pydantic
@@ -105,27 +113,54 @@ let
   # Default integrations that should be built:
   defaultIntegrations = {
     disk = (ps: [ ps.psutil ]);
-    mongo = (ps: [ ps.pymongo ]);
+    mongo = (
+      ps: [
+        ps.psutil
+        ps.pymongo
+      ]
+    );
     network = (ps: [ ps.psutil ]);
     nginx = (ps: [ ]);
     postgres = (
       ps: with ps; [
+        azure-identity
+        boto3
         pg8000
+        psycopg
         psycopg2
+        psycopg-pool
         semver
       ]
     );
     process = (ps: [ ps.psutil ]);
   };
 
+  # Distribution versions in the pinned integrations-core snapshot, not the
+  # repository/agent release version.
+  integrationVersions = {
+    disk = "7.1.0";
+    mongo = "10.3.0";
+    network = "5.3.0";
+    nginx = "9.0.1";
+    postgres = "22.18.0";
+    process = "5.1.0";
+  };
+
   # All integrations (default + extra):
   integrations = defaultIntegrations // extraIntegrations;
   builtIntegrations = mapAttrs (
-    pname: fdeps:
-    buildIntegration {
-      inherit pname;
-      propagatedBuildInputs = (fdeps python3Packages) ++ [ datadog_checks_base ];
-    }
+    integration: fdeps:
+    buildIntegration (
+      {
+        pname = "datadog-${integration}";
+        sourceRoot = integration;
+        propagatedBuildInputs = (fdeps python3Packages) ++ [ datadog_checks_base ];
+        pythonImportsCheck = [ "datadog_checks.${integration}" ];
+      }
+      // lib.optionalAttrs (builtins.hasAttr integration integrationVersions) {
+        version = integrationVersions.${integration};
+      }
+    )
   ) integrations;
 
 in
