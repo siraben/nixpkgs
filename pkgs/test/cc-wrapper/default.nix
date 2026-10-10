@@ -22,6 +22,7 @@ let
   libcxxStdenvSuffix = lib.optionalString isCxx "-libcxx";
   CC = "PATH= ${lib.getExe' stdenv.cc "${stdenv.cc.targetPrefix}cc"}";
   CXX = "PATH= ${lib.getExe' stdenv.cc "${stdenv.cc.targetPrefix}c++"}";
+  LD = "PATH= ${lib.getExe' stdenv.cc.bintools "${stdenv.cc.targetPrefix}ld"}";
   READELF = "PATH= ${lib.getExe' stdenv.cc "${stdenv.cc.targetPrefix}readelf"}";
   rpathLibrary = stdenv.mkDerivation {
     name = "cc-wrapper-rpath-library";
@@ -189,6 +190,20 @@ stdenv.mkDerivation {
 
     echo "Check whether CC and LD with NIX_X_USE_RESPONSE_FILE hardcodes all required binaries..." >&2
     NIX_CC_USE_RESPONSE_FILE=1 NIX_LD_USE_RESPONSE_FILE=1 ${CC} -v
+
+    mkdir response-files
+    cd response-files
+    for name in 'space name' $'tab\tname' $'newline\nname' 'quote"name' 'back\slash'; do
+      cp ${./cc-main.c} "$name.c"
+      NIX_CC_USE_RESPONSE_FILE=0 ${CC} -c "$name.c" -o "$name-direct.o"
+      NIX_CC_USE_RESPONSE_FILE=1 ${CC} -c "$name.c" -o "$name-response.o"
+      test -s "$name-response.o"
+      ${lib.optionalString stdenv.hostPlatform.isLinux ''
+        NIX_LD_USE_RESPONSE_FILE=1 ${LD} -r "$name-response.o" -o "$name-linked.o"
+        test -s "$name-linked.o"
+      ''}
+    done
+    cd ..
 
     touch $out
   '';

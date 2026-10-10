@@ -150,6 +150,16 @@ expandResponseParams() {
     done
 }
 
+# Response files do not support Bash's ANSI-C quoting from printf %q.
+writeResponseFile() {
+    local arg
+    for arg in "$@"; do
+        arg="${arg//\\/\\\\}"
+        arg="${arg//\"/\\\"}"
+        printf '"%s"\n' "$arg"
+    done
+}
+
 checkLinkType() {
     local arg
     type="dynamic"
