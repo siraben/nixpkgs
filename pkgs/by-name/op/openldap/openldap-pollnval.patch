@@ -1,0 +1,11 @@
+--- a/include/ac/socket.h
++++ b/include/ac/socket.h
+@@ -255,7 +255,7 @@
+ #  define INFTIM (-1)
+ # endif
+ #undef POLL_OTHER
+-#define POLL_OTHER   (POLLERR|POLLHUP)
++#define POLL_OTHER   (POLLERR|POLLHUP|POLLNVAL)
+ #undef POLL_READ
+ #define POLL_READ    (POLLIN|POLLPRI|POLL_OTHER)
+ #undef POLL_WRITE              

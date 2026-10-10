@@ -35,6 +35,8 @@ stdenv.mkDerivation (finalAttrs: {
       url = "https://bugs.openldap.org/attachment.cgi?id=1051";
       hash = "sha256-9LcFTswMQojrwHD+PRvlnSrwrISCFcboHypBwoDIZc0=";
     })
+    # Invalid poll descriptors must reach the existing connection error path.
+    ./openldap-pollnval.patch
   ];
 
   # TODO: separate "out" and "bin"
