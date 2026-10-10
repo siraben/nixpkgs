@@ -29,6 +29,9 @@ stdenv.mkDerivation {
       ."${version}";
   };
 
+  # Executable OCaml bytecode and scripts cannot carry Mach-O signatures.
+  patches = lib.optionals (version == "3.23.1") [ ./dune-sign-only-macho.patch ];
+
   nativeBuildInputs = with ocamlPackages; [
     ocaml
     findlib

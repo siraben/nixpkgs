@@ -1,0 +1,24 @@
+--- a/src/dune_rules/artifact_substitution.ml
++++ b/src/dune_rules/artifact_substitution.ml
+@@ -178,7 +178,20 @@
+         | Error _ -> false
+         | Ok { st_perm; _ } -> Permissions.test Permissions.execute st_perm
+       in
+-      if executable
++      (* Scripts and OCaml bytecode have execute permission too, but cannot
++         carry a Mach-O signature. Inspect the format before looking up codesign. *)
++      let mach_o =
++        executable
++        && Io.with_file_in file ~f:(fun ic ->
++          match Stdlib.really_input_string ic 4 with
++          | "\xcf\xfa\xed\xfe" | "\xfe\xed\xfa\xcf"
++          | "\xce\xfa\xed\xfe" | "\xfe\xed\xfa\xce"
++          | "\xca\xfe\xba\xbe" | "\xbe\xba\xfe\xca"
++          | "\xca\xfe\xba\xbf" | "\xbf\xba\xfe\xca" -> true
++          | _ -> false
++          | exception End_of_file -> false)
++      in
++      if mach_o
+       then
+         Memo.run t.sign_hook
+         |> Fiber.bind ~f:(function

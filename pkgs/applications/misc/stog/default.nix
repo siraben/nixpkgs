@@ -1,5 +1,7 @@
 {
   lib,
+  stdenv,
+  darwin,
   buildDunePackage,
   fetchFromGitLab,
   fmt,
@@ -32,7 +34,7 @@ buildDunePackage rec {
     hash = "sha256-seaVco5AoOxjEuw8zYsrA25vcyo1Un3eUJUU9FT57WU=";
   };
 
-  nativeBuildInputs = [ menhir ];
+  nativeBuildInputs = [ menhir ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ darwin.sigtool ];
   buildInputs = [
     lwt_ppx
     ocf_ppx
