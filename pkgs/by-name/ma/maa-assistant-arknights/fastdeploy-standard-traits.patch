@@ -1,0 +1,40 @@
+--- a/fastdeploy/core/float16.h
++++ b/fastdeploy/core/float16.h
+@@ -571,35 +571,8 @@
+ 
+ namespace std {
+ 
+-// Override the std::is_pod::value for float16
+-// The reason is that different compilers implemented std::is_pod based on
+-// different C++ standards. float16 class is a plain old data in C++11 given
+-// that it is both trivial and standard_layout.
+-// However, std::is_pod in nvcc 8.0 host c++ compiler follows C++0x and is
+-// more restricted in that you cannot provide any customized
+-// constructor in float16. Hence, we override is_pod here following C++11
+-// so that .cu files can be successfully compiled by nvcc.
+-template <>
+-struct is_pod<fastdeploy::float16> {
+-  static const bool value = is_trivial<fastdeploy::float16>::value &&
+-                            is_standard_layout<fastdeploy::float16>::value;
+-};
+-
+-template <>
+-struct is_floating_point<fastdeploy::float16>
+-    : std::integral_constant<
+-          bool, std::is_same<fastdeploy::float16,
+-                             typename std::remove_cv<
+-                                 fastdeploy::float16>::type>::value> {};
+-template <>
+-struct is_signed<fastdeploy::float16> {
+-  static const bool value = true;
+-};
+-
+-template <>
+-struct is_unsigned<fastdeploy::float16> {
+-  static const bool value = false;
+-};
++// Standard type traits must not be specialized for user-defined types.
++// numeric_limits below is the supported customization point.
+ 
+ inline bool isnan(const fastdeploy::float16& a) { return fastdeploy::isnan(a); }
+ 

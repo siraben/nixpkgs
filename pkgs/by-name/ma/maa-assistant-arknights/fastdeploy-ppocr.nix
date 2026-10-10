@@ -26,6 +26,10 @@ effectiveStdenv.mkDerivation (finalAttrs: {
     hash = "sha256-5TItnPDc5WShpZAgBYeqgI9KKkk3qw/M8HPMlq/H4BM=";
   };
 
+  # Standard type traits cannot be specialized for user-defined types.
+  # The old NVCC8 workaround is rejected by libc++21.
+  patches = [ ./fastdeploy-standard-traits.patch ];
+
   outputs = [
     "out"
     "cmake"
