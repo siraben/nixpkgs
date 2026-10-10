@@ -24,6 +24,10 @@ self: super:
 
     double-conversion = addExtraLibrary pkgs.libcxx super.double-conversion;
 
+    # Darwin rejects TCP connections to INADDR_NONE (the broadcast address)
+    # with EAFNOSUPPORT. Keep the failed-connect assertion and both suites.
+    socket = appendPatch ./patches/socket-darwin-broadcast-connect.patch super.socket;
+
     # darwin doesn't have sub-second resolution
     # https://github.com/hspec/mockery/issues/11
     mockery = overrideCabal (drv: {
