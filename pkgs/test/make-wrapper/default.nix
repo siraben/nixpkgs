@@ -64,6 +64,7 @@ in
 runCommand "make-wrapper-test"
   {
     nativeBuildInputs = [
+      makeWrapper
       which
       (mkWrapperBinary {
         name = "test-argv0";
@@ -292,5 +293,17 @@ runCommand "make-wrapper-test"
     + mkTest "VAR=abc test-suffix-contents" "VAR=abc:foo:bar"
     # --prefix-contents works
     + mkTest "VAR=abc test-prefix-contents" "VAR=bar:foo:abc"
+    + ''
+      mkdir originals
+      for name in plain 'space name' 'double"quote' "single'quote" $'tab\tname' \
+          $'newline\nname' 'back\slash' $'back\\\nnewline' '$AUDIT_PATH_UNSET' \
+          '$(printf PATH_EVAL >&2)' '`printf PATH_EVAL >&2`'; do
+        ln -s ${wrappedBinaryArgs} "originals/$name"
+        makeShellWrapper "$PWD/originals/$name" "$PWD/literal-wrapper" \
+          --add-flag '$(printf FLAG_EVAL >&2)'
+        [[ "$(./literal-wrapper argument 2> stderr)" == $'$(printf FLAG_EVAL >&2)\nargument' ]]
+        [[ ! -s stderr ]]
+      done
+    ''
     + "touch $out"
   )
