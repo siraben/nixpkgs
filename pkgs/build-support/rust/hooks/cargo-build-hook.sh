@@ -7,7 +7,12 @@ cargoBuildHook() {
 
     # Let stdenv handle stripping, for consistency and to not break
     # separateDebugInfo.
-    export "CARGO_PROFILE_${cargoBuildType@U}_STRIP"=false
+    local profile="${cargoBuildType}"
+    # "debug" names the output directory; Cargo calls this profile "dev".
+    if [ "$profile" = debug ]; then
+        profile=dev
+    fi
+    export "CARGO_PROFILE_${profile@U}_STRIP"=false
 
     if [ -n "${buildAndTestSubdir-}" ]; then
         # ensure the output doesn't end up in the subdirectory
