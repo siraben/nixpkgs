@@ -298,7 +298,7 @@ stdenvNoCC.mkDerivation {
       ## Dynamic linker support
       ##
       + optionalString (sharedLibraryLoader != null) ''
-        if [[ -z ''${dynamicLinker+x} ]]; then
+        if [[ -z ''${dynamicLinker:-} ]]; then
           echo "Don't know the name of the dynamic linker for platform '${targetPlatform.config}', so guessing instead." >&2
           local dynamicLinker="${sharedLibraryLoader}/lib/ld*.so.?"
         fi
