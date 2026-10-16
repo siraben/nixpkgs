@@ -63,22 +63,22 @@ rec {
       builders = builtins.mapAttrs (_: builtins.toFile "write-text-file.kaem") {
         emptyDestinationExecutable = ''
           target=''${out}''${destination}
-          mkdir -p ''${out}''${destinationDir}
           cp ''${textPath} ''${target}
           chmod 555 ''${target}
         '';
         emptyDestinationNonExecutable = ''
           target=''${out}''${destination}
-          mkdir -p ''${out}''${destinationDir}
           cp ''${textPath} ''${target}
         '';
         nonEmptyDestinationExecutable = ''
           target=''${out}''${destination}
+          mkdir -p ''${out}''${destinationDir}
           cp ''${textPath} ''${target}
           chmod 555 ''${target}
         '';
         nonEmptyDestinationNonExecutable = ''
           target=''${out}''${destination}
+          mkdir -p ''${out}''${destinationDir}
           cp ''${textPath} ''${target}
         '';
       };
