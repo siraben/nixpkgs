@@ -1183,6 +1183,26 @@ rec {
           touch $out
         '';
 
+      useClippyBinaryDenyFails =
+        let
+          crate = mkHostCrate {
+            crateName = "useClippyBinaryDenyFails";
+            useClippy = true;
+            lints.clippy.eq_op = "deny";
+            src = mkFile "src/main.rs" ''
+              fn main() {
+                println!("{}", 1 == 1);
+              }
+            '';
+          };
+          failed = testers.testBuildFailure crate;
+        in
+        runCommand "assert-useClippyBinaryDenyFails" { inherit failed; } ''
+          grep -q 'clippy::eq.op' "$failed/testBuildFailure.log"
+          grep -q 'equal expressions' "$failed/testBuildFailure.log"
+          touch $out
+        '';
+
       # `useClippy = true` with the default `capLints` (which resolves to
       # `"allow"` when `lints` is empty) must still build: the cap silences
       # clippy lints just like rustc lints. Same source as the failing test

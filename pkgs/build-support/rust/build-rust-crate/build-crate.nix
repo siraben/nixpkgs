@@ -251,7 +251,7 @@ in
 
   if [[ ''${#BINS[@]} -gt 0 ]]; then
     export BIN_RUSTC_OPTS LINK EXTRA_LINK_ARGS EXTRA_LINK_ARGS_BINS EXTRA_LIB \
-           BUILD_OUT_DIR EXTRA_BUILD EXTRA_FEATURES EXTRA_RUSTC_FLAGS CAP_LINTS
+           BUILD_OUT_DIR EXTRA_BUILD EXTRA_FEATURES EXTRA_RUSTC_FLAGS CAP_LINTS RUSTC_DRIVER
     export -f build_bin build_bin_test echo_build_heading noisily echo_colored echo_error
     # Generate a Makefile and pipe it to make, which handles parallel execution
     # and the jobserver protocol natively so rustc invocations share a token pool.
