@@ -70,6 +70,7 @@ in
 
       NIX_CFLAGS_COMPILE =
         (previousAttrs.env.NIX_CFLAGS_COMPILE or "")
+        + " "
         + lib.concatStringsSep " " (
           builtins.concatLists [
             (lib.optionals withGd gdCflags)
