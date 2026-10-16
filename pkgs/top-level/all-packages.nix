@@ -4898,13 +4898,14 @@ with pkgs;
     let
       makeCcacheWrapper =
         args@{ extraConfig, cc }:
+        overrides:
         let
-          wrapper = cc.override {
+          wrapper = lib.foldl' (wrapper: override: wrapper.override override) (cc.override {
             cc = ccache.links {
               inherit extraConfig;
               unwrappedCC = cc.cc;
             };
-          };
+          }) overrides;
         in
         wrapper
         // {
@@ -4917,20 +4918,22 @@ with pkgs;
               let
                 ccacheArgs = builtins.intersectAttrs { extraConfig = null; } evaluatedArgs;
                 wrapperArgs = removeAttrs evaluatedArgs [ "extraConfig" ];
-                ccacheWrapper = makeCcacheWrapper (args // ccacheArgs);
+                ccacheWrapper = makeCcacheWrapper (args // ccacheArgs) overrides;
               in
               if wrapperArgs == { } then ccacheWrapper else ccacheWrapper.override wrapperArgs
             else
-              wrapper.override evaluatedArgs;
+              makeCcacheWrapper args (overrides ++ [ evaluatedArgs ]);
           overrideCcache =
             newArgs:
-            makeCcacheWrapper (args // (if builtins.isFunction newArgs then newArgs args else newArgs));
+            makeCcacheWrapper (
+              args // (if builtins.isFunction newArgs then newArgs args else newArgs)
+            ) overrides;
         };
     in
     makeCcacheWrapper {
       extraConfig = "";
       inherit (stdenv) cc;
-    };
+    } [ ];
 
   ccacheStdenv =
     let
@@ -4948,9 +4951,11 @@ with pkgs;
         );
 
       makeOverridableCcacheStdenv =
-        args:
+        args: overrides:
         let
-          ccacheStdenv' = lowPrio (makeCcacheStdenv args);
+          ccacheStdenv' = lib.foldl' (stdenv: override: stdenv.override override) (lowPrio (
+            makeCcacheStdenv args
+          )) overrides;
         in
         ccacheStdenv'
         // {
@@ -4969,19 +4974,19 @@ with pkgs;
                   "extraConfig"
                   "stdenv"
                 ];
-                ccacheStdenv = makeOverridableCcacheStdenv (args // ccacheArgs);
+                ccacheStdenv = makeOverridableCcacheStdenv (args // ccacheArgs) overrides;
               in
               if stdenvArgs == { } then ccacheStdenv else ccacheStdenv.override stdenvArgs
             else
-              ccacheStdenv'.override evaluatedArgs;
+              makeOverridableCcacheStdenv args (overrides ++ [ evaluatedArgs ]);
           overrideCcache =
             newArgs:
             makeOverridableCcacheStdenv (
               args // (if builtins.isFunction newArgs then newArgs args else newArgs)
-            );
+            ) overrides;
         };
     in
-    makeOverridableCcacheStdenv { inherit stdenv; };
+    makeOverridableCcacheStdenv { inherit stdenv; } [ ];
 
   chromedriver = callPackage ../development/tools/selenium/chromedriver { };
 
