@@ -35,6 +35,7 @@
 
   baseName ? "dotnet",
   bootstrapSdk,
+  bootstrapArtifacts ? bootstrapSdk.artifacts,
   releaseManifestFile,
   tarballHash,
   hasRuntime,
@@ -395,7 +396,7 @@ stdenv.mkDerivation {
     "--no-artifacts"
     "--no-prebuilts"
     "--with-packages"
-    bootstrapSdk.artifacts
+    bootstrapArtifacts
   ]
   # https://github.com/dotnet/source-build/issues/5286#issuecomment-3097872768
   ++ lib.optional (lib.versionAtLeast version "10") "-p:SkipArcadeSdkImport=true";
@@ -413,14 +414,14 @@ stdenv.mkDerivation {
       chmod -R +w .dotnet
     ''
     + lib.optionalString (lib.versionAtLeast version "10") ''
-      dotnet nuget add source "${bootstrapSdk.artifacts}"
+      dotnet nuget add source "${bootstrapArtifacts}"
     ''
     + ''
       ${prepScript} "''${prepFlags[@]}"
     ''
     + lib.optionalString (!hasRuntime) ''
       mkdir .shared-components
-      cp -r "${bootstrapSdk.artifacts}"/* .shared-components/
+      cp -r "${bootstrapArtifacts}"/* .shared-components/
       chmod +w -R .shared-components/
       # zip dependencies unzipped in bootstrap installPhase, so they can be found
       find .shared-components/assets . -name \*.tar -exec gzip -f --fast {} \;
@@ -465,7 +466,7 @@ stdenv.mkDerivation {
 
   buildFlags = [
     "--with-packages"
-    bootstrapSdk.artifacts
+    bootstrapArtifacts
     "--clean-while-building"
     "--release-manifest"
     releaseManifestFile

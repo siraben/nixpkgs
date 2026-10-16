@@ -11,6 +11,7 @@
   releaseInfoFile ? dir + "/release-info.json",
   bootstrapSdkFile ? dir + "/bootstrap-sdk.nix",
   bootstrapSdk ? null,
+  bootstrapArtifacts ? bootstrapSdk.artifacts,
   depsFile ? dir + "/deps.json",
   pkgsBuildBuild,
   buildDotnetSdk,
@@ -65,7 +66,7 @@ let
           releaseManifestFile
           tarballHash
           ;
-        inherit bootstrapSdk;
+        inherit bootstrapSdk bootstrapArtifacts;
         hasRuntime = false;
       }
     else
@@ -206,7 +207,24 @@ in
             inherit featureBand;
             dir = dir + "/${featureBand}";
             withBinary = false;
-            bootstrapSdk = vmrPackages.sdk;
+            # Execute a build-platform SDK, but reuse the host-platform
+            # artifacts when assembling the later feature band's runtime.
+            bootstrapSdk =
+              if stdenvNoCC.buildPlatform == stdenvNoCC.hostPlatform then
+                vmrPackages.sdk
+              else
+                (pkgsBuildBuild.dotnetCorePackages.callPackage ../dotnet.nix {
+                  inherit
+                    channel
+                    dir
+                    releaseManifestFile
+                    releaseInfoFile
+                    bootstrapSdkFile
+                    depsFile
+                    ;
+                  withBinary = false;
+                }).${"dotnet_${suffix.source}"}.sdk;
+            bootstrapArtifacts = vmrPackages.sdk.artifacts;
           }
         )
       )
