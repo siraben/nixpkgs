@@ -307,14 +307,9 @@ stdenv.mkDerivation (finalAttrs: {
     + lib.optionalString (useLLVM && stdenv.hostPlatform.isLinux) ''
       ln -s $out/lib/*/clang_rt.crtbegin-*.o $out/lib/crtbegin.o
       ln -s $out/lib/*/clang_rt.crtend-*.o $out/lib/crtend.o
-      # Note the history of crt{begin,end}S in previous versions of llvm in nixpkg:
-      # The presence of crtbegin_shared has been added and removed; it's possible
-      # people have added/removed it to get it working on their platforms.
-      # Try each in turn for now.
+      # The CRT objects are PIC and also serve shared-library links.
       ln -s $out/lib/*/clang_rt.crtbegin-*.o $out/lib/crtbeginS.o
       ln -s $out/lib/*/clang_rt.crtend-*.o $out/lib/crtendS.o
-      ln -s $out/lib/*/clang_rt.crtbegin_shared-*.o $out/lib/crtbeginS.o
-      ln -s $out/lib/*/clang_rt.crtend_shared-*.o $out/lib/crtendS.o
     ''
     + lib.optionalString doFakeLibgcc ''
       ln -s $out/lib/*/libclang_rt.builtins-*.a $out/lib/libgcc.a
