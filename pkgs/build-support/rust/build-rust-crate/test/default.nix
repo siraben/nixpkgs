@@ -1130,6 +1130,16 @@ rec {
             test -e ${pkg}/bin/brotli-decompressor && touch $out
           '';
 
+      featureOverrideWithoutInitialFeatures =
+        (mkHostCrate {
+          crateName = "feature-override";
+          src = mkFile "src/lib.rs" ''
+            #[cfg(not(feature = "probe"))]
+            compile_error!("feature override was lost");
+          '';
+        }).override
+          { features = [ "probe" ]; };
+
       # A `deny` lint from the lints table should actually fail the build.
       lintsDenyFails =
         let

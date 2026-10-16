@@ -502,8 +502,8 @@ lib.makeOverridable
         # with a forward slash, since they are passed through to dependencies,
         # and dep: features, since they're internal-only and do nothing except
         # enable optional dependencies.
-        crateFeatures = lib.optionals (crate ? features) (
-          builtins.filter (f: !(lib.hasInfix "/" f || lib.hasPrefix "dep:" f)) (crate.features ++ features)
+        crateFeatures = builtins.filter (f: !(lib.hasInfix "/" f || lib.hasPrefix "dep:" f)) (
+          (crate.features or [ ]) ++ features
         );
 
         libName = if crate ? libName then crate.libName else crate.crateName;
