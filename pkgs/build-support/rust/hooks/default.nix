@@ -1,10 +1,10 @@
 {
   cargo-nextest,
+  callPackage,
   clang,
   diffutils,
   lib,
   makeSetupHook,
-  rust,
   stdenv,
   pkgsHostTarget,
   pkgsTargetTarget,
@@ -16,6 +16,9 @@
   tests,
   pkgsCross,
 }:
+let
+  rust = callPackage ../lib { inherit stdenv; };
+in
 {
   cargoBuildHook = makeSetupHook {
     name = "cargo-build-hook.sh";
