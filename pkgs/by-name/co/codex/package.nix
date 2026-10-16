@@ -116,7 +116,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "--package"
     "codex-voice-host"
   ];
-  cargoCheckFlags = [
+  cargoTestFlags = [
     "--package"
     "codex-cli"
     "--package"
