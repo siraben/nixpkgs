@@ -420,6 +420,13 @@ stdenv.mkDerivation {
         substituteInPlace $file --replace /usr/bin/ranlib "$(type -P ranlib)"
       done
     ''
+    + lib.optionalString minimal ''
+      # Keep documentation and legal notices, but omit profiling-only files.
+      find $out -type f -name '*.p_o' -delete
+      find $out -type f -name '*.p_hi' -delete
+      find $out -type f -name '*_p.a' -delete
+      rm -f $out/lib/ghc-*/bin/ghc-iserv-prof
+    ''
     # Recache package db which needs to happen for Hadrian bindists
     # where we modify the package db before installing
     + ''
