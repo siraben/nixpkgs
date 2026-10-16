@@ -319,9 +319,9 @@ stdenv.mkDerivation (
     ++ optional enablePFM libpfm; # exegesis
 
     propagatedBuildInputs = [
-      ncurses
       zlib
-    ];
+    ]
+    ++ lib.optional (lib.versionOlder release_version "19" && enableTerminfo) ncurses;
 
     nativeCheckInputs = [
       which
@@ -536,9 +536,11 @@ stdenv.mkDerivation (
         (lib.cmakeFeature "LLVM_HOST_TRIPLE" stdenv.hostPlatform.config)
         (lib.cmakeFeature "LLVM_DEFAULT_TARGET_TRIPLE" stdenv.hostPlatform.config)
         (lib.cmakeBool "LLVM_ENABLE_DUMP" true)
-        (lib.cmakeBool "LLVM_ENABLE_TERMINFO" enableTerminfo)
         (lib.cmakeBool "LLVM_INCLUDE_TESTS" finalAttrs.finalPackage.doCheck)
       ]
+      ++ lib.optional (lib.versionOlder release_version "19") (
+        lib.cmakeBool "LLVM_ENABLE_TERMINFO" enableTerminfo
+      )
       ++ optionals stdenv.hostPlatform.isStatic [
         # Disables building of shared libs, -fPIC is still injected by cc-wrapper
         (lib.cmakeBool "LLVM_ENABLE_PIC" false)
