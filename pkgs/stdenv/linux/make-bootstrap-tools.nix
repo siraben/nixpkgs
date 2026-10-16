@@ -84,8 +84,8 @@ rec {
   inherit (build) bootstrapFiles;
 
   bootstrapTools = import ./bootstrap-tools {
-    inherit (stdenv.buildPlatform) system; # Used to determine where to build
-    inherit (stdenv.hostPlatform) libc;
+    # The unpacker executes the generated host binaries, not build tools.
+    inherit (stdenv.hostPlatform) system libc;
     inherit lib bootstrapFiles config;
   };
 
