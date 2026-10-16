@@ -122,7 +122,9 @@ let
   targetPrefix = optionalString (targetPlatform != hostPlatform) (targetPlatform.config + "-");
   exeSuffix = stdenvNoCC.hostPlatform.extensions.executable;
 
-  ccVersion = getVersion cc;
+  # Compiler capability checks must not use the version of an intermediate
+  # wrapper such as ccache.
+  ccVersion = getVersion (cc.unwrappedCC or cc);
   ccName = removePrefix targetPrefix (getName cc);
 
   libc_bin = optionalString (libc != null) (getBin libc);
