@@ -156,7 +156,6 @@ bash.runCommand "${pname}-${version}"
       --disable-lto \
       --disable-multilib \
       --disable-nls \
-      --disable-libsanitizer \
       --disable-shared
 
     # Build
