@@ -169,7 +169,6 @@ stdenv.mkDerivation (
 
     configureFlags = [
       "-C"
-      "--enable-add-ons"
       "--sysconfdir=/etc"
       "--enable-stack-protector=strong"
       "--enable-bind-now"
@@ -190,12 +189,6 @@ stdenv.mkDerivation (
     ]
     ++ lib.optionals withLinuxHeaders [
       "--enable-kernel=3.10.0" # RHEL 7 and derivatives, seems oldest still supported kernel
-    ]
-    ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-      (lib.flip lib.withFeature "fp" (
-        stdenv.hostPlatform.gcc.float or (stdenv.hostPlatform.parsed.abi.float or "hard") == "soft"
-      ))
-      "--with-__thread"
     ]
     ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform && stdenv.hostPlatform.isAarch32) [
       "--host=arm-linux-gnueabi"
