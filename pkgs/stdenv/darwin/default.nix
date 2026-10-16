@@ -427,12 +427,13 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
 
                 # The version of clang in the bootstrap tools may be different from the default, but that’s okay.
                 # Symlink its resource-dir to the default version just to get past the first stage.
+                clangLib=${bootstrapTools}/lib/clang
                 if (( $(ls "$clangLib" | wc -l) > 1 )); then
                   echo "Multiple LLVM versions were found at "$clangLib", but there must only be one used when building the stdenv." >&2
                   exit 1
                 fi
                 mkdir -p $out/lib/clang
-                ln -s ${bootstrapTools}/lib/clang/$(ls -1 ${bootstrapTools}/lib/clang) $out/lib/clang/${llvmVersion}
+                ln -s "$clangLib/$(ls -1 "$clangLib")" $out/lib/clang/${llvmVersion}
               '';
               passthru = {
                 isClang = true;
