@@ -456,11 +456,9 @@ stdenv.mkDerivation (finalAttrs: {
     "--disable-fixincludes"
 
     "--enable-linker-build-id"
+    (lib.enableFeature enablePlugin "plugin")
   ]
-  ++ lib.optionals enablePlugin [
-    "--enable-plugin"
-    "--enable-plugins"
-  ]
+  ++ lib.optional enablePlugin "--enable-plugins"
   ++
     # Only pass when the arch supports it.
     # Exclude RISC-V because GCC likes to fail when the string is empty on RISC-V.
