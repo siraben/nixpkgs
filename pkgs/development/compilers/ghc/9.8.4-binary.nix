@@ -425,7 +425,7 @@ stdenv.mkDerivation {
       find $out -type f -name '*.p_o' -delete
       find $out -type f -name '*.p_hi' -delete
       find $out -type f -name '*_p.a' -delete
-      rm -f $out/lib/ghc-*/bin/ghc-iserv-prof
+      rm -f $out/lib/ghc-*/lib/bin/ghc-iserv-prof
     ''
     # Recache package db which needs to happen for Hadrian bindists
     # where we modify the package db before installing
