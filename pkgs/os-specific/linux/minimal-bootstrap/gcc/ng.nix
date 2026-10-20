@@ -25,8 +25,6 @@
   libgmp,
   libmpfr,
   libmpc,
-  libbacktrace,
-  libiberty,
   xz,
 }:
 let
@@ -74,18 +72,8 @@ bash.runCommand "${pname}-${common.version}"
       mkdir -p build
       cd build
 
-      mkdir -p libbacktrace/.libs
-      cp ${libbacktrace}/lib/libbacktrace.a libbacktrace/.libs/
-      cp -r ${libbacktrace}/lib/*.la libbacktrace/
-      cp -r ${libbacktrace}/include/*.h libbacktrace/
-
-      mkdir -p libiberty/pic
-      cp ${libiberty}/lib/libiberty.a libiberty/
-      cp -r ${libiberty}/lib/libiberty_pic.a libiberty/pic/
-      touch libiberty/stamp-noasandir libiberty/stamp-h libiberty/stamp-picdir
-
-      mkdir -p build-${hostPlatform.config}
-      cp -r libiberty/ build-${hostPlatform.config}/libiberty
+      # GCC builds its own libbacktrace and libiberty, including the build-machine
+      # libiberty. Seeding their archives does not prevent those builds.
     ''
     +
       lib.optionalString (targetPlatform.config == hostPlatform.config && targetPlatform != hostPlatform)
