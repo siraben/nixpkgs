@@ -122,10 +122,17 @@ stdenv.mkDerivation (finalAttrs: {
   versionCheckProgramArg = "version";
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+    # Do not execute the installed binary while fixup may still need to modify it.
+    # Generate synchronously so completion failures are not hidden by process substitution.
+    for completionShell in bash zsh fish; do
+      target/${stdenv.hostPlatform.rust.rustcTargetSpec}/release/bcachefs \
+        completions "$completionShell" > "bcachefs.$completionShell"
+    done
+
     installShellCompletion --cmd bcachefs \
-      --bash <($out/sbin/bcachefs completions bash) \
-      --zsh  <($out/sbin/bcachefs completions zsh) \
-      --fish <($out/sbin/bcachefs completions fish)
+      --bash bcachefs.bash \
+      --zsh bcachefs.zsh \
+      --fish bcachefs.fish
   '';
 
   outputs = [
