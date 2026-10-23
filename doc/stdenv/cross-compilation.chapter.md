@@ -281,6 +281,14 @@ Many sources (manual, wiki, etc) probably mention passing `system`, `platform`, 
 
 One would think that `localSystem` and `crossSystem` overlap horribly with the three `*Platforms` (`buildPlatform`, `hostPlatform,` and `targetPlatform`; see `stage.nix` or the manual). Actually, those identifiers are purposefully not used here to draw a subtle but important distinction: While the granularity of having 3 platforms is necessary to properly *build* packages, it is overkill for specifying the user's *intent* when making a build plan or package set. A simple "build vs deploy" dichotomy is adequate: the sliding window principle described in the previous section shows how to interpolate between the these two "end points" to get the 3 platform triple for each bootstrapping stage. That means for any package a given package set, even those not bound on the top level but only reachable via dependencies or `buildPackages`, the three platforms will be defined as one of `localSystem` or `crossSystem`, with the former replacing the latter as one traverses build-time dependencies. A last simple difference is that `crossSystem` should be null when one doesn't want to cross-compile, while the `*Platform`s are always non-null. `localSystem` is always non-null.
 
+### Canadian cross and package-set boundaries {#sec-cross-canadian}
+
+The standard staging implementation supports two endpoint platforms: `localSystem` and `crossSystem`. Its final stages have `(build, host, target)` triples `(B, B, B)`, `(B, B, H)`, and `(B, H, H)`. It does not currently construct an arbitrary Canadian-cross stage `(B, H, T)` with three distinct platforms.
+
+Nesting `pkgsCross` does not add a third platform. For example, on x86_64 Linux, `pkgsCross.aarch64-multiplatform.pkgsCross.riscv64` builds RISC-V programs on x86_64; it does not build an AArch64-hosted compiler that emits RISC-V code. The nested import replaces the cross destination while retaining the original local system.
+
+The adjacent package-set names describe dependency roles, not a guarantee that every possible stage is populated. In particular, the terminal cross stage's `targetPackages` is a raw placeholder providing `stdenv.cc` for resolving compiler runtime dependencies, not a full foreign-native package set with attributes such as `hello`. Overriding a compiler's platform metadata cannot supply the additional stages and dependencies required for Canadian cross. Legacy GCC explicitly rejects configurations where both `build != host` and `host != target`.
+
 ## Cross-compilation infrastructure {#sec-cross-infra}
 
 ### Implementation of dependencies {#ssec-cross-dependency-implementation}
