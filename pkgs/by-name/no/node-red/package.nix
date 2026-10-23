@@ -1,7 +1,7 @@
 {
   buildNpmPackage,
+  buildPackages,
   fetchFromGitHub,
-  jq,
   lib,
   nixosTests,
   nix-update-script,
@@ -25,7 +25,7 @@ buildNpmPackage rec {
       packageDir = "packages/node_modules/node-red";
     in
     ''
-      ${lib.getExe jq} '. += {"bin": {"node-red": "${packageDir}/red.js", "node-red-pi": "${packageDir}/bin/node-red-pi"}}' package.json > package.json.tmp
+      ${lib.getExe buildPackages.jq} '. += {"bin": {"node-red": "${packageDir}/red.js", "node-red-pi": "${packageDir}/bin/node-red-pi"}}' package.json > package.json.tmp
       mv package.json.tmp package.json
     '';
 
