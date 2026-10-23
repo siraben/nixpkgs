@@ -29,6 +29,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-1yyOA6prID4ARi3yLGSXuauRRtwDv4MuZAlWiqRmDMw=";
   };
 
+  # Proposed upstream fix: https://github.com/siraben/The-Powder-Toy/commit/9571f09cb7884a86b787e5d24bacb818b392239c
+  patches = lib.optional stdenv.hostPlatform.isDarwin ./darwin-jsoncpp-exceptions.patch;
+
   nativeBuildInputs = [
     meson
     ninja
