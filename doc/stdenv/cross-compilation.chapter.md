@@ -146,17 +146,9 @@ Every elaborated platform exposes an `emulator` function on its `hostPlatform` a
 - `nodejs-slim` for GHCJS
 - `mmix` for MMIX
 
-`emulator` is a function of the package set; `emulatorAvailable` is a predicate of the same shape that reports whether an emulator exists. Use them from a `nix` expression rather than invoking `qemu` by hand, for example inside a `checkPhase` or `passthru.tests` derivation:
+`emulator` is a function of the package set; `emulatorAvailable` is a predicate of the same shape that reports whether an emulator exists. Invoke the emulator explicitly from a build-platform derivation or outside the Nix sandbox.
 
-```nix
-stdenv.mkDerivation {
-  # ...
-  doCheck = stdenv.hostPlatform.emulatorAvailable buildPackages;
-  checkPhase = ''
-    ${stdenv.hostPlatform.emulator buildPackages} ./my-binary --self-test
-  '';
-}
-```
+Setting `doCheck = true`, even conditionally on `emulatorAvailable`, does not enable `checkPhase` when the build platform cannot directly execute the host platform's programs: `mkDerivation` disables it in that case. The same restriction applies to `doInstallCheck`. Emulator availability does not change this behavior.
 
 To run a cross-compiled binary outside the Nix sandbox, build it and invoke the emulator from a shell. This is also a quick way to verify the dispatch table above:
 
