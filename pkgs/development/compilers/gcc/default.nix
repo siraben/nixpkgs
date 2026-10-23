@@ -35,14 +35,8 @@
   zlib ? null,
   libucontext ? null,
   gnat-bootstrap ? null,
-  # Allows only computing system equality once across every file responsible for
-  # building gcc. Not part of the public API
-  _systemInfo ? {
-    buildIsHost = lib.systems.equals stdenv.buildPlatform stdenv.hostPlatform;
-    hostIsTarget = lib.systems.equals stdenv.hostPlatform stdenv.targetPlatform;
-  },
   enableMultilib ? false,
-  enablePlugin ? _systemInfo.buildIsHost, # Whether to support user-supplied plug-ins
+  enablePlugin ? lib.systems.equals stdenv.buildPlatform stdenv.hostPlatform, # Whether to support user-supplied plug-ins
   name ? "gcc",
   libcCross ? null,
   threadsCross ? { }, # for MinGW
@@ -77,7 +71,9 @@ let
     versions
     ;
 
-  inherit (_systemInfo) buildIsHost hostIsTarget;
+  # Compute these from the actual stdenv, including when callers override it.
+  buildIsHost = lib.systems.equals stdenv.buildPlatform stdenv.hostPlatform;
+  hostIsTarget = lib.systems.equals stdenv.hostPlatform stdenv.targetPlatform;
 
   gccVersions = import ./versions.nix;
   version = gccVersions.fromMajorMinor majorMinorVersion;
@@ -190,6 +186,13 @@ let
   };
 
 in
+
+# The runtime-library dependencies below only support native-hosted cross
+# compilers and cross-built native compilers, not Canadian cross compilers.
+assert lib.assertMsg (buildIsHost || hostIsTarget) (
+  "gcc: Canadian cross compilation is not supported (build=${buildPlatform.config}, "
+  + "host=${hostPlatform.config}, target=${targetPlatform.config})"
+);
 
 # Make sure we get GNU sed.
 assert stdenv.buildPlatform.isDarwin -> gnused != null;
