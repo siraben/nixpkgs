@@ -4,17 +4,16 @@
   cctools,
   fetchFromGitHub,
   git,
-  jq,
   makeBinaryWrapper,
   nodejs_24,
-  python3,
   xcbuild,
-  yarn-berry_4,
+  buildPackages,
   nixosTests,
 }:
 let
   nodejs = nodejs_24;
-  yarn-berry = yarn-berry_4.override { inherit nodejs; };
+  buildNodejs = buildPackages.nodejs_24;
+  yarn-berry = buildPackages.yarn-berry_4.override { nodejs = buildNodejs; };
   version = "26.10.0";
   src = fetchFromGitHub {
     name = "actualbudget-actual-source";
@@ -43,9 +42,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [
     yarn-berry
-    nodejs
-    (yarn-berry.yarnBerryConfigHook.override { inherit nodejs; })
-    (python3.withPackages (ps: [ ps.setuptools ])) # Used by node-gyp
+    buildNodejs
+    (yarn-berry.yarnBerryConfigHook.override { nodejs = buildNodejs; })
+    (buildPackages.python3.withPackages (ps: [ ps.setuptools ])) # Used by node-gyp
     makeBinaryWrapper
     # lage (used by `bin/package-browser`) shells out to `git ls-tree` to
     # compute file hashes for its build cache.
@@ -83,13 +82,13 @@ stdenv.mkDerivation (finalAttrs: {
     # Disable the postinstall script for `protoc-gen-js` because it tries to
     # use network in buildPhase. It's just used as a dev tool and the generated
     # protobuf code is committed in the repository.
-    cat <<< $(${lib.getExe jq} '.dependenciesMeta."protoc-gen-js".built = false' ./package.json) > ./package.json
+    cat <<< $(${lib.getExe buildPackages.jq} '.dependenciesMeta."protoc-gen-js".built = false' ./package.json) > ./package.json
 
     # Disable building @swc/core from source - use the pre-built binaries instead
-    cat <<< $(${lib.getExe jq} '.dependenciesMeta."@swc/core".built = false' ./package.json) > ./package.json
+    cat <<< $(${lib.getExe buildPackages.jq} '.dependenciesMeta."@swc/core".built = false' ./package.json) > ./package.json
 
     # Disable the install script for sharp to prevent it from trying to download binaries
-    cat <<< $(${lib.getExe jq} '.dependenciesMeta."sharp".built = false' ./package.json) > ./package.json
+    cat <<< $(${lib.getExe buildPackages.jq} '.dependenciesMeta."sharp".built = false' ./package.json) > ./package.json
   '';
 
   buildPhase = ''
