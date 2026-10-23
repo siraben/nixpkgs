@@ -18,6 +18,7 @@
   perf,
   callPackage,
   buildGoModule,
+  buildPackages,
 }:
 let
   pname = "qtcreator";
@@ -43,7 +44,7 @@ stdenv'.mkDerivation {
   nativeBuildInputs = [
     cmake
     pkg-config
-    (qt6.qttools.override { withClang = true; })
+    (buildPackages.qt6.qttools.override { withClang = true; })
     qt6.wrapQtAppsHook
     python3
     ninja
