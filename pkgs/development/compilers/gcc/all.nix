@@ -13,7 +13,6 @@
 
 let
   versions = import ./versions.nix;
-  buildIsHost = lib.systems.equals stdenv.buildPlatform stdenv.hostPlatform;
   buildIsTarget = lib.systems.equals stdenv.buildPlatform stdenv.targetPlatform;
   hostIsTarget = lib.systems.equals stdenv.hostPlatform stdenv.targetPlatform;
   gccForMajorMinorVersion =
@@ -27,9 +26,6 @@ let
           callPackage ./default.nix {
             inherit noSysDirs;
             inherit majorMinorVersion;
-            _systemInfo = {
-              inherit buildIsHost hostIsTarget;
-            };
             reproducibleBuild = true;
             profiledCompiler = false;
             libcCross = if !buildIsTarget then targetPackages.libc or pkgs.libc else null;
