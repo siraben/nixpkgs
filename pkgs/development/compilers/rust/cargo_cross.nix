@@ -5,20 +5,29 @@
   pkgsBuildBuild,
   makeShellWrapper,
   rustc,
+  auditable ? null,
   ...
 }:
 
-runCommand "${stdenv.targetPlatform.config}-cargo-${lib.getVersion pkgsBuildBuild.cargo}"
+let
+  # Preserve native Cargo's default unless explicitly overridden.
+  cargo =
+    if auditable == null then
+      pkgsBuildBuild.cargo
+    else
+      pkgsBuildBuild.cargo.override { inherit auditable; };
+in
+runCommand "${stdenv.targetPlatform.config}-cargo-${lib.getVersion cargo}"
   {
     # Use depsBuildBuild or it tries to use target-runtimeShell
     depsBuildBuild = [ makeShellWrapper ];
 
-    inherit (pkgsBuildBuild.cargo) meta;
+    inherit (cargo) meta;
   }
   ''
     mkdir -p $out/bin
-    ln -s ${pkgsBuildBuild.cargo}/share $out/share
+    ln -s ${cargo}/share $out/share
 
-    makeWrapper "${pkgsBuildBuild.cargo}/bin/cargo" "$out/bin/cargo" \
+    makeWrapper "${cargo}/bin/cargo" "$out/bin/cargo" \
       --prefix PATH : "${rustc}/bin"
   ''
