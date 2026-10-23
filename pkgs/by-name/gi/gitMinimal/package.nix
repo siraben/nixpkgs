@@ -1,7 +1,7 @@
 {
   git,
   stdenv,
-  cargo,
+  buildPackages,
   curl,
   curlMinimal,
   ...
@@ -13,12 +13,15 @@ git.override (
     pythonSupport = false;
     perlSupport = false;
     withpcre2 = false;
-    cargo = cargo.override { auditable = false; }; # Break `cargo-auditable` -> `fetch-cargo-vendor` -> `nix-prefetch-git` -> `gitMinimal` cycle`
+    # override loses splicing, so select the runnable Cargo before overriding it.
+    # Disabling auditing breaks cargo-auditable -> fetch-cargo-vendor ->
+    # nix-prefetch-git -> gitMinimal -> cargo.
+    cargo = buildPackages.cargo.override { auditable = false; };
     curl = if stdenv.hostPlatform.isFreeBSD then curlMinimal else curl; # Needed for FreeBSD bootstrap
   }
   // removeAttrs args [
     "git"
-    "cargo"
+    "buildPackages"
     "curl"
     "curlMinimal"
   ]
