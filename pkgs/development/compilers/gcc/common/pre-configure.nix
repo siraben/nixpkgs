@@ -16,6 +16,7 @@
   pkgsBuildTarget,
   buildIsHost,
   hostIsTarget,
+  canadianCross,
 }:
 
 assert langAda -> gnat-bootstrap != null;
@@ -47,6 +48,18 @@ lib.optionalString (hostPlatform.isSunOS && hostPlatform.is64bit) ''
     ''
       export GFORTRAN_FOR_TARGET=${pkgsBuildTarget.gfortran}/bin/${stdenv.targetPlatform.config}-gfortran
     ''
+
+# The just-built compiler runs on H, so it cannot build target libraries on B.
+# Select the independently bootstrapped B->T compiler and binutils explicitly.
++ lib.optionalString canadianCross ''
+  export CC_FOR_TARGET=${pkgsBuildTarget.gcc}/bin/${pkgsBuildTarget.gcc.targetPrefix}cc
+  export GCC_FOR_TARGET="$CC_FOR_TARGET"
+  export AS_FOR_TARGET=${pkgsBuildTarget.binutils}/bin/${targetPlatform.config}-as
+  export LD_FOR_TARGET=${pkgsBuildTarget.binutils}/bin/${targetPlatform.config}-ld
+  export AR_FOR_TARGET=${pkgsBuildTarget.binutils}/bin/${targetPlatform.config}-ar
+  export NM_FOR_TARGET=${pkgsBuildTarget.binutils}/bin/${targetPlatform.config}-nm
+  export RANLIB_FOR_TARGET=${pkgsBuildTarget.binutils}/bin/${targetPlatform.config}-ranlib
+''
 
 # In order to properly install libgccjit on macOS Catalina, strip(1)
 # upon installation must not remove external symbols, otherwise the

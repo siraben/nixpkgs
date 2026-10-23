@@ -2,6 +2,7 @@
   lib,
   stdenv,
   targetPackages,
+  canadianCross,
 
   withoutTargetLibc,
   libcCross,
@@ -58,8 +59,14 @@ let
     # Ensure that -print-prog-name is able to find the correct programs.
     [
       "--with-as=${
-        if targetPackages.stdenv.cc.bintools.isLLVM then binutils else targetPackages.stdenv.cc.bintools
+        if canadianCross || targetPackages.stdenv.cc.bintools.isLLVM then
+          binutils
+        else
+          targetPackages.stdenv.cc.bintools
       }/bin/${targetPlatform.config}-as"
+    ]
+    ++ lib.optionals canadianCross [
+      "--with-ld=${binutils}/bin/${targetPlatform.config}-ld"
     ]
     ++ lib.optionals (crossMingw && targetPlatform.isx86_32) [
       "--disable-sjlj-exceptions"

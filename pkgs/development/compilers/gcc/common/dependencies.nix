@@ -5,6 +5,9 @@
   is13,
   buildPackages,
   targetPackages,
+  pkgsBuildTarget,
+  canadianCross,
+  binutils,
   texinfo,
   which,
   gettext,
@@ -59,7 +62,9 @@ in
   # same for all gcc's
   depsBuildTarget =
     (
-      if buildIsHost then
+      if canadianCross then
+        [ pkgsBuildTarget.gcc ]
+      else if buildIsHost then
         [
           targetPackages.stdenv.cc.bintools # newly-built gcc will be used
         ]
@@ -79,7 +84,8 @@ in
     libxcrypt
   ]
   ++ [
-    targetPackages.stdenv.cc.bintools # For linking code at run-time
+    # Canadian outputs need H-hosted tools; targetPackages.stdenv.cc runs on B.
+    (if canadianCross then binutils else targetPackages.stdenv.cc.bintools)
   ]
   ++ optionals (isl != null) [ isl ]
   ++ optionals (zlib != null) [ zlib ]

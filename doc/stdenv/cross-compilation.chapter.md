@@ -283,11 +283,36 @@ One would think that `localSystem` and `crossSystem` overlap horribly with the t
 
 ### Canadian cross and package-set boundaries {#sec-cross-canadian}
 
-The standard staging implementation supports two endpoint platforms: `localSystem` and `crossSystem`. Its final stages have `(build, host, target)` triples `(B, B, B)`, `(B, B, H)`, and `(B, H, H)`. It does not currently construct an arbitrary Canadian-cross stage `(B, H, T)` with three distinct platforms.
+Ordinary cross imports use two endpoint platforms: `localSystem` and `crossSystem`. Their final stages have `(build, host, target)` triples `(B, B, B)`, `(B, B, H)`, and `(B, H, H)`. An explicit `targetSystem` distinct from `crossSystem` requests the experimental `(B, H, T)` stage described below.
 
 Nesting `pkgsCross` does not add a third platform. For example, on x86_64 Linux, `pkgsCross.aarch64-multiplatform.pkgsCross.riscv64` builds RISC-V programs on x86_64; it does not build an AArch64-hosted compiler that emits RISC-V code. The nested import replaces the cross destination while retaining the original local system.
 
-The adjacent package-set names describe dependency roles, not a guarantee that every possible stage is populated. In particular, the terminal cross stage's `targetPackages` is a raw placeholder providing `stdenv.cc` for resolving compiler runtime dependencies, not a full foreign-native package set with attributes such as `hello`. Overriding a compiler's platform metadata cannot supply the additional stages and dependencies required for Canadian cross. Legacy GCC explicitly rejects configurations where both `build != host` and `host != target`.
+The adjacent package-set names describe dependency roles, not a guarantee that every possible stage is populated. In ordinary cross imports, the terminal stage's `targetPackages` is a raw placeholder providing `stdenv.cc` for resolving compiler runtime dependencies, not a full foreign-native package set with attributes such as `hello`. Overriding a compiler's platform metadata cannot supply the missing dependencies: use the stage configuration below rather than overriding `stdenv.targetPlatform` in isolation.
+
+#### Experimental Canadian toolchains
+
+Set `localSystem` to the build platform, `crossSystem` to the platform where the tools run, and `targetSystem` to the platform they emit code for. `targetSystem` defaults to `crossSystem`, so ordinary imports retain their existing stages. There is no architecture allowlist; the existing GCC, binutils and stdenv recipes still determine platform availability.
+
+For example, this constructs an x86_64-built, AArch64-hosted, freestanding RISC-V toolchain:
+
+```nix
+import <nixpkgs> {
+  localSystem = "x86_64-linux";
+  crossSystem = "aarch64-linux";
+  targetSystem = {
+    config = "riscv64-unknown-none-elf"; # or "riscv32-unknown-none-elf"
+    libc = null;
+  };
+}
+```
+
+Use the usual `gcc` and `binutils` attributes; `gcc.cc` and `binutils-unwrapped` provide the unwrapped tools. They run on `crossSystem` and use the target prefix, for example `riscv64-unknown-none-elf-gcc`. The cross stages supply `pkgsBuildTarget` and `pkgsHostHost` independently, so dot composition such as `pkgsBuildTarget.gcc` selects a build-runnable target compiler. Target libgcc is built with that compiler, while the installed GCC invokes host-runnable target assembler/linker tools.
+
+The initial Canadian GCC configuration provides **C only, without a target libc or SDK**. Set `targetSystem.libc = null` explicitly; the import rejects a target libc rather than silently discarding it. Bare-metal and ELF targets are accepted; other OS object formats need additional SDK/runtime wiring. C++, other frontends, shared target libraries, LTO and libc-dependent target executables are not provided.
+
+Acceptance or successful evaluation is not a guarantee that an arbitrary platform combination builds or executes correctly. The existing package recipes retain their own availability checks, and untested configurations can still encounter backend, bootstrap, ABI, or runtime issues. The architecture-independent wiring has execution coverage for **x86_64 GNU/Linux -> AArch64 GNU/Linux -> RISC-V32/RISC-V64**; that is an end-to-end test case, not an API restriction. Additional role/evaluation coverage includes other builders, hosts, ARM/POWER targets, platform tuning, and a Clang-based host stdenv. The explicit third endpoint extends the existing cross-stage configuration; it does not make ordinary nested cross imports Canadian.
+
+The RISC-V example has been exercised under QEMU with freestanding programs, including target libgcc routines, at `-O0` and `-O2`. Those programs used the Linux exit syscall solely for execution under qemu-user; this does not constitute Linux target-libc support or physical-hardware validation. These checks are not included as additional Nixpkgs tests.
 
 ## Cross-compilation infrastructure {#sec-cross-infra}
 

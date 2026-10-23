@@ -27,6 +27,10 @@
   # The system packages will ultimately be run on.
   crossSystem ? null,
 
+  # Optional output platform for cross-built code-producing tools. Defaults to
+  # crossSystem; a distinct platform requests a Canadian-cross stage.
+  targetSystem ? null,
+
   # Allow a configuration attribute set to be passed in as an argument.
   config ? { },
 
@@ -52,6 +56,7 @@
 let # Rename the function arguments
   config0 = config;
   crossSystem0 = crossSystem;
+  targetSystem0 = targetSystem;
 
 in
 let
@@ -136,6 +141,9 @@ let
     in
     if crossSystem0 == null || lib.systems.equals system localSystem then localSystem else system;
 
+  targetSystem = if targetSystem0 == null then crossSystem else lib.systems.elaborate targetSystem0;
+  canadianCross = !(lib.systems.equals targetSystem crossSystem);
+
   # Allow both:
   # { /* the config */ } and
   # { pkgs, ... } : { /* the config */ }
@@ -207,16 +215,31 @@ let
 
   boot = import ../stdenv/booter.nix { inherit lib allPackages; };
 
-  stages = stdenvStages {
-    inherit
-      lib
-      localSystem
-      crossSystem
-      config
-      overlays
-      crossOverlays
-      ;
-  };
+  stages = stdenvStages (
+    {
+      inherit
+        lib
+        localSystem
+        crossSystem
+        config
+        overlays
+        crossOverlays
+        ;
+    }
+    # Keep the existing arguments unchanged for ordinary/custom stdenv stages.
+    // lib.optionalAttrs canadianCross {
+      inherit targetSystem;
+      canadianPackages = {
+        # Reuse the original import arguments, including raw config/overlays.
+        # Clearing targetSystem prevents recursive Canadian-stage construction.
+        host = nixpkgsFun { targetSystem = null; };
+        target = nixpkgsFun {
+          crossSystem = targetSystem;
+          targetSystem = null;
+        };
+      };
+    }
+  );
 
   fixedPoint = boot stages;
 

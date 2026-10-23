@@ -10,13 +10,18 @@
   # Args to pass on to the pkgset builder, too
   localSystem,
   crossSystem,
+  targetSystem ? crossSystem,
+  canadianPackages ? null,
   config,
   overlays,
   crossOverlays,
 }:
 
 let
-  useCrossStdenv = !(lib.systems.equals crossSystem localSystem) || crossOverlays != [ ];
+  useCrossStdenv =
+    !(lib.systems.equals crossSystem localSystem)
+    || !(lib.systems.equals targetSystem crossSystem)
+    || crossOverlays != [ ];
   useCustomStdenv = !useCrossStdenv && (config.replaceStdenv or null) != null;
 
   # Cross and custom stdenvs extend the local bootstrap stages. Keep
@@ -64,6 +69,8 @@ let
       lib
       localSystem
       crossSystem
+      targetSystem
+      canadianPackages
       config
       overlays
       crossOverlays

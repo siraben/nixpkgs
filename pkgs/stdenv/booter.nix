@@ -111,26 +111,28 @@ let
             (removeAttrs args' [ "selfBuild" ])
             // {
               adjacentPackages =
-                if args.selfBuild or true then
-                  null
-                else
-                  rec {
-                    pkgsBuildBuild = prevStage.buildPackages;
-                    pkgsBuildHost = prevStage;
-                    pkgsBuildTarget =
-                      if lib.systems.equals args.stdenv.targetPlatform args.stdenv.hostPlatform then
-                        pkgsBuildHost
-                      else
-                        assert lib.systems.equals args.stdenv.hostPlatform args.stdenv.buildPlatform;
-                        thisStage;
-                    pkgsHostHost =
-                      if lib.systems.equals args.stdenv.hostPlatform args.stdenv.targetPlatform then
-                        thisStage
-                      else
-                        assert lib.systems.equals args.stdenv.buildPlatform args.stdenv.hostPlatform;
-                        pkgsBuildHost;
-                    pkgsTargetTarget = nextStage;
-                  };
+                args.adjacentPackages or (
+                  if args.selfBuild or true then
+                    null
+                  else
+                    rec {
+                      pkgsBuildBuild = prevStage.buildPackages;
+                      pkgsBuildHost = prevStage;
+                      pkgsBuildTarget =
+                        if lib.systems.equals args.stdenv.targetPlatform args.stdenv.hostPlatform then
+                          pkgsBuildHost
+                        else
+                          assert lib.systems.equals args.stdenv.hostPlatform args.stdenv.buildPlatform;
+                          thisStage;
+                      pkgsHostHost =
+                        if lib.systems.equals args.stdenv.hostPlatform args.stdenv.targetPlatform then
+                          thisStage
+                        else
+                          assert lib.systems.equals args.stdenv.buildPlatform args.stdenv.hostPlatform;
+                          pkgsBuildHost;
+                      pkgsTargetTarget = nextStage;
+                    }
+                );
             }
           );
     in

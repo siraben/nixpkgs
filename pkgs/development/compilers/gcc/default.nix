@@ -35,6 +35,8 @@
   zlib ? null,
   libucontext ? null,
   gnat-bootstrap ? null,
+  # Set by the cross stdenv stage when targetSystem differs from crossSystem.
+  canadianCross ? stdenv.isCanadianCross or false,
   enableMultilib ? false,
   enablePlugin ? lib.systems.equals stdenv.buildPlatform stdenv.hostPlatform, # Whether to support user-supplied plug-ins
   name ? "gcc",
@@ -131,6 +133,7 @@ let
       autoconf269
       binutils
       buildPackages
+      canadianCross
       cargo
       withoutTargetLibc
       darwin
@@ -187,12 +190,30 @@ let
 
 in
 
-# The runtime-library dependencies below only support native-hosted cross
-# compilers and cross-built native compilers, not Canadian cross compilers.
-assert lib.assertMsg (buildIsHost || hostIsTarget) (
+# Ordinary packaging supports native-hosted cross and cross-built native GCC.
+# Canadian dependency wiring is supplied by the explicit targetSystem stage.
+assert lib.assertMsg (buildIsHost || hostIsTarget || canadianCross) (
   "gcc: Canadian cross compilation is not supported (build=${buildPlatform.config}, "
   + "host=${hostPlatform.config}, target=${targetPlatform.config})"
 );
+
+assert lib.assertMsg (
+  !canadianCross
+  || (
+    withoutTargetLibc
+    && !langCC
+    && !langFortran
+    && !langGo
+    && !langAda
+    && !langJit
+    && !langRust
+    && !langObjC
+    && !langObjCpp
+    && !enableMultilib
+    && !enableShared
+    && !enableLTO
+  )
+) "gcc: Canadian cross is currently limited to C without target libc, shared libraries or LTO";
 
 # Make sure we get GNU sed.
 assert stdenv.buildPlatform.isDarwin -> gnused != null;

@@ -21,6 +21,7 @@ in
   # with unnamed parameters allowed by ...
   system ? localSystem.system,
   crossSystem ? localSystem,
+  targetSystem ? null,
 
   # Fallback: The contents of the configuration file found at $NIXPKGS_CONFIG or
   # $HOME/.config/nixpkgs/config.nix.
