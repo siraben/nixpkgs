@@ -52,6 +52,33 @@ let
     concatStringsSep
     ;
   useLLVM = stdenv.targetPlatform.useLLVM or false;
+
+  # Bootstrap builds its own compiler-private crates. Do not mix them with the
+  # installed rustc-dev artifacts when reusing a compiler of the same version.
+  bootstrapRustc =
+    if lib.systems.equals stdenv.buildPlatform stdenv.hostPlatform then
+      rustc
+    else
+      rustc.override {
+        sysroot = pkgsBuildBuild.symlinkJoin {
+          name = "rustc-bootstrap-sysroot-${version}";
+          paths = [ rustc.unwrapped ];
+          postBuild = ''
+            libdir="$out/lib/rustlib/${stdenv.buildPlatform.rust.rustcTargetSpec}/lib"
+            rm -r "$libdir"
+            while IFS= read -r entry; do
+              case "$entry" in
+                file:*/lib/rustlib/${stdenv.buildPlatform.rust.rustcTargetSpec}/lib/*)
+                  source="''${entry#file:}"
+                  relative="''${source#*/lib/rustlib/${stdenv.buildPlatform.rust.rustcTargetSpec}/lib/}"
+                  mkdir -p "$libdir/$(dirname "$relative")"
+                  ln -s "$source" "$libdir/$relative"
+                  ;;
+              esac
+            done < ${rustc.unwrapped}/lib/rustlib/manifest-rust-std-${stdenv.buildPlatform.rust.rustcTargetSpec}
+          '';
+        };
+      };
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "${targetPackages.stdenv.cc.targetPrefix}rustc";
@@ -130,7 +157,7 @@ stdenv.mkDerivation (finalAttrs: {
     [
       "--sysconfdir=${placeholder "out"}/etc"
       "--release-channel=stable"
-      "--set=build.rustc=${rustc}/bin/rustc"
+      "--set=build.rustc=${bootstrapRustc}/bin/rustc"
       "--set=build.cargo=${cargo}/bin/cargo"
     ]
     ++ lib.optionals (!(finalAttrs.src.passthru.isReleaseTarball or false)) [
@@ -472,7 +499,8 @@ stdenv.mkDerivation (finalAttrs: {
   disallowedReferences = [
     cargo
     rustc
-  ];
+  ]
+  ++ lib.optional (!(lib.systems.equals stdenv.buildPlatform stdenv.hostPlatform)) bootstrapRustc;
 
   passthru = {
     llvm = llvmShared;
