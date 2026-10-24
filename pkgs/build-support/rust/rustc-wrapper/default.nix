@@ -3,8 +3,8 @@
   runCommand,
   rustc-unwrapped,
   sysroot ? null,
-  stdenvNoCC,
-  shell ? stdenvNoCC.shell,
+  bashNonInteractive,
+  shell ? "${bashNonInteractive}/bin/bash",
 }:
 let
   sysrootFlag = lib.optionalString (sysroot != null) "--sysroot ${sysroot}";
