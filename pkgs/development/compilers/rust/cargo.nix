@@ -91,9 +91,15 @@ rustPlatform.buildRustPackage.override
       else
         ''
           installShellCompletion --cmd cargo \
-            --bash src/tools/cargo/src/etc/cargo.bashcomp.sh \
+            --bash ${pkgsBuildBuild.cargo}/share/bash-completion/completions/* \
             --fish ${pkgsBuildBuild.cargo}/share/fish/vendor_completions.d/*.fish \
-            --zsh src/tools/cargo/src/etc/_cargo
+            --zsh ${pkgsBuildBuild.cargo}/share/zsh/site-functions/_cargo
+
+          substituteInPlace \
+            "$out"/share/bash-completion/completions/* \
+            "$out"/share/fish/vendor_completions.d/*.fish \
+            "$out"/share/zsh/site-functions/_cargo \
+            --replace-fail "${pkgsBuildBuild.cargo}/bin/cargo" "$out/bin/cargo"
         ''
     );
 
