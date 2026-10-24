@@ -353,6 +353,18 @@ stdenv.mkDerivation (finalAttrs: {
     # Useful debugging parameter
     # export VERBOSE=1
   ''
+  +
+    lib.optionalString
+      (!withBundledLLVM && !(lib.systems.equals stdenv.buildPlatform stdenv.hostPlatform))
+      ''
+        # Cross bootstrap cannot execute the host llvm-config and guesses its bindir.
+        # LLVM's dev output contains llvm-config, but the host tools live in out.
+        substituteInPlace src/bootstrap/src/core/build_steps/compile.rs \
+          --replace-fail 'if let Some(external_llvm_config) = external_llvm_config {' \
+            'if external_llvm_config.is_some() {' \
+          --replace-fail 'external_llvm_config.parent().unwrap().to_path_buf()' \
+            'PathBuf::from("${lib.getBin llvmShared}/bin")'
+      ''
   + lib.optionalString (stdenv.hostPlatform.isDarwin || stdenv.targetPlatform.isDarwin) ''
     # Replace hardcoded path to strip with llvm-strip
     # https://github.com/NixOS/nixpkgs/issues/299606
