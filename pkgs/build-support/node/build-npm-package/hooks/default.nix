@@ -51,6 +51,12 @@
     ];
     substitutions = {
       jq = "${jq}/bin/jq";
+      npmArch = stdenv.targetPlatform.node.arch;
+      npmPlatform = stdenv.targetPlatform.node.platform;
+      crossPlatform = lib.boolToString (
+        stdenv.hostPlatform.node.arch != stdenv.targetPlatform.node.arch
+        || stdenv.hostPlatform.node.platform != stdenv.targetPlatform.node.platform
+      );
     };
     meta.license = lib.licenses.mit;
   } ./npm-install-hook.sh;
