@@ -53,6 +53,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [
     pkg-config
+    gnupg # configure probes invoke gpg on the build platform
+    perl # documentation generation
     doxygen # (optional) api docs
     pythonPackages.sphinx # (optional) documentation -> doc/INSTALL
     texinfo # (optional) documentation -> doc/INSTALL
@@ -77,6 +79,9 @@ stdenv.mkDerivation (finalAttrs: {
   postPatch = ''
     patchShebangs configure test/
 
+    substituteInPlace configure \
+      --replace-fail 'pkg-config --' '"''${PKG_CONFIG:-pkg-config}" --'
+
     substituteInPlace lib/Makefile.local \
       --replace '-install_name $(libdir)' "-install_name $out/lib"
 
@@ -99,6 +104,9 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace configure \
       --replace './minimal' 'true'
   '';
+
+  # This shell script reports paths and flags for the host library.
+  env.XAPIAN_CONFIG = "${lib.getBin xapian}/bin/xapian-config";
 
   configureFlags = [
     "--zshcompletiondir=${placeholder "out"}/share/zsh/site-functions"
