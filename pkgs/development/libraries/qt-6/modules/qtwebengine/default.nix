@@ -5,14 +5,15 @@
   qtwebchannel,
   qtpositioning,
   qtwebsockets,
+  qttools,
   buildPackages,
+  pkgsBuildBuild,
   bison,
   coreutils,
   flex,
   gperf,
   ninja,
   pkg-config,
-  python3,
   which,
   nodejs,
   libxext,
@@ -72,14 +73,25 @@
   xcbuild,
 }:
 
-qtModule {
-  pname = "qtwebengine";
-
+let
   version = "6.140.0-rc";
   src = fetchzip {
     url = "https://download.qt.io/development_releases/qtwebengine/6.140.0-rc/qtwebengine-everywhere-src-6.140.0-rc.tar.xz";
     hash = "sha256-ij7oWNkbzf98FwKjhub3lyvDb32G4qFtUiYJvdlw01Y=";
   };
+  isCrossBuild = !(lib.systems.equals stdenv.buildPlatform stdenv.hostPlatform);
+  nativeGn =
+    if isCrossBuild then
+      buildPackages.callPackage ./gn.nix {
+        inherit src;
+        version = lib.removeSuffix "-rc" version;
+      }
+    else
+      gn;
+in
+qtModule {
+  pname = "qtwebengine";
+  inherit version src;
 
   nativeBuildInputs = [
     bison
@@ -88,9 +100,9 @@ qtModule {
     gperf
     ninja
     pkg-config
-    (python3.withPackages (ps: with ps; [ html5lib ]))
+    (buildPackages.python3.withPackages (ps: with ps; [ html5lib ]))
     which
-    gn
+    nativeGn
     nodejs
   ]
   ++ lib.optionals stdenv.hostPlatform.isDarwin [
@@ -98,6 +110,49 @@ qtModule {
     cctools
     xcbuild
   ];
+  # GN's host toolchain builds generators for Nix's build platform.
+  depsBuildBuild =
+    lib.optionals isCrossBuild [
+      pkgsBuildBuild.pkg-config
+      pkgsBuildBuild.icu
+      pkgsBuildBuild.libpng
+      pkgsBuildBuild.nss
+      pkgsBuildBuild.zlib
+      pkgsBuildBuild.libjpeg
+      pkgsBuildBuild.libtiff
+      pkgsBuildBuild.libwebp
+      pkgsBuildBuild.libevent
+      pkgsBuildBuild.libxml2
+      pkgsBuildBuild.libxslt
+      pkgsBuildBuild.freetype
+      pkgsBuildBuild.fontconfig
+      pkgsBuildBuild.harfbuzz
+      pkgsBuildBuild.glib
+      pkgsBuildBuild.openssl
+      pkgsBuildBuild.libkrb5
+      pkgsBuildBuild.lcms2
+      pkgsBuildBuild.ffmpeg
+      pkgsBuildBuild.jsoncpp
+      pkgsBuildBuild.protobuf
+      pkgsBuildBuild.libopus
+      pkgsBuildBuild.srtp
+      pkgsBuildBuild.snappy
+      pkgsBuildBuild.expat
+    ]
+    ++ lib.optionals (isCrossBuild && stdenv.buildPlatform.isLinux) [
+      pkgsBuildBuild.libdrm
+      pkgsBuildBuild.libgbm
+      pkgsBuildBuild.libva
+      pkgsBuildBuild.dbus
+      pkgsBuildBuild.cups
+      pkgsBuildBuild.alsa-lib
+      pkgsBuildBuild.pulseaudio
+      pkgsBuildBuild.libcap
+      pkgsBuildBuild.libpciaccess
+      pkgsBuildBuild.pciutils
+      pkgsBuildBuild.pipewire
+    ];
+
   doCheck = true;
   outputs = [
     "out"
@@ -126,6 +181,7 @@ qtModule {
 
     # Reproducibility QTBUG-136068
     ./gn-object-sorted.patch
+    ./gn-use-cmake-readelf.patch
 
     # Don't require compiler to identify as AppleClang on Darwin
     ./darwin-compiler.patch
@@ -178,6 +234,18 @@ qtModule {
   ]
   ++ lib.optionals enableProprietaryCodecs [
     "-DQT_FEATURE_webengine_proprietary_codecs=ON"
+  ]
+  ++ lib.optionals isCrossBuild [
+    (lib.cmakeFeature "Gn_EXECUTABLE" "${nativeGn}/bin/gn")
+    (lib.cmakeFeature "PKG_CONFIG_HOST_EXECUTABLE" "${lib.getExe pkgsBuildBuild.pkg-config}")
+    (lib.cmakeFeature "Qt6Designer_DIR" "${qttools}/lib/cmake/Qt6Designer")
+    (lib.cmakeFeature "QT_ADDITIONAL_HOST_PACKAGES_PREFIX_PATH" (
+      lib.concatMapStringsSep ";" (p: "${p}") [
+        buildPackages.qt6.qtdeclarative
+        buildPackages.qt6.qtshadertools
+        buildPackages.qt6.qttools
+      ]
+    ))
   ]
   ++ lib.optionals stdenv.hostPlatform.isDarwin [
     "-DCMAKE_OSX_DEPLOYMENT_TARGET=12.0" # Per Qt 6’s deployment target (why doesn’t the hook work?)
@@ -262,6 +330,7 @@ qtModule {
 
   buildInputs = [
     cups
+    qttools # the Designer plugin links host Qt Designer, not the native tools
   ];
 
   requiredSystemFeatures = [ "big-parallel" ];
