@@ -1,0 +1,22 @@
+Prefer the explicitly supplied documentation tools prefix over the monolithic
+host Qt prefix. Nixpkgs installs qttools separately from qtbase.
+
+--- a/cmake/QtDocsHelpers.cmake
++++ b/cmake/QtDocsHelpers.cmake
+@@ -136,11 +136,11 @@
+     set(tool_dependencies_enabled TRUE)
+-    if(NOT "${QT_HOST_PATH}" STREQUAL "")
++    if(NOT "${QT_OPTIONAL_TOOLS_PATH}" STREQUAL "")
++        set(tool_dependencies_enabled FALSE)
++        set(doc_tools_bin "${QT_OPTIONAL_TOOLS_PATH}/${INSTALL_BINDIR}")
++        set(doc_tools_libexec "${QT_OPTIONAL_TOOLS_PATH}/${INSTALL_LIBEXECDIR}")
++    elseif(NOT "${QT_HOST_PATH}" STREQUAL "")
+         set(tool_dependencies_enabled FALSE)
+         qt_internal_get_host_info_var_prefix(host_info_var_prefix)
+         set(doc_tools_bin "${QT_HOST_PATH}/${${host_info_var_prefix}_BINDIR}")
+         set(doc_tools_libexec "${QT_HOST_PATH}/${${host_info_var_prefix}_LIBEXECDIR}")
+-    elseif(NOT "${QT_OPTIONAL_TOOLS_PATH}" STREQUAL "")
+-        set(tool_dependencies_enabled FALSE)
+-        set(doc_tools_bin "${QT_OPTIONAL_TOOLS_PATH}/${INSTALL_BINDIR}")
+-        set(doc_tools_libexec "${QT_OPTIONAL_TOOLS_PATH}/${INSTALL_LIBEXECDIR}")
+     elseif(QT_SUPERBUILD)
