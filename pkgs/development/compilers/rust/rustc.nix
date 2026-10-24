@@ -319,7 +319,11 @@ stdenv.mkDerivation (finalAttrs: {
         mkdir -v $doc $man
         ln -s ${rustc.unwrapped}/{bin,libexec} $out
         rm -rf -v $out/lib/rustlib/{manifest-rust-std-,}${stdenv.hostPlatform.rust.rustcTargetSpec}
-        ln -s ${rustc.unwrapped}/lib/rustlib/{manifest-rust-std-,}${stdenv.hostPlatform.rust.rustcTargetSpec} $out/lib/rustlib/
+        ln -s ${rustc.unwrapped}/lib/rustlib/manifest-rust-std-${stdenv.hostPlatform.rust.rustcTargetSpec} $out/lib/rustlib/
+        # Bootstrap pre-creates these directories when copying a stage0 sysroot.
+        # Keep them real so its recursive copy can merge the library contents.
+        mkdir -p $out/lib/rustlib/${stdenv.hostPlatform.rust.rustcTargetSpec}
+        lndir ${rustc.unwrapped}/lib/rustlib/${stdenv.hostPlatform.rust.rustcTargetSpec} $out/lib/rustlib/${stdenv.hostPlatform.rust.rustcTargetSpec}
         ln -s ${rustc.unwrapped}/lib/rustlib/etc $out/lib/rustlib/
         echo rust-std-${stdenv.hostPlatform.rust.rustcTargetSpec} >> $out/lib/rustlib/components
         lndir ${rustc.doc} $doc
