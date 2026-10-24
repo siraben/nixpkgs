@@ -1,3 +1,6 @@
+# Native Qt tools must not configure the host SDK's library paths.
+[[ -z "${strictDeps-}" ]] || (( "$hostOffset" >= 0 )) || return 0
+
 if [[ -n "${__nix_qtbase-}" ]]; then
     # Throw an error if a different version of Qt was already set up.
     if [[ "$__nix_qtbase" != "@qtbaseOut@" ]]; then
