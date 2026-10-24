@@ -28,6 +28,13 @@ buildPythonPackage rec {
     hash = "sha256-8LOmA1Mhfqbl3hsGZa8tQutjfjEVeDlpOKyVut5rDVI=";
   };
 
+  # Backport Filelock 4 support from virtualenv 21.10.0.
+  # https://virtualenv.pypa.io/en/stable/changelog.html#v21-10-0-2026-09-22
+  postPatch = ''
+    substituteInPlace pyproject.toml \
+      --replace-fail 'filelock>=3.24.2,<4;' 'filelock>=3.24.2,<5;'
+  '';
+
   build-system = [
     hatch-vcs
     hatchling
