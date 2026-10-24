@@ -1,0 +1,10 @@
+--- a/src/host/BUILD.toolchain.gn.in
++++ b/src/host/BUILD.toolchain.gn.in
+@@ -6,6 +6,7 @@
+   ld = "@CMAKE_CXX_COMPILER@"
+   ar = "@CMAKE_AR@"
+   nm = "@CMAKE_NM@"
++  readelf = "@CMAKE_READELF@"
+   extra_cppflags = "@GN_EXTRA_CXX_FLAGS@"
+   extra_cflags = "@GN_EXTRA_C_FLAGS@"
+   toolchain_args = {
