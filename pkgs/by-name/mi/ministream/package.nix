@@ -27,6 +27,15 @@ stdenv.mkDerivation (finalAttrs: {
   strictDeps = true;
   __structuredAttrs = true;
 
+  postPatch =
+    lib.optionalString (withIntrospection && !(stdenv.buildPlatform.canExecute stdenv.hostPlatform))
+      ''
+        # g-ir-scanner handles host execution through its QEMU wrapper.
+        substituteInPlace meson.build \
+          --replace-fail "get_option('introspection').require(meson.can_run_host_binaries())" \
+            "get_option('introspection')"
+      '';
+
   nativeBuildInputs = [
     meson
     ninja
