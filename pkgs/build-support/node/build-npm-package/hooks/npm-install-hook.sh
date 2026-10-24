@@ -22,7 +22,14 @@ npmInstallHook() {
 
     if [ ! -d "$nodeModulesPath" ]; then
         if [ -z "${dontNpmPrune-}" ]; then
-            if ! npm prune --omit=dev --no-save ${npmWorkspace+--workspace=$npmWorkspace} $npmPruneFlags "${npmPruneFlagsArray[@]}" $npmFlags "${npmFlagsArray[@]}"; then
+            # Keep native helpers available while building, then select host
+            # optional dependencies for the installed output. Their lifecycle
+            # scripts cannot run on the build platform.
+            local -a platformFlags=()
+            if [ "@crossPlatform@" = true ]; then
+                platformFlags=(--cpu="@npmArch@" --os="@npmPlatform@" --ignore-scripts)
+            fi
+            if ! npm prune --omit=dev --no-save "${platformFlags[@]}" ${npmWorkspace+--workspace=$npmWorkspace} $npmPruneFlags "${npmPruneFlagsArray[@]}" $npmFlags "${npmFlagsArray[@]}"; then
               echo
               echo
               echo "ERROR: npm prune step failed"
