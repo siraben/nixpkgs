@@ -2,9 +2,7 @@
   lib,
   fetchFromGitHub,
   buildNpmPackage,
-  npm-lockfile-fix,
-  jq,
-  moreutils,
+  buildPackages,
 }:
 buildNpmPackage (finalAttrs: {
   pname = "actions-languageserver";
@@ -17,9 +15,9 @@ buildNpmPackage (finalAttrs: {
     tag = "release-v${finalAttrs.version}";
     hash = "sha256-hNb4QcgBYfoiaa/X4BZeahiHsF11UwdNa4d+nh8sb3M=";
     postFetch = ''
-      ${lib.getExe npm-lockfile-fix} $out/package-lock.json
-      ${lib.getExe jq} 'del(.packages[].devDependencies.["rest-api-description"])' $out/package-lock.json | ${moreutils}/bin/sponge $out/package-lock.json
-      ${lib.getExe jq} 'del(.devDependencies.["rest-api-description"])' $out/languageservice/package.json | ${moreutils}/bin/sponge $out/languageservice/package.json
+      ${lib.getExe buildPackages.npm-lockfile-fix} $out/package-lock.json
+      ${lib.getExe buildPackages.jq} 'del(.packages[].devDependencies.["rest-api-description"])' $out/package-lock.json | ${buildPackages.moreutils}/bin/sponge $out/package-lock.json
+      ${lib.getExe buildPackages.jq} 'del(.devDependencies.["rest-api-description"])' $out/languageservice/package.json | ${buildPackages.moreutils}/bin/sponge $out/languageservice/package.json
     '';
   };
 
