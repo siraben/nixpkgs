@@ -48,6 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
       url = "https://github.com/notmuch/notmuch/commit/f5e58cdb9b93b10ac32379b36b452532a32b8ece.patch";
       hash = "sha256-x+WHarE752IQzic/CTT26YuSi5Oox3lcQJP1FYNR6AE=";
     })
+    ./fix-async-stderr.patch
   ];
 
   nativeBuildInputs = [

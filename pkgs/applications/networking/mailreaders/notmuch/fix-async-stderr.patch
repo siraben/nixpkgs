@@ -1,0 +1,52 @@
+--- a/emacs/notmuch-lib.el
++++ b/emacs/notmuch-lib.el
+@@ -987,6 +987,7 @@
+ 		:stderr err-buffer))
+ 	 (err-proc (get-buffer-process err-buffer)))
+     (process-put proc 'err-buffer err-buffer)
++    (process-put proc 'err-proc err-proc)
+     (process-put proc 'sub-sentinel sentinel)
+     (set-process-sentinel proc #'notmuch-start-notmuch-sentinel)
+     (set-process-sentinel err-proc #'notmuch-start-notmuch-error-sentinel)
+@@ -995,10 +996,18 @@
+ (defun notmuch-start-notmuch-sentinel (proc event)
+   "Process sentinel function used by `notmuch-start-notmuch'."
+   (let* ((err-buffer (process-get proc 'err-buffer))
+-	 (err (and (buffer-live-p err-buffer)
+-		   (not (zerop (buffer-size err-buffer)))
+-		   (with-current-buffer err-buffer (buffer-string))))
++	 (err-proc (process-get proc 'err-proc))
++	 (err (progn
++		(when (and err-proc (not (process-live-p proc)))
++		  ;; The stderr pipe may still contain output after stdout exits.
++		  (while (accept-process-output err-proc)))
++		(and (buffer-live-p err-buffer)
++		     (not (zerop (buffer-size err-buffer)))
++		     (with-current-buffer err-buffer (buffer-string)))))
+ 	 (sub-sentinel (process-get proc 'sub-sentinel)))
++    (when (and err-proc (not (process-live-p proc)))
++      (process-put err-proc 'notmuch-output-read t)
++      (notmuch-start-notmuch-error-sentinel err-proc event))
+     (condition-case err
+ 	(progn
+ 	  ;; Invoke the sub-sentinel, if any
+@@ -1015,7 +1024,8 @@
+ 	  ;; really warning output.  Show warnings, if any.
+ 	  (let ((warnings
+ 		 (and err
+-		      (with-current-buffer err-buffer
++		      (with-temp-buffer
++			(insert err)
+ 			(goto-char (point-min))
+ 			(end-of-line)
+ 			;; Show first line; stuff remaining lines in the
+@@ -1033,7 +1043,8 @@
+        (message "%s" (error-message-string err))))))
+ 
+ (defun notmuch-start-notmuch-error-sentinel (proc _event)
+-  (unless (process-live-p proc)
++  (when (and (not (process-live-p proc))
++	     (process-get proc 'notmuch-output-read))
+     (let ((buffer (process-buffer proc)))
+       (when (buffer-live-p buffer)
+ 	(kill-buffer buffer)))))
