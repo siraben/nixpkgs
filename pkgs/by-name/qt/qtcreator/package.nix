@@ -23,6 +23,7 @@
 let
   pname = "qtcreator";
   version = "20.0.1";
+  docTools = buildPackages.qt6.qttools.override { withClang = true; };
   src = fetchurl {
     url = "mirror://qt/official_releases/${pname}/${lib.versions.majorMinor version}/${version}/qt-creator-opensource-src-${version}.tar.xz";
     hash = "sha256-XsO8zwbumhkFqHYKyfunoShWcvFAqX4MUsniSNkFGrg=";
@@ -44,7 +45,7 @@ stdenv'.mkDerivation {
   nativeBuildInputs = [
     cmake
     pkg-config
-    (buildPackages.qt6.qttools.override { withClang = true; })
+    docTools
     qt6.wrapQtAppsHook
     python3
     ninja
@@ -53,6 +54,7 @@ stdenv'.mkDerivation {
 
   buildInputs = [
     qt6.qtbase
+    qt6.qttools
     qt6.qtdoc
     qt6.qtsvg
     qt6.qtquick3d
@@ -91,7 +93,36 @@ stdenv'.mkDerivation {
     (lib.cmakeBool "QTC_CLANG_BUILDMODE_MATCH" true)
     (lib.cmakeBool "CLANGTOOLING_LINK_CLANG_DYLIB" true)
     (lib.cmakeBool "CMDBRIDGE_BUILD_VENDOR_MODE" true)
-  ];
+  ]
+  ++ lib.optionals (!stdenv'.buildPlatform.canExecute stdenv'.hostPlatform) (
+    # Library configs must not be taken from the native documentation tools.
+    map (module: lib.cmakeFeature "Qt6${module}_DIR" "${qt6.qttools}/lib/cmake/Qt6${module}") [
+      "Designer"
+      "DesignerComponentsPrivate"
+      "DesignerPrivate"
+      "Help"
+      "Tools"
+      "UiPlugin"
+    ]
+    ++ [
+      (lib.cmakeFeature "QT_OPTIONAL_TOOLS_PATH" "${docTools}")
+      (lib.cmakeFeature "QT_ADDITIONAL_HOST_PACKAGES_PREFIX_PATH" (
+        lib.concatMapStringsSep ";" (p: "${p}") [
+          buildPackages.qt6.qtdeclarative
+          buildPackages.qt6.qtshadertools
+          buildPackages.qt6.qtquick3d
+          docTools
+        ]
+      ))
+    ]
+  );
+
+  postPatch = ''
+    # The remote helpers are pure Go, built for several architectures and OSes.
+    # Do not inherit the cross Go compiler's preference for external linking.
+    substituteInPlace src/libs/gocmdbridge/server/CMakeLists.txt \
+      --replace-fail 'CGO_ENABLED=0' 'CGO_ENABLED=0 GO_EXTLINK_ENABLED=0'
+  '';
 
   preConfigure = ''
     export GOCACHE=$TMPDIR/go-cache
@@ -112,6 +143,14 @@ stdenv'.mkDerivation {
 
   # Remove prefix from the QtC config to make sane output path for 3rd-party plug-ins.
   postFixup = ''
+    # These pure-Go binaries are copied to remote devices. Qt wrappers would
+    # impose the local architecture and Nix store paths on those devices.
+    for helper in "$out"/libexec/qtcreator/.cmdbridge-*-wrapped; do
+      [ -f "$helper" ] || continue
+      name="''${helper##*/.}"
+      mv -f "$helper" "$out/libexec/qtcreator/''${name%-wrapped}"
+    done
+
     substituteInPlace ''${!outputDev}/lib/cmake/QtCreator/QtCreatorConfig.cmake --replace "$out/" ""
   '';
 
