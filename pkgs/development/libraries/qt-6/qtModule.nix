@@ -1,6 +1,7 @@
 {
   lib,
   stdenv,
+  pkgsBuildBuild,
   darwinVersionInputs,
   cmake,
   ninja,
@@ -16,6 +17,26 @@ let
   inherit (args) pname;
   version = args.version or srcs.${pname}.version;
   src = args.src or srcs.${pname}.src;
+  # Importing host Qt libraries can also require their native tool packages,
+  # including those of propagated dependencies such as Qt ShaderTools.
+  qtDependencyNodes =
+    deps:
+    map
+      (dep: {
+        key = dep.pname;
+        inherit dep;
+      })
+      (
+        lib.filter (
+          dep: lib.isDerivation dep && dep ? pname && builtins.hasAttr dep.pname pkgsBuildBuild.qt6
+        ) deps
+      );
+  nativeQtPrefixes = map (node: "${pkgsBuildBuild.qt6.${node.key}}") (
+    builtins.genericClosure {
+      startSet = qtDependencyNodes ((args.propagatedBuildInputs or [ ]) ++ (args.buildInputs or [ ]));
+      operator = node: qtDependencyNodes (node.dep.propagatedBuildInputs or [ ]);
+    }
+  );
 in
 stdenv.mkDerivation (
   args
@@ -50,6 +71,11 @@ stdenv.mkDerivation (
       # When this variable is not set, cmake tries to execute xcodebuild
       # to query the version.
       "-DQT_INTERNAL_XCODE_VERSION=0.1"
+    ]
+    ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform && nativeQtPrefixes != [ ]) [
+      (lib.cmakeFeature "QT_ADDITIONAL_HOST_PACKAGES_PREFIX_PATH" (
+        lib.concatStringsSep ";" nativeQtPrefixes
+      ))
     ]
     ++ args.cmakeFlags or [ ];
 
