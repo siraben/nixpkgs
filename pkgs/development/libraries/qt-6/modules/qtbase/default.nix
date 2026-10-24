@@ -226,6 +226,7 @@ stdenv.mkDerivation {
 
     # make internal find_package calls between Qt components work with split builds
     ./use-cmake-path.patch
+    ./prefer-explicit-doc-tools.patch
 
     # always link to libraries by name in qmake-generated build scripts
     ./qmake-always-use-libname.patch
