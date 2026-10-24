@@ -3300,15 +3300,19 @@ with pkgs;
 
   gcc_latest = gcc16;
 
-  libgccjit = gcc.cc.override {
-    name = "libgccjit";
-    langFortran = false;
-    langCC = false;
-    langC = false;
-    profiledCompiler = false;
-    langJit = true;
-    enableLTO = false;
-  };
+  # A JIT must generate code for its own host, including in buildPackages.
+  libgccjit =
+    (if lib.systems.equals stdenv.hostPlatform stdenv.targetPlatform then gcc else pkgsHostHost.gcc)
+    .cc.override
+      {
+        name = "libgccjit";
+        langFortran = false;
+        langCC = false;
+        langC = false;
+        profiledCompiler = false;
+        langJit = true;
+        enableLTO = false;
+      };
 
   gnat = pkgs."gnat${toString default-gcc-version}"; # When changing this, update also gnatPackages
 
