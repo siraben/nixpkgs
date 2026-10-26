@@ -38,6 +38,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
   pythonRelaxDeps = [
     "docutils"
     "packaging"
+    # Uses the supported open/parse_uri APIs, not the aliases removed in 8.0.
+    "smart-open"
     "sqlmodel"
   ];
   dependencies = with python3Packages; [
