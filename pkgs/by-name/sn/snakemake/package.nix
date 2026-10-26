@@ -191,6 +191,10 @@ python3Packages.buildPythonApplication (finalAttrs: {
   doCheck = false;
   passthru.tests.pytest = snakemake.overridePythonAttrs {
     doCheck = true;
+    preCheck = ''
+      # Some integration tests invoke the installed CLI via subprocess.
+      export PATH="$out/bin:$PATH"
+    '';
   };
 
   meta = {
