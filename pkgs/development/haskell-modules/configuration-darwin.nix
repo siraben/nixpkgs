@@ -22,6 +22,16 @@ self: super:
       doCheck = false;
     } super.hakyll;
 
+    # The bundled zlib expects Carbon to provide Byte, but freetype2 builds
+    # without Carbon (DARWIN_NO_CARBON).
+    freetype2 = overrideCabal (drv: {
+      postPatch = (drv.postPatch or "") + ''
+        substituteInPlace freetype2/src/gzip/ftzconf.h \
+          --replace-fail '#if !defined(MACOS) && !defined(TARGET_OS_MAC)' \
+                         '#if defined(DARWIN_NO_CARBON) || (!defined(MACOS) && !defined(TARGET_OS_MAC))'
+      '';
+    }) super.freetype2;
+
     double-conversion = addExtraLibrary pkgs.libcxx super.double-conversion;
 
     # darwin doesn't have sub-second resolution
