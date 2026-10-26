@@ -4,6 +4,7 @@
   fetchPypi,
   django,
   setuptools,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {
@@ -12,11 +13,15 @@ buildPythonPackage rec {
   pyproject = true;
 
   src = fetchPypi {
-    inherit pname version;
+    pname = "django_colorful";
+    inherit version;
     hash = "sha256-9mg3SyD22BNaLeRTTKDW2L2z1GI124ZkqNhTLlrw9m4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [
+    setuptools
+    setuptools-scm
+  ];
 
   buildInputs = [ django ];
 
