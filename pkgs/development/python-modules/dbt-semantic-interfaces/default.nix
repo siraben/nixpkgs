@@ -34,6 +34,7 @@ buildPythonPackage (finalAttrs: {
   };
 
   pythonRelaxDeps = [
+    "click"
     "importlib-metadata"
     "more-itertools"
   ];
