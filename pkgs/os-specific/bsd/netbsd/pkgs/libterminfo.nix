@@ -1,4 +1,8 @@
 {
+  lib,
+  stdenv,
+  cctools,
+  defaultMakeFlags,
   mkDerivation,
   bsdSetupHook,
   netbsdSetupHook,
@@ -28,6 +32,11 @@ mkDerivation {
     tic
   ];
   buildInputs = compatIfNeeded;
+  makeFlags = defaultMakeFlags ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    # NetBSD uses objcopy -x/-X to strip local symbols, which LLVM objcopy
+    # does not support for Mach-O. Match the compat library's use of strip.
+    "OBJCOPY=${cctools}/bin/strip"
+  ];
   SHLIBINSTALLDIR = "$(out)/lib";
   postPatch = ''
     substituteInPlace $COMPONENT_PATH/term.c --replace /usr/share $out/share
