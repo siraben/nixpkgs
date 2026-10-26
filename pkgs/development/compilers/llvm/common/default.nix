@@ -508,9 +508,14 @@ makeScopeWithSplicing' {
         flangUnwrapped = callPackage ./flang {
           libclang = flangLibclang;
         };
-        flangRt = callPackage ./flang-rt {
-          buildFlang = buildLlvmPackages.flang-unwrapped;
-        };
+        # LLVM 20 bundles the runtime in flang; standalone flang-rt starts with LLVM 21.
+        flangRt =
+          if lib.versionOlder metadata.release_version "21" then
+            flangUnwrapped
+          else
+            callPackage ./flang-rt {
+              buildFlang = buildLlvmPackages.flang-unwrapped;
+            };
       in
       {
         flang-unwrapped = flangUnwrapped;
