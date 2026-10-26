@@ -1,0 +1,37 @@
+Configure HTTPX connection-pool expiry rather than its per-request I/O timeout.
+
+Keep the server timeout well above the sleep so it cannot mask a missing client timeout.
+
+--- a/tests/test_keep_alive_timeout.py
++++ b/tests/test_keep_alive_timeout.py
+@@ -5,6 +5,7 @@
+ from itertools import count
+ from os import environ
+
++import httpx
+ import pytest
+
+ from sanic_testing.reusable import ReusableClient
+@@ -30,7 +31,9 @@
+ keep_alive_app_disabled = Sanic("test_ka_disabled")
+
+ keep_alive_timeout_app_reuse.config.update(CONFIG_FOR_TESTS)
+-keep_alive_app_client_timeout.config.update(CONFIG_FOR_TESTS)
++keep_alive_app_client_timeout.config.update(
++    {"KEEP_ALIVE_TIMEOUT": 60, "KEEP_ALIVE": True}
++)
+ keep_alive_app_server_timeout.config.update(CONFIG_FOR_TESTS)
+ keep_alive_app_context.config.update(CONFIG_FOR_TESTS)
+ keep_alive_app_disabled.config.update(CONFIG_KEEP_ALIVE_FALSE)
+@@ -120,7 +123,10 @@
+             loop = asyncio.new_event_loop()
+             asyncio.set_event_loop(loop)
+             client = ReusableClient(
+-                keep_alive_app_client_timeout, loop=loop, port=port
++                keep_alive_app_client_timeout,
++                loop=loop,
++                port=port,
++                client_kwargs={"limits": httpx.Limits(keepalive_expiry=1)},
+             )
+             with client:
+                 headers = {"Connection": "keep-alive"}

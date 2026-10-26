@@ -36,8 +36,12 @@ buildPythonPackage rec {
     hash = "sha256-0P5UyLi9W5maoR1EpRxfhysckDWpjgmqndgxsVHm47c=";
   };
 
-  # test compat for testing with pytest-asyncio
-  patches = [ ./pytest9-compat.patch ];
+  patches = [
+    # test compat for testing with pytest-asyncio
+    ./pytest9-compat.patch
+    # HTTPX request timeouts do not configure keep-alive connection expiry.
+    ./keep-alive-client-timeout.patch
+  ];
 
   build-system = [ setuptools ];
 
