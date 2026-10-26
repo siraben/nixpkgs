@@ -29,6 +29,12 @@ with haskellLib;
 
 # To avoid merge conflicts, consider adding your item at an arbitrary place in the list instead.
 {
+  # Support nullable inout callback parameters added by newer GStreamer.
+  haskell-gi = appendPatch (fetchpatch {
+    url = "https://github.com/haskell-gi/haskell-gi/commit/5ecc721655e825c822af032f5371b04f62dbad90.patch";
+    hash = "sha256-Dly0MIHdgnEkdqC21ZxJR6pC8nXEAP8UsWJyGsK3WOU=";
+  }) super.haskell-gi;
+
   # Make sure that Cabal_* can be built as-is
   Cabal_3_10_3_0 = doDistribute (
     super.Cabal_3_10_3_0.override {
