@@ -50,6 +50,9 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   cmakeFlags = [
+    # AmqpError uses aggregate initialization of explicitly defaulted constructors,
+    # which is no longer permitted in C++20 (the GCC 16 default).
+    "-DCMAKE_CXX_STANDARD=17"
     "-DBUILD_SHARED_LIBS=ON"
     "-DDISABLE_RUST_IN_BUILD=ON"
     "-DWARNINGS_AS_ERRORS=OFF"
