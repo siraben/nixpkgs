@@ -68,6 +68,11 @@ buildPythonPackage (finalAttrs: {
 
     substituteInPlace pyproject.toml \
       --replace-fail 'version = "${finalAttrs.version}"' 'version = "${lib.versions.pad 3 finalAttrs.version}"'
+
+    # With Qt 6.12's Darwin forwarding headers, an unqualified include makes moc's
+    # include_next find the same header twice, hiding QT_VERSION and the Q_OBJECT classes.
+    substituteInPlace qpy/QtCore/qpycore_qrangemodel.h \
+      --replace-fail '#include <qglobal.h>' '#include <QtCore/qglobal.h>'
   '';
 
   enableParallelBuilding = true;
