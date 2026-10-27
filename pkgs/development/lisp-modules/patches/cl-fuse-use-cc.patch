@@ -1,0 +1,5 @@
+--- a/cl-fuse.asd
++++ b/cl-fuse.asd
+@@ -19 +19 @@
+-      (uiop:run-program `("gcc"
++      (uiop:run-program `("cc"

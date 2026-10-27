@@ -161,16 +161,19 @@ let
         ];
       };
 
-      cl-fuse = build-with-compile-into-pwd {
+      cl-fuse = build-with-compile-into-pwd rec {
         inherit (super.cl-fuse)
           pname
           version
           src
           lispLibs
           ;
-        nativeBuildInputs = [ pkgs.fuse ];
-        nativeLibs = [ pkgs.fuse ];
-        meta.broken = true; # stuck on fuse2
+        nativeBuildInputs = nativeLibs;
+        nativeLibs = [
+          (if pkgs.stdenv.hostPlatform.isDarwin then pkgs.macfuse-stubs else pkgs.fuse)
+        ];
+        patches = [ ./patches/cl-fuse-use-cc.patch ];
+        meta.broken = !pkgs.stdenv.hostPlatform.isDarwin; # requires the FUSE2 API
       };
 
       cl-containers = build-asdf-system {
