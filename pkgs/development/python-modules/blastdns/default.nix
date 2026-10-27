@@ -1,6 +1,5 @@
 {
   lib,
-  stdenv,
   buildPythonPackage,
   cargo,
   fetchFromGitHub,
@@ -53,17 +52,14 @@ buildPythonPackage (finalAttrs: {
   # Run tests outside the source package path so imports resolve to the
   # installed wheel, which contains the compiled _native extension.
   preCheck = ''
+    cp -r blastdns/tests "$TMPDIR/tests"
     cd "$TMPDIR"
-    cp -r /build/source/blastdns/tests ./tests
   '';
 
   pytestFlags = [
     "--import-mode=importlib"
     "tests"
   ];
-
-  # Copying of the tests doesn't work on darwin
-  doCheck = !stdenv.hostPlatform.isDarwin;
 
   disabledTests = [
     # Tests requires host system DNS config files that are absent in sandboxed builds
@@ -73,6 +69,9 @@ buildPythonPackage (finalAttrs: {
     "test_stats_account_for_every_query"
     "test_zone_transfer_nonexistent_zone"
     "test_zone_transfer_success"
+    # Require TEST-NET resolvers to be unreachable.
+    "test_purgatory_can_be_disabled"
+    "test_unreachable_resolver_raises_resolver_error"
   ];
 
   pythonImportsCheck = [ "blastdns" ];
