@@ -14,6 +14,7 @@
   more-itertools,
   openssh,
   psutil,
+  pytest-retry,
   pytestCheckHook,
   pythonAtLeast,
   requests-toolbelt,
@@ -34,6 +35,12 @@ buildPythonPackage {
     rev = "2d2b1526c1e396964dd3ffdbb37597adefe7682d";
     hash = "sha256-47cRxaxOGzR6hDfiW2hS3MNHp2aP9rxtWNxV+33PPfs=";
   };
+
+  # Imported datalad-core tests use this marker under --strict-markers.
+  postPatch = ''
+    substituteInPlace pyproject.toml \
+      --replace-fail 'markers = [' 'markers = ["ai_generated",'
+  '';
 
   env.SETUPTOOLS_SCM_PRETEND_VERSION = "1.6.0";
 
@@ -64,6 +71,7 @@ buildPythonPackage {
     git-annex
     openssh
     psutil
+    pytest-retry
     pytestCheckHook
     unzip
     webdavclient3
