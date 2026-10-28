@@ -24,6 +24,11 @@ self: super:
 
     double-conversion = addExtraLibrary pkgs.libcxx super.double-conversion;
 
+    # Clang's traditional CPP leaves macro parameters after promoted constructors unexpanded.
+    exinst-base = overrideCabal {
+      useCpphs = true;
+    } super.exinst-base;
+
     # darwin doesn't have sub-second resolution
     # https://github.com/hspec/mockery/issues/11
     mockery = overrideCabal (drv: {
