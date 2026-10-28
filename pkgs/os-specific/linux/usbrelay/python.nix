@@ -6,8 +6,10 @@
 
 buildPythonPackage {
   pname = "usbrelay_py";
+  # The Python subproject has its own version in setup.py.
+  version = "1.1";
   pyproject = true;
-  inherit (usbrelay) version src;
+  inherit (usbrelay) src;
 
   build-system = [ setuptools ];
 
@@ -18,6 +20,9 @@ buildPythonPackage {
   buildInputs = [ usbrelay ];
 
   pythonImportsCheck = [ "usbrelay_py" ];
+
+  # The source is updated together with the parent usbrelay package.
+  passthru.updateScript = null;
 
   inherit (usbrelay) meta;
 }
