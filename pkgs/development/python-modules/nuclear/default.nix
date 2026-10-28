@@ -43,6 +43,11 @@ buildPythonPackage rec {
     pydantic
     backoff
   ];
+  # MockIO expects the first root handler to use nuclear's log formatter.
+  pytestFlags = [
+    "-p"
+    "no:logging"
+  ];
   disabledTestPaths = [
     # Disabled because test tries to install bash in a non-NixOS way
     "tests/autocomplete/test_bash_install.py"
