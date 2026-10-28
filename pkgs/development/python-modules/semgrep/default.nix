@@ -116,7 +116,6 @@ buildPythonPackage (finalAttrs: {
     "exceptiongroup"
     "glom"
     "jsonschema"
-    "mcp"
     "opentelemetry-api"
     "opentelemetry-exporter-otlp-proto-http"
     "opentelemetry-sdk"

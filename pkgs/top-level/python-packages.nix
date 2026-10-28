@@ -18989,6 +18989,7 @@ self: super: with self; {
   semchunk = callPackage ../development/python-modules/semchunk { };
 
   semgrep = callPackage ../development/python-modules/semgrep {
+    mcp = self.mcp_1;
     semgrep-core = callPackage ../development/python-modules/semgrep/semgrep-core.nix { };
   };
 
