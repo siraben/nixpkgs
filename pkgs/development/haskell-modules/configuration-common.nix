@@ -354,6 +354,22 @@ with haskellLib;
     })
   ] super.criterion;
 
+  # Fix test compilation with GHC >= 9.10 and on platforms without CTimer.
+  store = appendPatches [
+    (fetchpatch {
+      name = "store-ghc-internal-th.patch";
+      url = "https://github.com/mgsloan/store/commit/d48d308dd90c4de944719a4c53493e31906d49b1.patch";
+      includes = [ "test/Data/StoreSpec.hs" ];
+      hash = "sha256-O3SwRFbu/KInZqNZoS408BUF/fq8ozg4o4oY6kRrsSA=";
+    })
+    (fetchpatch {
+      name = "store-ctimer-availability.patch";
+      url = "https://github.com/mgsloan/store/commit/d97c9e0742c21c573a9f1ed8145681153ecb2a9a.patch";
+      includes = [ "test/Data/StoreSpec.hs" ];
+      hash = "sha256-QCZf2XO4dZR9n+3ixlWDLLux0OpAxzaDacGnQNsYI0U=";
+    })
+  ] super.store;
+
   # Avoid rebinding to the same port with tasty >= 1.5.4 parallelism
   # https://github.com/lpeterse/haskell-socket/pull/73
   socket = appendPatches [
