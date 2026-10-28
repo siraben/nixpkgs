@@ -24,6 +24,9 @@ self: super:
 
     double-conversion = addExtraLibrary pkgs.libcxx super.double-conversion;
 
+    # termbox defines _XOPEN_SOURCE, which hides Darwin's SIGWINCH declaration.
+    termbox-bindings-c = appendConfigureFlag "--ghc-option=-optc=-D_DARWIN_C_SOURCE" super.termbox-bindings-c;
+
     # darwin doesn't have sub-second resolution
     # https://github.com/hspec/mockery/issues/11
     mockery = overrideCabal (drv: {
