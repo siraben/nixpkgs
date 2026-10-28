@@ -34,6 +34,12 @@ buildPythonPackage rec {
       includes = [ "xdis/magics.py" ];
       hash = "sha256-q+MX737Xn+iUObuV5IirnT71/0W6JH0TgtmS1cqR0x4=";
     })
+    (fetchpatch {
+      name = "python-maintenance-magics.patch";
+      url = "https://github.com/rocky/python-xdis/compare/28bc162e92c342f0ca4fc94fe9d0a9ea0fbb3b57...9840f1c269893f8dd5044bee0ee8f8a062f97efc.diff";
+      includes = [ "xdis/magics.py" ];
+      hash = "sha256-0ml7uQ2KQQOBqT+vX5QabOHWNX/1COQOwzFZP9XoO64=";
+    })
   ];
 
   build-system = [
