@@ -90,6 +90,11 @@ let
     postPatch = ''
       substituteInPlace pyproject.toml \
         --replace-fail "numpy>=2.0.0" numpy
+
+      # Arrow's int32 labels stay read-only when intp is also 32-bit.
+      # Null-key factorization modifies these arrays with np.putmask.
+      substituteInPlace pandas/core/reshape/merge.py \
+        --replace-fail '.astype(np.intp, copy=False),' '.astype(np.intp, copy=True),'
     '';
 
     build-system = [
