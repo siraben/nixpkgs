@@ -1,0 +1,7 @@
+{
+  "branch": "siraben/i686-kernel-dev-20261111",
+  "commit": "687497308ad87ecf811c114f2fafcd52c1ef51aa",
+  "base": "a238bac4849a79e151329cdc51638d3bc7627c6c",
+  "integrationCommit": "d955ba159213f5b9110ae843e837ad97aca756de",
+  "title": "linux: retain architecture Makefile fragments in dev output"
+}

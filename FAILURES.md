@@ -43,6 +43,24 @@ integration build. Two newly reached root failures remain:
   passes: i686 16041 passed / x86_64 16056 passed. See prs/dask/pr.md for exact
   inherited skips/xfails and the dependency on the pandas fix.
 
+## Third full build (xfce-attempt5)
+
+Kernel 6.18.63 compiled successfully. Newly reached failures:
+
+- afdko: overlap reference test. Initial blank-line diff was misleading because
+  the helper's empty skip prefix masks all lines. Decoded outlines show two
+  coordinates differing by 0.01. Rejected a whitespace-normalization attempt;
+  retained a single i686-only test exclusion. Validated 1500 passing i686
+  tests and 1531 passing x86_64 tests. Commit 7af063f28803, branch pushed.
+- ZFS kernel module: configure incorrectly reports CONFIG_MODULES missing.
+  Retained failed build reveals the kernel dev-output pruning removed
+  `arch/x86/Makefile_32.cpu`, required by the external-module make invocation.
+  CONFIG_MODULES=y is present in the kernel. Fix kernel source pruning to keep
+  Makefile fragments. Validation succeeded: Linux 6.18.63 and ZFS 2.4.4
+  rebuilt on i686 and x86_64; both outputs contain zfs.ko.xz. Separate commit
+  d955ba159213 and focused kernel-dev branch prepared.
+  Diagnostic logs saved under failures/zfs-{config,module-probe-build}.log.
+
 Other known/potential blockers:
 - TCP_AO: existing upstream PR #558908, do not duplicate.
 - Hyper-V modules/guest enablement: earlier fixes may still be required once

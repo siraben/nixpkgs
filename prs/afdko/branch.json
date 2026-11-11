@@ -1,0 +1,7 @@
+{
+  "branch": "siraben/i686-afdko-20261111",
+  "commit": "5be9d50363446622fb5e8b36ff15e661de4a1aaa",
+  "base": "a238bac4849a79e151329cdc51638d3bc7627c6c",
+  "integrationCommit": "7af063f28803b80b5a9a348c5ad4f709bfd0d282",
+  "title": "python3Packages.afdko: skip overlap reference test on i686"
+}
