@@ -1,0 +1,66 @@
+Fix 32-bit integer lookup and MessagePack length handling.
+
+Keep compact lookup offsets in 64 bits until after the bounds check, using
+unsigned subtraction to avoid signed overflow. Reject lengths that cannot fit
+in a Python buffer with DecodeError instead of returning NULL without an
+exception after a narrowing conversion.
+
+Construct timestamp test expectations with datetime arithmetic rather than
+platform time_t, preserving all encoder/decoder assertions.
+
+--- a/src/msgspec/_core.c
++++ b/src/msgspec/_core.c
+@@ -1150,8 +1150,8 @@
+ IntLookup_GetInt64(IntLookup *self, int64_t key) {
+     if (MS_LIKELY(self->compact)) {
+         IntLookupCompact *lk = (IntLookupCompact *)self;
+-        Py_ssize_t index = key - lk->offset;
+-        if (index >= 0 && index < Py_SIZE(lk)) {
++        uint64_t index = (uint64_t)key - (uint64_t)lk->offset;
++        if (index < (uint64_t)Py_SIZE(lk)) {
+             return lk->table[index];
+         }
+         return NULL;
+@@ -15003,7 +15003,10 @@
+ mpack_decode_size4(DecoderState *self) {
+     char *s = NULL;
+     if (mpack_read(self, &s, 4) < 0) return -1;
+-    return (Py_ssize_t)(_msgspec_load32(uint32_t, s));
++    uint32_t size = _msgspec_load32(uint32_t, s);
++    /* Such a payload cannot fit in a Python buffer on this platform. */
++    if (MS_UNLIKELY((uint64_t)size > PY_SSIZE_T_MAX)) return ms_err_truncated();
++    return (Py_ssize_t)size;
+ }
+ 
+ static PyObject *
+--- a/tests/unit/test_msgpack.py
++++ b/tests/unit/test_msgpack.py
+@@ -1350,7 +1350,7 @@
+         self.check(dt, msg)
+ 
+     def test_timestamp32_upper(self):
+-        dt = datetime.datetime.fromtimestamp(2**32 - 1, UTC)
++        dt = datetime.datetime(1970, 1, 1, tzinfo=UTC) + datetime.timedelta(seconds=2**32 - 1)
+         msg = b"\xd6\xff\xff\xff\xff\xff"
+         self.check(dt, msg)
+ 
+@@ -1360,8 +1360,8 @@
+         self.check(dt, msg)
+ 
+     def test_timestamp64_upper(self):
+-        dt = datetime.datetime.fromtimestamp(2**34, UTC) - datetime.timedelta(
+-            microseconds=1
++        dt = datetime.datetime(1970, 1, 1, tzinfo=UTC) + datetime.timedelta(
++            seconds=2**34, microseconds=-1
+         )
+         msg = b"\xd7\xff\xeek\x18c\xff\xff\xff\xff"
+         self.check(dt, msg)
+@@ -1372,7 +1372,7 @@
+         self.check(dt, msg)
+ 
+     def test_timestamp96_upper(self):
+-        dt = datetime.datetime.fromtimestamp(2**34, UTC)
++        dt = datetime.datetime(1970, 1, 1, tzinfo=UTC) + datetime.timedelta(seconds=2**34)
+         msg = b"\xc7\x0c\xff\x00\x00\x00\x00\x00\x00\x00\x04\x00\x00\x00\x00"
+         self.check(dt, msg)
+ 
