@@ -132,6 +132,8 @@ buildPythonPackage (finalAttrs: {
   ++ lib.optionals (stdenv.hostPlatform.isi686) [
     "test_dump_option"
     "test_type1mm_inputs"
+    # Overlap removal differs from the reference by 0.01 in two coordinates.
+    "test_overlap_removal"
   ]
   ++ lib.optionals (stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isBigEndian) [
     # https://github.com/adobe-type-tools/afdko/issues/1855
