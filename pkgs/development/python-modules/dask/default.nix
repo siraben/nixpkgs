@@ -54,6 +54,8 @@ buildPythonPackage (finalAttrs: {
     hash = "sha256-DFPd46cBirwztmZJvRKS8u5qvYMEIWfy90QR2AeBu3c=";
   };
 
+  patches = [ ./portable-32bit-tests.patch ];
+
   postPatch = lib.optionalString stdenv.hostPlatform.isLinux ''
     substituteInPlace dask/tests/test_system.py \
       --replace-fail \
@@ -132,6 +134,11 @@ buildPythonPackage (finalAttrs: {
   disabledTests = [
     # https://github.com/dask/dask/issues/10931
     "test_combine_first_all_nans"
+  ]
+  ++ lib.optionals stdenv.hostPlatform.is32bit [
+    # Materializes a 200-million-element int64 chunk (1.49 GiB), exceeding
+    # available contiguous address space in the 32-bit test process.
+    "test_take_large"
   ]
   ++ lib.optionals stdenv.hostPlatform.isDarwin [
     # RuntimeWarning: divide by zero encountered in det

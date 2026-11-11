@@ -1,0 +1,107 @@
+Make Dask dataframe test expectations portable to 32-bit hosts.
+
+Use explicit int64 fixtures where partition reductions/Parquet use int64;
+allow native-width versus widened integer memory counts; derive scalar repr
+from intp; check repartition size constraints rather than pointer-size-specific
+partition counts. Include i686 in the existing x86 categorical-concat xfail.
+
+--- a/dask/dataframe/dask_expr/tests/test_collection.py
++++ b/dask/dataframe/dask_expr/tests/test_collection.py
+@@ -481,7 +481,8 @@
+     pdf.index = np.arange(len(pdf))
+     df = from_pandas(pdf)
+     assert_eq(df.memory_usage(), pdf.memory_usage())
+-    assert_eq(df.memory_usage(index=False), pdf.memory_usage(index=False))
++    # Memory counts may be widened from intp to int64 by the reduction.
++    assert_eq(df.memory_usage(index=False), pdf.memory_usage(index=False), check_dtype=False)
+     assert_eq(df.x.memory_usage(), pdf.x.memory_usage())
+     assert_eq(df.x.memory_usage(index=False), pdf.x.memory_usage(index=False))
+     assert_eq(df.index.memory_usage(), pdf.index.memory_usage())
+@@ -1643,14 +1644,18 @@
+ 
+ def test_repartition_partition_size(df):
+     df2 = df.repartition(partition_size="0.25kb")
+-    assert df2.npartitions == 20
++    # RangeIndex memory overhead varies with pointer size and interpreter.
++    assert df2.npartitions >= df.npartitions
++    assert (df2.memory_usage_per_partition(deep=True).compute() <= 250).all()
+     assert_eq(df, df2, check_divisions=False)
+-    assert all(div is None for div in df2.divisions)
++    if df2.npartitions > df.npartitions:
++        assert all(div is None for div in df2.divisions)
++    else:
++        assert df2.divisions == df.divisions
+ 
+     df2 = df.repartition(partition_size="1kb")
+-    # Pandas 3.0 on Python 3.14t uses more RAM, so we get more partitions
+-    # than on other interpreters.
+-    assert 4 <= df2.npartitions <= 5
++    assert df2.npartitions < df.npartitions
++    assert (df2.memory_usage_per_partition(deep=True).compute() <= 1000).all()
+     assert_eq(df, df2)
+     assert all(div is not None for div in df2.divisions)
+ 
+@@ -2526,7 +2531,7 @@
+ @pytest.mark.skipif(WINDOWS and not NUMPY_GE_200, reason="uses int32")
+ def test_scalar_repr(df):
+     result = repr(df.size)
+-    assert result == "<dask_expr.expr.Scalar: expr=df.size(), dtype=int64>"
++    assert result == f"<dask_expr.expr.Scalar: expr=df.size(), dtype={np.dtype(np.intp)}>"
+ 
+ 
+ def test_array_conversion(df, pdf):
+--- a/dask/dataframe/io/tests/test_parquet.py
++++ b/dask/dataframe/io/tests/test_parquet.py
+@@ -839,7 +839,8 @@
+     tmp = str(tmpdir)
+ 
+     df1 = pd.DataFrame(
+-        {"x": np.arange(100), "y": np.arange(100, 200)}, index=np.arange(100, 0, -1)
++        {"x": np.arange(100), "y": np.arange(100, 200)},
++        index=np.arange(100, 0, -1, dtype="int64"),
+     )
+     ddf1 = dd.from_pandas(df1, npartitions=3, sort=False)
+ 
+--- a/dask/dataframe/tests/test_dataframe.py
++++ b/dask/dataframe/tests/test_dataframe.py
+@@ -3672,7 +3672,7 @@
+ @pytest.mark.parametrize(
+     "idx",
+     [
+-        np.arange(100),
++        np.arange(100, dtype="int64"),
+         np.sort(np.random.random(size=100)),
+         pd.date_range("20150101", periods=100),
+     ],
+@@ -4150,7 +4150,8 @@
+     ddf = dd.from_pandas(df, npartitions=2)
+     expected = df.memory_usage(index=index, deep=deep)
+     result = ddf.memory_usage(index=index, deep=deep)
+-    assert_eq(expected, result)
++    # The reduction can widen native-width memory counts to int64.
++    assert_eq(expected, result, check_dtype=False)
+ 
+ 
+ @pytest.mark.parametrize("index", [True, False])
+--- a/dask/dataframe/tests/test_groupby.py
++++ b/dask/dataframe/tests/test_groupby.py
+@@ -1287,7 +1287,7 @@
+ @pytest.mark.parametrize("split_every", [2, 5])
+ @pytest.mark.parametrize("split_out", [1, 5, 20])
+ def test_hash_groupby_aggregate(npartitions, split_every, split_out):
+-    df = pd.DataFrame({"x": np.arange(100) % 10, "y": np.ones(100)})
++    df = pd.DataFrame({"x": np.arange(100, dtype="int64") % 10, "y": np.ones(100)})
+     ddf = dd.from_pandas(df, npartitions)
+ 
+     result = ddf.groupby("x", sort=(split_out == 1)).y.var(
+--- a/dask/dataframe/tests/test_multi.py
++++ b/dask/dataframe/tests/test_multi.py
+@@ -1895,7 +1895,7 @@
+         )
+ 
+ 
+-X86 = platform.machine().lower() in ("x86_64", "amd64")
++X86 = platform.machine().lower() in ("x86_64", "amd64", "i386", "i486", "i586", "i686")
+ xfail_10558 = pytest.mark.xfail(
+     # Always fails on Pandas >=2.2 x86 (not on ARM).
+     # Mildly flaky on Pandas 2.0 and 2.1.
