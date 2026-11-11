@@ -26,7 +26,7 @@
 
   # VM guest additions to improve host-guest interaction
   services.spice-vdagentd.enable = true;
-  services.qemuGuest.enable = true;
+  services.qemuGuest.enable = pkgs.stdenv.hostPlatform.is64bit;
   virtualisation.vmware.guest.enable = pkgs.stdenv.hostPlatform.isx86;
   # https://github.com/torvalds/linux/blob/00b827f0cffa50abb6773ad4c34f4cd909dae1c8/drivers/hv/Kconfig#L7-L8
   virtualisation.hypervGuest.enable =
@@ -39,18 +39,20 @@
   # Enable plymouth
   boot.plymouth.enable = true;
 
-  environment.defaultPackages = with pkgs; [
-    # Include gparted for partitioning disks.
-    gparted
+  environment.defaultPackages =
+    with pkgs;
+    [
+      # Include gparted for partitioning disks.
+      gparted
 
-    # Include some editors.
-    vim
-    nano
+      # Include some editors.
+      vim
+      nano
 
-    # Firefox for reading the manual.
-    firefox
-
-    mesa-demos
-  ];
+      mesa-demos
+    ]
+    # Firefox is unavailable on 32-bit platforms.
+    ++ lib.optional stdenv.hostPlatform.is64bit firefox
+    ++ lib.optional stdenv.hostPlatform.is32bit dillo;
 
 }
