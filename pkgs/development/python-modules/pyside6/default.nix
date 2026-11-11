@@ -13,39 +13,43 @@
   symlinkJoin,
 }:
 let
-  packages = with python.pkgs.qt6; [
-    # required
-    python.pkgs.ninja
-    python.pkgs.packaging
-    python.pkgs.setuptools
-    qtbase
+  webEngineSupported = lib.meta.availableOn stdenv.hostPlatform python.pkgs.qt6.qtwebengine;
+  packages =
+    with python.pkgs.qt6;
+    [
+      # required
+      python.pkgs.ninja
+      python.pkgs.packaging
+      python.pkgs.setuptools
+      qtbase
 
-    # optional
-    qt3d
-    qtcharts
-    qtconnectivity
-    qtdatavis3d
-    qtdeclarative
-    qthttpserver
-    qtmultimedia
-    qtnetworkauth
-    qtquick3d
-    qtremoteobjects
-    qtscxml
-    qtsensors
-    qtspeech
-    qtsvg
-    qtwebchannel
-    qtwebsockets
-    qtwebview
-    qtpositioning
-    qtlocation
-    qtshadertools
-    qtserialport
-    qtserialbus
-    qtgraphs
-    qttools
-  ];
+      # optional
+      qt3d
+      qtcharts
+      qtconnectivity
+      qtdatavis3d
+      qtdeclarative
+      qthttpserver
+      qtmultimedia
+      qtnetworkauth
+      qtquick3d
+      qtremoteobjects
+      qtscxml
+      qtsensors
+      qtspeech
+      qtsvg
+      qtwebchannel
+      qtwebsockets
+      qtpositioning
+      qtlocation
+      qtshadertools
+      qtserialport
+      qtserialbus
+      qtgraphs
+      qttools
+    ]
+    # On Linux, QtWebView uses QtWebEngine, which is unavailable on i686.
+    ++ lib.optional (stdenv.hostPlatform.isDarwin || webEngineSupported) qtwebview;
   qt_linked = symlinkJoin {
     name = "qt_linked";
     paths = packages;
@@ -100,7 +104,7 @@ stdenv.mkDerivation (finalAttrs: {
     if stdenv.hostPlatform.isLinux then
       # qtwebengine fails under darwin
       # see https://github.com/NixOS/nixpkgs/pull/312987
-      packages ++ [ python.pkgs.qt6.qtwebengine ]
+      packages ++ lib.optional webEngineSupported python.pkgs.qt6.qtwebengine
     else
       python.pkgs.qt6.darwinVersionInputs
       ++ [
