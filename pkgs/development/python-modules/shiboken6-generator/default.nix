@@ -27,6 +27,12 @@ stdenv'.mkDerivation (finalAttrs: {
 
   sourceRoot = "${finalAttrs.src.name}/sources/shiboken6_generator";
 
+  postPatch = ''
+    # std::array's extent is size_t, not unsigned long on every platform.
+    substituteInPlace ApiExtractor/typesystemparser.cpp \
+      --replace-fail 'class EnumType, long unsigned N>' 'class EnumType, std::size_t N>'
+  '';
+
   nativeBuildInputs = [
     cmake
     python.pkgs.ninja
