@@ -1,0 +1,7 @@
+{
+  "branch": "siraben/i686-hyperv-20261111",
+  "commit": "7de572255f0ec4c54ee4bc9e9348134aab37e954",
+  "base": "a238bac4849a79e151329cdc51638d3bc7627c6c",
+  "integrationCommit": "a0ca765eaa47df8e410e97dc665624f514499e36",
+  "title": "nixos/installer: avoid Hyper-V modules on i686"
+}

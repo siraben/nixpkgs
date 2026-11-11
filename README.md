@@ -13,6 +13,8 @@ Full ISO validation is still in progress; see STATUS.md.
 | bcachefs-tools | [pr.md](prs/bcachefs-tools/pr.md) | [siraben/i686-bcachefs-tools-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-bcachefs-tools-20261111) |
 | dask | [pr.md](prs/dask/pr.md) | [siraben/i686-dask-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-dask-20261111) |
 | google-cloud-cpp | [pr.md](prs/google-cloud-cpp/pr.md) | [siraben/i686-google-cloud-cpp-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-google-cloud-cpp-20261111) |
+| graphical-base | [pr.md](prs/graphical-base/pr.md) | [siraben/i686-graphical-base-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-graphical-base-20261111) |
+| hyperv | [pr.md](prs/hyperv/pr.md) | [siraben/i686-hyperv-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-hyperv-20261111) |
 | iniparser | [pr.md](prs/iniparser/pr.md) | [siraben/i686-iniparser-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-iniparser-20261111) |
 | isa-l | [pr.md](prs/isa-l/pr.md) | [siraben/i686-isa-l-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-isa-l-20261111) |
 | kernel-dev | [pr.md](prs/kernel-dev/pr.md) | [siraben/i686-kernel-dev-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-kernel-dev-20261111) |

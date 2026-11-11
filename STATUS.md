@@ -34,14 +34,23 @@ siraben/nixpkgs. Do not open PRs automatically.
 - Integration branch: `siraben/i686-xfce-refresh-20261111`.
 - `xfce-attempt4` got past the original failures, then failed in kernel config
   and Dask. Existing TCP_AO PR #558908 passes config generation and is carried
-  with author credit. Full kernel build is still pending.
+  with author credit. Linux 6.18.63 subsequently built successfully.
 - Dask exposed a separate pandas nullable Arrow-string join runtime bug. It
   was independently reproduced, fixed, tested on i686/x86_64, committed and
   pushed as `siraben/i686-pandas-20261111`.
 - Dask portable test changes now pass the full suite on both architectures;
   a separate Dask branch/draft is prepared. Its tests require the pandas fix.
-- `xfce-attempt5` is next. Further downstream failures may emerge; no new ISO
-  success or boot success is claimed yet.
+- `xfce-attempt5` exposed afdko and external ZFS module failures. Afdko's
+  exact-output overlap test is excluded on i686 (two coordinates differ by
+  0.01); all remaining tests pass. Kernel dev pruning now retains Makefile
+  fragments, enabling ZFS builds on i686 and x86_64. Both fixes are pushed.
+- `xfce-attempt6` reached initrd assembly but requested unavailable Hyper-V
+  modules. Supported-architecture guards fix that; x86_64 kernel/initrd and
+  Hyper-V service derivations are unchanged.
+- `xfce-attempt7` SUCCESS: the complete 2.4 GiB Xfce i686 ISO built at
+  `/nix/store/8a9z6yyv0256qagdl3xcgclhmbmnvswh-nixos-xfce-26.11pre-git-i686-linux.iso`.
+  Result link: `xfce-result`. Fresh live and installed boot tests are pending;
+  the older ISO's boot evidence does not cover this artifact.
 - PR drafts are under `prs/<package>/pr.md`. Publish them on a separate docs
   branch so source PR diffs remain focused. No PRs have been opened.
 - SSH access to fork confirmed after operator authenticated.
