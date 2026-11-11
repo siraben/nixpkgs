@@ -513,10 +513,11 @@ lib.makeOverridable (
         find arch/$d -writable '(' '!' -type d -o -empty ')' -delete
       done
 
-      # Keep root and arch-specific Makefiles and install scripts
+      # Keep root and arch-specific Makefiles and install scripts, including
+      # fragments such as arch/x86/Makefile_32.cpu needed by external modules.
       chmod u-w Makefile
       find arch \
-        '(' -name Makefile -o -name install.sh ')' \
+        '(' -name 'Makefile*' -o -name install.sh ')' \
         -exec chmod u-w '{}' +
 
       # Remove all driver-specific code (50M of which is headers)
