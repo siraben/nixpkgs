@@ -52,15 +52,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-1ccMs+iA3H0xt9pYKsXV/0zBYjWsvmfqMoJ+/ZJvwDI=";
   };
 
-  patches =
-    lib.optionals (stdenv.hostPlatform.system == "i686-linux") [
-      # Remove when this is fixed upstream:
-      # https://gitlab.freedesktop.org/upower/upower/-/issues/214
-      ./i686-test-remove-battery-check.patch
-    ]
-    ++ [
-      ./installed-tests-path.patch
-    ];
+  patches = [
+    ./installed-tests-path.patch
+  ];
 
   strictDeps = true;
 
