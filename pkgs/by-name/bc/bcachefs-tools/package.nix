@@ -61,6 +61,11 @@ stdenv.mkDerivation (finalAttrs: {
 
     substituteInPlace src/commands/mount.rs \
       --replace-fail 'std::process::Command::new("modprobe")' 'std::process::Command::new("${lib.getExe' kmod "modprobe"}")'
+
+    # time_t is 32-bit on i686, but Duration::from_secs always takes u64.
+    substituteInPlace src/commands/fusemount.rs \
+      --replace-fail 'Duration::from_secs(ts.tv_sec.unsigned_abs())' \
+        'Duration::from_secs(ts.tv_sec.unsigned_abs().into())'
   '';
 
   nativeBuildInputs = [
