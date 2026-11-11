@@ -1,0 +1,7 @@
+{
+  "branch": "siraben/i686-qtmultimedia-20261111",
+  "commit": "02794b3a677d0ce6607a188589ebfd94cfcf0360",
+  "base": "a238bac4849a79e151329cdc51638d3bc7627c6c",
+  "integrationCommit": "244061661dfe82b267f27a7471932a15a22edd16",
+  "title": "qt6.qtmultimedia: complete the i686 scalar audio fallback"
+}

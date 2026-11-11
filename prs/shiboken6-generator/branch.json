@@ -1,0 +1,7 @@
+{
+  "branch": "siraben/i686-shiboken6-generator-20261111",
+  "commit": "3f7718ef6ca1c9888439b9a73299b5db1cafb424",
+  "base": "a238bac4849a79e151329cdc51638d3bc7627c6c",
+  "integrationCommit": "dc17d6def608bf7958b3a78894f9033adb284e34",
+  "title": "python3Packages.shiboken6-generator: fix array extent type on 32-bit"
+}

@@ -1,0 +1,7 @@
+{
+  "branch": "siraben/i686-liborcus-20261111",
+  "commit": "0350cc3b6a201ecd3a294ef22c76bb547e2437a0",
+  "base": "a238bac4849a79e151329cdc51638d3bc7627c6c",
+  "integrationCommit": "34803dc73da3d5a81971ce47d0d3038f43f95ce9",
+  "title": "liborcus: tolerate floating-point rounding in numeric parser test"
+}

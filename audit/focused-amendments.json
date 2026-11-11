@@ -1,0 +1,182 @@
+[
+  {
+    "slug": "afdko",
+    "branch": "siraben/i686-afdko-20261111",
+    "oldCommit": "5be9d50363446622fb5e8b36ff15e661de4a1aaa",
+    "newCommit": "5be9d50363446622fb5e8b36ff15e661de4a1aaa",
+    "changed": false,
+    "oldIntegrationCommit": "7af063f28803b80b5a9a348c5ad4f709bfd0d282",
+    "newIntegrationCommit": "7d7b1b5518c13135f38851315fd8d968141d2e0a"
+  },
+  {
+    "slug": "apache-orc",
+    "branch": "siraben/i686-apache-orc-20261111",
+    "oldCommit": "8a759eac4971cdc337fa63e2e3834a84d5cf3baf",
+    "newCommit": "8a759eac4971cdc337fa63e2e3834a84d5cf3baf",
+    "changed": false,
+    "oldIntegrationCommit": "bb2ac01f3902cb43a3e4e41e6a6d97e08cf0fdd4",
+    "newIntegrationCommit": "f65caa0c0eeef27e5b6e2f0fd22370532ba8ce71"
+  },
+  {
+    "slug": "azurite",
+    "branch": "siraben/i686-azurite-20261111",
+    "oldCommit": "d06a58cf2a774e8cca05bc648048e645faba72ae",
+    "newCommit": "d06a58cf2a774e8cca05bc648048e645faba72ae",
+    "changed": false,
+    "oldIntegrationCommit": "0a4c470d2ca3d2f8428abf114c48f9a93c43814e",
+    "newIntegrationCommit": "47ef3c8361edb09cffa4756eb22813109711e166"
+  },
+  {
+    "slug": "bcachefs-tools",
+    "branch": "siraben/i686-bcachefs-tools-20261111",
+    "oldCommit": "425894851ca69c70bd6153dae8799accb44f66e7",
+    "newCommit": "425894851ca69c70bd6153dae8799accb44f66e7",
+    "changed": false,
+    "oldIntegrationCommit": "6e71c95312de9f73a5eaf49cdb3ce4c8a7ac46a1",
+    "newIntegrationCommit": "4a53cda07e46070bf9d6f59a8846ca47594d23bf"
+  },
+  {
+    "slug": "dask",
+    "branch": "siraben/i686-dask-20261111",
+    "oldCommit": "4f1a742eb4a11d76abb785ff053ff142212f5bc1",
+    "newCommit": "4f1a742eb4a11d76abb785ff053ff142212f5bc1",
+    "changed": false,
+    "oldIntegrationCommit": "d0d2768d19f063bde3cc45364cde5b3823000a63",
+    "newIntegrationCommit": "d3aa6b4c0c1972b3ded6c1f55595d7fbd5d24e7d"
+  },
+  {
+    "slug": "google-cloud-cpp",
+    "branch": "siraben/i686-google-cloud-cpp-20261111",
+    "oldCommit": "26685ddcd76c20429410865b5989383c8f8f0358",
+    "newCommit": "26685ddcd76c20429410865b5989383c8f8f0358",
+    "changed": false,
+    "oldIntegrationCommit": "b3220af528b492d8655f3d1f48d99dc25c0bdbc3",
+    "newIntegrationCommit": "26eeb21c7c12733b64ae9903f9c95bd769e44d18"
+  },
+  {
+    "slug": "graphical-base",
+    "branch": "siraben/i686-graphical-base-20261111",
+    "oldCommit": "d4a3cccbc40cc4276476ca5868fe5a315253c681",
+    "newCommit": "d4a3cccbc40cc4276476ca5868fe5a315253c681",
+    "changed": false,
+    "oldIntegrationCommit": "1c01ab3c447d0b6d7b20f3577b1c26c7d0a4fe60",
+    "newIntegrationCommit": "1c01ab3c447d0b6d7b20f3577b1c26c7d0a4fe60"
+  },
+  {
+    "slug": "hyperv",
+    "branch": "siraben/i686-hyperv-20261111",
+    "oldCommit": "7de572255f0ec4c54ee4bc9e9348134aab37e954",
+    "newCommit": "04553e3698b2ca0ea55df7b0522a0abb54769f2b",
+    "changed": true,
+    "oldIntegrationCommit": "a0ca765eaa47df8e410e97dc665624f514499e36",
+    "newIntegrationCommit": "a899955c343ad9b01a8cc5cadc1cec5097b787ba"
+  },
+  {
+    "slug": "iniparser",
+    "branch": "siraben/i686-iniparser-20261111",
+    "oldCommit": "799bba35d3d8a4da0b22489d2863748ea556c811",
+    "newCommit": "aede8099bcc0b83128df71a0084a29d7129c30a7",
+    "changed": true,
+    "oldIntegrationCommit": "1b00d8d47326e5acd68fdc8fd4b824d9f632992f",
+    "newIntegrationCommit": "bfdc4938572c297d99049a9710cf60a385788922"
+  },
+  {
+    "slug": "isa-l",
+    "branch": "siraben/i686-isa-l-20261111",
+    "oldCommit": "93ef820b32c12ec6301d8f8a8da4fda56ff24440",
+    "newCommit": "93ef820b32c12ec6301d8f8a8da4fda56ff24440",
+    "changed": false,
+    "oldIntegrationCommit": "55d54fa8146e8860d5468dd4637a71ce2018ee7a",
+    "newIntegrationCommit": "f0829bac6c2d3f92db407dd1b62c163232e09a61"
+  },
+  {
+    "slug": "kernel-dev",
+    "branch": "siraben/i686-kernel-dev-20261111",
+    "oldCommit": "687497308ad87ecf811c114f2fafcd52c1ef51aa",
+    "newCommit": "687497308ad87ecf811c114f2fafcd52c1ef51aa",
+    "changed": false,
+    "oldIntegrationCommit": "d955ba159213f5b9110ae843e837ad97aca756de",
+    "newIntegrationCommit": "e6aec3ae85a3529ebe1c5c6e39c6c8c182de8c32"
+  },
+  {
+    "slug": "liborcus",
+    "branch": "siraben/i686-liborcus-20261111",
+    "oldCommit": "0350cc3b6a201ecd3a294ef22c76bb547e2437a0",
+    "newCommit": "0350cc3b6a201ecd3a294ef22c76bb547e2437a0",
+    "changed": false,
+    "oldIntegrationCommit": "65f80830e57801a88e4024d62a8db50e9ead965f",
+    "newIntegrationCommit": "34803dc73da3d5a81971ce47d0d3038f43f95ce9"
+  },
+  {
+    "slug": "msgspec",
+    "branch": "siraben/i686-msgspec-20261111",
+    "oldCommit": "aaf9f6b8ee99436785ac44a126c7521f020a5549",
+    "newCommit": "aaf9f6b8ee99436785ac44a126c7521f020a5549",
+    "changed": false,
+    "oldIntegrationCommit": "38e8f8ac1818fb7e7db2cea4bbde2c0f18dd06e8",
+    "newIntegrationCommit": "4b0095128342080ec18d54446ce0e0f77e8e93bf"
+  },
+  {
+    "slug": "pandas",
+    "branch": "siraben/i686-pandas-20261111",
+    "oldCommit": "e20638d2cdbc8451162093c9b9c75c53f93e3800",
+    "newCommit": "e20638d2cdbc8451162093c9b9c75c53f93e3800",
+    "changed": false,
+    "oldIntegrationCommit": "c9d571066feca621f03900cd7bb89b840dd6c315",
+    "newIntegrationCommit": "214bcce7567eb694ccb1c74cc016bea15a0b5e22"
+  },
+  {
+    "slug": "pyside6",
+    "branch": "siraben/i686-pyside6-20261111",
+    "oldCommit": "417b7131eb431c89926e1168a444cd022cd66016",
+    "newCommit": "417b7131eb431c89926e1168a444cd022cd66016",
+    "changed": false,
+    "oldIntegrationCommit": "1d673b156dd841f4222232e29032180f18adeab1",
+    "newIntegrationCommit": "021bee9ca50c3fce7299b72d299f6f8ca654c8a1"
+  },
+  {
+    "slug": "qtmultimedia",
+    "branch": "siraben/i686-qtmultimedia-20261111",
+    "oldCommit": "02794b3a677d0ce6607a188589ebfd94cfcf0360",
+    "newCommit": "02794b3a677d0ce6607a188589ebfd94cfcf0360",
+    "changed": false,
+    "oldIntegrationCommit": "e86602b9acb7d604d32ccee4bbd25c769f6c4674",
+    "newIntegrationCommit": "244061661dfe82b267f27a7471932a15a22edd16"
+  },
+  {
+    "slug": "rsync",
+    "branch": "siraben/i686-rsync-20261111",
+    "oldCommit": "b0dfdf9ddbf04f9c03a9ccca3ff656eff3bd92c8",
+    "newCommit": "b0dfdf9ddbf04f9c03a9ccca3ff656eff3bd92c8",
+    "changed": false,
+    "oldIntegrationCommit": "336d9364e31576a13e90f5073b52a2bbc5d8bd37",
+    "newIntegrationCommit": "fcf4abe1ef3749b02ecb6735f269e41830058075"
+  },
+  {
+    "slug": "shiboken6-generator",
+    "branch": "siraben/i686-shiboken6-generator-20261111",
+    "oldCommit": "3f7718ef6ca1c9888439b9a73299b5db1cafb424",
+    "newCommit": "3f7718ef6ca1c9888439b9a73299b5db1cafb424",
+    "changed": false,
+    "oldIntegrationCommit": "5026a52596ed978ceefc1bc3fa7d7a28712ce01d",
+    "newIntegrationCommit": "dc17d6def608bf7958b3a78894f9033adb284e34"
+  },
+  {
+    "slug": "upower",
+    "branch": "siraben/i686-upower-20261111",
+    "oldCommit": "ac3785fcf6aed234192cde81c196d6cf1db087ff",
+    "newCommit": "ac3785fcf6aed234192cde81c196d6cf1db087ff",
+    "changed": false,
+    "oldIntegrationCommit": "122c3857803427221fb04db2747710d00154dd2e",
+    "newIntegrationCommit": "7ecdeab04f3cbe3a32415eb7014ec60e10f0dd1f"
+  },
+  {
+    "slug": "xfsprogs",
+    "branch": "siraben/i686-xfsprogs-20261111",
+    "oldCommit": "abbd03874f6d1f345cd81cd4216d70caa3e1c0ba",
+    "newCommit": "d09640bf66606e15b7555f77ea4881557e3aa0ac",
+    "changed": true,
+    "oldIntegrationCommit": "702baa8a4872ddb775daf88f7949640a8e13e26a",
+    "newIntegrationCommit": "1289ad14711be3f25005f7bace4cb2e42c1d4f58"
+  }
+]

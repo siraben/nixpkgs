@@ -1,7 +1,8 @@
 {
   "branch": "siraben/i686-xfsprogs-20261111",
-  "commit": "abbd03874f6d1f345cd81cd4216d70caa3e1c0ba",
+  "commit": "d09640bf66606e15b7555f77ea4881557e3aa0ac",
   "base": "a238bac4849a79e151329cdc51638d3bc7627c6c",
-  "integrationCommit": "702baa8a4872ddb775daf88f7949640a8e13e26a",
-  "title": "xfsprogs: fix transaction delta type on 32-bit"
+  "integrationCommit": "1289ad14711be3f25005f7bace4cb2e42c1d4f58",
+  "title": "xfsprogs: fix transaction delta type on 32-bit",
+  "previousCommit": "abbd03874f6d1f345cd81cd4216d70caa3e1c0ba"
 }

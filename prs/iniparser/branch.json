@@ -1,7 +1,8 @@
 {
   "branch": "siraben/i686-iniparser-20261111",
-  "commit": "799bba35d3d8a4da0b22489d2863748ea556c811",
+  "commit": "aede8099bcc0b83128df71a0084a29d7129c30a7",
   "base": "a238bac4849a79e151329cdc51638d3bc7627c6c",
-  "integrationCommit": "1b00d8d47326e5acd68fdc8fd4b824d9f632992f",
-  "title": "iniparser: enable 64-bit integer assertions on 32-bit"
+  "integrationCommit": "bfdc4938572c297d99049a9710cf60a385788922",
+  "title": "iniparser: enable 64-bit integer assertions on 32-bit",
+  "previousCommit": "799bba35d3d8a4da0b22489d2863748ea556c811"
 }

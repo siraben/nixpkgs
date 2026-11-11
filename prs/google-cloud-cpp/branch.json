@@ -2,6 +2,6 @@
   "branch": "siraben/i686-google-cloud-cpp-20261111",
   "commit": "26685ddcd76c20429410865b5989383c8f8f0358",
   "base": "a238bac4849a79e151329cdc51638d3bc7627c6c",
-  "integrationCommit": "b3220af528b492d8655f3d1f48d99dc25c0bdbc3",
+  "integrationCommit": "26eeb21c7c12733b64ae9903f9c95bd769e44d18",
   "title": "google-cloud-cpp: tolerate nanosecond rounding in limiter tests"
 }

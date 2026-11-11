@@ -2,6 +2,6 @@
   "branch": "siraben/i686-upower-20261111",
   "commit": "ac3785fcf6aed234192cde81c196d6cf1db087ff",
   "base": "a238bac4849a79e151329cdc51638d3bc7627c6c",
-  "integrationCommit": "122c3857803427221fb04db2747710d00154dd2e",
+  "integrationCommit": "7ecdeab04f3cbe3a32415eb7014ec60e10f0dd1f",
   "title": "upower: remove obsolete i686 battery test patch"
 }

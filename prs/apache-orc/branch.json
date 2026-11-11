@@ -2,6 +2,6 @@
   "branch": "siraben/i686-apache-orc-20261111",
   "commit": "8a759eac4971cdc337fa63e2e3834a84d5cf3baf",
   "base": "a238bac4849a79e151329cdc51638d3bc7627c6c",
-  "integrationCommit": "bb2ac01f3902cb43a3e4e41e6a6d97e08cf0fdd4",
+  "integrationCommit": "f65caa0c0eeef27e5b6e2f0fd22370532ba8ce71",
   "title": "apache-orc: fix buffer count type on 32-bit"
 }

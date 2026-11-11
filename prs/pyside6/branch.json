@@ -1,0 +1,7 @@
+{
+  "branch": "siraben/i686-pyside6-20261111",
+  "commit": "417b7131eb431c89926e1168a444cd022cd66016",
+  "base": "a238bac4849a79e151329cdc51638d3bc7627c6c",
+  "integrationCommit": "021bee9ca50c3fce7299b72d299f6f8ca654c8a1",
+  "title": "python3Packages.pyside6: omit unavailable optional web modules"
+}

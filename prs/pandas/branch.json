@@ -2,6 +2,6 @@
   "branch": "siraben/i686-pandas-20261111",
   "commit": "e20638d2cdbc8451162093c9b9c75c53f93e3800",
   "base": "a238bac4849a79e151329cdc51638d3bc7627c6c",
-  "integrationCommit": "c9d571066feca621f03900cd7bb89b840dd6c315",
+  "integrationCommit": "214bcce7567eb694ccb1c74cc016bea15a0b5e22",
   "title": "python3Packages.pandas: copy Arrow join labels before mutation"
 }

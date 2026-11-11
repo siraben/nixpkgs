@@ -1,0 +1,1 @@
+3f7718ef6ca1c9888439b9a73299b5db1cafb424	refs/heads/siraben/i686-shiboken6-generator-20261111

@@ -49,8 +49,20 @@ siraben/nixpkgs. Do not open PRs automatically.
   Hyper-V service derivations are unchanged.
 - `xfce-attempt7` SUCCESS: the complete 2.4 GiB Xfce i686 ISO built at
   `/nix/store/8a9z6yyv0256qagdl3xcgclhmbmnvswh-nixos-xfce-26.11pre-git-i686-linux.iso`.
-  Result link: `xfce-result`. Fresh live and installed boot tests are pending;
-  the older ISO's boot evidence does not cover this artifact.
+  Result link: `xfce-result`. Fresh live Xfce boot passed. Offline installation
+  completed (success marker just after harness timeout), followed by a passing
+  disk-only installed Xfce boot. Evidence: `test-xfce-live/live-passed.json`,
+  `test-xfce-install/installed-passed.json` and serial logs.
+- Expanded survey: MATE, GIMP and Inkscape build without new fixes. LXQt now
+  builds after PySide6 optional-web availability, Shiboken extent-type and
+  Qt Multimedia scalar-fallback fixes; all three packages build on both widths.
+  PySide6 offscreen widget rendering passes on both widths.
+- liborcus rounding test fix passes all 59 tests on both widths. LibreOffice
+  remains under repair: native-i686 Java default, bundled Box2D SIMD selection,
+  skcms musttail ABI, then an undefined inherited refcount thunk in file picker.
+- Per-fix style review in `audit/style-review.md`. Three style fixups have been
+  autosquashed, preserving author credit and backup refs. Regenerating changed
+  focused branches and remote lease updates is in progress. See `report.md`.
 - PR drafts are under `prs/<package>/pr.md`. Publish them on a separate docs
   branch so source PR diffs remain focused. No PRs have been opened.
 - SSH access to fork confirmed after operator authenticated.

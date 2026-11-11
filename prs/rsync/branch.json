@@ -2,6 +2,6 @@
   "branch": "siraben/i686-rsync-20261111",
   "commit": "b0dfdf9ddbf04f9c03a9ccca3ff656eff3bd92c8",
   "base": "a238bac4849a79e151329cdc51638d3bc7627c6c",
-  "integrationCommit": "336d9364e31576a13e90f5073b52a2bbc5d8bd37",
+  "integrationCommit": "fcf4abe1ef3749b02ecb6735f269e41830058075",
   "title": "rsync: match large-file ABI in 32-bit security test hook"
 }

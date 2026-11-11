@@ -3,7 +3,8 @@
 Documentation-only branch. Code branches each contain a focused fix on
 the pinned upstream base; draft files are intentionally not in those PR diffs.
 
-Full ISO validation is still in progress; see STATUS.md.
+Xfce ISO live/install/disk-boot validation passed; expanded software work continues.
+See [report.md](report.md) for results and limitations and [style review](audit/style-review.md).
 
 | Package | Draft | Code branch |
 |---|---|---|
@@ -18,8 +19,12 @@ Full ISO validation is still in progress; see STATUS.md.
 | iniparser | [pr.md](prs/iniparser/pr.md) | [siraben/i686-iniparser-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-iniparser-20261111) |
 | isa-l | [pr.md](prs/isa-l/pr.md) | [siraben/i686-isa-l-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-isa-l-20261111) |
 | kernel-dev | [pr.md](prs/kernel-dev/pr.md) | [siraben/i686-kernel-dev-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-kernel-dev-20261111) |
+| liborcus | [pr.md](prs/liborcus/pr.md) | [siraben/i686-liborcus-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-liborcus-20261111) |
 | msgspec | [pr.md](prs/msgspec/pr.md) | [siraben/i686-msgspec-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-msgspec-20261111) |
 | pandas | [pr.md](prs/pandas/pr.md) | [siraben/i686-pandas-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-pandas-20261111) |
+| pyside6 | [pr.md](prs/pyside6/pr.md) | [siraben/i686-pyside6-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-pyside6-20261111) |
+| qtmultimedia | [pr.md](prs/qtmultimedia/pr.md) | [siraben/i686-qtmultimedia-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-qtmultimedia-20261111) |
 | rsync | [pr.md](prs/rsync/pr.md) | [siraben/i686-rsync-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-rsync-20261111) |
+| shiboken6-generator | [pr.md](prs/shiboken6-generator/pr.md) | [siraben/i686-shiboken6-generator-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-shiboken6-generator-20261111) |
 | upower | [pr.md](prs/upower/pr.md) | [siraben/i686-upower-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-upower-20261111) |
 | xfsprogs | [pr.md](prs/xfsprogs/pr.md) | [siraben/i686-xfsprogs-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-xfsprogs-20261111) |

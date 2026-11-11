@@ -2,6 +2,6 @@
   "branch": "siraben/i686-azurite-20261111",
   "commit": "d06a58cf2a774e8cca05bc648048e645faba72ae",
   "base": "a238bac4849a79e151329cdc51638d3bc7627c6c",
-  "integrationCommit": "0a4c470d2ca3d2f8428abf114c48f9a93c43814e",
+  "integrationCommit": "47ef3c8361edb09cffa4756eb22813109711e166",
   "title": "azurite: use JavaScript TypeScript compiler on 32-bit"
 }
