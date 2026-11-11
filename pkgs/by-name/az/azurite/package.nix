@@ -22,6 +22,13 @@ buildNpmPackage (finalAttrs: {
 
   npmDepsHash = "sha256-ZgYGURSFc/4xx6QqJA5wMFzbWSaAH39ztcfBEqCfmVg=";
 
+  # TypeScript 7 has no native compiler binary for 32-bit build platforms.
+  # The lockfile also includes the JavaScript compiler for tooling support.
+  postPatch = lib.optionalString stdenv.buildPlatform.is32bit ''
+    substituteInPlace package.json \
+      --replace-fail 'typescript-for-build/bin/tsc' 'typescript/bin/tsc'
+  '';
+
   nativeBuildInputs = [
     pkg-config
     nodejs-slim.python
