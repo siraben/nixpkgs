@@ -61,7 +61,7 @@ this stack. ARM validation was not established for those changes.
 | GIMP 3.2.6 | Build passed | No new fix needed; no interactive runtime claim |
 | Inkscape 1.4.4 | Build passed | No new fix needed; no interactive runtime claim |
 | LXQt desktop NixOS system | **Full build passed**, including the three new dependency fixes | Graphical runtime not yet tested |
-| LibreOffice 26.8.0.3 | Non-Java evaluation and liborcus/Box2D/skcms blockers passed; file picker now fails linking an inherited refcount thunk | Validate exported refcount overrides; Java remains unavailable |
+| LibreOffice 26.8.0.3 | Non-Java evaluation and liborcus/Box2D/skcms blockers passed; repeated GCC 16 inherited-refcount thunk link failures | Reject class-by-class patch; validate i686/GCC16-only devirtualization workaround; Java remains unavailable |
 
 Logs: `survey-*-i686.{json,log}` and `trace-{lxqt,libreoffice}-i686.log`.
 The survey does not establish that every supported 32-bit application works.
@@ -70,7 +70,8 @@ OpenJDK's bootstrap limitation is already tracked in #314873 and open PR
 
 ## Style and idiom audit (ongoing)
 
-- All 18 previously changed Nix files pass `nixfmt --check`.
+- All 23 changed Nix files, including pending LibreOffice, pass `nixfmt --check`
+  (`audit/format-check-final.json`).
 - Backup integration ref: `backup/i686-before-expanded-audit-20261111`;
   pre-amend branch hashes: `audit/pre-amend-refs.txt`.
 - Review sources: `pkgs/README.md` patch guidelines, `CONTRIBUTING.md`, stdenv
@@ -85,9 +86,23 @@ OpenJDK's bootstrap limitation is already tracked in #314873 and open PR
   formatting with clang-format 21.1.8 without further changes.
 - Keep precise substitutions, host/build distinctions, availability checks for
   optional dependencies, and documented test limits.
-- Per-fix conclusions and merged-PR examples are recorded in the style review;
-  changed focused-branch hashes are being regenerated and published with exact
-  old-hash leases. Pending LibreOffice changes still require full validation.
+- Per-fix conclusions and merged-PR examples are recorded in the style review.
+  All focused branches remain single commits on BASE and match recorded remote
+  verification. Rapidjson and TCP_AO original author metadata is preserved.
+- Three amended focused branches are pushed and verified with exact old-hash
+  leases; others retain their already-published focused commits because their
+  trees did not change. Integration was rebased and pushed. Mapping is in
+  `audit/focused-amendments.json`.
+
+| Amended branch slug | New focused commit | Reason |
+|---|---|---|
+| iniparser | `aede8099bcc0b83128df71a0084a29d7129c30a7` | Conventional attribute separation |
+| hyperv | `04553e3698b2ca0ea55df7b0522a0abb54769f2b` | Reuse local platform alias |
+| xfsprogs | `d09640bf66606e15b7555f77ea4881557e3aa0ac` | Fetch published pinned upstream patch |
+
+Pending LibreOffice changes still require full validation, commits and a final
+style pass. The prior Xfce artifact is validated as built, not claimed byte-for-
+byte identical to an ISO embedding the subsequently amended Nixpkgs source.
 
 No PRs opened automatically. Drafts disclose AI assistance and require operator
 review. Avoid disabling whole test suites or bypassing unsupported-platform

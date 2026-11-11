@@ -13,7 +13,7 @@ same type as numValues before the minimum is taken.
 - Baseline i686 fails compiling ColumnReader.cc with no matching std::min.
 - Patched i686-linux and x86_64-linux builds succeed.
 - No test configuration changes; the normal package does not run a check phase.
-- Full ISO validation remains pending independent fixes.
+- Xfce ISO builds; live and installed desktop boot verified with the integration stack.
 
 ```sh
 nix-build . -A apache-orc --argstr system i686-linux --option extra-platforms i686-linux

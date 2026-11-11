@@ -7,7 +7,7 @@ where Firefox is marked broken. Retain Firefox and the guest agent on 64-bit.
 Validation:
 - Reproduced both i686 evaluation blockers on the pinned upstream revision.
 - Full i686 Xfce ISO builds with these guards and the integration's other fixes.
-- Boot tests for this refreshed ISO are pending.
+- Fresh live Xfce boot, offline installation, and disk-only installed Xfce boot verified under BIOS/QEMU TCG.
 - No claim of ARM build or runtime validation.
 
 This branch contains only the graphical-base package-selection guards on

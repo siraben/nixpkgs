@@ -39,7 +39,7 @@ Retrieved examples are saved in `merged-pr-*.patch` and `*-existing-pr.*`.
 | apache-orc | Match existing uint64_t comparison operand, not platform size_t. Precise replace-fail substitution and explanatory comment. Keep. |
 | rapidjson | Carried existing PR; i686-only flags, no test removal. Preserve author and avoid stylistic churn to another author's change. |
 | isa-l | Caller passes size_t fields, so size_t* is the correct type on both widths. Substitution is short and fail-checked. Keep. |
-| google-cloud-cpp | Test-only bounded 4 ns tolerance, preserving every assertion. Local patch justified, no global fast-math or test disable. Check source indentation during amendment pass. |
+| google-cloud-cpp | Test-only bounded 4 ns tolerance, preserving every assertion. Local patch justified, no global fast-math or test disable. clang-format 21.1.8 with upstream style leaves changed source unchanged. |
 | Linux TCP_AO | Carried existing PR, mkIf keeps Linux config option semantics. Preserve author; do not create duplicate. |
 | pandas | Copy necessary before mutation; both exact source occurrences are intended. Runtime fix rather than skipping dependent Dask tests. Keep short fail-checked substitution. |
 | Dask | Explicit fixture dtypes, native repr and memory budgets express test intent; existing xfail expanded, only impossible large allocation excluded. Scope and tests documented. Keep. |
@@ -50,8 +50,8 @@ Retrieved examples are saved in `merged-pr-*.patch` and `*-existing-pr.*`.
 | Shiboken generator | std::size_t matches std::array's non-type template parameter; no blanket compiler flags. Keep targeted replace-fail. |
 | Qt Multimedia | Complete upstream's existing i686 fallback in the same target branch. Scalar backend preserves generic i686 CPU baseline; no global SSE requirement. Keep. |
 | liborcus | Test-only epsilon-scaled comparison; finite-result check rejects NaN/infinity; zero remains exact. All 59 tests pass on each width. Keep. |
-| PySide6 (pending) | availableOn is preferable to hardcoded architecture; only optional WebEngine/WebView modules gated. Preserve macOS WebView support and Qt Python core functionality. Validate x86_64 before commit. |
-| LibreOffice (pending) | buildPlatform isi686 gate reflects bootstrap compiler location; optional Java is not core office functionality. Document feature loss. Bundle Box2D scalar define must remain target-local and x86-32-only. Validate full suite build before commit. |
+| PySide6 | availableOn is preferable to hardcoded architecture; only optional WebEngine/WebView modules gated. Preserve macOS WebView support. Both builds and offscreen widgets pass; committed and pushed. |
+| LibreOffice (pending) | buildPlatform isi686 gate reflects bootstrap compiler location; document optional Java feature loss. Box2D scalar and skcms dispatcher defines remain target-local and x86-32-only. Class-specific refcount override was rejected after another same-root thunk failure; test devirtualization workaround scoped to i686/GNU16, not other architectures/toolchains. Full build validation required before commit. |
 
 ## History amendment policy
 
@@ -61,4 +61,8 @@ original author information. Regenerate focused branches on the same BASE,
 record old/new hashes, push only with explicit old-hash force-with-lease, and
 verify remote hashes. Rebuild changed derivations or demonstrate unchanged
 derivation hashes where edits are non-functional. This policy has not yet been
-fully executed; see report.md for current progress.
+fully executed for pending LibreOffice; the committed fixes were audited,
+three changed focused branches were regenerated/pushed with exact leases and
+all existing focused trees/remote records checked. Both carried authors are
+preserved. All 23 changed Nix files pass formatting. See report.md and
+focused-amendments.json for exact hashes and limitations.

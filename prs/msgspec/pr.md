@@ -25,7 +25,7 @@ Fix the underlying failures instead of adding 32-bit test skips:
 - No new disabled tests or skips. Existing skips are from the upstream suite
   and optional dependencies in the normal Nixpkgs check environment.
 - Python import checks pass.
-- Full ISO validation remains pending other fixes.
+- Xfce ISO builds; live and installed desktop boot verified with the integration stack.
 
 ```sh
 nix-build . -A python3Packages.msgspec --argstr system i686-linux --option extra-platforms i686-linux

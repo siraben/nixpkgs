@@ -14,7 +14,7 @@ Validation:
   identical before/after. The entire ISO derivation changes because it embeds
   the modified Nixpkgs source; this is not a whole-image equivalence claim.
 - AArch64's existing enable condition remains unchanged; no ARM build run.
-- Current-refresh boot tests are pending.
+- Fresh live Xfce boot, offline installation, and disk-only installed Xfce boot verified under BIOS/QEMU TCG.
 
 This focused branch is based on a238bac4849a79e151329cdc51638d3bc7627c6c and
 contains only these two module guards. ISO validation was performed with the

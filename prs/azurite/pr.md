@@ -19,7 +19,7 @@ changes are needed. Keep the native compiler on 64-bit build platforms.
 - Patched i686 build compiles successfully using `typescript/bin/tsc`.
 - x86_64 build succeeds using the original `typescript-for-build/bin/tsc`.
 - Both installed `azurite --version` commands print `3.37.0`.
-- Full service integration and Xfce ISO validation are still pending.
+- Xfce ISO builds and live/installed desktop boots pass with the integration stack; full Azurite service integration is not tested.
 
 ```sh
 nix-build . -A azurite --argstr system i686-linux --option extra-platforms i686-linux

@@ -19,7 +19,7 @@ installed rsync code is unchanged.
 - x86_64-linux derivation unchanged; existing output realized successfully
   (not a forced rebuild).
 - `git diff --check` passes.
-- Full Xfce ISO validation remains pending independent fixes.
+- Xfce ISO builds; live and installed desktop boot verified with the integration stack.
 
 ```sh
 nix-build . -A rsync --argstr system i686-linux --option extra-platforms i686-linux

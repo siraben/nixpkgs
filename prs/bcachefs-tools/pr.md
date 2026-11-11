@@ -15,7 +15,7 @@ an identity conversion. This preserves the existing pre-epoch time handling.
 - Installed version checks pass (1.39.7), as do udev rule checks.
 - Existing `doCheck = false` is unchanged: the filesystem suite requires a
   loaded bcachefs module and has not been run here.
-- Full ISO validation remains pending independent fixes.
+- Xfce ISO builds; live and installed desktop boot verified with the integration stack.
 
 ```sh
 nix-build . -A bcachefs-tools --argstr system i686-linux --option extra-platforms i686-linux

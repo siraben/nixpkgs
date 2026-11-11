@@ -20,7 +20,7 @@ Found while rebuilding the Xfce i686 installation ISO.
 - x86_64-linux derivation identical before/after; existing output realized
   successfully (not a forced rebuild).
 - `git diff --check` passes.
-- Full Xfce ISO validation is still pending other independent fixes.
+- Xfce ISO builds; live desktop, offline installation and disk-only desktop boot verified with the integration stack.
 
 Commands, from the branch checkout:
 

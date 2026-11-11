@@ -25,7 +25,7 @@ output packaging rather than changing kernel module support or ZFS detection.
 - Modules were built, not loaded into the host kernel.
 - i686 validation includes existing TCP_AO fix PR #558908 and the integration
   dependency fixes; this branch itself contains only the dev-output change.
-- Full ISO build and boot checks are still pending.
+- Xfce ISO builds; live and installed desktop boot verified with the integration stack.
 
 ```sh
 nix-build --expr 'let p = import ./. { system = "i686-linux"; }; in p.linuxPackages.${p.zfs.kernelModuleAttribute}' --option extra-platforms i686-linux

@@ -18,7 +18,7 @@ needed: remove the stale patch and restore all upstream assertions.
 - The final package expression produces exactly the derivation tested by the
   initial override-based experiment.
 - x86_64-linux derivation unchanged before/after.
-- Full Xfce ISO validation remains pending independent fixes.
+- Xfce ISO builds; live and installed desktop boot verified with the integration stack.
 
 ```sh
 nix-build . -A upower --argstr system i686-linux --option extra-platforms i686-linux

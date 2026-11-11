@@ -19,7 +19,7 @@ it changes neither the limiter implementation nor its control-flow assertions.
 - Patched x86_64: all 521 enabled CTest targets pass.
 - The previously failing bigtable_internal_mutate_rows_limiter_test passes
   on both architectures. No additional tests are disabled.
-- Full ISO validation remains pending.
+- Xfce ISO builds; live and installed desktop boot verified with the integration stack.
 
 ```sh
 nix-build . -A google-cloud-cpp --argstr system i686-linux --option extra-platforms i686-linux

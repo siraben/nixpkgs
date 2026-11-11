@@ -19,7 +19,7 @@ The library ABI is unchanged.
 - Installed igzip version checks pass.
 - Existing update PR #584375 does not include this source fix; it is a separate
   issue from the version update.
-- Full ISO validation remains pending.
+- Xfce ISO builds; live and installed desktop boot verified with the integration stack.
 
 ```sh
 nix-build . -A isa-l --argstr system i686-linux --option extra-platforms i686-linux

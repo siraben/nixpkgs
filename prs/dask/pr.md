@@ -31,7 +31,7 @@ it is not a claim that unpatched dependencies build independently.
   - i686: **16041 passed, 1105 skipped, 496 xfailed, 1 xpassed**.
   - x86_64: **16056 passed, 1091 skipped, 495 xfailed, 2 xpassed**.
 - No unexpected test failures; non-strict xpasses are inherited upstream marks.
-- Full ISO validation still in progress.
+- Xfce ISO builds; live and installed desktop boot verified with the integration stack.
 
 ```sh
 nix-build . -A python3Packages.dask --argstr system i686-linux --option extra-platforms i686-linux

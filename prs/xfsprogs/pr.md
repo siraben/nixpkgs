@@ -9,17 +9,18 @@ Backport upstream commit
 xfsprogs 7.2.1 uses the kernel's xfs_trans.h, which declares the transaction
 delta as int64_t. A stale declaration and the userspace definition still use
 long, causing conflicting types on i686. The upstream patch removes the stale
-declaration and changes the definition to int64_t. Patch content was retrieved
-from Gentoo's xfsprogs packaging and is vendored with its upstream attribution.
+declaration and changes the definition to int64_t. Fetch the pinned upstream
+patch directly from kernel.org, preserving attribution. An initial vendored
+copy was replaced during the style audit; both fetched-patch builds pass.
 
 ### Validation
 
 - Reproduced the conflicting-type compiler failure on unpatched i686.
 - Patched builds succeed on i686-linux and x86_64-linux.
 - `mkfs.xfs -V` runs successfully from both outputs.
-- Nix expression whitespace checks pass; the patch retains significant
-  space/tab-prefixed unified-diff context.
-- NixOS installer passthru test and full ISO validation not yet run.
+- Formatting and whitespace checks pass.
+- Xfce ISO builds; live and installed desktop boot verified with the integration
+  stack. The dedicated xfsprogs installer passthru test was not run.
 
 ```sh
 nix-build . -A xfsprogs --argstr system i686-linux --option extra-platforms i686-linux

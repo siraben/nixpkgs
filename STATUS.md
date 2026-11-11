@@ -59,10 +59,13 @@ siraben/nixpkgs. Do not open PRs automatically.
   PySide6 offscreen widget rendering passes on both widths.
 - liborcus rounding test fix passes all 59 tests on both widths. LibreOffice
   remains under repair: native-i686 Java default, bundled Box2D SIMD selection,
-  skcms musttail ABI, then an undefined inherited refcount thunk in file picker.
+  skcms musttail ABI, then repeated undefined inherited refcount thunks in file
+  picker/XML import. Reject class-by-class overrides; testing an i686/GCC16-only
+  compiler devirtualization workaround instead.
 - Per-fix style review in `audit/style-review.md`. Three style fixups have been
-  autosquashed, preserving author credit and backup refs. Regenerating changed
-  focused branches and remote lease updates is in progress. See `report.md`.
+  autosquashed, preserving author credit and backup refs. Changed focused
+  branches and integration are pushed/verified with exact old-hash leases.
+  All 23 changed Nix files pass formatting. See `report.md`.
 - PR drafts are under `prs/<package>/pr.md`. Publish them on a separate docs
   branch so source PR diffs remain focused. No PRs have been opened.
 - SSH access to fork confirmed after operator authenticated.

@@ -22,7 +22,7 @@ discarded. No test-helper changes are included here.
 - Patched i686: 1500 passed, 8 skipped, 121 deselected, 8 xfailed.
 - x86_64: 1531 passed, 8 skipped, 90 deselected, 8 xfailed, including the
   overlap-removal test.
-- Full ISO validation still in progress.
+- Xfce ISO builds; live and installed desktop boot verified with the integration stack.
 
 ```sh
 nix-build . -A python3Packages.afdko --argstr system i686-linux --option extra-platforms i686-linux
