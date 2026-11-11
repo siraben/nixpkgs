@@ -1,0 +1,1 @@
+ac3785fcf6aed234192cde81c196d6cf1db087ff	refs/heads/siraben/i686-upower-20261111

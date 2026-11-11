@@ -1,0 +1,7 @@
+{
+  "branch": "siraben/i686-bcachefs-tools-20261111",
+  "commit": "425894851ca69c70bd6153dae8799accb44f66e7",
+  "base": "a238bac4849a79e151329cdc51638d3bc7627c6c",
+  "integrationCommit": "6e71c95312de9f73a5eaf49cdb3ce4c8a7ac46a1",
+  "title": "bcachefs-tools: widen timestamp magnitude on 32-bit"
+}

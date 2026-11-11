@@ -1,0 +1,7 @@
+{
+  "branch": "siraben/i686-msgspec-20261111",
+  "commit": "aaf9f6b8ee99436785ac44a126c7521f020a5549",
+  "base": "a238bac4849a79e151329cdc51638d3bc7627c6c",
+  "integrationCommit": "38e8f8ac1818fb7e7db2cea4bbde2c0f18dd06e8",
+  "title": "python3Packages.msgspec: fix 32-bit integer handling"
+}

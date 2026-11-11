@@ -1,0 +1,7 @@
+{
+  "branch": "siraben/i686-isa-l-20261111",
+  "commit": "93ef820b32c12ec6301d8f8a8da4fda56ff24440",
+  "base": "a238bac4849a79e151329cdc51638d3bc7627c6c",
+  "integrationCommit": "55d54fa8146e8860d5468dd4637a71ce2018ee7a",
+  "title": "isa-l: fix benchmark output-size pointers on 32-bit"
+}
