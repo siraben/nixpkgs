@@ -39,6 +39,9 @@ buildPythonPackage rec {
   };
 
   patches = [
+    # Avoid narrowing 64-bit enum offsets and unsigned MessagePack lengths.
+    # Also keep timestamp test expectations independent of platform time_t.
+    ./fix-32bit.patch
     # Ext.code is backed by a long, not an int. int (with sizeof(int) < sizeof(long)) makes it return the high half
     # of the long on big-endian, so every code turns 0 or -1 when read.
     # Fixes TestExt suite, and runtime usage of msgpack.Ext(), on big-endian.
