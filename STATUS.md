@@ -27,11 +27,21 @@ siraben/nixpkgs. Do not open PRs automatically.
 - Complete census `xfce-attempt3` exposed 11 root builder failures. All 11 now
   have separately committed and package-validated fixes; see `FAILURES.md`.
 - Ten focused new package branches prepared on pinned BASE, with per-package
-  i686/x86_64 build evidence. Rapidjson uses existing PR #534793, carried with
+  i686/x86_64 build evidence. Package builds were tested in the integration
+  stack, not with all other fixes reverted; standalone branch dependencies
+  may require the other PRs to merge first. Rapidjson uses existing PR #534793, carried with
   original author credit rather than submitted as a duplicate.
 - Integration branch: `siraben/i686-xfce-refresh-20261111`.
-- Full Xfce ISO rebuild with these fixes is next. Further downstream failures
-  may emerge; no new ISO success or boot success is claimed yet.
+- `xfce-attempt4` got past the original failures, then failed in kernel config
+  and Dask. Existing TCP_AO PR #558908 passes config generation and is carried
+  with author credit. Full kernel build is still pending.
+- Dask exposed a separate pandas nullable Arrow-string join runtime bug. It
+  was independently reproduced, fixed, tested on i686/x86_64, committed and
+  pushed as `siraben/i686-pandas-20261111`.
+- Dask portable test changes now pass the full suite on both architectures;
+  a separate Dask branch/draft is prepared. Its tests require the pandas fix.
+- `xfce-attempt5` is next. Further downstream failures may emerge; no new ISO
+  success or boot success is claimed yet.
 - PR drafts are under `prs/<package>/pr.md`. Publish them on a separate docs
   branch so source PR diffs remain focused. No PRs have been opened.
 - SSH access to fork confirmed after operator authenticated.

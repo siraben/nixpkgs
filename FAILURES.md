@@ -21,6 +21,28 @@ below are preliminary until individually reproduced/fixed and validated.
 | isa-l 2.32.1 | incompatible pointer types in igzip benchmark | both builds pass; all 17 i686 tests pass; committed 55d54fa8146e (not in update PR #584375) |
 | google-cloud-cpp 2.44.0 | two MutateRowsLimiter assertions fail | all 521 enabled CTest targets pass on both architectures; committed b3220af528b4 |
 
+## Second full build (xfce-attempt4)
+
+Ten package branches and the companion PR-drafts branch were pushed and remote
+hashes verified. All eleven first-round root failures are resolved in the
+integration build. Two newly reached root failures remain:
+
+- Linux 6.18.63 config: mandatory TCP_AO is unavailable on i686. Existing
+  #558908 patch passes the config build, carried as 7ccf3b948d3d with author
+  credit; no duplicate PR. Full kernel compilation remains pending.
+- Python 3.14 dask 2026.8.0: 24 failures among 16020 passed, involving 32-bit
+  address-space exhaustion, int32/int64 expectations, and read-only pandas
+  arrays. Needs individual diagnosis rather than blanket doCheck=false.
+  The read-only arrays were traced to a pandas runtime defect: Arrow's int32
+  labels remain read-only on i686 after astype(intp, copy=False). A standalone
+  reproducer fails before, and all 8 join mode/sort combinations pass after
+  requesting copies on both architectures. Separate pandas commit c9d571066fec
+  and branch pushed. Re-running Dask resolved all 7 read-only-array failures.
+  Remaining 17 failures are addressed with portable test expectations and one
+  address-space-limited test exclusion, committed as d0d2768d19f0. Full suite
+  passes: i686 16041 passed / x86_64 16056 passed. See prs/dask/pr.md for exact
+  inherited skips/xfails and the dependency on the pandas fix.
+
 Other known/potential blockers:
 - TCP_AO: existing upstream PR #558908, do not duplicate.
 - Hyper-V modules/guest enablement: earlier fixes may still be required once

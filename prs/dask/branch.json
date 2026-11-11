@@ -1,0 +1,7 @@
+{
+  "branch": "siraben/i686-dask-20261111",
+  "commit": "4f1a742eb4a11d76abb785ff053ff142212f5bc1",
+  "base": "a238bac4849a79e151329cdc51638d3bc7627c6c",
+  "integrationCommit": "d0d2768d19f063bde3cc45364cde5b3823000a63",
+  "title": "python3Packages.dask: make tests portable to 32-bit"
+}
