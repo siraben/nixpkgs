@@ -51,6 +51,13 @@ stdenv.mkDerivation (finalAttrs: {
     ./cmake-link-abseil.patch
   ];
 
+  postPatch = ''
+    # Match numValues' uint64_t even when size_t is only 32-bit.
+    substituteInPlace c++/src/ColumnReader.cc \
+      --replace-fail 'static_cast<size_t>(bufferEnd_ - bufferPointer_) / bytesPerValue_' \
+        'static_cast<uint64_t>(bufferEnd_ - bufferPointer_) / bytesPerValue_'
+  '';
+
   nativeBuildInputs = [
     cmake
   ];
