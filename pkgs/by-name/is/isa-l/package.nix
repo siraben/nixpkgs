@@ -34,6 +34,12 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-JizQXhfDCL8aWEv52TBuXw06HA/8t7Ram/q9vSp5/DI=";
   };
 
+  postPatch = ''
+    # The benchmark passes size_t* fields, which are not uint64_t* on 32-bit.
+    substituteInPlace igzip/igzip_perf.c \
+      --replace-fail 'uint64_t *outbuf_size' 'size_t *outbuf_size'
+  '';
+
   nativeBuildInputs = [
     cmake
     nasm
