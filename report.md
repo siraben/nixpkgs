@@ -58,10 +58,10 @@ this stack. ARM validation was not established for those changes.
 | Target | Observed result | Next action |
 |---|---|---|
 | MATE desktop NixOS system | Build passed | No new fix needed; graphical runtime not yet tested |
-| GIMP 3.2.6 | Build passed | No new fix needed; no interactive runtime claim |
-| Inkscape 1.4.4 | Build passed | No new fix needed; no interactive runtime claim |
+| GIMP 3.2.6 | Build and version invocation passed | No new fix needed; no interactive runtime claim |
+| Inkscape 1.4.4 | Build and headless SVG-to-PNG export passed | No new fix needed; no interactive runtime claim |
 | LXQt desktop NixOS system | **Full build passed**, including the three new dependency fixes | Graphical runtime not yet tested |
-| LibreOffice 26.8.0.3 | Non-Java evaluation and liborcus/Box2D/skcms blockers passed; repeated GCC 16 inherited-refcount thunk link failures | Reject class-by-class patch; validate i686/GCC16-only devirtualization workaround; Java remains unavailable |
+| LibreOffice 26.8.0.3 | Compiler workaround passes production compilation/linking; full suite exposes numeric/fixture failures plus one allocation failure | Validate standard excess precision, sal_Int32 fixture and 64-bit-only overflow guards; Java remains unavailable |
 
 Logs: `survey-*-i686.{json,log}` and `trace-{lxqt,libreoffice}-i686.log`.
 The survey does not establish that every supported 32-bit application works.
@@ -101,7 +101,12 @@ OpenJDK's bootstrap limitation is already tracked in #314873 and open PR
 | xfsprogs | `d09640bf66606e15b7555f77ea4881557e3aa0ac` | Fetch published pinned upstream patch |
 
 Pending LibreOffice changes still require full validation, commits and a final
-style pass. The prior Xfce artifact is validated as built, not claimed byte-for-
+style pass. `libreoffice-i686-attempt6` compiled/linked production code but failed
+checking: 38 reported CppUnit failures across 18 CppUnit targets, a test compile
+type mismatch, and UNO test failure. Numeric failures include x87 rounding,
+integer-vs-sal_Int32 assertion type, impossible 64-bit map fixtures on 32-bit,
+and a sw_uiwriter allocation error. This is not a successful package build.
+Details: `failures/libreoffice-attempt6-tests.json`. The prior Xfce artifact is validated as built, not claimed byte-for-
 byte identical to an ISO embedding the subsequently amended Nixpkgs source.
 
 No PRs opened automatically. Drafts disclose AI assistance and require operator
