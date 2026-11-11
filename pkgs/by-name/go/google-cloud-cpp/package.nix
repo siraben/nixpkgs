@@ -43,6 +43,8 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   patches = [
+    # x87 arithmetic can differ by a few nanoseconds after duration_cast.
+    ./limiter-test-rounding.patch
     (replaceVars ./hardcode-googleapis-path.patch {
       url = googleapis;
     })

@@ -1,0 +1,44 @@
+Allow nanosecond rounding in floating-point rate-limit test expectations.
+
+On i686/x87 the repeated .8 division and duration_cast lose 1, 2, then 3 ns.
+The 1.3 clamp can lose 1 ns. Retain each assertion with a 4 ns tolerance,
+without changing the limiter implementation or disabling either test.
+
+--- a/google/cloud/bigtable/internal/mutate_rows_limiter_test.cc
++++ b/google/cloud/bigtable/internal/mutate_rows_limiter_test.cc
+@@ -132,14 +132,21 @@
+   EXPECT_EQ(absl::FromChrono(limiter.period()), absl::Milliseconds(64));
+ 
+   limiter.Update(MakeResponse(.8, std::chrono::milliseconds(0)));
+-  EXPECT_EQ(absl::FromChrono(limiter.period()), absl::Milliseconds(80));
++  // Floating-point division followed by duration_cast can truncate a few ns.
++  EXPECT_LE(absl::AbsDuration(absl::FromChrono(limiter.period()) -
++                              absl::Milliseconds(80)),
++            absl::Nanoseconds(4));
+ 
+   InduceThrottling(limiter);
+   limiter.Update(MakeResponse(.8, std::chrono::milliseconds(0)));
+-  EXPECT_EQ(absl::FromChrono(limiter.period()), absl::Milliseconds(100));
++  EXPECT_LE(absl::AbsDuration(absl::FromChrono(limiter.period()) -
++                              absl::Milliseconds(100)),
++            absl::Nanoseconds(4));
+ 
+   limiter.Update(MakeResponse(.8, std::chrono::milliseconds(0)));
+-  EXPECT_EQ(absl::FromChrono(limiter.period()), absl::Milliseconds(125));
++  EXPECT_LE(absl::AbsDuration(absl::FromChrono(limiter.period()) -
++                              absl::Milliseconds(125)),
++            absl::Nanoseconds(4));
+ }
+ 
+ TEST(MutateRowsLimiter, UpdateClampsMinFactor) {
+@@ -162,7 +169,9 @@
+ 
+   InduceThrottling(limiter);
+   limiter.Update(MakeResponse(2.0, std::chrono::milliseconds(0)));
+-  EXPECT_EQ(absl::FromChrono(limiter.period()), absl::Milliseconds(10));
++  EXPECT_LE(absl::AbsDuration(absl::FromChrono(limiter.period()) -
++                              absl::Milliseconds(10)),
++            absl::Nanoseconds(4));
+ }
+ 
+ TEST(MutateRowsLimiter, UpdateClampsResultToMinPeriod) {
