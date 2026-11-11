@@ -65,6 +65,12 @@ qtModule {
     ./windows-resolve-function-name.patch
   ];
 
+  postPatch = ''
+    # The i686 fallback must disable Resonance Audio SIMD as well as PFFFT.
+    substituteInPlace src/resonance-audio/CMakeLists.txt \
+      --replace-fail '-DPFFFT_SIMD_DISABLE' '-DPFFFT_SIMD_DISABLE -DDISABLE_SIMD'
+  '';
+
   cmakeFlags = [
     "-DENABLE_DYNAMIC_RESOLVE_VAAPI_SYMBOLS=0"
     # don't dlopen pipewire
