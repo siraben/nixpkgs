@@ -22,6 +22,8 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-vR/TtfUOa2Fmc4APfqG+Xu+mTAILGV+/JJnnmNHNJdQ=";
   };
 
+  patches = [ ./numeric-parser-test-rounding.patch ];
+
   nativeBuildInputs = [
     autoreconfHook
     pkg-config

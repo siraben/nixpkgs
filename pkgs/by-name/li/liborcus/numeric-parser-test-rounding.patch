@@ -1,0 +1,19 @@
+The numeric parser uses pow and division, which need not produce exactly
+identical intermediates on x87. Keep every valid/invalid input check, but
+allow one double epsilon of relative error for finite expected values.
+NaN and infinity must still fail when a finite result is expected, and
+expected zero still requires exactly zero.
+
+--- a/src/parser/numeric_parser_test.cpp
++++ b/src/parser/numeric_parser_test.cpp
+@@ -45,7 +45,9 @@ bool run_checks(const std::vector<check>& checks)
+         }
+         else
+         {
+-            if (v != c.expected)
++            // pow/division can retain excess precision on x87.
++            const double tolerance = std::numeric_limits<double>::epsilon() * std::abs(c.expected);
++            if (!(std::isfinite(v) && std::abs(v - c.expected) <= tolerance))
+             {
+                 cout << "'" << c.str << "' was expected to be parsed as (" << c.expected << "), but the parser parsed it as (" << v << ")" << endl;
+                 return false;
