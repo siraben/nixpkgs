@@ -44,6 +44,13 @@ stdenv.mkDerivation (finalAttrs: {
   cmakeFlags = [
     (lib.cmakeBool "BUILD_TESTING" finalAttrs.finalPackage.doCheck)
   ];
+
+  # Unity only auto-enables 64-bit integer assertions on 64-bit targets.
+  # Both the test runner and the Unity library need them for get{u,}int64.
+  env = lib.optionalAttrs stdenv.hostPlatform.is32bit {
+    NIX_CFLAGS_COMPILE = "-DUNITY_SUPPORT_64";
+  };
+
   doCheck = true;
   nativeCheckInputs = [
     ruby
@@ -56,6 +63,9 @@ stdenv.mkDerivation (finalAttrs: {
       }).overrideAttrs
         {
           doCheck = false;
+          env = lib.optionalAttrs stdenv.hostPlatform.is32bit {
+            NIX_CFLAGS_COMPILE = "-DUNITY_SUPPORT_64";
+          };
         }
     )
   ];
