@@ -3,6 +3,7 @@
   stdenv,
   buildPackages,
   fetchurl,
+  fetchpatch,
   autoreconfHook,
   gettext,
   pkg-config,
@@ -23,6 +24,15 @@ stdenv.mkDerivation (finalAttrs: {
     url = "mirror://kernel/linux/utils/fs/xfs/xfsprogs/xfsprogs-${finalAttrs.version}.tar.xz";
     hash = "sha256-xF9f2B/evNrmGTj8/f+GyZYLOfyJoG32M3MNk4ds0n0=";
   };
+
+  # Fix conflicting long/int64_t declarations on 32-bit platforms.
+  patches = [
+    (fetchpatch {
+      name = "fix-trans-mod-sb-32bit.patch";
+      url = "https://git.kernel.org/pub/scm/fs/xfs/xfsprogs-dev.git/patch/?id=1c042af146e6b94e43a16f6645e05b6c2ab4b299";
+      hash = "sha256-piQ1GOUASMO/F0ttyzCT3FiGi1u1D7JALbuc6sIanR4=";
+    })
+  ];
 
   postPatch = ''
     substituteInPlace {./scrub/xfs_scrub_all.py.in,./mkfs/xfs_protofile.py.in}\
