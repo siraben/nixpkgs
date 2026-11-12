@@ -65,6 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
   patches = [
     # Minizip-ng 4 support: https://github.com/grizzlypeak3d/tlRender/pull/145
     ./minizip-ng-4.patch
+    ./cpp20-filesystem-utf8.patch
   ];
 
   postPatch = ''
