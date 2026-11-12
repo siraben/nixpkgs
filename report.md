@@ -45,6 +45,7 @@ focused branches are not claimed to build independently of dependency fixes.
 | Shiboken6 generator | Match std::array's size_t extent type | Both builds; no feature removal | shiboken6-generator |
 | Qt Multimedia | Complete existing i686 scalar fallback for Resonance Audio | Both builds; non-i686 branch unchanged | qtmultimedia |
 | liborcus | Allow one double epsilon of relative error in numeric-parser test | All 59 tests pass on each architecture; no runtime change | liborcus |
+| Qt5 qtbase/qmake | Enable private bootstrap large-file ABI, avoiding inode-overflow enumeration failures | Full builds on both widths; readdir64/stat64 imports and project discovery checked | qt5-qmake |
 | yaml-cpp | Backport upstream uint64_t Dragonbox significand fix, preventing wrong serialized magnitudes | Full builds/CTest pass on both widths; 15-case i686 runtime reproducer passes | yaml-cpp |
 | gavl | Select 64-bit glibc time ABI on 32-bit, matching int64_t HTTP timestamps | Both builds; 1969/1970/2040 HTTP date round trips pass on each width | gavl |
 | PySide6 | Omit optional unavailable WebEngine/WebView modules using availableOn | Both builds and offscreen widget renders; full i686 LXQt system builds | pyside6 |
@@ -65,7 +66,7 @@ this stack. ARM validation was not established for those changes.
 | LXQt desktop NixOS system and live ISO | **Full builds and BIOS/QEMU live desktop boot passed**: i686, Xorg, session/panel/PCManFM-Qt, QTerminal, stability and screenshot | Three new dependency fixes; no installed LXQt boot claim |
 | LibreOffice 26.8.0.3 | Production compiles/links; portable fixture fixes pass, but standard excess precision does not resolve remaining numerical/runtime failures; font-export test times out | Run x86_64 comparison concurrently and an explicitly SSE2-only diagnostic variant; generic i686 baseline not raised |
 | Krita 6.0.4.1 | PDF selection fixed in evaluation; full attempt found PyQt6/qmake large-inode handling, Qt5 bootstrap enumeration, gavl timestamp ABI and yaml-cpp runtime serialization blockers | Validate each focused repair, then rebuild Krita |
-| RawTherapee 5.13 | **i686 build passed** | No new fix needed; CLI/image-processing smoke checks pending |
+| RawTherapee 5.13 | **i686 build and headless 16-bit TIFF → JPEG conversion passed**; output verified as 64×64 sRGB JPEG | No new fix needed; no interactive GUI claim |
 | digiKam 9.1.0 | Upstream requires QtWebEngineWidgets unconditionally; no demonstrated packaging-only bypass | Recorded as upstream dependency/porting limitation, not fixed by lying about platforms |
 
 Logs: `survey-*-i686.{json,log}` and `trace-{lxqt,libreoffice}-i686.log`.
@@ -84,6 +85,11 @@ serial log and visually reviewed `live-lxqt.png`. Its live ISO is
 `/nix/store/x6jrvj7a0k6w77ycj535bpc9q70fab06-nixos-lxqt-26.11pre-git-i686-linux.iso`.
 LibreOffice and application builds continue independently. Application preflight
 and digiKam upstream-source evidence: `parallel/kde-apps/REPORT.md`.
+
+RawTherapee conversion evidence: `rawtherapee-i686-image-smoke.{json,log}` and
+`audit/rawtherapee-{input.tif,output.jpg}`. HOME/config/cache were isolated to
+the test directory. An earlier unsupported `-v` invocation exited with help;
+that harness mistake is preserved and is not treated as a package failure.
 
 The survey does not establish that every supported 32-bit application works.
 OpenJDK's bootstrap limitation is already tracked in #314873 and open PR
@@ -137,9 +143,20 @@ allocation error; these are not all being dismissed as harmless rounding.
 Details: `failures/libreoffice-attempt7-tests.json` and retained test logs.
 
 `libreoffice-sse2-comparison.nix` is a diagnostic override, not a change to the
-generic package. SSE2 may separate x87-related issues from other runtime
-failures, but would raise the CPU requirement if adopted; no such support
-claim or commit has been made. The prior Xfce artifact is validated as built, not claimed byte-for-
+generic package. Its first build aborted in HelpIndexer with a double-free
+while generating the sbasic/en-US help index, before reaching the comparison
+checks. Therefore it has not established that SSE2 resolves the numerical
+failures. SSE2 would raise the CPU requirement if adopted; no such support
+claim or commit has been made. The independent x86_64 comparison is pending.
+The crash reproduces on a copied dataset: GDB shows SIGABRT during SAL's
+UTF-8 file-URL-to-system-path conversion, reached from HelpIndexer file reading;
+this is memory corruption, not a numeric assertion (`libreoffice-help-indexer-backtrace.log`).
+
+A separate Clang diagnostic explicitly sets `-march=i686`: the compiler's
+normal i686-target default is Pentium 4, so merely switching compilers would
+silently introduce SSE2. Preprocessor/driver checks confirm the explicit
+variant defines i386/i686 but no SSE macros. This diagnostic is not committed
+as the generic package implementation. The prior Xfce artifact is validated as built, not claimed byte-for-
 byte identical to an ISO embedding the subsequently amended Nixpkgs source.
 
 ## Newly diagnosed Krita dependencies
@@ -154,7 +171,9 @@ byte identical to an ISO embedding the subsequently amended Nixpkgs source.
   the build filesystem have inode numbers above UINT32_MAX. Qt6 raw stat fails
   installing files; Qt5 bootstrap readdir truncates project discovery. Minimal
   probes confirm private large-file tool flags fix both without changing public
-  QtCore ABI. Full builds are pending. Upstream Gerrit duplicate checking was
+  QtCore ABI. Qt5 builds now pass on both widths; its installed i686 qmake
+  imports readdir64/stat64 and passes directory project discovery. Separate
+  commit: 2941d121d546. Qt6 full validation is pending. Upstream Gerrit duplicate checking was
   blocked by HTTP 403; do not claim a comprehensive upstream search.
 - **gavl:** HTTP API uses int64_t but gmtime_r expects native time_t. Select
   glibc's 64-bit time ABI on 32-bit. Both builds and HTTP dates before 1970
@@ -165,7 +184,7 @@ byte identical to an ISO embedding the subsequently amended Nixpkgs source.
 
 Source/reproducer evidence is in `parallel/{qmake,yaml}-diagnosis/`; root builder
 logs are under `failures/`. yaml-cpp and gavl are now validated and committed;
-Qt5/Qt6 tool changes and PyQt6 remain pending full validation. They are not
+Qt5's tool repair is also validated and committed; Qt6 and PyQt6 remain pending full validation. They are not
 counted as fixed until their required checks and individual commits succeed.
 
 No PRs opened automatically. Drafts disclose AI assistance and require operator

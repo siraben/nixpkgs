@@ -67,7 +67,15 @@ siraben/nixpkgs. Do not open PRs automatically.
 - Per-fix style review in `audit/style-review.md`. Three style fixups have been
   autosquashed, preserving author credit and backup refs. Changed focused
   branches and integration are pushed/verified with exact old-hash leases.
-  All 23 changed Nix files pass formatting. See `report.md`.
+  All 28 changed Nix files pass formatting. See `report.md`.
+- Krita survey uncovered qmake large-inode failures, gavl time ABI mismatch and
+  yaml-cpp serialization truncation. yaml-cpp and gavl repairs pass both-width
+  validation, are separately committed and pushed, with drafts. Qt5's private
+  qmake large-file repair also passes both full builds and installed-tool
+  checks, and is committed. Qt6/PyQt6 validation remains pending.
+- RawTherapee builds and converts a 16-bit TIFF to a verified 64x64 JPEG on
+  i686. No new RawTherapee fix needed. digiKam's unconditional upstream
+  QtWebEngine dependency is a recorded porting limitation, not bypassed.
 - PR drafts are under `prs/<package>/pr.md`. Publish them on a separate docs
   branch so source PR diffs remain focused. No PRs have been opened.
 - SSH access to fork confirmed after operator authenticated.

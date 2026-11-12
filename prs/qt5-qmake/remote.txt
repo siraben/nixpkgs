@@ -1,0 +1,1 @@
+739ef0e20af4bf4af06bf0459ba604a6d3899939	refs/heads/siraben/i686-qt5-qmake-20261111
