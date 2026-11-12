@@ -1,0 +1,33 @@
+patching file bin/tlplay/CMakeLists.txt
+patching file bin/tlplay/PathUtil.h
+patching file bin/tlplay/FilesModel.cpp
+patching file bin/tlplay/MenuBar.cpp
+patching file bin/tlplay/RecentFilesModel.cpp
+PASS: pointer_bits=32 cplusplus=201703 UTF-8 round-trip/menu/JSON/empty exact; legacy char8_t control checked
+/home/siraben/i686-iso-work/refresh-20261111/parallel/tlrender-cpp20-parent/utf8-regression.cpp: In function ‘int main()’:
+/home/siraben/i686-iso-work/refresh-20261111/parallel/tlrender-cpp20-parent/utf8-regression.cpp:9:46: warning: ‘std::filesystem::__cxx11::path std::filesystem::__cxx11::u8path(const _Source&) [with _Source = std::__cxx11::basic_string<char>; _Require = path; _CharT = char]’ is deprecated: use 'path((const char8_t*)&*source)' instead [-Wdeprecated-declarations]
+    9 |     const auto path = std::filesystem::u8path(expected);
+      |                       ~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~
+In file included from /nix/store/x62x83338lnly8ac0ay4x5nz6r06k2dx-gcc-16.2.0/include/c++/16.2.0/filesystem:55,
+                 from /home/siraben/i686-iso-work/refresh-20261111/parallel/tlrender-cpp20-parent/validation-source/bin/tlplay/PathUtil.h:5,
+                 from /home/siraben/i686-iso-work/refresh-20261111/parallel/tlrender-cpp20-parent/utf8-regression.cpp:1:
+/nix/store/x62x83338lnly8ac0ay4x5nz6r06k2dx-gcc-16.2.0/include/c++/16.2.0/bits/fs_path.h:847:5: note: declared here
+  847 |     u8path(const _Source& __source)
+      |     ^~~~~~
+In file included from /nix/store/x62x83338lnly8ac0ay4x5nz6r06k2dx-gcc-16.2.0/include/c++/16.2.0/cassert:46,
+                 from /home/siraben/i686-iso-work/refresh-20261111/parallel/tlrender-cpp20-parent/utf8-regression.cpp:3:
+/home/siraben/i686-iso-work/refresh-20261111/parallel/tlrender-cpp20-parent/utf8-regression.cpp:12:35: warning: ‘std::filesystem::__cxx11::path std::filesystem::__cxx11::u8path(const _Source&) [with _Source = std::__cxx11::basic_string<char>; _Require = path; _CharT = char]’ is deprecated: use 'path((const char8_t*)&*source)' instead [-Wdeprecated-declarations]
+   12 |     assert(std::filesystem::u8path(bytes) == path);
+      |            ~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+/nix/store/x62x83338lnly8ac0ay4x5nz6r06k2dx-gcc-16.2.0/include/c++/16.2.0/bits/fs_path.h:847:5: note: declared here
+  847 |     u8path(const _Source& __source)
+      |     ^~~~~~
+/home/siraben/i686-iso-work/refresh-20261111/parallel/tlrender-cpp20-parent/utf8-regression.cpp:12:35: warning: ‘std::filesystem::__cxx11::path std::filesystem::__cxx11::u8path(const _Source&) [with _Source = std::__cxx11::basic_string<char>; _Require = path; _CharT = char]’ is deprecated: use 'path((const char8_t*)&*source)' instead [-Wdeprecated-declarations]
+   12 |     assert(std::filesystem::u8path(bytes) == path);
+      |            ~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+/nix/store/x62x83338lnly8ac0ay4x5nz6r06k2dx-gcc-16.2.0/include/c++/16.2.0/bits/fs_path.h:847:5: note: declared here
+  847 |     u8path(const _Source& __source)
+      |     ^~~~~~
+utf8-32-cpp20: /home/siraben/i686-iso-work/refresh-20261111/parallel/tlrender-cpp20-parent/utf8-regression.cpp:23: int main(): Assertion `legacy[0].is_array() && !legacy[0].is_string()' failed.
+timeout: the monitored command dumped core
+/home/siraben/i686-iso-work/refresh-20261111/parallel/tlrender-cpp20-parent/check-utf8.sh: line 21: 168945 Aborted                    timeout 30 "$exe"

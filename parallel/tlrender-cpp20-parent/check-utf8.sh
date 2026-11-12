@@ -3,7 +3,7 @@ set -eu
 root=/home/siraben/i686-iso-work/refresh-20261111
 lane="$root/parallel/tlrender-cpp20-parent"
 source=/nix/store/gc7x6r2w1lh5hbpbi82a1fdbbp03hg77-source
-work="$lane/validation-source"
+work="$lane/validation-source-retry1"
 test ! -e "$work"
 mkdir -p "$work/bin/tlplay"
 for name in FilesModel.cpp MenuBar.cpp RecentFilesModel.cpp CMakeLists.txt; do
@@ -19,7 +19,7 @@ for width in 32 64; do
         64) cxx="$cxx64" ;;
     esac
     for standard in 17 20; do
-        exe="$lane/utf8-$width-cpp$standard"
+        exe="$lane/utf8-retry1-$width-cpp$standard"
         "$cxx" "-std=c++$standard" -O2 -Wall -Wextra \
             -I"$work/bin/tlplay" -I/nix/store/ifa1fa8nw2gwhip4mqb8cy10dx6jaa19-nlohmann_json-3.12.0/include \
             "$lane/utf8-regression.cpp" -o "$exe"
@@ -30,5 +30,5 @@ python3 - <<'PY'
 import hashlib,json
 from pathlib import Path
 r=Path('/home/siraben/i686-iso-work/refresh-20261111');lane=r/'parallel/tlrender-cpp20-parent'
-(lane/'utf8-passed.json').write_text(json.dumps({'passed':True,'scope':'actual applied private UTF8 helper, not complete application/Windows validation','widths':[32,64],'standards':[17,20],'assertions':['nonASCII including supplementary-plane bytes exact','filesystem roundtrip','menu filename bytes','empty path','recent JSON string roundtrip','legacy C++20 JSON-array negative control'],'patchSha256':hashlib.sha256((r/'nixpkgs/pkgs/by-name/tl/tlrender/cpp20-filesystem-utf8.patch').read_bytes()).hexdigest()},indent=2)+'\n')
+(lane/'utf8-passed.json').write_text(json.dumps({'passed':True,'scope':'actual applied private UTF8 helper, not complete application/Windows validation','widths':[32,64],'standards':[17,20],'assertions':['nonASCII including supplementary-plane bytes exact','filesystem roundtrip','menu filename bytes','empty path','recent JSON string roundtrip','existing nlohmann JSON string semantics','C++20 std::string API incompatibility type control'],'patchSha256':hashlib.sha256((r/'nixpkgs/pkgs/by-name/tl/tlrender/cpp20-filesystem-utf8.patch').read_bytes()).hexdigest()},indent=2)+'\n')
 PY
