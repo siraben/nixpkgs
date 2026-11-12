@@ -1,0 +1,9 @@
+probe=sdr_white_public_v1 profile=rec709 original_rgba_offset=1368 difficult=false pointer_bits=32 header=2.5.2 library=2.5.2 tolerance=0.0040000001899898052 optimization=OPTIMIZATION_NONE
+display=DISPLAY - CIE-XYZ-D65_to_REC.1886-REC.709
+view=ACES-OUTPUT - ACES2065-1_to_CIE-XYZ-D65 - SDR-100nit-REC709_2.0
+stage=input value=1/0x3f800000 value=1/0x3f800000 value=1/0x3f800000 value=0/0x00000000
+stage=display_inverse value=0.95045590400695801/0x3f735114 value=1/0x3f800000 value=1.0890576839447021/0x3f8b663e value=0/0x00000000
+stage=view_inverse value=127.9996337890625/0x42ffffd0 value=127.99962615966797/0x42ffffcf value=127.9996337890625/0x42ffffd0 value=0/0x00000000
+stage=view_forward value=0/0x00000000 value=0/0x00000000 value=0/0x00000000 value=0/0x00000000
+stage=display_forward value=0/0x00000000 value=0/0x00000000 value=0/0x00000000 value=0/0x00000000
+sample_pass=false

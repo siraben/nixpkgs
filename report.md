@@ -321,8 +321,14 @@ failure is in the Clang comparison and is not claimed fixed.
   `opencolorio-aces2-public-i686-clang-x87.{json,log}` records this result.
   Bounded source analysis identifies a plausible NaN-to-zero clamp but no proven
   local repair (`parallel/ocio-numerical-review/x87-source-analysis.md`).
-  An uninstrumented public SDRwhite prefix probe is being compared across GCC,
-  float-store, Clang, scalar64 and SSE2 libraries before changing any arithmetic.
+  Uninstrumented public SDRwhite probes now reproduce Clang's REC709/P3 blackout
+  with original tolerances. GCC, float-store, scalar64 and SSE2 controls pass both
+  profiles. Clang view-inverse output is finite near RGB128, but view-forward
+  returns zero. This is an actual public-library regression in the compiler
+  experiment, not only an assertion artifact. See
+  `parallel/ocio-numerical-review/sdr-white-comparison.json` and
+  `opencolorio-sdr-white-*.{json,log}`. Public operation-boundary/cross-fed-input
+  measurements are next; no arithmetic change or NaN-cause claim yet.
   SSE2 plus the core large-file fix eliminates those numerical assertion failures,
   but still fails two archive processor-cache equality cases in each enabled
   CPU dispatch run. All 398 Python tests pass. A fresh public-API archive probe

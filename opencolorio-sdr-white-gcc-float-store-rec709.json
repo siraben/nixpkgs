@@ -1,0 +1,17 @@
+{
+  "name": "opencolorio-sdr-white-gcc-float-store-rec709",
+  "command": [
+    "env",
+    "LD_LIBRARY_PATH=/nix/var/nix/builds/nix-3979934-74014087/build/source/build/src/OpenColorIO",
+    "timeout",
+    "90",
+    "/home/siraben/i686-iso-work/refresh-20261111/parallel/ocio-numerical-review/aces2_sdr_white_probe.gcc-float-store",
+    "rec709"
+  ],
+  "status": "passed",
+  "started": 1794484077.518275,
+  "elapsedSeconds": 0,
+  "updated": "2026-11-12T11:47:57.682446+00:00",
+  "log": "/home/siraben/i686-iso-work/refresh-20261111/opencolorio-sdr-white-gcc-float-store-rec709.log",
+  "exitCode": 0
+}

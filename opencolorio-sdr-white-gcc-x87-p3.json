@@ -1,0 +1,17 @@
+{
+  "name": "opencolorio-sdr-white-gcc-x87-p3",
+  "command": [
+    "env",
+    "LD_LIBRARY_PATH=/nix/var/nix/builds/nix-3726916-4173132065/build/source/build/src/OpenColorIO",
+    "timeout",
+    "90",
+    "/home/siraben/i686-iso-work/refresh-20261111/parallel/ocio-numerical-review/aces2_sdr_white_probe.gcc-x87",
+    "p3"
+  ],
+  "status": "passed",
+  "started": 1794484076.5878036,
+  "elapsedSeconds": 0,
+  "updated": "2026-11-12T11:47:56.652312+00:00",
+  "log": "/home/siraben/i686-iso-work/refresh-20261111/opencolorio-sdr-white-gcc-x87-p3.log",
+  "exitCode": 0
+}

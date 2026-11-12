@@ -1,0 +1,125 @@
+{
+  "scope": "public SDRwhite original tolerances; unchanged shared libraries",
+  "results": [
+    {
+      "variant": "gcc-x87",
+      "profile": "rec709",
+      "status": "passed",
+      "stages": [
+        "stage=input value=1/0x3f800000 value=1/0x3f800000 value=1/0x3f800000 value=0/0x00000000",
+        "stage=display_inverse value=0.95045590400695801/0x3f735114 value=1/0x3f800000 value=1.0890576839447021/0x3f8b663e value=0/0x00000000",
+        "stage=view_inverse value=127.99959564208984/0x42ffffcb value=127.99958801269531/0x42ffffca value=127.99959564208984/0x42ffffcb value=0/0x00000000",
+        "stage=view_forward value=0.95045572519302368/0x3f735111 value=0.99999988079071045/0x3f7ffffe value=1.0890576839447021/0x3f8b663e value=0/0x00000000",
+        "stage=display_forward value=0.9999997615814209/0x3f7ffffc value=1/0x3f800000 value=1/0x3f800000 value=0/0x00000000"
+      ]
+    },
+    {
+      "variant": "gcc-x87",
+      "profile": "p3",
+      "status": "passed",
+      "stages": [
+        "stage=input value=1/0x3f800000 value=1/0x3f800000 value=1/0x3f800000 value=0/0x00000000",
+        "stage=display_inverse value=0.95045596361160278/0x3f735115 value=1/0x3f800000 value=1.0890576839447021/0x3f8b663e value=0/0x00000000",
+        "stage=view_inverse value=127.99959564208984/0x42ffffcb value=127.99958801269531/0x42ffffca value=127.99959564208984/0x42ffffcb value=0/0x00000000",
+        "stage=view_forward value=0.95045572519302368/0x3f735111 value=0.99999994039535522/0x3f7fffff value=1.0890575647354126/0x3f8b663d value=0/0x00000000",
+        "stage=display_forward value=0.9999997615814209/0x3f7ffffc value=0.99999994039535522/0x3f7fffff value=0.99999988079071045/0x3f7ffffe value=0/0x00000000"
+      ]
+    },
+    {
+      "variant": "gcc-float-store",
+      "profile": "rec709",
+      "status": "passed",
+      "stages": [
+        "stage=input value=1/0x3f800000 value=1/0x3f800000 value=1/0x3f800000 value=0/0x00000000",
+        "stage=display_inverse value=0.95045590400695801/0x3f735114 value=1/0x3f800000 value=1.0890576839447021/0x3f8b663e value=0/0x00000000",
+        "stage=view_inverse value=127.99959564208984/0x42ffffcb value=127.99958801269531/0x42ffffca value=127.99959564208984/0x42ffffcb value=0/0x00000000",
+        "stage=view_forward value=0.95045572519302368/0x3f735111 value=0.99999988079071045/0x3f7ffffe value=1.0890576839447021/0x3f8b663e value=0/0x00000000",
+        "stage=display_forward value=0.9999997615814209/0x3f7ffffc value=1/0x3f800000 value=1/0x3f800000 value=0/0x00000000"
+      ]
+    },
+    {
+      "variant": "gcc-float-store",
+      "profile": "p3",
+      "status": "passed",
+      "stages": [
+        "stage=input value=1/0x3f800000 value=1/0x3f800000 value=1/0x3f800000 value=0/0x00000000",
+        "stage=display_inverse value=0.95045596361160278/0x3f735115 value=1/0x3f800000 value=1.0890576839447021/0x3f8b663e value=0/0x00000000",
+        "stage=view_inverse value=127.99959564208984/0x42ffffcb value=127.99958801269531/0x42ffffca value=127.99959564208984/0x42ffffcb value=0/0x00000000",
+        "stage=view_forward value=0.95045572519302368/0x3f735111 value=0.99999994039535522/0x3f7fffff value=1.0890575647354126/0x3f8b663d value=0/0x00000000",
+        "stage=display_forward value=0.9999997615814209/0x3f7ffffc value=0.99999994039535522/0x3f7fffff value=0.99999988079071045/0x3f7ffffe value=0/0x00000000"
+      ]
+    },
+    {
+      "variant": "clang-x87",
+      "profile": "rec709",
+      "status": "failed",
+      "stages": [
+        "stage=input value=1/0x3f800000 value=1/0x3f800000 value=1/0x3f800000 value=0/0x00000000",
+        "stage=display_inverse value=0.95045590400695801/0x3f735114 value=1/0x3f800000 value=1.0890576839447021/0x3f8b663e value=0/0x00000000",
+        "stage=view_inverse value=127.9996337890625/0x42ffffd0 value=127.99962615966797/0x42ffffcf value=127.9996337890625/0x42ffffd0 value=0/0x00000000",
+        "stage=view_forward value=0/0x00000000 value=0/0x00000000 value=0/0x00000000 value=0/0x00000000",
+        "stage=display_forward value=0/0x00000000 value=0/0x00000000 value=0/0x00000000 value=0/0x00000000"
+      ]
+    },
+    {
+      "variant": "clang-x87",
+      "profile": "p3",
+      "status": "failed",
+      "stages": [
+        "stage=input value=1/0x3f800000 value=1/0x3f800000 value=1/0x3f800000 value=0/0x00000000",
+        "stage=display_inverse value=0.95045596361160278/0x3f735115 value=1/0x3f800000 value=1.0890576839447021/0x3f8b663e value=0/0x00000000",
+        "stage=view_inverse value=127.9996337890625/0x42ffffd0 value=127.99962615966797/0x42ffffcf value=127.9996337890625/0x42ffffd0 value=0/0x00000000",
+        "stage=view_forward value=0/0x00000000 value=0/0x00000000 value=0/0x00000000 value=0/0x00000000",
+        "stage=display_forward value=0/0x00000000 value=0/0x00000000 value=0/0x00000000 value=0/0x00000000"
+      ]
+    },
+    {
+      "variant": "x64-scalar",
+      "profile": "rec709",
+      "status": "passed",
+      "stages": [
+        "stage=input value=1/0x3f800000 value=1/0x3f800000 value=1/0x3f800000 value=0/0x00000000",
+        "stage=display_inverse value=0.95045590400695801/0x3f735114 value=1/0x3f800000 value=1.0890576839447021/0x3f8b663e value=0/0x00000000",
+        "stage=view_inverse value=127.99964904785156/0x42ffffd2 value=127.99960327148438/0x42ffffcc value=127.99964141845703/0x42ffffd1 value=0/0x00000000",
+        "stage=view_forward value=0.95045590400695801/0x3f735114 value=1/0x3f800000 value=1.0890576839447021/0x3f8b663e value=0/0x00000000",
+        "stage=display_forward value=1/0x3f800000 value=1/0x3f800000 value=1/0x3f800000 value=0/0x00000000"
+      ]
+    },
+    {
+      "variant": "x64-scalar",
+      "profile": "p3",
+      "status": "passed",
+      "stages": [
+        "stage=input value=1/0x3f800000 value=1/0x3f800000 value=1/0x3f800000 value=0/0x00000000",
+        "stage=display_inverse value=0.95045590400695801/0x3f735114 value=1/0x3f800000 value=1.0890576839447021/0x3f8b663e value=0/0x00000000",
+        "stage=view_inverse value=127.99964904785156/0x42ffffd2 value=127.99960327148438/0x42ffffcc value=127.99964141845703/0x42ffffd1 value=0/0x00000000",
+        "stage=view_forward value=0.95045578479766846/0x3f735112 value=1/0x3f800000 value=1.0890576839447021/0x3f8b663e value=0/0x00000000",
+        "stage=display_forward value=0.99999982118606567/0x3f7ffffd value=0.99999994039535522/0x3f7fffff value=0.99999994039535522/0x3f7fffff value=0/0x00000000"
+      ]
+    },
+    {
+      "variant": "sse2-control",
+      "profile": "rec709",
+      "status": "passed",
+      "stages": [
+        "stage=input value=1/0x3f800000 value=1/0x3f800000 value=1/0x3f800000 value=0/0x00000000",
+        "stage=display_inverse value=0.95045590400695801/0x3f735114 value=1/0x3f800000 value=1.0890576839447021/0x3f8b663e value=0/0x00000000",
+        "stage=view_inverse value=127.99964904785156/0x42ffffd2 value=127.99960327148438/0x42ffffcc value=127.99964141845703/0x42ffffd1 value=0/0x00000000",
+        "stage=view_forward value=0.95045590400695801/0x3f735114 value=1/0x3f800000 value=1.0890576839447021/0x3f8b663e value=0/0x00000000",
+        "stage=display_forward value=1/0x3f800000 value=1/0x3f800000 value=1/0x3f800000 value=0/0x00000000"
+      ]
+    },
+    {
+      "variant": "sse2-control",
+      "profile": "p3",
+      "status": "passed",
+      "stages": [
+        "stage=input value=1/0x3f800000 value=1/0x3f800000 value=1/0x3f800000 value=0/0x00000000",
+        "stage=display_inverse value=0.95045590400695801/0x3f735114 value=1/0x3f800000 value=1.0890576839447021/0x3f8b663e value=0/0x00000000",
+        "stage=view_inverse value=127.99964904785156/0x42ffffd2 value=127.99960327148438/0x42ffffcc value=127.99964141845703/0x42ffffd1 value=0/0x00000000",
+        "stage=view_forward value=0.95045578479766846/0x3f735112 value=1/0x3f800000 value=1.0890576839447021/0x3f8b663e value=0/0x00000000",
+        "stage=display_forward value=0.99999982118606567/0x3f7ffffd value=0.99999994039535522/0x3f7fffff value=0.99999994039535522/0x3f7fffff value=0/0x00000000"
+      ]
+    }
+  ]
+}

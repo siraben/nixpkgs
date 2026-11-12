@@ -1,0 +1,17 @@
+{
+  "name": "opencolorio-sdr-white-sse2-control-rec709",
+  "command": [
+    "env",
+    "LD_LIBRARY_PATH=/home/siraben/i686-iso-work/refresh-20261111/opencolorio-i686-sse2-matched-lfs-result/lib",
+    "timeout",
+    "90",
+    "/home/siraben/i686-iso-work/refresh-20261111/parallel/ocio-numerical-review/aces2_sdr_white_probe.sse2-control",
+    "rec709"
+  ],
+  "status": "passed",
+  "started": 1794484080.662442,
+  "elapsedSeconds": 0,
+  "updated": "2026-11-12T11:48:00.726637+00:00",
+  "log": "/home/siraben/i686-iso-work/refresh-20261111/opencolorio-sdr-white-sse2-control-rec709.log",
+  "exitCode": 0
+}

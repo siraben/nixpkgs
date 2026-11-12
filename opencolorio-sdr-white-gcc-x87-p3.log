@@ -1,0 +1,9 @@
+probe=sdr_white_public_v1 profile=p3 original_rgba_offset=1368 difficult=false pointer_bits=32 header=2.5.2 library=2.5.2 tolerance=0.0010000000474974513 optimization=OPTIMIZATION_NONE
+display=DISPLAY - CIE-XYZ-D65_to_DisplayP3
+view=ACES-OUTPUT - ACES2065-1_to_CIE-XYZ-D65 - SDR-100nit-P3-D65_2.0
+stage=input value=1/0x3f800000 value=1/0x3f800000 value=1/0x3f800000 value=0/0x00000000
+stage=display_inverse value=0.95045596361160278/0x3f735115 value=1/0x3f800000 value=1.0890576839447021/0x3f8b663e value=0/0x00000000
+stage=view_inverse value=127.99959564208984/0x42ffffcb value=127.99958801269531/0x42ffffca value=127.99959564208984/0x42ffffcb value=0/0x00000000
+stage=view_forward value=0.95045572519302368/0x3f735111 value=0.99999994039535522/0x3f7fffff value=1.0890575647354126/0x3f8b663d value=0/0x00000000
+stage=display_forward value=0.9999997615814209/0x3f7ffffc value=0.99999994039535522/0x3f7fffff value=0.99999988079071045/0x3f7ffffe value=0/0x00000000
+sample_pass=true
