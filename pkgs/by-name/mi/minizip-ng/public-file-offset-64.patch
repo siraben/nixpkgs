@@ -1,0 +1,125 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -64,6 +64,7 @@
+ option(MZ_COMPRESS_ONLY "Only support compression" OFF)
+ option(MZ_DECOMPRESS_ONLY "Only support decompression" OFF)
+ option(MZ_FILE32_API "Builds using posix 32-bit file api" OFF)
++option(MZ_FILE_OFFSET_BITS_64 "Requires the 64-bit POSIX file-offset ABI for the library and consumers" OFF)
+ # Build and continuous integration options
+ option(MZ_BUILD_TESTS "Builds minizip test executable" OFF)
+ option(MZ_BUILD_UNIT_TESTS "Builds minizip unit test project" OFF)
+@@ -104,6 +105,7 @@
+ 
+ set(STDLIB_DEF)
+ set(MINIZIP_DEF)
++set(MINIZIP_PUBLIC_DEF)
+ set(MINIZIP_INC)
+ set(MINIZIP_LIB)
+ set(MINIZIP_LIB_PUBLIC)
+@@ -138,6 +140,33 @@
+ 
+ set(PC_PRIVATE_LIBS)
+ set(PC_PRIVATE_DEPS)
++
++# This opt-in changes public system types, including struct dirent in mz_os.h.
++# Keep the library and all consumers on the same file-offset ABI.
++if(MZ_FILE_OFFSET_BITS_64)
++    if(MZ_FILE32_API)
++        message(FATAL_ERROR "MZ_FILE_OFFSET_BITS_64 and MZ_FILE32_API are mutually exclusive")
++    endif()
++    list(APPEND MINIZIP_PUBLIC_DEF _FILE_OFFSET_BITS=64)
++
++    # Compile for the target; do not infer ABI support from the build machine.
++    cmake_push_check_state(RESET)
++        foreach(definition IN LISTS MINIZIP_PUBLIC_DEF)
++            list(APPEND CMAKE_REQUIRED_DEFINITIONS "-D${definition}")
++        endforeach()
++        check_c_source_compiles("
++            #include <sys/types.h>
++            #include <sys/stat.h>
++            #include <dirent.h>
++            typedef char mz_wide_off_t[(sizeof(off_t) >= 8) ? 1 : -1];
++            int main(void) {
++                return sizeof(struct stat) == 0 || sizeof(struct dirent) == 0;
++            }" MZ_HAVE_FILE_OFFSET_BITS_64)
++    cmake_pop_check_state()
++    if(NOT MZ_HAVE_FILE_OFFSET_BITS_64)
++        message(FATAL_ERROR "MZ_FILE_OFFSET_BITS_64 requires POSIX headers and a 64-bit off_t")
++    endif()
++endif()
+ 
+ # Check for system includes
+ check_include_file(dirent.h     HAVE_DIRENT_H)
+@@ -699,6 +728,11 @@
+     endif()
+ endif()
+ 
++set(PC_PUBLIC_CFLAGS)
++foreach(definition IN LISTS MINIZIP_PUBLIC_DEF)
++    string(APPEND PC_PUBLIC_CFLAGS " -D${definition}")
++endforeach()
++
+ set(MINIZIP_TARGET minizip${MZ_LIB_SUFFIX})
+ set(MINIZIP_PC ${CMAKE_CURRENT_BINARY_DIR}/${MINIZIP_TARGET}.pc)
+ configure_file(minizip.pc.cmakein ${MINIZIP_PC} @ONLY)
+@@ -731,6 +765,7 @@
+     target_link_libraries(${MINIZIP_TARGET} PRIVATE ${MINIZIP_LIB_PUBLIC})
+ endif()
+ target_compile_definitions(${MINIZIP_TARGET} PRIVATE ${STDLIB_DEF} ${MINIZIP_DEF})
++target_compile_definitions(${MINIZIP_TARGET} PUBLIC ${MINIZIP_PUBLIC_DEF})
+ target_include_directories(${MINIZIP_TARGET} PRIVATE ${MINIZIP_INC})
+ target_include_directories(${MINIZIP_TARGET} PUBLIC
+     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+@@ -1059,6 +1094,7 @@
+ add_feature_info(MZ_COMPRESS_ONLY MZ_COMPRESS_ONLY "Only support compression")
+ add_feature_info(MZ_DECOMPRESS_ONLY MZ_DECOMPRESS_ONLY "Only support decompression")
+ add_feature_info(MZ_FILE32_API MZ_FILE32_API "Builds using posix 32-bit file api")
++add_feature_info(MZ_FILE_OFFSET_BITS_64 MZ_FILE_OFFSET_BITS_64 "Requires the 64-bit POSIX file-offset ABI for the library and consumers")
+ # Build and continuous integration options
+ add_feature_info(MZ_BUILD_TESTS MZ_BUILD_TESTS "Builds minizip test executable")
+ add_feature_info(MZ_BUILD_UNIT_TESTS MZ_BUILD_UNIT_TESTS "Builds minizip unit test project")
+--- a/minizip.pc.cmakein
++++ b/minizip.pc.cmakein
+@@ -11,4 +11,4 @@
+ Requires.private: @PC_PRIVATE_DEPS@
+ Libs: -L${libdir} -L${sharedlibdir} -l@MINIZIP_TARGET@
+ Libs.private:@PC_PRIVATE_LIBS@
+-Cflags: -I${includedir}
++Cflags: -I${includedir}@PC_PUBLIC_CFLAGS@
+--- a/README.md
++++ b/README.md
+@@ -85,12 +85,34 @@
+ | MZ_COMPRESS_ONLY    | Only support compression                                       |      OFF      |
+ | MZ_DECOMPRESS_ONLY  | Only support decompression                                     |      OFF      |
+ | MZ_FILE32_API       | Builds using posix 32-bit file api                             |      OFF      |
++| MZ_FILE_OFFSET_BITS_64 | Requires the 64-bit POSIX file-offset ABI for library and consumers | OFF |
+ | MZ_BUILD_TESTS      | Builds minizip test executable                                 |      OFF      |
+ | MZ_BUILD_UNIT_TESTS | Builds minizip unit test project                               |      OFF      |
+ | MZ_BUILD_FUZZ_TESTS | Builds minizip fuzz executables                                |      OFF      |
+ | MZ_CODE_COVERAGE    | Build with code coverage flags                                 |      OFF      |
+ | MZ_SANITIZER        | Build with code sanitizer (Memory, Thread, Address, Undefined) |      OFF      |
+ | MZ_LIB_SUFFIX       | Library name suffix for packaging                              |               |
++
++### Public file-offset ABI
++
++`MZ_FILE_OFFSET_BITS_64=ON` opts into `_FILE_OFFSET_BITS=64` for both the library
++and consumers on targets with POSIX headers and a 64-bit `off_t` in this mode.
++It is mutually exclusive with `MZ_FILE32_API=ON`; requesting both is an error.
++The option defaults to OFF and is not selected from the build machine's ABI.
++
++The definition is a public requirement of the CMake target `MINIZIP::minizip-ng`
++(or `MINIZIP::minizip` in compatibility mode) and the corresponding pkg-config
++module's `Cflags`. Consumers bypassing this metadata must define
++`_FILE_OFFSET_BITS=64` before including any system headers, in every translation
++unit using the library. Other definitions used internally remain private.
++
++On systems where this changes system type layouts, enabling the option is an
++ABI transition, not an ABI-neutral implementation change: `mz_os_read_dir`
++returns a system `struct dirent *`. Rebuild all consumers with the same mode;
++previously compiled narrow consumers are not made compatible by new metadata.
++Do not mix narrow and wide shared libraries with the same SONAME in a process.
++This option does not enable `_TIME_BITS=64`, which would also change public
++`time_t`-based APIs.
+ 
+ ## Third-Party Libraries
+ 
