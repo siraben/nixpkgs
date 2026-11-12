@@ -363,7 +363,11 @@ failure is in the Clang comparison and is not claimed fixed.
   This is an intentional coordinated 32-bit ABI transition; old narrow binaries
   remain incompatible, and closure-wide consumer safety is not certified.
   Review: `parallel/minizip-public-validation/final-review.md`; draft:
-  `prs/minizip-ng/pr.md`. The separate OCIO finder repair now passes production
+  `prs/minizip-ng/pr.md`. Independent focused-branch evaluation/build on BASE
+  resolves both normal/compat variants to the exact previously tested outputs
+  (`parallel/minizip-public-validation/focused-branch-passed.json`); this reused
+  cached artifacts rather than rerunning the 168 tests.
+  The separate OCIO finder repair now passes production
   x86_64 build/all 10 CTest entries and is committed/pushed: integration
   `883f6d3b3af9`, focused `2939057da7a3`. Evidence:
   `opencolorio-x86_64-public-metadata.{json,log}`. No generic-x87 accuracy claim;
@@ -383,7 +387,10 @@ failure is in the Clang comparison and is not claimed fixed.
   reconstruction was found there. Two helper C/C++ runtime probes passed, but
   initial evidence collection failed because compile-command export was enabled
   after targets were created. This is a preserved harness failure, not a package
-  failure; a fresh-directory retry enables export before target creation. Actual consumer compile/runtime closure
+  failure. A fresh-directory retry enables export before target creation and
+  now passes both runtime probes and compile-command flag assertions:
+  `parallel/minizip-public-validation/dolphin-discovery-passed.json`. This adds
+  two actual-helper probes beyond the 16-consumer matrix, not a Dolphin app build. Actual consumer compile/runtime closure
   coverage remains limited; an explicitly SSE2-labelled tlRender/Krita
   comparison is running, without changing package
   defaults or force-enabling unsupported platforms. Audits:

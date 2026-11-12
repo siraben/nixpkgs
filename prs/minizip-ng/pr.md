@@ -35,9 +35,14 @@ change is made; this does not fix time32/Y2038 limitations.
   separate focused repair.
 - Independent ABI/style review: no concrete issue found; limitations retained.
 
-Validation used the integration stack. No independent BASE-only build, ARM
-runtime/cross-build, physical hardware, complete downstream app build, or
-closure-wide compatibility claim. Pinned source inspections found no additional
+The focused branch was independently evaluated/built on otherwise unmodified
+BASE: both variants resolve to the exact previously validated integration
+outputs (cache reuse, not a second execution of 168 tests). Evidence:
+`parallel/minizip-public-validation/focused-branch-passed.json`.
+Two additional C/C++ probes using pinned Dolphin's actual discovery helper pass
+high-inode runtime and metadata-derived compile-command assertions; this is
+not a Dolphin application build. No ARM runtime/cross-build, physical hardware,
+complete downstream app build, or closure-wide compatibility claim. Pinned source inspections found no additional
 proven width-changing interface mismatch, but are not exhaustive certification.
 
 Evidence: `minizip{,-compat}-i686-public-contract.{json,log}`,

@@ -1,0 +1,29 @@
+{
+  "name": "minizip-normal-focused-i686",
+  "command": [
+    "nix-build",
+    "--expr",
+    "let p=import /home/siraben/i686-iso-work/refresh-20261111/focused-validation/minizip-ng {system=\"i686-linux\";}; in {normal=p.minizip-ng;compat=p.minizip-ng.override {enableCompat=true;};}",
+    "-A",
+    "normal",
+    "--out-link",
+    "/home/siraben/i686-iso-work/refresh-20261111/minizip-normal-focused-i686-result",
+    "--keep-going",
+    "--keep-failed",
+    "--max-jobs",
+    "2",
+    "--cores",
+    "4",
+    "--max-silent-time",
+    "900",
+    "--option",
+    "extra-platforms",
+    "i686-linux x86_64-linux aarch64-linux armv7l-linux"
+  ],
+  "status": "passed",
+  "started": 1794481362.9428172,
+  "elapsedSeconds": 1,
+  "updated": "2026-11-12T11:02:43.457589+00:00",
+  "log": "/home/siraben/i686-iso-work/refresh-20261111/minizip-normal-focused-i686.log",
+  "exitCode": 0
+}

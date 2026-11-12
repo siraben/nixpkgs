@@ -20,4 +20,8 @@ This resolves the previously unavailable discovery-helper source. It is not
 an actual Dolphin package build, comprehensive public-interface audit or
 runtime/closure claim. Its public target propagation can reach many Dolphin
 TUs; the isolated discovery harness tests that route without force-enabling
-or building the application.
+or building the application. Both C and C++ high-inode runtime probes and
+metadata-derived compile-command assertions now pass:
+`parallel/minizip-public-validation/dolphin-discovery-passed.json`.
+The initial run passed compilation/runtime but failed evidence collection
+because export was enabled after target creation; original work/logs remain.

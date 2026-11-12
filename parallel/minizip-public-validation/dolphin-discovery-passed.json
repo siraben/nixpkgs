@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "scope": "pinned Dolphin discovery helper, NOT application build",
+  "consumers": 2,
+  "ambientFileTimeFlags": false,
+  "commands": [
+    {
+      "directory": "/home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-public-validation/dolphin-discovery-work-retry1",
+      "command": "/nix/store/49jmbfsrsp9iwilqhqnwi3y7dnlh38rj-gcc-wrapper-16.2.0/bin/gcc -DEXPECT_FILE_OFFSET_64=1 -isystem /nix/store/82360cwd6lfw3ll6n6nrzsimhs8rn5f0-minizip-ng-4.2.2/include/minizip-ng -D_FILE_OFFSET_BITS=64 -o CMakeFiles/directory_probe_c.dir/home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-abi-preparation/consumers/common/directory_probe.c.o -c /home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-abi-preparation/consumers/common/directory_probe.c",
+      "file": "/home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-abi-preparation/consumers/common/directory_probe.c",
+      "output": "CMakeFiles/directory_probe_c.dir/home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-abi-preparation/consumers/common/directory_probe.c.o"
+    },
+    {
+      "directory": "/home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-public-validation/dolphin-discovery-work-retry1",
+      "command": "/nix/store/49jmbfsrsp9iwilqhqnwi3y7dnlh38rj-gcc-wrapper-16.2.0/bin/g++ -DEXPECT_FILE_OFFSET_64=1 -isystem /nix/store/82360cwd6lfw3ll6n6nrzsimhs8rn5f0-minizip-ng-4.2.2/include/minizip-ng -D_FILE_OFFSET_BITS=64 -o CMakeFiles/directory_probe_cpp.dir/home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-abi-preparation/consumers/common/directory_probe.cpp.o -c /home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-abi-preparation/consumers/common/directory_probe.cpp",
+      "file": "/home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-abi-preparation/consumers/common/directory_probe.cpp",
+      "output": "CMakeFiles/directory_probe_cpp.dir/home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-abi-preparation/consumers/common/directory_probe.cpp.o"
+    }
+  ]
+}

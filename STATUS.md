@@ -93,8 +93,11 @@ siraben/nixpkgs. Do not open PRs automatically.
   not generic-x87 sign-off). Source audits and independent final review found
   no additional concrete defect. Minizip committed/pushed: integration
   1bfa643c7119, focused 33c29fc6802c. Coordinated consumer rebuild required;
-  old narrow binaries incompatible. Broad application/closure coverage remains
-  limited. Separate OCIO finder repair also passes all 10 production x86_64
+  old narrow binaries incompatible. Focused BASE-only branch evaluation/build
+  resolves to identical already-tested normal/compat artifacts (cache reuse).
+  Two additional pinned Dolphin-helper C/C++ probes pass, including compilation
+  flag assertions; initial evidence-export harness failure is retained.
+  Broad application/closure coverage remains limited. Separate OCIO finder repair also passes all 10 production x86_64
   CTests and is committed/pushed: integration 883f6d3b3af9, focused 2939057da7a3.
   No generic-x87 accuracy claim or production CPU/math/check-selection change.
 - OpenColorIO generic x87 has a reproduced public-API ACES2 accuracy failure;

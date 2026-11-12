@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "branch": "siraben/i686-minizip-ng-20261111",
+  "commit": "33c29fc6802cf6eed89d6c79c2cbcba0eb43af8c",
+  "base": "a238bac4849a79e151329cdc51638d3bc7627c6c",
+  "outputs": {
+    "normal": "/nix/store/82360cwd6lfw3ll6n6nrzsimhs8rn5f0-minizip-ng-4.2.2",
+    "compat": "/nix/store/b81mp4c5zi1qamylippmpkfmjidmh4hg-minizip-ng-compat-4.2.2"
+  },
+  "validatedIntegrationOutputs": {
+    "normal": "/nix/store/82360cwd6lfw3ll6n6nrzsimhs8rn5f0-minizip-ng-4.2.2",
+    "compat": "/nix/store/b81mp4c5zi1qamylippmpkfmjidmh4hg-minizip-ng-compat-4.2.2"
+  },
+  "sameOutputs": true
+}
