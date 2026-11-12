@@ -1,0 +1,27 @@
+{
+  "source": "/nix/var/nix/builds/nix-1670704-3589367345/build/libreoffice-26.8.0.3/README.md",
+  "inode": 4297357119,
+  "size": 7066,
+  "baseline": {
+    "command": [
+      "/nix/store/23w03xfva5z5gw0h4jsvgia19l0izg3q-qtbase-6.12.0/bin/qmake",
+      "-install",
+      "qinstall",
+      "/nix/var/nix/builds/nix-1670704-3589367345/build/libreoffice-26.8.0.3/README.md",
+      "/home/siraben/i686-iso-work/refresh-20261111/audit/qt6-qmake-install-regression/baseline-README.md"
+    ],
+    "exitCode": 3,
+    "output": "Cannot stat() reference file /nix/var/nix/builds/nix-1670704-3589367345/build/libreoffice-26.8.0.3/README.md: Value too large for defined data type."
+  },
+  "fixed": {
+    "command": [
+      "/nix/store/4vm4qwq4fr65z9ffafrgk9i40kwgvcp4-qtbase-6.12.0/bin/qmake",
+      "-install",
+      "qinstall",
+      "/nix/var/nix/builds/nix-1670704-3589367345/build/libreoffice-26.8.0.3/README.md",
+      "/home/siraben/i686-iso-work/refresh-20261111/audit/qt6-qmake-install-regression/fixed-README.md"
+    ],
+    "exitCode": 0,
+    "output": ""
+  }
+}

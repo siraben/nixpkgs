@@ -54,7 +54,7 @@ Retrieved examples are saved in `merged-pr-*.patch` and `*-existing-pr.*`.
 | yaml-cpp | Fetch pinned merged upstream PR #1401, preserving uint64_t significands. Exact existing precision tests retained and full CTest passes on both widths. No SSE2 or tolerance workaround. |
 | gavl | Same glibc time64/LFS flags pattern as tayga, with an explicit 32-bit GNU guard. Public API uses int64_t rather than libc time/stat types; external consumer HTTP date round trips pass on both widths. |
 | Qt5 qmake | Private Unix bootstrap flags, not general compiler flags or public Qt headers; follows the tool build platform. Both full builds pass; installed i686 tool imports wide filesystem APIs and project discovery passes. Committed. |
-| Qt6 qmake (pending) | Private qmake CMake definitions, no public QtCore ABI change. Large-inode function probes pass; full builds remain pending. |
+| Qt6 qmake | Private CMake definition follows existing qt_internal_extend_target idiom, no public QtCore ABI change. Both full builds pass; real installed-tool high-inode regression fails before and passes after. Committed. |
 | PyQt6 (pending) | Optional PDF default uses availableOn, mirroring existing stellarium/PySide patterns. x86_64 passes; i686 install awaits qmake fix. No unsupported-platform override. |
 | LibreOffice (pending) | buildPlatform isi686 gate reflects bootstrap compiler location; document optional Java feature loss. Box2D scalar and skcms dispatcher defines remain target-local and x86-32-only. Class-specific refcount override was rejected after another same-root thunk failure; test devirtualization workaround scoped to i686/GNU16, not other architectures/toolchains. Full build validation required before commit. |
 

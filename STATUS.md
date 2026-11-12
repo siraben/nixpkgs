@@ -72,7 +72,9 @@ siraben/nixpkgs. Do not open PRs automatically.
   yaml-cpp serialization truncation. yaml-cpp and gavl repairs pass both-width
   validation, are separately committed and pushed, with drafts. Qt5's private
   qmake large-file repair also passes both full builds and installed-tool
-  checks, and is committed. Qt6/PyQt6 validation remains pending.
+  checks, and is committed. Qt6's private qmake repair also passes both builds
+  and an exact installed-tool high-inode regression, and is committed.
+  PyQt6/Krita downstream validation remains pending.
 - RawTherapee builds and converts a 16-bit TIFF to a verified 64x64 JPEG on
   i686. No new RawTherapee fix needed. digiKam's unconditional upstream
   QtWebEngine dependency is a recorded porting limitation, not bypassed.

@@ -45,6 +45,7 @@ focused branches are not claimed to build independently of dependency fixes.
 | Shiboken6 generator | Match std::array's size_t extent type | Both builds; no feature removal | shiboken6-generator |
 | Qt Multimedia | Complete existing i686 scalar fallback for Resonance Audio | Both builds; non-i686 branch unchanged | qtmultimedia |
 | liborcus | Allow one double epsilon of relative error in numeric-parser test | All 59 tests pass on each architecture; no runtime change | liborcus |
+| Qt6 qtbase/qmake | Enable private large-file ABI for raw stat calls | Both builds; installed qmake fixes exact 7066-byte/high-inode reproduction | qt6-qmake |
 | Qt5 qtbase/qmake | Enable private bootstrap large-file ABI, avoiding inode-overflow enumeration failures | Full builds on both widths; readdir64/stat64 imports and project discovery checked | qt5-qmake |
 | yaml-cpp | Backport upstream uint64_t Dragonbox significand fix, preventing wrong serialized magnitudes | Full builds/CTest pass on both widths; 15-case i686 runtime reproducer passes | yaml-cpp |
 | gavl | Select 64-bit glibc time ABI on 32-bit, matching int64_t HTTP timestamps | Both builds; 1969/1970/2040 HTTP date round trips pass on each width | gavl |
@@ -173,7 +174,10 @@ byte identical to an ISO embedding the subsequently amended Nixpkgs source.
   probes confirm private large-file tool flags fix both without changing public
   QtCore ABI. Qt5 builds now pass on both widths; its installed i686 qmake
   imports readdir64/stat64 and passes directory project discovery. Separate
-  commit: 2941d121d546. Qt6 full validation is pending. Upstream Gerrit duplicate checking was
+  commit: 2941d121d546. Qt6 builds also pass on both widths (41c5d4ddddc4):
+  installed qmake changes a 7066-byte/inode-4297357119 installation from exit 3
+  with EOVERFLOW to exit 0 with matching contents. Evidence:
+  `audit/qt6-qmake-install-regression/passed.json`. Upstream Gerrit duplicate checking was
   blocked by HTTP 403; do not claim a comprehensive upstream search.
 - **gavl:** HTTP API uses int64_t but gmtime_r expects native time_t. Select
   glibc's 64-bit time ABI on 32-bit. Both builds and HTTP dates before 1970
@@ -184,7 +188,8 @@ byte identical to an ISO embedding the subsequently amended Nixpkgs source.
 
 Source/reproducer evidence is in `parallel/{qmake,yaml}-diagnosis/`; root builder
 logs are under `failures/`. yaml-cpp and gavl are now validated and committed;
-Qt5's tool repair is also validated and committed; Qt6 and PyQt6 remain pending full validation. They are not
+Qt5 and Qt6 tool repairs are also validated and committed; PyQt6 and the
+full downstream Krita rebuild remain pending validation. They are not
 counted as fixed until their required checks and individual commits succeed.
 
 No PRs opened automatically. Drafts disclose AI assistance and require operator

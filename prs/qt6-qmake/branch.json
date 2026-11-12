@@ -1,0 +1,7 @@
+{
+  "branch": "siraben/i686-qt6-qmake-20261111",
+  "commit": "04653f518d01cf44e9e8ee6cd72fd942241ea1c4",
+  "base": "a238bac4849a79e151329cdc51638d3bc7627c6c",
+  "integrationCommit": "41c5d4ddddc4e2b9e9dfd72f4761eda55271d985",
+  "title": "qt6.qtbase: enable large-file ABI in qmake"
+}

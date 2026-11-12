@@ -25,6 +25,7 @@ See [report.md](report.md) for results and limitations and [style review](audit/
 | pandas | [pr.md](prs/pandas/pr.md) | [siraben/i686-pandas-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-pandas-20261111) |
 | pyside6 | [pr.md](prs/pyside6/pr.md) | [siraben/i686-pyside6-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-pyside6-20261111) |
 | qt5-qmake | [pr.md](prs/qt5-qmake/pr.md) | [siraben/i686-qt5-qmake-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-qt5-qmake-20261111) |
+| qt6-qmake | [pr.md](prs/qt6-qmake/pr.md) | [siraben/i686-qt6-qmake-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-qt6-qmake-20261111) |
 | qtmultimedia | [pr.md](prs/qtmultimedia/pr.md) | [siraben/i686-qtmultimedia-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-qtmultimedia-20261111) |
 | rsync | [pr.md](prs/rsync/pr.md) | [siraben/i686-rsync-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-rsync-20261111) |
 | shiboken6-generator | [pr.md](prs/shiboken6-generator/pr.md) | [siraben/i686-shiboken6-generator-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-shiboken6-generator-20261111) |
