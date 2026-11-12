@@ -1,0 +1,28 @@
+{
+  "name": "tlrender-i686-sse2-comparison",
+  "command": [
+    "nix-build",
+    "/home/siraben/i686-iso-work/refresh-20261111/i686-sse2-application-comparison.nix",
+    "-A",
+    "tlrender",
+    "--out-link",
+    "/home/siraben/i686-iso-work/refresh-20261111/tlrender-i686-sse2-comparison-result",
+    "--keep-going",
+    "--keep-failed",
+    "--max-jobs",
+    "2",
+    "--cores",
+    "4",
+    "--max-silent-time",
+    "900",
+    "--option",
+    "extra-platforms",
+    "i686-linux x86_64-linux aarch64-linux armv7l-linux"
+  ],
+  "status": "failed",
+  "started": 1794484092.5196555,
+  "elapsedSeconds": 448,
+  "updated": "2026-11-12T11:55:40.729255+00:00",
+  "log": "/home/siraben/i686-iso-work/refresh-20261111/tlrender-i686-sse2-comparison.log",
+  "exitCode": 1
+}

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<office:document xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0" xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" office:version="1.3" office:mimetype="application/vnd.oasis.opendocument.text">
+ <office:styles><style:style style:name="Body" style:family="paragraph"><style:text-properties style:font-name="DejaVu Sans" fo:font-size="12pt"/></style:style></office:styles>
+ <office:body><office:text><text:p text:style-name="Body">LibreOffice font repair validation</text:p><text:p text:style-name="Body">Shared font mappings and the supported AFDKO driver.</text:p></office:text></office:body>
+</office:document>

@@ -1,0 +1,8 @@
+{
+  "branch": "siraben/i686-libreoffice-afdko-driver-20261111",
+  "commit": "5fc18f5f8eefd403ac0ed191e7beaf181e6bc230",
+  "base": "a238bac4849a79e151329cdc51638d3bc7627c6c",
+  "integrationCommit": "6d237f3f999cead7a099cf2cbe8713782450a031",
+  "title": "libreoffice: prefer the supported AFDKO driver",
+  "focusedContext": "BASE plus this patch only; adjacent other-fix context excluded"
+}

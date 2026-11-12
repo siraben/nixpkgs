@@ -21,6 +21,8 @@ See [report.md](report.md) for results and limitations and [style review](audit/
 | isa-l | [pr.md](prs/isa-l/pr.md) | [siraben/i686-isa-l-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-isa-l-20261111) |
 | kernel-dev | [pr.md](prs/kernel-dev/pr.md) | [siraben/i686-kernel-dev-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-kernel-dev-20261111) |
 | liborcus | [pr.md](prs/liborcus/pr.md) | [siraben/i686-liborcus-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-liborcus-20261111) |
+| libreoffice-afdko-driver | [pr.md](prs/libreoffice-afdko-driver/pr.md) | [siraben/i686-libreoffice-afdko-driver-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-libreoffice-afdko-driver-20261111) |
+| libreoffice-font-mappings | [pr.md](prs/libreoffice-font-mappings/pr.md) | [siraben/i686-libreoffice-font-mappings-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-libreoffice-font-mappings-20261111) |
 | minizip-ng | [pr.md](prs/minizip-ng/pr.md) | [siraben/i686-minizip-ng-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-minizip-ng-20261111) |
 | msgspec | [pr.md](prs/msgspec/pr.md) | [siraben/i686-msgspec-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-msgspec-20261111) |
 | opencolorio-filesystem | [pr.md](prs/opencolorio-filesystem/pr.md) | [siraben/i686-opencolorio-filesystem-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-opencolorio-filesystem-20261111) |

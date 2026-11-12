@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "scope": "wrapped x86_64 version and headless FODT-to-PDF/text smoke; NOT an embedded-font/GUI/i686 claim",
+  "application": "/nix/store/503sshb3flnfs3qis6k9q3qgng55bccs-libreoffice-26.8.0.3-wrapped",
+  "pdf": "/home/siraben/i686-iso-work/refresh-20261111/parallel/lo-font-cache-validation/x64-runtime-smoke/font-smoke.pdf",
+  "text": "LibreOffice font repair validation\nShared font mappings and the supported AFDKO driver.\n\n\f"
+}

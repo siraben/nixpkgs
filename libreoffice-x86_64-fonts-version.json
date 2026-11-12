@@ -1,0 +1,16 @@
+{
+  "name": "libreoffice-x86_64-fonts-version",
+  "command": [
+    "timeout",
+    "90",
+    "/home/siraben/i686-iso-work/refresh-20261111/libreoffice-x86_64-font-repairs-result/bin/libreoffice",
+    "--headless",
+    "--version"
+  ],
+  "status": "passed",
+  "started": 1794484806.8100257,
+  "elapsedSeconds": 0,
+  "updated": "2026-11-12T12:00:07.124374+00:00",
+  "log": "/home/siraben/i686-iso-work/refresh-20261111/libreoffice-x86_64-fonts-version.log",
+  "exitCode": 0
+}

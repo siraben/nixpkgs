@@ -1,0 +1,28 @@
+{
+  "name": "libreoffice-x86_64-font-repairs",
+  "command": [
+    "nix-build",
+    "/home/siraben/i686-iso-work/refresh-20261111/nixpkgs",
+    "-A",
+    "libreoffice",
+    "--argstr",
+    "system",
+    "x86_64-linux",
+    "--out-link",
+    "/home/siraben/i686-iso-work/refresh-20261111/libreoffice-x86_64-font-repairs-result",
+    "--keep-failed",
+    "--keep-going",
+    "--max-jobs",
+    "2",
+    "--cores",
+    "4",
+    "--max-silent-time",
+    "900"
+  ],
+  "status": "passed",
+  "started": 1794476358.1498668,
+  "elapsedSeconds": 8050,
+  "updated": "2026-11-12T11:53:28.479753+00:00",
+  "log": "/home/siraben/i686-iso-work/refresh-20261111/libreoffice-x86_64-font-repairs.log",
+  "exitCode": 0
+}

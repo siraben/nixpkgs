@@ -67,7 +67,7 @@ siraben/nixpkgs. Do not open PRs automatically.
 - Per-fix style review in `audit/style-review.md`. Three style fixups have been
   autosquashed, preserving author credit and backup refs. Changed focused
   branches and integration are pushed/verified with exact old-hash leases.
-  All 30 currently changed Nix files pass formatting, including pending
+  All 31 currently changed Nix files pass formatting, including pending
   candidates; formatting is not correctness evidence. See `report.md`.
 - Krita survey uncovered qmake large-inode failures, gavl time ABI mismatch and
   yaml-cpp serialization truncation. yaml-cpp and gavl repairs pass both-width
@@ -77,15 +77,20 @@ siraben/nixpkgs. Do not open PRs automatically.
   and an exact installed-tool high-inode regression, and is committed.
   PyQt6 now builds/imports and renders offscreen text on both widths, with
   optional PDF modules absent/present as expected. Focused PyQt6 branch
-  9c2686c4f13c and integration d6ff01421387 are pushed/verified. Full Krita
-  remains blocked by OpenColorIO.
+  9c2686c4f13c and integration d6ff01421387 are pushed/verified. Generic-i686
+  Krita remains blocked by OpenColorIO; explicit SSE2-only build/version/PNG
+  export now pass with all RGB pixels exact (not a CPU-policy change).
 - RawTherapee builds and converts a 16-bit TIFF to a verified 64x64 JPEG on
   i686. No new RawTherapee fix needed. digiKam's unconditional upstream
   QtWebEngine dependency is a recorded porting limitation, not bypassed.
 - New pending investigations: LibreOffice's real duplicate-font-mapping repair
   passes all 87 Writer tests; supported AFDKO driver recompilation passes the
   PDF-font regression and three embedding tests. Other i686 failures remain;
-  full x86_64 regression is running. No successful LibreOffice i686 package claim.
+  full x86_64 package build/unitcheck/slowcheck now pass. Wrapped runtime smoke
+  and narrow ownership/driver review pass. Driver and font-mapping fixes alone
+  are selectively committed/pushed; integration 1df97b58854e, focused driver
+  5fc18f5f8eef and mapping 9d9146c3c8db. Other settings remain unstaged.
+  No successful LibreOffice i686 package or BASE-only font-build claim.
 - Minizip public wide-file contract: both variants pass 168 tests; all 16
   metadata-only high-inode consumers and two negative controls pass. Legacy and
   conflicting-mode guards pass. Actual OCIO config/pkg-config discovery builds

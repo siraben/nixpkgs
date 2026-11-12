@@ -1,0 +1,15 @@
+{
+  "name": "krita-i686-sse2-version",
+  "command": [
+    "timeout",
+    "90",
+    "/home/siraben/i686-iso-work/refresh-20261111/krita-i686-sse2-comparison-result/bin/krita",
+    "--version"
+  ],
+  "status": "passed",
+  "started": 1794485180.4261863,
+  "elapsedSeconds": 1,
+  "updated": "2026-11-12T12:06:21.091202+00:00",
+  "log": "/home/siraben/i686-iso-work/refresh-20261111/krita-i686-sse2-version.log",
+  "exitCode": 0
+}

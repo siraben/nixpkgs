@@ -1,0 +1,21 @@
+{
+  "name": "libreoffice-x86_64-fonts-pdf-conversion",
+  "command": [
+    "timeout",
+    "180",
+    "/home/siraben/i686-iso-work/refresh-20261111/libreoffice-x86_64-font-repairs-result/bin/libreoffice",
+    "-env:UserInstallation=file:///home/siraben/i686-iso-work/refresh-20261111/parallel/lo-font-cache-validation/x64-runtime-smoke/profile",
+    "--headless",
+    "--convert-to",
+    "pdf",
+    "--outdir",
+    "/home/siraben/i686-iso-work/refresh-20261111/parallel/lo-font-cache-validation/x64-runtime-smoke",
+    "/home/siraben/i686-iso-work/refresh-20261111/parallel/lo-font-cache-validation/font-smoke.fodt"
+  ],
+  "status": "passed",
+  "started": 1794484807.154033,
+  "elapsedSeconds": 1,
+  "updated": "2026-11-12T12:00:08.219777+00:00",
+  "log": "/home/siraben/i686-iso-work/refresh-20261111/libreoffice-x86_64-fonts-pdf-conversion.log",
+  "exitCode": 0
+}

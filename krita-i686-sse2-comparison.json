@@ -1,0 +1,28 @@
+{
+  "name": "krita-i686-sse2-comparison",
+  "command": [
+    "nix-build",
+    "/home/siraben/i686-iso-work/refresh-20261111/i686-sse2-application-comparison.nix",
+    "-A",
+    "krita",
+    "--out-link",
+    "/home/siraben/i686-iso-work/refresh-20261111/krita-i686-sse2-comparison-result",
+    "--keep-going",
+    "--keep-failed",
+    "--max-jobs",
+    "2",
+    "--cores",
+    "4",
+    "--max-silent-time",
+    "900",
+    "--option",
+    "extra-platforms",
+    "i686-linux x86_64-linux aarch64-linux armv7l-linux"
+  ],
+  "status": "passed",
+  "started": 1794479992.4234083,
+  "elapsedSeconds": 4100,
+  "updated": "2026-11-12T11:48:12.488706+00:00",
+  "log": "/home/siraben/i686-iso-work/refresh-20261111/krita-i686-sse2-comparison.log",
+  "exitCode": 0
+}

@@ -56,7 +56,10 @@ Retrieved examples are saved in `merged-pr-*.patch` and `*-existing-pr.*`.
 | Qt5 qmake | Private Unix bootstrap flags, not general compiler flags or public Qt headers; follows the tool build platform. Both full builds pass; installed i686 tool imports wide filesystem APIs and project discovery passes. Committed. |
 | Qt6 qmake | Private CMake definition follows existing qt_internal_extend_target idiom, no public QtCore ABI change. Both full builds pass; real installed-tool high-inode regression fails before and passes after. Committed. |
 | PyQt6 | Optional PDF default uses availableOn, mirroring existing stellarium/PySide patterns. Both fresh builds/imports/offscreen renders pass after qmake repairs; PDF availability matches architecture. One-line focused commit pushed; explicit overrides preserved, no unsupported-platform override. |
-| LibreOffice (pending) | buildPlatform isi686 gate reflects bootstrap compiler location; document optional Java feature loss. Box2D scalar and skcms dispatcher defines remain target-local and x86-32-only. Class-specific refcount override was rejected after another same-root thunk failure; test devirtualization workaround scoped to i686/GNU16, not other architectures/toolchains. Full build validation required before commit. |
+| LibreOffice font mappings | Reuse established Map/Unmap ownership/callback and filename fallback. Lifetime/manager/locking review clear; actual Writer87 and x86_64 package/runtime checks pass. Selectively committed; not whole i686 package approval. |
+| LibreOffice AFDKO driver | One-line supported-driver preference retains legacy fallback. Actual caller rebuild, normalized outputs, focused tests and x86_64 regression pass. Separate focused commit; no CPU/test-selection change. |
+| tlRender UTF-8 (candidate) | Private byte-preserving filesystem helper for opening/menu/JSON, supports C++17/20 without locale-dependent string() or disabling char8_t. Unicode/helper and full builds pending; not yet accepted. |
+| LibreOffice (other pending settings) | buildPlatform isi686 gate reflects bootstrap compiler location; document optional Java feature loss. Box2D scalar and skcms dispatcher defines remain target-local and x86-32-only. Class-specific refcount override was rejected after another same-root thunk failure; test devirtualization workaround scoped to i686/GNU16, not other architectures/toolchains. Full build validation required before commit. |
 
 Minizip/OpenColorIO filesystem fixes are now separately committed/pushed.
 Independent final review found no concrete defect: one definition list drives
@@ -93,6 +96,6 @@ derivation hashes where edits are non-functional. This policy has not yet been
 fully executed for pending LibreOffice; the committed fixes were audited,
 three changed focused branches were regenerated/pushed with exact leases and
 all existing focused trees/remote records checked. Both carried authors are
-preserved. All 30 currently changed Nix files pass formatting, including pending
+preserved. All 31 currently changed Nix files pass formatting, including pending
 candidates; formatting does not establish their correctness. See report.md and
 focused-amendments.json for exact hashes and limitations.

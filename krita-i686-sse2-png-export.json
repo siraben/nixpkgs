@@ -1,0 +1,19 @@
+{
+  "name": "krita-i686-sse2-png-export",
+  "command": [
+    "timeout",
+    "180",
+    "/home/siraben/i686-iso-work/refresh-20261111/krita-i686-sse2-comparison-result/bin/krita",
+    "--nosplash",
+    "--export",
+    "--export-filename",
+    "/home/siraben/i686-iso-work/refresh-20261111/parallel/krita-sse2-runtime/quadrants.png",
+    "/home/siraben/i686-iso-work/refresh-20261111/audit/krita-quadrants.ppm"
+  ],
+  "status": "passed",
+  "started": 1794485181.1204064,
+  "elapsedSeconds": 46,
+  "updated": "2026-11-12T12:07:07.358803+00:00",
+  "log": "/home/siraben/i686-iso-work/refresh-20261111/krita-i686-sse2-png-export.log",
+  "exitCode": 0
+}

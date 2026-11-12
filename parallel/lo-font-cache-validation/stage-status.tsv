@@ -1,0 +1,6 @@
+vcl-shared-mapping-build	0
+writer-source-fix	0
+vcl-supported-driver-build	0
+testExplodedPdfEmbeddedFonts	124
+testRoundtripEmbeddedFontsPPTX	2
+full-unitcheck-slowcheck	2

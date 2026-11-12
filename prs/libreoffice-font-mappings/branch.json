@@ -1,0 +1,8 @@
+{
+  "branch": "siraben/i686-libreoffice-font-mappings-20261111",
+  "commit": "9d9146c3c8dbbddce711e95283c8831da0819f69",
+  "base": "a238bac4849a79e151329cdc51638d3bc7627c6c",
+  "integrationCommit": "1df97b58854e9217edb0dd6e21abc6919bcf8157",
+  "title": "libreoffice: share font-file mappings between HarfBuzz faces",
+  "focusedContext": "BASE plus this patch only; adjacent other-fix context excluded"
+}

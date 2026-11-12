@@ -1,0 +1,1 @@
+9d9146c3c8dbbddce711e95283c8831da0819f69	refs/heads/siraben/i686-libreoffice-font-mappings-20261111

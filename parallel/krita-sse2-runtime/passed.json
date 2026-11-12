@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "scope": "SSE2-only diagnostic Krita artifact on native host, NOT generic CPU or complete GUI/plugin validation",
+  "application": "/nix/store/lx5m711qb0nxczsljjd35d29dm7c9fd7-krita-6.0.4.1",
+  "imageDimensions": [
+    4,
+    4
+  ],
+  "pixelComparison": "all RGB bytes exact",
+  "minizipClosureEntries": [
+    "/nix/store/82360cwd6lfw3ll6n6nrzsimhs8rn5f0-minizip-ng-4.2.2"
+  ]
+}

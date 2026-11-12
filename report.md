@@ -52,6 +52,8 @@ focused branches are not claimed to build independently of dependency fixes.
 | PySide6 | Omit optional unavailable WebEngine/WebView modules using availableOn | Both builds and offscreen widget renders; full i686 LXQt system builds | pyside6 |
 | PyQt6 | Default optional PDF bindings to QtWebEngine host availability | Both builds/imports/offscreen renders; PDF modules absent on i686 and present on x86_64; integration d6ff01421387, focused 9c2686c4f13c pushed | pyqt6 |
 | minizip-ng | Public wide-file ABI on 32-bit GNU/Linux, including normal/compat metadata | 168 tests each; 16 installed consumers, negative controls and option guards; x86_64 derivations unchanged; integration 1bfa643c7119, focused 33c29fc6802c pushed; coordinated ABI rebuild required | minizip-ng |
+| LibreOffice AFDKO driver | Prefer supported makeotf, retain legacy fallback | Recompiled caller; PDF regression, Writer 87 and embedding 3 pass; full x86_64 checks and wrapped PDF/text smoke pass; focused 5fc18f5f8eef pushed; not a whole i686 package fix | libreoffice-afdko-driver |
+| LibreOffice font mappings | Share reference-counted font-file mappings across HB faces | Actual source Writer 87 pass without interposer; x86_64 package/runtime regression pass; ownership review clear; focused 9d9146c3c8db pushed; other i686 failures remain | libreoffice-font-mappings |
 | OpenColorIO filesystem discovery | Preserve minizip CMake/pkg-config usage requirements | Both i686 discovery paths pass 10 CTests (SSE2 comparison only); production x86_64 passes 10; no CPU/math/check-selection change; integration 883f6d3b3af9, focused 2939057da7a3 pushed | opencolorio-filesystem |
 | Graphical installer | Avoid unavailable QEMU guest agent/Firefox on 32-bit, use Dillo | Full ISO and live Xfce boot | graphical-base |
 | Hyper-V installer/hardware profiles | Do not require unavailable Hyper-V modules on i686 | Full ISO; x86_64 kernel/initrd/service derivations unchanged | hyperv |
@@ -68,8 +70,9 @@ this stack. ARM validation was not established for those changes.
 | GIMP 3.2.6 | Build and version invocation passed | No new fix needed; no interactive runtime claim |
 | Inkscape 1.4.4 | Build and headless SVG-to-PNG export passed | No new fix needed; no interactive runtime claim |
 | LXQt desktop NixOS system and live ISO | **Full builds and BIOS/QEMU live desktop boot passed**: i686, Xorg, session/panel/PCManFM-Qt, QTerminal, stability and screenshot | Three new dependency fixes; no installed LXQt boot claim |
-| LibreOffice 26.8.0.3 | Earlier x86_64 baseline full build/checks pass; new font-repair x86_64 regression running. Actual i686 source font-cache/driver repairs pass Writer 87 and embedding 3 tests; 35 other CppUnit failures plus UNO remain | No successful i686 package or CPU-baseline change claimed |
-| Krita 6.0.4.1 | PyQt6/qmake, Qt5 bootstrap, gavl and yaml-cpp repairs validated; remaining OpenColorIO dependency has filesystem/ABI and generic-x87 accuracy defects under investigation | Finish OpenColorIO acceptance before claiming a Krita build |
+| LibreOffice 26.8.0.3 | x86_64 full build/unitcheck/slowcheck and wrapped PDF/text smoke pass; two narrow font fixes reviewed, separately committed/pushed. Actual i686 source font-cache/driver repairs pass Writer 87 and embedding 3 tests; 35 other CppUnit failures plus UNO remain | No successful i686 package or CPU-baseline change claimed |
+| Krita 6.0.4.1 | Explicit SSE2-only comparison build, version and offscreen PPM→PNG export pass; all 4×4 RGB pixels exact; public minizip artifact is the sole minizip-ng closure entry | Not generic-i686, complete GUI/plugin or ACES2 validation; no CPU-baseline change adopted |
+| tlRender 0.10.0 | SSE2 OCIO comparison reaches real source compile failure: filesystem u8string/char8_t passed to std::string APIs; recent-files JSON also needs string preservation | Private UTF-8 bridge candidate under validation; no full app success claim |
 | RawTherapee 5.13 | **i686 build and headless 16-bit TIFF → JPEG conversion passed**; output verified as 64×64 sRGB JPEG | No new fix needed; no interactive GUI claim |
 | digiKam 9.1.0 | Upstream requires QtWebEngineWidgets unconditionally; no demonstrated packaging-only bypass | Recorded as upstream dependency/porting limitation, not fixed by lying about platforms |
 
@@ -101,7 +104,7 @@ OpenJDK's bootstrap limitation is already tracked in #314873 and open PR
 
 ## Style and idiom audit (ongoing)
 
-- All 30 changed Nix files, including pending dependency repairs and LibreOffice, pass `nixfmt --check`
+- All 31 changed Nix files, including pending dependency repairs and LibreOffice, pass `nixfmt --check`
   (`audit/format-check-final.json`).
 - Backup integration ref: `backup/i686-before-expanded-audit-20261111`;
   pre-amend branch hashes: `audit/pre-amend-refs.txt`.
@@ -131,8 +134,15 @@ OpenJDK's bootstrap limitation is already tracked in #314873 and open PR
 | hyperv | `04553e3698b2ca0ea55df7b0522a0abb54769f2b` | Reuse local platform alias |
 | xfsprogs | `d09640bf66606e15b7555f77ea4881557e3aa0ac` | Fetch published pinned upstream patch |
 
-Pending LibreOffice changes still require full validation, commits and a final
-style pass. `libreoffice-i686-attempt6` compiled/linked production code but failed
+Remaining speculative LibreOffice settings still require full validation,
+commits and a final style pass. The two reviewed font fixes are now separately
+committed/pushed: driver integration `6d237f3f999c` / focused `5fc18f5f8eef`,
+mapping integration `1df97b58854e` / focused `9d9146c3c8db`. Selective index
+snapshots preserved unrelated working-tree candidates unchanged; each focused
+branch contains one fix only on BASE. Full x86_64 unitcheck/slowcheck, wrapped
+version and PDF/text smoke pass. This does not establish a BASE-only font build
+or successful i686 package; see the focused drafts and
+`parallel/lo-font-cache-validation/font-fixes-final-review.md`. `libreoffice-i686-attempt6` compiled/linked production code but failed
 checking: 38 reported CppUnit failures across 18 CppUnit targets, a test compile
 type mismatch, and UNO test failure. Numeric failures include x87 rounding,
 integer-vs-sal_Int32 assertion type, impossible 64-bit map fixtures on 32-bit,
@@ -328,7 +338,14 @@ failure is in the Clang comparison and is not claimed fixed.
   experiment, not only an assertion artifact. See
   `parallel/ocio-numerical-review/sdr-white-comparison.json` and
   `opencolorio-sdr-white-*.{json,log}`. Public operation-boundary/cross-fed-input
-  measurements are next; no arithmetic change or NaN-cause claim yet.
+  measurements now confirm Clang's fixed-function operation emits NaNs for BOTH
+  cross-fed near-white RGB triples, then the following range operation maps
+  them to zero; identical inputs remain finite in GCC/x64 controls. Exact RGB128
+  remains finite in Clang too. This localizes the blackout before the clamp and
+  rules out merely receiving a different inverse triple, but does not identify
+  the internal formula or justify an arithmetic change. Measurements explicitly
+  carry no correctness-pass verdict:
+  `parallel/ocio-numerical-review/forward-boundary-comparison.json`.
   SSE2 plus the core large-file fix eliminates those numerical assertion failures,
   but still fails two archive processor-cache equality cases in each enabled
   CPU dispatch run. All 398 Python tests pass. A fresh public-API archive probe
@@ -422,9 +439,9 @@ failure is in the Clang comparison and is not claimed fixed.
   now passes both runtime probes and compile-command flag assertions:
   `parallel/minizip-public-validation/dolphin-discovery-passed.json`. This adds
   two actual-helper probes beyond the 16-consumer matrix, not a Dolphin app build. Actual consumer compile/runtime closure
-  coverage remains limited; an explicitly SSE2-labelled tlRender/Krita
-  comparison is running, without changing package
-  defaults or force-enabling unsupported platforms. Audits:
+  coverage remains limited. The SSE2-labelled Krita comparison builds and passes
+  exact pixel/export smoke; tlRender reaches a distinct C++20 UTF-8 source failure.
+  No package CPU defaults changed or unsupported platforms force-enabled. Audits:
   `parallel/minizip-consumer-source-audit/{audit,audit-exact-sources}.md`.
   Evidence: `audit/minizip-directory-probe.{c,txt}` and
   `audit/opencolorio-archive-sse2-probe2/` (failed round-trip retained),
@@ -436,8 +453,11 @@ failure is in the Clang comparison and is not claimed fixed.
 Source/reproducer evidence is in `parallel/{qmake,yaml}-diagnosis/`; root builder
 logs are under `failures/`. yaml-cpp and gavl are now validated and committed;
 Qt5/Qt6 tool repairs and PyQt6 are also validated, committed and pushed.
-The full downstream Krita build remains blocked by OpenColorIO; its dependency
-experiments are not counted as completed package repairs.
+Generic-i686 Krita remains blocked by OpenColorIO accuracy/CPU issues. The
+explicit SSE2-only integration artifact now builds and passes version/export
+smoke with exact lossless pixels; `parallel/krita-sse2-runtime/passed.json`
+records this limited success, not a generic package fix. tlRender's new char8_t
+source failure is separate from the validated filesystem ABI repair.
 
 No PRs opened automatically. Drafts disclose AI assistance and require operator
 review. Avoid disabling whole test suites or bypassing unsupported-platform

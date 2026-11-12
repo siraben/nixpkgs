@@ -1,0 +1,39 @@
+{
+  "passed": true,
+  "scope": "x86_64 integration candidate package, including enabled unitcheck slowcheck; no i686/full-feature claim",
+  "run": {
+    "name": "libreoffice-x86_64-font-repairs",
+    "command": [
+      "nix-build",
+      "/home/siraben/i686-iso-work/refresh-20261111/nixpkgs",
+      "-A",
+      "libreoffice",
+      "--argstr",
+      "system",
+      "x86_64-linux",
+      "--out-link",
+      "/home/siraben/i686-iso-work/refresh-20261111/libreoffice-x86_64-font-repairs-result",
+      "--keep-failed",
+      "--keep-going",
+      "--max-jobs",
+      "2",
+      "--cores",
+      "4",
+      "--max-silent-time",
+      "900"
+    ],
+    "status": "passed",
+    "started": 1794476358.1498668,
+    "elapsedSeconds": 8050,
+    "updated": "2026-11-12T11:53:28.479753+00:00",
+    "log": "/home/siraben/i686-iso-work/refresh-20261111/libreoffice-x86_64-font-repairs.log",
+    "exitCode": 0
+  },
+  "checkPhaseLines": [
+    "check flags: -j4 SHELL=/nix/store/hasnvc0j36gg6qrdsfcx7yivx3c2bpqr-bash-5.3p20/bin/bash SHELL=/nix/store/lfm00fnq66xfgbn099vqckabyl5jllz6-bash-interactive-5.3p20/bin/bash VERBOSE=y unitcheck slowcheck --keep-going",
+    "make -j 4  -rs -f /build/libreoffice-26.8.0.3/Makefile.gbuild   unitcheck slowcheck",
+    "make: Nothing to be done for 'slowcheck'."
+  ],
+  "wrappedOutput": "/nix/store/503sshb3flnfs3qis6k9q3qgng55bccs-libreoffice-26.8.0.3-wrapped",
+  "fullLogPreserved": "/home/siraben/i686-iso-work/refresh-20261111/libreoffice-x86_64-font-repairs.log"
+}

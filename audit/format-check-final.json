@@ -75,6 +75,11 @@
     "message": ""
   },
   {
+    "file": "pkgs/by-name/tl/tlrender/package.nix",
+    "exitCode": 0,
+    "message": ""
+  },
+  {
     "file": "pkgs/by-name/up/upower/package.nix",
     "exitCode": 0,
     "message": ""
