@@ -231,6 +231,8 @@ stdenv.mkDerivation {
     ./qmake-always-use-libname.patch
     # always explicitly list includedir in qmake-generated pkg-config files
     ./qmake-fix-includedir.patch
+    # Raw POSIX stat calls in qmake must handle large inode numbers on i686.
+    ./qmake-large-file-support.patch
 
     # don't generate SBOM files by default, they don't work with our split installs anyway
     ./no-sbom.patch

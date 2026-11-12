@@ -1,0 +1,19 @@
+Enable the large-file ABI privately for qmake's raw POSIX file operations.
+Even tiny files can have inode numbers exceeding the 32-bit ino_t range;
+otherwise qmake -install fails with EOVERFLOW on i686.
+
+--- a/qmake/CMakeLists.txt
++++ b/qmake/CMakeLists.txt
+@@ -133,6 +133,12 @@
+ ## Scopes:
+ #####################################################################
+ 
++# qmake uses POSIX file APIs directly, outside QtCore's large-file wrappers.
++qt_internal_extend_target(${target_name} CONDITION UNIX
++    DEFINES
++        _FILE_OFFSET_BITS=64
++)
++
+ qt_internal_extend_target(${target_name} CONDITION MACOS
+     COMPILE_OPTIONS
+         "-fconstant-cfstrings"
