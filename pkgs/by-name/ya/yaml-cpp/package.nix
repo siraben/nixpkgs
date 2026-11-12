@@ -2,6 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  fetchpatch,
   gitUpdater,
   cmake,
   static ? stdenv.hostPlatform.isStatic,
@@ -17,6 +18,15 @@ stdenv.mkDerivation (finalAttrs: {
     tag = "yaml-cpp-${finalAttrs.version}";
     hash = "sha256-+FOsPQY44h1g9tEw3O281LkiYKXdW2jnFKw+oTRkhGw=";
   };
+
+  # Preserve the full Dragonbox significand when size_t is only 32-bit.
+  # https://github.com/jbeder/yaml-cpp/pull/1401
+  patches = [
+    (fetchpatch {
+      url = "https://github.com/jbeder/yaml-cpp/commit/ebb85dd462f1d5842f4a059225553ded71c5c5e2.patch";
+      hash = "sha256-Ja+dG3TVVZbfwVJPayTrJxGkyZOWQu2s1EV0hv+Lb30=";
+    })
+  ];
 
   strictDeps = true;
 
