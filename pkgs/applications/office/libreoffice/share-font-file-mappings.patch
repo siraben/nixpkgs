@@ -1,0 +1,37 @@
+Reuse the existing reference-counted font-file mapping for HarfBuzz faces,
+including TTC faces and named variable instances. Mapping each face separately
+can exhaust the i686 address space with only a few large font collections.
+Keep the previous HarfBuzz fallback if the file mapping cannot be created.
+
+--- a/vcl/unx/generic/glyphs/freetype_glyphcache.cxx
++++ b/vcl/unx/generic/glyphs/freetype_glyphcache.cxx
+@@ -340,20 +340,15 @@
+ {
+ hb_blob_t* CreateHbBlob(FreetypeFontFile* pFontFile)
+ {
+-    auto pFileName = pFontFile->GetFileName().getStr();
+-    int nFD;
+-    int n;
+-    if (sscanf(pFileName, "/:FD:/%d%n", &nFD, &n) == 1 && pFileName[n] == '\0')
+-    {
+-        if (pFontFile->Map())
+-            return hb_blob_create(
+-                reinterpret_cast<const char*>(pFontFile->GetBuffer()), pFontFile->GetFileSize(),
+-                HB_MEMORY_MODE_READONLY, pFontFile,
+-                [](void* data) { static_cast<FreetypeFontFile*>(data)->Unmap(); });
+-        pFontFile->Unmap();
+-        return hb_blob_get_empty();
+-    }
+-    return hb_blob_create_from_file(pFileName);
++    // TTC faces and named variable instances refer to the same file. Reuse its
++    // existing mapping instead of mapping it again for every HarfBuzz face.
++    if (pFontFile->Map())
++        return hb_blob_create(
++            reinterpret_cast<const char*>(pFontFile->GetBuffer()), pFontFile->GetFileSize(),
++            HB_MEMORY_MODE_READONLY, pFontFile,
++            [](void* data) { static_cast<FreetypeFontFile*>(data)->Unmap(); });
++    pFontFile->Unmap();
++    return hb_blob_create_from_file(pFontFile->GetFileName().getStr());
+ }
+ }
+ 

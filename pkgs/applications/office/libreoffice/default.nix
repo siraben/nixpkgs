@@ -379,6 +379,7 @@ stdenv.mkDerivation (finalAttrs: {
     # Don't detect Qt paths from qmake, so our patched-in onese are used
     ./dont-detect-qt-paths-from-qmake.patch
     ./prefer-makeotf-driver.patch
+    ./share-font-file-mappings.patch
   ]
   ++ lib.optionals (variant != "stable") [
     # Don't detect Qt paths from qmake, so our patched-in onese are used / old version
