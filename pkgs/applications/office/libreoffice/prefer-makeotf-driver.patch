@@ -1,0 +1,16 @@
+Prefer the supported system AFDKO driver. In AFDKO 5, makeotfexe only
+prints a migration notice and exits 1; makeotf performs the required Type 1
+to CFF conversion before invoking addfeatures. Keep the older executable
+as a fallback for installations without the driver.
+
+--- a/configure.ac
++++ b/configure.ac
+@@ -13171,7 +13171,7 @@
+             if test -z "$TX"; then
+                 AC_MSG_ERROR([install 'tx' from Adobe Font Development Kit for OpenType (AFDKO)])
+             fi
+-            AC_PATH_PROGS(MAKEOTF, makeotfexe makeotf)
++            AC_PATH_PROGS(MAKEOTF, makeotf makeotfexe)
+             if test -z "$MAKEOTF"; then
+                 AC_MSG_ERROR([install 'makeotf' from Adobe Font Development Kit for OpenType (AFDKO)])
+             fi
