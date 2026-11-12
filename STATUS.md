@@ -112,7 +112,9 @@ siraben/nixpkgs. Do not open PRs automatically.
   Initial invalid JSON negative control is retained; nlohmann already supports
   u8string JSON. Review clear; integration 918b6158436e and focused 05597ea92fa8
   pushed/verified. DJV SSE2 comparison also builds, with no new DJV edit.
-  No GUI/playback/generic-CPU claim; focused x64 BASE check is being prepared.
+  Focused x64 BASE-only build passes with a distinct artifact. No GUI/playback
+  or generic-CPU claim. No-display CLI help attempt correctly exposed GLFW's
+  display precondition; private Xvfb retry pending.
 - OpenColorIO generic x87 has a reproduced public-API ACES2 accuracy failure;
   `-ffloat-store` improves that one case but leaves 25 assertions failing.
   No SSE2 CPU-baseline change, test-tolerance inflation or global workaround

@@ -32,8 +32,12 @@ std::string API type incompatibility.
 
 Existing upstream GUI suite remains disabled by the original package's X11
 requirement; this change adds no skip. No Windows-runtime, GUI/playback,
-closure-wide, or independent BASE-only focused-build claim. Integration-stack
-results and diagnostics must not be mistaken for generic-i686 OCIO repair.
+or closure-wide claim. The focused branch independently builds on otherwise
+unmodified BASE for x86_64, producing a distinct artifact:
+`parallel/tlrender-cpp20-parent/focused-x64-passed.json` and
+`tlrender-focused-x86_64-build.{json,log}`. i686 validation uses the integration
+comparison, not an independent generic-i686 BASE build.
+Integration-stack results must not be mistaken for generic-i686 OCIO repair.
 
 Evidence: `tlrender-{i686-sse2,x86_64}-utf8-repair.json`,
 `tlrender-utf8-width-standard-regressions-retry1.{json,log}`,

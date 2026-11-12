@@ -74,7 +74,7 @@ this stack. ARM validation was not established for those changes.
 | LibreOffice 26.8.0.3 | x86_64 full build/unitcheck/slowcheck and wrapped PDF/text smoke pass; two narrow font fixes reviewed, separately committed/pushed. Actual i686 source font-cache/driver repairs pass Writer 87 and embedding 3 tests; 35 other CppUnit failures plus UNO remain | No successful i686 package or CPU-baseline change claimed |
 | Krita 6.0.4.1 | Explicit SSE2-only comparison build, version and offscreen PPM→PNG export pass; all 4×4 RGB pixels exact; public minizip artifact is the sole minizip-ng closure entry | Not generic-i686, complete GUI/plugin or ACES2 validation; no CPU-baseline change adopted |
 | DJV 3.1.1 | Explicit SSE2-only i686 comparison builds after dependency repairs; no new DJV package edit | No generic-CPU, GUI or media playback claim |
-| tlRender 0.10.0 | Private UTF-8 bridge repairs filesystem char8_t/std::string boundaries; existing nlohmann JSON behavior remains string-valued | Both builds pass (i686 SSE2 comparison only); 4 width/standard Unicode regressions and installed tlCore high-inode API pass; review clear; integration 918b6158436e and focused 05597ea92fa8 pushed. Initial invalid JSON negative control retained; no GUI/playback or generic-i686 claim |
+| tlRender 0.10.0 | Private UTF-8 bridge repairs filesystem char8_t/std::string boundaries; existing nlohmann JSON behavior remains string-valued | Both builds pass (i686 SSE2 comparison only); 4 width/standard Unicode regressions and installed tlCore high-inode API pass; review clear; integration 918b6158436e and focused 05597ea92fa8 pushed; focused BASE-only x86_64 build also passes. Initial invalid JSON negative control retained; no GUI/playback or generic-i686 claim |
 | RawTherapee 5.13 | **i686 build and headless 16-bit TIFF → JPEG conversion passed**; output verified as 64×64 sRGB JPEG | No new fix needed; no interactive GUI claim |
 | digiKam 9.1.0 | Upstream requires QtWebEngineWidgets unconditionally; no demonstrated packaging-only bypass | Recorded as upstream dependency/porting limitation, not fixed by lying about platforms |
 
@@ -459,7 +459,12 @@ Generic-i686 Krita remains blocked by OpenColorIO accuracy/CPU issues. The
 explicit SSE2-only integration artifact now builds and passes version/export
 smoke with exact lossless pixels; `parallel/krita-sse2-runtime/passed.json`
 records this limited success, not a generic package fix. tlRender's new char8_t
-source failure is separate from the validated filesystem ABI repair.
+source failure is separate from the validated filesystem ABI repair and is now
+repaired by the private UTF-8 bridge. The focused tlRender x86_64 BASE-only
+build passes with a distinct artifact (`focused-x64-passed.json` in its lane).
+The no-display CLI help attempt failed before parsing because GLFW requires a
+display; a private supervised-Xvfb retry is pending. This is a harness
+precondition failure, not evidence that the source repair fails.
 
 No PRs opened automatically. Drafts disclose AI assistance and require operator
 review. Avoid disabling whole test suites or bypassing unsupported-platform

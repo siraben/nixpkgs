@@ -1,0 +1,13 @@
+{
+  "name": "timeline-sse2-cli-help-smoke",
+  "command": [
+    "python3",
+    "/home/siraben/i686-iso-work/refresh-20261111/parallel/tlrender-cpp20-parent/smoke-cli.py"
+  ],
+  "status": "failed",
+  "started": 1794487529.1125517,
+  "elapsedSeconds": 1,
+  "updated": "2026-11-12T12:45:30.328560+00:00",
+  "log": "/home/siraben/i686-iso-work/refresh-20261111/timeline-sse2-cli-help-smoke.log",
+  "exitCode": 1
+}

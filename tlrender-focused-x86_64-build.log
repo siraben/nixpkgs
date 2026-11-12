@@ -1,0 +1,688 @@
+warning: Nix search path entry '/home/siraben/.nix-defexpr/channels' does not exist, ignoring
+this derivation will be built:
+  /nix/store/adbrdvp9i3gxjhbrxxq52b36lwz4nkqm-tlrender-0.10.0.drv
+these 4 paths will be fetched (2.6 MiB download, 9.6 MiB unpacked):
+  /nix/store/m8nf976pg7752xpl2f60kcjcdz854gd2-feather-tk-0.4.0
+  /nix/store/81p83j61w3ks7pv15x8pi2ddiyl4da77-nativefiledialog-extended-1.3.0
+  /nix/store/bgva8nzxr4c2fnzyq7pscvzs7n1g16kf-nativefiledialog-extended-1.3.0-dev
+  /nix/store/z3399f2pldx9iyvhyys4y70navh5n640-sdl2-compat-2.32.74-dev
+copying path '/nix/store/z3399f2pldx9iyvhyys4y70navh5n640-sdl2-compat-2.32.74-dev' from 'https://cache.nixos.org'...
+copying path '/nix/store/81p83j61w3ks7pv15x8pi2ddiyl4da77-nativefiledialog-extended-1.3.0' from 'https://cache.nixos.org'...
+copying path '/nix/store/m8nf976pg7752xpl2f60kcjcdz854gd2-feather-tk-0.4.0' from 'https://cache.nixos.org'...
+copying path '/nix/store/bgva8nzxr4c2fnzyq7pscvzs7n1g16kf-nativefiledialog-extended-1.3.0-dev' from 'https://cache.nixos.org'...
+building '/nix/store/adbrdvp9i3gxjhbrxxq52b36lwz4nkqm-tlrender-0.10.0.drv'...
+Running phase: unpackPhase
+unpacking source archive /nix/store/gc7x6r2w1lh5hbpbi82a1fdbbp03hg77-source
+source root is source
+Running phase: patchPhase
+applying patch /nix/store/7vcs2f923k58crrnqfd3x1vb1pgsh8ly-minizip-ng-4.patch
+patching file CMakeLists.txt
+patching file etc/SuperBuild/tests/OpenColorIOTest/CMakeLists.txt
+patching file lib/tlCore/CMakeLists.txt
+patching file lib/tlTimeline/CMakeLists.txt
+patching file lib/tlTimeline/TimelineCreate.cpp
+patching file lib/tlTimeline/Util.cpp
+patching file tlRenderConfig.cmake.in
+applying patch /nix/store/5f9iqna9q53pklcf9jj8z93c928nknsn-cpp20-filesystem-utf8.patch
+patching file bin/tlplay/CMakeLists.txt
+patching file bin/tlplay/PathUtil.h
+patching file bin/tlplay/FilesModel.cpp
+patching file bin/tlplay/MenuBar.cpp
+patching file bin/tlplay/RecentFilesModel.cpp
+Running phase: updateAutotoolsGnuConfigScriptsPhase
+Running phase: configurePhase
+cmake flags: -DCMAKE_FIND_USE_SYSTEM_PACKAGE_REGISTRY=OFF -DCMAKE_FIND_USE_PACKAGE_REGISTRY=OFF -DCMAKE_EXPORT_NO_PACKAGE_REGISTRY=ON -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF -DCMAKE_INSTALL_LOCALEDIR=/nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/share/locale -DCMAKE_INSTALL_LIBEXECDIR=/nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/libexec -DCMAKE_INSTALL_LIBDIR=/nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/lib -DCMAKE_INSTALL_DOCDIR=/nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/share/doc/tlrender -DCMAKE_INSTALL_INFODIR=/nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/share/info -DCMAKE_INSTALL_MANDIR=/nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/share/man -DCMAKE_INSTALL_INCLUDEDIR=/nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include -DCMAKE_INSTALL_SBINDIR=/nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/sbin -DCMAKE_INSTALL_BINDIR=/nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/bin -DCMAKE_INSTALL_NAME_DIR=/nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/lib -DCMAKE_STRIP=/nix/store/ii6p6kc1brz3vycqg88q4zb4xd2dmqwp-gcc-wrapper-16.2.0/bin/strip -DCMAKE_RANLIB=/nix/store/ii6p6kc1brz3vycqg88q4zb4xd2dmqwp-gcc-wrapper-16.2.0/bin/ranlib -DCMAKE_AR=/nix/store/ii6p6kc1brz3vycqg88q4zb4xd2dmqwp-gcc-wrapper-16.2.0/bin/ar -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_INSTALL_PREFIX=/nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0 -DTLRENDER_NET:BOOL=FALSE -DTLRENDER_OCIO:BOOL=TRUE -DTLRENDER_SDL2:BOOL=TRUE -DTLRENDER_SDL3:BOOL=FALSE -DTLRENDER_JPEG:BOOL=TRUE -DTLRENDER_TIFF:BOOL=TRUE -DTLRENDER_STB:BOOL=TRUE -DTLRENDER_PNG:BOOL=TRUE -DTLRENDER_EXR:BOOL=TRUE -DTLRENDER_FFMPEG:BOOL=TRUE -DTLRENDER_USD:BOOL=FALSE -DBUILD_SHARED_LIBS:BOOL=TRUE -DTLRENDER_PROGRAMS:BOOL=TRUE -DTLRENDER_EXAMPLES:BOOL=FALSE -DTLRENDER_TESTS:BOOL=FALSE
+-- The CXX compiler identification is GNU 16.2.0
+-- The C compiler identification is GNU 16.2.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /nix/store/ii6p6kc1brz3vycqg88q4zb4xd2dmqwp-gcc-wrapper-16.2.0/bin/g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /nix/store/ii6p6kc1brz3vycqg88q4zb4xd2dmqwp-gcc-wrapper-16.2.0/bin/gcc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Found nlohmann_json: /nix/store/zdamv2zjy287634642hsmkwjjs9xkj93-nlohmann_json-3.12.0/share/cmake/nlohmann_json/nlohmann_jsonConfig.cmake (found version "3.12.0")
+-- Found ZLIB: /nix/store/kp68n1q6r8lzpf5mxjmfasn3zq2pql4x-zlib-1.3.2/lib/libz.so (found version "1.3.2")
+-- Found OpenColorIO: /nix/store/6kggx1i22xabcgqldz24606x0yr84w36-opencolorio-2.5.2/lib/cmake/OpenColorIO/OpenColorIOConfig.cmake (found version "2.5.2")
+-- Found TIFF: /nix/store/g8fj05d70cswkrqc46dv60f9898z2hhj-libtiff-4.7.2-dev/lib/cmake/tiff (found version "4.7.2")
+-- Found PNG: /nix/store/d7pn11xv3qyfdfx33fgwvcqlnxhlnhpj-libpng-apng-1.6.59/lib/libpng.so (found version "1.6.59")
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Found PkgConfig: /nix/store/mhq8zg6nwlv2fjhqac0ikvl9f541irp3-pkg-config-wrapper-0.29.2/bin/pkg-config (found version "0.29.2")
+-- Checking for module 'libswresample'
+--   Found libswresample, version 5.3.100
+-- Checking for modules 'libavdevice;libavformat;libavcodec;libswresample;libswscale;libavutil'
+--   Found libavdevice, version 61.3.100
+--   Found libavformat, version 61.7.103
+--   Found libavcodec, version 61.19.101
+--   Found libswresample, version 5.3.100
+--   Found libswscale, version 8.3.100
+--   Found libavutil, version 59.39.100
+-- Found Freetype: /nix/store/92ymwd3gpjn4gf4gs9rhddmy3wi4zsb4-freetype-2.14.3/lib/libfreetype.so (found version "2.14.3")
+-- Found OpenGL: /nix/store/j6crvk2m147s1wp0gs26iyqm26srchxz-libglvnd-1.7.0/lib/libOpenGL.so
+-- Configuring done (0.9s)
+-- Generating done (0.1s)
+CMake Warning (unused-cli):
+  Manually-specified variables were not used by the project:
+
+    BUILD_TESTING
+    CMAKE_EXPORT_NO_PACKAGE_REGISTRY
+    CMAKE_INSTALL_BINDIR
+    CMAKE_INSTALL_DOCDIR
+    CMAKE_INSTALL_INCLUDEDIR
+    CMAKE_INSTALL_INFODIR
+    CMAKE_INSTALL_LIBDIR
+    CMAKE_INSTALL_LIBEXECDIR
+    CMAKE_INSTALL_LOCALEDIR
+    CMAKE_INSTALL_MANDIR
+    CMAKE_INSTALL_SBINDIR
+    TLRENDER_NET
+
+
+-- Build files have been written to: /build/source/build
+cmake: enabled parallel building
+cmake: enabled parallel installing
+Running phase: buildPhase
+build flags: -j4 SHELL=/nix/store/hasnvc0j36gg6qrdsfcx7yivx3c2bpqr-bash-5.3p20/bin/bash
+[  1%] Generating ColorControls.cpp
+[  1%] Generating ColorPicker.cpp
+[  1%] Generating tlRender.cpp
+[  1%] Generating Compare.cpp
+Input: /build/source/etc/Icons/ColorPicker.svg
+Input: /build/source/etc/Icons/tlRender.svg
+Input: /build/source/etc/Icons/ColorControls.svg
+Source output: ColorPicker.cpp
+Source output: ColorControls.cpp
+Input: /build/source/etc/Icons/Compare.svg
+Source output: Compare.cpp
+Source output: tlRender.cpp
+Seconds elapsed:0.000430028
+Seconds elapsed:0.000475294
+Seconds elapsed:0.000337314
+Seconds elapsed:0.00238596
+[  1%] Generating CompareB.cpp
+[  2%] Generating CompareA.cpp
+[  3%] Generating CompareDifference.cpp
+Input: /build/source/etc/Icons/CompareA.svg
+Source output: CompareA.cpp
+[  3%] Generating CompareHorizontal.cpp
+Input: /build/source/etc/Icons/CompareB.svg
+Source output: CompareB.cpp
+Seconds elapsed:0.000301236
+Seconds elapsed:0.00031395
+Input: /build/source/etc/Icons/CompareDifference.svg
+Source output: CompareDifference.cpp
+Seconds elapsed:0.000344408
+Input: /build/source/etc/Icons/CompareHorizontal.svg
+Source output: CompareHorizontal.cpp
+Seconds elapsed:0.00032962
+[  4%] Generating CompareOverlay.cpp
+[  5%] Generating CompareTile.cpp
+[  5%] Generating CompareVertical.cpp
+Input: /build/source/etc/Icons/CompareOverlay.svg
+Source output: CompareOverlay.cpp
+Input: /build/source/etc/Icons/CompareTile.svg
+Source output: CompareTile.cpp
+Seconds elapsed:0.000336603
+[  6%] Generating CompareWipe.cpp
+Seconds elapsed:0.000420391
+Input: /build/source/etc/Icons/CompareVertical.svg
+Source output: CompareVertical.cpp
+Seconds elapsed:0.000324821
+Input: /build/source/etc/Icons/CompareWipe.svg
+Source output: CompareWipe.cpp
+Seconds elapsed:0.000325622
+[  6%] Generating Devices.cpp
+[  7%] Generating Export.cpp
+[  7%] Generating FileOpenSeparateAudio.cpp
+Input: /build/source/etc/Icons/Devices.svg
+Source output: Devices.cpp
+Seconds elapsed:0.000399411
+[  8%] Generating Files.cpp
+Input: /build/source/etc/Icons/FileOpenSeparateAudio.svg
+Input: /build/source/etc/Icons/Export.svg
+Source output: FileOpenSeparateAudio.cpp
+Source output: Export.cpp
+Seconds elapsed:0.000349858
+Seconds elapsed:0.000480163
+Input: /build/source/etc/Icons/Files.svg
+Source output: Files.cpp
+Seconds elapsed:0.000455857
+[  8%] Generating FrameShuttle0.cpp
+[  9%] Generating FrameShuttle1.cpp
+Input: /build/source/etc/Icons/FrameShuttle0.svg
+Source output: FrameShuttle0.cpp
+[  9%] Generating FrameShuttle2.cpp
+Seconds elapsed:0.000332666
+Input: /build/source/etc/Icons/FrameShuttle1.svg
+Source output: FrameShuttle1.cpp
+Seconds elapsed:0.000353915
+[ 10%] Generating FrameShuttle3.cpp
+Input: /build/source/etc/Icons/FrameShuttle2.svg
+Source output: FrameShuttle2.cpp
+Seconds elapsed:0.000327054
+Input: /build/source/etc/Icons/FrameShuttle3.svg
+Source output: FrameShuttle3.cpp
+Seconds elapsed:0.00034031
+[ 10%] Generating FrameShuttle4.cpp
+[ 11%] Generating FrameShuttle5.cpp
+Input: /build/source/etc/Icons/FrameShuttle4.svg
+Source output: FrameShuttle4.cpp
+Seconds elapsed:0.000327987
+[ 11%] Generating FrameShuttle6.cpp
+Input: /build/source/etc/Icons/FrameShuttle5.svg
+Source output: FrameShuttle5.cpp
+Seconds elapsed:0.000330872
+[ 12%] Generating FrameShuttle7.cpp
+Input: /build/source/etc/Icons/FrameShuttle6.svg
+Source output: FrameShuttle6.cpp
+Seconds elapsed:0.00033023
+Input: /build/source/etc/Icons/FrameShuttle7.svg
+Source output: FrameShuttle7.cpp
+Seconds elapsed:0.000334098
+[ 12%] Generating Hidden.cpp
+[ 13%] Generating Info.cpp
+Input: /build/source/etc/Icons/Hidden.svg
+Source output: Hidden.cpp
+Seconds elapsed:0.000310093
+[ 13%] Generating Messages.cpp
+Input: /build/source/etc/Icons/Info.svg
+Source output: Info.cpp
+Seconds elapsed:0.000353515
+[ 14%] Generating PlaybackShuttle0.cpp
+Input: /build/source/etc/Icons/Messages.svg
+Source output: Messages.cpp
+Seconds elapsed:0.000320943
+Input: /build/source/etc/Icons/PlaybackShuttle0.svg
+Source output: PlaybackShuttle0.cpp
+Seconds elapsed:0.000330522
+[ 14%] Generating PlaybackShuttle1.cpp
+[ 15%] Generating PlaybackShuttle2.cpp
+Input: /build/source/etc/Icons/PlaybackShuttle1.svg
+Source output: PlaybackShuttle1.cpp
+Seconds elapsed:0.000330722
+[ 15%] Generating PlaybackShuttle3.cpp
+Input: /build/source/etc/Icons/PlaybackShuttle2.svg
+Source output: PlaybackShuttle2.cpp
+Seconds elapsed:0.000330782
+[ 16%] Generating PlaybackShuttle4.cpp
+Input: /build/source/etc/Icons/PlaybackShuttle3.svg
+Source output: PlaybackShuttle3.cpp
+Seconds elapsed:0.000326625
+Input: /build/source/etc/Icons/PlaybackShuttle4.svg
+Source output: PlaybackShuttle4.cpp
+Seconds elapsed:0.000324049
+[ 16%] Generating PlaybackShuttle5.cpp
+Input: /build/source/etc/Icons/PlaybackShuttle5.svg
+Source output: PlaybackShuttle5.cpp
+[ 17%] Generating PlaybackShuttle6.cpp
+Seconds elapsed:0.000341802
+[ 17%] Generating PlaybackShuttle7.cpp
+Input: /build/source/etc/Icons/PlaybackShuttle6.svg
+Source output: PlaybackShuttle6.cpp
+Seconds elapsed:0.000334309
+[ 18%] Generating View.cpp
+Input: /build/source/etc/Icons/PlaybackShuttle7.svg
+Source output: PlaybackShuttle7.cpp
+Seconds elapsed:0.000342844
+Input: /build/source/etc/Icons/View.svg
+Source output: View.cpp
+Seconds elapsed:0.000365317
+[ 18%] Generating Visible.cpp
+Input: /build/source/etc/Icons/Visible.svg
+[ 19%] Generating WindowSecondary.cpp
+Source output: Visible.cpp
+Seconds elapsed:0.000313319
+Input: /build/source/etc/Icons/WindowSecondary.svg
+Source output: WindowSecondary.cpp
+Seconds elapsed:0.000360468
+[ 20%] Building CXX object lib/tlResource/CMakeFiles/tlResource.dir/ColorControls.cpp.o
+[ 21%] Building CXX object lib/tlResource/CMakeFiles/tlResource.dir/CompareB.cpp.o
+[ 21%] Building CXX object lib/tlResource/CMakeFiles/tlResource.dir/CompareA.cpp.o
+[ 21%] Building CXX object lib/tlResource/CMakeFiles/tlResource.dir/ColorPicker.cpp.o
+[ 21%] Building CXX object lib/tlResource/CMakeFiles/tlResource.dir/CompareHorizontal.cpp.o
+[ 22%] Building CXX object lib/tlResource/CMakeFiles/tlResource.dir/CompareDifference.cpp.o
+[ 23%] Building CXX object lib/tlResource/CMakeFiles/tlResource.dir/CompareOverlay.cpp.o
+[ 23%] Building CXX object lib/tlResource/CMakeFiles/tlResource.dir/Compare.cpp.o
+[ 24%] Building CXX object lib/tlResource/CMakeFiles/tlResource.dir/CompareTile.cpp.o
+[ 24%] Building CXX object lib/tlResource/CMakeFiles/tlResource.dir/CompareVertical.cpp.o
+[ 25%] Building CXX object lib/tlResource/CMakeFiles/tlResource.dir/CompareWipe.cpp.o
+[ 25%] Building CXX object lib/tlResource/CMakeFiles/tlResource.dir/Devices.cpp.o
+[ 25%] Building CXX object lib/tlResource/CMakeFiles/tlResource.dir/FileOpenSeparateAudio.cpp.o
+[ 26%] Building CXX object lib/tlResource/CMakeFiles/tlResource.dir/Export.cpp.o
+[ 27%] Building CXX object lib/tlResource/CMakeFiles/tlResource.dir/Files.cpp.o
+[ 27%] Building CXX object lib/tlResource/CMakeFiles/tlResource.dir/FrameShuttle0.cpp.o
+[ 28%] Building CXX object lib/tlResource/CMakeFiles/tlResource.dir/FrameShuttle1.cpp.o
+[ 29%] Building CXX object lib/tlResource/CMakeFiles/tlResource.dir/FrameShuttle3.cpp.o
+[ 29%] Building CXX object lib/tlResource/CMakeFiles/tlResource.dir/FrameShuttle2.cpp.o
+[ 29%] Building CXX object lib/tlResource/CMakeFiles/tlResource.dir/FrameShuttle4.cpp.o
+[ 30%] Building CXX object lib/tlResource/CMakeFiles/tlResource.dir/FrameShuttle5.cpp.o
+[ 30%] Building CXX object lib/tlResource/CMakeFiles/tlResource.dir/FrameShuttle6.cpp.o
+[ 31%] Building CXX object lib/tlResource/CMakeFiles/tlResource.dir/FrameShuttle7.cpp.o
+[ 31%] Building CXX object lib/tlResource/CMakeFiles/tlResource.dir/Hidden.cpp.o
+[ 32%] Building CXX object lib/tlResource/CMakeFiles/tlResource.dir/Info.cpp.o
+[ 32%] Building CXX object lib/tlResource/CMakeFiles/tlResource.dir/Messages.cpp.o
+[ 32%] Building CXX object lib/tlResource/CMakeFiles/tlResource.dir/PlaybackShuttle1.cpp.o
+[ 33%] Building CXX object lib/tlResource/CMakeFiles/tlResource.dir/PlaybackShuttle0.cpp.o
+[ 35%] Building CXX object lib/tlResource/CMakeFiles/tlResource.dir/PlaybackShuttle2.cpp.o
+[ 35%] Building CXX object lib/tlResource/CMakeFiles/tlResource.dir/PlaybackShuttle3.cpp.o
+[ 35%] Building CXX object lib/tlResource/CMakeFiles/tlResource.dir/PlaybackShuttle4.cpp.o
+[ 35%] Building CXX object lib/tlResource/CMakeFiles/tlResource.dir/PlaybackShuttle5.cpp.o
+[ 37%] Building CXX object lib/tlResource/CMakeFiles/tlResource.dir/PlaybackShuttle7.cpp.o
+[ 37%] Building CXX object lib/tlResource/CMakeFiles/tlResource.dir/PlaybackShuttle6.cpp.o
+[ 37%] Building CXX object lib/tlResource/CMakeFiles/tlResource.dir/Visible.cpp.o
+[ 37%] Building CXX object lib/tlResource/CMakeFiles/tlResource.dir/View.cpp.o
+[ 38%] Building CXX object lib/tlResource/CMakeFiles/tlResource.dir/WindowSecondary.cpp.o
+[ 38%] Building CXX object lib/tlResource/CMakeFiles/tlResource.dir/tlRender.cpp.o
+[ 39%] Linking CXX shared library libtlResource.so
+[ 39%] Built target tlResource
+[ 39%] Building CXX object lib/tlCore/CMakeFiles/tlCore.dir/AudioResample.cpp.o
+[ 41%] Building CXX object lib/tlCore/CMakeFiles/tlCore.dir/FileInfo.cpp.o
+[ 41%] Building CXX object lib/tlCore/CMakeFiles/tlCore.dir/AudioSystem.cpp.o
+[ 41%] Building CXX object lib/tlCore/CMakeFiles/tlCore.dir/Audio.cpp.o
+[ 42%] Building CXX object lib/tlCore/CMakeFiles/tlCore.dir/FileLogSystem.cpp.o
+[ 42%] Building CXX object lib/tlCore/CMakeFiles/tlCore.dir/HDR.cpp.o
+[ 43%] Building CXX object lib/tlCore/CMakeFiles/tlCore.dir/ISystem.cpp.o
+[ 43%] Building CXX object lib/tlCore/CMakeFiles/tlCore.dir/Init.cpp.o
+[ 44%] Building CXX object lib/tlCore/CMakeFiles/tlCore.dir/Path.cpp.o
+[ 44%] Building CXX object lib/tlCore/CMakeFiles/tlCore.dir/Time.cpp.o
+[ 45%] Building CXX object lib/tlCore/CMakeFiles/tlCore.dir/URL.cpp.o
+[ 45%] Building CXX object lib/tlCore/CMakeFiles/tlCore.dir/FileInfoUnix.cpp.o
+[ 46%] Building CXX object lib/tlCore/CMakeFiles/tlCore.dir/PathUnix.cpp.o
+[ 46%] Linking CXX shared library libtlCore.so
+[ 46%] Built target tlCore
+[ 47%] Building CXX object lib/tlIO/CMakeFiles/tlIO.dir/CineonRead.cpp.o
+[ 47%] Building CXX object lib/tlIO/CMakeFiles/tlIO.dir/CineonWrite.cpp.o
+[ 48%] Building CXX object lib/tlIO/CMakeFiles/tlIO.dir/DPXRead.cpp.o
+[ 48%] Building CXX object lib/tlIO/CMakeFiles/tlIO.dir/Cineon.cpp.o
+[ 49%] Building CXX object lib/tlIO/CMakeFiles/tlIO.dir/DPXWrite.cpp.o
+[ 49%] Building CXX object lib/tlIO/CMakeFiles/tlIO.dir/DPX.cpp.o
+[ 50%] Building CXX object lib/tlIO/CMakeFiles/tlIO.dir/IO.cpp.o
+[ 50%] Building CXX object lib/tlIO/CMakeFiles/tlIO.dir/Init.cpp.o
+[ 51%] Building CXX object lib/tlIO/CMakeFiles/tlIO.dir/PPM.cpp.o
+[ 51%] Building CXX object lib/tlIO/CMakeFiles/tlIO.dir/PPMRead.cpp.o
+[ 52%] Building CXX object lib/tlIO/CMakeFiles/tlIO.dir/PPMWrite.cpp.o
+[ 52%] Building CXX object lib/tlIO/CMakeFiles/tlIO.dir/Plugin.cpp.o
+[ 53%] Building CXX object lib/tlIO/CMakeFiles/tlIO.dir/Read.cpp.o
+[ 53%] Building CXX object lib/tlIO/CMakeFiles/tlIO.dir/SGI.cpp.o
+[ 54%] Building CXX object lib/tlIO/CMakeFiles/tlIO.dir/SGIRead.cpp.o
+[ 54%] Building CXX object lib/tlIO/CMakeFiles/tlIO.dir/SGIWrite.cpp.o
+[ 55%] Building CXX object lib/tlIO/CMakeFiles/tlIO.dir/SequenceIO.cpp.o
+[ 55%] Building CXX object lib/tlIO/CMakeFiles/tlIO.dir/SequenceIORead.cpp.o
+[ 56%] Building CXX object lib/tlIO/CMakeFiles/tlIO.dir/SequenceIOWrite.cpp.o
+[ 56%] Building CXX object lib/tlIO/CMakeFiles/tlIO.dir/System.cpp.o
+[ 57%] Building CXX object lib/tlIO/CMakeFiles/tlIO.dir/Write.cpp.o
+[ 57%] Building CXX object lib/tlIO/CMakeFiles/tlIO.dir/JPEG.cpp.o
+[ 58%] Building CXX object lib/tlIO/CMakeFiles/tlIO.dir/JPEGRead.cpp.o
+[ 58%] Building CXX object lib/tlIO/CMakeFiles/tlIO.dir/JPEGWrite.cpp.o
+[ 59%] Building CXX object lib/tlIO/CMakeFiles/tlIO.dir/TIFF.cpp.o
+[ 59%] Building CXX object lib/tlIO/CMakeFiles/tlIO.dir/TIFFRead.cpp.o
+[ 60%] Building CXX object lib/tlIO/CMakeFiles/tlIO.dir/TIFFWrite.cpp.o
+[ 60%] Building CXX object lib/tlIO/CMakeFiles/tlIO.dir/STB.cpp.o
+[ 61%] Building CXX object lib/tlIO/CMakeFiles/tlIO.dir/STBRead.cpp.o
+[ 61%] Building CXX object lib/tlIO/CMakeFiles/tlIO.dir/STBWrite.cpp.o
+[ 62%] Building CXX object lib/tlIO/CMakeFiles/tlIO.dir/PNG.cpp.o
+[ 62%] Building CXX object lib/tlIO/CMakeFiles/tlIO.dir/PNGRead.cpp.o
+[ 63%] Building CXX object lib/tlIO/CMakeFiles/tlIO.dir/PNGWrite.cpp.o
+[ 63%] Building CXX object lib/tlIO/CMakeFiles/tlIO.dir/OpenEXR.cpp.o
+[ 64%] Building CXX object lib/tlIO/CMakeFiles/tlIO.dir/OpenEXRRead.cpp.o
+[ 64%] Building CXX object lib/tlIO/CMakeFiles/tlIO.dir/OpenEXRWrite.cpp.o
+[ 65%] Building CXX object lib/tlIO/CMakeFiles/tlIO.dir/FFmpeg.cpp.o
+[ 65%] Building CXX object lib/tlIO/CMakeFiles/tlIO.dir/FFmpegRead.cpp.o
+[ 66%] Building CXX object lib/tlIO/CMakeFiles/tlIO.dir/FFmpegReadAudio.cpp.o
+[ 66%] Building CXX object lib/tlIO/CMakeFiles/tlIO.dir/FFmpegReadVideo.cpp.o
+[ 67%] Building CXX object lib/tlIO/CMakeFiles/tlIO.dir/FFmpegWrite.cpp.o
+/build/source/lib/tlIO/FFmpegReadAudio.cpp: In destructor 'tl::ffmpeg::ReadAudio::~ReadAudio()':
+/build/source/lib/tlIO/FFmpegReadAudio.cpp:266:30: warning: 'int avcodec_close(AVCodecContext*)' is deprecated [-Wdeprecated-declarations]
+  266 |                 avcodec_close(i.second);
+      |                 ~~~~~~~~~~~~~^~~~~~~~~~
+In file included from /build/source/lib/tlIO/FFmpegReadPrivate.h:11,
+                 from /build/source/lib/tlIO/FFmpegReadAudio.cpp:5:
+/nix/store/ibqddbmvdclaiilx3ycxlsa84c060qb4-ffmpeg-7.1.5-dev/include/libavcodec/avcodec.h:2398:5: note: declared here
+ 2398 | int avcodec_close(AVCodecContext *avctx);
+      |     ^~~~~~~~~~~~~
+/build/source/lib/tlIO/FFmpegReadVideo.cpp: In destructor 'tl::ffmpeg::ReadVideo::~ReadVideo()':
+/build/source/lib/tlIO/FFmpegReadVideo.cpp:411:30: warning: 'int avcodec_close(AVCodecContext*)' is deprecated [-Wdeprecated-declarations]
+  411 |                 avcodec_close(i.second);
+      |                 ~~~~~~~~~~~~~^~~~~~~~~~
+In file included from /build/source/lib/tlIO/FFmpegReadPrivate.h:11,
+                 from /build/source/lib/tlIO/FFmpegReadVideo.cpp:5:
+/nix/store/ibqddbmvdclaiilx3ycxlsa84c060qb4-ffmpeg-7.1.5-dev/include/libavcodec/avcodec.h:2398:5: note: declared here
+ 2398 | int avcodec_close(AVCodecContext *avctx);
+      |     ^~~~~~~~~~~~~
+/build/source/lib/tlIO/FFmpegWrite.cpp: In member function 'void tl::ffmpeg::Write::_init(const tl::file::Path&, const tl::io::Info&, const tl::io::Options&, const std::shared_ptr<feather_tk::LogSystem>&)':
+/build/source/lib/tlIO/FFmpegWrite.cpp:79:27: warning: 'AVCodec::pix_fmts' is deprecated [-Wdeprecated-declarations]
+   79 |             if (!avCodec->pix_fmts)
+      |                           ^~~~~~~~
+In file included from /nix/store/ibqddbmvdclaiilx3ycxlsa84c060qb4-ffmpeg-7.1.5-dev/include/libavformat/avformat.h:328,
+                 from /build/source/lib/tlIO/FFmpegPrivate.h:13,
+                 from /build/source/lib/tlIO/FFmpegWrite.cpp:5:
+/nix/store/ibqddbmvdclaiilx3ycxlsa84c060qb4-ffmpeg-7.1.5-dev/include/libavcodec/codec.h:215:31: note: declared here
+  215 |     const enum AVPixelFormat *pix_fmts;     ///< @deprecated use avcodec_get_supported_config()
+      |                               ^~~~~~~~
+/build/source/lib/tlIO/FFmpegWrite.cpp:79:27: warning: 'AVCodec::pix_fmts' is deprecated [-Wdeprecated-declarations]
+   79 |             if (!avCodec->pix_fmts)
+      |                           ^~~~~~~~
+/nix/store/ibqddbmvdclaiilx3ycxlsa84c060qb4-ffmpeg-7.1.5-dev/include/libavcodec/codec.h:215:31: note: declared here
+  215 |     const enum AVPixelFormat *pix_fmts;     ///< @deprecated use avcodec_get_supported_config()
+      |                               ^~~~~~~~
+/build/source/lib/tlIO/FFmpegWrite.cpp:79:27: warning: 'AVCodec::pix_fmts' is deprecated [-Wdeprecated-declarations]
+   79 |             if (!avCodec->pix_fmts)
+      |                           ^~~~~~~~
+/nix/store/ibqddbmvdclaiilx3ycxlsa84c060qb4-ffmpeg-7.1.5-dev/include/libavcodec/codec.h:215:31: note: declared here
+  215 |     const enum AVPixelFormat *pix_fmts;     ///< @deprecated use avcodec_get_supported_config()
+      |                               ^~~~~~~~
+/build/source/lib/tlIO/FFmpegWrite.cpp:90:50: warning: 'AVCodec::pix_fmts' is deprecated [-Wdeprecated-declarations]
+   90 |             p.avCodecContext->pix_fmt = avCodec->pix_fmts[0];
+      |                                                  ^~~~~~~~
+/nix/store/ibqddbmvdclaiilx3ycxlsa84c060qb4-ffmpeg-7.1.5-dev/include/libavcodec/codec.h:215:31: note: declared here
+  215 |     const enum AVPixelFormat *pix_fmts;     ///< @deprecated use avcodec_get_supported_config()
+      |                               ^~~~~~~~
+/build/source/lib/tlIO/FFmpegWrite.cpp:90:50: warning: 'AVCodec::pix_fmts' is deprecated [-Wdeprecated-declarations]
+   90 |             p.avCodecContext->pix_fmt = avCodec->pix_fmts[0];
+      |                                                  ^~~~~~~~
+/nix/store/ibqddbmvdclaiilx3ycxlsa84c060qb4-ffmpeg-7.1.5-dev/include/libavcodec/codec.h:215:31: note: declared here
+  215 |     const enum AVPixelFormat *pix_fmts;     ///< @deprecated use avcodec_get_supported_config()
+      |                               ^~~~~~~~
+/build/source/lib/tlIO/FFmpegWrite.cpp:90:50: warning: 'AVCodec::pix_fmts' is deprecated [-Wdeprecated-declarations]
+   90 |             p.avCodecContext->pix_fmt = avCodec->pix_fmts[0];
+      |                                                  ^~~~~~~~
+/nix/store/ibqddbmvdclaiilx3ycxlsa84c060qb4-ffmpeg-7.1.5-dev/include/libavcodec/codec.h:215:31: note: declared here
+  215 |     const enum AVPixelFormat *pix_fmts;     ///< @deprecated use avcodec_get_supported_config()
+      |                               ^~~~~~~~
+[ 67%] Linking CXX shared library libtlIO.so
+[ 67%] Built target tlIO
+[ 67%] Building CXX object lib/tlTimeline/CMakeFiles/tlTimeline.dir/Audio.cpp.o
+[ 69%] Building CXX object lib/tlTimeline/CMakeFiles/tlTimeline.dir/BackgroundOptions.cpp.o
+[ 69%] Building CXX object lib/tlTimeline/CMakeFiles/tlTimeline.dir/CompareOptions.cpp.o
+[ 69%] Building CXX object lib/tlTimeline/CMakeFiles/tlTimeline.dir/ColorOptions.cpp.o
+[ 69%] Building CXX object lib/tlTimeline/CMakeFiles/tlTimeline.dir/DisplayOptions.cpp.o
+[ 70%] Building CXX object lib/tlTimeline/CMakeFiles/tlTimeline.dir/Edit.cpp.o
+[ 70%] Building CXX object lib/tlTimeline/CMakeFiles/tlTimeline.dir/ForegroundOptions.cpp.o
+[ 71%] Building CXX object lib/tlTimeline/CMakeFiles/tlTimeline.dir/IRender.cpp.o
+[ 71%] Building CXX object lib/tlTimeline/CMakeFiles/tlTimeline.dir/Init.cpp.o
+[ 72%] Building CXX object lib/tlTimeline/CMakeFiles/tlTimeline.dir/MemoryReference.cpp.o
+[ 72%] Building CXX object lib/tlTimeline/CMakeFiles/tlTimeline.dir/Player.cpp.o
+[ 73%] Building CXX object lib/tlTimeline/CMakeFiles/tlTimeline.dir/PlayerAudio.cpp.o
+[ 73%] Building CXX object lib/tlTimeline/CMakeFiles/tlTimeline.dir/PlayerOptions.cpp.o
+[ 74%] Building CXX object lib/tlTimeline/CMakeFiles/tlTimeline.dir/PlayerPrivate.cpp.o
+[ 74%] Building CXX object lib/tlTimeline/CMakeFiles/tlTimeline.dir/RenderUtil.cpp.o
+[ 75%] Building CXX object lib/tlTimeline/CMakeFiles/tlTimeline.dir/TimeUnits.cpp.o
+[ 75%] Building CXX object lib/tlTimeline/CMakeFiles/tlTimeline.dir/Timeline.cpp.o
+[ 76%] Building CXX object lib/tlTimeline/CMakeFiles/tlTimeline.dir/TimelineCreate.cpp.o
+[ 76%] Building CXX object lib/tlTimeline/CMakeFiles/tlTimeline.dir/TimelineOptions.cpp.o
+[ 77%] Building CXX object lib/tlTimeline/CMakeFiles/tlTimeline.dir/TimelinePrivate.cpp.o
+/build/source/lib/tlTimeline/TimelineCreate.cpp: In function 'tl::file::Path tl::timeline::{anonymous}::getAudioPath(const std::shared_ptr<feather_tk::Context>&, const tl::file::Path&, const tl::timeline::ImageSequenceAudio&, const std::vector<std::__cxx11::basic_string<char>, std::allocator<std::__cxx11::basic_string<char> > >&, const std::string&, const tl::file::PathOptions&)':
+/build/source/lib/tlTimeline/TimelineCreate.cpp:63:80: warning: 'std::filesystem::__cxx11::path std::filesystem::__cxx11::u8path(const _Source&) [with _Source = std::__cxx11::basic_string<char>; _Require = path; _CharT = char]' is deprecated: use 'path((const char8_t*)&*source)' instead [-Wdeprecated-declarations]
+   63 |                             if (std::filesystem::exists(std::filesystem::u8path(audioPath.get())))
+      |                                                         ~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~
+In file included from /nix/store/rp1zq1p0rjfdg99rb2cfs14871y6cqaj-gcc-16.2.0/include/c++/16.2.0/filesystem:55,
+                 from /nix/store/zdamv2zjy287634642hsmkwjjs9xkj93-nlohmann_json-3.12.0/include/nlohmann/detail/meta/std_fs.hpp:22,
+                 from /nix/store/zdamv2zjy287634642hsmkwjjs9xkj93-nlohmann_json-3.12.0/include/nlohmann/detail/conversions/from_json.hpp:30,
+                 from /nix/store/zdamv2zjy287634642hsmkwjjs9xkj93-nlohmann_json-3.12.0/include/nlohmann/adl_serializer.hpp:14,
+                 from /nix/store/zdamv2zjy287634642hsmkwjjs9xkj93-nlohmann_json-3.12.0/include/nlohmann/json.hpp:34,
+                 from /nix/store/m8nf976pg7752xpl2f60kcjcdz854gd2-feather-tk-0.4.0/include/feather-tk/core/Range.h:7,
+                 from /build/source/lib/tlCore/Audio.h:7,
+                 from /build/source/lib/tlIO/IO.h:7,
+                 from /build/source/lib/tlTimeline/Audio.h:7,
+                 from /build/source/lib/tlTimeline/Timeline.h:7,
+                 from /build/source/lib/tlTimeline/TimelinePrivate.h:7,
+                 from /build/source/lib/tlTimeline/TimelineCreate.cpp:5:
+/nix/store/rp1zq1p0rjfdg99rb2cfs14871y6cqaj-gcc-16.2.0/include/c++/16.2.0/bits/fs_path.h:847:5: note: declared here
+  847 |     u8path(const _Source& __source)
+      |     ^~~~~~
+[ 77%] Building CXX object lib/tlTimeline/CMakeFiles/tlTimeline.dir/Transition.cpp.o
+[ 78%] Building CXX object lib/tlTimeline/CMakeFiles/tlTimeline.dir/Util.cpp.o
+[ 78%] Building CXX object lib/tlTimeline/CMakeFiles/tlTimeline.dir/Video.cpp.o
+[ 79%] Linking CXX shared library libtlTimeline.so
+[ 79%] Built target tlTimeline
+[ 79%] Building CXX object lib/tlTimelineGL/CMakeFiles/tlTimelineGL.dir/Render.cpp.o
+[ 80%] Building CXX object lib/tlTimelineGL/CMakeFiles/tlTimelineGL.dir/RenderPrims.cpp.o
+[ 80%] Building CXX object lib/tlTimelineGL/CMakeFiles/tlTimelineGL.dir/RenderVideo.cpp.o
+[ 81%] Building CXX object lib/tlTimelineGL/CMakeFiles/tlTimelineGL.dir/RenderShaders_GL_4_1.cpp.o
+[ 81%] Linking CXX shared library libtlTimelineGL.so
+[ 81%] Built target tlTimelineGL
+[ 83%] Building CXX object lib/tlDevice/CMakeFiles/tlDevice.dir/Init.cpp.o
+[ 82%] Building CXX object lib/tlBakeApp/CMakeFiles/tlBakeApp.dir/App.cpp.o
+[ 83%] Building CXX object lib/tlTimelineUI/CMakeFiles/tlTimelineUI.dir/AudioClipItem.cpp.o
+[ 83%] Building CXX object lib/tlTimelineUI/CMakeFiles/tlTimelineUI.dir/GapItem.cpp.o
+[ 83%] Linking CXX shared library libtlDevice.so
+[ 83%] Built target tlDevice
+[ 84%] Building CXX object lib/tlTimelineUI/CMakeFiles/tlTimelineUI.dir/IBasicItem.cpp.o
+[ 84%] Building CXX object lib/tlTimelineUI/CMakeFiles/tlTimelineUI.dir/IItem.cpp.o
+[ 85%] Building CXX object lib/tlTimelineUI/CMakeFiles/tlTimelineUI.dir/Init.cpp.o
+[ 85%] Building CXX object lib/tlTimelineUI/CMakeFiles/tlTimelineUI.dir/ThumbnailSystem.cpp.o
+[ 85%] Linking CXX shared library libtlBakeApp.so
+[ 85%] Built target tlBakeApp
+[ 86%] Building CXX object lib/tlTimelineUI/CMakeFiles/tlTimelineUI.dir/TimeEdit.cpp.o
+[ 86%] Building CXX object bin/tlbake/CMakeFiles/tlbake.dir/main.cpp.o
+[ 86%] Building CXX object lib/tlTimelineUI/CMakeFiles/tlTimelineUI.dir/TimeLabel.cpp.o
+[ 87%] Building CXX object lib/tlTimelineUI/CMakeFiles/tlTimelineUI.dir/TimelineItem.cpp.o
+[ 88%] Linking CXX executable tlbake
+[ 88%] Built target tlbake
+[ 88%] Building CXX object lib/tlTimelineUI/CMakeFiles/tlTimelineUI.dir/TimelineWidget.cpp.o
+[ 89%] Building CXX object lib/tlTimelineUI/CMakeFiles/tlTimelineUI.dir/TransitionItem.cpp.o
+[ 89%] Building CXX object lib/tlTimelineUI/CMakeFiles/tlTimelineUI.dir/VideoClipItem.cpp.o
+[ 90%] Building CXX object lib/tlTimelineUI/CMakeFiles/tlTimelineUI.dir/Viewport.cpp.o
+[ 90%] Building CXX object lib/tlTimelineUI/CMakeFiles/tlTimelineUI.dir/Window.cpp.o
+[ 91%] Linking CXX shared library libtlTimelineUI.so
+[ 91%] Built target tlTimelineUI
+[ 92%] Building CXX object bin/tlplay/CMakeFiles/tlplay.dir/App.cpp.o
+[ 92%] Building CXX object bin/tlplay/CMakeFiles/tlplay.dir/FileActions.cpp.o
+[ 92%] Building CXX object bin/tlplay/CMakeFiles/tlplay.dir/CompareActions.cpp.o
+[ 93%] Building CXX object bin/tlplay/CMakeFiles/tlplay.dir/FilesModel.cpp.o
+/build/source/bin/tlplay/App.cpp: In member function 'virtual void tl::play::App::run()':
+/build/source/bin/tlplay/App.cpp:135:45: warning: 'std::filesystem::__cxx11::path std::filesystem::__cxx11::u8path(const _Source&) [with _Source = std::__cxx11::basic_string<char>; _Require = path; _CharT = char]' is deprecated: use 'path((const char8_t*)&*source)' instead [-Wdeprecated-declarations]
+  135 |                 open(std::filesystem::u8path(input));
+      |                      ~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+In file included from /nix/store/rp1zq1p0rjfdg99rb2cfs14871y6cqaj-gcc-16.2.0/include/c++/16.2.0/filesystem:55,
+                 from /nix/store/zdamv2zjy287634642hsmkwjjs9xkj93-nlohmann_json-3.12.0/include/nlohmann/detail/meta/std_fs.hpp:22,
+                 from /nix/store/zdamv2zjy287634642hsmkwjjs9xkj93-nlohmann_json-3.12.0/include/nlohmann/detail/conversions/from_json.hpp:30,
+                 from /nix/store/zdamv2zjy287634642hsmkwjjs9xkj93-nlohmann_json-3.12.0/include/nlohmann/adl_serializer.hpp:14,
+                 from /nix/store/zdamv2zjy287634642hsmkwjjs9xkj93-nlohmann_json-3.12.0/include/nlohmann/json.hpp:34,
+                 from /build/source/lib/tlCore/Time.h:12,
+                 from /build/source/lib/tlTimeline/TimeUnits.h:7,
+                 from /build/source/bin/tlplay/App.h:7,
+                 from /build/source/bin/tlplay/App.cpp:5:
+/nix/store/rp1zq1p0rjfdg99rb2cfs14871y6cqaj-gcc-16.2.0/include/c++/16.2.0/bits/fs_path.h:847:5: note: declared here
+  847 |     u8path(const _Source& __source)
+      |     ^~~~~~
+[ 93%] Building CXX object bin/tlplay/CMakeFiles/tlplay.dir/MainWindow.cpp.o
+[ 94%] Building CXX object bin/tlplay/CMakeFiles/tlplay.dir/MenuBar.cpp.o
+[ 94%] Building CXX object bin/tlplay/CMakeFiles/tlplay.dir/PlaybackActions.cpp.o
+[ 95%] Building CXX object bin/tlplay/CMakeFiles/tlplay.dir/PlaybackBar.cpp.o
+[ 95%] Building CXX object bin/tlplay/CMakeFiles/tlplay.dir/RecentFilesModel.cpp.o
+[ 96%] Building CXX object bin/tlplay/CMakeFiles/tlplay.dir/SettingsModel.cpp.o
+[ 96%] Building CXX object bin/tlplay/CMakeFiles/tlplay.dir/SettingsWidget.cpp.o
+[ 97%] Building CXX object bin/tlplay/CMakeFiles/tlplay.dir/StatusBar.cpp.o
+/build/source/bin/tlplay/RecentFilesModel.cpp: In member function 'void tl::play::RecentFilesModel::_init(const std::shared_ptr<feather_tk::Context>&, const std::shared_ptr<feather_tk::Settings>&)':
+/build/source/bin/tlplay/RecentFilesModel.cpp:29:65: warning: 'std::filesystem::__cxx11::path std::filesystem::__cxx11::u8path(const _Source&) [with _Source = std::__cxx11::basic_string<char>; _Require = path; _CharT = char]' is deprecated: use 'path((const char8_t*)&*source)' instead [-Wdeprecated-declarations]
+   29 |                         recent.push_back(std::filesystem::u8path(i->get<std::string>()));
+      |                                          ~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~
+In file included from /nix/store/rp1zq1p0rjfdg99rb2cfs14871y6cqaj-gcc-16.2.0/include/c++/16.2.0/filesystem:55,
+                 from /nix/store/m8nf976pg7752xpl2f60kcjcdz854gd2-feather-tk-0.4.0/include/feather-tk/ui/RecentFilesModel.h:10,
+                 from /build/source/bin/tlplay/RecentFilesModel.h:7,
+                 from /build/source/bin/tlplay/RecentFilesModel.cpp:5:
+/nix/store/rp1zq1p0rjfdg99rb2cfs14871y6cqaj-gcc-16.2.0/include/c++/16.2.0/bits/fs_path.h:847:5: note: declared here
+  847 |     u8path(const _Source& __source)
+      |     ^~~~~~
+[ 97%] Building CXX object bin/tlplay/CMakeFiles/tlplay.dir/TabBar.cpp.o
+[ 98%] Building CXX object bin/tlplay/CMakeFiles/tlplay.dir/ToolBars.cpp.o
+[ 98%] Building CXX object bin/tlplay/CMakeFiles/tlplay.dir/ViewActions.cpp.o
+[ 99%] Building CXX object bin/tlplay/CMakeFiles/tlplay.dir/WindowActions.cpp.o
+[ 99%] Building CXX object bin/tlplay/CMakeFiles/tlplay.dir/main.cpp.o
+[100%] Linking CXX executable tlplay
+[100%] Built target tlplay
+buildPhase completed in 1 minutes 31 seconds
+Running phase: installPhase
+install flags: -j4 SHELL=/nix/store/hasnvc0j36gg6qrdsfcx7yivx3c2bpqr-bash-5.3p20/bin/bash install
+[ 39%] Built target tlResource
+[ 46%] Built target tlCore
+[ 67%] Built target tlIO
+[ 79%] Built target tlTimeline
+[ 81%] Built target tlTimelineGL
+[ 82%] Built target tlDevice
+[ 82%] Built target tlBakeApp
+[ 83%] Built target tlbake
+[ 91%] Built target tlTimelineUI
+[100%] Built target tlplay
+Install the project...
+-- Install configuration: "Release"
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/lib/libtlCore.so
+-- Set non-toolchain portion of runtime path of "/nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/lib/libtlCore.so" to "$ORIGIN/../lib"
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlCore/Audio.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlCore/AudioInline.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlCore/AudioResample.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlCore/AudioSystem.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlCore/FileInfo.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlCore/FileInfoInline.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlCore/FileInfoPrivate.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlCore/FileLogSystem.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlCore/HDR.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlCore/HDRInline.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlCore/ISystem.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlCore/Init.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlCore/Path.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlCore/PathInline.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlCore/Time.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlCore/TimeInline.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlCore/URL.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/lib/cmake/tlRender/tlCoreTargets.cmake
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/lib/cmake/tlRender/tlCoreTargets-release.cmake
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/lib/libtlDevice.so
+-- Set non-toolchain portion of runtime path of "/nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/lib/libtlDevice.so" to "$ORIGIN/../lib"
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlDevice/Init.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/lib/cmake/tlRender/tlDeviceTargets.cmake
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/lib/cmake/tlRender/tlDeviceTargets-release.cmake
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/lib/libtlIO.so
+-- Set non-toolchain portion of runtime path of "/nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/lib/libtlIO.so" to "$ORIGIN/../lib"
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlIO/Cineon.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlIO/DPX.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlIO/IO.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlIO/IOInline.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlIO/Init.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlIO/PPM.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlIO/Plugin.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlIO/Read.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlIO/SGI.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlIO/SequenceIO.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlIO/System.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlIO/SystemInline.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlIO/Write.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlIO/JPEG.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlIO/TIFF.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlIO/STB.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlIO/PNG.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlIO/OpenEXR.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlIO/FFmpeg.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/lib/cmake/tlRender/tlIOTargets.cmake
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/lib/cmake/tlRender/tlIOTargets-release.cmake
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/lib/libtlResource.so
+-- Set non-toolchain portion of runtime path of "/nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/lib/libtlResource.so" to "$ORIGIN/../lib"
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/lib/cmake/tlRender/tlResourceTargets.cmake
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/lib/cmake/tlRender/tlResourceTargets-release.cmake
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/lib/libtlTimeline.so
+-- Set non-toolchain portion of runtime path of "/nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/lib/libtlTimeline.so" to "$ORIGIN/../lib"
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlTimeline/Audio.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlTimeline/BackgroundOptions.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlTimeline/ColorOptions.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlTimeline/CompareOptions.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlTimeline/DisplayOptions.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlTimeline/Edit.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlTimeline/ForegroundOptions.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlTimeline/IRender.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlTimeline/Init.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlTimeline/MemoryReference.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlTimeline/Player.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlTimeline/PlayerOptions.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlTimeline/RenderUtil.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlTimeline/TimeUnits.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlTimeline/Timeline.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlTimeline/TimelineOptions.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlTimeline/Transition.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlTimeline/Util.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlTimeline/UtilInline.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlTimeline/Video.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/lib/cmake/tlRender/tlTimelineTargets.cmake
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/lib/cmake/tlRender/tlTimelineTargets-release.cmake
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/lib/libtlTimelineUI.so
+-- Set non-toolchain portion of runtime path of "/nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/lib/libtlTimelineUI.so" to "$ORIGIN/../lib"
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlTimelineUI/AudioClipItem.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlTimelineUI/GapItem.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlTimelineUI/IBasicItem.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlTimelineUI/IItem.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlTimelineUI/Init.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlTimelineUI/ThumbnailSystem.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlTimelineUI/TimeEdit.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlTimelineUI/TimeLabel.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlTimelineUI/TimelineItem.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlTimelineUI/TimelineWidget.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlTimelineUI/TransitionItem.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlTimelineUI/VideoClipItem.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlTimelineUI/Viewport.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlTimelineUI/Window.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/lib/cmake/tlRender/tlTimelineUITargets.cmake
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/lib/cmake/tlRender/tlTimelineUITargets-release.cmake
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/lib/libtlTimelineGL.so
+-- Set non-toolchain portion of runtime path of "/nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/lib/libtlTimelineGL.so" to "$ORIGIN/../lib"
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlTimelineGL/Render.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/lib/cmake/tlRender/tlTimelineGLTargets.cmake
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/lib/cmake/tlRender/tlTimelineGLTargets-release.cmake
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/lib/libtlBakeApp.so
+-- Set non-toolchain portion of runtime path of "/nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/lib/libtlBakeApp.so" to "$ORIGIN/../lib"
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/include/tlRender/tlBakeApp/App.h
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/bin/tlbake
+-- Set non-toolchain portion of runtime path of "/nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/bin/tlbake" to "$ORIGIN/../lib"
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/bin/tlplay
+-- Set non-toolchain portion of runtime path of "/nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/bin/tlplay" to "$ORIGIN/../lib"
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/etc/tlRender/LICENSE_BlackmagicDesign.txt
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/etc/tlRender/LICENSE_boost.txt
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/etc/tlRender/LICENSE_CMake.txt
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/etc/tlRender/LICENSE_CURL.txt
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/etc/tlRender/LICENSE_expat.txt
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/etc/tlRender/LICENSE_FFmpeg.txt
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/etc/tlRender/LICENSE_feather-tk.txt
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/etc/tlRender/LICENSE_libjpeg-turbo.txt
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/etc/tlRender/LICENSE_libjpeg.txt
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/etc/tlRender/LICENSE_libpng.txt
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/etc/tlRender/LICENSE_Libssh2.txt
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/etc/tlRender/LICENSE_libtiff.txt
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/etc/tlRender/LICENSE_MaterialX.txt
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/etc/tlRender/LICENSE_minizip-ng.txt
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/etc/tlRender/LICENSE_nlohmann_json.txt
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/etc/tlRender/LICENSE_OFL.txt
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/etc/tlRender/LICENSE_oneTBB.txt
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/etc/tlRender/LICENSE_OpenColorIO.txt
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/etc/tlRender/LICENSE_OpenEXR.txt
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/etc/tlRender/LICENSE_OpenSSL.txt
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/etc/tlRender/LICENSE_OpenSubdiv.txt
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/etc/tlRender/LICENSE_OpenTimelineIO.txt
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/etc/tlRender/LICENSE_OpenUSD.txt
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/etc/tlRender/LICENSE_pystring.txt
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/etc/tlRender/LICENSE_Qt.txt
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/etc/tlRender/LICENSE_SDL2.txt
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/etc/tlRender/LICENSE_stb.txt
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/etc/tlRender/LICENSE_tlRender.txt
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/etc/tlRender/LICENSE_yaml-cpp.txt
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/etc/tlRender/LICENSE_zlib.txt
+-- Installing: /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/lib/cmake/tlRender/tlRenderConfig.cmake
+Running phase: fixupPhase
+shrinking RPATHs of ELF executables and libraries in /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0
+shrinking /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/lib/libtlCore.so
+shrinking /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/lib/libtlDevice.so
+shrinking /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/lib/libtlIO.so
+shrinking /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/lib/libtlResource.so
+shrinking /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/lib/libtlTimeline.so
+shrinking /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/lib/libtlTimelineUI.so
+shrinking /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/lib/libtlTimelineGL.so
+shrinking /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/lib/libtlBakeApp.so
+shrinking /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/bin/tlbake
+shrinking /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/bin/tlplay
+checking for references to /build/ in /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0...
+patching script interpreter paths in /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0
+stripping (with command strip and flags -S -p) in /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/lib /nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0/bin
+/nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0

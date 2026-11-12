@@ -1,0 +1,28 @@
+{
+  "name": "tlrender-focused-x86_64-build",
+  "command": [
+    "nix-build",
+    "/home/siraben/i686-iso-work/refresh-20261111/focused-validation/tlrender-utf8",
+    "-A",
+    "tlrender",
+    "--argstr",
+    "system",
+    "x86_64-linux",
+    "--out-link",
+    "/home/siraben/i686-iso-work/refresh-20261111/tlrender-focused-x86_64-result",
+    "--keep-going",
+    "--keep-failed",
+    "--max-jobs",
+    "2",
+    "--cores",
+    "4",
+    "--max-silent-time",
+    "900"
+  ],
+  "status": "passed",
+  "started": 1794487533.0463243,
+  "elapsedSeconds": 96,
+  "updated": "2026-11-12T12:47:09.536299+00:00",
+  "log": "/home/siraben/i686-iso-work/refresh-20261111/tlrender-focused-x86_64-build.log",
+  "exitCode": 0
+}
