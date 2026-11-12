@@ -22,7 +22,7 @@
   withSerialPort ? false,
   cups,
   withSpeech ? true,
-  withPdf ? true,
+  withPdf ? lib.meta.availableOn stdenv.hostPlatform qt6Packages.qtwebengine,
 }:
 
 buildPythonPackage (finalAttrs: {
