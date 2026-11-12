@@ -32,6 +32,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-b4tdQ9VH9M7hAD5Uuxu4QKwwpaVwroj/Bvg+Zsy0M1M=";
   };
 
+  patches = [ ./minizip-pkgconfig-cflags.patch ];
+
   # This test produces an invalid multi-line array in YAML, which is rejected
   # by yaml-cpp 0.9.0.
   # https://github.com/AcademySoftwareFoundation/OpenColorIO/issues/2340
@@ -82,7 +84,7 @@ stdenv.mkDerivation rec {
     "-DOCIO_USE_SSE2NEON=OFF"
     # GPU test fails with: libglut (GPU tests): failed to open display ''
     "-DOCIO_BUILD_GPU_TESTS=OFF"
-    "-Dminizip-ng_INCLUDE_DIR=${minizip-ng}/include/minizip-ng"
+    "-Dminizip-ng_DIR=${lib.getLib minizip-ng}/lib/cmake/minizip-ng"
   ]
   ++ lib.optional (!pythonBindings) "-DOCIO_BUILD_PYTHON=OFF"
   ++ lib.optional (!buildApps) "-DOCIO_BUILD_APPS=OFF";

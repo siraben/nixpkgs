@@ -1,0 +1,10 @@
+--- a/share/cmake/modules/Findminizip-ng.cmake
++++ b/share/cmake/modules/Findminizip-ng.cmake
+@@ -203,6 +203,7 @@
+     mark_as_advanced(minizip-ng_INCLUDE_DIR minizip-ng_LIBRARY minizip-ng_VERSION)
+ 
+     target_link_libraries(MINIZIP::minizip-ng INTERFACE ZLIB::ZLIB)
++    target_compile_options(MINIZIP::minizip-ng INTERFACE ${PC_minizip-ng_CFLAGS_OTHER})
+ endif()
+ 
+ ###############################################################################
