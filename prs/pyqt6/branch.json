@@ -1,0 +1,7 @@
+{
+  "branch": "siraben/i686-pyqt6-20261111",
+  "commit": "9c2686c4f13c8838649274ea4636543e93c343d0",
+  "base": "a238bac4849a79e151329cdc51638d3bc7627c6c",
+  "integrationCommit": "d6ff01421387d4963fbc83dc088cddb035f3d395",
+  "title": "python3Packages.pyqt6: gate PDF bindings on QtWebEngine availability"
+}

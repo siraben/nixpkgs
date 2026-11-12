@@ -1,0 +1,11 @@
+{
+  "consumers_passed": 16,
+  "pointer_bits": 32,
+  "off_t_bytes": 8,
+  "ino_t_bytes": 8,
+  "time_t_bytes": 4,
+  "d_name_offset": 19,
+  "fixture_inode": 4303727531,
+  "negative_private_metadata_rejected": true,
+  "negative_original_finder_rejected": true
+}

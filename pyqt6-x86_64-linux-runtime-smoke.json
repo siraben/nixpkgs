@@ -1,0 +1,30 @@
+{
+  "name": "pyqt6-x86_64-linux-runtime-smoke",
+  "command": [
+    "env",
+    "-u",
+    "DISPLAY",
+    "-u",
+    "WAYLAND_DISPLAY",
+    "-u",
+    "DBUS_SESSION_BUS_ADDRESS",
+    "-u",
+    "LD_PRELOAD",
+    "HOME=/home/siraben/i686-iso-work/refresh-20261111/audit/pyqt6-x86_64-linux-smoke-home",
+    "XDG_CONFIG_HOME=/home/siraben/i686-iso-work/refresh-20261111/audit/pyqt6-x86_64-linux-smoke-home/.config",
+    "XDG_CACHE_HOME=/home/siraben/i686-iso-work/refresh-20261111/audit/pyqt6-x86_64-linux-smoke-home/.cache",
+    "XDG_RUNTIME_DIR=/home/siraben/i686-iso-work/refresh-20261111/audit/pyqt6-x86_64-linux-smoke-home/runtime",
+    "QT_QPA_PLATFORM=offscreen",
+    "timeout",
+    "90",
+    "/home/siraben/i686-iso-work/refresh-20261111/pyqt6-x86_64-linux-smoke-python/bin/python",
+    "/home/siraben/i686-iso-work/refresh-20261111/pyqt-smoke.py",
+    "/home/siraben/i686-iso-work/refresh-20261111/audit/pyqt6-x86_64-linux-smoke.png"
+  ],
+  "status": "passed",
+  "started": 1794478511.3089135,
+  "elapsedSeconds": 0,
+  "updated": "2026-11-12T10:15:11.423023+00:00",
+  "log": "/home/siraben/i686-iso-work/refresh-20261111/pyqt6-x86_64-linux-runtime-smoke.log",
+  "exitCode": 0
+}

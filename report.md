@@ -50,6 +50,7 @@ focused branches are not claimed to build independently of dependency fixes.
 | yaml-cpp | Backport upstream uint64_t Dragonbox significand fix, preventing wrong serialized magnitudes | Full builds/CTest pass on both widths; 15-case i686 runtime reproducer passes | yaml-cpp |
 | gavl | Select 64-bit glibc time ABI on 32-bit, matching int64_t HTTP timestamps | Both builds; 1969/1970/2040 HTTP date round trips pass on each width | gavl |
 | PySide6 | Omit optional unavailable WebEngine/WebView modules using availableOn | Both builds and offscreen widget renders; full i686 LXQt system builds | pyside6 |
+| PyQt6 | Default optional PDF bindings to QtWebEngine host availability | Both builds/imports/offscreen renders; PDF modules absent on i686 and present on x86_64; integration d6ff01421387, focused 9c2686c4f13c pushed | pyqt6 |
 | Graphical installer | Avoid unavailable QEMU guest agent/Firefox on 32-bit, use Dillo | Full ISO and live Xfce boot | graphical-base |
 | Hyper-V installer/hardware profiles | Do not require unavailable Hyper-V modules on i686 | Full ISO; x86_64 kernel/initrd/service derivations unchanged | hyperv |
 
@@ -65,8 +66,8 @@ this stack. ARM validation was not established for those changes.
 | GIMP 3.2.6 | Build and version invocation passed | No new fix needed; no interactive runtime claim |
 | Inkscape 1.4.4 | Build and headless SVG-to-PNG export passed | No new fix needed; no interactive runtime claim |
 | LXQt desktop NixOS system and live ISO | **Full builds and BIOS/QEMU live desktop boot passed**: i686, Xorg, session/panel/PCManFM-Qt, QTerminal, stability and screenshot | Three new dependency fixes; no installed LXQt boot claim |
-| LibreOffice 26.8.0.3 | Production compiles/links; portable fixture fixes pass, but standard excess precision does not resolve remaining numerical/runtime failures; font-export test times out | Run x86_64 comparison concurrently and an explicitly SSE2-only diagnostic variant; generic i686 baseline not raised |
-| Krita 6.0.4.1 | PDF selection fixed in evaluation; full attempt found PyQt6/qmake large-inode handling, Qt5 bootstrap enumeration, gavl timestamp ABI and yaml-cpp runtime serialization blockers | Validate each focused repair, then rebuild Krita |
+| LibreOffice 26.8.0.3 | Earlier x86_64 baseline full build/checks pass; new font-repair x86_64 regression running. Actual i686 source font-cache/driver repairs pass Writer 87 and embedding 3 tests; 35 other CppUnit failures plus UNO remain | No successful i686 package or CPU-baseline change claimed |
+| Krita 6.0.4.1 | PyQt6/qmake, Qt5 bootstrap, gavl and yaml-cpp repairs validated; remaining OpenColorIO dependency has filesystem/ABI and generic-x87 accuracy defects under investigation | Finish OpenColorIO acceptance before claiming a Krita build |
 | RawTherapee 5.13 | **i686 build and headless 16-bit TIFF → JPEG conversion passed**; output verified as 64×64 sRGB JPEG | No new fix needed; no interactive GUI claim |
 | digiKam 9.1.0 | Upstream requires QtWebEngineWidgets unconditionally; no demonstrated packaging-only bypass | Recorded as upstream dependency/porting limitation, not fixed by lying about platforms |
 
@@ -148,17 +149,78 @@ generic package. Its first build aborted in HelpIndexer with a double-free
 while generating the sbasic/en-US help index, before reaching the comparison
 checks. Therefore it has not established that SSE2 resolves the numerical
 failures. SSE2 would raise the CPU requirement if adopted; no such support
-claim or commit has been made. The independent x86_64 comparison is pending.
+claim or commit has been made. The independent x86_64 build succeeded,
+including its full unitcheck/slowcheck phase (39m17s). Evidence:
+`libreoffice-x86_64-comparison.{json,log}` and `libreoffice-x86_64-result`.
 The crash reproduces on a copied dataset: GDB shows SIGABRT during SAL's
 UTF-8 file-URL-to-system-path conversion, reached from HelpIndexer file reading;
 this is memory corruption, not a numeric assertion (`libreoffice-help-indexer-backtrace.log`).
+That backtrace identifies the detection site, not necessarily the original
+corrupting write. A small C-ABI probe performs 100 regular-file URL open/close
+operations successfully against both generic-x87 and SSE2 SAL libraries;
+the help-indexer crash has not been reduced to all SAL URL conversions.
+See `parallel/lo-help-diagnosis/file-url-regular-file-results.json`.
 
 A separate Clang diagnostic explicitly sets `-march=i686`: the compiler's
 normal i686-target default is Pentium 4, so merely switching compilers would
 silently introduce SSE2. Preprocessor/driver checks confirm the explicit
-variant defines i386/i686 but no SSE macros. This diagnostic is not committed
-as the generic package implementation. The prior Xfce artifact is validated as built, not claimed byte-for-
+variant defines i386/i686 but no SSE macros. It reaches checking but still
+reports 21 CppUnit failures (versus 36 in the GCC/standard-precision attempt),
+including a Writer allocation failure and embedded-font export failure, then
+hits the same 900-second silent timeout. It also exposes Clang-specific test
+commands treating unused linker arguments as errors. Neither compiler choice
+alone establishes a correct i686 package. This diagnostic is not committed as
+the generic implementation. Details:
+`failures/libreoffice-clang-i686-comparison-tests.json`. The prior Xfce artifact is validated as built, not claimed byte-for-
 byte identical to an ISO embedding the subsequently amended Nixpkgs source.
+
+### Writer allocation: duplicate font mappings, not an oversized document
+
+GDB now locates `testTdf130680`'s failure in a 1 MiB reserve by
+`comphelper::UNOMemoryStream`, during Cut's embedded-object copy. Both isolated
+GCC and Clang processes have about 4,193,000 KiB virtual size but only
+238,000–241,000 KiB resident, with unlimited RLIMIT_AS. Three Noto CJK TTC files
+are mapped 84–85 times in total, consuming over 3 GiB of virtual address space.
+The fixture itself is only 97,412 bytes. This does not justify excluding it as
+an inherently impossible 32-bit test.
+
+A diagnostic HarfBuzz interposer retains one blob per filename: the unchanged
+test passes under both compilers (`OK (1)`), with 55 files, 825 calls and 770
+cache hits. This is causal diagnostic evidence, **not a production interposer
+or completed package repair**. A source candidate uses the existing
+reference-counted `FreetypeFontFile` mapping for ordinary HarfBuzz faces as well
+as descriptor-backed fonts, with the old file-loading fallback on mapping
+failure. The actual i686/GCC VCL source now recompiles and links in an independent
+reflink copy; the unchanged Writer regression and the full 87-test sw_uiwriter3
+suite pass without the interposer. Full unitcheck/slowcheck still fails, with
+35 CppUnit failures across 16 targets plus UNO failure; this is not a successful
+LibreOffice package. The first setup attempt stopped while copying eight
+unreadable generated SdiTarget headers, a harness/permissions issue. Original
+permissions/evidence stayed untouched; make could regenerate missing generated
+inputs in the independent copy. Evidence:
+`parallel/lo-font-cache-validation/{stage-status.tsv,build/}` and
+`failures/libreoffice-font-cache-recheck-tests.json`.
+Evidence: `parallel/lo-writer-diagnosis/{font-mapping-summary.json,results-*-run-sharedblob1/}`.
+Current upstream has renamed this code to `GenericFontFace.cxx` and still calls
+`hb_blob_create_from_file` per face; the local candidate targets packaged 26.8.
+
+The embedded-font timeout also has a concrete integration defect: configure
+prefers `makeotfexe`, but AFDKO 5.0.1's entry point unconditionally exits 1 with a
+migration notice. The supported `makeotf` driver succeeds on copied artifacts
+with identical normalized results in eight bounded comparisons. A configure
+candidate is now applied to configure. Editing its generated header initially
+did not trigger caller recompilation, so the first zero-exit make was not
+sufficient validation. The forced caller rebuild now really compiles/links
+`embeddedfontsafdko.cxx`, and a binary-path check confirms the supported driver.
+The unchanged embedded-PDF font regression passes (6.7 seconds in the test body,
+versus the previous focused timeout), as do all 87 Writer tests and all three
+font-embedding tests. Evidence: `lo-supported-font-driver-recheck.{json,log}` and
+`parallel/lo-font-cache-validation/driver-stage-status.tsv`. Full x86_64 package
+regression validation of the new source changes is being prepared.
+The focused EOT invocation also initially used the wrong CppUnit target. The
+correct `sd_font_embedding_tests` suite passes all three tests under GCC both
+before and after the mapping repair; the previously observed EOT decompression
+failure is in the Clang comparison and is not claimed fixed.
 
 ## Newly diagnosed Krita dependencies
 
@@ -183,14 +245,128 @@ byte identical to an ISO embedding the subsequently amended Nixpkgs source.
   glibc's 64-bit time ABI on 32-bit. Both builds and HTTP dates before 1970
   and after 2038 pass; individually committed as 8f47126e691a. Public headers
   expose no libc time/stat structs; the HTTP API retains int64_t.
-- **PyQt6:** optional PDF default now follows QtWebEngine availability; x86_64
-  build passes, i686 reached installation and hit the qmake inode bug above.
+- **PyQt6:** optional PDF default follows QtWebEngine availability. Builds
+  against repaired qmake now pass on both widths, as do imports and offscreen
+  text/widget PNG renders. PDF/PDFWidgets modules are absent on i686 and present
+  on x86_64. Committed as d6ff01421387; focused 9c2686c4f13c and integration
+  are pushed and remote-verified. This does not restore PDF on i686.
+- **OpenColorIO:** an existing i686 SSE2 repair is proposed in Nixpkgs #536904;
+  do not duplicate it. Both that approach and the supported `OCIO_USE_SIMD=OFF`
+  scalar backend are being checked with CPU/Python tests explicitly enabled.
+  The scalar comparison compiles but fails checks, including numeric assertions,
+  a CPU-test segfault and six Python missing-file errors. The named LUT files
+  actually exist; lookup/hash code calls narrow `stat`. A 4505-byte CLF has
+  inode 4303518631: an i686 probe confirms `stat` fails with EOVERFLOW while
+  `stat64` succeeds. This establishes a separate large-inode defect; the
+  library's large-file repair is not yet validated. Evidence:
+  `audit/opencolorio-inode-probe.{c,txt}`. The SSE2 proposal likewise compiles
+  but fails enabled checks (8 of 10 CTest entries, including missing-file CPU
+  failures/segfaults and six Python errors). This does not refute its intrinsic
+  build fix; it does not address the independent filesystem defect. The
+  unmodified x86_64 comparison passes all 10 CTest entries. Both scalar
+  large-file comparisons now complete all 1141 CPU cases without the earlier
+  segfaults, and all 398 Python tests pass. CPU checking still fails in 114
+  cases with 686 assertions; explicitly adding standard excess-precision
+  semantics gives exactly the same counts and is not adopted as a fix.
+  Of these assertions, 666 use direct equality and 20 use other numerical
+  conditions. A small x87 probe demonstrates that raw `double == literal`
+  can differ from typed/materialized operand equality without changing nominal
+  values or tolerances. The x86_64 scalar control passes all three CTest entries,
+  confirming the scalar backend is viable on the comparison architecture. The
+  first typed-equality candidate failed compilation because passing integer
+  literal zero through a generic function loses its null-pointer-constant
+  meaning. This is a diagnostic harness defect, not a new package defect. The
+  revised candidate materializes only floating comparisons, retaining original
+  pointer/string/integer comparison expressions. Its focused probe checks
+  exact values, null literals, distinct uint64/float values, mixed float/double
+  values and NaN without any tolerance. Full rechecks now compile: x86_64
+  passes all three CTest entries, while i686 is reduced from 114 failing cases/
+  686 assertions to 14 cases/28 assertions (658 assertions eliminated). These
+  include the two separately diagnosed archive failures, formatted-output
+  differences and numerical discrepancies; none is silently excluded.
+  Details: `failures/opencolorio-scalar-typed-equality-v2.json`.
+  Remaining numerical differences are not dismissed as harmless. Independent
+  numerical review (`parallel/ocio-numerical-review/review.md`) identifies
+  concrete fixture-width issues separately from stored rendering differences.
+  The public shared-library ACES2 probe reproduces the same cyan failure under
+  generic i686: identical input bits yield red 0.00970779825, exceeding the
+  unchanged 0.007000000216 tolerance. Scalar x86_64 and the SSE2-library control
+  both return about 7.3094e-7 and pass. Matching loaders and library versions are
+  recorded; this is not merely test-source inlining or a comparator artifact.
+  First prefix divergence is already visible in display-inverse XYZ. A
+  `-ffloat-store` generic-x87 diagnostic now completes: the public cyan case
+  improves to red 0.00622071372 and passes the original threshold, but the full
+  suite still fails 11 cases/25 assertions after the known archive repairs.
+  The flag is not adopted: it neither establishes whole-package correctness
+  nor resolves the other arithmetic/fixture issues. Reference-accuracy checks
+  remain necessary. Evidence: `opencolorio-aces2-public-*.{json,log}` and
+  `parallel/ocio-numerical-review/aces2-*-loader.txt`.
+  SSE2 plus the core large-file fix eliminates those numerical assertion failures,
+  but still fails two archive processor-cache equality cases in each enabled
+  CPU dispatch run. All 398 Python tests pass. A fresh public-API archive probe
+  exposes a further real defect: the generated ZIP contains only `config.ocio`,
+  omitting its LUT files. Direct calls to the linked minizip-ng library confirm
+  directory reading returns NULL/EOVERFLOW and directory classification fails
+  on this filesystem. Its binary still imports narrow `readdir` and `stat`.
+  A matching wide-file minizip/OCIO comparison now passes: minizip's 168 tests,
+  all 10 OpenColorIO CTest entries, and an external directory/archiving consumer.
+  The directory probe finds 11 entries with no errno; the archive contains 10
+  members rather than just the config. An assertion-backed public Python probe
+  confirms context-free config cache equality, processor cache equality, exact
+  transform data and serialized config equality. Contextual config cache IDs
+  legitimately differ with filesystem/proxy context and are not conflated with
+  the context-free assertion. This remains diagnostic: `mz_os_read_dir` exposes
+  `struct dirent`, so adopting wide-file compilation needs explicit consumer/
+  public-ABI review, not a silent flag flip. SSE2 is still not adopted as the
+  generic i686 baseline; the scalar/x87 investigation remains separate.
+  Independent review blocks promotion of the private-flag diagnostic unchanged:
+  publish the ABI requirement through both CMake target definitions and pkg-config
+  Cflags, and coordinate consumer rebuilding. OCIO's config-package path carries
+  definitions, but its pkg-config fallback currently drops compiler flags.
+  Review: `parallel/minizip-abi-review/review.md`. A private same-SONAME wide
+  variant is not an adequate isolation mechanism. A public-contract candidate
+  is now applied locally: an explicit upstream-style option exports the same
+  definition to library compilation, CMake consumers and pkg-config Cflags;
+  Nix enables it only for 32-bit GNU/Linux. The OCIO finder forwards fallback
+  compilation flags and selects the installed config path. Fresh normal/compat
+  builds now pass 168 tests each. The first metadata consumer compile correctly
+  receives the public flag, but its runtime gate rejects the freshly created
+  home-subvolume fixture because its inode is below UINT32_MAX. This is a
+  fixture/precondition failure, not a package failure. Consumers are being rerun
+  read-only against retained directory inode 4303727531, file 4303727532 and
+  subdirectory 4303727537; original fixture/log evidence is preserved.
+  Six normal-package C/C++ consumers now pass on those high inodes through
+  CMake, pkg-config and raw compiler usage. The compatibility CMake probe then
+  exposed a harness search-path omission: dependency prefixes contained dev
+  outputs but not the matching target libraries. Prefixes are corrected without
+  package changes. The full matrix now passes: 16 C/C++ consumers across
+  normal/compat CMake, pkg-config, raw compiler use and both OCIO finder paths;
+  none receives a manual LFS flag. All confirm pointer=32, off_t=8, ino_t=8,
+  time_t=4 and d_name offset=19. Negative controls specifically reject old
+  private-wide metadata and the original flag-dropping finder. Evidence:
+  `parallel/minizip-public-validation/passed.json`. Actual OCIO project builds
+  through both discovery paths, option-conflict checks and the remaining
+  consumer-source audit are still acceptance gates. Both x86_64 minizip
+  derivations are verified unchanged (`audit/minizip-{before,after}-public-contract.json`).
+  This coordinated 32-bit ABI transition is not committed or claimed complete.
+  Pinned consumer inspection confirms Millennium uses the imported-target path
+  (not the initially suspected raw bypass), and Telegram's packaged helper
+  forwards compatibility CMake/pkg-config requirements. Remaining exact-source
+  gaps include Linphone, DJV and tlrender public interfaces; source fetches are
+  being prepared without building unsupported applications. Audit:
+  `parallel/minizip-consumer-source-audit/audit.md`.
+  Evidence: `audit/minizip-directory-probe.{c,txt}` and
+  `audit/opencolorio-archive-sse2-probe2/` (failed round-trip retained),
+  `audit/opencolorio-archive-matched-lfs-probe2/` (assertion-backed success), and
+  `{minizip,opencolorio}-i686-*matched-lfs*.{json,log}`.
+  Evidence: `opencolorio-i686-scalar-lfs{,-standard}-checks.{json,log}` and
+  `audit/opencolorio-equality-probe*`.
 
 Source/reproducer evidence is in `parallel/{qmake,yaml}-diagnosis/`; root builder
 logs are under `failures/`. yaml-cpp and gavl are now validated and committed;
-Qt5 and Qt6 tool repairs are also validated and committed; PyQt6 and the
-full downstream Krita rebuild remain pending validation. They are not
-counted as fixed until their required checks and individual commits succeed.
+Qt5/Qt6 tool repairs and PyQt6 are also validated, committed and pushed.
+The full downstream Krita build remains blocked by OpenColorIO; its dependency
+experiments are not counted as completed package repairs.
 
 No PRs opened automatically. Drafts disclose AI assistance and require operator
 review. Avoid disabling whole test suites or bypassing unsupported-platform

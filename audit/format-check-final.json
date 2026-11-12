@@ -55,6 +55,16 @@
     "message": ""
   },
   {
+    "file": "pkgs/by-name/mi/minizip-ng/package.nix",
+    "exitCode": 0,
+    "message": ""
+  },
+  {
+    "file": "pkgs/by-name/op/opencolorio/package.nix",
+    "exitCode": 0,
+    "message": ""
+  },
+  {
     "file": "pkgs/by-name/ra/rapidjson/package.nix",
     "exitCode": 0,
     "message": ""

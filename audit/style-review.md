@@ -55,8 +55,20 @@ Retrieved examples are saved in `merged-pr-*.patch` and `*-existing-pr.*`.
 | gavl | Same glibc time64/LFS flags pattern as tayga, with an explicit 32-bit GNU guard. Public API uses int64_t rather than libc time/stat types; external consumer HTTP date round trips pass on both widths. |
 | Qt5 qmake | Private Unix bootstrap flags, not general compiler flags or public Qt headers; follows the tool build platform. Both full builds pass; installed i686 tool imports wide filesystem APIs and project discovery passes. Committed. |
 | Qt6 qmake | Private CMake definition follows existing qt_internal_extend_target idiom, no public QtCore ABI change. Both full builds pass; real installed-tool high-inode regression fails before and passes after. Committed. |
-| PyQt6 (pending) | Optional PDF default uses availableOn, mirroring existing stellarium/PySide patterns. x86_64 passes; i686 install awaits qmake fix. No unsupported-platform override. |
+| PyQt6 | Optional PDF default uses availableOn, mirroring existing stellarium/PySide patterns. Both fresh builds/imports/offscreen renders pass after qmake repairs; PDF availability matches architecture. One-line focused commit pushed; explicit overrides preserved, no unsupported-platform override. |
 | LibreOffice (pending) | buildPlatform isi686 gate reflects bootstrap compiler location; document optional Java feature loss. Box2D scalar and skcms dispatcher defines remain target-local and x86-32-only. Class-specific refcount override was rejected after another same-root thunk failure; test devirtualization workaround scoped to i686/GNU16, not other architectures/toolchains. Full build validation required before commit. |
+
+Minizip/OpenColorIO public ABI candidates remain uncommitted. Independent review
+required public CMake and pkg-config propagation, explicit ABI-transition wording,
+no time64 change, and no incompatible private same-SONAME variant. Both minizip
+variants and 16 C/C++ consumers now pass; exact source/option and actual OCIO
+project gates remain. x86_64 minizip derivations are unchanged. Do not treat
+synthetic metadata success as proof of every downstream closure.
+
+PyQt6 integration d6ff01421387 and focused 9c2686c4f13c were committed separately
+from all pending source work, pushed and remote-verified. Backup ref:
+`backup/i686-before-pyqt6-20261112`. Related #538261 changes no PyQt expression;
+no duplicate PR or automatic PR was opened.
 
 ## History amendment policy
 
@@ -69,5 +81,6 @@ derivation hashes where edits are non-functional. This policy has not yet been
 fully executed for pending LibreOffice; the committed fixes were audited,
 three changed focused branches were regenerated/pushed with exact leases and
 all existing focused trees/remote records checked. Both carried authors are
-preserved. All 28 changed Nix files pass formatting. See report.md and
+preserved. All 30 currently changed Nix files pass formatting, including pending
+candidates; formatting does not establish their correctness. See report.md and
 focused-amendments.json for exact hashes and limitations.

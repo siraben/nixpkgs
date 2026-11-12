@@ -67,17 +67,32 @@ siraben/nixpkgs. Do not open PRs automatically.
 - Per-fix style review in `audit/style-review.md`. Three style fixups have been
   autosquashed, preserving author credit and backup refs. Changed focused
   branches and integration are pushed/verified with exact old-hash leases.
-  All 28 changed Nix files pass formatting. See `report.md`.
+  All 30 currently changed Nix files pass formatting, including pending
+  candidates; formatting is not correctness evidence. See `report.md`.
 - Krita survey uncovered qmake large-inode failures, gavl time ABI mismatch and
   yaml-cpp serialization truncation. yaml-cpp and gavl repairs pass both-width
   validation, are separately committed and pushed, with drafts. Qt5's private
   qmake large-file repair also passes both full builds and installed-tool
   checks, and is committed. Qt6's private qmake repair also passes both builds
   and an exact installed-tool high-inode regression, and is committed.
-  PyQt6/Krita downstream validation remains pending.
+  PyQt6 now builds/imports and renders offscreen text on both widths, with
+  optional PDF modules absent/present as expected. Focused PyQt6 branch
+  9c2686c4f13c and integration d6ff01421387 are pushed/verified. Full Krita
+  remains blocked by OpenColorIO.
 - RawTherapee builds and converts a 16-bit TIFF to a verified 64x64 JPEG on
   i686. No new RawTherapee fix needed. digiKam's unconditional upstream
   QtWebEngine dependency is a recorded porting limitation, not bypassed.
+- New pending investigations: LibreOffice's real duplicate-font-mapping repair
+  passes all 87 Writer tests; supported AFDKO driver recompilation passes the
+  PDF-font regression and three embedding tests. Other i686 failures remain;
+  full x86_64 regression is running. No successful LibreOffice i686 package claim.
+- Minizip public wide-file contract: both variants pass 168 tests; all 16
+  metadata-only high-inode consumers and two negative controls pass. Additional
+  exact consumer-source and option/discovery-path audits remain before commit.
+- OpenColorIO generic x87 has a reproduced public-API ACES2 accuracy failure;
+  `-ffloat-store` improves that one case but leaves 25 assertions failing.
+  No SSE2 CPU-baseline change, test-tolerance inflation or global workaround
+  adopted. See `report.md` for diagnostic evidence and limitations.
 - PR drafts are under `prs/<package>/pr.md`. Publish them on a separate docs
   branch so source PR diffs remain focused. No PRs have been opened.
 - SSH access to fork confirmed after operator authenticated.
