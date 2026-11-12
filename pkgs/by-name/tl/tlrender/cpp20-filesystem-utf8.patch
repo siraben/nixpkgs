@@ -1,0 +1,94 @@
+Keep the UTF-8 byte-string boundary explicit when C++20 filesystem APIs
+return std::u8string. Share a private helper for file opening, menu labels and
+recent-file JSON, which must stay a string rather than an array of code units.
+
+--- a/bin/tlplay/CMakeLists.txt
++++ b/bin/tlplay/CMakeLists.txt
+@@ -5,6 +5,7 @@
+     FilesModel.h
+     MainWindow.h
+     MenuBar.h
++    PathUtil.h
+     PlaybackActions.h
+     PlaybackBar.h
+     RecentFilesModel.h
+--- /dev/null
++++ b/bin/tlplay/PathUtil.h
+@@ -0,0 +1,19 @@
++// SPDX-License-Identifier: BSD-3-Clause
++
++#pragma once
++
++#include <filesystem>
++#include <string>
++
++namespace tl
++{
++    namespace play
++    {
++        inline std::string pathToUtf8(const std::filesystem::path& path)
++        {
++            // C++20 u8string uses char8_t; consumers still need UTF-8 char bytes.
++            const auto utf8 = path.u8string();
++            return std::string(reinterpret_cast<const char*>(utf8.data()), utf8.size());
++        }
++    }
++}
+--- a/bin/tlplay/FilesModel.cpp
++++ b/bin/tlplay/FilesModel.cpp
+@@ -4,6 +4,7 @@
+ 
+ #include "FilesModel.h"
+ 
++#include "PathUtil.h"
+ #include "SettingsModel.h"
+ 
+ namespace tl
+@@ -50,7 +51,7 @@
+         {
+             if (auto context = _context.lock())
+             {
+-                auto timeline = timeline::Timeline::create(context, file::Path(path.u8string()));
++                auto timeline = timeline::Timeline::create(context, file::Path(pathToUtf8(path)));
+                 auto player = timeline::Player::create(context, timeline);
+                 const int index = _players->getSize();
+                 _players->pushBack(player);
+--- a/bin/tlplay/MenuBar.cpp
++++ b/bin/tlplay/MenuBar.cpp
+@@ -8,6 +8,7 @@
+ #include "CompareActions.h"
+ #include "FileActions.h"
+ #include "FilesModel.h"
++#include "PathUtil.h"
+ #include "PlaybackActions.h"
+ #include "RecentFilesModel.h"
+ #include "ViewActions.h"
+@@ -86,7 +87,7 @@
+                     {
+                         const std::filesystem::path path = *i;
+                         auto action = feather_tk::Action::create(
+-                            path.filename().u8string(),
++                            pathToUtf8(path.filename()),
+                             [this, appWeak, path]
+                             {
+                                 if (auto app = appWeak.lock())
+--- a/bin/tlplay/RecentFilesModel.cpp
++++ b/bin/tlplay/RecentFilesModel.cpp
+@@ -3,6 +3,8 @@
+ // All rights reserved.
+ 
+ #include "RecentFilesModel.h"
++
++#include "PathUtil.h"
+ 
+ namespace tl
+ {
+@@ -39,7 +41,7 @@
+             nlohmann::json json;
+             for (const auto& path : getRecent())
+             {
+-                json.push_back(path.u8string());
++                json.push_back(pathToUtf8(path));
+             }
+             _settings->set("/Files/Recent", json);
+             _settings->set("/Files/RecentMax", getRecentMax());
