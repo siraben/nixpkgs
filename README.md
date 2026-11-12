@@ -34,6 +34,7 @@ See [report.md](report.md) for results and limitations and [style review](audit/
 | qtmultimedia | [pr.md](prs/qtmultimedia/pr.md) | [siraben/i686-qtmultimedia-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-qtmultimedia-20261111) |
 | rsync | [pr.md](prs/rsync/pr.md) | [siraben/i686-rsync-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-rsync-20261111) |
 | shiboken6-generator | [pr.md](prs/shiboken6-generator/pr.md) | [siraben/i686-shiboken6-generator-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-shiboken6-generator-20261111) |
+| tlrender-utf8 | [pr.md](prs/tlrender-utf8/pr.md) | [siraben/i686-tlrender-utf8-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-tlrender-utf8-20261111) |
 | upower | [pr.md](prs/upower/pr.md) | [siraben/i686-upower-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-upower-20261111) |
 | xfsprogs | [pr.md](prs/xfsprogs/pr.md) | [siraben/i686-xfsprogs-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-xfsprogs-20261111) |
 | yaml-cpp | [pr.md](prs/yaml-cpp/pr.md) | [siraben/i686-yaml-cpp-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-yaml-cpp-20261111) |

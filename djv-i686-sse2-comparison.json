@@ -1,0 +1,28 @@
+{
+  "name": "djv-i686-sse2-comparison",
+  "command": [
+    "nix-build",
+    "/home/siraben/i686-iso-work/refresh-20261111/i686-sse2-application-comparison.nix",
+    "-A",
+    "djv",
+    "--out-link",
+    "/home/siraben/i686-iso-work/refresh-20261111/djv-i686-sse2-comparison-result",
+    "--keep-going",
+    "--keep-failed",
+    "--max-jobs",
+    "2",
+    "--cores",
+    "4",
+    "--max-silent-time",
+    "900",
+    "--option",
+    "extra-platforms",
+    "i686-linux x86_64-linux aarch64-linux armv7l-linux"
+  ],
+  "status": "passed",
+  "started": 1794487053.6477325,
+  "elapsedSeconds": 52,
+  "updated": "2026-11-12T12:38:25.909949+00:00",
+  "log": "/home/siraben/i686-iso-work/refresh-20261111/djv-i686-sse2-comparison.log",
+  "exitCode": 0
+}

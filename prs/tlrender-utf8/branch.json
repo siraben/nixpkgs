@@ -1,0 +1,7 @@
+{
+  "branch": "siraben/i686-tlrender-utf8-20261111",
+  "commit": "05597ea92fa8c8a3957ea8ac54273a29d62bfdb9",
+  "base": "a238bac4849a79e151329cdc51638d3bc7627c6c",
+  "integrationCommit": "918b6158436ea70ab5b3b587db1515991afc415f",
+  "title": "tlrender: handle UTF-8 filesystem paths with C++20"
+}

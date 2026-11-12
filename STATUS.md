@@ -107,6 +107,12 @@ siraben/nixpkgs. Do not open PRs automatically.
   Focused branch independently builds/passes all 10 CTests on BASE for x86_64,
   with a distinct artifact; i686 validation still uses the integration stack.
   No generic-x87 accuracy claim or production CPU/math/check-selection change.
+- tlRender UTF-8 repair: normal x86_64 and explicit SSE2-only i686 builds pass,
+  as do four width/standard Unicode tests and installed tlCore high-inode API.
+  Initial invalid JSON negative control is retained; nlohmann already supports
+  u8string JSON. Review clear; integration 918b6158436e and focused 05597ea92fa8
+  pushed/verified. DJV SSE2 comparison also builds, with no new DJV edit.
+  No GUI/playback/generic-CPU claim; focused x64 BASE check is being prepared.
 - OpenColorIO generic x87 has a reproduced public-API ACES2 accuracy failure;
   `-ffloat-store` improves that one case but leaves 25 assertions failing.
   No SSE2 CPU-baseline change, test-tolerance inflation or global workaround

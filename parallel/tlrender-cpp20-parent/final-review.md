@@ -1,0 +1,12 @@
+## Review
+No issues found.
+
+- **Correct — byte conversion:** `cpp20-filesystem-utf8.patch:29–33` copies the `u8string()` representation through a permitted `const char*` alias into an owning `std::string`. The source remains alive throughout construction; explicit length preserves bytes, including embedded NULs. Empty strings are safe. This supports both C++17 and C++20 without locale conversion or standard downgrades.
+- **Correct — source boundaries:** Patch lines 52 and 71 repair the actual `std::string` consumers: tlCore’s `Path` constructor (`lib/tlCore/Path.h:51–53`) and feather-tk’s `Action::create` (`lib/feather-tk/ui/Action.h:34–36`). Keeping `u8string()` preserves filesystem UTF-8 conversion semantics.
+- **Correct — scope/style:** The inline, self-contained helper follows the surrounding namespace/include style. Its CMake addition is confined to tlplay’s header list; it introduces no installed/public API. `package.nix:68` adds only the patch; compiler flags, CPU policy, features and `doCheck` remain unchanged.
+- **Correct — JSON assessment:** nlohmann 3.12’s `detail/conversions/to_json.hpp:444–450` already converts `char8_t` strings into JSON strings. Patch line 91 is therefore consistent boundary normalization, **not a demonstrated JSON bug fix**. Retaining it is acceptable; removal is not required.
+- **Optional minimality/documentation:** Patch preamble lines 2–3 could say “normalize file opening, menu labels and recent-file JSON to owning UTF-8 byte strings; existing JSON string semantics are unchanged.” That clarification is sufficient; no code correction is justified.
+- **Fixed:** None; review was read-only.
+- **Evidence:** Reviewed the supplied tracked diff, candidate patch, manifest, pinned source seams, regression source/script and retry log. The retry records all four 32/64-bit × C++17/20 passes with assertions enabled, exact non-ASCII bytes, empty paths, filename extraction and existing/new JSON string behavior. Its recorded patch SHA matches the supplied manifest.
+- **Build evidence/limits:** Supplied package records report successful x86_64 and SSE2-comparison i686 builds; logs show tlplay built and installed. These are existing results, not executions by this reviewer. No generic-i686, Windows-runtime, GUI/playback or full-upstream-suite validation is inferred. The earlier aborted harness is not relied upon.
+- **Merge verdict: OK with notes.** JSON documentation clarification is optional; parent retains acceptance and commit decisions.
