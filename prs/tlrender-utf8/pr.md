@@ -29,6 +29,10 @@ std::string API type incompatibility.
   narrow off_t4/time_t4 caller; library imports readdir64/stat64. This validates
   its fixed-width public seam, not arbitrary libc-record interoperation.
 - Independent final byte-alias/lifetime/style review: no concrete defect found.
+- Focused x64 tlplay and SSE2-only i686 tlplay/DJV initialize and print help
+  under private Xvfb with architecture-matched software Mesa. Expected help
+  exit 1/content asserted; original no-display/GLX prerequisite failures kept.
+  This is not a playback or complete GUI test.
 
 Existing upstream GUI suite remains disabled by the original package's X11
 requirement; this change adds no skip. No Windows-runtime, GUI/playback,

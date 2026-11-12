@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "scope": "CLI help with software GLX, i686 artifacts SSE2-only; NOT media playback or generic CPU validation",
+  "programs": [
+    {
+      "program": "tlplay",
+      "label": "tlplay-x64",
+      "artifact": "/nix/store/28hz2wvwdd0m8vcbmi8h39y3m6ymbgkr-tlrender-0.10.0",
+      "mesa": "/nix/store/x6c8ff2w13g4s2xr5bw2algpn7sb2k2f-mesa-26.3.0",
+      "exitCode": 1,
+      "helpVerified": true
+    },
+    {
+      "program": "tlplay",
+      "label": "tlplay-i686",
+      "artifact": "/nix/store/xa2gcyzj85sagrbh3z8l2n77br8qyy8r-tlrender-0.10.0",
+      "mesa": "/nix/store/rx63m5m9b8lm65zsy5dq7318apjyzgbr-mesa-26.3.0",
+      "exitCode": 1,
+      "helpVerified": true
+    },
+    {
+      "program": "djv",
+      "label": "djv-i686",
+      "artifact": "/nix/store/1kkwqnsdmfs4pgc1srdc33j6qllbywrc-djv-3.1.1",
+      "mesa": "/nix/store/rx63m5m9b8lm65zsy5dq7318apjyzgbr-mesa-26.3.0",
+      "exitCode": 1,
+      "helpVerified": true
+    }
+  ],
+  "display": ":1"
+}

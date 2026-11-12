@@ -1,0 +1,13 @@
+{
+  "name": "timeline-sse2-cli-mesa-smoke",
+  "command": [
+    "python3",
+    "/home/siraben/i686-iso-work/refresh-20261111/parallel/tlrender-cpp20-parent/smoke-cli-mesa.py"
+  ],
+  "status": "passed",
+  "started": 1794490624.3038359,
+  "elapsedSeconds": 3,
+  "updated": "2026-11-12T13:37:07.723133+00:00",
+  "log": "/home/siraben/i686-iso-work/refresh-20261111/timeline-sse2-cli-mesa-smoke.log",
+  "exitCode": 0
+}

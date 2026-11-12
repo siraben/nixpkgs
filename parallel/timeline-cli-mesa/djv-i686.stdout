@@ -1,0 +1,59 @@
+
+djv
+
+    Playback and review image sequences.
+
+Usage:
+
+    djv [input] [option],...
+
+Arguments:
+
+    input - One or more timelines, movies, image sequences, or directories.
+
+Audio Options:
+
+    -audio, -a (value) - Audio file name.
+
+Compare Options:
+
+    -compare, -b (value) - Compare "B" file name.
+    -compareMode, -c (value) - Compare mode. Options: "A", "B", "Wipe", "Overlay", "Difference", "Horizontal", "Vertical", "Tile".
+    -wipeCenter, -wc (value) - Wipe center. Default: "0.5 0.5".
+    -wipeRotation, -wr (value) - Wipe rotation. Default: "0".
+
+Playback Options:
+
+    -speed (value) - Playback speed.
+    -playback, -p (value) - Playback mode. Options: "Stop", "Forward", "Reverse".
+    -loop (value) - Loop mode. Options: "Loop", "Once", "Ping-Pong".
+    -seek (value) - Seek to the given time.
+    -inOutRange (value) - Set the in/out points range.
+
+Color Options:
+
+    -ocio (value) - OCIO configuration file name (e.g., config.ocio).
+    -ocioInput (value) - OCIO input name.
+    -ocioDisplay (value) - OCIO display name.
+    -ocioView (value) - OCIO view name.
+    -ocioLook (value) - OCIO look name.
+    -lut (value) - LUT file name.
+    -lutOrder (value) - LUT operation order. Options: "PostColorConfig", "PreColorConfig".
+
+Testing Options:
+
+    -exit - Start the user interface and then exit.
+
+Style Options:
+
+    -displayScale, -ds (value) - Set the display scale. A value of 0 sets the scale automatically.
+    -colorStyle, -cs (value) - Set the color style. Options: "Dark", "Light", "Custom".
+
+Options:
+
+    -logFile (value) - Log file name. Default: "/home/siraben/Documents/DJV/djv.3.1.1.log".
+    -resetSettings - Reset settings to defaults.
+    -settingsFile (value) - Settings file name. Default: "/home/siraben/Documents/DJV/djv.3.1.1.json".
+    -log - Print the log to the console.
+    -help, -h, --help, --h - Show this message.
+

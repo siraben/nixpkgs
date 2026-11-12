@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/home/siraben/i686-iso-work/refresh-20261111/parallel/tlrender-cpp20-parent/smoke-cli-xvfb.py", line 43, in <module>
+    assert 'Usage:' in run.stdout and description in run.stdout, (name,run.stdout,run.stderr)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('tlplay', '', 'GLFW ERROR: GLX: No GLXFBConfigs returned\nGLFW ERROR: GLX: Failed to find a suitable GLXFBConfig\nERROR: Cannot create window\n')

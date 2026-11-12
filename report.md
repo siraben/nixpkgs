@@ -463,8 +463,14 @@ source failure is separate from the validated filesystem ABI repair and is now
 repaired by the private UTF-8 bridge. The focused tlRender x86_64 BASE-only
 build passes with a distinct artifact (`focused-x64-passed.json` in its lane).
 The no-display CLI help attempt failed before parsing because GLFW requires a
-display; a private supervised-Xvfb retry is pending. This is a harness
-precondition failure, not evidence that the source repair fails.
+display. The private Xvfb retry satisfies that requirement but has no usable
+GLX framebuffer configuration; matching 64-bit-server/32-bit-client Mesa
+software-renderer paths resolve it. Native x86_64 tlplay and SSE2-only i686
+tlplay/DJV all pass CLI help initialization and expected exit-1/content checks
+under private Xvfb. Both earlier attempts are preserved as graphics precondition
+failures, not UTF-8 regressions. Evidence:
+`parallel/timeline-cli-mesa/passed.json` and `timeline-sse2-cli-mesa-smoke.json`.
+No GUI/media playback, generic-i686 CPU or physical-hardware claim.
 
 No PRs opened automatically. Drafts disclose AI assistance and require operator
 review. Avoid disabling whole test suites or bypassing unsupported-platform

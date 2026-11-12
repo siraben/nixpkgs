@@ -114,7 +114,10 @@ siraben/nixpkgs. Do not open PRs automatically.
   pushed/verified. DJV SSE2 comparison also builds, with no new DJV edit.
   Focused x64 BASE-only build passes with a distinct artifact. No GUI/playback
   or generic-CPU claim. No-display CLI help attempt correctly exposed GLFW's
-  display precondition; private Xvfb retry pending.
+  display precondition; Xvfb retry then lacks usable GLX configs. Matching
+  software Mesa paths resolve it: x64 tlplay and SSE2-only i686 tlplay/DJV
+  pass expected help exit/content checks under private Xvfb. Earlier attempts
+  preserved; no GUI/playback or generic-i686 claim.
 - OpenColorIO generic x87 has a reproduced public-API ACES2 accuracy failure;
   `-ffloat-store` improves that one case but leaves 25 assertions failing.
   No SSE2 CPU-baseline change, test-tolerance inflation or global workaround

@@ -1,0 +1,28 @@
+{
+  "name": "timeline-mesa64-graphics-precondition",
+  "command": [
+    "nix-build",
+    "/home/siraben/i686-iso-work/refresh-20261111/nixpkgs",
+    "-A",
+    "mesa",
+    "--argstr",
+    "system",
+    "x86_64-linux",
+    "--out-link",
+    "/home/siraben/i686-iso-work/refresh-20261111/timeline-mesa64-result",
+    "--keep-going",
+    "--keep-failed",
+    "--max-jobs",
+    "2",
+    "--cores",
+    "4",
+    "--max-silent-time",
+    "900"
+  ],
+  "status": "passed",
+  "started": 1794490622.408964,
+  "elapsedSeconds": 2,
+  "updated": "2026-11-12T13:37:04.276076+00:00",
+  "log": "/home/siraben/i686-iso-work/refresh-20261111/timeline-mesa64-graphics-precondition.log",
+  "exitCode": 0
+}

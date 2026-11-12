@@ -1,0 +1,80 @@
+{
+  "timestamp": "2026-11-12T13:39:50.963988+00:00",
+  "scope": "latest five focused repair branches and phase evidence; NOT completion of all i686 applications",
+  "integration": "918b6158436ea70ab5b3b587db1515991afc415f",
+  "remoteVerified": true,
+  "focused": [
+    {
+      "branch": "siraben/i686-minizip-ng-20261111",
+      "commit": "33c29fc6802cf6eed89d6c79c2cbcba0eb43af8c",
+      "base": "a238bac4849a79e151329cdc51638d3bc7627c6c",
+      "integrationCommit": "1bfa643c711952628be613838db2435aa97271dc",
+      "title": "minizip-ng: publish a wide-file ABI on 32-bit GNU/Linux",
+      "auditedPaths": [
+        "pkgs/by-name/mi/minizip-ng/package.nix",
+        "pkgs/by-name/mi/minizip-ng/public-file-offset-64.patch"
+      ]
+    },
+    {
+      "branch": "siraben/i686-opencolorio-filesystem-20261111",
+      "commit": "2939057da7a3499d9fad0847a7cba3b1d9f26a92",
+      "base": "a238bac4849a79e151329cdc51638d3bc7627c6c",
+      "integrationCommit": "883f6d3b3af9fe6d84075be462bff64cdc346891",
+      "title": "opencolorio: preserve minizip-ng usage requirements",
+      "auditedPaths": [
+        "pkgs/by-name/op/opencolorio/minizip-pkgconfig-cflags.patch",
+        "pkgs/by-name/op/opencolorio/package.nix"
+      ]
+    },
+    {
+      "branch": "siraben/i686-libreoffice-afdko-driver-20261111",
+      "commit": "5fc18f5f8eefd403ac0ed191e7beaf181e6bc230",
+      "base": "a238bac4849a79e151329cdc51638d3bc7627c6c",
+      "integrationCommit": "6d237f3f999cead7a099cf2cbe8713782450a031",
+      "title": "libreoffice: prefer the supported AFDKO driver",
+      "focusedContext": "BASE plus this patch only; adjacent other-fix context excluded",
+      "auditedPaths": [
+        "pkgs/applications/office/libreoffice/default.nix",
+        "pkgs/applications/office/libreoffice/prefer-makeotf-driver.patch"
+      ]
+    },
+    {
+      "branch": "siraben/i686-libreoffice-font-mappings-20261111",
+      "commit": "9d9146c3c8dbbddce711e95283c8831da0819f69",
+      "base": "a238bac4849a79e151329cdc51638d3bc7627c6c",
+      "integrationCommit": "1df97b58854e9217edb0dd6e21abc6919bcf8157",
+      "title": "libreoffice: share font-file mappings between HarfBuzz faces",
+      "focusedContext": "BASE plus this patch only; adjacent other-fix context excluded",
+      "auditedPaths": [
+        "pkgs/applications/office/libreoffice/default.nix",
+        "pkgs/applications/office/libreoffice/share-font-file-mappings.patch"
+      ]
+    },
+    {
+      "branch": "siraben/i686-tlrender-utf8-20261111",
+      "commit": "05597ea92fa8c8a3957ea8ac54273a29d62bfdb9",
+      "base": "a238bac4849a79e151329cdc51638d3bc7627c6c",
+      "integrationCommit": "918b6158436ea70ab5b3b587db1515991afc415f",
+      "title": "tlrender: handle UTF-8 filesystem paths with C++20",
+      "auditedPaths": [
+        "pkgs/by-name/tl/tlrender/cpp20-filesystem-utf8.patch",
+        "pkgs/by-name/tl/tlrender/package.nix"
+      ]
+    }
+  ],
+  "formattedNixFiles": 31,
+  "whitespaceScope": "exclude vendor *.patch context",
+  "workingTree": [
+    "M pkgs/applications/office/libreoffice/default.nix",
+    "?? pkgs/applications/office/libreoffice/box2d-i686-scalar.patch",
+    "?? pkgs/applications/office/libreoffice/portable-32bit-tests.patch",
+    "?? pkgs/applications/office/libreoffice/skcms-i686-no-musttail.patch"
+  ],
+  "originalPreservedHead": "37e69cbac0c676a3bd3ce1bfbcd9305cd3bb142c",
+  "remainingLimits": [
+    "generic x87 OCIO accuracy unresolved",
+    "LibreOffice i686 35 CppUnit failures plus UNO",
+    "no complete GUI/media-playback or physical-hardware/ARM validation of the new application artifacts",
+    "uncommitted LO settings not accepted"
+  ]
+}

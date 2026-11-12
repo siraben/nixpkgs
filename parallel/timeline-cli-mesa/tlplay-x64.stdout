@@ -1,0 +1,27 @@
+
+tlplay
+
+    Example player application.
+
+Usage:
+
+    tlplay [input] [option],...
+
+Arguments:
+
+    input - One or more timelines, movies, or image sequences.
+
+Testing Options:
+
+    -exit - Start the user interface and then exit.
+
+Style Options:
+
+    -displayScale, -ds (value) - Set the display scale. A value of 0 sets the scale automatically.
+    -colorStyle, -cs (value) - Set the color style. Options: "Dark", "Light", "Custom".
+
+Options:
+
+    -log - Print the log to the console.
+    -help, -h, --help, --h - Show this message.
+

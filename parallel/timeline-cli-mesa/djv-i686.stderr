@@ -1,0 +1,12 @@
+libGL: Warning in /nix/store/rx63m5m9b8lm65zsy5dq7318apjyzgbr-mesa-26.3.0/share/drirc.d/00-msm-defaults.conf line -1, column -1: unknown device attribute: device_name.
+libGL: Can't open configuration file /etc/drirc: No such file or directory.
+libGL: Can't open configuration file /home/siraben/i686-iso-work/refresh-20261111/parallel/timeline-cli-mesa/djv-i686/.drirc: No such file or directory.
+libGL: Warning in /nix/store/rx63m5m9b8lm65zsy5dq7318apjyzgbr-mesa-26.3.0/share/drirc.d/00-msm-defaults.conf line -1, column -1: unknown device attribute: device_name.
+libGL: Can't open configuration file /etc/drirc: No such file or directory.
+libGL: Can't open configuration file /home/siraben/i686-iso-work/refresh-20261111/parallel/timeline-cli-mesa/djv-i686/.drirc: No such file or directory.
+libGL: Warning in /nix/store/rx63m5m9b8lm65zsy5dq7318apjyzgbr-mesa-26.3.0/share/drirc.d/00-msm-defaults.conf line -1, column -1: unknown device attribute: device_name.
+libGL: Can't open configuration file /etc/drirc: No such file or directory.
+libGL: Can't open configuration file /home/siraben/i686-iso-work/refresh-20261111/parallel/timeline-cli-mesa/djv-i686/.drirc: No such file or directory.
+libGL: Warning in /nix/store/rx63m5m9b8lm65zsy5dq7318apjyzgbr-mesa-26.3.0/share/drirc.d/00-msm-defaults.conf line -1, column -1: unknown device attribute: device_name.
+libGL: Can't open configuration file /etc/drirc: No such file or directory.
+libGL: Can't open configuration file /home/siraben/i686-iso-work/refresh-20261111/parallel/timeline-cli-mesa/djv-i686/.drirc: No such file or directory.
