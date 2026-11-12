@@ -56,7 +56,9 @@ siraben/nixpkgs. Do not open PRs automatically.
 - Expanded survey: MATE, GIMP and Inkscape build without new fixes. LXQt now
   builds after PySide6 optional-web availability, Shiboken extent-type and
   Qt Multimedia scalar-fallback fixes; all three packages build on both widths.
-  PySide6 offscreen widget rendering passes on both widths.
+  Fresh MATE and LXQt live ISO BIOS/QEMU graphical boot checks now pass,
+  including panels, file managers, terminals and stability. PySide6 offscreen
+  widget rendering passes on both widths.
 - liborcus rounding test fix passes all 59 tests on both widths. LibreOffice
   remains under repair: native-i686 Java default, bundled Box2D SIMD selection,
   skcms musttail ABI, then repeated undefined inherited refcount thunks in file

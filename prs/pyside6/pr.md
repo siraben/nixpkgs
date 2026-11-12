@@ -14,7 +14,9 @@ not duplicated; this change addresses native platform availability.
 - Complete LXQt NixOS system builds on i686 (`lxqt-i686-attempt2.json`).
 - Additional i686 generator/Qt Multimedia fixes were required and are separate
   branches; this focused branch was validated in the integration stack.
-- No macOS build or full LXQt graphical runtime test claimed.
+- Fresh LXQt live ISO boots under BIOS/QEMU TCG: Xorg, LXQt session/panel,
+  PCManFM-Qt, QTerminal and 30-second stability checks pass; screenshot reviewed.
+- No macOS build or installed-LXQt boot claimed.
 
 ```sh
 nix-build . -A python3Packages.pyside6 --argstr system i686-linux --option extra-platforms i686-linux

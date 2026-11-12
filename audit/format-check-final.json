@@ -1,0 +1,142 @@
+[
+  {
+    "file": "nixos/modules/hardware/all-hardware.nix",
+    "exitCode": 0,
+    "message": ""
+  },
+  {
+    "file": "nixos/modules/installer/cd-dvd/installation-cd-graphical-base.nix",
+    "exitCode": 0,
+    "message": ""
+  },
+  {
+    "file": "pkgs/applications/office/libreoffice/default.nix",
+    "exitCode": 0,
+    "message": ""
+  },
+  {
+    "file": "pkgs/by-name/ap/apache-orc/package.nix",
+    "exitCode": 0,
+    "message": ""
+  },
+  {
+    "file": "pkgs/by-name/az/azurite/package.nix",
+    "exitCode": 0,
+    "message": ""
+  },
+  {
+    "file": "pkgs/by-name/bc/bcachefs-tools/package.nix",
+    "exitCode": 0,
+    "message": ""
+  },
+  {
+    "file": "pkgs/by-name/ga/gavl/package.nix",
+    "exitCode": 0,
+    "message": ""
+  },
+  {
+    "file": "pkgs/by-name/go/google-cloud-cpp/package.nix",
+    "exitCode": 0,
+    "message": ""
+  },
+  {
+    "file": "pkgs/by-name/in/iniparser/package.nix",
+    "exitCode": 0,
+    "message": ""
+  },
+  {
+    "file": "pkgs/by-name/is/isa-l/package.nix",
+    "exitCode": 0,
+    "message": ""
+  },
+  {
+    "file": "pkgs/by-name/li/liborcus/package.nix",
+    "exitCode": 0,
+    "message": ""
+  },
+  {
+    "file": "pkgs/by-name/ra/rapidjson/package.nix",
+    "exitCode": 0,
+    "message": ""
+  },
+  {
+    "file": "pkgs/by-name/rs/rsync/package.nix",
+    "exitCode": 0,
+    "message": ""
+  },
+  {
+    "file": "pkgs/by-name/up/upower/package.nix",
+    "exitCode": 0,
+    "message": ""
+  },
+  {
+    "file": "pkgs/by-name/xf/xfsprogs/package.nix",
+    "exitCode": 0,
+    "message": ""
+  },
+  {
+    "file": "pkgs/by-name/ya/yaml-cpp/package.nix",
+    "exitCode": 0,
+    "message": ""
+  },
+  {
+    "file": "pkgs/development/libraries/qt-5/5.15/default.nix",
+    "exitCode": 0,
+    "message": ""
+  },
+  {
+    "file": "pkgs/development/libraries/qt-6/modules/qtbase/default.nix",
+    "exitCode": 0,
+    "message": ""
+  },
+  {
+    "file": "pkgs/development/libraries/qt-6/modules/qtmultimedia/default.nix",
+    "exitCode": 0,
+    "message": ""
+  },
+  {
+    "file": "pkgs/development/python-modules/afdko/default.nix",
+    "exitCode": 0,
+    "message": ""
+  },
+  {
+    "file": "pkgs/development/python-modules/dask/default.nix",
+    "exitCode": 0,
+    "message": ""
+  },
+  {
+    "file": "pkgs/development/python-modules/msgspec/default.nix",
+    "exitCode": 0,
+    "message": ""
+  },
+  {
+    "file": "pkgs/development/python-modules/pandas/default.nix",
+    "exitCode": 0,
+    "message": ""
+  },
+  {
+    "file": "pkgs/development/python-modules/pyqt/6.x.nix",
+    "exitCode": 0,
+    "message": ""
+  },
+  {
+    "file": "pkgs/development/python-modules/pyside6/default.nix",
+    "exitCode": 0,
+    "message": ""
+  },
+  {
+    "file": "pkgs/development/python-modules/shiboken6-generator/default.nix",
+    "exitCode": 0,
+    "message": ""
+  },
+  {
+    "file": "pkgs/os-specific/linux/kernel/build.nix",
+    "exitCode": 0,
+    "message": ""
+  },
+  {
+    "file": "pkgs/os-specific/linux/kernel/common-config.nix",
+    "exitCode": 0,
+    "message": ""
+  }
+]

@@ -1,0 +1,1 @@
+8d69d161d6065ddc1df3f1ec54993f08571082f3	refs/heads/siraben/i686-yaml-cpp-20261111

@@ -51,6 +51,10 @@ Retrieved examples are saved in `merged-pr-*.patch` and `*-existing-pr.*`.
 | Qt Multimedia | Complete upstream's existing i686 fallback in the same target branch. Scalar backend preserves generic i686 CPU baseline; no global SSE requirement. Keep. |
 | liborcus | Test-only epsilon-scaled comparison; finite-result check rejects NaN/infinity; zero remains exact. All 59 tests pass on each width. Keep. |
 | PySide6 | availableOn is preferable to hardcoded architecture; only optional WebEngine/WebView modules gated. Preserve macOS WebView support. Both builds and offscreen widgets pass; committed and pushed. |
+| yaml-cpp | Fetch pinned merged upstream PR #1401, preserving uint64_t significands. Exact existing precision tests retained and full CTest passes on both widths. No SSE2 or tolerance workaround. |
+| gavl | Same glibc time64/LFS flags pattern as tayga, with an explicit 32-bit GNU guard. Public API uses int64_t rather than libc time/stat types; external consumer HTTP date round trips pass on both widths. |
+| Qt5/Qt6 qmake (pending) | Scope LFS definitions to private tool/Unix bootstrap objects, not general compiler flags or public Qt headers; follows actual tool build platform in cross builds. Large-inode probes pass, full builds pending. |
+| PyQt6 (pending) | Optional PDF default uses availableOn, mirroring existing stellarium/PySide patterns. x86_64 passes; i686 install awaits qmake fix. No unsupported-platform override. |
 | LibreOffice (pending) | buildPlatform isi686 gate reflects bootstrap compiler location; document optional Java feature loss. Box2D scalar and skcms dispatcher defines remain target-local and x86-32-only. Class-specific refcount override was rejected after another same-root thunk failure; test devirtualization workaround scoped to i686/GNU16, not other architectures/toolchains. Full build validation required before commit. |
 
 ## History amendment policy
@@ -64,5 +68,5 @@ derivation hashes where edits are non-functional. This policy has not yet been
 fully executed for pending LibreOffice; the committed fixes were audited,
 three changed focused branches were regenerated/pushed with exact leases and
 all existing focused trees/remote records checked. Both carried authors are
-preserved. All 23 changed Nix files pass formatting. See report.md and
+preserved. All 28 changed Nix files pass formatting. See report.md and
 focused-amendments.json for exact hashes and limitations.

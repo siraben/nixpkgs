@@ -13,6 +13,7 @@ See [report.md](report.md) for results and limitations and [style review](audit/
 | azurite | [pr.md](prs/azurite/pr.md) | [siraben/i686-azurite-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-azurite-20261111) |
 | bcachefs-tools | [pr.md](prs/bcachefs-tools/pr.md) | [siraben/i686-bcachefs-tools-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-bcachefs-tools-20261111) |
 | dask | [pr.md](prs/dask/pr.md) | [siraben/i686-dask-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-dask-20261111) |
+| gavl | [pr.md](prs/gavl/pr.md) | [siraben/i686-gavl-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-gavl-20261111) |
 | google-cloud-cpp | [pr.md](prs/google-cloud-cpp/pr.md) | [siraben/i686-google-cloud-cpp-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-google-cloud-cpp-20261111) |
 | graphical-base | [pr.md](prs/graphical-base/pr.md) | [siraben/i686-graphical-base-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-graphical-base-20261111) |
 | hyperv | [pr.md](prs/hyperv/pr.md) | [siraben/i686-hyperv-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-hyperv-20261111) |
@@ -28,3 +29,4 @@ See [report.md](report.md) for results and limitations and [style review](audit/
 | shiboken6-generator | [pr.md](prs/shiboken6-generator/pr.md) | [siraben/i686-shiboken6-generator-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-shiboken6-generator-20261111) |
 | upower | [pr.md](prs/upower/pr.md) | [siraben/i686-upower-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-upower-20261111) |
 | xfsprogs | [pr.md](prs/xfsprogs/pr.md) | [siraben/i686-xfsprogs-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-xfsprogs-20261111) |
+| yaml-cpp | [pr.md](prs/yaml-cpp/pr.md) | [siraben/i686-yaml-cpp-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-yaml-cpp-20261111) |

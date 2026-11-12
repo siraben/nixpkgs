@@ -45,6 +45,8 @@ focused branches are not claimed to build independently of dependency fixes.
 | Shiboken6 generator | Match std::array's size_t extent type | Both builds; no feature removal | shiboken6-generator |
 | Qt Multimedia | Complete existing i686 scalar fallback for Resonance Audio | Both builds; non-i686 branch unchanged | qtmultimedia |
 | liborcus | Allow one double epsilon of relative error in numeric-parser test | All 59 tests pass on each architecture; no runtime change | liborcus |
+| yaml-cpp | Backport upstream uint64_t Dragonbox significand fix, preventing wrong serialized magnitudes | Full builds/CTest pass on both widths; 15-case i686 runtime reproducer passes | yaml-cpp |
+| gavl | Select 64-bit glibc time ABI on 32-bit, matching int64_t HTTP timestamps | Both builds; 1969/1970/2040 HTTP date round trips pass on each width | gavl |
 | PySide6 | Omit optional unavailable WebEngine/WebView modules using availableOn | Both builds and offscreen widget renders; full i686 LXQt system builds | pyside6 |
 | Graphical installer | Avoid unavailable QEMU guest agent/Firefox on 32-bit, use Dillo | Full ISO and live Xfce boot | graphical-base |
 | Hyper-V installer/hardware profiles | Do not require unavailable Hyper-V modules on i686 | Full ISO; x86_64 kernel/initrd/service derivations unchanged | hyperv |
@@ -57,20 +59,39 @@ this stack. ARM validation was not established for those changes.
 
 | Target | Observed result | Next action |
 |---|---|---|
-| MATE desktop NixOS system | Build passed | No new fix needed; graphical runtime not yet tested |
+| MATE desktop NixOS system and live ISO | **Build and BIOS/QEMU live desktop boot passed**: i686, Xorg, session/panel/Caja, terminal, stability and screenshot | No new MATE-specific fix needed; no installed MATE boot claim |
 | GIMP 3.2.6 | Build and version invocation passed | No new fix needed; no interactive runtime claim |
 | Inkscape 1.4.4 | Build and headless SVG-to-PNG export passed | No new fix needed; no interactive runtime claim |
-| LXQt desktop NixOS system | **Full build passed**, including the three new dependency fixes | Graphical runtime not yet tested |
-| LibreOffice 26.8.0.3 | Compiler workaround passes production compilation/linking; full suite exposes numeric/fixture failures plus one allocation failure | Validate standard excess precision, sal_Int32 fixture and 64-bit-only overflow guards; Java remains unavailable |
+| LXQt desktop NixOS system and live ISO | **Full builds and BIOS/QEMU live desktop boot passed**: i686, Xorg, session/panel/PCManFM-Qt, QTerminal, stability and screenshot | Three new dependency fixes; no installed LXQt boot claim |
+| LibreOffice 26.8.0.3 | Production compiles/links; portable fixture fixes pass, but standard excess precision does not resolve remaining numerical/runtime failures; font-export test times out | Run x86_64 comparison concurrently and an explicitly SSE2-only diagnostic variant; generic i686 baseline not raised |
+| Krita 6.0.4.1 | PDF selection fixed in evaluation; full attempt found PyQt6/qmake large-inode handling, Qt5 bootstrap enumeration, gavl timestamp ABI and yaml-cpp runtime serialization blockers | Validate each focused repair, then rebuild Krita |
+| RawTherapee 5.13 | **i686 build passed** | No new fix needed; CLI/image-processing smoke checks pending |
+| digiKam 9.1.0 | Upstream requires QtWebEngineWidgets unconditionally; no demonstrated packaging-only bypass | Recorded as upstream dependency/porting limitation, not fixed by lying about platforms |
 
 Logs: `survey-*-i686.{json,log}` and `trace-{lxqt,libreoffice}-i686.log`.
+MATE runtime evidence: `parallel/desktop-validation/test-mate-live/live-passed.json`,
+serial log and `live-mate.png` (visually reviewed). Its live ISO is
+`/nix/store/4v5szsrvw6200gyvyd0k15gxgajwlk7h-nixos-mate-26.11pre-git-i686-linux.iso`.
+The guest had restricted networking. LXQt's first two runs exposed harness
+errors: process argv used `/run/current-system/sw/bin/`, and QTerminal did not
+support the test's `--title` argument. Both failed runs are preserved; no
+package workaround was added. After correcting those test assumptions, strict
+session/terminal/stability checks passed, and the terminal screenshot visibly
+shows `i686`.
+
+LXQt evidence: `parallel/desktop-validation/test-lxqt-live-retry2/live-passed.json`,
+serial log and visually reviewed `live-lxqt.png`. Its live ISO is
+`/nix/store/x6jrvj7a0k6w77ycj535bpc9q70fab06-nixos-lxqt-26.11pre-git-i686-linux.iso`.
+LibreOffice and application builds continue independently. Application preflight
+and digiKam upstream-source evidence: `parallel/kde-apps/REPORT.md`.
+
 The survey does not establish that every supported 32-bit application works.
 OpenJDK's bootstrap limitation is already tracked in #314873 and open PR
 #575087 (metadata restriction, not a working bootstrap). No duplicate PR made.
 
 ## Style and idiom audit (ongoing)
 
-- All 23 changed Nix files, including pending LibreOffice, pass `nixfmt --check`
+- All 28 changed Nix files, including pending dependency repairs and LibreOffice, pass `nixfmt --check`
   (`audit/format-check-final.json`).
 - Backup integration ref: `backup/i686-before-expanded-audit-20261111`;
   pre-amend branch hashes: `audit/pre-amend-refs.txt`.
@@ -106,8 +127,46 @@ checking: 38 reported CppUnit failures across 18 CppUnit targets, a test compile
 type mismatch, and UNO test failure. Numeric failures include x87 rounding,
 integer-vs-sal_Int32 assertion type, impossible 64-bit map fixtures on 32-bit,
 and a sw_uiwriter allocation error. This is not a successful package build.
-Details: `failures/libreoffice-attempt6-tests.json`. The prior Xfce artifact is validated as built, not claimed byte-for-
+Details: `failures/libreoffice-attempt6-tests.json`.
+
+Attempt 7 fixes the two impossible map fixtures and test-compilation type error,
+but still reports 36 CppUnit failures, UNO test failure, and ends on the
+900-second silent timeout while sd_export_tests is processing embedded fonts.
+Failures include Calc autofill returning its 1.7e307 sentinel and a Writer
+allocation error; these are not all being dismissed as harmless rounding.
+Details: `failures/libreoffice-attempt7-tests.json` and retained test logs.
+
+`libreoffice-sse2-comparison.nix` is a diagnostic override, not a change to the
+generic package. SSE2 may separate x87-related issues from other runtime
+failures, but would raise the CPU requirement if adopted; no such support
+claim or commit has been made. The prior Xfce artifact is validated as built, not claimed byte-for-
 byte identical to an ISO embedding the subsequently amended Nixpkgs source.
+
+## Newly diagnosed Krita dependencies
+
+- **yaml-cpp 0.9.0:** a real double-serialization defect, not a tolerance issue.
+  Dragonbox's 64-bit significand is narrowed to 32-bit size_t. For example,
+  binary-exact 1.23455810546875 becomes 1.270590651e-05. Backport merged upstream
+  PR #1401; keep exact existing assertions. A standalone 15-case i686/x87
+  reproducer passes with that upstream patch. Full package builds and CTest
+  pass on both architectures; individually committed as 7cd7debb39f4.
+- **Qt5/Qt6 qmake:** inode overflow, not file size. Tiny files/directories on
+  the build filesystem have inode numbers above UINT32_MAX. Qt6 raw stat fails
+  installing files; Qt5 bootstrap readdir truncates project discovery. Minimal
+  probes confirm private large-file tool flags fix both without changing public
+  QtCore ABI. Full builds are pending. Upstream Gerrit duplicate checking was
+  blocked by HTTP 403; do not claim a comprehensive upstream search.
+- **gavl:** HTTP API uses int64_t but gmtime_r expects native time_t. Select
+  glibc's 64-bit time ABI on 32-bit. Both builds and HTTP dates before 1970
+  and after 2038 pass; individually committed as 8f47126e691a. Public headers
+  expose no libc time/stat structs; the HTTP API retains int64_t.
+- **PyQt6:** optional PDF default now follows QtWebEngine availability; x86_64
+  build passes, i686 reached installation and hit the qmake inode bug above.
+
+Source/reproducer evidence is in `parallel/{qmake,yaml}-diagnosis/`; root builder
+logs are under `failures/`. yaml-cpp and gavl are now validated and committed;
+Qt5/Qt6 tool changes and PyQt6 remain pending full validation. They are not
+counted as fixed until their required checks and individual commits succeed.
 
 No PRs opened automatically. Drafts disclose AI assistance and require operator
 review. Avoid disabling whole test suites or bypassing unsupported-platform

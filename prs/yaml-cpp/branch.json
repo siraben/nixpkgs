@@ -1,0 +1,7 @@
+{
+  "branch": "siraben/i686-yaml-cpp-20261111",
+  "commit": "8d69d161d6065ddc1df3f1ec54993f08571082f3",
+  "base": "a238bac4849a79e151329cdc51638d3bc7627c6c",
+  "integrationCommit": "7cd7debb39f430b4fa76de126ee82c1a0a2d2e95",
+  "title": "yaml-cpp: fix double serialization on 32-bit"
+}

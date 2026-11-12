@@ -14,6 +14,9 @@ nix-build . -A qt6.qtmultimedia --argstr system x86_64-linux
 ```
 
 Branch contains only this fix on a238bac4849a79e151329cdc51638d3bc7627c6c.
-LXQt/LibreOffice validation is still in progress, with additional dependency fixes.
+Full LXQt system and live ISO build, and fresh BIOS/QEMU live session,
+panel, file-manager, terminal and stability checks pass with the integration
+stack. This does not establish multimedia playback correctness. LibreOffice
+validation remains separate and incomplete.
 
 Prepared with AI assistance; operator review required before submission.

@@ -1,0 +1,7 @@
+{
+  "branch": "siraben/i686-gavl-20261111",
+  "commit": "96dbdde824ba8ae4d61b06c833c0bc58fbb6bba3",
+  "base": "a238bac4849a79e151329cdc51638d3bc7627c6c",
+  "integrationCommit": "8f47126e691a867fecce72f863bffb3ccacea588",
+  "title": "gavl: use 64-bit glibc time on 32-bit platforms"
+}
