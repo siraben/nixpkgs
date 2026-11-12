@@ -1,0 +1,28 @@
+{
+  "name": "opencolorio-focused-x86_64-build",
+  "command": [
+    "nix-build",
+    "/home/siraben/i686-iso-work/refresh-20261111/focused-validation/opencolorio-filesystem",
+    "-A",
+    "opencolorio",
+    "--argstr",
+    "system",
+    "x86_64-linux",
+    "--out-link",
+    "/home/siraben/i686-iso-work/refresh-20261111/opencolorio-focused-x86_64-result",
+    "--keep-going",
+    "--keep-failed",
+    "--max-jobs",
+    "2",
+    "--cores",
+    "4",
+    "--max-silent-time",
+    "900"
+  ],
+  "status": "passed",
+  "started": 1794482097.1639478,
+  "elapsedSeconds": 457,
+  "updated": "2026-11-12T11:22:33.902566+00:00",
+  "log": "/home/siraben/i686-iso-work/refresh-20261111/opencolorio-focused-x86_64-build.log",
+  "exitCode": 0
+}

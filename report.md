@@ -298,11 +298,16 @@ failure is in the Clang comparison and is not claimed fixed.
   First prefix divergence is already visible in display-inverse XYZ. A
   `-ffloat-store` generic-x87 diagnostic now completes: the public cyan case
   improves to red 0.00622071372 and passes the original threshold, but the full
-  suite still fails 11 cases/25 assertions after the known archive repairs.
+  suite still fails 11 cases/25 assertions in that diagnostic, including the
+  then-unfixed minizip archive cases (only core filesystem calls were wide).
   The flag is not adopted: it neither establishes whole-package correctness
   nor resolves the other arithmetic/fixture issues. Reference-accuracy checks
   remain necessary. Evidence: `opencolorio-aces2-public-*.{json,log}` and
   `parallel/ocio-numerical-review/aces2-*-loader.txt`.
+  A further compiler control uses Clang with SIMD OFF and explicit
+  `-march=i686 -mno-sse -mno-sse2 -mfpmath=387`, retaining original tests and
+  tolerances. This generic-x87 comparison is pending, not a production compiler
+  switch or success claim (`opencolorio-i686-clang-x87-comparison.nix`).
   SSE2 plus the core large-file fix eliminates those numerical assertion failures,
   but still fails two archive processor-cache equality cases in each enabled
   CPU dispatch run. All 398 Python tests pass. A fresh public-API archive probe
@@ -370,7 +375,12 @@ failure is in the Clang comparison and is not claimed fixed.
   The separate OCIO finder repair now passes production
   x86_64 build/all 10 CTest entries and is committed/pushed: integration
   `883f6d3b3af9`, focused `2939057da7a3`. Evidence:
-  `opencolorio-x86_64-public-metadata.{json,log}`. No generic-x87 accuracy claim;
+  `opencolorio-x86_64-public-metadata.{json,log}`. The focused finder branch
+  also independently builds on otherwise unmodified BASE for x86_64 and passes
+  all 10 CTest entries, producing a distinct artifact (not integration cache
+  reuse): `opencolorio-focused-x86_64-build.{json,log}` and
+  `parallel/minizip-public-validation/ocio-focused-x64-passed.json`.
+  No generic-x87 accuracy claim;
   no production CPU, math or test-selection change.
   Pinned consumer inspection confirms Millennium uses the imported-target path
   (not the initially suspected raw bypass), and Telegram's packaged helper

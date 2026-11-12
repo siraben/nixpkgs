@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "branch": "siraben/i686-opencolorio-filesystem-20261111",
+  "commit": "2939057da7a3499d9fad0847a7cba3b1d9f26a92",
+  "base": "a238bac4849a79e151329cdc51638d3bc7627c6c",
+  "system": "x86_64-linux",
+  "output": "/nix/store/jhv7qkmjzxj2rfq1gx5slrcji73cz4hk-opencolorio-2.5.2",
+  "validatedIntegrationOutput": "/nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2",
+  "sameOutput": false
+}

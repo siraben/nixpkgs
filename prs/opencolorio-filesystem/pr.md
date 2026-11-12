@@ -29,8 +29,12 @@ CPU change or duplicate that PR. Generic-x87 compilation/accuracy remains a
 separate unresolved issue. No arithmetic/tolerance/check-selection changes;
 no successful generic-i686 OCIO/Krita, ARM, playback or closure-wide claim.
 The 32-bit filesystem repair depends on the separate minizip public contract;
-this finder-only branch on otherwise unmodified BASE has not been independently
-built. Tests above used the integration stack.
+the focused finder-only branch was independently built on otherwise unmodified
+BASE for x86_64 and passes all 10 CTest entries there too (a distinct artifact,
+not integration-output cache reuse). i686 checks used the integration stack;
+there is no independent generic-i686 BASE-only build claim.
+Evidence: `parallel/minizip-public-validation/ocio-focused-x64-passed.json`
+and `opencolorio-focused-x86_64-build.{json,log}`.
 
 Evidence: `opencolorio-i686-public-lfs-{config,pkgconfig}.{json,log}`,
 result `nix-support/file-abi-compile-evidence.json`,

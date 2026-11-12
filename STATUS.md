@@ -99,6 +99,8 @@ siraben/nixpkgs. Do not open PRs automatically.
   flag assertions; initial evidence-export harness failure is retained.
   Broad application/closure coverage remains limited. Separate OCIO finder repair also passes all 10 production x86_64
   CTests and is committed/pushed: integration 883f6d3b3af9, focused 2939057da7a3.
+  Focused branch independently builds/passes all 10 CTests on BASE for x86_64,
+  with a distinct artifact; i686 validation still uses the integration stack.
   No generic-x87 accuracy claim or production CPU/math/check-selection change.
 - OpenColorIO generic x87 has a reproduced public-API ACES2 accuracy failure;
   `-ffloat-store` improves that one case but leaves 25 assertions failing.
