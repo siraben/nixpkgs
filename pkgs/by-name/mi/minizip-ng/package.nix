@@ -13,6 +13,10 @@
   enableCompat ? false,
 }:
 
+let
+  fileOffset64 =
+    stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isGnu && stdenv.hostPlatform.is32bit;
+in
 stdenv.mkDerivation (finalAttrs: {
   pname = "minizip-ng" + lib.optionalString enableCompat "-compat";
   version = "4.2.2";
@@ -23,6 +27,9 @@ stdenv.mkDerivation (finalAttrs: {
     rev = finalAttrs.version;
     hash = "sha256-yPDH9Far8I+tpNeIoXt6w2Aj1/LEYFjwaHyLZMavCCA=";
   };
+
+  # mz_os_read_dir exposes struct dirent: the wide ABI must be public to consumers.
+  patches = lib.optionals fileOffset64 [ ./public-file-offset-64.patch ];
 
   nativeBuildInputs = [
     cmake
@@ -49,6 +56,9 @@ stdenv.mkDerivation (finalAttrs: {
   ++ lib.optionals stdenv.hostPlatform.isi686 [
     # tests fail
     (lib.cmakeBool "MZ_PKCRYPT" false)
+  ]
+  ++ lib.optionals fileOffset64 [
+    (lib.cmakeBool "MZ_FILE_OFFSET_BITS_64" true)
   ];
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isDarwin "-Wno-register";
