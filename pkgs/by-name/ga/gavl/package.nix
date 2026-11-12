@@ -28,6 +28,12 @@ stdenv.mkDerivation (finalAttrs: {
   strictDeps = true;
   __structuredAttrs = true;
 
+  # The HTTP API passes int64_t timestamps to gmtime_r. Match that width on
+  # 32-bit glibc; configure already enables large-file support internally.
+  env = lib.optionalAttrs (stdenv.hostPlatform.is32bit && stdenv.hostPlatform.isGnu) {
+    NIX_CFLAGS_COMPILE = "-D_TIME_BITS=64 -D_FILE_OFFSET_BITS=64";
+  };
+
   nativeBuildInputs = [
     autoreconfHook
     doxygen
