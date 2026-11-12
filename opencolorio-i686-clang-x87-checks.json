@@ -1,0 +1,26 @@
+{
+  "name": "opencolorio-i686-clang-x87-checks",
+  "command": [
+    "nix-build",
+    "/home/siraben/i686-iso-work/refresh-20261111/opencolorio-i686-clang-x87-comparison.nix",
+    "--out-link",
+    "/home/siraben/i686-iso-work/refresh-20261111/opencolorio-i686-clang-x87-result",
+    "--keep-going",
+    "--keep-failed",
+    "--max-jobs",
+    "2",
+    "--cores",
+    "4",
+    "--max-silent-time",
+    "900",
+    "--option",
+    "extra-platforms",
+    "i686-linux x86_64-linux aarch64-linux armv7l-linux"
+  ],
+  "status": "failed",
+  "started": 1794483042.4162455,
+  "elapsedSeconds": 311,
+  "updated": "2026-11-12T11:35:53.642514+00:00",
+  "log": "/home/siraben/i686-iso-work/refresh-20261111/opencolorio-i686-clang-x87-checks.log",
+  "exitCode": 1
+}

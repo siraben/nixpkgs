@@ -1,0 +1,16 @@
+{
+  "name": "opencolorio-aces2-public-i686-clang-x87",
+  "command": [
+    "env",
+    "LD_LIBRARY_PATH=/nix/var/nix/builds/nix-4128419-1179649009/build/source/build/src/OpenColorIO",
+    "timeout",
+    "90",
+    "/home/siraben/i686-iso-work/refresh-20261111/parallel/ocio-numerical-review/aces2_public_probe.i686-clang-x87"
+  ],
+  "status": "passed",
+  "started": 1794483665.6344707,
+  "elapsedSeconds": 0,
+  "updated": "2026-11-12T11:41:05.848772+00:00",
+  "log": "/home/siraben/i686-iso-work/refresh-20261111/opencolorio-aces2-public-i686-clang-x87.log",
+  "exitCode": 0
+}

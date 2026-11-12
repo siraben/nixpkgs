@@ -1,0 +1,50 @@
+probe=aces2_public_v1 header_version=2.5.2 library_version=2.5.2 library_version_hex=0x2050200 compiler=16.2.0 pointer_bits=32 long_double_bytes=12 FLT_EVAL_METHOD=2 fe_round=0 FE_TONEAREST=0
+display="DISPLAY - CIE-XYZ-D65_to_ST2084-P3-D65"
+view="ACES-OUTPUT - ACES2065-1_to_CIE-XYZ-D65 - HDR-4000nit-P3-D65_2.0"
+optimization=OPTIMIZATION_NONE config=CreateRaw peak_nits=4000 limiting=P3-D65 encoding=P3-D65 linear_scale=1 scale_white=false alpha=0 grid_edge=7
+parameters grid_scale={dec:0.89869999885559082,hex:0x1.cc2268p-1,bits:0x3f661134} tolerance={dec:0.0070000002160668373,hex:0x1.cac084p-8,bits:0x3be56042} comparator=stored_float_abs_error<=stored_float_tolerance
+prefix=after_display_inverse processor_cache_id="817e4ec223bebb0e22e2f20fe9833043"
+prefix=after_view_inverse processor_cache_id="201280bd60678d177a260e918506d103"
+prefix=after_view_forward processor_cache_id="bdefa3dd1b8c771c09ec1c456750b368"
+prefix=after_display_forward processor_cache_id="984929b0d66c1fe8c85bc8c91f438de8"
+sample=cyan original_rgba_offset=1344 difficult=false
+stage=input r={dec:0,hex:0x0p+0,bits:0x00000000} g={dec:0.89869999885559082,hex:0x1.cc2268p-1,bits:0x3f661134} b={dec:0.89869999885559082,hex:0x1.cc2268p-1,bits:0x3f661134} a={dec:0,hex:0x0p+0,bits:0x00000000}
+stage=after_display_inverse r={dec:17.900529861450195,hex:0x1.1e6892p+4,bits:0x418f3449} g={dec:29.752553939819336,hex:0x1.dc0a76p+4,bits:0x41ee053b} b={dec:42.024875640869141,hex:0x1.5032f2p+5,bits:0x42281979} a={dec:0,hex:0x0p+0,bits:0x00000000}
+stage=after_view_inverse r={dec:23.580720901489258,hex:0x1.794aa2p+4,bits:0x41bca551} g={dec:69.882972717285156,hex:0x1.17882ap+6,bits:0x428bc415} b={dec:78.629890441894531,hex:0x1.3a8502p+6,bits:0x429d4281} a={dec:0,hex:0x0p+0,bits:0x00000000}
+stage=after_view_forward r={dec:17.900524139404297,hex:0x1.1e688cp+4,bits:0x418f3446} g={dec:29.752536773681641,hex:0x1.dc0a64p+4,bits:0x41ee0532} b={dec:42.024864196777344,hex:0x1.5032ecp+5,bits:0x42281976} a={dec:0,hex:0x0p+0,bits:0x00000000}
+stage=after_display_forward r={dec:0.0062207137234508991,hex:0x1.97ae42p-8,bits:0x3bcbd721} g={dec:0.89869993925094604,hex:0x1.cc2266p-1,bits:0x3f661133} b={dec:0.89869993925094604,hex:0x1.cc2266p-1,bits:0x3f661133} a={dec:0,hex:0x0p+0,bits:0x00000000}
+channel=r absolute_error={dec:0.0062207137234508991,hex:0x1.97ae42p-8,bits:0x3bcbd721} pass=true
+channel=g absolute_error={dec:5.9604644775390625e-08,hex:0x1p-24,bits:0x33800000} pass=true
+channel=b absolute_error={dec:5.9604644775390625e-08,hex:0x1p-24,bits:0x33800000} pass=true
+sample_pass=true
+sample=black original_rgba_offset=0 difficult=false
+stage=input r={dec:0,hex:0x0p+0,bits:0x00000000} g={dec:0,hex:0x0p+0,bits:0x00000000} b={dec:0,hex:0x0p+0,bits:0x00000000} a={dec:0,hex:0x0p+0,bits:0x00000000}
+stage=after_display_inverse r={dec:0,hex:0x0p+0,bits:0x00000000} g={dec:0,hex:0x0p+0,bits:0x00000000} b={dec:0,hex:0x0p+0,bits:0x00000000} a={dec:0,hex:0x0p+0,bits:0x00000000}
+stage=after_view_inverse r={dec:0,hex:0x0p+0,bits:0x00000000} g={dec:0,hex:0x0p+0,bits:0x00000000} b={dec:0,hex:0x0p+0,bits:0x00000000} a={dec:0,hex:0x0p+0,bits:0x00000000}
+stage=after_view_forward r={dec:0,hex:0x0p+0,bits:0x00000000} g={dec:0,hex:0x0p+0,bits:0x00000000} b={dec:0,hex:0x0p+0,bits:0x00000000} a={dec:0,hex:0x0p+0,bits:0x00000000}
+stage=after_display_forward r={dec:7.3095588959404267e-07,hex:0x1.886ddp-21,bits:0x354436e8} g={dec:7.3095588959404267e-07,hex:0x1.886ddp-21,bits:0x354436e8} b={dec:7.3095588959404267e-07,hex:0x1.886ddp-21,bits:0x354436e8} a={dec:0,hex:0x0p+0,bits:0x00000000}
+channel=r absolute_error={dec:7.3095588959404267e-07,hex:0x1.886ddp-21,bits:0x354436e8} pass=true
+channel=g absolute_error={dec:7.3095588959404267e-07,hex:0x1.886ddp-21,bits:0x354436e8} pass=true
+channel=b absolute_error={dec:7.3095588959404267e-07,hex:0x1.886ddp-21,bits:0x354436e8} pass=true
+sample_pass=true
+sample=yellow original_rgba_offset=192 difficult=false
+stage=input r={dec:0.89869999885559082,hex:0x1.cc2268p-1,bits:0x3f661134} g={dec:0.89869999885559082,hex:0x1.cc2268p-1,bits:0x3f661134} b={dec:0,hex:0x0p+0,bits:0x00000000} a={dec:0,hex:0x0p+0,bits:0x00000000}
+stage=after_display_inverse r={dec:29.027605056762695,hex:0x1.d07112p+4,bits:0x41e83889} g={dec:35.528743743896484,hex:0x1.1c3adep+5,bits:0x420e1d6f} b={dec:1.7408483028411865,hex:0x1.bda83cp+0,bits:0x3fded41e} a={dec:0,hex:0x0p+0,bits:0x00000000}
+stage=after_view_inverse r={dec:65.964523315429688,hex:0x1.07dbacp+6,bits:0x4283edd6} g={dec:72.568428039550781,hex:0x1.224612p+6,bits:0x42912309} b={dec:-0.00027870657504536211,hex:-0x1.243ebap-12,bits:0xb9921f5d} a={dec:0,hex:0x0p+0,bits:0x00000000}
+stage=after_view_forward r={dec:29.027572631835938,hex:0x1.d070fp+4,bits:0x41e83878} g={dec:35.528720855712891,hex:0x1.1c3ad2p+5,bits:0x420e1d69} b={dec:1.7408475875854492,hex:0x1.bda83p+0,bits:0x3fded418} a={dec:0,hex:0x0p+0,bits:0x00000000}
+stage=after_display_forward r={dec:0.89869982004165649,hex:0x1.cc2262p-1,bits:0x3f661131} g={dec:0.89869993925094604,hex:0x1.cc2266p-1,bits:0x3f661133} b={dec:-3.106674921582453e-05,hex:-0x1.049b56p-15,bits:0xb8024dab} a={dec:0,hex:0x0p+0,bits:0x00000000}
+channel=r absolute_error={dec:1.7881393432617188e-07,hex:0x1.8p-23,bits:0x34400000} pass=true
+channel=g absolute_error={dec:5.9604644775390625e-08,hex:0x1p-24,bits:0x33800000} pass=true
+channel=b absolute_error={dec:3.106674921582453e-05,hex:0x1.049b56p-15,bits:0x38024dab} pass=true
+sample_pass=true
+sample=white original_rgba_offset=1368 difficult=false
+stage=input r={dec:0.89869999885559082,hex:0x1.cc2268p-1,bits:0x3f661134} g={dec:0.89869999885559082,hex:0x1.cc2268p-1,bits:0x3f661134} b={dec:0.89869999885559082,hex:0x1.cc2268p-1,bits:0x3f661134} a={dec:0,hex:0x0p+0,bits:0x00000000}
+stage=after_display_inverse r={dec:36.676471710205078,hex:0x1.25696ap+5,bits:0x4212b4b5} g={dec:38.588291168212891,hex:0x1.34b4d2p+5,bits:0x421a5a69} b={dec:42.024875640869141,hex:0x1.5032f2p+5,bits:0x42281979} a={dec:0,hex:0x0p+0,bits:0x00000000}
+stage=after_view_inverse r={dec:319.3177490234375,hex:0x1.3f5158p+8,bits:0x439fa8ac} g={dec:319.32644653320312,hex:0x1.3f5392p+8,bits:0x439fa9c9} b={dec:319.32061767578125,hex:0x1.3f5214p+8,bits:0x439fa90a} a={dec:0,hex:0x0p+0,bits:0x00000000}
+stage=after_view_forward r={dec:36.676448822021484,hex:0x1.25695ep+5,bits:0x4212b4af} g={dec:38.588275909423828,hex:0x1.34b4cap+5,bits:0x421a5a65} b={dec:42.024848937988281,hex:0x1.5032e4p+5,bits:0x42281972} a={dec:0,hex:0x0p+0,bits:0x00000000}
+stage=after_display_forward r={dec:0.89869993925094604,hex:0x1.cc2266p-1,bits:0x3f661133} g={dec:0.89869993925094604,hex:0x1.cc2266p-1,bits:0x3f661133} b={dec:0.89869993925094604,hex:0x1.cc2266p-1,bits:0x3f661133} a={dec:0,hex:0x0p+0,bits:0x00000000}
+channel=r absolute_error={dec:5.9604644775390625e-08,hex:0x1p-24,bits:0x33800000} pass=true
+channel=g absolute_error={dec:5.9604644775390625e-08,hex:0x1p-24,bits:0x33800000} pass=true
+channel=b absolute_error={dec:5.9604644775390625e-08,hex:0x1p-24,bits:0x33800000} pass=true
+sample_pass=true
+all_pass=true

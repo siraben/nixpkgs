@@ -1,0 +1,384 @@
+{
+  "scope": "Clang generic x87; original tests; public minizip metadata",
+  "failedCases": 22,
+  "assertions": 21011,
+  "cases": [
+    {
+      "index": 44,
+      "name": "MixingSlider / basic",
+      "assertions": 1,
+      "samples": [
+        [
+          "/build/source/tests/cpu/apphelpers/MixingHelpers_tests.cpp:300:",
+          "FAILED: int(100000) == int((slider.mixingToSlider(slider.getSliderMaxEdge()))*100000.)",
+          "        values were '100000' and '99999'",
+          "[  44/1141] [MixingSlider / basic                                        ] - FAILED"
+        ]
+      ]
+    },
+    {
+      "index": 46,
+      "name": "Baker / bake_3dlut",
+      "assertions": 1,
+      "samples": [
+        [
+          "/build/source/tests/cpu/Baker_tests.cpp:238:",
+          "FAILED: expectedCube == os.str()",
+          "        values were 'LUT_1D_SIZE 10",
+          "LUT_1D_INPUT_RANGE -0.017290 55.080036"
+        ]
+      ]
+    },
+    {
+      "index": 188,
+      "name": "CPUProcessor / optimizations",
+      "assertions": 20895,
+      "samples": [
+        [
+          "/build/source/tests/cpu/CPUProcessor_tests.cpp:2863:",
+          "FAILED: outValues[idx+3] == OCIO::Converter<outBD>::CastValue(pxl[3])",
+          "        values were '32770' and '32771'",
+          "/build/source/tests/cpu/CPUProcessor_tests.cpp:2863:"
+        ],
+        [
+          "/build/source/tests/cpu/CPUProcessor_tests.cpp:2863:",
+          "FAILED: outValues[idx+3] == OCIO::Converter<outBD>::CastValue(pxl[3])",
+          "        values were '32774' and '32775'",
+          "/build/source/tests/cpu/CPUProcessor_tests.cpp:2863:"
+        ]
+      ]
+    },
+    {
+      "index": 198,
+      "name": "DynamicPropertyImpl / grading_rgb_curve_knots_coefs",
+      "assertions": 7,
+      "samples": [
+        [
+          "/build/source/tests/cpu/DynamicProperty_tests.cpp:355:",
+          "FAILED: abs(643.661987f - coefs[8]) < error",
+          "        values were '643.6619873', '643.659729' and '9.999999975e-07'",
+          "/build/source/tests/cpu/DynamicProperty_tests.cpp:356:"
+        ],
+        [
+          "/build/source/tests/cpu/DynamicProperty_tests.cpp:356:",
+          "FAILED: abs(17.7471409f - coefs[9]) < error",
+          "        values were '17.74714088', '17.74713707' and '9.999999975e-07'",
+          "/build/source/tests/cpu/DynamicProperty_tests.cpp:360:"
+        ]
+      ]
+    },
+    {
+      "index": 212,
+      "name": "FileFormat3DL / load",
+      "assertions": 5,
+      "samples": [
+        [
+          "/build/source/tests/cpu/fileformats/FileFormat3DL_tests.cpp:167:",
+          "FAILED: 54.f == scale * lutArray[41 * 3]",
+          "        values were '54' and '54.0000006'",
+          "/build/source/tests/cpu/fileformats/FileFormat3DL_tests.cpp:168:"
+        ],
+        [
+          "/build/source/tests/cpu/fileformats/FileFormat3DL_tests.cpp:168:",
+          "FAILED: 323.f == scale * lutArray[41 * 3 + 1]",
+          "        values were '323' and '323.0000113'",
+          "/build/source/tests/cpu/fileformats/FileFormat3DL_tests.cpp:169:"
+        ]
+      ]
+    },
+    {
+      "index": 233,
+      "name": "FileFormatCTF / clf_examples",
+      "assertions": 12,
+      "samples": [
+        [
+          "/build/source/tests/cpu/fileformats/FileFormatCTF_tests.cpp:134:",
+          "FAILED: array.getValues()[0] * scale == 3.60",
+          "        values were '3.6' and '3.6'",
+          "/build/source/tests/cpu/fileformats/FileFormatCTF_tests.cpp:135:"
+        ],
+        [
+          "/build/source/tests/cpu/fileformats/FileFormatCTF_tests.cpp:135:",
+          "FAILED: array.getValues()[1] * scale == 0.10",
+          "        values were '0.1' and '0.1'",
+          "/build/source/tests/cpu/fileformats/FileFormatCTF_tests.cpp:136:"
+        ]
+      ]
+    },
+    {
+      "index": 257,
+      "name": "FileFormatCTF / tabluation_support",
+      "assertions": 11,
+      "samples": [
+        [
+          "/build/source/tests/cpu/fileformats/FileFormatCTF_tests.cpp:1154:",
+          "FAILED: array.getValues()[0] * scale == -60.0f",
+          "        values were '-59.99999994' and '-60'",
+          "/build/source/tests/cpu/fileformats/FileFormatCTF_tests.cpp:1155:"
+        ],
+        [
+          "/build/source/tests/cpu/fileformats/FileFormatCTF_tests.cpp:1155:",
+          "FAILED: array.getValues()[1] * scale == 5.0f",
+          "        values were '4.999999995' and '5'",
+          "/build/source/tests/cpu/fileformats/FileFormatCTF_tests.cpp:1156:"
+        ]
+      ]
+    },
+    {
+      "index": 302,
+      "name": "FileFormatCTF / indexMap_test1_clfv2",
+      "assertions": 4,
+      "samples": [
+        [
+          "/build/source/tests/cpu/fileformats/FileFormatCTF_tests.cpp:2083:",
+          "FAILED: pR->getMinInValue() * 1023. == 64.5",
+          "        values were '64.5' and '64.5'",
+          "/build/source/tests/cpu/fileformats/FileFormatCTF_tests.cpp:2084:"
+        ],
+        [
+          "/build/source/tests/cpu/fileformats/FileFormatCTF_tests.cpp:2084:",
+          "FAILED: pR->getMaxInValue() * 1023. == 940.",
+          "        values were '940' and '940'",
+          "/build/source/tests/cpu/fileformats/FileFormatCTF_tests.cpp:2085:"
+        ]
+      ]
+    },
+    {
+      "index": 464,
+      "name": "FileFormatD1DL / test_lut1d_8i_8i",
+      "assertions": 34,
+      "samples": [
+        [
+          "/build/source/tests/cpu/fileformats/FileFormatDiscreet1DL_tests.cpp:98:",
+          "FAILED: lut1DValues[li] * 255.0f == expectedSampleValues[ei]",
+          "        values were '1.000000059' and '1'",
+          "/build/source/tests/cpu/fileformats/FileFormatDiscreet1DL_tests.cpp:98:"
+        ],
+        [
+          "/build/source/tests/cpu/fileformats/FileFormatDiscreet1DL_tests.cpp:98:",
+          "FAILED: lut1DValues[li] * 255.0f == expectedSampleValues[ei]",
+          "        values were '3.000000059' and '3'",
+          "/build/source/tests/cpu/fileformats/FileFormatDiscreet1DL_tests.cpp:98:"
+        ]
+      ]
+    },
+    {
+      "index": 467,
+      "name": "FileFormatD1DL / test_lut1d_16f_12i",
+      "assertions": 9,
+      "samples": [
+        [
+          "/build/source/tests/cpu/fileformats/FileFormatDiscreet1DL_tests.cpp:206:",
+          "FAILED: lut1DValues[li] * 4095.0f == expectedSampleValues[ei]",
+          "        values were '1.00000006' and '1'",
+          "/build/source/tests/cpu/fileformats/FileFormatDiscreet1DL_tests.cpp:206:"
+        ],
+        [
+          "/build/source/tests/cpu/fileformats/FileFormatDiscreet1DL_tests.cpp:206:",
+          "FAILED: lut1DValues[li] * 4095.0f == expectedSampleValues[ei]",
+          "        values were '3.00000006' and '3'",
+          "/build/source/tests/cpu/fileformats/FileFormatDiscreet1DL_tests.cpp:206:"
+        ]
+      ]
+    },
+    {
+      "index": 578,
+      "name": "GpuShader / MetalSupport8",
+      "assertions": 1,
+      "samples": [
+        [
+          "/build/source/tests/cpu/GpuShader_tests.cpp:1180:",
+          "FAILED: expected == text",
+          "        values were '",
+          "// Declaration of class wrapper"
+        ]
+      ]
+    },
+    {
+      "index": 637,
+      "name": "OpOptimizers / gamma_comp_test2",
+      "assertions": 4,
+      "samples": [
+        [
+          "/build/source/tests/cpu/OpOptimizers_tests.cpp:1110:",
+          "FAILED: abs(img1[idx] - img2[idx]) < errorThreshold",
+          "        values were '0.0001966859854', '0' and '9.999999747e-05'",
+          "/build/source/tests/cpu/OpOptimizers_tests.cpp:1110:"
+        ],
+        [
+          "/build/source/tests/cpu/OpOptimizers_tests.cpp:1110:",
+          "FAILED: abs(img1[idx] - img2[idx]) < errorThreshold",
+          "        values were '0.000260463421', '0' and '9.999999747e-05'",
+          "/build/source/tests/cpu/OpOptimizers_tests.cpp:1116:"
+        ]
+      ]
+    },
+    {
+      "index": 673,
+      "name": "ExposureContrastRenderer / video",
+      "assertions": 2,
+      "samples": [
+        [
+          "/build/source/tests/cpu/ops/exposurecontrast/ExposureContrastOpCPU_tests.cpp:108:",
+          "FAILED: rgba[4] == videoECVal(rgbaImage[4], const_ec)",
+          "        values were '0.200000003' and '0.200000003'",
+          "/build/source/tests/cpu/ops/exposurecontrast/ExposureContrastOpCPU_tests.cpp:110:"
+        ],
+        [
+          "/build/source/tests/cpu/ops/exposurecontrast/ExposureContrastOpCPU_tests.cpp:110:",
+          "FAILED: rgba[6] == videoECVal(rgbaImage[6], const_ec)",
+          "        values were '0.9900000095' and '0.9900000095'",
+          "[ 673/1141] [ExposureContrastRenderer / video                            ] - FAILED"
+        ]
+      ]
+    },
+    {
+      "index": 674,
+      "name": "ExposureContrastRenderer / log",
+      "assertions": 9,
+      "samples": [
+        [
+          "/build/source/tests/cpu/ops/exposurecontrast/ExposureContrastOpCPU_tests.cpp:197:",
+          "FAILED: rgba[0] == logECVal(rgbaImage[0], const_ec, inMax, outMax)",
+          "        values were '0.1423126161' and '0.1423126012'",
+          "/build/source/tests/cpu/ops/exposurecontrast/ExposureContrastOpCPU_tests.cpp:201:"
+        ],
+        [
+          "/build/source/tests/cpu/ops/exposurecontrast/ExposureContrastOpCPU_tests.cpp:201:",
+          "FAILED: rgba[4] == logECVal(rgbaImage[4], const_ec, inMax, outMax)",
+          "        values were '0.3056000173' and '0.3056000024'",
+          "/build/source/tests/cpu/ops/exposurecontrast/ExposureContrastOpCPU_tests.cpp:202:"
+        ]
+      ]
+    },
+    {
+      "index": 694,
+      "name": "FixedFunctionOpCPU / aces_ot_20_rec709_100n_rt",
+      "assertions": 3,
+      "samples": [
+        [
+          "/build/source/tests/cpu/ops/fixedfunction/FixedFunctionOpCPU_tests.cpp:586:",
+          "FAILED: Index: 2044 - Values: nan expected: 1 - Error: nan (nanx of Threshold: 0.001)",
+          "/build/source/tests/cpu/ops/fixedfunction/FixedFunctionOpCPU_tests.cpp:586:",
+          "FAILED: Index: 2045 - Values: nan expected: 1 - Error: nan (nanx of Threshold: 0.001)"
+        ],
+        [
+          "/build/source/tests/cpu/ops/fixedfunction/FixedFunctionOpCPU_tests.cpp:586:",
+          "FAILED: Index: 2045 - Values: nan expected: 1 - Error: nan (nanx of Threshold: 0.001)",
+          "/build/source/tests/cpu/ops/fixedfunction/FixedFunctionOpCPU_tests.cpp:586:",
+          "FAILED: Index: 2046 - Values: nan expected: 1 - Error: nan (nanx of Threshold: 0.001)"
+        ]
+      ]
+    },
+    {
+      "index": 738,
+      "name": "GammaOp / combining",
+      "assertions": 3,
+      "samples": [
+        [
+          "/build/source/tests/cpu/ops/gamma/GammaOp_tests.cpp:89:",
+          "FAILED: g->getRedParams()[0] == param1R[0] * param2R[0]",
+          "        values were '2.816345' and '2.816345'",
+          "/build/source/tests/cpu/ops/gamma/GammaOp_tests.cpp:90:"
+        ],
+        [
+          "/build/source/tests/cpu/ops/gamma/GammaOp_tests.cpp:90:",
+          "FAILED: g->getGreenParams()[0] == param1G[0] * param2G[0]",
+          "        values were '2.816345' and '2.816345'",
+          "/build/source/tests/cpu/ops/gamma/GammaOp_tests.cpp:91:"
+        ]
+      ]
+    },
+    {
+      "index": 750,
+      "name": "GammaOpCPU / apply_moncurve_mirror_style_fwd",
+      "assertions": 4,
+      "samples": [
+        [
+          "/build/source/tests/cpu/ops/gamma/GammaOpCPU_tests.cpp:699:",
+          "FAILED: Index: 10 - Values: 0.674744964 and: 0.674744844 - Threshold: 1.00000001e-07",
+          "/build/source/tests/cpu/ops/gamma/GammaOpCPU_tests.cpp:699:",
+          "FAILED: Index: 14 - Values: -0.674744964 and: -0.674744844 - Threshold: 1.00000001e-07"
+        ],
+        [
+          "/build/source/tests/cpu/ops/gamma/GammaOpCPU_tests.cpp:699:",
+          "FAILED: Index: 14 - Values: -0.674744964 and: -0.674744844 - Threshold: 1.00000001e-07",
+          "/build/source/tests/cpu/ops/gamma/GammaOpCPU_tests.cpp:699:",
+          "FAILED: Index: 26 - Values: 1.84183693 and: 1.84183657 - Threshold: 1.00000001e-07"
+        ]
+      ]
+    },
+    {
+      "index": 819,
+      "name": "GradingToneOpCPU / video_white_details",
+      "assertions": 1,
+      "samples": [
+        [
+          "/build/source/tests/cpu/ops/gradingtone/GradingToneOpCPU_tests.cpp:325:",
+          "FAILED: abs(expected[i * 4 + j] - res[i * 4 + j]) < error * errorFactor",
+          "        values were '17.73099518', '17.7310276' and '1.773099513e-05'",
+          "[ 819/1141] [GradingToneOpCPU / video_white_details                      ] - FAILED"
+        ]
+      ]
+    },
+    {
+      "index": 861,
+      "name": "Lut1DRenderer / bit_depth_support",
+      "assertions": 1,
+      "samples": [
+        [
+          "/build/source/tests/cpu/ops/lut1d/Lut1DOpCPU_tests.cpp:582:",
+          "FAILED: outImg[10] == 140",
+          "        values were '\ufffd' and '140'",
+          "[ 861/1141] [Lut1DRenderer / bit_depth_support                           ] - FAILED"
+        ]
+      ]
+    },
+    {
+      "index": 864,
+      "name": "Lut1DRenderer / nan",
+      "assertions": 1,
+      "samples": [
+        [
+          "/build/source/tests/cpu/ops/lut1d/Lut1DOpCPU_tests.cpp:921:",
+          "FAILED: outImg[6] == step",
+          "        values were '1.525902189e-05' and '1.52590219e-05'",
+          "[ 864/1141] [Lut1DRenderer / nan                                         ] - FAILED"
+        ]
+      ]
+    },
+    {
+      "index": 879,
+      "name": "Lut1DRenderer / lut_1d_inv_decreasing_reversals",
+      "assertions": 1,
+      "samples": [
+        [
+          "/build/source/tests/cpu/ops/lut1d/Lut1DOpCPU_tests.cpp:2051:",
+          "FAILED: outImage[i] == expected[i]",
+          "        values were '38435' and '38433'",
+          "[ 879/1141] [Lut1DRenderer / lut_1d_inv_decreasing_reversals             ] - FAILED"
+        ]
+      ]
+    },
+    {
+      "index": 1056,
+      "name": "Builtins / aces2_displayview_roundtrip",
+      "assertions": 2,
+      "samples": [
+        [
+          "/build/source/tests/cpu/transforms/BuiltinTransform_tests.cpp:879:",
+          "FAILED: Index: 1368 - Tol.: 0.00400000019",
+          " - Expected: 1.0000000000, 1.0000000000, 1.0000000000",
+          " - Actual:   0.0000000000, 0.0000000000, 0.0000000000"
+        ],
+        [
+          "/build/source/tests/cpu/transforms/BuiltinTransform_tests.cpp:886:",
+          "FAILED: Index: 1368 - Tol.: 0.001000000047",
+          " - Expected: 1.0000000000, 1.0000000000, 1.0000000000",
+          " - Actual:   0.0000000000, 0.0000000000, 0.0000000000"
+        ]
+      ]
+    }
+  ],
+  "retainedBuild": "/nix/var/nix/builds/nix-4128419-1179649009/build/source"
+}

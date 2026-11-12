@@ -306,8 +306,23 @@ failure is in the Clang comparison and is not claimed fixed.
   `parallel/ocio-numerical-review/aces2-*-loader.txt`.
   A further compiler control uses Clang with SIMD OFF and explicit
   `-march=i686 -mno-sse -mno-sse2 -mfpmath=387`, retaining original tests and
-  tolerances. This generic-x87 comparison is pending, not a production compiler
-  switch or success claim (`opencolorio-i686-clang-x87-comparison.nix`).
+  tolerances. It compiles and reaches all 1141 CPU cases, but fails 22 cases/
+  21011 assertions; Python CTest passes. 20895 assertions are concentrated in
+  CPUProcessor/optimizations, so this is not a count of distinct rendering bugs.
+  Saved alpha examples are integers 32770 versus 32771: do not dismiss them as
+  harmless floating-comparator noise. ACES2 round-trip still fails two SDRwhite
+  assertions (REC709/P3 SDR100, expected white versus actual black), not HDRcyan.
+  No compiler switch is adopted.
+  Evidence: `opencolorio-i686-clang-x87-checks.json`,
+  `failures/opencolorio-clang-x87-summary.json` and the diagnostic recipe.
+  The failed build is retained. Its public HDR4000 probe passes all four sampled
+  colors, with cyan red 0.00622071372 (same as GCC float-store), preserving the
+  original tolerance. This does not erase the full-suite SDRwhite failures.
+  `opencolorio-aces2-public-i686-clang-x87.{json,log}` records this result.
+  Bounded source analysis identifies a plausible NaN-to-zero clamp but no proven
+  local repair (`parallel/ocio-numerical-review/x87-source-analysis.md`).
+  An uninstrumented public SDRwhite prefix probe is being compared across GCC,
+  float-store, Clang, scalar64 and SSE2 libraries before changing any arithmetic.
   SSE2 plus the core large-file fix eliminates those numerical assertion failures,
   but still fails two archive processor-cache equality cases in each enabled
   CPU dispatch run. All 398 Python tests pass. A fresh public-API archive probe
