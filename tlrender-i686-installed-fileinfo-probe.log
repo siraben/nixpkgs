@@ -1,0 +1,1 @@
+PASS: installed tlCore high-inode stat/directory API, narrow caller off_t=4 time_t=4 entries=9

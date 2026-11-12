@@ -1,0 +1,13 @@
+{
+  "name": "tlrender-i686-installed-fileinfo-probe",
+  "command": [
+    "sh",
+    "/home/siraben/i686-iso-work/refresh-20261111/parallel/tlrender-cpp20-parent/check-fileinfo.sh"
+  ],
+  "status": "passed",
+  "started": 1794486787.9760613,
+  "elapsedSeconds": 2,
+  "updated": "2026-11-12T12:33:09.543465+00:00",
+  "log": "/home/siraben/i686-iso-work/refresh-20261111/tlrender-i686-installed-fileinfo-probe.log",
+  "exitCode": 0
+}

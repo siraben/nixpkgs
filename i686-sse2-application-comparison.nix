@@ -20,4 +20,5 @@ in
 {
   krita = pkgs.krita;
   tlrender = pkgs.tlrender;
+  djv = pkgs.djv;
 }

@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "scope": "actual applied private UTF8 helper, not complete application/Windows validation",
+  "widths": [
+    32,
+    64
+  ],
+  "standards": [
+    17,
+    20
+  ],
+  "assertions": [
+    "nonASCII including supplementary-plane bytes exact",
+    "filesystem roundtrip",
+    "menu filename bytes",
+    "empty path",
+    "recent JSON string roundtrip",
+    "existing nlohmann JSON string semantics",
+    "C++20 std::string API incompatibility type control"
+  ],
+  "patchSha256": "f4a20ab0ad710e4798b9de25396332cb2da0b393469f7c2e8014df81276cf81c"
+}

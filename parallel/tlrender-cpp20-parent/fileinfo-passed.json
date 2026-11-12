@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "scope": "installed SSE2-comparison tlCore high-inode API, NOT media/GUI/generic-CPU validation",
+  "artifact": "/nix/store/xa2gcyzj85sagrbh3z8l2n77br8qyy8r-tlrender-0.10.0",
+  "callerOffT": 4,
+  "callerTimeT": 4,
+  "wideLibraryImports": [
+    "readdir64",
+    "stat64"
+  ]
+}

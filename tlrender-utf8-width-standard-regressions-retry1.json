@@ -1,0 +1,13 @@
+{
+  "name": "tlrender-utf8-width-standard-regressions-retry1",
+  "command": [
+    "sh",
+    "/home/siraben/i686-iso-work/refresh-20261111/parallel/tlrender-cpp20-parent/check-utf8.sh"
+  ],
+  "status": "passed",
+  "started": 1794486437.5930803,
+  "elapsedSeconds": 15,
+  "updated": "2026-11-12T12:27:32.632920+00:00",
+  "log": "/home/siraben/i686-iso-work/refresh-20261111/tlrender-utf8-width-standard-regressions-retry1.log",
+  "exitCode": 0
+}
