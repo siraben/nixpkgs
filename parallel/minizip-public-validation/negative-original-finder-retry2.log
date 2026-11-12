@@ -1,0 +1,20 @@
+-- The C compiler identification is GNU 16.2.0
+-- The CXX compiler identification is GNU 16.2.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /nix/store/49jmbfsrsp9iwilqhqnwi3y7dnlh38rj-gcc-wrapper-16.2.0/bin/gcc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /nix/store/49jmbfsrsp9iwilqhqnwi3y7dnlh38rj-gcc-wrapper-16.2.0/bin/g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found ZLIB: /nix/store/3nhl96asmphfb8j2fzjk6fl1irvv8lga-zlib-1.3.2/lib/libz.so (found version "1.3.2")
+-- Found minizip-ng: /home/siraben/i686-iso-work/refresh-20261111/minizip-i686-public-result/lib/libminizip-ng.so (found suitable version "4.2.2", minimum required is "4.2.2")
+-- OCIO finder definitions: public_definitions-NOTFOUND; options: public_options-NOTFOUND
+CMake Error at CMakeLists.txt:28 (message):
+  OCIO pkg-config fallback lost the public compilation flag
+
+
+-- Configuring incomplete, errors occurred!

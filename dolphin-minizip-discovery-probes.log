@@ -1,0 +1,75 @@
+-- The C compiler identification is GNU 16.2.0
+-- The CXX compiler identification is GNU 16.2.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /nix/store/49jmbfsrsp9iwilqhqnwi3y7dnlh38rj-gcc-wrapper-16.2.0/bin/gcc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /nix/store/49jmbfsrsp9iwilqhqnwi3y7dnlh38rj-gcc-wrapper-16.2.0/bin/g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found PkgConfig: /nix/store/mhq8zg6nwlv2fjhqac0ikvl9f541irp3-pkg-config-wrapper-0.29.2/bin/pkg-config (found version "0.29.2")
+-- Checking for one of the modules 'minizip-ng>=4.0.4'
+-- Using system minizip-ng
+-- Configuring done (0.5s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-public-validation/dolphin-discovery-work
+Change Dir: '/home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-public-validation/dolphin-discovery-work'
+
+Run Build Command(s): /nix/store/9xdayymn5yh1c98hg12d13d3ir0sxd4x-cmake-4.4.4/bin/cmake -E env VERBOSE=1 /nix/store/71c91xjkcj07khl9imgmgji5wzrxwy65-gnumake-4.4.1/bin/make -f Makefile
+/nix/store/9xdayymn5yh1c98hg12d13d3ir0sxd4x-cmake-4.4.4/bin/cmake -S/home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-public-validation/dolphin-discovery-probe -B/home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-public-validation/dolphin-discovery-work --check-build-system CMakeFiles/Makefile.cmake 0
+/nix/store/9xdayymn5yh1c98hg12d13d3ir0sxd4x-cmake-4.4.4/bin/cmake -E cmake_progress_start /home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-public-validation/dolphin-discovery-work/CMakeFiles /home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-public-validation/dolphin-discovery-work//CMakeFiles/progress.marks
+/nix/store/71c91xjkcj07khl9imgmgji5wzrxwy65-gnumake-4.4.1/bin/make  -f CMakeFiles/Makefile2 all
+make[1]: Entering directory '/home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-public-validation/dolphin-discovery-work'
+/nix/store/71c91xjkcj07khl9imgmgji5wzrxwy65-gnumake-4.4.1/bin/make  -f CMakeFiles/directory_probe_c.dir/build.make CMakeFiles/directory_probe_c.dir/depend
+make[2]: Entering directory '/home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-public-validation/dolphin-discovery-work'
+cd /home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-public-validation/dolphin-discovery-work && /nix/store/9xdayymn5yh1c98hg12d13d3ir0sxd4x-cmake-4.4.4/bin/cmake -E cmake_depends "Unix Makefiles" /home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-public-validation/dolphin-discovery-probe /home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-public-validation/dolphin-discovery-probe /home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-public-validation/dolphin-discovery-work /home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-public-validation/dolphin-discovery-work /home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-public-validation/dolphin-discovery-work/CMakeFiles/directory_probe_c.dir/DependInfo.cmake "--color=" directory_probe_c
+make[2]: Leaving directory '/home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-public-validation/dolphin-discovery-work'
+/nix/store/71c91xjkcj07khl9imgmgji5wzrxwy65-gnumake-4.4.1/bin/make  -f CMakeFiles/directory_probe_c.dir/build.make CMakeFiles/directory_probe_c.dir/build
+make[2]: Entering directory '/home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-public-validation/dolphin-discovery-work'
+[ 25%] Building C object CMakeFiles/directory_probe_c.dir/home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-abi-preparation/consumers/common/directory_probe.c.o
+/nix/store/49jmbfsrsp9iwilqhqnwi3y7dnlh38rj-gcc-wrapper-16.2.0/bin/gcc -DEXPECT_FILE_OFFSET_64=1 -isystem /nix/store/82360cwd6lfw3ll6n6nrzsimhs8rn5f0-minizip-ng-4.2.2/include/minizip-ng -D_FILE_OFFSET_BITS=64 -MD -MT CMakeFiles/directory_probe_c.dir/home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-abi-preparation/consumers/common/directory_probe.c.o -MF CMakeFiles/directory_probe_c.dir/home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-abi-preparation/consumers/common/directory_probe.c.o.d -o CMakeFiles/directory_probe_c.dir/home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-abi-preparation/consumers/common/directory_probe.c.o -c /home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-abi-preparation/consumers/common/directory_probe.c
+[ 50%] Linking C executable directory_probe_c
+/nix/store/9xdayymn5yh1c98hg12d13d3ir0sxd4x-cmake-4.4.4/bin/cmake -E cmake_link_script CMakeFiles/directory_probe_c.dir/link.txt --verbose=1
+/nix/store/49jmbfsrsp9iwilqhqnwi3y7dnlh38rj-gcc-wrapper-16.2.0/bin/gcc -Wl,--dependency-file=CMakeFiles/directory_probe_c.dir/link.d "CMakeFiles/directory_probe_c.dir/home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-abi-preparation/consumers/common/directory_probe.c.o" -o directory_probe_c  -Wl,-rpath,/nix/store/82360cwd6lfw3ll6n6nrzsimhs8rn5f0-minizip-ng-4.2.2/lib /nix/store/82360cwd6lfw3ll6n6nrzsimhs8rn5f0-minizip-ng-4.2.2/lib/libminizip-ng.so
+make[2]: Leaving directory '/home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-public-validation/dolphin-discovery-work'
+[ 50%] Built target directory_probe_c
+/nix/store/71c91xjkcj07khl9imgmgji5wzrxwy65-gnumake-4.4.1/bin/make  -f CMakeFiles/directory_probe_cpp.dir/build.make CMakeFiles/directory_probe_cpp.dir/depend
+make[2]: Entering directory '/home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-public-validation/dolphin-discovery-work'
+cd /home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-public-validation/dolphin-discovery-work && /nix/store/9xdayymn5yh1c98hg12d13d3ir0sxd4x-cmake-4.4.4/bin/cmake -E cmake_depends "Unix Makefiles" /home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-public-validation/dolphin-discovery-probe /home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-public-validation/dolphin-discovery-probe /home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-public-validation/dolphin-discovery-work /home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-public-validation/dolphin-discovery-work /home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-public-validation/dolphin-discovery-work/CMakeFiles/directory_probe_cpp.dir/DependInfo.cmake "--color=" directory_probe_cpp
+make[2]: Leaving directory '/home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-public-validation/dolphin-discovery-work'
+/nix/store/71c91xjkcj07khl9imgmgji5wzrxwy65-gnumake-4.4.1/bin/make  -f CMakeFiles/directory_probe_cpp.dir/build.make CMakeFiles/directory_probe_cpp.dir/build
+make[2]: Entering directory '/home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-public-validation/dolphin-discovery-work'
+[ 75%] Building CXX object CMakeFiles/directory_probe_cpp.dir/home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-abi-preparation/consumers/common/directory_probe.cpp.o
+/nix/store/49jmbfsrsp9iwilqhqnwi3y7dnlh38rj-gcc-wrapper-16.2.0/bin/g++ -DEXPECT_FILE_OFFSET_64=1 -isystem /nix/store/82360cwd6lfw3ll6n6nrzsimhs8rn5f0-minizip-ng-4.2.2/include/minizip-ng -D_FILE_OFFSET_BITS=64 -MD -MT CMakeFiles/directory_probe_cpp.dir/home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-abi-preparation/consumers/common/directory_probe.cpp.o -MF CMakeFiles/directory_probe_cpp.dir/home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-abi-preparation/consumers/common/directory_probe.cpp.o.d -o CMakeFiles/directory_probe_cpp.dir/home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-abi-preparation/consumers/common/directory_probe.cpp.o -c /home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-abi-preparation/consumers/common/directory_probe.cpp
+[100%] Linking CXX executable directory_probe_cpp
+/nix/store/9xdayymn5yh1c98hg12d13d3ir0sxd4x-cmake-4.4.4/bin/cmake -E cmake_link_script CMakeFiles/directory_probe_cpp.dir/link.txt --verbose=1
+/nix/store/49jmbfsrsp9iwilqhqnwi3y7dnlh38rj-gcc-wrapper-16.2.0/bin/g++ -Wl,--dependency-file=CMakeFiles/directory_probe_cpp.dir/link.d "CMakeFiles/directory_probe_cpp.dir/home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-abi-preparation/consumers/common/directory_probe.cpp.o" -o directory_probe_cpp  -Wl,-rpath,/nix/store/82360cwd6lfw3ll6n6nrzsimhs8rn5f0-minizip-ng-4.2.2/lib /nix/store/82360cwd6lfw3ll6n6nrzsimhs8rn5f0-minizip-ng-4.2.2/lib/libminizip-ng.so
+make[2]: Leaving directory '/home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-public-validation/dolphin-discovery-work'
+[100%] Built target directory_probe_cpp
+make[1]: Leaving directory '/home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-public-validation/dolphin-discovery-work'
+/nix/store/9xdayymn5yh1c98hg12d13d3ir0sxd4x-cmake-4.4.4/bin/cmake -E cmake_progress_start /home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-public-validation/dolphin-discovery-work/CMakeFiles 0
+
+pointer_bits=32 off_t=8 ino_t=8 time_t=4 d_name_offset=19
+directory_inode=4303727531
+directory_classification=0 errno=0
+regular_file_classification=-107 errno=0
+read_end_errno=0 entries=11
+PASS: installed-package directory ABI
+pointer_bits=32 off_t=8 ino_t=8 time_t=4 d_name_offset=19
+directory_inode=4303727531
+directory_classification=0 errno=0
+regular_file_classification=-107 errno=0
+read_end_errno=0 entries=11
+PASS: installed-package directory ABI
+Traceback (most recent call last):
+  File "<stdin>", line 4, in <module>
+  File "/nix/store/xahxrjs30p3mw0a42bqg9ikgkikskw8m-python3-3.14.8/lib/python3.14/pathlib/__init__.py", line 787, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/nix/store/xahxrjs30p3mw0a42bqg9ikgkikskw8m-python3-3.14.8/lib/python3.14/pathlib/__init__.py", line 771, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-public-validation/dolphin-discovery-work/compile_commands.json'

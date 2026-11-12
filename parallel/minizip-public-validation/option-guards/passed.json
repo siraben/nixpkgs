@@ -1,0 +1,13 @@
+{
+  "legacy_mode_accepted": true,
+  "legacy_mode_exports_wide_flag": false,
+  "conflicting_modes_rejected": true,
+  "platform_predicate": {
+    "aarch64-darwin": false,
+    "armv7l-linux": true,
+    "i686-linux": true,
+    "i686-linux-musl": false,
+    "x86_64-linux": false
+  },
+  "arm_runtime_validated": false
+}

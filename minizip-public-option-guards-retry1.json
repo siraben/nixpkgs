@@ -1,0 +1,14 @@
+{
+  "name": "minizip-public-option-guards-retry1",
+  "command": [
+    "sh",
+    "/home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-public-validation/check-options.sh",
+    "resume-copy"
+  ],
+  "status": "passed",
+  "started": 1794479485.7323325,
+  "elapsedSeconds": 2,
+  "updated": "2026-11-12T10:31:27.449293+00:00",
+  "log": "/home/siraben/i686-iso-work/refresh-20261111/minizip-public-option-guards-retry1.log",
+  "exitCode": 0
+}

@@ -1,0 +1,28 @@
+{
+  "name": "opencolorio-x86_64-public-metadata",
+  "command": [
+    "nix-build",
+    "/home/siraben/i686-iso-work/refresh-20261111/nixpkgs",
+    "-A",
+    "opencolorio",
+    "--argstr",
+    "system",
+    "x86_64-linux",
+    "--out-link",
+    "/home/siraben/i686-iso-work/refresh-20261111/opencolorio-x86_64-public-metadata-result",
+    "--keep-going",
+    "--keep-failed",
+    "--max-jobs",
+    "2",
+    "--cores",
+    "4",
+    "--max-silent-time",
+    "900"
+  ],
+  "status": "passed",
+  "started": 1794479992.4229631,
+  "elapsedSeconds": 444,
+  "updated": "2026-11-12T10:47:16.674692+00:00",
+  "log": "/home/siraben/i686-iso-work/refresh-20261111/opencolorio-x86_64-public-metadata.log",
+  "exitCode": 0
+}

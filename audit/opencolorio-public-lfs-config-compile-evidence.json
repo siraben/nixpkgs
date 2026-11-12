@@ -1,0 +1,22 @@
+{
+  "discovery": "config",
+  "commands": [
+    {
+      "file": "src/OpenColorIO/Platform.cpp",
+      "file_offset_bits": 64
+    },
+    {
+      "file": "src/OpenColorIO/OCIOZArchive.cpp",
+      "file_offset_bits": 64
+    },
+    {
+      "file": "src/OpenColorIO/OCIOZArchive.cpp",
+      "file_offset_bits": 64
+    },
+    {
+      "file": "src/apps/ocioarchive/main.cpp",
+      "file_offset_bits": 64
+    }
+  ],
+  "no_ambient_file_or_time_flags": true
+}

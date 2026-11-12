@@ -58,12 +58,24 @@ Retrieved examples are saved in `merged-pr-*.patch` and `*-existing-pr.*`.
 | PyQt6 | Optional PDF default uses availableOn, mirroring existing stellarium/PySide patterns. Both fresh builds/imports/offscreen renders pass after qmake repairs; PDF availability matches architecture. One-line focused commit pushed; explicit overrides preserved, no unsupported-platform override. |
 | LibreOffice (pending) | buildPlatform isi686 gate reflects bootstrap compiler location; document optional Java feature loss. Box2D scalar and skcms dispatcher defines remain target-local and x86-32-only. Class-specific refcount override was rejected after another same-root thunk failure; test devirtualization workaround scoped to i686/GNU16, not other architectures/toolchains. Full build validation required before commit. |
 
-Minizip/OpenColorIO public ABI candidates remain uncommitted. Independent review
-required public CMake and pkg-config propagation, explicit ABI-transition wording,
-no time64 change, and no incompatible private same-SONAME variant. Both minizip
-variants and 16 C/C++ consumers now pass; exact source/option and actual OCIO
-project gates remain. x86_64 minizip derivations are unchanged. Do not treat
-synthetic metadata success as proof of every downstream closure.
+Minizip/OpenColorIO filesystem fixes are now separately committed/pushed.
+Independent final review found no concrete defect: one definition list drives
+public CMake/pkg-config flags, target compile check avoids target execution,
+legacy conflict is explicit, host32 GNU/Linux guards are narrow, and the ABI
+transition/rebuild warning is documented. No time64 change or private same-SONAME
+variant. Both minizip variants and 16 installed C/C++ consumers pass; legacy and
+conflict guards pass; both actual OCIO discovery paths pass 10 CTests (explicit
+SSE2 comparison), as does production x86_64 OCIO. x86_64 minizip derivations are
+unchanged. Generic-x87 arithmetic/CPU policy is not changed or signed off.
+Backups precede each commit; focused refs are one commit on BASE, exact remote
+leases and post-push hashes verified. See final-review.md under the public
+validation lane and the focused drafts for hashes/coverage limits. Do not treat
+these checks as certification of every downstream closure.
+
+Whitespace checks target changed Nix sources, excluding vendor patch files.
+Preparing focused commits emits warnings for blank unified-diff context lines
+embedded in those patch files; that significant context is intentionally kept,
+not stripped or rewritten to silence a naive whitespace diagnostic.
 
 PyQt6 integration d6ff01421387 and focused 9c2686c4f13c were committed separately
 from all pending source work, pushed and remote-verified. Backup ref:

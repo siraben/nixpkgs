@@ -1,0 +1,13 @@
+cmake_minimum_required(VERSION 3.18)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON CACHE BOOL "Export evidence before creating targets" FORCE)
+project(dolphin_minizip_discovery_probe LANGUAGES C CXX)
+find_package(PkgConfig REQUIRED)
+include(/nix/store/sgnq0hryjqpxd5xhgjry5ykqrw5b42ba-source/CMake/DolphinLibraryTools.cmake)
+set(USE_SYSTEM_MINIZIP-NG ON CACHE STRING "Require the installed system library")
+dolphin_find_optional_system_library_pkgconfig(minizip-ng
+    "minizip-ng>=4.0.4" MINIZIP::minizip-ng /nonexistent-bundled-fallback)
+if(NOT TARGET PkgConfig::minizip-ng OR NOT TARGET MINIZIP::minizip-ng)
+    message(FATAL_ERROR "Expected Dolphin's system pkg-config discovery")
+endif()
+set(probe_minizip_target MINIZIP::minizip-ng)
+include(/home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-abi-preparation/consumers/common/probes.cmake)

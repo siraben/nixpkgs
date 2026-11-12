@@ -51,6 +51,8 @@ focused branches are not claimed to build independently of dependency fixes.
 | gavl | Select 64-bit glibc time ABI on 32-bit, matching int64_t HTTP timestamps | Both builds; 1969/1970/2040 HTTP date round trips pass on each width | gavl |
 | PySide6 | Omit optional unavailable WebEngine/WebView modules using availableOn | Both builds and offscreen widget renders; full i686 LXQt system builds | pyside6 |
 | PyQt6 | Default optional PDF bindings to QtWebEngine host availability | Both builds/imports/offscreen renders; PDF modules absent on i686 and present on x86_64; integration d6ff01421387, focused 9c2686c4f13c pushed | pyqt6 |
+| minizip-ng | Public wide-file ABI on 32-bit GNU/Linux, including normal/compat metadata | 168 tests each; 16 installed consumers, negative controls and option guards; x86_64 derivations unchanged; integration 1bfa643c7119, focused 33c29fc6802c pushed; coordinated ABI rebuild required | minizip-ng |
+| OpenColorIO filesystem discovery | Preserve minizip CMake/pkg-config usage requirements | Both i686 discovery paths pass 10 CTests (SSE2 comparison only); production x86_64 passes 10; no CPU/math/check-selection change; integration 883f6d3b3af9, focused 2939057da7a3 pushed | opencolorio-filesystem |
 | Graphical installer | Avoid unavailable QEMU guest agent/Firefox on 32-bit, use Dillo | Full ISO and live Xfce boot | graphical-base |
 | Hyper-V installer/hardware profiles | Do not require unavailable Hyper-V modules on i686 | Full ISO; x86_64 kernel/initrd/service derivations unchanged | hyperv |
 
@@ -99,7 +101,7 @@ OpenJDK's bootstrap limitation is already tracked in #314873 and open PR
 
 ## Style and idiom audit (ongoing)
 
-- All 28 changed Nix files, including pending dependency repairs and LibreOffice, pass `nixfmt --check`
+- All 30 changed Nix files, including pending dependency repairs and LibreOffice, pass `nixfmt --check`
   (`audit/format-check-final.json`).
 - Backup integration ref: `backup/i686-before-expanded-audit-20261111`;
   pre-amend branch hashes: `audit/pre-amend-refs.txt`.
@@ -345,16 +347,47 @@ failure is in the Clang comparison and is not claimed fixed.
   time_t=4 and d_name offset=19. Negative controls specifically reject old
   private-wide metadata and the original flag-dropping finder. Evidence:
   `parallel/minizip-public-validation/passed.json`. Actual OCIO project builds
-  through both discovery paths, option-conflict checks and the remaining
-  consumer-source audit are still acceptance gates. Both x86_64 minizip
+  now pass all 10 CTest entries through BOTH config-package and forced
+  pkg-config discovery. Compile-command assertions prove Platform.cpp,
+  OCIOZArchive.cpp and ocioarchive receive metadata-derived FILE_OFFSET_BITS=64
+  with no ambient/private file/time flags. These remain SSE2 comparison builds,
+  not generic-x87 correctness claims. Legacy FILE32 mode configuration is
+  accepted when wide mode is OFF; requesting both modes is specifically
+  rejected. Platform-predicate checks pass (ARM is evaluation-only, not runtime).
+  Evidence: `opencolorio-i686-public-lfs-{config,pkgconfig}-result/nix-support/`
+  and `parallel/minizip-public-validation/option-guards/passed.json`.
+  Actual consumer runtime/closure coverage remains limited. Both x86_64 minizip
   derivations are verified unchanged (`audit/minizip-{before,after}-public-contract.json`).
-  This coordinated 32-bit ABI transition is not committed or claimed complete.
+  Independent final review found no concrete defect. Committed and pushed:
+  integration `1bfa643c7119`, focused `33c29fc6802c` (one commit on BASE).
+  This is an intentional coordinated 32-bit ABI transition; old narrow binaries
+  remain incompatible, and closure-wide consumer safety is not certified.
+  Review: `parallel/minizip-public-validation/final-review.md`; draft:
+  `prs/minizip-ng/pr.md`. The separate OCIO finder repair now passes production
+  x86_64 build/all 10 CTest entries and is committed/pushed: integration
+  `883f6d3b3af9`, focused `2939057da7a3`. Evidence:
+  `opencolorio-x86_64-public-metadata.{json,log}`. No generic-x87 accuracy claim;
+  no production CPU, math or test-selection change.
   Pinned consumer inspection confirms Millennium uses the imported-target path
   (not the initially suspected raw bypass), and Telegram's packaged helper
   forwards compatibility CMake/pkg-config requirements. Remaining exact-source
-  gaps include Linphone, DJV and tlrender public interfaces; source fetches are
-  being prepared without building unsupported applications. Audit:
-  `parallel/minizip-consumer-source-audit/audit.md`.
+  gaps were inspected after exact pinned fetches. Linphone Qt-only
+  desktop does not consume the stale raw MINIZIP variables; DJV uses tlRender
+  targets; tlCore's inspected public FileInfo uses fixed-width sizes and
+  unchanged time_t, not a cross-library dirent/stat/off_t object. No additional
+  consumer repair was proven. Exact feather-tk FileIO headers now show a
+  pointer/size_t InMemoryFile and a pimpl FileIO interface, not public libc
+  offset/directory layouts (`parallel/minizip-consumer-source-audit/feather-fileio.md`).
+  Dolphin's pinned helper uses a pkg-config imported target and INTERFACE alias
+  (`parallel/minizip-consumer-source-audit/dolphin-discovery.md`); no flag-dropping
+  reconstruction was found there. Two helper C/C++ runtime probes passed, but
+  initial evidence collection failed because compile-command export was enabled
+  after targets were created. This is a preserved harness failure, not a package
+  failure; a fresh-directory retry enables export before target creation. Actual consumer compile/runtime closure
+  coverage remains limited; an explicitly SSE2-labelled tlRender/Krita
+  comparison is running, without changing package
+  defaults or force-enabling unsupported platforms. Audits:
+  `parallel/minizip-consumer-source-audit/{audit,audit-exact-sources}.md`.
   Evidence: `audit/minizip-directory-probe.{c,txt}` and
   `audit/opencolorio-archive-sse2-probe2/` (failed round-trip retained),
   `audit/opencolorio-archive-matched-lfs-probe2/` (assertion-backed success), and

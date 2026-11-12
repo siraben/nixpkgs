@@ -1,0 +1,13 @@
+{
+  "name": "dolphin-minizip-discovery-probes",
+  "command": [
+    "sh",
+    "/home/siraben/i686-iso-work/refresh-20261111/parallel/minizip-public-validation/check-dolphin-discovery.sh"
+  ],
+  "status": "failed",
+  "started": 1794481357.9893293,
+  "elapsedSeconds": 1,
+  "updated": "2026-11-12T11:02:39.054965+00:00",
+  "log": "/home/siraben/i686-iso-work/refresh-20261111/dolphin-minizip-discovery-probes.log",
+  "exitCode": 1
+}

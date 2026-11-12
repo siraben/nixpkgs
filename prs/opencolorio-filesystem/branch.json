@@ -1,0 +1,7 @@
+{
+  "branch": "siraben/i686-opencolorio-filesystem-20261111",
+  "commit": "2939057da7a3499d9fad0847a7cba3b1d9f26a92",
+  "base": "a238bac4849a79e151329cdc51638d3bc7627c6c",
+  "integrationCommit": "883f6d3b3af9fe6d84075be462bff64cdc346891",
+  "title": "opencolorio: preserve minizip-ng usage requirements"
+}

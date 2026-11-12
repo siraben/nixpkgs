@@ -1,0 +1,7 @@
+File CMakeLists.txt is read-only; trying to patch anyway
+patching file CMakeLists.txt
+File minizip.pc.cmakein is read-only; trying to patch anyway
+patching file minizip.pc.cmakein
+File README.md is read-only; trying to patch anyway
+patching file README.md
+PASS: legacy mode preserved; conflicting ABI requests rejected; platform predicate checked

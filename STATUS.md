@@ -87,8 +87,16 @@ siraben/nixpkgs. Do not open PRs automatically.
   PDF-font regression and three embedding tests. Other i686 failures remain;
   full x86_64 regression is running. No successful LibreOffice i686 package claim.
 - Minizip public wide-file contract: both variants pass 168 tests; all 16
-  metadata-only high-inode consumers and two negative controls pass. Additional
-  exact consumer-source and option/discovery-path audits remain before commit.
+  metadata-only high-inode consumers and two negative controls pass. Legacy and
+  conflicting-mode guards pass. Actual OCIO config/pkg-config discovery builds
+  each pass 10 CTests with metadata-derived compile flags (SSE2 diagnostic,
+  not generic-x87 sign-off). Source audits and independent final review found
+  no additional concrete defect. Minizip committed/pushed: integration
+  1bfa643c7119, focused 33c29fc6802c. Coordinated consumer rebuild required;
+  old narrow binaries incompatible. Broad application/closure coverage remains
+  limited. Separate OCIO finder repair also passes all 10 production x86_64
+  CTests and is committed/pushed: integration 883f6d3b3af9, focused 2939057da7a3.
+  No generic-x87 accuracy claim or production CPU/math/check-selection change.
 - OpenColorIO generic x87 has a reproduced public-API ACES2 accuracy failure;
   `-ffloat-store` improves that one case but leaves 25 assertions failing.
   No SSE2 CPU-baseline change, test-tolerance inflation or global workaround

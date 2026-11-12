@@ -1,0 +1,29 @@
+{
+  "name": "opencolorio-i686-public-lfs-config",
+  "command": [
+    "nix-build",
+    "/home/siraben/i686-iso-work/refresh-20261111/opencolorio-public-lfs-comparison.nix",
+    "--arg",
+    "forcePkgConfig",
+    "false",
+    "--out-link",
+    "/home/siraben/i686-iso-work/refresh-20261111/opencolorio-i686-public-lfs-config-result",
+    "--keep-failed",
+    "--keep-going",
+    "--max-jobs",
+    "2",
+    "--cores",
+    "4",
+    "--max-silent-time",
+    "900",
+    "--option",
+    "extra-platforms",
+    "i686-linux x86_64-linux aarch64-linux armv7l-linux"
+  ],
+  "status": "passed",
+  "started": 1794478112.8493853,
+  "elapsedSeconds": 447,
+  "updated": "2026-11-12T10:15:59.356911+00:00",
+  "log": "/home/siraben/i686-iso-work/refresh-20261111/opencolorio-i686-public-lfs-config.log",
+  "exitCode": 0
+}

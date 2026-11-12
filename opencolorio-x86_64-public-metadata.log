@@ -1,0 +1,723 @@
+warning: Nix search path entry '/home/siraben/.nix-defexpr/channels' does not exist, ignoring
+this derivation will be built:
+  /nix/store/vz4i7ppnp0bc9k00n1cmdh8dqp0k1h79-opencolorio-2.5.2.drv
+building '/nix/store/vz4i7ppnp0bc9k00n1cmdh8dqp0k1h79-opencolorio-2.5.2.drv'...
+Running phase: unpackPhase
+unpacking source archive /nix/store/2ywir6xhl7nlyyayqvgh7f1bxw9pkg59-source
+source root is source
+Running phase: patchPhase
+applying patch /nix/store/yg9ixj231sill57cgh74palg2r7n229w-minizip-pkgconfig-cflags.patch
+patching file share/cmake/modules/Findminizip-ng.cmake
+Running phase: updateAutotoolsGnuConfigScriptsPhase
+Running phase: configurePhase
+cmake flags: -DCMAKE_FIND_USE_SYSTEM_PACKAGE_REGISTRY=OFF -DCMAKE_FIND_USE_PACKAGE_REGISTRY=OFF -DCMAKE_EXPORT_NO_PACKAGE_REGISTRY=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_LOCALEDIR=/nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/share/locale -DCMAKE_INSTALL_LIBEXECDIR=/nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/libexec -DCMAKE_INSTALL_LIBDIR=/nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/lib -DCMAKE_INSTALL_DOCDIR=/nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/share/doc/OpenColorIO -DCMAKE_INSTALL_INFODIR=/nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/share/info -DCMAKE_INSTALL_MANDIR=/nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/share/man -DCMAKE_INSTALL_INCLUDEDIR=/nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/include -DCMAKE_INSTALL_SBINDIR=/nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/sbin -DCMAKE_INSTALL_BINDIR=/nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/bin -DCMAKE_INSTALL_NAME_DIR=/nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/lib -DCMAKE_STRIP=/nix/store/ii6p6kc1brz3vycqg88q4zb4xd2dmqwp-gcc-wrapper-16.2.0/bin/strip -DCMAKE_RANLIB=/nix/store/ii6p6kc1brz3vycqg88q4zb4xd2dmqwp-gcc-wrapper-16.2.0/bin/ranlib -DCMAKE_AR=/nix/store/ii6p6kc1brz3vycqg88q4zb4xd2dmqwp-gcc-wrapper-16.2.0/bin/ar -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_INSTALL_PREFIX=/nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2 -DOCIO_INSTALL_EXT_PACKAGES=NONE -DOCIO_USE_SSE2NEON=OFF -DOCIO_BUILD_GPU_TESTS=OFF -Dminizip-ng_DIR=/nix/store/7lcmnmpacx6ksqp0v6pp90yqdssvdjcq-minizip-ng-4.2.2/lib/cmake/minizip-ng -DPYBIND11_PYTHONLIBS_OVERWRITE=OFF -DPYTHON_EXECUTABLE=/nix/store/bya4ansy58az5133kryqp2cvrxbnz8qy-python3-3.14.10/bin/python3.14 -DPYTHON_INCLUDE_DIR=/nix/store/bya4ansy58az5133kryqp2cvrxbnz8qy-python3-3.14.10/include/python3.14 -DPYTHON_SITE_PACKAGES=/nix/store/bya4ansy58az5133kryqp2cvrxbnz8qy-python3-3.14.10/lib/python3.14/site-packages
+CMake Warning (policy) at CMakeLists.txt:18 (set):
+  Policy CMP0218 is not set: The CMAKE_WARN_DEPRECATED and
+  CMAKE_ERROR_DEPRECATED variables are ignored.  Run "cmake --help-policy
+  CMP0218" for policy details.  Use the cmake_policy command to set the
+  policy and suppress this warning.
+This warning is for project developers.  Use -Wno-author or -Wno-policy to
+suppress it.
+
+-- The CXX compiler identification is GNU 16.2.0
+-- The C compiler identification is GNU 16.2.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /nix/store/ii6p6kc1brz3vycqg88q4zb4xd2dmqwp-gcc-wrapper-16.2.0/bin/g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /nix/store/ii6p6kc1brz3vycqg88q4zb4xd2dmqwp-gcc-wrapper-16.2.0/bin/gcc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Setting C++ version to '17' as none was specified.
+-- Performing Test COMPILER_SUPPORTS_CXX17
+-- Performing Test COMPILER_SUPPORTS_CXX17 - Success
+-- 
+-- Checking for GPU configuration...
+-- Found OpenGL (no version information)
+-- Found GLEW (version "2.3.1")
+-- Found GLUT (no version information)
+-- GLVND supported
+-- Performing Test COMPILER_SUPPORTS_ARM_NEON
+-- Performing Test COMPILER_SUPPORTS_ARM_NEON - Failed
+-- Performing Test COMPILER_SUPPORTS_AVX
+-- Performing Test COMPILER_SUPPORTS_AVX - Success
+-- Performing Test COMPILER_SUPPORTS_AVX2
+-- Performing Test COMPILER_SUPPORTS_AVX2 - Success
+-- Performing Test COMPILER_SUPPORTS_AVX512
+-- Performing Test COMPILER_SUPPORTS_AVX512 - Success
+-- Performing Test COMPILER_SUPPORTS_SSE42
+-- Performing Test COMPILER_SUPPORTS_SSE42 - Success
+-- Performing Test COMPILER_SUPPORTS_SSE4
+-- Performing Test COMPILER_SUPPORTS_SSE4 - Success
+-- Performing Test COMPILER_SUPPORTS_SSSE3
+-- Performing Test COMPILER_SUPPORTS_SSSE3 - Success
+-- Performing Test COMPILER_SUPPORTS_SSE3
+-- Performing Test COMPILER_SUPPORTS_SSE3 - Success
+-- Performing Test COMPILER_SUPPORTS_SSE2
+-- Performing Test COMPILER_SUPPORTS_SSE2 - Success
+-- Performing Test COMPILER_SUPPORTS_F16C
+-- Performing Test COMPILER_SUPPORTS_F16C - Success
+-- Setting SOVERSION to '2.5' as none was specified.
+-- 
+-- Missing a dependency? Try the following possibilities:
+-- If the package provides CMake's configuration file, use -D<pkg>_DIR=<path to folder>.
+-- If it doesn't provide it, try -D<pkg>_ROOT=<path to folder with lib and includes>.
+-- Alternatively, try -D<pkg>_LIBRARY=<path to lib file> and/or -D<pkg>_INCLUDE_DIR=<path to folder>.
+-- 
+-- Please refer to the find module under share/cmake/modules for extra information.
+-- 
+-- Checking for mandatory dependencies...
+-- Found expat (version "2.9.0")
+-- Found yaml-cpp (version "0.9.0")
+-- Found pystring (no version information)
+-- Found Imath (version "3.2.3")
+-- Found ZLIB (version "1.3.2")
+-- Found minizip-ng (version "4.2.2")
+-- 
+-- Checking for optional dependencies...
+-- Found lcms2 (version "2.19")
+-- Found Python (version "3.14.10")
+-- Performing Test HAS_FLTO_AUTO
+-- Performing Test HAS_FLTO_AUTO - Success
+-- Found pybind11 (version "3.1.0")
+-- Checking if the OpenImageIO found is built with OpenEXR 3+...
+-- Could not find OpenImageIO header to evaluate the OpenEXR version.
+-- Please provide the OpenImageIO_DIR variable.
+-- If your OpenImageIO's files are located in different root directory, please provide the OpenImageIO_ROOT where the include files are located.
+-- Found OpenEXR (version "3.5.2")
+-- Using OpenEXR to build ociolutimage, ocioconvert and ociodisplay.
+CMake Warning at share/cmake/modules/FindExtPackages.cmake:297 (message):
+  Skipping build of the OpenShadingLanguage unit tests (OpenImageIO missing)
+Call Stack (most recent call first):
+  CMakeLists.txt:453 (include)
+
+
+CMake Warning at src/bindings/python/CMakeLists.txt:44 (message):
+  Building PyOpenColorIO with OCIO_BUILD_DOCS disabled will result in
+  incomplete Python docstrings.
+
+
+-- Configuring done (5.4s)
+-- Generating done (0.1s)
+CMake Warning (unused-cli):
+  Manually-specified variables were not used by the project:
+
+    CMAKE_EXPORT_NO_PACKAGE_REGISTRY
+    PYBIND11_PYTHONLIBS_OVERWRITE
+    PYTHON_EXECUTABLE
+    PYTHON_INCLUDE_DIR
+    PYTHON_SITE_PACKAGES
+
+
+-- Build files have been written to: /build/source/build
+cmake: enabled parallel building
+cmake: enabled parallel installing
+Running phase: buildPhase
+build flags: -j4 SHELL=/nix/store/hasnvc0j36gg6qrdsfcx7yivx3c2bpqr-bash-5.3p20/bin/bash
+[  0%] Building CXX object src/apps/ociocpuinfo/CMakeFiles/ociocpuinfo.dir/__/__/OpenColorIO/CPUInfo.cpp.o
+[  0%] Building CXX object src/apps/ociocpuinfo/CMakeFiles/ociocpuinfo.dir/main.cpp.o
+[  0%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/apphelpers/ColorSpaceHelpers.cpp.o
+[  0%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/apphelpers/CategoryHelpers.cpp.o
+[  0%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/apphelpers/DisplayViewHelpers.cpp.o
+[  0%] Linking CXX executable ociocpuinfo
+[  0%] Built target ociocpuinfo
+[  0%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/apphelpers/LegacyViewingPipeline.cpp.o
+[  1%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/apphelpers/mergeconfigs/MergeConfigsHelpers.cpp.o
+[  1%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/apphelpers/mergeconfigs/OCIOMYaml.cpp.o
+[  1%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/apphelpers/mergeconfigs/SectionMerger.cpp.o
+[  1%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/apphelpers/MixingHelpers.cpp.o
+[  1%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/Baker.cpp.o
+[  2%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/BakingUtils.cpp.o
+[  2%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/BitDepthUtils.cpp.o
+[  2%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/builtinconfigs/BuiltinConfigRegistry.cpp.o
+[  2%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/builtinconfigs/CGConfig.cpp.o
+[  2%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/builtinconfigs/StudioConfig.cpp.o
+[  3%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/Caching.cpp.o
+[  3%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ColorSpace.cpp.o
+[  3%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ColorSpaceSet.cpp.o
+[  3%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/Config.cpp.o
+[  3%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ConfigUtils.cpp.o
+[  4%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/Context.cpp.o
+[  4%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ContextVariableUtils.cpp.o
+[  4%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/CPUInfo.cpp.o
+[  4%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/CPUProcessor.cpp.o
+[  4%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/Display.cpp.o
+[  5%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/DynamicProperty.cpp.o
+[  5%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/Exception.cpp.o
+[  5%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/fileformats/cdl/CDLParser.cpp.o
+[  5%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/fileformats/cdl/CDLReaderHelper.cpp.o
+[  5%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/fileformats/cdl/CDLWriter.cpp.o
+[  6%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/fileformats/ctf/CTFReaderHelper.cpp.o
+[  6%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/fileformats/ctf/CTFReaderUtils.cpp.o
+[  6%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/fileformats/ctf/CTFTransform.cpp.o
+[  6%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/fileformats/ctf/IndexMapping.cpp.o
+[  6%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/fileformats/FileFormat3DL.cpp.o
+[  7%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/fileformats/FileFormatCCC.cpp.o
+[  7%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/fileformats/FileFormatCC.cpp.o
+[  7%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/fileformats/FileFormatCDL.cpp.o
+[  7%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/fileformats/FileFormatCSP.cpp.o
+[  7%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/fileformats/FileFormatCTF.cpp.o
+[  8%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/fileformats/FileFormatDiscreet1DL.cpp.o
+[  8%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/fileformats/FileFormatHDL.cpp.o
+[  8%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/fileformats/FileFormatICC.cpp.o
+[  8%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/fileformats/FileFormatIridasCube.cpp.o
+[  8%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/fileformats/FileFormatIridasItx.cpp.o
+[  9%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/fileformats/FileFormatIridasLook.cpp.o
+[  9%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/fileformats/FileFormatPandora.cpp.o
+[  9%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/fileformats/FileFormatResolveCube.cpp.o
+[  9%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/fileformats/FileFormatSpi1D.cpp.o
+[  9%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/fileformats/FileFormatSpi3D.cpp.o
+[ 10%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/fileformats/FileFormatSpiMtx.cpp.o
+[ 10%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/fileformats/FileFormatTruelight.cpp.o
+[ 10%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/fileformats/FileFormatUtils.cpp.o
+[ 10%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/fileformats/FileFormatVF.cpp.o
+[ 10%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/fileformats/FormatMetadata.cpp.o
+[ 11%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/fileformats/xmlutils/XMLReaderHelper.cpp.o
+[ 11%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/fileformats/xmlutils/XMLReaderUtils.cpp.o
+[ 11%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/fileformats/xmlutils/XMLWriterUtils.cpp.o
+[ 11%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/FileRules.cpp.o
+[ 11%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/GPUProcessor.cpp.o
+[ 12%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/GpuShader.cpp.o
+[ 12%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/GpuShaderDesc.cpp.o
+[ 12%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/GpuShaderClassWrapper.cpp.o
+[ 12%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/GpuShaderUtils.cpp.o
+[ 12%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/HashUtils.cpp.o
+[ 13%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ImageDesc.cpp.o
+[ 13%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ImagePacking.cpp.o
+[ 13%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/Logging.cpp.o
+[ 13%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/Look.cpp.o
+[ 13%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/LookParse.cpp.o
+[ 14%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/MathUtils.cpp.o
+[ 14%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/NamedTransform.cpp.o
+[ 14%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/OCIOYaml.cpp.o
+[ 14%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/OCIOZArchive.cpp.o
+[ 14%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/Op.cpp.o
+[ 15%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/OpOptimizers.cpp.o
+[ 15%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/allocation/AllocationOp.cpp.o
+[ 15%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/cdl/CDLOpCPU.cpp.o
+[ 15%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/cdl/CDLOpData.cpp.o
+[ 15%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/cdl/CDLOpGPU.cpp.o
+[ 16%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/cdl/CDLOp.cpp.o
+[ 16%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/exponent/ExponentOp.cpp.o
+[ 16%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/exposurecontrast/ExposureContrastOpCPU.cpp.o
+[ 16%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/exposurecontrast/ExposureContrastOpData.cpp.o
+[ 16%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/exposurecontrast/ExposureContrastOpGPU.cpp.o
+[ 17%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/exposurecontrast/ExposureContrastOp.cpp.o
+[ 17%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/fixedfunction/ACES2/Transform.cpp.o
+[ 17%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/fixedfunction/FixedFunctionOpCPU.cpp.o
+[ 17%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/fixedfunction/FixedFunctionOpData.cpp.o
+[ 17%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/fixedfunction/FixedFunctionOpGPU.cpp.o
+[ 18%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/fixedfunction/FixedFunctionOp.cpp.o
+[ 18%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/gamma/GammaOpCPU.cpp.o
+[ 18%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/gamma/GammaOpData.cpp.o
+[ 18%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/gamma/GammaOpGPU.cpp.o
+[ 18%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/gamma/GammaOpUtils.cpp.o
+[ 19%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/gamma/GammaOp.cpp.o
+[ 19%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/gradinghuecurve/GradingHueCurve.cpp.o
+[ 19%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/gradinghuecurve/GradingHueCurveOpCPU.cpp.o
+[ 19%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/gradinghuecurve/GradingHueCurveOpData.cpp.o
+[ 19%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/gradinghuecurve/GradingHueCurveOpGPU.cpp.o
+[ 20%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/gradinghuecurve/GradingHueCurveOp.cpp.o
+[ 20%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/gradingprimary/GradingPrimary.cpp.o
+[ 20%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/gradingprimary/GradingPrimaryOpCPU.cpp.o
+[ 20%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/gradingprimary/GradingPrimaryOpData.cpp.o
+[ 20%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/gradingprimary/GradingPrimaryOpGPU.cpp.o
+[ 21%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/gradingprimary/GradingPrimaryOp.cpp.o
+[ 21%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/gradingrgbcurve/GradingBSplineCurve.cpp.o
+[ 21%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/gradingrgbcurve/GradingRGBCurveOpCPU.cpp.o
+[ 21%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/gradingrgbcurve/GradingRGBCurveOpData.cpp.o
+[ 21%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/gradingrgbcurve/GradingRGBCurveOpGPU.cpp.o
+[ 22%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/gradingrgbcurve/GradingRGBCurveOp.cpp.o
+[ 22%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/gradingrgbcurve/GradingRGBCurve.cpp.o
+[ 22%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/gradingtone/GradingTone.cpp.o
+[ 22%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/gradingtone/GradingToneOpCPU.cpp.o
+[ 22%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/gradingtone/GradingToneOpData.cpp.o
+[ 23%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/gradingtone/GradingToneOpGPU.cpp.o
+[ 23%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/gradingtone/GradingToneOp.cpp.o
+[ 23%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/log/LogOpCPU.cpp.o
+[ 23%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/log/LogOpData.cpp.o
+[ 23%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/log/LogOpGPU.cpp.o
+[ 24%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/log/LogOp.cpp.o
+[ 24%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/log/LogUtils.cpp.o
+[ 24%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/lut1d/Lut1DOp.cpp.o
+[ 24%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/lut1d/Lut1DOpCPU.cpp.o
+[ 25%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/lut1d/Lut1DOpCPU_SSE2.cpp.o
+[ 25%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/lut1d/Lut1DOpCPU_AVX.cpp.o
+[ 25%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/lut1d/Lut1DOpCPU_AVX2.cpp.o
+[ 25%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/lut1d/Lut1DOpCPU_AVX512.cpp.o
+[ 25%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/lut1d/Lut1DOpData.cpp.o
+[ 26%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/lut1d/Lut1DOpGPU.cpp.o
+[ 26%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/lut3d/Lut3DOp.cpp.o
+[ 26%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/lut3d/Lut3DOpCPU.cpp.o
+[ 26%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/lut3d/Lut3DOpCPU_SSE2.cpp.o
+[ 26%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/lut3d/Lut3DOpCPU_AVX.cpp.o
+[ 27%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/lut3d/Lut3DOpCPU_AVX2.cpp.o
+[ 27%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/lut3d/Lut3DOpCPU_AVX512.cpp.o
+[ 27%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/lut3d/Lut3DOpData.cpp.o
+[ 27%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/lut3d/Lut3DOpGPU.cpp.o
+[ 27%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/matrix/MatrixOpCPU.cpp.o
+[ 28%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/matrix/MatrixOpData.cpp.o
+[ 28%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/matrix/MatrixOpGPU.cpp.o
+[ 28%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/matrix/MatrixOp.cpp.o
+[ 28%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/noop/NoOps.cpp.o
+[ 28%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/OpTools.cpp.o
+[ 29%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/range/RangeOpCPU.cpp.o
+[ 29%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/range/RangeOpData.cpp.o
+[ 29%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/range/RangeOpGPU.cpp.o
+[ 29%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/range/RangeOp.cpp.o
+[ 29%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ops/reference/ReferenceOpData.cpp.o
+[ 30%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ParseUtils.cpp.o
+[ 30%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/PathUtils.cpp.o
+[ 30%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/Platform.cpp.o
+[ 30%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/Processor.cpp.o
+[ 30%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ScanlineHelper.cpp.o
+[ 31%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/Transform.cpp.o
+[ 31%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/transforms/AllocationTransform.cpp.o
+[ 31%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/transforms/builtins/ACES.cpp.o
+[ 31%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/transforms/builtins/BuiltinTransformRegistry.cpp.o
+[ 31%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/transforms/builtins/ColorMatrixHelpers.cpp.o
+[ 32%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/transforms/builtins/OpHelpers.cpp.o
+[ 32%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/transforms/builtins/AppleCameras.cpp.o
+[ 32%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/transforms/builtins/ArriCameras.cpp.o
+[ 32%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/transforms/builtins/CanonCameras.cpp.o
+[ 32%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/transforms/builtins/Displays.cpp.o
+[ 33%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/transforms/builtins/PanasonicCameras.cpp.o
+[ 33%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/transforms/builtins/RedCameras.cpp.o
+[ 33%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/transforms/builtins/SonyCameras.cpp.o
+[ 33%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/transforms/BuiltinTransform.cpp.o
+[ 33%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/transforms/CDLTransform.cpp.o
+[ 34%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/transforms/ColorSpaceTransform.cpp.o
+[ 34%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/transforms/DisplayViewTransform.cpp.o
+[ 34%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/transforms/ExponentTransform.cpp.o
+[ 34%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/transforms/ExponentWithLinearTransform.cpp.o
+[ 34%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/transforms/ExposureContrastTransform.cpp.o
+[ 35%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/transforms/FileTransform.cpp.o
+[ 35%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/transforms/FixedFunctionTransform.cpp.o
+[ 35%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/transforms/GradingHueCurveTransform.cpp.o
+[ 35%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/transforms/GradingPrimaryTransform.cpp.o
+[ 35%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/transforms/GradingRGBCurveTransform.cpp.o
+[ 36%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/transforms/GradingToneTransform.cpp.o
+[ 36%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/transforms/GroupTransform.cpp.o
+[ 36%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/transforms/LogAffineTransform.cpp.o
+[ 36%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/transforms/LogCameraTransform.cpp.o
+[ 36%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/transforms/LogTransform.cpp.o
+[ 37%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/transforms/LookTransform.cpp.o
+[ 37%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/transforms/Lut1DTransform.cpp.o
+[ 37%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/transforms/Lut3DTransform.cpp.o
+[ 37%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/transforms/MatrixTransform.cpp.o
+[ 37%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/transforms/RangeTransform.cpp.o
+[ 38%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ViewingRules.cpp.o
+[ 38%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/ViewTransform.cpp.o
+[ 38%] Building CXX object src/OpenColorIO/CMakeFiles/OpenColorIO.dir/SystemMonitor.cpp.o
+[ 38%] Linking CXX shared library libOpenColorIO.so
+[ 38%] Built target OpenColorIO
+[ 38%] Building CXX object src/apputils/CMakeFiles/apputils.dir/argparse.cpp.o
+[ 38%] Building CXX object src/libutils/oglapphelpers/CMakeFiles/oglapphelpers.dir/glsl.cpp.o
+[ 38%] Building CXX object src/libutils/imageioapphelpers/CMakeFiles/imageioapphelpers.dir/imageio.cpp.o
+[ 38%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/apphelpers/PyColorSpaceHelpers.cpp.o
+[ 39%] Building CXX object src/apputils/CMakeFiles/apputils.dir/strutil.cpp.o
+[ 39%] Building CXX object src/libutils/oglapphelpers/CMakeFiles/oglapphelpers.dir/oglapp.cpp.o
+[ 39%] Building CXX object src/apputils/CMakeFiles/apputils.dir/logGuard.cpp.o
+[ 39%] Linking CXX static library libapputils.a
+[ 39%] Built target apputils
+[ 40%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/apphelpers/PyDisplayViewHelpers.cpp.o
+[ 40%] Linking CXX static library libOpenColorIOoglapphelpers.a
+[ 40%] Linking CXX static library libOpenColorIOimageioapphelpers.a
+[ 40%] Built target oglapphelpers
+[ 40%] Built target imageioapphelpers
+[ 40%] Building CXX object tests/testutils/CMakeFiles/testutils.dir/UnitTest.cpp.o
+[ 41%] Building CXX object src/apps/ocioarchive/CMakeFiles/ocioarchive.dir/main.cpp.o
+[ 41%] Linking CXX executable ocioarchive
+[ 41%] Built target ocioarchive
+[ 41%] Building CXX object src/apps/ociobakelut/CMakeFiles/ociobakelut.dir/main.cpp.o
+[ 42%] Linking CXX static library libtestutils.a
+[ 42%] Built target testutils
+[ 42%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/apphelpers/PyLegacyViewingPipeline.cpp.o
+[ 42%] Building CXX object src/apps/ociobakelut/CMakeFiles/ociobakelut.dir/ocioicc.cpp.o
+[ 42%] Linking CXX executable ociobakelut
+[ 42%] Built target ociobakelut
+[ 43%] Building CXX object src/apps/ociocheck/CMakeFiles/ociocheck.dir/main.cpp.o
+[ 43%] Linking CXX executable ociocheck
+[ 43%] Built target ociocheck
+[ 43%] Building CXX object src/apps/ociochecklut/CMakeFiles/ociochecklut.dir/main.cpp.o
+[ 43%] Linking CXX executable ociochecklut
+[ 43%] Built target ociochecklut
+[ 43%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/apphelpers/PyMergeConfigs.cpp.o
+[ 43%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/apphelpers/PyMixingHelpers.cpp.o
+[ 43%] Building CXX object src/apps/ociomakeclf/CMakeFiles/ociomakeclf.dir/main.cpp.o
+[ 43%] Building CXX object src/apps/ocioperf/CMakeFiles/ocioperf.dir/main.cpp.o
+[ 43%] Linking CXX executable ociomakeclf
+[ 43%] Built target ociomakeclf
+[ 43%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/transforms/PyAllocationTransform.cpp.o
+[ 43%] Linking CXX executable ocioperf
+[ 43%] Built target ocioperf
+[ 44%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/transforms/PyBuiltinTransform.cpp.o
+[ 45%] Building CXX object src/apps/ociomergeconfigs/CMakeFiles/ociomergeconfigs.dir/main.cpp.o
+[ 45%] Building CXX object src/apps/ociowrite/CMakeFiles/ociowrite.dir/main.cpp.o
+[ 46%] Linking CXX executable ociowrite
+[ 46%] Linking CXX executable ociomergeconfigs
+[ 46%] Built target ociowrite
+[ 46%] Building CXX object src/apps/ociolutimage/CMakeFiles/ociolutimage.dir/main.cpp.o
+[ 46%] Built target ociomergeconfigs
+[ 46%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/transforms/PyCDLTransform.cpp.o
+[ 46%] Building CXX object src/apps/ocioconvert/CMakeFiles/ocioconvert.dir/main.cpp.o
+[ 46%] Building CXX object src/apps/ociodisplay/CMakeFiles/ociodisplay.dir/main.cpp.o
+[ 46%] Linking CXX executable ociolutimage
+[ 46%] Built target ociolutimage
+[ 46%] Building CXX object tests/utils/CMakeFiles/test_utils_exec.dir/UnitTestMain.cpp.o
+[ 47%] Linking CXX executable ocioconvert
+[ 47%] Built target ocioconvert
+[ 47%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/apphelpers/mergeconfigs/OCIOMYaml.cpp.o
+[ 48%] Building CXX object tests/utils/CMakeFiles/test_utils_exec.dir/NumberUtils_tests.cpp.o
+[ 49%] Linking CXX executable ociodisplay
+[ 49%] Built target ociodisplay
+[ 49%] Building CXX object tests/utils/CMakeFiles/test_utils_exec.dir/StringUtils_tests.cpp.o
+[ 49%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/transforms/PyColorSpaceTransform.cpp.o
+[ 49%] Linking CXX executable test_utils_exec
+[ 49%] Built target test_utils_exec
+[ 49%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/transforms/PyDisplayViewTransform.cpp.o
+[ 50%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/apphelpers/mergeconfigs/SectionMerger.cpp.o
+[ 50%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/builtinconfigs/CGConfig.cpp.o
+[ 50%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/transforms/PyExponentTransform.cpp.o
+[ 50%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/builtinconfigs/StudioConfig.cpp.o
+[ 50%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/ConfigUtils.cpp.o
+[ 50%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/fileformats/cdl/CDLParser.cpp.o
+[ 51%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/fileformats/cdl/CDLReaderHelper.cpp.o
+[ 51%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/fileformats/cdl/CDLWriter.cpp.o
+[ 51%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/fileformats/ctf/CTFReaderHelper.cpp.o
+[ 51%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/fileformats/ctf/CTFReaderUtils.cpp.o
+[ 52%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/transforms/PyExponentWithLinearTransform.cpp.o
+[ 52%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/transforms/PyExposureContrastTransform.cpp.o
+[ 52%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/fileformats/FileFormatUtils.cpp.o
+[ 52%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/transforms/PyFileTransform.cpp.o
+[ 53%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/fileformats/xmlutils/XMLReaderHelper.cpp.o
+[ 53%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/transforms/PyFixedFunctionTransform.cpp.o
+[ 53%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/fileformats/xmlutils/XMLWriterUtils.cpp.o
+[ 53%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/BakingUtils.cpp.o
+[ 53%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/CPUInfo.cpp.o
+[ 53%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/transforms/PyGradingPrimaryTransform.cpp.o
+[ 53%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/GPUProcessor.cpp.o
+[ 54%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/GpuShaderDesc.cpp.o
+[ 54%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/GpuShaderClassWrapper.cpp.o
+[ 55%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/transforms/PyGradingRGBCurveTransform.cpp.o
+[ 55%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/HashUtils.cpp.o
+[ 55%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/ImageDesc.cpp.o
+[ 55%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/ImagePacking.cpp.o
+[ 55%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/transforms/PyGradingHueCurveTransform.cpp.o
+[ 56%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/Look.cpp.o
+[ 56%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/transforms/PyGradingToneTransform.cpp.o
+[ 56%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/OCIOYaml.cpp.o
+[ 56%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/transforms/PyGroupTransform.cpp.o
+[ 56%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/OCIOZArchive.cpp.o
+[ 56%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/transforms/PyLogAffineTransform.cpp.o
+[ 57%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/transforms/PyLogCameraTransform.cpp.o
+[ 57%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/ops/cdl/CDLOpCPU.cpp.o
+[ 57%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/transforms/PyLogTransform.cpp.o
+[ 57%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/ops/cdl/CDLOpGPU.cpp.o
+[ 58%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/ops/exposurecontrast/ExposureContrastOpGPU.cpp.o
+[ 58%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/ops/fixedfunction/ACES2/Transform.cpp.o
+[ 58%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/ops/fixedfunction/FixedFunctionOpGPU.cpp.o
+[ 58%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/ops/gamma/GammaOpGPU.cpp.o
+[ 58%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/ops/gradinghuecurve/GradingHueCurveOpGPU.cpp.o
+[ 58%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/transforms/PyLookTransform.cpp.o
+[ 58%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/transforms/PyLut1DTransform.cpp.o
+[ 59%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/ops/gradingprimary/GradingPrimaryOpGPU.cpp.o
+[ 59%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/transforms/PyLut3DTransform.cpp.o
+[ 59%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/ops/gradingrgbcurve/GradingRGBCurveOpGPU.cpp.o
+[ 59%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/ops/gradingtone/GradingToneOpGPU.cpp.o
+[ 59%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/ops/log/LogOpGPU.cpp.o
+[ 59%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/ops/lut1d/Lut1DOpCPU_SSE2.cpp.o
+[ 60%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/ops/lut1d/Lut1DOpCPU_AVX.cpp.o
+[ 61%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/transforms/PyMatrixTransform.cpp.o
+[ 61%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/ops/lut1d/Lut1DOpCPU_AVX2.cpp.o
+[ 61%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/transforms/PyRangeTransform.cpp.o
+[ 61%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/PyBaker.cpp.o
+[ 61%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/ops/lut1d/Lut1DOpCPU_AVX512.cpp.o
+[ 61%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/ops/lut3d/Lut3DOpGPU.cpp.o
+[ 61%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/ops/lut3d/Lut3DOpCPU_SSE2.cpp.o
+[ 62%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/ops/lut3d/Lut3DOpCPU_AVX.cpp.o
+[ 62%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/ops/lut3d/Lut3DOpCPU_AVX2.cpp.o
+[ 62%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/ops/lut3d/Lut3DOpCPU_AVX512.cpp.o
+[ 62%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/ops/matrix/MatrixOpGPU.cpp.o
+[ 62%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/PyBuiltinConfigRegistry.cpp.o
+[ 62%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/PyBuiltinTransformRegistry.cpp.o
+[ 62%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/ops/OpTools.cpp.o
+[ 63%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/ops/range/RangeOpGPU.cpp.o
+[ 63%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/ScanlineHelper.cpp.o
+[ 64%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/PyColorSpace.cpp.o
+[ 64%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/Transform.cpp.o
+[ 64%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/transforms/builtins/ACES.cpp.o
+[ 64%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/PyColorSpaceSet.cpp.o
+[ 64%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/transforms/builtins/AppleCameras.cpp.o
+[ 65%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/transforms/builtins/ArriCameras.cpp.o
+[ 65%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/transforms/builtins/CanonCameras.cpp.o
+[ 65%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/transforms/builtins/ColorMatrixHelpers.cpp.o
+[ 65%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/PyConfig.cpp.o
+[ 65%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/transforms/builtins/Displays.cpp.o
+[ 65%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/PyConfigIOProxy.cpp.o
+[ 65%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/transforms/builtins/OpHelpers.cpp.o
+[ 66%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/transforms/builtins/PanasonicCameras.cpp.o
+[ 66%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/transforms/builtins/RedCameras.cpp.o
+[ 66%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/PyContext.cpp.o
+[ 66%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/transforms/builtins/SonyCameras.cpp.o
+[ 66%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/__/__/src/OpenColorIO/SystemMonitor.cpp.o
+[ 66%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/apphelpers/CategoryHelpers_tests.cpp.o
+[ 67%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/apphelpers/ColorSpaceHelpers_tests.cpp.o
+[ 68%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/PyCPUProcessor.cpp.o
+[ 68%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/apphelpers/DisplayViewHelpers_tests.cpp.o
+[ 68%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/PyDynamicProperty.cpp.o
+[ 68%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/PyFileRules.cpp.o
+[ 68%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/apphelpers/LegacyViewingPipeline_tests.cpp.o
+[ 68%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/apphelpers/MergeConfigsHelpers_tests.cpp.o
+[ 68%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/apphelpers/MixingHelpers_tests.cpp.o
+[ 68%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/PyFormatMetadata.cpp.o
+[ 68%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/PyGPUProcessor.cpp.o
+[ 69%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/Baker_tests.cpp.o
+[ 69%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/BitDepthUtils_tests.cpp.o
+[ 70%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/PyGpuShaderCreator.cpp.o
+[ 70%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/builtinconfigs/BuiltinConfig_tests.cpp.o
+[ 70%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/PyGpuShaderDesc.cpp.o
+[ 70%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/Caching_tests.cpp.o
+[ 70%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ColorSpace_tests.cpp.o
+[ 71%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ColorSpaceSet_tests.cpp.o
+[ 71%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/PyGradingData.cpp.o
+[ 71%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/PyImageDesc.cpp.o
+[ 71%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/PyLook.cpp.o
+[ 71%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/Config_tests.cpp.o
+[ 71%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ConfigUtils_tests.cpp.o
+[ 72%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/PyNamedTransform.cpp.o
+[ 72%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/PyOpenColorIO.cpp.o
+[ 72%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/Context_tests.cpp.o
+[ 72%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/PyPackedImageDesc.cpp.o
+[ 72%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/PyPlanarImageDesc.cpp.o
+[ 72%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/PyProcessor.cpp.o
+[ 73%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/PyProcessorMetadata.cpp.o
+[ 73%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/PySystemMonitors.cpp.o
+[ 73%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ContextVariableUtils_tests.cpp.o
+[ 73%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/PyTransform.cpp.o
+[ 74%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/CPUProcessor_tests.cpp.o
+[ 74%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/Display_tests.cpp.o
+[ 74%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/PyTypes.cpp.o
+[ 75%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/PyUtils.cpp.o
+[ 75%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/PyViewingRules.cpp.o
+[ 75%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/DynamicProperty_tests.cpp.o
+[ 75%] Building CXX object src/bindings/python/CMakeFiles/PyOpenColorIO.dir/PyViewTransform.cpp.o
+[ 75%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/Exception_tests.cpp.o
+[ 75%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/fileformats/ctf/CTFTransform_tests.cpp.o
+[ 76%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/fileformats/ctf/IndexMapping_tests.cpp.o
+[ 76%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/fileformats/FileFormat3DL_tests.cpp.o
+[ 76%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/fileformats/FileFormatCC_tests.cpp.o
+[ 76%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/fileformats/FileFormatCCC_tests.cpp.o
+[ 77%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/fileformats/FileFormatCDL_tests.cpp.o
+[ 77%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/fileformats/FileFormatCSP_tests.cpp.o
+[ 77%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/fileformats/FileFormatCTF_tests.cpp.o
+[ 77%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/fileformats/FileFormatDiscreet1DL_tests.cpp.o
+[ 77%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/fileformats/FileFormatHDL_tests.cpp.o
+[ 78%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/fileformats/FileFormatICC_tests.cpp.o
+[ 78%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/fileformats/FileFormatIridasCube_tests.cpp.o
+[ 78%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/fileformats/FileFormatIridasItx_tests.cpp.o
+[ 78%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/fileformats/FileFormatIridasLook_tests.cpp.o
+[ 78%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/fileformats/FileFormatPandora_tests.cpp.o
+[ 79%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/fileformats/FileFormatResolveCube_tests.cpp.o
+[ 79%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/fileformats/FileFormatSpi1D_tests.cpp.o
+[ 79%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/fileformats/FileFormatSpi3D_tests.cpp.o
+[ 79%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/fileformats/FileFormatSpiMtx_tests.cpp.o
+[ 79%] Linking CXX shared module PyOpenColorIO/PyOpenColorIO.so
+[ 79%] Built target PyOpenColorIO
+[ 79%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/fileformats/FileFormatTruelight_tests.cpp.o
+[ 80%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/fileformats/FileFormatVF_tests.cpp.o
+[ 80%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/fileformats/FormatMetadata_tests.cpp.o
+[ 80%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/fileformats/xmlutils/XMLReaderUtils_tests.cpp.o
+[ 80%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/FileRules_tests.cpp.o
+[ 80%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/GpuShader_tests.cpp.o
+[ 81%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/GpuShaderUtils_tests.cpp.o
+[ 81%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/Logging_tests.cpp.o
+[ 81%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/LookParse_tests.cpp.o
+[ 81%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/MathUtils_tests.cpp.o
+[ 81%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/NamedTransform_tests.cpp.o
+[ 82%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/OCIOZArchive_tests.cpp.o
+[ 82%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/Op_tests.cpp.o
+[ 82%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/OpOptimizers_tests.cpp.o
+[ 82%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/allocation/AllocationOp_tests.cpp.o
+[ 82%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/cdl/CDLOpData_tests.cpp.o
+[ 83%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/cdl/CDLOp_tests.cpp.o
+[ 83%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/exponent/ExponentOp_tests.cpp.o
+[ 83%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/exposurecontrast/ExposureContrastOpCPU_tests.cpp.o
+[ 83%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/exposurecontrast/ExposureContrastOpData_tests.cpp.o
+[ 83%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/exposurecontrast/ExposureContrastOp_tests.cpp.o
+[ 84%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/fixedfunction/FixedFunctionOpCPU_tests.cpp.o
+[ 84%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/fixedfunction/FixedFunctionOpData_tests.cpp.o
+[ 84%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/fixedfunction/FixedFunctionOp_tests.cpp.o
+[ 84%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/gamma/GammaOp_tests.cpp.o
+[ 84%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/gamma/GammaOpCPU_tests.cpp.o
+[ 85%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/gamma/GammaOpData_tests.cpp.o
+[ 85%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/gamma/GammaOpUtils_tests.cpp.o
+[ 85%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/gradingprimary/GradingPrimary_tests.cpp.o
+[ 85%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/gradingprimary/GradingPrimaryOpCPU_tests.cpp.o
+[ 85%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/gradingprimary/GradingPrimaryOpData_tests.cpp.o
+[ 86%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/gradingprimary/GradingPrimaryOp_tests.cpp.o
+[ 86%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/gradingrgbcurve/GradingBSplineCurve_tests.cpp.o
+[ 86%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/gradinghuecurve/GradingHueCurve_tests.cpp.o
+[ 86%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/gradinghuecurve/GradingHueCurveOpCPU_tests.cpp.o
+[ 86%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/gradinghuecurve/GradingHueCurveOpData_tests.cpp.o
+[ 87%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/gradinghuecurve/GradingHueCurveOp_tests.cpp.o
+[ 87%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/gradingrgbcurve/GradingRGBCurve_tests.cpp.o
+[ 87%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/gradingrgbcurve/GradingRGBCurveOpCPU_tests.cpp.o
+[ 87%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/gradingrgbcurve/GradingRGBCurveOpData_tests.cpp.o
+[ 87%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/gradingrgbcurve/GradingRGBCurveOp_tests.cpp.o
+[ 88%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/gradingtone/GradingTone_tests.cpp.o
+[ 88%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/gradingtone/GradingToneOpCPU_tests.cpp.o
+[ 88%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/gradingtone/GradingToneOpData_tests.cpp.o
+[ 88%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/gradingtone/GradingToneOp_tests.cpp.o
+[ 88%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/log/LogOpCPU_tests.cpp.o
+[ 89%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/log/LogOpData_tests.cpp.o
+[ 89%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/log/LogOp_tests.cpp.o
+[ 89%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/log/LogUtils_tests.cpp.o
+[ 89%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/lut1d/Lut1DOp_tests.cpp.o
+[ 89%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/lut1d/Lut1DOpCPU_tests.cpp.o
+[ 90%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/lut1d/Lut1DOpData_tests.cpp.o
+[ 90%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/lut1d/Lut1DOpGPU_tests.cpp.o
+[ 90%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/lut3d/Lut3DOp_tests.cpp.o
+[ 90%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/lut3d/Lut3DOpCPU_tests.cpp.o
+[ 90%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/lut3d/Lut3DOpData_tests.cpp.o
+[ 91%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/matrix/MatrixOpCPU_tests.cpp.o
+[ 91%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/matrix/MatrixOpData_tests.cpp.o
+[ 91%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/matrix/MatrixOp_tests.cpp.o
+[ 91%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/noop/NoOps_tests.cpp.o
+[ 91%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/range/RangeOpCPU_tests.cpp.o
+[ 92%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/range/RangeOpData_tests.cpp.o
+[ 92%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/range/RangeOp_tests.cpp.o
+[ 92%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ops/reference/ReferenceOpData_tests.cpp.o
+[ 92%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ParseUtils_tests.cpp.o
+[ 92%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/PathUtils_tests.cpp.o
+[ 93%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/Platform_tests.cpp.o
+[ 93%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/Processor_tests.cpp.o
+[ 93%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/SIMD_tests.cpp.o
+[ 93%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/SSE_tests.cpp.o
+[ 93%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/SSE2_tests.cpp.o
+[ 94%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/AVX_tests.cpp.o
+[ 94%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/AVX2_tests.cpp.o
+[ 94%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/AVX512_tests.cpp.o
+[ 94%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/transforms/AllocationTransform_tests.cpp.o
+[ 94%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/transforms/builtins/BuiltinTransformRegistry_tests.cpp.o
+[ 95%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/transforms/BuiltinTransform_tests.cpp.o
+[ 95%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/transforms/CDLTransform_tests.cpp.o
+[ 95%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/transforms/ColorSpaceTransform_tests.cpp.o
+[ 95%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/transforms/DisplayViewTransform_tests.cpp.o
+[ 95%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/transforms/ExponentTransform_tests.cpp.o
+[ 96%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/transforms/ExponentWithLinearTransform_tests.cpp.o
+[ 96%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/transforms/ExposureContrastTransform_tests.cpp.o
+[ 96%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/transforms/FileTransform_tests.cpp.o
+[ 96%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/transforms/FixedFunctionTransform_tests.cpp.o
+[ 96%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/transforms/GradingHueCurveTransform_tests.cpp.o
+[ 97%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/transforms/GradingPrimaryTransform_tests.cpp.o
+[ 97%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/transforms/GradingRGBCurveTransform_tests.cpp.o
+[ 97%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/transforms/GradingToneTransform_tests.cpp.o
+[ 97%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/transforms/GroupTransform_tests.cpp.o
+[ 97%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/transforms/LogAffineTransform_tests.cpp.o
+[ 98%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/transforms/LogCameraTransform_tests.cpp.o
+[ 98%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/transforms/LogTransform_tests.cpp.o
+[ 98%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/transforms/LookTransform_tests.cpp.o
+[ 98%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/transforms/Lut1DTransform_tests.cpp.o
+[ 98%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/transforms/Lut3DTransform_tests.cpp.o
+[ 99%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/transforms/MatrixTransform_tests.cpp.o
+[ 99%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/transforms/RangeTransform_tests.cpp.o
+[ 99%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/UnitTestLogUtils.cpp.o
+[ 99%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/UnitTestMain.cpp.o
+[ 99%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/UnitTestOptimFlags.cpp.o
+[100%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/UnitTestUtils.cpp.o
+[100%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ViewingRules_tests.cpp.o
+[100%] Building CXX object tests/cpu/CMakeFiles/test_cpu_exec.dir/ViewTransform_tests.cpp.o
+[100%] Linking CXX executable test_cpu_exec
+[100%] Built target test_cpu_exec
+buildPhase completed in 7 minutes 1 seconds
+Running phase: checkPhase
+check flags: SHELL=/nix/store/hasnvc0j36gg6qrdsfcx7yivx3c2bpqr-bash-5.3p20/bin/bash VERBOSE=y test
+Running tests...
+/nix/store/9xdayymn5yh1c98hg12d13d3ir0sxd4x-cmake-4.4.4/bin/ctest 
+Test project /build/source/build
+      Start  1: test_utils_exec
+ 1/10 Test  #1: test_utils_exec ..................   Passed    0.00 sec
+      Start  2: test_cpu
+ 2/10 Test  #2: test_cpu .........................   Passed    2.12 sec
+      Start  3: test_cpu_no_accel
+ 3/10 Test  #3: test_cpu_no_accel ................   Passed    2.09 sec
+      Start  4: test_cpu_sse2
+ 4/10 Test  #4: test_cpu_sse2 ....................   Passed    2.09 sec
+      Start  5: test_cpu_avx
+ 5/10 Test  #5: test_cpu_avx .....................   Passed    2.06 sec
+      Start  6: test_cpu_avx+f16c
+ 6/10 Test  #6: test_cpu_avx+f16c ................   Passed    2.07 sec
+      Start  7: test_cpu_avx2
+ 7/10 Test  #7: test_cpu_avx2 ....................   Passed    2.09 sec
+      Start  8: test_cpu_avx2+f16c
+ 8/10 Test  #8: test_cpu_avx2+f16c ...............   Passed    2.09 sec
+      Start  9: test_cpu_avx512
+ 9/10 Test  #9: test_cpu_avx512 ..................   Passed    0.01 sec
+      Start 10: test_python
+10/10 Test #10: test_python ......................   Passed    0.48 sec
+
+100% tests passed out of 10
+
+Total Test time (real) =  15.11 sec
+Running phase: installPhase
+install flags: -j4 SHELL=/nix/store/hasnvc0j36gg6qrdsfcx7yivx3c2bpqr-bash-5.3p20/bin/bash install
+[  0%] Built target ociocpuinfo
+[ 38%] Built target OpenColorIO
+[ 38%] Built target oglapphelpers
+[ 39%] Built target imageioapphelpers
+[ 39%] Built target apputils
+[ 40%] Built target testutils
+[ 41%] Built target ocioarchive
+[ 41%] Built target ociobakelut
+[ 41%] Built target ociochecklut
+[ 41%] Built target ociomakeclf
+[ 42%] Built target ociocheck
+[ 43%] Built target ociomergeconfigs
+[ 43%] Built target ocioperf
+[ 44%] Built target ociowrite
+[ 44%] Built target ociolutimage
+[ 45%] Built target ocioconvert
+[ 46%] Built target ociodisplay
+[ 47%] Built target test_utils_exec
+[ 59%] Built target PyOpenColorIO
+[100%] Built target test_cpu_exec
+Install the project...
+-- Install configuration: "Release"
+-- Set non-toolchain portion of runtime path of "/nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/bin/ocioarchive" to "$ORIGIN/..//nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/lib:$ORIGIN"
+-- Set non-toolchain portion of runtime path of "/nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/bin/ociobakelut" to "$ORIGIN/..//nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/lib:$ORIGIN"
+-- Set non-toolchain portion of runtime path of "/nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/bin/ociocheck" to "$ORIGIN/..//nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/lib:$ORIGIN"
+-- Set non-toolchain portion of runtime path of "/nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/bin/ociochecklut" to "$ORIGIN/..//nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/lib:$ORIGIN"
+-- Set non-toolchain portion of runtime path of "/nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/bin/ociocpuinfo" to "$ORIGIN/..//nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/lib:$ORIGIN"
+-- Set non-toolchain portion of runtime path of "/nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/bin/ociomakeclf" to "$ORIGIN/..//nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/lib:$ORIGIN"
+-- Set non-toolchain portion of runtime path of "/nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/bin/ocioperf" to "$ORIGIN/..//nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/lib:$ORIGIN"
+-- Set non-toolchain portion of runtime path of "/nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/bin/ociomergeconfigs" to "$ORIGIN/..//nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/lib:$ORIGIN"
+-- Set non-toolchain portion of runtime path of "/nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/bin/ociowrite" to "$ORIGIN/..//nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/lib:$ORIGIN"
+-- Set non-toolchain portion of runtime path of "/nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/bin/ociolutimage" to "$ORIGIN/..//nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/lib:$ORIGIN"
+-- Set non-toolchain portion of runtime path of "/nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/bin/ocioconvert" to "$ORIGIN/..//nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/lib:$ORIGIN"
+-- Set non-toolchain portion of runtime path of "/nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/bin/ociodisplay" to "$ORIGIN/..//nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/lib:$ORIGIN"
+-- Set non-toolchain portion of runtime path of "/nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/lib/python3.14/site-packages/PyOpenColorIO/PyOpenColorIO.so" to "$ORIGIN/../../..:$ORIGIN/..//nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/lib:$ORIGIN"
+-- Set non-toolchain portion of runtime path of "/nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/lib/libOpenColorIO.so.2.5.2" to "$ORIGIN/..//nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/lib:$ORIGIN"
+Running phase: fixupPhase
+shrinking RPATHs of ELF executables and libraries in /nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2
+shrinking /nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/bin/ocioarchive
+shrinking /nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/bin/ociobakelut
+shrinking /nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/bin/ociocheck
+shrinking /nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/bin/ociochecklut
+shrinking /nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/bin/ociocpuinfo
+shrinking /nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/bin/ociomakeclf
+shrinking /nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/bin/ocioperf
+shrinking /nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/bin/ociomergeconfigs
+shrinking /nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/bin/ociowrite
+shrinking /nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/bin/ociolutimage
+shrinking /nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/bin/ocioconvert
+shrinking /nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/bin/ociodisplay
+shrinking /nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/lib/python3.14/site-packages/PyOpenColorIO/PyOpenColorIO.so
+shrinking /nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/lib/libOpenColorIO.so.2.5.2
+checking for references to /build/ in /nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2...
+patching script interpreter paths in /nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2
+stripping (with command strip and flags -S -p) in /nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/lib /nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2/bin
+/nix/store/xncqab9wym9pkwavwmysgrnjf5db3yaf-opencolorio-2.5.2

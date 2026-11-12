@@ -21,7 +21,9 @@ See [report.md](report.md) for results and limitations and [style review](audit/
 | isa-l | [pr.md](prs/isa-l/pr.md) | [siraben/i686-isa-l-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-isa-l-20261111) |
 | kernel-dev | [pr.md](prs/kernel-dev/pr.md) | [siraben/i686-kernel-dev-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-kernel-dev-20261111) |
 | liborcus | [pr.md](prs/liborcus/pr.md) | [siraben/i686-liborcus-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-liborcus-20261111) |
+| minizip-ng | [pr.md](prs/minizip-ng/pr.md) | [siraben/i686-minizip-ng-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-minizip-ng-20261111) |
 | msgspec | [pr.md](prs/msgspec/pr.md) | [siraben/i686-msgspec-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-msgspec-20261111) |
+| opencolorio-filesystem | [pr.md](prs/opencolorio-filesystem/pr.md) | [siraben/i686-opencolorio-filesystem-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-opencolorio-filesystem-20261111) |
 | pandas | [pr.md](prs/pandas/pr.md) | [siraben/i686-pandas-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-pandas-20261111) |
 | pyqt6 | [pr.md](prs/pyqt6/pr.md) | [siraben/i686-pyqt6-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-pyqt6-20261111) |
 | pyside6 | [pr.md](prs/pyside6/pr.md) | [siraben/i686-pyside6-20261111](https://github.com/siraben/nixpkgs/tree/siraben/i686-pyside6-20261111) |
