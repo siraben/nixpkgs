@@ -1,0 +1,13 @@
+Enable the large-file ABI for bootstrap qmake and its private Qt objects.
+The bootstrap configuration otherwise uses readdir with 32-bit inode numbers,
+which can truncate project-file discovery with EOVERFLOW on i686.
+
+--- a/qmake/Makefile.unix.unix
++++ b/qmake/Makefile.unix.unix
+@@ -1,3 +1,6 @@
++# Bootstrap qmake must handle 64-bit file sizes and inode numbers.
++EXTRA_CPPFLAGS += -D_FILE_OFFSET_BITS=64
++
+ EXEEXT =
+ QTOBJS = \
+     qcore_unix.o \

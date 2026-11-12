@@ -43,6 +43,8 @@ let
       ./qtbase.patch.d/0009-qtbase-qtpluginpath.patch
       ./qtbase.patch.d/0010-qtbase-assert.patch
       ./qtbase.patch.d/0011-fix-header_module.patch
+      # Bootstrap qmake must enumerate directories with large inode numbers.
+      ./qtbase.patch.d/qmake-large-file-support.patch
       (fetchpatch {
         name = "0012-qtbase-loongarch64.patch";
         url = "https://gitlab.alpinelinux.org/alpine/aports/-/raw/81b14ae4eed038662b53cd20786fd5e0816279ec/community/qt5-qtbase/loongarch64.patch";
