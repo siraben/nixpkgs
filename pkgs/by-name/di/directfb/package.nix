@@ -33,6 +33,13 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   patches = [
+    # Make the TaskManager comparator const for GCC 16.
+    # https://github.com/deniskropp/DirectFB/pull/30
+    (fetchpatch {
+      url = "https://github.com/deniskropp/DirectFB/commit/ba21daa121f9b73f124aca6426f06dc0242a969f.patch";
+      hash = "sha256-YTPXspWqBi9zvwt9wAVHPqulqz52foZG1RdAVq1oNtA=";
+    })
+
     # Fixes build in "davinci" with glibc >= 2.28
     # The "davinci" module is only enabled on 32-bit arm.
     # https://github.com/deniskropp/DirectFB/pull/17
