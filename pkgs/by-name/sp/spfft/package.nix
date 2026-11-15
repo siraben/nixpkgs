@@ -91,7 +91,11 @@ stdenv.mkDerivation (finalAttrs: {
   ]
   ++ lib.optionals (gpuBackend == "rocm") [
     (lib.cmakeFeature "SPFFT_GPU_BACKEND" "ROCM")
-    (lib.cmakeFeature "HIP_ROOT_DIR" rocmPackages.clr.outPath)
+    (lib.cmakeFeature "CMAKE_HIP_COMPILER" "${rocmPackages.clr.hipClangPath}/clang++")
+    (lib.cmakeFeature "CMAKE_HIP_COMPILER_ROCM_ROOT" rocmPackages.clr.outPath)
+    (lib.cmakeFeature "CMAKE_HIP_ARCHITECTURES" (
+      lib.concatStringsSep ";" (rocmPackages.clr.localGpuTargets or rocmPackages.clr.gpuTargets)
+    ))
   ];
 
   passthru.tests = {
