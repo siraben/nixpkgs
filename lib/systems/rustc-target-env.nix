@@ -97,6 +97,7 @@
   powerpc-wrs-vxworks = "gnu";
   powerpc-wrs-vxworks-spe = "gnu";
   powerpc64-unknown-linux-gnu = "gnu";
+  powerpc64-unknown-linux-gnuelfv2 = "gnu";
   powerpc64-unknown-linux-musl = "musl";
   powerpc64-wrs-vxworks = "gnu";
   powerpc64le-unknown-linux-gnu = "gnu";

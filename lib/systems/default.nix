@@ -461,8 +461,14 @@ let
               arch =
                 if rust ? platform then
                   rust.platform.arch
+                else if final.isx86_32 then
+                  "x86"
                 else if final.isAarch32 then
                   "arm"
+                else if final.isAarch64 then
+                  "aarch64"
+                else if final.isMips32 then
+                  "mips"
                 else if final.isMips64 then
                   "mips64" # never add "el" suffix
                 else if final.isPower64 then
@@ -484,8 +490,12 @@ let
               os =
                 if rust ? platform then
                   rust.platform.os or "none"
+                else if final.isiOS then
+                  "ios"
                 else if final.isDarwin then
                   "macos"
+                else if final.isAndroid then
+                  "android"
                 else if final.isWasi then
                   "wasi"
                 else if final.isWasm && !final.isWasi then

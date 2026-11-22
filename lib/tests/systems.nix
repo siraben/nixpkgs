@@ -169,6 +169,37 @@ lib.runTests (
         }).parsed.cpu.arch;
       expected = "i686";
     };
+    test_elaborate_rust_cfg = {
+      expr =
+        let
+          cfg =
+            system: name: expectedTriple:
+            let
+              inherit ((lib.systems.elaborate system).rust) platform rustcTargetSpec;
+            in
+            assert rustcTargetSpec == expectedTriple;
+            platform.${name};
+        in
+        with lib.systems.examples;
+        {
+          x86 = cfg "i686-linux" "arch" "i686-unknown-linux-gnu";
+          mips = cfg "mipsel-unknown-linux-gnu" "arch" "mipsel-unknown-linux-gnu";
+          aarch64 = cfg "aarch64_be-unknown-linux-gnu" "arch" "aarch64_be-unknown-linux-gnu";
+          ios = cfg iphone64 "os" "aarch64-apple-ios";
+          iosSimulator = cfg iphone64-simulator "os" "x86_64-apple-ios";
+          android = cfg aarch64-android-prebuilt "os" "aarch64-linux-android";
+          powerpc64 = cfg ppc64-elfv2 "env" "powerpc64-unknown-linux-gnuelfv2";
+        };
+      expected = {
+        x86 = "x86";
+        mips = "mips";
+        aarch64 = "aarch64";
+        ios = "ios";
+        iosSimulator = "ios";
+        android = "android";
+        powerpc64 = "gnu";
+      };
+    };
     test_equals_reelaborate_overridden_platform = {
       expr =
         let
